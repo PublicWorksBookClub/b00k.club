@@ -2,7 +2,12 @@
 module.exports = {
   content: ['./templates/**/*.html'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'playfair-display': ['Playfair Display'],
+        'fira-sans': ['Fira Sans'],
+      }
+    },
   },
   plugins: [
     require('@tailwindcss/typography'),

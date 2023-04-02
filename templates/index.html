@@ -6,16 +6,35 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Public Works: a book club that only reads stuff in the public domain</title>
+  <title>Public Works Book Club: since 35,000 BCE</title>
+
   <link rel="stylesheet" href="/style.css">
+
+  {# begin favicon - Note: https://realfavicongenerator.net #}
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  {# <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#FBBD5E"> Note: I don't really like safari pinned tab style #}
+  <meta name="msapplication-TileColor" content="#2d89ef">
+  <meta name="theme-color" content="#ffffff">
+  {# end favicon #}
+
 </head>
 
-<body class="bg-yellow-400">
-  <main>
-    <article class="mx-auto prose">
-      <h1 class="text-9xl">The Public Works Book Club</h1>
+<body class=" bg-yellow-400 text-gray-800">
+  <article class="md:mt-16 mx-auto prose text-xl font-fira-sans">
+    <img class="w-full" src="/illo/sophocles-nested.svg"
+      alt="A bust of sophpocles, repeating to infinty in different bright colors">
+    {# Note font-weights: https://tailwindcss.com/docs/font-weight #}
+    <div class=" px-2">
+      <h1 class="
+      text-8xl md:text-9xl
+      font-playfair-display font-semibold
+      ">The Public Works Book Club</h1>
       {{ section.content | safe }}
-    </article>
+    </div>
+  </article>
   </main>
 </body>
 
