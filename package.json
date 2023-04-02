@@ -1,0 +1,30 @@
+{
+  "name": "r33d.org",
+  "version": "1.0.0",
+  "description": "The website for the Public Works book club: we only read works in the public domain",
+  "scripts": {
+    "build": "zola build && npx tailwindcss -i ./public/input.css -o ./public/style.css",
+    "serve": "zola serve --interface 0.0.0.0 & npx tailwindcss -i ./public/input.css -o ./public/style.css --watch && wait",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asimpletune/r33d.org.git"
+  },
+  "keywords": [
+    "books",
+    "book",
+    "club",
+    "public domain",
+    "public works"
+  ],
+  "author": "Spencer Scorcelletti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/asimpletune/r33d.org/issues"
+  },
+  "homepage": "https://github.com/asimpletune/r33d.org#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.3.1"
+  }
+}
