@@ -22,10 +22,15 @@ Templates are in the `templates` directory. Their purpose is to decide where in 
 
 This website uses [tailwindcss](https://tailwindcss.com/) for most of its styling. Additional styling can be added in the `sass/input.scss` file, but usually it is not necessary to add any custom styling. This file is compiled by zola from sass into normal css, and then from there it is read by tailwind which adds whatever additional styling is referenced in the html, resulting in a file called `style.css`, which is what is used by the website.
 
+### Typography
+
+The tailwind [typography plugin](https://tailwindcss.com/docs/typography-plugin) is used to style content that is generated from markdown. Any child elements that are nested within an element that has the class `prose` will receive the styling. The default styling can further be customized in the `tailwind.config.js` file.
+
 ## Dependencies and Tools
 
 * [zola](https://getzola.com)
 * [tailwindcss](https://tailwindcss.com/)
+* [tailwind typography plugin](https://tailwindcss.com/docs/typography-plugin)
 
 ## Notes:
 
