@@ -6,7 +6,14 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% block title %}
   <title>Public Works Book Club: since 35,000 BCE</title>
+  {% endblock title %}
+  {% block meta_description %}
+  {# Note: Maximum of 155 characters #}
+  <meta name="description"
+    content="The website for the Public Works book club, where we only read works in the public domain.">
+  {% endblock meta_description %}
 
   <link rel="stylesheet" href="/style.css">
 
@@ -20,6 +27,28 @@
   <meta name="theme-color" content="#ffffff">
   {# end favicon #}
 
+  {% block og %}
+  {# Note: Maximum 35 characters #}
+  <meta property="og:title" content="{% block og_title %}The Public Works Book Club{% endblock og_title %}">
+
+  {# Note: List of the global types available: http://ogp.me/#types #}
+  <meta property="og:type" content="{% block og_type %}website{% endblock og_type %}">
+
+  {# Note: defaults to en_US. Alternate can be specified like, '<meta property="og:locale:alternate" content="es_ES" />' #}
+  <meta property="og:locale" content="{% block og_locale %}en_US{% endblock og_locale %}">
+  <meta property="og:url"
+    content="{% block og_url %}{{ current_url | default(value=config.base_url ~ '/404.html') }}{% endblock og_url %}">
+
+  {# Note: Maximum 65 characters #}
+  <meta property="og:description"
+    content="{% block og_description %}Where we only read books before 1928{% endblock og_description %}">
+
+  {# Note: Image(JPG or PNG) with a size less than 300KB and minimum dimensions of 300 x 200 #}
+  <meta property="og:image" content="/img/social-preview-banner.png">
+  <meta property="og:image:width" content="600">
+  <meta property="og:image:height" content="315">
+  {% endblock og %}
+
 </head>
 
 <body class=" bg-yellow-400 text-gray-800">
@@ -31,7 +60,8 @@
       <h1 class="
       text-8xl md:text-9xl
       font-playfair-display font-semibold
-      ">The Public Works Book Club</h1>
+      ">
+        The Public Works Book Club</h1>
       {{ section.content | safe }}
     </div>
   </article>
