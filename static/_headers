@@ -4,9 +4,10 @@
 https://:project.pages.dev/*
   X-Robots-Tag: noindex
 
+# Using Cloudflare with CSP: https://developers.cloudflare.com/fundamentals/get-started/reference/content-security-policies/
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'none'; script-src 'self' 'sha256-TQbeuR1v7R08+ZQpNdCQT8vMZzA7K6n58+IGJQLl7Go='; style-src 'self'; style-src-attr 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; prefetch-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; frame-ancestors 'none'; form-action 'self' https://forms.spenc.es/; base-uri 'self'; manifest-src 'self'
+  Content-Security-Policy: default-src 'none'; script-src 'self' static.cloudflareinsights.com;; style-src 'self'; style-src-attr 'self'; img-src 'self'; font-src 'self'; connect-src 'self' cloudflareinsights.com; prefetch-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; frame-ancestors 'none'; form-action 'self' https://forms.spenc.es/; base-uri 'self'; manifest-src 'self'
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer-when-downgrade
