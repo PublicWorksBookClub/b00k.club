@@ -1,10 +1,11 @@
 # r33d.org
 
-The website for the Public Works book club: we only read works in the public domain
+The [website](https://r33d.org) for the Public Works book club, where we only read works in the public domain.
 
 ## Usage
 Here's how you do stuff:
 
+`npm install`   installs everything that you need
 `npm run build` builds once, output will be in the `public` directory
 `npm run serve` starts a local server that binds to `0.0.0.0:1111`, and watches the respective directories and rebuilds upon every change.
 
@@ -12,7 +13,7 @@ For example, you can run `npm run serve` and then go to `localhost:1111` in your
 
 ## Content
 
-Content is stored in the `content` directory. Files named `_index.md` are called "sections", and files by any other name ending in `.md` are called "pages". For more information you can read the [zola](https://getzola.com) documentation. It is written in markdown and inserted into the html via the "[template](#templates)", which is indicated on the top of the content.
+Content is stored in [markdown text](https://commonmark.org/help/) files located within the `content` directory. Files named `_index.md` are called "sections", and files by any other name ending in `.md` are called "pages". For more information you can read the [zola](https://getzola.com) documentation. It is written in markdown and inserted into the html via the "[template](#templates)", which is indicated on the top of the content.
 
 ## Templates
 

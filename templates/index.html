@@ -24,7 +24,7 @@
   <link rel="manifest" href="/site.webmanifest">
   {# <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#FBBD5E"> Note: I don't really like safari pinned tab style #}
   <meta name="msapplication-TileColor" content="#2d89ef">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#facc15">
   {# end favicon #}
 
   {% block og %}
@@ -51,17 +51,28 @@
 
 </head>
 
-<body class=" bg-yellow-400 text-gray-800">
-  <article class="md:mt-16 mx-auto prose text-xl font-fira-sans">
-    <img class="w-full" src="/illo/sophocles-nested.svg"
+<body class=" bg-yellow-400">
+  <article class="md:mt-16 mx-auto prose md:prose-lg prose-pink">
+    <img width="512" height="512" class="w-full mb-2 md:mb-8" src="/illo/sophocles-nested.svg"
       alt="A bust of sophpocles, repeating to infinty in different bright colors">
     {# Note font-weights: https://tailwindcss.com/docs/font-weight #}
-    <div class=" px-2">
+    <div id="heading" class="px-2 not-prose text-gray-900">
       <h1 class="
-      text-8xl md:text-9xl
-      font-playfair-display font-semibold
-      ">
-        The Public Works Book Club</h1>
+        text-left
+        text-7xl md:text-9xl
+        font-playfair-display font-semibold
+        ">
+        The Public Works Book Club
+      </h1>
+      {# Note for semantic html and screen-readers, use this ARIA role for subtitle-y stuff https://www.w3.org/TR/dpub-aria-1.0/#doc-subtitle #}
+      <p role="doc-subtitle" class="
+      my-2
+      text-right
+      text-lg md:text-2xl
+      font-fira-sans font-extralight
+      ">Since 35,000 BCE</p>
+    </div>
+    <div id="content" class="my-16 px-2 font-fira-sans font-normal">
       {{ section.content | safe }}
     </div>
   </article>

@@ -15,4 +15,4 @@ Public works is a book club where we only read stuff that is in the [public doma
 
 ## Suggestions/More Information
 
-If you have recommendations of great stuff that we should read, or if you'd like to get in touch please reach out to [info@r33d.org](mailto:info@r33d.org)
+If you have recommendations of great stuff that we should read, or if you'd like to get in touch please reach out to [info@r33d.org](mailto:info@r33d.org).

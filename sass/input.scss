@@ -4,13 +4,202 @@
 @tailwind components;
 @tailwind utilities;
 
-// https://fonts.google.com/specimen/Playfair+Display
-@font-face {
-  font-family: 'Playfair Display';
-  src: url('/font/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf');
+/*
+  Note: discussion on supporting variable and static font-weights in tailwind https://github.com/tailwindlabs/tailwindcss/discussions/3225
+  Note: `font-named-instance` is kind of new but it's real https://www.w3.org/TR/css-fonts-4/#font-named-instance
+*/
+
+/// **************************
+/// * BEGIN Playfair Display *
+/// **************************
+
+/* VariableFonts */
+@supports (font-variation-settings: normal) {
+  @font-face {
+    font-family: "Playfair Display"; // https://fonts.google.com/specimen/Playfair+Display
+    font-style: normal;
+    font-weight: 400 900; // Playfair Display goes from 'Regular' to 'Black', i.e. 400 - 900
+    src: url("/font/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf") format("ttf");
+    font-display: swap;
+  }
 }
 
-@font-face {
-  font-family: 'Fira Sans';
-  src: url('/font/Fira_Sans/FiraSans-Regular.ttf');
+/* Static Fonts */
+@supports not (font-variation-settings: normal) {
+  @font-face {
+    font-family: "Playfair Display";
+    font-style: normal;
+    font-weight: 600;
+    src: url("/font/Playfair_Display/static/PlayfairDisplay-SemiBold.ttf") format("ttf");
+    font-display: swap;
+    font-named-instance: "SemiBold";
+  }
 }
+
+/// **************************
+/// ** END Playfair Display **
+/// **************************
+
+/// **************************
+/// **** BEGIN Fira Sans *****
+/// **************************
+
+@supports (font-variation-settings: normal) {
+  @font-face {
+    font-family: 'Fira Sans'; // https://github.com/hellogreg/firava (variable version of Fira Sans)
+    font-style: normal;
+    font-weight: 100 900; // Fira Sans goes from 'Thin' to 'Black', i.e. 100 - 900
+    src: url("/font/Firava/Firava.woff2") format("woff2-variations");
+    font-display: swap;
+  }
+}
+
+@supports not (font-variation-settings: normal) {
+  @font-face {
+    font-family: 'Fira Sans'; // https://fonts.google.com/specimen/Fira+Sans
+    src: url('/font/Fira_Sans/FiraSans-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-Bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-BoldItalic.woff2') format('woff2');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-ExtraBold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-ExtraBoldItalic.woff2') format('woff2');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-BlackItalic.woff2') format('woff2');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-ExtraLight.woff2') format('woff2');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-Italic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-ExtraLightItalic.woff2') format('woff2');
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-LightItalic.woff2') format('woff2');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-MediumItalic.woff2') format('woff2');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-Thin.woff2') format('woff2');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-SemiBoldItalic.woff2') format('woff2');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-ThinItalic.woff2') format('woff2');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+  }
+}
+
+/// **************************
+/// ***** END Fira Sans ******
+/// **************************
