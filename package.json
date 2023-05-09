@@ -1,6 +1,6 @@
 {
   "name": "r33d.org",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The website for the Public Works book club: we only read works in the public domain",
   "scripts": {
     "build": "zola build && npx tailwindcss -i ./public/input.css -o ./public/style.css -m",
@@ -23,7 +23,7 @@
   "bugs": {
     "url": "https://github.com/asimpletune/r33d.org/issues"
   },
-  "homepage": "https://github.com/asimpletune/r33d.org#readme",
+  "homepage": "https://r33d.org/",
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.9",
     "tailwindcss": "^3.3.1"

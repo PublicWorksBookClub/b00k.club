@@ -29,11 +29,25 @@ The tailwind [typography plugin](https://tailwindcss.com/docs/typography-plugin)
 
 ## Dependencies and Tools
 
-* [zola](https://getzola.com)
+* [zola](https://getzola.com)@0.17.2
+* node@14.0.0
 * [tailwindcss](https://tailwindcss.com/)
 * [tailwind typography plugin](https://tailwindcss.com/docs/typography-plugin)
 
+## Deployments
+
+This site is deployed using [cloudflare pages](https://pages.cloudflare.com). Access is granted to the project's code repository by this site's admin's cloudflare dash. When a branch is pushed a build is triggered and a new version of the site is deployed. If the branch is the "production" branch then the new version will be deployed at [https://r33d.org](https://r33d.org), otherwise it's deployed to some throwaway branch, usually a truncated version of the version's git branch.
+
+Here are some additional things to know about deployments
+
+* There is a file called `_headers` which is a convention used by cloudflare pages to set HTTP headers for the static site
+* `ZOLA_VERSION=0.17.2` must be explicitly set in cloudflare pages build settings
+* `NODE_VERSION=14.0.0` must be explicitly set in cloudflare pages build settings
+* There's a file, `CHANGELOG.md`, that helps track what's changed as the site evolves
+
 ## Notes:
 
+* This site was initially generated using a [GitHub template](https://github.com/asimpletune/zola-tailwindcss) for making zola static sites that work well with tailwindcss.
 * The `npm run serve` script runs two long-running tasks in parallel and allows both to write simultaneously to STDOUT by using [a mixture of `wait` and sending jobs to the background](https://www.cyberciti.biz/faq/how-to-run-command-or-code-in-parallel-in-bash-shell-under-linux-or-unix/)
 * Sometimes important changes for styling need to be made in the `tailwind.config.js` file
+* Builds can break when deployed, and a common place to look is needing to add or update an enviornment variable for cloudflare's "pages" product

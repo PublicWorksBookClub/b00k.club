@@ -12,6 +12,7 @@ Public works is a book club where we only read stuff that is in the [public doma
 2. [The Tempest](https://en.wikipedia.org/wiki/The_Tempest), by [William Shakespeare](https://en.wikipedia.org/wiki/William_Shakespeare), written CE ~1610–1611, - 📚 full play - 🔗 ([SEB](https://standardebooks.org/ebooks/william-shakespeare/the-tempest))
 3. [Antigone](https://en.wikipedia.org/wiki/Antigone_(Sophocles_play)), by [Sophocles](https://en.wikipedia.org/wiki/Sophocles), first performed 441 BCE - 📚 full play
 4. [The Book of the Thousand Nights and a Night](https://en.wikipedia.org/wiki/The_Book_of_the_Thousand_Nights_and_a_Night), by Anonymous and translated by [Sir Richard Francis Burton](https://en.wikipedia.org/wiki/Richard_Francis_Burton), published 1888 -  📚 *Tale of the Bull and the Ass*, *Tale of the Trader and the Jinni* - 🔗 [PG](https://www.gutenberg.org/ebooks/51252)
+5. [The Federalist Papers](https://en.wikipedia.org/wiki/The_Federalist_Papers), by [Alexander Hamilton](https://en.wikipedia.org/wiki/Alexander_Hamilton), [John Jay](https://en.wikipedia.org/wiki/John_Jay), and [James Madison](https://en.wikipedia.org/wiki/James_Madison), published serially between 1787-1788 - 📚 Federalist no. 9, 10, 15 ... 20 - 🔗 ([Library of Congress](https://guides.loc.gov/federalist-papers/full-text))
 
 ## Suggestions/More Information
 
