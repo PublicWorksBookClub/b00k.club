@@ -1,8 +1,13 @@
 # Changelog
 
+## 1.0.2 (2023-05-16)
+
+- add *Zhuangzi* [COMPLETED READING]
+- fix typos in headers file
+
 ## 1.0.1 (2023-05-09)
 
-- add federalist papers [COMPLETED READING]
+- add *federalist papers* [COMPLETED READING]
 - add more context to README
 
 ## 1.0.0 (2023-04-03)
