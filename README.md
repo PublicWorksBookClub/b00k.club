@@ -1,13 +1,27 @@
 # r33d.org
 
-The [website](https://r33d.org) for the Public Works book club, where we only read works in the public domain.
+The website ([main](https://r33d.org) | [preview](https://preview.r33d.org)) for the Public Works book club, where we only read works in the public domain.
+
+<!-- TOC depthfrom:2 updateonsave:true -->
+
+- [Usage](#usage)
+- [Content](#content)
+- [Templates](#templates)
+- [Styling](#styling)
+  - [Typography](#typography)
+- [Dependencies and Tools](#dependencies-and-tools)
+- [Deployments](#deployments)
+- [Notes:](#notes)
+
+<!-- /TOC -->
 
 ## Usage
 Here's how you do stuff:
 
-`npm install`   installs everything that you need
-`npm run build` builds once, output will be in the `public` directory
-`npm run serve` starts a local server that binds to `0.0.0.0:1111`, and watches the respective directories and rebuilds upon every change.
+- `npm install`   installs everything that you need
+- `npm run build` builds once, output will be in the `public` directory
+- `npm run build-deploy` the build command that's used only for deploying
+- `npm run serve` starts a local server that binds to `0.0.0.0:1111`, and watches the respective directories and rebuilds upon every change.
 
 For example, you can run `npm run serve` and then go to `localhost:1111` in your browser to see the websites. As you make changes to the code or content, the website will be updated.
 
@@ -43,6 +57,7 @@ Here are some additional things to know about deployments
 * There is a file called `_headers` which is a convention used by cloudflare pages to set HTTP headers for the static site
 * `ZOLA_VERSION=0.17.2` must be explicitly set in cloudflare pages build settings
 * `NODE_VERSION=14.0.0` must be explicitly set in cloudflare pages build settings
+* Cloudflare supplies an environment variable called `CF_PAGES_URL`, and this is needed when deploying
 * There's a file, `CHANGELOG.md`, that helps track what's changed as the site evolves
 
 ## Notes:

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3 (2023-05-17)
+
+- add `build-deploy` run script in package.json
+- add 'meeting minutes' section
+
 ## 1.0.2 (2023-05-16)
 
 - add *Zhuangzi* [COMPLETED READING]

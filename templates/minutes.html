@@ -53,31 +53,31 @@
 
 <body class=" bg-yellow-400">
   <main>
-    <article class="md:mt-16 mx-auto prose md:prose-lg prose-blue">
-      <img width=" 512" height="512" class="w-full mb-2 md:mb-8" src="/illo/sophocles-nested.svg"
-        alt="A bust of sophpocles, repeating to infinty in different bright colors">
-      {# Note font-weights: https://tailwindcss.com/docs/font-weight #}
+    <article class="md:mt-16 mx-auto prose md:prose-lg prose-minutes
+    prose-h2:text-right
+    prose-h3:font-playfair-display
+    prose-img:border-2 md:prose-img:border-[5px] prose-img:border-green-500 prose-img:border-dashed prose-img:rounded-xl
+    ">
       <div id="heading" class="px-2 not-prose text-gray-900">
-        <h1 class="
-        text-left
-        text-7xl md:text-9xl
-        font-playfair-display font-semibold
-        ">
-          The Public Works Book Club
+        <h1>
+          <span class="block text-left
+          text-7xl md:text-9xl
+          font-playfair-display font-semibold">
+            <a href="/">Public Works</a>
+          </span>
+          <span class="block text-right text-5xl md:text-7xl font-thin">Meeting Minutes</span>
         </h1>
-        {# Note for semantic html and screen-readers, use this ARIA role for subtitle-y stuff https://www.w3.org/TR/dpub-aria-1.0/#doc-subtitle #}
-        <p role="doc-subtitle" class="
-      my-2
-      text-right
-      text-lg md:text-2xl
-      font-fira-sans font-extralight
-      ">Since 35,000 BCE</p>
       </div>
+      <hr class="border-black border-[1.5px]">
       <div id="content" class="my-16 px-2 font-fira-sans font-normal">
         {{ section.content | safe }}
       </div>
     </article>
   </main>
+  <footer class="flex pb-14">
+    <a class="mx-auto text-xl text-pink-500 underline" href="/">Back to main</a>
+  </footer>
+
 </body>
 
 </html>

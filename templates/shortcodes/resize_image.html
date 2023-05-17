@@ -1,0 +1,3 @@
+{# https://www.getzola.org/documentation/content/image-processing/ #}
+{% set image = resize_image(path=path, width=width, height=height, op=op) %}
+<img alt="{{ alt | default(value='') }}" title="{{ title | default(value='') }}" src="{{ image.url }}" />
