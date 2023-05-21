@@ -17,6 +17,10 @@ Below is a list of our readings thus far - (see full [Meeting minutes](/minutes)
 5. [*The Federalist Papers*](https://en.wikipedia.org/wiki/The_Federalist_Papers) by [Alexander Hamilton](https://en.wikipedia.org/wiki/Alexander_Hamilton), [John Jay](https://en.wikipedia.org/wiki/John_Jay), and [James Madison](https://en.wikipedia.org/wiki/James_Madison) - 1787-1788 CE
 6. [*Zhuangzi*](https://en.wikipedia.org/wiki/Zhuangzi_(book)) by [Zhuang Zhou](https://en.wikipedia.org/wiki/Zhuang_Zhou) - c. 2nd century BCE (published)
 
+## Links to Resources
+
+A collection of useful [resources](/resources) for digital reading material, classic artwork in the public domain, virtual tours of ancient Mediterranean pottery, and more.
+
 ## Suggestions/More Information
 
 If you have recommendations of great stuff that we should read, or if you'd like to get in touch please reach out to [info@r33d.org](mailto:info@r33d.org).

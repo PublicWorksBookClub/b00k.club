@@ -2,7 +2,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  content: ['./templates/**/*.html'],
+  content: ['./templates/**/*.html', './content/**/*.md'],
   theme: {
     extend: {
       fontFamily: {
@@ -19,6 +19,13 @@ module.exports = {
        */
       typography: ({ theme }) => ({
         DEFAULT: {
+          css: {
+            '--tw-prose-bullets': theme('colors.slate[950]'),
+            '--tw-prose-counters': theme('colors.slate[950]'),
+            '--tw-prose-links': theme('colors.blue[600]'),
+          }
+        },
+        landing: {
           css: {
             '--tw-prose-bullets': theme('colors.pink[400]'),
             '--tw-prose-counters': theme('colors.pink[400]'),
