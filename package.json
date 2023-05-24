@@ -1,6 +1,6 @@
 {
   "name": "r33d.org",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "The website for the Public Works book club: we only read works in the public domain",
   "scripts": {
     "build": "zola build && npx tailwindcss -i ./public/input.css -o ./public/style.css -m",

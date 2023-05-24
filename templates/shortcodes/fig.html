@@ -1,0 +1,31 @@
+{# The following is a shortcode that extracts parameters from a markdown-style image #}
+{# The usage is as follows (`cite` is optional) #}
+{# {{ fig(img='![alt](src "title")', cite='<a href="">author</a>, by source') }} #}
+{# `title` will be reused as caption if it exists, if no `title` but there is `cite` then just "Citation:" will appear #}
+{# NOTE: it's advised to just use backticks for passing arguments, so that single and double quotes don't cause issues, e.g. using a possesive apostrophe or quotes in a caption #}
+
+{% set img_tag = img | markdown %}
+
+{% set src = img_tag | split(pat="src") | nth(n=1) | split(pat='"') | nth(n=1) %}
+{% set alt = img_tag | split(pat="alt") | nth(n=1) | split(pat='"') | nth(n=1) %}
+{% set title = img_tag | split(pat="title") | nth(n=1) | split(pat='"') | nth(n=1) | markdown | replace(from="<p>", to="") | replace(from="</p>", to="") %}
+
+<figure class="prose-figcaption:mt-2 prose-figcaption:mx-2">
+  <img src="{{ src }}" alt="{{ alt }}" title="{{ title }}" class="border md:border-2 border-attic-black-900">
+  <figcaption class="font-light text-[rgb(55,65,81)]">
+    {% if cite %}
+    <details class="hover:cursor-pointer">
+      <summary class="font-light mt-1">
+        {% if title %}{{ title | safe }}{% else %}Citation:{% endif %}
+      </summary>
+      {# Make sure external links open in a separate tab and are secure #}
+      {% set cite = cite | replace(from="<a", to="<a target='_blank' rel='noopener nofollow noreferrer'") %}
+      <cite class="mt-4 block p-4 bg-attic-gray-100/50">
+        {{ cite | safe }}
+      </cite>
+    </details>
+    {% elif title %}
+    {{ title | safe }}
+    {% endif%}
+  </figcaption>
+</figure>
