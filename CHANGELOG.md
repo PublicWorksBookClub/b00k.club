@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.6 (2023-06-19)
+
+- update landing page with contact information to make it more clear how to join the club
+- update `build-deploy` run script to not use cf env variable
+
 ## 1.0.5 (2023-05-24)
 
 - add 'Foundations of Antiquity' as first 'public sector', along with some preliminary content

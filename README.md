@@ -57,6 +57,7 @@ Here are some additional things to know about deployments
 * There is a file called `_headers` which is a convention used by cloudflare pages to set HTTP headers for the static site
 * `ZOLA_VERSION=0.17.2` must be explicitly set in cloudflare pages build settings
 * `NODE_VERSION=14.0.0` must be explicitly set in cloudflare pages build settings
+* There is a `BUILD_OPTS` env variable in the `package.json`'s `build-deploy` script, where customizations can be passed, e.g. `BUILD_OPTS="--base-url https://r33d.org"
 * Cloudflare supplies an environment variable called `CF_PAGES_URL`, and this is needed when deploying
 * There's a file, `CHANGELOG.md`, that helps track what's changed as the site evolves
 

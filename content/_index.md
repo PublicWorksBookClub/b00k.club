@@ -6,6 +6,8 @@ template = "index.html"
 
 Public works is a book club where we only read stuff that is in the [public domain](https://en.wikipedia.org/wiki/Public_domain_in_the_United_States), i.e. before January 1st, 1928. This website serves as a record of our meetings, as well as to advance interest in classic literature.
 
+**If you're interested in joining the club, see the [Contact](#contact) section below.**
+
 ## Works Read So Far
 
 Below is a list of our readings thus far - (see full [Meeting minutes](/minutes)).
@@ -27,6 +29,6 @@ Below is an ongoing list of "sectors" that organize information, thematically, t
 
 A collection of useful [resources](/resources) for digital reading material, classic artwork in the public domain, virtual tours of ancient Mediterranean pottery, and more.
 
-## Suggestions/More Information
+## Contact
 
-If you have recommendations of great stuff that we should read, or if you'd like to get in touch please reach out to [info@r33d.org](mailto:info@r33d.org).
+To get in touch, either to join the club or just to chat, or if you have any thoughts, comments, or suggestions, please send an email to [info@r33d.org](mailto:info@r33d.org) (*Your email and other information will never be shared outside the club*).
