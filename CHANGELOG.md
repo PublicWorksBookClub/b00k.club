@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.7 (2023-07-01)
+
+- update landing page with "next meeting" section, including a link to the video call, time, and what information we'll be covering in the meeting
+
 ## 1.0.6 (2023-06-19)
 
 - update landing page with contact information to make it more clear how to join the club

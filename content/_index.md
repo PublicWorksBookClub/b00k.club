@@ -6,7 +6,13 @@ template = "index.html"
 
 Public works is a book club where we only read stuff that is in the [public domain](https://en.wikipedia.org/wiki/Public_domain_in_the_United_States), i.e. before January 1st, 1928. This website serves as a record of our meetings, as well as to advance interest in classic literature.
 
-**If you're interested in joining the club, see the [Contact](#contact) section below.**
+**If you're interested in joining the club, come to the [next meeting](#next-meeting), or see the [Contact](#contact) section below.**
+
+## Next Meeting
+
+The next meeting will be **2 July, 2023, between 4-6PM CEST (Bologna, Italy time)**. We will be covering **chs. 1-33 of book 2**, of the [Lattimore translation](https://hackettpublishing.com/the-peloponnesian-war) of *The Peloponnesian War* by Thucydides. Feel free to [join the our call](https://facetime.apple.com/join#v=1&p=9vAq4AJeEe6MjHIyPhxkWA&k=KlQPnuvd2DtZ0ZBoO5O_wiB2dBbiF22hYn_NU9kjlNw) then.
+
+If you're interested in coming to our club and the above time works for you, then you can just show up. To request a different meeting time [contact](#contact) the club directly. 
 
 ## Works Read So Far
 
@@ -29,6 +35,9 @@ Below is an ongoing list of "sectors" that organize information, thematically, t
 
 A collection of useful [resources](/resources) for digital reading material, classic artwork in the public domain, virtual tours of ancient Mediterranean pottery, and more.
 
+
 ## Contact
 
-To get in touch, either to join the club or just to chat, or if you have any thoughts, comments, or suggestions, please send an email to [info@r33d.org](mailto:info@r33d.org) (*Your email and other information will never be shared outside the club*).
+To get in touch, either to ask questions about the club or just to chat, or if you have any thoughts, comments, or suggestions, please send an email to [info@r33d.org](mailto:info@r33d.org) (*Your email and other information will never be shared outside the club*).
+
+**Note: To join the club you can just arrive at our [next meeting](#next-meeting). Contacting us ahead of time is not necessary, but we love reading your intros.** 
