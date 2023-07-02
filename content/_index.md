@@ -10,7 +10,7 @@ Public works is a book club where we only read stuff that is in the [public doma
 
 ## Next Meeting
 
-The next meeting will be **2 July, 2023, between 4-6PM CEST (Bologna, Italy time)**. We will be covering **chs. 1-33 of book 2**, of the [Lattimore translation](https://hackettpublishing.com/the-peloponnesian-war) of *The Peloponnesian War* by Thucydides. Feel free to [join the our call](https://facetime.apple.com/join#v=1&p=9vAq4AJeEe6MjHIyPhxkWA&k=KlQPnuvd2DtZ0ZBoO5O_wiB2dBbiF22hYn_NU9kjlNw) then.
+The next meeting will be **9 July, 2023, between 4-6PM CEST (Bologna, Italy time)**. We will be covering **chs. 10-70 of book 2**, of the [Lattimore translation](https://hackettpublishing.com/the-peloponnesian-war) of *The Peloponnesian War* by Thucydides. Feel free to [join the our call](https://facetime.apple.com/join#v=1&p=uTqGNhjtEe6O9U4rt4uJ3g&k=-TftWsSAUqjCMp2Sdw4xJS63m-b2T6kXHtqJKLDYW7Q) then.
 
 If you're interested in coming to our club and the above time works for you, then you can just show up. To request a different meeting time [contact](#contact) the club directly. 
 
@@ -41,3 +41,5 @@ A collection of useful [resources](/resources) for digital reading material, cla
 To get in touch, either to ask questions about the club or just to chat, or if you have any thoughts, comments, or suggestions, please send an email to [info@r33d.org](mailto:info@r33d.org) (*Your email and other information will never be shared outside the club*).
 
 **Note: To join the club you can just arrive at our [next meeting](#next-meeting). Contacting us ahead of time is not necessary, but we love reading your intros.** 
+
+Click [here](https://github.com/asimpletune/r33d.org) for the site's GitHub.

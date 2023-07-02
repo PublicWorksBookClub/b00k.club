@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.8 (2023-07-02)
+
+- update "next meeting" section with reading material we'll be covering next week, along with an updated link
+- add link to site's GitHub
+
 ## 1.0.7 (2023-07-01)
 
 - update landing page with "next meeting" section, including a link to the video call, time, and what information we'll be covering in the meeting
