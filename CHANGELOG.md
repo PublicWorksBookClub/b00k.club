@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.9 (2023-07-09)
+
+- update "next meeting" section with the next meeting details
+
 ## 1.0.8 (2023-07-02)
 
 - update "next meeting" section with reading material we'll be covering next week, along with an updated link
