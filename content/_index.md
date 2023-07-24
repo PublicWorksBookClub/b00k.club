@@ -10,7 +10,7 @@ Public works is a book club where we only read stuff that is in the [public doma
 
 ## Next Meeting
 
-We will be taking a break the weekend of **16 July**. Therefore the next meeting will be **23 July, 2023, between 4-6PM CEST (Bologna, Italy time)**. We will be covering material  **Book 2 chps. 71 - Book 3 chps. 50**, of the [Lattimore translation](https://hackettpublishing.com/the-peloponnesian-war) of *The Peloponnesian War* by Thucydides. Feel free to [join the our call](https://facetime.apple.com/join#v=1&p=u/BW8hjtEe6qY2bNfxek7Q&k=mxe481EeiqMnmJ9-q2jIMunm7M-uRytqBTgS3-6kqm0) then.
+The next meeting will be **30 July, 2023, between 4-6PM CEST (Bologna, Italy time)**. We will be covering material  **Book 3 chps. 51 - 116**, of the [Lattimore translation](https://hackettpublishing.com/the-peloponnesian-war) of *The Peloponnesian War* by Thucydides. Feel free to [join the our call](https://facetime.apple.com/join#v=1&p=62KHaR5vEe6YIbLv77Hc2g&k=1hicsclkLILnR6R4yBuTMxYbyPZNE-VUFT06eZH1kxc) then.
 
 If you're interested in coming to our club and the above time works for you, then you can just show up. To request a different meeting time [contact](#contact) the club directly.
 

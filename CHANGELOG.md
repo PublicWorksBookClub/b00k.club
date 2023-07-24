@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.10 (2023-07-24)
+
+- add Stanford Encyclopedia of Philosophy and "Thersites the Historian" (YT channel) to References section
+- update "next meeting" section with the next meeting details
+
 ## 1.0.9 (2023-07-09)
 
 - update "next meeting" section with the next meeting details
