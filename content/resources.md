@@ -69,6 +69,7 @@ The following is an alphabetically sorted list of museums and galleries that off
 ## YouTube Channels
 
 * [Thersites the Historian](https://www.youtube.com/@ThersitestheHistorian) - a professor of archaeology who presents clear, detailed information on all matters of antiquity. 
+* [Astarte Resources](https://www.youtube.com/@astarteresources2532) - a producer of educational resources that has since closed, but they share their videos on YT still, which are excellent resources on antiquity
 * [Historia Civilis](https://www.youtube.com/@HistoriaCivilis/) - a detailed and entertaining channel that covers many arcs of antiquity. Historia Civilis does battles especially well. The author's series on [Julius Caesar](https://www.youtube.com/watch?v=gsK4nX0tCGQ&list=PLODnBH8kenOoLUW8BmHhX55I-qexvyU32&pp=iAQB) and [Octavian](https://www.youtube.com/watch?v=2-PYwEsTll0&list=PLODnBH8kenOonO62euH1PLlMm8hT5lHlL&pp=iAQB) in particular are excellent.
 * [North 02](https://www.youtube.com/@NORTH02) - specializes in Neolithic and Paleolithic content, with in-depth videos on Homo sapiens and our closest ancestors.
 * [Stefan Milo](https://www.youtube.com/@StefanMilo) - an archaeology channel with great information on the bronze age.
