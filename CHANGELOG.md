@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.12 (2023-08-06)
+
+- cancel upcoming meeting
+
 ## 1.0.11 (2023-07-30)
 
 - add Astarte Resources to the references section
