@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.13 (2023-08-10)
+
+- close meetings to public (for now)
+
 ## 1.0.12 (2023-08-06)
 
 - cancel upcoming meeting
