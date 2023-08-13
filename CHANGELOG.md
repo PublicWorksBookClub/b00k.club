@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.14 (2023-08-13)
+
+- Add "acoup" blog to the resources section
+
 ## 1.0.13 (2023-08-10)
 
 - close meetings to public (for now)
