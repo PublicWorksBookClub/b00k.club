@@ -10,6 +10,9 @@ theme_color = "#fda4af"
 ## Reference Material:
 
 * [Stanford Encyclopedia of Philosophy](https://plato.stanford.edu)
+* [Perseus Digital Library](http://www.perseus.tufts.edu/hopper/) (Tufts University)
+* Loeb Classical Library - [catalogue](https://www.hup.harvard.edu/collection.php?), [search](https://www.loebclassics.com)
+* [Center for Hellenic Studies](https://chs.harvard.edu/publications/) (Harvard University)
 
 ## Reading Material:
 
@@ -66,8 +69,9 @@ The following is an alphabetically sorted list of museums and galleries that off
 * Google Maps Tour of Pompeii - ([park entrance](https://www.google.com/maps/@40.7503017,14.4949955,3a,75y,337.7h,81.6t/data=!3m9!1e1!3m7!1s7EKLYjYXC4yHdJ5j25xyJA!2e0!7i13312!8i6656!9m2!1b1!2i29), [Amphitheatre of Pompeii](https://www.google.com/maps/place/WC+Public/@40.7506309,14.4906603,18.08z/data=!4m14!1m7!3m6!1s0x133bbcbd87d1ea83:0x7ca462808e529b35!2sPompeii+Archaeological+Park!8m2!3d40.7512189!4d14.4886761!16s%2Fg%2F1tctbwg6!3m5!1s0x133bbcbd823315bb:0x2287980437c7a1a6!8m2!3d40.7497693!4d14.4951948!16s%2Fg%2F11gbkt7xqc), [via dell'Abbondanza](https://www.google.com/maps/@40.751353,14.49115,3a,90y,208.54h,89.41t/data=!3m7!1e1!3m5!1sSrQOYDor97wbT3YTcUDBSA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fpanoid%3DSrQOYDor97wbT3YTcUDBSA%26cb_client%3Dmaps_sv.tactile.gps%26w%3D203%26h%3D100%26yaw%3D204.4851%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656), [Porta Marina](https://www.google.com/maps/@40.748198,14.4828972,0a,82.2y,67.85h,91.66t/data=!3m4!1e1!3m2!1sflIgSi3_0y4vtuJLF7Jf4w!2e0?source=apiv3))
 * [Joy of Museums Virtual Tours](https://joyofmuseums.com)
 
-## YouTube Channels
+## Video Channels
 
+* [The Center for Hellenic Studies](https://www.youtube.com/channel/UC4CZOzGtFzZe2pcONCNT15w) - performances of ancient greek works, as well as in-depth studies of specific texts
 * [Thersites the Historian](https://www.youtube.com/@ThersitestheHistorian) - a professor of archaeology who presents clear, detailed information on all matters of antiquity.
 * [Astarte Resources](https://www.youtube.com/@astarteresources2532) - a producer of educational resources that has since closed, but they share their videos on YT still, which are excellent resources on antiquity
 * [Historia Civilis](https://www.youtube.com/@HistoriaCivilis/) - a detailed and entertaining channel that covers many arcs of antiquity. Historia Civilis does battles especially well. The author's series on [Julius Caesar](https://www.youtube.com/watch?v=gsK4nX0tCGQ&list=PLODnBH8kenOoLUW8BmHhX55I-qexvyU32&pp=iAQB) and [Octavian](https://www.youtube.com/watch?v=2-PYwEsTll0&list=PLODnBH8kenOonO62euH1PLlMm8hT5lHlL&pp=iAQB) in particular are excellent.
@@ -77,10 +81,12 @@ The following is an alphabetically sorted list of museums and galleries that off
 * [Geodiode](https://www.youtube.com/@Geodiode) - in-depth overviews of different countries' geography and history.
 * [PBS Eons](https://www.youtube.com/@eons) - natural history from a geological perspective.
 * [History with Cy](https://www.youtube.com/@HistorywithCy) - ancient and medieval history.
+* [Leonidas Sparta](https://www.youtube.com/@LeonidasSparta-Fun-History) - specializes in hoplite and ancient warfare historical reenactment
 
-## Blogs
+## Secondary/Editorialized Content
 
-* [A Collection of Unmitigated Pedantry](https://acoup.blog/) - interesting posts summarizing a variety of ancient world topics in an approachable way, particularly the Roman world
+* [Xenophon Group International](http://www.xenophon-mil.org) -  an index of information on military history, including essays, timelines, and other useful secondary sources
+* [A Collection of Unmitigated Pedantry](https://acoup.blog/) - blog posts summarizing a variety of ancient world topics in an approachable way, particularly the Roman world
 
 ## Tools
 

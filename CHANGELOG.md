@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.1.0 (2023-10-21)
+
+- Update wording in README around `build-deploy` command to be more clear when it's used
+- Add 'Updates' section in README, to specify how updates must be made
+- Change 'YouTube Channels' heading under Resources section to 'Video Channels'
+- Change 'blog' heading in 'Resources' section to 'Secondary/Editorialized Content'
+- Add Loeb Classical Library to 'Reference Material' section
+- Add Center for Hellenic Studies to 'Reference Material' and 'Video Channels' sections
+- Add Xenophon Group International to 'Secondary/Editorialized Content'
+
 ## 1.0.14 (2023-08-13)
 
 - Add "acoup" blog to the resources section

@@ -5,6 +5,7 @@ The website ([main](https://r33d.org) | [preview](https://preview.r33d.org)) for
 <!-- TOC depthfrom:2 updateonsave:true -->
 
 - [Usage](#usage)
+- [Updates](#updates)
 - [Content](#content)
 - [Templates](#templates)
 - [Styling](#styling)
@@ -20,10 +21,24 @@ Here's how you do stuff:
 
 - `npm install`   installs everything that you need
 - `npm run build` builds once, output will be in the `public` directory
-- `npm run build-deploy` the build command that's used only for deploying
+- `npm run build-deploy` the build command that's only used programmatically during deployment (e.g. called from within cloudflare's pages platform)
 - `npm run serve` starts a local server that binds to `0.0.0.0:1111`, and watches the respective directories and rebuilds upon every change.
 
 For example, you can run `npm run serve` and then go to `localhost:1111` in your browser to see the websites. As you make changes to the code or content, the website will be updated.
+
+## Updates
+
+Any changes need to recorded in the [CHANGELOG.md](CHANGELOG.md) file, with the corresponding version number reflected in the [package.json](package.json) file.
+
+Some notes on versioning:
+
+* adding content to existing links is just a bump in patch version, i.e. `nn.nn.++`
+* changing links, including anchors, is a bump in minor version, i.e. `nn.++.nn`
+* fundamental changes in the site's tech, that makes it incompatible with prior versions is a change in major version, i.e. `++.nn.nn`
+
+For example, releasing a huge new initiative to launch our theoretical youtube channel would be a minor version change, however keeping the site exactly the same but moving the static site generator from zola to hugo would be a major version change.
+
+(These guidelines are subject to change 😂)
 
 ## Content
 
