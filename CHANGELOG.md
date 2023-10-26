@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1 (2023-10-26)
+
+- Add "artvee" to resources section under tools heading
+
 ## 1.1.0 (2023-10-21)
 
 - Update wording in README around `build-deploy` command to be more clear when it's used
