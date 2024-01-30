@@ -1,5 +1,5 @@
 # The URL the site will be built for
-base_url = "https://r33d.org"
+base_url = "https://b00k.club"
 
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = true

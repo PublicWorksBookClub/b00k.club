@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0 (2024-01-30)
+
+- Change site URL to https://b00k.club (from https://r33d.org)
+
 ## 1.1.1 (2023-10-26)
 
 - Add "artvee" to resources section under tools heading

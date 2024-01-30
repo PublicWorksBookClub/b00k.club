@@ -34,6 +34,6 @@ A collection of useful [resources](/resources) for digital reading material, cla
 
 ## Contact
 
-To get in touch, either to ask questions about the club or just to chat, or if you have any thoughts, comments, or suggestions, please send an email to [info@r33d.org](mailto:info@r33d.org) (*Your email and other information will never be shared outside the club*).
+To get in touch, either to ask questions about the club or just to chat, or if you have any thoughts, comments, or suggestions, please send an email to [info@b00k.club](mailto:info@b00k.club) (*Your email and other information will never be shared outside the club*).
 
-Click [here](https://github.com/asimpletune/r33d.org) for the site's GitHub.
+Click [here](https://github.com/b00k-club/b00k.club) for the site's GitHub.

@@ -1,6 +1,6 @@
-# r33d.org
+# b00k.club
 
-The website ([main](https://r33d.org) | [preview](https://preview.r33d.org)) for the Public Works book club, where we only read works in the public domain.
+The website ([main](https://b00k.club) | [preview](https://preview.b00k.club)) for the Public Works book club, where we only read works in the public domain.
 
 <!-- TOC depthfrom:2 updateonsave:true -->
 
@@ -65,14 +65,14 @@ The tailwind [typography plugin](https://tailwindcss.com/docs/typography-plugin)
 
 ## Deployments
 
-This site is deployed using [cloudflare pages](https://pages.cloudflare.com). Access is granted to the project's code repository by this site's admin's cloudflare dash. When a branch is pushed a build is triggered and a new version of the site is deployed. If the branch is the "production" branch then the new version will be deployed at [https://r33d.org](https://r33d.org), otherwise it's deployed to some throwaway branch, usually a truncated version of the version's git branch.
+This site is deployed using [cloudflare pages](https://pages.cloudflare.com). Access is granted to the project's code repository by this site's admin's cloudflare dash. When a branch is pushed a build is triggered and a new version of the site is deployed. If the branch is the "production" branch then the new version will be deployed at [https://b00k.club](https://b00k.club), otherwise it's deployed to some throwaway branch, usually a truncated version of the version's git branch.
 
 Here are some additional things to know about deployments
 
 * There is a file called `_headers` which is a convention used by cloudflare pages to set HTTP headers for the static site
 * `ZOLA_VERSION=0.17.2` must be explicitly set in cloudflare pages build settings
 * `NODE_VERSION=14.0.0` must be explicitly set in cloudflare pages build settings
-* There is a `BUILD_OPTS` env variable in the `package.json`'s `build-deploy` script, where customizations can be passed, e.g. `BUILD_OPTS="--base-url https://r33d.org"
+* There is a `BUILD_OPTS` env variable in the `package.json`'s `build-deploy` script, where customizations can be passed, e.g. `BUILD_OPTS="--base-url https://b00k.club"
 * Cloudflare supplies an environment variable called `CF_PAGES_URL`, and this is needed when deploying
 * There's a file, `CHANGELOG.md`, that helps track what's changed as the site evolves
 
