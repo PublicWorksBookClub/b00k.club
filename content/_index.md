@@ -9,7 +9,7 @@ Public works is a book club where we only read stuff that is in the [public doma
 
 ## Works Read So Far
 
-Below is a list of our readings thus far - (see full [Meeting minutes](/minutes)).
+<!-- Below is a list of our readings thus far - (see full [Meeting minutes](/minutes)). (Note: in draft) -->
 
 1. [*Meditations*](https://en.wikipedia.org/wiki/Meditations) by [Marcus Aurelius](https://en.wikipedia.org/wiki/Marcus_Aurelius) - 170-180 CE
 2. [*The Tempest*](https://en.wikipedia.org/wiki/The_Tempest) by [William Shakespeare](https://en.wikipedia.org/wiki/William_Shakespeare) - c. 1610–1611 CE
@@ -19,6 +19,7 @@ Below is a list of our readings thus far - (see full [Meeting minutes](/minutes)
 6. [*Zhuangzi*](https://en.wikipedia.org/wiki/Zhuangzi_(book)) by [Zhuang Zhou](https://en.wikipedia.org/wiki/Zhuang_Zhou) - c. 2nd century BCE (published)
 7. [*History of the Peloponnesian War*](https://en.wikipedia.org/wiki/History_of_the_Peloponnesian_War) by [Thucydides](https://en.wikipedia.org/wiki/Thucydides) - c. 5th century BCE
 
+<!-- (Note: in draft)
 
 ## Public Sectors
 
@@ -26,6 +27,7 @@ Below is an ongoing list of "sectors" that organize information, thematically, s
 
 1. \* [Foundations of Antiquity](/sectors/foundations-of-antiquity) - from Homer to Aristotle, understanding the context of the ancient world, and how it pertains to today
 
+-->
 
 ## Links to Resources
 
@@ -36,4 +38,4 @@ A collection of useful [resources](/resources) for digital reading material, cla
 
 To get in touch, either to ask questions about the club or just to chat, or if you have any thoughts, comments, or suggestions, please send an email to [info@b00k.club](mailto:info@b00k.club) (*Your email and other information will never be shared outside the club*).
 
-Click [here](https://github.com/b00k-club/b00k.club) for the site's GitHub.
+Click [here](https://github.com/PublicWorksBookClub/b00k.club) for the site's GitHub.

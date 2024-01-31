@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1 (2024-01-31)
+
+- Update site's GitHub
+- Remove link to minutes
+- Set "foundations of antiquity" in draft mode
+
 ## 1.2.0 (2024-01-30)
 
 - Change site URL to https://b00k.club (from https://r33d.org)

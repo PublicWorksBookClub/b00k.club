@@ -1,6 +1,7 @@
 +++
 template = "minutes.html"
 insert_anchor_links = "left"
+draft = true
 +++
 
 ## 15 May, 2023
