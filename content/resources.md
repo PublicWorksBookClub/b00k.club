@@ -85,7 +85,8 @@ The following is an alphabetically sorted list of museums and galleries that off
 
 ## Secondary/Editorialized Content
 
-* [Xenophon Group International](http://www.xenophon-mil.org) -  an index of information on military history, including essays, timelines, and other useful secondary sources
+* [Antigone Journal](https://antigonejournal.com/) - articles and contests on classics, as well as links to useful resources
+* [Xenophon Group International](http://www.xenophon-mil.org) - an index of information on military history, including essays, timelines, and other useful secondary sources
 * [A Collection of Unmitigated Pedantry](https://acoup.blog/) - blog posts summarizing a variety of ancient world topics in an approachable way, particularly the Roman world
 
 ## Tools

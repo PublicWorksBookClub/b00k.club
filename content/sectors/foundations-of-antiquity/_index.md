@@ -1,5 +1,6 @@
 +++
 template = "sector.html"
+draft = true
 +++
 
 This page is a part of the [public sector](/#public-sectors) series, offered by the [Public Works](/) book club.

@@ -1,6 +1,6 @@
 {
   "name": "b00k.club",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "The website for the Public Works book club: we only read works in the public domain",
   "scripts": {
     "build": "zola build && npx tailwindcss -i ./public/input.css -o ./public/style.css -m",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/public-w0rks/b00k.club.git"
+    "url": "https://github.com/PublicWorksBookClub/b00k.club"
   },
   "keywords": [
     "books",
@@ -22,7 +22,7 @@
   "author": "Spencer Scorcelletti",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/public-w0rks/b00k.club/issues"
+    "url": "https://github.com/PublicWorksBookClub/b00k.club/issues"
   },
   "homepage": "https://b00k.club/",
   "devDependencies": {

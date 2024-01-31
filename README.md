@@ -1,6 +1,6 @@
 # b00k.club
 
-The website ([main](https://b00k.club) | [preview](https://preview.b00k.club)) for the Public Works book club, where we only read works in the public domain.
+The [website](https://b00k.club) for the Public Works Book Club, where we only read works in the public domain.
 
 <!-- TOC depthfrom:2 updateonsave:true -->
 
