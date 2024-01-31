@@ -18,6 +18,7 @@ Public works is a book club where we only read stuff that is in the [public doma
 5. [*The Federalist Papers*](https://en.wikipedia.org/wiki/The_Federalist_Papers) by [Alexander Hamilton](https://en.wikipedia.org/wiki/Alexander_Hamilton), [John Jay](https://en.wikipedia.org/wiki/John_Jay), and [James Madison](https://en.wikipedia.org/wiki/James_Madison) - 1787-1788 CE
 6. [*Zhuangzi*](https://en.wikipedia.org/wiki/Zhuangzi_(book)) by [Zhuang Zhou](https://en.wikipedia.org/wiki/Zhuang_Zhou) - c. 2nd century BCE (published)
 7. [*History of the Peloponnesian War*](https://en.wikipedia.org/wiki/History_of_the_Peloponnesian_War) by [Thucydides](https://en.wikipedia.org/wiki/Thucydides) - c. 5th century BCE
+8. [Hellenica](https://en.wikipedia.org/wiki/Hellenica) by [Xenophon](https://en.wikipedia.org/wiki/Xenophon) - c. 4th century BCE
 
 <!-- (Note: in draft)
 

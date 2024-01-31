@@ -5,6 +5,7 @@
 - Update site's GitHub
 - Remove link to minutes
 - Set "foundations of antiquity" in draft mode
+- Add "Hellenica" to works read
 
 ## 1.2.0 (2024-01-30)
 
