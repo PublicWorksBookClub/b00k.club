@@ -4,7 +4,7 @@ template = "index.html"
 
 <!-- Note no '#' level title, because that title is style independently -->
 
-Public works is a book club where we only read stuff that is in the [public domain](https://en.wikipedia.org/wiki/Public_domain_in_the_United_States), i.e. before January 1st, 1928. This website serves as a record of our meetings, as well as to advance interest in classic literature.
+Public works is a book club where we only read stuff that is in the [public domain](https://en.wikipedia.org/wiki/Public_domain_in_the_United_States), i.e. before January 1st, 1929. This website serves as a record of our meetings, as well as to advance interest in classic literature.
 
 
 ## Works Read So Far
@@ -19,6 +19,9 @@ Public works is a book club where we only read stuff that is in the [public doma
 6. [*Zhuangzi*](https://en.wikipedia.org/wiki/Zhuangzi_(book)) by [Zhuang Zhou](https://en.wikipedia.org/wiki/Zhuang_Zhou) - c. 2nd century BCE (published)
 7. [*History of the Peloponnesian War*](https://en.wikipedia.org/wiki/History_of_the_Peloponnesian_War) by [Thucydides](https://en.wikipedia.org/wiki/Thucydides) - c. 5th century BCE
 8. [Hellenica](https://en.wikipedia.org/wiki/Hellenica) by [Xenophon](https://en.wikipedia.org/wiki/Xenophon) - c. 4th century BCE
+9. [Republic](https://en.wikipedia.org/wiki/Republic_(Plato)) by [Plato](https://en.wikipedia.org/wiki/Plato) - c. 4th century BCE
+10. [Herakles](https://en.wikipedia.org/wiki/Herakles_(Euripides)) by [Euripides](https://en.wikipedia.org/wiki/Euripides) - c. 5th century BCE
+11. [The Odyssey](https://en.wikipedia.org/wiki/Odyssey) by [Homer](https://en.wikipedia.org/wiki/Homer) - c. 8th century BCE
 
 <!-- (Note: in draft)
 

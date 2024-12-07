@@ -1,5 +1,13 @@
 # Changelog
 
+## NEXT
+
+## 1.2.2 (2024-12-07)
+
+- Remove remaining reference to old URL
+- Add ClassicistORG YouTube channel, for excellent videos and playlists on Classical Architecture
+- Update readings with Plato's *Republic*, Euripedes' *Herakles*, and Homer's *Odyssey*
+
 ## 1.2.1 (2024-01-31)
 
 - Update site's GitHub
