@@ -4,7 +4,7 @@ template = "index.html"
 
 <!-- Note no '#' level title, because that title is style independently -->
 
-Public works is a book club where we only read stuff that is in the [public domain](https://en.wikipedia.org/wiki/Public_domain_in_the_United_States), i.e. before January 1st, 1929. This website serves as a record of our meetings, as well as to advance interest in classic literature.
+Public works is a book club where we only read stuff that is in the [public domain](https://en.wikipedia.org/wiki/Public_domain_in_the_United_States), i.e. before January 1st, 1930. This website serves as a record of our meetings, as well as to advance interest in classic literature.
 
 
 ## Works Read So Far

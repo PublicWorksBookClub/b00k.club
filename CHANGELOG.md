@@ -2,6 +2,10 @@
 
 ## NEXT
 
+## 1.2.3 (2025-01-03)
+
+- Update public domain year
+
 ## 1.2.2 (2024-12-07)
 
 - Remove remaining reference to old URL
