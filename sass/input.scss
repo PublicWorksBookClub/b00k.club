@@ -227,3 +227,72 @@
 /// **************************
 /// ** BEGIN Arca Majora 3 ***
 /// **************************
+
+// Styles the front page list of readings (note the ID + sibling selector)
+#timeline-of-readings + table {
+  display: block;
+  width: max-content;
+  max-width: 100% ;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-collapse: collapse;
+
+  border-color: navy;
+
+  th {
+    font-size: large;
+  }
+
+  // Order column
+  td:nth-child(1) {
+    color: hotpink;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  // Title column
+  td:nth-child(2) {
+    min-width: 14em;
+    // allow wrapping
+    a {
+      font-family: serif;
+      font-size: medium;
+      white-space: wrap;
+      color:indianred;
+    }
+
+    // asterisk used to indicate work was read in selection
+    sup {
+      top: -0.2em;
+      left: 0.2em;
+      color: crimson;
+    }
+  }
+  // Author column
+  td:nth-child(3) a {
+    color: darkcyan;
+  }
+
+  // Period column
+  td:nth-child(4) {
+    font-style: italic;
+    white-space: wrap;
+    min-width: 7em;
+  }
+
+  // Year column
+  td:nth-child(5) {
+    color: grey;
+  }
+
+  // Arc column
+  td:nth-child(6) {
+    font-style: italic;
+    font-family: monospace;
+  }
+
+  // Note column
+  td:nth-child(7) a {
+    color: rebeccapurple;
+  }
+}
