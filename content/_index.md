@@ -14,9 +14,9 @@ Public works is a book club where we only read stuff that is in the [public doma
 | 1     | [*Meditations*](https://en.wikipedia.org/wiki/Meditations) | [Aurelius](https://en.wikipedia.org/wiki/Marcus_Aurelius) | 2nd c. CE | 2022 | Theogony 1 |
 | 2     | [*The Tempest*](https://en.wikipedia.org/wiki/The_Tempest) | [Shakespeare](https://en.wikipedia.org/wiki/William_Shakespeare) | 17th c. CE | 2022 | Theogony 1 |
 | 3     | [*Antigone*](https://en.wikipedia.org/wiki/Antigone_(Sophocles_play)) | [Sophocles](https://en.wikipedia.org/wiki/Sophocles) | 5th c. BCE | 2023 | Theogony 1 |
-| 4     | [*The Book of the Thousand Nights and a Night*](https://en.wikipedia.org/wiki/The_Book_of_the_Thousand_Nights_and_a_Night) | Anonymous | c. 8th–14th century CE | 2023 | Theogony 2 | trans. [Burton](https://en.wikipedia.org/wiki/Richard_Francis_Burton) 19th c. CE |
-| 5     | [*The Federalist Papers*](https://en.wikipedia.org/wiki/The_Federalist_Papers) | [Hamilton](https://en.wikipedia.org/wiki/Alexander_Hamilton), [Jay](https://en.wikipedia.org/wiki/John_Jay), and [Madison](https://en.wikipedia.org/wiki/James_Madison) | 18th c. CE | 2023 | Theogony 2 |
-| 6     | [*Zhuangzi*](https://en.wikipedia.org/wiki/Zhuangzi_(book)) | [Zhuang Zhou](https://en.wikipedia.org/wiki/Zhuang_Zhou) | 2nd c. BCE | 2023 | Theogony 2 |
+| 4     | [*The Book of the Thousand Nights and a Night*](https://en.wikipedia.org/wiki/The_Book_of_the_Thousand_Nights_and_a_Night)<sup>\*</sup> | Anonymous | c. 8th–14th century CE | 2023 | Theogony 2 | trans. [Burton](https://en.wikipedia.org/wiki/Richard_Francis_Burton) 19th c. CE |
+| 5     | [*The Federalist Papers*](https://en.wikipedia.org/wiki/The_Federalist_Papers)<sup>\*</sup> | [Hamilton](https://en.wikipedia.org/wiki/Alexander_Hamilton), [Jay](https://en.wikipedia.org/wiki/John_Jay), and [Madison](https://en.wikipedia.org/wiki/James_Madison) | 18th c. CE | 2023 | Theogony 2 |
+| 6     | [*Zhuangzi*](https://en.wikipedia.org/wiki/Zhuangzi_(book))<sup>\*</sup> | [Zhuang Zhou](https://en.wikipedia.org/wiki/Zhuang_Zhou) | 2nd c. BCE | 2023 | Theogony 2 |
 | 7     | [*History of the Peloponnesian War*](https://en.wikipedia.org/wiki/History_of_the_Peloponnesian_War) | [Thucydides](https://en.wikipedia.org/wiki/Thucydides) | 5th c. BCE | 2023 | Anabasis 1 |
 | 8     | [*Hellenica*](https://en.wikipedia.org/wiki/Hellenica) | [Xenophon](https://en.wikipedia.org/wiki/Xenophon) | 4th c. BCE | 2023 | Anabasis 1 |
 | 9     | [*Republic*](https://en.wikipedia.org/wiki/Republic_(Plato)) | [Plato](https://en.wikipedia.org/wiki/Plato) | 4th c. BCE | 2024 | Anabasis 2 |
@@ -29,13 +29,15 @@ Public works is a book club where we only read stuff that is in the [public doma
 | 16    | [*Against Conon*](https://en.wikipedia.org/wiki/Demosthenes#Works_and_transmission) | [Demosthenes](https://en.wikipedia.org/wiki/Demosthenes) | 4th c. BCE | 2025 | Anabasis 4 | Demosthenes 54 |
 | 17    | [*The Disagreeable*](https://en.wikipedia.org/wiki/Theophrastus#On_moral_characters) | [Theophrastus](https://en.wikipedia.org/wiki/Theophrastus) | 4th c. BCE | 2025 | Anabasis 4 | Theophrastus 21 |
 | 18    | [*Philoctetes*](https://en.wikipedia.org/wiki/Philoctetes) | [Sophocles](https://en.wikipedia.org/wiki/Sophocles) | 5th c. BCE | 2025 | Anabasis 4 |
-| 19    | [*Categories*](https://en.wikipedia.org/wiki/Categories_(Aristotle)) | [Aristotle](https://en.wikipedia.org/wiki/Aristotle) | 4th c. BCE | 2025 | Anabasis 4 |
-| 20    | [*De Interpretatione*](https://en.wikipedia.org/wiki/On_Interpretation) | [Aristotle](https://en.wikipedia.org/wiki/Aristotle) | 4th c. BCE | 2025 | Anabasis 4 |
-| 21    | [*Prior Analytics*](https://en.wikipedia.org/wiki/Prior_Analytics) | [Aristotle](https://en.wikipedia.org/wiki/Aristotle) | 4th c. BCE | 2025 | Anabasis 4 |
+| 19    | [*Categories*](https://en.wikipedia.org/wiki/Categories_(Aristotle))<sup>\*</sup> | [Aristotle](https://en.wikipedia.org/wiki/Aristotle) | 4th c. BCE | 2025 | Anabasis 4 |
+| 20    | [*De Interpretatione*](https://en.wikipedia.org/wiki/On_Interpretation)<sup>\*</sup> | [Aristotle](https://en.wikipedia.org/wiki/Aristotle) | 4th c. BCE | 2025 | Anabasis 4 |
+| 21    | [*Prior Analytics*](https://en.wikipedia.org/wiki/Prior_Analytics)<sup>\*</sup> | [Aristotle](https://en.wikipedia.org/wiki/Aristotle) | 4th c. BCE | 2025 | Anabasis 4 |
 | 22    | [*Bacchae*](https://en.wikipedia.org/wiki/The_Bacchae) | [Euripides](https://en.wikipedia.org/wiki/Euripides) | 5th c. BCE | 2025 | Anabasis 4 |
 | 23    | [*Frogs*](https://en.wikipedia.org/wiki/The_Frogs) | [Aristophanes](https://en.wikipedia.org/wiki/Aristophanes) | 5th c. BCE | 2025 | Anabasis 4 |
-| 24    | [*Topics*](https://en.wikipedia.org/wiki/Topics_(Aristotle)) | [Aristotle](https://en.wikipedia.org/wiki/Aristotle) | 4th c. BCE | 2025 | Anabasis 4 |
+| 24    | [*Posterior Analytics*](https://en.wikipedia.org/wiki/Posterior_Analytics)<sup>\*</sup> | [Aristotle](https://en.wikipedia.org/wiki/Aristotle) | 4th c. BCE | 2025 | Anabasis 4 |
+| 25    | [*Topics*](https://en.wikipedia.org/wiki/Topics_(Aristotle))<sup>\*</sup> | [Aristotle](https://en.wikipedia.org/wiki/Aristotle) | 4th c. BCE | 2025 | Anabasis 4 |
 
+*\* = selections of work*
 
 <!-- (Note: in draft)
 
