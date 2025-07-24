@@ -227,3 +227,20 @@
 /// **************************
 /// ** BEGIN Arca Majora 3 ***
 /// **************************
+
+// Styles the front page list of readings (note the ID + sibling selector)
+#timeline-of-readings + table {
+  display: block;
+  width: max-content;
+  max-width: 100% ;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-collapse: collapse;
+
+  // Styles the title to, e.g. allow wrapping (note the order)
+  td:nth-child(2) {
+    white-space: wrap;
+    a { color:indianred; }
+  }
+    td:nth-child(3) a { color: darkcyan; }
+}
