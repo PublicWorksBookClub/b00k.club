@@ -20,8 +20,9 @@ theme_color = "#fda4af"
 * [Internet Archive](https://archive.org)
 * [Standard Ebooks](https://standardebooks.org)
 * [HathiTrust](https://www.hathitrust.org)
-* [Google Books](https://books.google.com/)
 * [Perseus Digital Library](http://www.perseus.tufts.edu/hopper/) (Tufts University)
+* [Online Books Page](https://onlinebooks.library.upenn.edu) (University of Pennsylvania)
+* [Google Books](https://books.google.com/)
 * [Biodiversity Heritage Library](https://www.biodiversitylibrary.org)
 
 ## Digital Museum Galleries:
