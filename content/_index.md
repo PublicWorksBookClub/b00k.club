@@ -21,21 +21,24 @@ Public works is a book club where we only read stuff that is in the [public doma
 | 8     | [*Hellenica*](https://en.wikipedia.org/wiki/Hellenica) | [Xenophon](https://en.wikipedia.org/wiki/Xenophon) | 4th c. BCE | 2023 | Anabasis 1 |
 | 9     | [*Republic*](https://en.wikipedia.org/wiki/Republic_(Plato)) | [Plato](https://en.wikipedia.org/wiki/Plato) | 4th c. BCE | 2024 | Anabasis 2 |
 | 10    | [*Herakles*](https://en.wikipedia.org/wiki/Herakles_(Euripides)) | [Euripides](https://en.wikipedia.org/wiki/Euripides) | 5th c. BCE | 2024 | Anabasis 2 |
-| 11    | [*The Odyssey*](https://en.wikipedia.org/wiki/Odyssey) | [Homer](https://en.wikipedia.org/wiki/Homer) | 8th c. BCE | 2024 | Anabasis  3 |
-| 12    | [*Laws*](https://en.wikipedia.org/wiki/Laws_(dialogue)) | [Plato](https://en.wikipedia.org/wiki/Plato) | 4th c. BCE | 2025 | Memorabilia |
-| 13    | [*The Persians*](https://en.wikipedia.org/wiki/The_Persians) | [Aeschylus](https://en.wikipedia.org/wiki/Aeschylus) | 5th c. BCE | 2025 | Anabasis 4 |
-| 14    | [*The Second Tetralogy*](https://en.wikipedia.org/wiki/Antiphon_(orator)#List_of_extant_speeches) | [Antiphon](https://en.wikipedia.org/wiki/Antiphon_(orator)) | 5th c. BCE | 2025 | Anabasis 4 | Antiphon 3 |
-| 15    | [*Against Simon*](https://en.wikipedia.org/wiki/Against_Simon) | [Lysias](https://en.wikipedia.org/wiki/Lysias) | 4th c. BCE | 2025 | Anabasis 4 | Lysias 3 |
-| 16    | [*Against Conon*](https://en.wikipedia.org/wiki/Demosthenes#Works_and_transmission) | [Demosthenes](https://en.wikipedia.org/wiki/Demosthenes) | 4th c. BCE | 2025 | Anabasis 4 | Demosthenes 54 |
-| 17    | [*The Disagreeable*](https://en.wikipedia.org/wiki/Theophrastus#On_moral_characters) | [Theophrastus](https://en.wikipedia.org/wiki/Theophrastus) | 4th c. BCE | 2025 | Anabasis 4 | Theophrastus 21 |
-| 18    | [*Philoctetes*](https://en.wikipedia.org/wiki/Philoctetes) | [Sophocles](https://en.wikipedia.org/wiki/Sophocles) | 5th c. BCE | 2025 | Anabasis 4 |
-| 19    | [*Categories*](https://en.wikipedia.org/wiki/Categories_(Aristotle))<sup>\*</sup> | [Aristotle](https://en.wikipedia.org/wiki/Aristotle) | 4th c. BCE | 2025 | Anabasis 4 |
-| 20    | [*De Interpretatione*](https://en.wikipedia.org/wiki/On_Interpretation)<sup>\*</sup> | [Aristotle](https://en.wikipedia.org/wiki/Aristotle) | 4th c. BCE | 2025 | Anabasis 4 |
-| 21    | [*Prior Analytics*](https://en.wikipedia.org/wiki/Prior_Analytics)<sup>\*</sup> | [Aristotle](https://en.wikipedia.org/wiki/Aristotle) | 4th c. BCE | 2025 | Anabasis 4 |
-| 22    | [*Bacchae*](https://en.wikipedia.org/wiki/The_Bacchae) | [Euripides](https://en.wikipedia.org/wiki/Euripides) | 5th c. BCE | 2025 | Anabasis 4 |
-| 23    | [*Frogs*](https://en.wikipedia.org/wiki/The_Frogs) | [Aristophanes](https://en.wikipedia.org/wiki/Aristophanes) | 5th c. BCE | 2025 | Anabasis 4 |
-| 24    | [*Posterior Analytics*](https://en.wikipedia.org/wiki/Posterior_Analytics)<sup>\*</sup> | [Aristotle](https://en.wikipedia.org/wiki/Aristotle) | 4th c. BCE | 2025 | Anabasis 4 |
-| 25    | [*Topics*](https://en.wikipedia.org/wiki/Topics_(Aristotle))<sup>\*</sup> | [Aristotle](https://en.wikipedia.org/wiki/Aristotle) | 4th c. BCE | 2025 | Anabasis 4 |
+| 11     | [*Seventh Letter*](https://en.wikipedia.org/wiki/Seventh_Letter) | [Plato](https://en.wikipedia.org/wiki/Plato) | 4th c. BCE | 2024 | Anabasis 2 |
+| 12    | [*The Odyssey*](https://en.wikipedia.org/wiki/Odyssey) | [Homer](https://en.wikipedia.org/wiki/Homer) | 8th c. BCE | 2024 | Nostoi  1 |
+| 13    | [*Laws*](https://en.wikipedia.org/wiki/Laws_(dialogue)) | [Plato](https://en.wikipedia.org/wiki/Plato) | 4th c. BCE | 2025 | Memorabilia 1 |
+| 14    | [*The Persians*](https://en.wikipedia.org/wiki/The_Persians) | [Aeschylus](https://en.wikipedia.org/wiki/Aeschylus) | 5th c. BCE | 2025 | Anabasis 3 |
+| 15    | [*The Second Tetralogy*](https://en.wikipedia.org/wiki/Antiphon_(orator)#List_of_extant_speeches) | [Antiphon](https://en.wikipedia.org/wiki/Antiphon_(orator)) | 5th c. BCE | 2025 | Anabasis 3 | Antiphon 3 |
+| 16    | [*Against Simon*](https://en.wikipedia.org/wiki/Against_Simon) | [Lysias](https://en.wikipedia.org/wiki/Lysias) | 4th c. BCE | 2025 | Anabasis 3 | Lysias 3 |
+| 17    | [*Against Conon*](https://en.wikipedia.org/wiki/Demosthenes#Works_and_transmission) | [Demosthenes](https://en.wikipedia.org/wiki/Demosthenes) | 4th c. BCE | 2025 | Anabasis 3 | Demosthenes 54 |
+| 18    | [*Philoctetes*](https://en.wikipedia.org/wiki/Philoctetes) | [Sophocles](https://en.wikipedia.org/wiki/Sophocles) | 5th c. BCE | 2025 | Anabasis 3 |
+| 19    | [*Categories*](https://en.wikipedia.org/wiki/Categories_(Aristotle))<sup>\*</sup> | [Aristotle](https://en.wikipedia.org/wiki/Aristotle) | 4th c. BCE | 2025 | Anabasis 3 |
+| 20    | [*De Interpretatione*](https://en.wikipedia.org/wiki/On_Interpretation)<sup>\*</sup> | [Aristotle](https://en.wikipedia.org/wiki/Aristotle) | 4th c. BCE | 2025 | Anabasis 3 |
+| 21    | [*Prior Analytics*](https://en.wikipedia.org/wiki/Prior_Analytics)<sup>\*</sup> | [Aristotle](https://en.wikipedia.org/wiki/Aristotle) | 4th c. BCE | 2025 | Anabasis 3 |
+| 22    | [*Bacchae*](https://en.wikipedia.org/wiki/The_Bacchae) | [Euripides](https://en.wikipedia.org/wiki/Euripides) | 5th c. BCE | 2025 | Anabasis 3 |
+| 23    | [*Frogs*](https://en.wikipedia.org/wiki/The_Frogs) | [Aristophanes](https://en.wikipedia.org/wiki/Aristophanes) | 5th c. BCE | 2025 | Anabasis 3 |
+| 24    | [*Posterior Analytics*](https://en.wikipedia.org/wiki/Posterior_Analytics)<sup>\*</sup> | [Aristotle](https://en.wikipedia.org/wiki/Aristotle) | 4th c. BCE | 2025 | Anabasis 3 |
+| 25    | [*Topics*](https://en.wikipedia.org/wiki/Topics_(Aristotle))<sup>\*</sup> | [Aristotle](https://en.wikipedia.org/wiki/Aristotle) | 4th c. BCE | 2025 | Anabasis 3 |
+| 26    | [*Euthyphro*](https://en.wikipedia.org/wiki/Euthyphro) | [Plato](https://en.wikipedia.org/wiki/Plato) | 4th c. BCE | 2025 | Memorabilia 2 |
+| 27    | [*Dyskolos*](https://en.wikipedia.org/wiki/Dyskolos) | [Menander](https://en.wikipedia.org/wiki/Menander) | 4th c. BCE | 2025 | Anabasis 3 |
+| 28    | [*Characters*](https://en.wikipedia.org/wiki/Theophrastus#On_moral_characters)<sup>\*</sup> | [Theophrastus](https://en.wikipedia.org/wiki/Theophrastus) | 4th c. BCE | 2025 | Anabasis 3 |
 
 *\* = selections of work*
 

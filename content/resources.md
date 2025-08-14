@@ -7,6 +7,23 @@ bg_color = "bg-rose-300"
 theme_color = "#fda4af"
 +++
 
+Below is a collection of resources in the public domain that are updated on a regular basis, as well as some non-public domain content that is still useful and informative. Please [email](mailto:info@b00k.club) the club to recommend a listing or for other suggestions.
+
+## Table of Contents {#resources-toc }
+- 📇 [Reference Material](#reference-material)
+- 📚 [Reading Material](#reading-material)
+- 🏛️ [Digital Museum Galleries](#digital-museum-galleries)
+- 🖼️ [Public Domain Artwork](#public-domain-artwork-a-z)
+- 🎞️ [Video and Stock Footage](#video-and-stock-footage)
+- ✈️ [Virtual Tours](#virtual-tours)
+- 📺 [Video Channels](#video-channels)
+- 📻 [Podcasts](#podcasts)
+- ✍️ [Secondary/Editorialized Content](#secondary-editorialized-content)
+- 🛠️ [Tools](#tools)
+
+---
+
+
 ## Reference Material:
 
 * [Stanford Encyclopedia of Philosophy](https://plato.stanford.edu)
@@ -54,6 +71,7 @@ The following is an alphabetically sorted list of museums and galleries that off
 * [National Museum Sweden](https://collection.nationalmuseum.se/eMP/eMuseumPlus?service=ExternalInterface&module=exhibition&moduleFunction=result&filterName=filter.tours.all)
 * [Nivaagards Marlerisamling](https://www.nivaagaard.dk/en/)
 * [Paris Museés](https://www.parismuseescollections.paris.fr/en)
+* [Public Domain Image Archive](https://pdimagearchive.org/)
 * [Rijksmuseum](https://www.rijksmuseum.nl/en)
 * [RISD Museum](https://risdmuseum.org/art-design/collection)
 * [The Cleveland Museum of Art](https://www.clevelandart.org/art/collection/search?only-open-access=1)
@@ -62,6 +80,10 @@ The following is an alphabetically sorted list of museums and galleries that off
 * [The Walters Art Museum](https://art.thewalters.org)
 * [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page)
 * [Yale University Art Gallery](https://artgallery.yale.edu/collection/search)
+
+## Video and Stock Footage:
+
+* [FedFlix](https://public.resource.org/ntis.gov/index.html) - A joint venture between the [NTIS](https://www.ntis.gov/) and [Public.Resource.Org](https://public.resource.org/) to share content from the U.S. government's archives.
 
 ## Virtual Tours:
 
@@ -84,6 +106,11 @@ The following is an alphabetically sorted list of museums and galleries that off
 * [PBS Eons](https://www.youtube.com/@eons) - natural history from a geological perspective.
 * [History with Cy](https://www.youtube.com/@HistorywithCy) - ancient and medieval history.
 * [Leonidas Sparta](https://www.youtube.com/@LeonidasSparta-Fun-History) - specializes in hoplite and ancient warfare historical reenactment
+
+## Podcasts
+
+* [Ancient Greece Declassified](https://www.greecepodcast.com/)
+* [The Hellenistic Age Podcast](https://hellenisticagepodcast.wordpress.com)
 
 ## Secondary/Editorialized Content
 
