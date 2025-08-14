@@ -15,10 +15,10 @@
 /* VariableFonts */
 @supports (font-variation-settings: normal) {
   @font-face {
-    font-family: "Playfair Display"; // https://fonts.google.com/specimen/Playfair+Display
+    font-family: 'Playfair Display'; // https://fonts.google.com/specimen/Playfair+Display
     font-style: normal;
     font-weight: 400 900; // Playfair Display goes from 'Regular' to 'Black', i.e. 400 - 900
-    src: url("/font/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf") format("ttf");
+    src: url('/font/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf') format('ttf');
     font-display: swap;
   }
 }
@@ -26,12 +26,12 @@
 /* Static Fonts */
 @supports not (font-variation-settings: normal) {
   @font-face {
-    font-family: "Playfair Display";
+    font-family: 'Playfair Display';
     font-style: normal;
     font-weight: 600;
-    src: url("/font/Playfair_Display/static/PlayfairDisplay-SemiBold.ttf") format("ttf");
+    src: url('/font/Playfair_Display/static/PlayfairDisplay-SemiBold.ttf') format('ttf');
     font-display: swap;
-    font-named-instance: "SemiBold";
+    font-named-instance: 'SemiBold';
   }
 }
 /// **************************
@@ -46,7 +46,7 @@
     font-family: 'Fira Sans'; // https://github.com/hellogreg/firava (variable version of Fira Sans)
     font-style: normal;
     font-weight: 100 900; // Fira Sans goes from 'Thin' to 'Black', i.e. 100 - 900
-    src: url("/font/Firava/Firava.woff2") format("woff2-variations");
+    src: url('/font/Firava/Firava.woff2') format('woff2-variations');
     font-display: swap;
   }
 }
@@ -230,7 +230,7 @@
   position: relative;
 
   &::after {
-    content: "(scroll →)";
+    content: '(scroll →)';
     font-family: serif;
     font-size: medium;
     font-style: italic;
@@ -245,7 +245,7 @@
 #timeline-of-readings + table {
   display: block;
   width: max-content;
-  max-width: 100% ;
+  max-width: 100%;
   overflow-x: auto;
   white-space: nowrap;
   border-collapse: collapse;
@@ -271,7 +271,7 @@
       font-family: serif;
       font-size: medium;
       white-space: wrap;
-      color:indianred;
+      color: indianred;
     }
 
     // asterisk used to indicate work was read in selection
@@ -325,7 +325,7 @@
 #resources-toc + ul {
   text-align: center;
   list-style-type: none;
-  list-style-position:inside;
+  list-style-position: inside;
   margin: 0px;
   padding: 0px;
   // border-color: black;

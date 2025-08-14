@@ -17,9 +17,10 @@ The [website](https://b00k.club) for the Public Works Book Club, where we only r
 <!-- /TOC -->
 
 ## Usage
+
 Here's how you do stuff:
 
-- `npm install`   installs everything that you need
+- `npm install` installs everything that you need
 - `npm run build` builds once, output will be in the `public` directory
 - `npm run build-deploy` the build command that's only used programmatically during deployment (e.g. called from within cloudflare's pages platform)
 - `npm run serve` starts a local server that binds to `0.0.0.0:1111`, and watches the respective directories and rebuilds upon every change.
@@ -32,9 +33,9 @@ Any changes need to recorded in the [CHANGELOG.md](CHANGELOG.md) file, with the 
 
 Some notes on versioning:
 
-* adding content to existing links is just a bump in patch version, i.e. `nn.nn.++`
-* changing links, including anchors, is a bump in minor version, i.e. `nn.++.nn`
-* fundamental changes in the site's tech, that makes it incompatible with prior versions is a change in major version, i.e. `++.nn.nn`
+- adding content to existing links is just a bump in patch version, i.e. `nn.nn.++`
+- changing links, including anchors, is a bump in minor version, i.e. `nn.++.nn`
+- fundamental changes in the site's tech, that makes it incompatible with prior versions is a change in major version, i.e. `++.nn.nn`
 
 For example, releasing a huge new initiative to launch our theoretical youtube channel would be a minor version change, however keeping the site exactly the same but moving the static site generator from zola to hugo would be a major version change.
 
@@ -58,10 +59,10 @@ The tailwind [typography plugin](https://tailwindcss.com/docs/typography-plugin)
 
 ## Dependencies and Tools
 
-* [zola](https://getzola.com)@0.17.2
-* node@14.0.0
-* [tailwindcss](https://tailwindcss.com/)
-* [tailwind typography plugin](https://tailwindcss.com/docs/typography-plugin)
+- [zola](https://getzola.com)@0.17.2
+- node@14.0.0
+- [tailwindcss](https://tailwindcss.com/)
+- [tailwind typography plugin](https://tailwindcss.com/docs/typography-plugin)
 
 ## Deployments
 
@@ -69,16 +70,16 @@ This site is deployed using [cloudflare pages](https://pages.cloudflare.com). Ac
 
 Here are some additional things to know about deployments
 
-* There is a file called `_headers` which is a convention used by cloudflare pages to set HTTP headers for the static site
-* `ZOLA_VERSION=0.17.2` must be explicitly set in cloudflare pages build settings
-* `NODE_VERSION=14.0.0` must be explicitly set in cloudflare pages build settings
-* There is a `BUILD_OPTS` env variable in the `package.json`'s `build-deploy` script, where customizations can be passed, e.g. `BUILD_OPTS="--base-url https://b00k.club"
-* Cloudflare supplies an environment variable called `CF_PAGES_URL`, and this is needed when deploying
-* There's a file, `CHANGELOG.md`, that helps track what's changed as the site evolves
+- There is a file called `_headers` which is a convention used by cloudflare pages to set HTTP headers for the static site
+- `ZOLA_VERSION=0.17.2` must be explicitly set in cloudflare pages build settings
+- `NODE_VERSION=14.0.0` must be explicitly set in cloudflare pages build settings
+- There is a `BUILD_OPTS` env variable in the `package.json`'s `build-deploy` script, where customizations can be passed, e.g. `BUILD_OPTS="--base-url https://b00k.club"
+- Cloudflare supplies an environment variable called `CF_PAGES_URL`, and this is needed when deploying
+- There's a file, `CHANGELOG.md`, that helps track what's changed as the site evolves
 
 ## Notes:
 
-* This site was initially generated using a [GitHub template](https://github.com/asimpletune/zola-tailwindcss) for making zola static sites that work well with tailwindcss.
-* The `npm run serve` script runs two long-running tasks in parallel and allows both to write simultaneously to STDOUT by using [a mixture of `wait` and sending jobs to the background](https://www.cyberciti.biz/faq/how-to-run-command-or-code-in-parallel-in-bash-shell-under-linux-or-unix/)
-* Sometimes important changes for styling need to be made in the `tailwind.config.js` file
-* Builds can break when deployed, and a common place to look is needing to add or update an enviornment variable for cloudflare's "pages" product
+- This site was initially generated using a [GitHub template](https://github.com/asimpletune/zola-tailwindcss) for making zola static sites that work well with tailwindcss.
+- The `npm run serve` script runs two long-running tasks in parallel and allows both to write simultaneously to STDOUT by using [a mixture of `wait` and sending jobs to the background](https://www.cyberciti.biz/faq/how-to-run-command-or-code-in-parallel-in-bash-shell-under-linux-or-unix/)
+- Sometimes important changes for styling need to be made in the `tailwind.config.js` file
+- Builds can break when deployed, and a common place to look is needing to add or update an enviornment variable for cloudflare's "pages" product

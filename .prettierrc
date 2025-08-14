@@ -1,0 +1,15 @@
+{
+  "plugins": ["prettier-plugin-toml", "prettier-plugin-jinja-template", "prettier-plugin-tailwindcss"],
+  "overrides": [
+    {
+      "files": ["*.html"],
+      "options": {
+        "parser": "jinja-template"
+      }
+    }
+  ],
+  "printWidth": 140,
+  "singleQuote": true,
+  "semi": false,
+  "useTabs": false
+}

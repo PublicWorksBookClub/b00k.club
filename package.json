@@ -3,6 +3,7 @@
   "version": "1.2.3",
   "description": "The website for the Public Works book club: we only read works in the public domain",
   "scripts": {
+    "fmt": "npx prettier . --write",
     "build": "zola build && npx tailwindcss -i ./public/input.css -o ./public/style.css -m",
     "build-deploy": "zola build $BUILD_OPTS && npx tailwindcss -i ./public/input.css -o ./public/style.css -m",
     "serve": "zola serve & npx tailwindcss -i ./public/input.css -o ./public/style.css --watch && wait",
@@ -27,6 +28,10 @@
   "homepage": "https://b00k.club/",
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.9",
+    "prettier": "^3.6.2",
+    "prettier-plugin-jinja-template": "^2.1.0",
+    "prettier-plugin-tailwindcss": "^0.6.14",
+    "prettier-plugin-toml": "^2.0.6",
     "tailwindcss": "^3.3.1"
   }
 }
