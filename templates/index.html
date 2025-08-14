@@ -59,22 +59,26 @@
 
   <body class="bg-yellow-400">
     <main>
-      <article class="prose prose-blue prose-landing mx-auto md:prose-lg md:mt-16">
-        <img
-          width=" 512"
-          height="512"
-          class="mb-2 w-full md:mb-8"
-          src="/illo/sophocles-nested.svg"
-          alt="A bust of sophpocles, repeating to infinty in different bright colors"
-        />
-        {# Note font-weights: https://tailwindcss.com/docs/font-weight #}
-        <div id="heading" class="not-prose px-2 text-gray-900">
-          <h1 class="text-left font-playfair-display text-7xl font-semibold md:text-9xl">The Public Works Book Club</h1>
-          {# Note for semantic html and screen-readers, use this ARIA role for
+      <article>
+        <header class="md:flex md:h-screen md:items-center md:justify-center md:p-12 md:align-middle">
+          <img
+            width="512"
+            height="512"
+            class="mb-2 h-full w-full md:mb-8"
+            src="/illo/sophocles-nested.svg"
+            alt="A bust of sophpocles, repeating to infinty in different bright colors"
+          />
+          {# Note font-weights: https://tailwindcss.com/docs/font-weight #}
+          <div id="heading" class="not-prose px-2 text-gray-900">
+            <h1 class="text-left font-playfair-display text-7xl font-semibold md:text-9xl">The Public Works Book Club</h1>
+            {# Note for semantic html and screen-readers, use this ARIA role for
           subtitle-y stuff https://www.w3.org/TR/dpub-aria-1.0/#doc-subtitle #}
-          <p role="doc-subtitle" class="my-2 text-right font-fira-sans text-lg font-extralight md:text-2xl">Since 35,000 BCE</p>
+            <p role="doc-subtitle" class="my-2 text-right font-fira-sans text-lg font-extralight md:text-2xl">Since 35,000 BCE</p>
+          </div>
+        </header>
+        <div id="content" class="prose prose-blue prose-landing mx-auto mb-16 px-2 font-fira-sans font-normal md:prose-lg">
+          {{ section.content | safe }}
         </div>
-        <div id="content" class="my-16 px-2 font-fira-sans font-normal">{{ section.content | safe }}</div>
       </article>
     </main>
   </body>
