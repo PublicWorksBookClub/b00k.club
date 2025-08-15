@@ -7,6 +7,23 @@ compile_sass = true
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = true
 
+# TODO: develop site taxonomy for commentary and meeting minutes
+# [[taxonomies]]
+# name = "titles"
+# feed = false
+#
+# [[taxonomies]]
+# name = "authors"
+# feed = false
+#
+# [[taxonomies]]
+# name = "epochs"
+# feed = false
+#
+# [[taxonomies]]
+# name = "arcs"
+# feed = false
+
 [markdown]
 # Whether to do syntax highlighting
 # Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola

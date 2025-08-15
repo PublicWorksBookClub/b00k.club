@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {%
+      set context = "```json
+      " ~ __tera_context ~ "
+      ```"
+    %}
+    {{ context | markdown | safe }}
+    <ul>
+      {% for page in term.pages %}
+        <li>
+          <a href="{{ page.path }}">{{ page.title | default(value=page.path) | safe }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

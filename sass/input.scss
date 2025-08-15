@@ -12,14 +12,13 @@
 /// **************************
 /// * BEGIN Playfair Display *
 /// **************************
-
 /* VariableFonts */
 @supports (font-variation-settings: normal) {
   @font-face {
-    font-family: "Playfair Display"; // https://fonts.google.com/specimen/Playfair+Display
+    font-family: 'Playfair Display'; // https://fonts.google.com/specimen/Playfair+Display
     font-style: normal;
     font-weight: 400 900; // Playfair Display goes from 'Regular' to 'Black', i.e. 400 - 900
-    src: url("/font/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf") format("ttf");
+    src: url('/font/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf') format('ttf');
     font-display: swap;
   }
 }
@@ -27,15 +26,14 @@
 /* Static Fonts */
 @supports not (font-variation-settings: normal) {
   @font-face {
-    font-family: "Playfair Display";
+    font-family: 'Playfair Display';
     font-style: normal;
     font-weight: 600;
-    src: url("/font/Playfair_Display/static/PlayfairDisplay-SemiBold.ttf") format("ttf");
+    src: url('/font/Playfair_Display/static/PlayfairDisplay-SemiBold.ttf') format('ttf');
     font-display: swap;
-    font-named-instance: "SemiBold";
+    font-named-instance: 'SemiBold';
   }
 }
-
 /// **************************
 /// ** END Playfair Display **
 /// **************************
@@ -43,13 +41,12 @@
 /// **************************
 /// **** BEGIN Fira Sans *****
 /// **************************
-
 @supports (font-variation-settings: normal) {
   @font-face {
     font-family: 'Fira Sans'; // https://github.com/hellogreg/firava (variable version of Fira Sans)
     font-style: normal;
     font-weight: 100 900; // Fira Sans goes from 'Thin' to 'Black', i.e. 100 - 900
-    src: url("/font/Firava/Firava.woff2") format("woff2-variations");
+    src: url('/font/Firava/Firava.woff2') format('woff2-variations');
     font-display: swap;
   }
 }
@@ -199,7 +196,6 @@
     font-display: swap;
   }
 }
-
 /// **************************
 /// ***** END Fira Sans ******
 /// **************************
@@ -207,7 +203,6 @@
 /// **************************
 /// ** BEGIN Arca Majora 3 ***
 /// **************************
-
 @font-face {
   font-family: 'Arca Majora';
   src: url('/font/ArcaMajora3/ArcaMajora3-Bold.woff2') format('woff2');
@@ -223,16 +218,34 @@
   font-style: normal;
   font-display: swap;
 }
+/// **************************
+/// *** END Arca Majora 3 ****
+/// **************************
 
 /// **************************
-/// ** BEGIN Arca Majora 3 ***
+/// ***** BEGIN Homepage *****
 /// **************************
+// Indicate there are more columns that require horizontal scrolling to be viewed
+#timeline-of-readings {
+  position: relative;
+
+  &::after {
+    content: '(scroll →)';
+    font-family: serif;
+    font-size: medium;
+    font-style: italic;
+    font-weight: 400;
+    position: absolute;
+    right: 0;
+    bottom: 0.25em;
+  }
+}
 
 // Styles the front page list of readings (note the ID + sibling selector)
 #timeline-of-readings + table {
   display: block;
   width: max-content;
-  max-width: 100% ;
+  max-width: 100%;
   overflow-x: auto;
   white-space: nowrap;
   border-collapse: collapse;
@@ -258,7 +271,7 @@
       font-family: serif;
       font-size: medium;
       white-space: wrap;
-      color:indianred;
+      color: indianred;
     }
 
     // asterisk used to indicate work was read in selection
@@ -296,3 +309,34 @@
     color: rebeccapurple;
   }
 }
+/// **************************
+/// ****** END Homepage ******
+/// **************************
+
+/// **************************
+/// **** Begin Resources *****
+/// **************************
+#resources-toc {
+  text-align: center;
+  // border-color: black;
+  // border-width: 1px;
+}
+
+#resources-toc + ul {
+  text-align: center;
+  list-style-type: none;
+  list-style-position: inside;
+  margin: 0px;
+  padding: 0px;
+  // border-color: black;
+  // border-width: 1px;
+}
+
+#resources-toc + ul + hr {
+  border-width: 0.1em;
+  border-color: black;
+  border-style: dashed;
+}
+/// **************************
+/// ***** End Resources ******
+/// **************************

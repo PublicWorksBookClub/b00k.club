@@ -5,7 +5,7 @@ draft = true
 
 This page is a part of the [public sector](/#public-sectors) series, offered by the [Public Works](/) book club.
 It is a work in progress that serves to organize information, across different textual works, about the early part of [classical antiquity](https://en.wikipedia.org/wiki/Classical_antiquity).
-The time periods covered by this page begins with the resurgence of Greek writing and the first [Olympic Games](https://en.wikipedia.org/wiki/Ancient_Olympic_Games) (Ὀλυμπιακοὶ ἀγῶνες) in __776 BCE__, around the time of [Homer](https://en.wikipedia.org/wiki/Homer) (Ὅμηρος), and ends with the death of [King Philip II of Macedon](https://en.wikipedia.org/wiki/Philip_II_of_Macedon) (Φίλιππος), in __336 BCE__ , around the time of [Aristotle](https://en.wikipedia.org/wiki/Aristotle) (Ἀριστοτέλης).
+The time periods covered by this page begins with the resurgence of Greek writing and the first [Olympic Games](https://en.wikipedia.org/wiki/Ancient_Olympic_Games) (Ὀλυμπιακοὶ ἀγῶνες) in **776 BCE**, around the time of [Homer](https://en.wikipedia.org/wiki/Homer) (Ὅμηρος), and ends with the death of [King Philip II of Macedon](https://en.wikipedia.org/wiki/Philip_II_of_Macedon) (Φίλιππος), in **336 BCE** , around the time of [Aristotle](https://en.wikipedia.org/wiki/Aristotle) (Ἀριστοτέλης).
 
 {{fig(img='![The ages of Classical Antiquity, and what is covered on this page.](/illo/classical-antiquity-diagram_attic.webp "The ages of Classical Antiquity, and what is covered on this page.")')}}
 
@@ -14,6 +14,7 @@ This corresponds roughly to the [Archaic](https://en.wikipedia.org/wiki/Archaic_
 <h2>Table of Contents</h2>
 
 <!-- TOC -->
+
 - [Historical Context](#historical-context)
   - [Neolithic Greece and Earlier](#neolithic-greece-and-earlier)
   - [Bronze Age (c. 3200 – c. 1200 BCE)](#bronze-age-c-3200-c-1200-bce)
@@ -21,12 +22,11 @@ This corresponds roughly to the [Archaic](https://en.wikipedia.org/wiki/Archaic_
 - [Texts](#texts)
 <!-- /TOC -->
 
-
 ## Historical Context
 
 ### Neolithic Greece and Earlier
 
-Humans have been in Greece for over 200,000 years, where the earliest *Homo sapiens* remains outside of Africa have been discovered. The earliest evidence of the domestication of cats was [discovered in Cyprus](https://en.wikipedia.org/wiki/Domestication_of_the_cat#Archaeological_evidence) around 9500 BCE. It is upon the emergence of farming around **7000 BCE** that we mark the beginning of [Neolithic Greece](https://en.wikipedia.org/wiki/Neolithic_Greece) __(c. 7000 – c. 3200 BCE)__. This is the earliest evidence of farming in Europe, most likely due to Greece's close proximity to Asia.
+Humans have been in Greece for over 200,000 years, where the earliest _Homo sapiens_ remains outside of Africa have been discovered. The earliest evidence of the domestication of cats was [discovered in Cyprus](https://en.wikipedia.org/wiki/Domestication_of_the_cat#Archaeological_evidence) around 9500 BCE. It is upon the emergence of farming around **7000 BCE** that we mark the beginning of [Neolithic Greece](https://en.wikipedia.org/wiki/Neolithic_Greece) **(c. 7000 – c. 3200 BCE)**. This is the earliest evidence of farming in Europe, most likely due to Greece's close proximity to Asia.
 
 ### Bronze Age (c. 3200 – c. 1200 BCE)
 
@@ -38,7 +38,7 @@ The [Bronze Age](https://en.wikipedia.org/wiki/Bronze_Age) in Greece begins with
   fig(img=`![Queen's Megaron, Knossos Palace](/img/knossos-queens-megaron.webp "Queen's Megaron, Knossos Palace")`, cite='<a href="https://commons.wikimedia.org/wiki/File:%CE%9C%CE%AD%CE%B3%CE%B1%CF%81%CE%BF_%CE%92%CE%B1%CF%83%CE%AF%CE%BB%CE%B9%CF%83%CF%83%CE%B1%CF%82_0600.jpg">C messier</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, via Wikimedia Commons')
 }}
 
-It was this volcanic eruption that buried the nearby Minoan settlement of [Akrotiri](https://en.wikipedia.org/wiki/Akrotiri_(prehistoric_city)), leaving the ruins remarkably well-preserved, similar to the famous [Pompeii](https://en.wikipedia.org/wiki/Pompeii) well over a thousand years after it.
+It was this volcanic eruption that buried the nearby Minoan settlement of [Akrotiri](<https://en.wikipedia.org/wiki/Akrotiri_(prehistoric_city)>), leaving the ruins remarkably well-preserved, similar to the famous [Pompeii](https://en.wikipedia.org/wiki/Pompeii) well over a thousand years after it.
 
 {{
   fig(img='![The Santorini (Thera) Caldera](/img/santorini-caldera.jpg "The Santorini (Thera) Caldera")', cite='<a href="https://commons.wikimedia.org/wiki/File:The_Santorini_Caldera.jpg">Steve Jurvetson from Menlo Park, USA</a>, <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>, via Wikimedia Commons')
@@ -55,7 +55,7 @@ Another important civilization belonged to the [Mycenaeans](https://en.wikipedia
 
 #### Trojan War (c. 1200 BCE)
 
-The [Trojan War](https://en.wikipedia.org/wiki/Trojan_War) is the subject of the Homeric epic poem [The Iliad](https://en.wikipedia.org/wiki/Iliad) (Ἰλιάς), telling the story of a protracted Greek siege of the city of [Troy](https://en.wikipedia.org/wiki/Troy) (Ίλιον), after [Paris](https://en.wikipedia.org/wiki/Paris_(mythology)) (Πάρις) of Troy took [Helen](https://en.wikipedia.org/wiki/Helen_of_Troy) (Ἑλένη), the wife of [King Menelaus](https://en.wikipedia.org/wiki/Menelaus) (Μενέλαος) of Sparta away. The city of Troy eventually falls, due to the cunning [Odyssey's](https://en.wikipedia.org/wiki/Odysseus) (Ὀδυσσεύς) Trojan Horse. The exact date of the Trojan war is unknown, but the best sources of antiquity believed it be c. 1184 BCE, which was determined by [Eratosthenes](https://en.wikipedia.org/wiki/Eratosthenes) (Ἐρατοσθένης). To the ancient Greeks, the war existed somewhere between being the last event of the mythical age and the first event of the historical age.
+The [Trojan War](https://en.wikipedia.org/wiki/Trojan_War) is the subject of the Homeric epic poem [The Iliad](https://en.wikipedia.org/wiki/Iliad) (Ἰλιάς), telling the story of a protracted Greek siege of the city of [Troy](https://en.wikipedia.org/wiki/Troy) (Ίλιον), after [Paris](<https://en.wikipedia.org/wiki/Paris_(mythology)>) (Πάρις) of Troy took [Helen](https://en.wikipedia.org/wiki/Helen_of_Troy) (Ἑλένη), the wife of [King Menelaus](https://en.wikipedia.org/wiki/Menelaus) (Μενέλαος) of Sparta away. The city of Troy eventually falls, due to the cunning [Odyssey's](https://en.wikipedia.org/wiki/Odysseus) (Ὀδυσσεύς) Trojan Horse. The exact date of the Trojan war is unknown, but the best sources of antiquity believed it be c. 1184 BCE, which was determined by [Eratosthenes](https://en.wikipedia.org/wiki/Eratosthenes) (Ἐρατοσθένης). To the ancient Greeks, the war existed somewhere between being the last event of the mythical age and the first event of the historical age.
 
 {{
   fig(img='![Painting of the fire of Troy](/img/Keuninck_(Coninck)_Kerstiaen_de_-_Fire_of_Troy@0.5x.webp "_Fire of Troy_ by Kerstiaen de Keuninck, second half of 16th century")',
@@ -107,7 +107,6 @@ One important consequence of this time period was the dismantling of the [palace
   fig(img=`![Map depicting the two sides of the Peloponnesian War](/img/peloponnesian-war-map-1899.webp 'The *Delian League* (Athens) and the *Peloponnesian League* (Sparta)')`, cite='<a href="https://commons.wikimedia.org/wiki/File:History_of_Greece_for_High_Schools_and_Academies_(1899)_(14763526485).jpg">Botsford, George Willis, 1862-1917</a>, No restrictions, via Wikimedia Commons')
 }} -->
 
-
 ## Texts
 
-* _The History of the Peloponnesian War_ by [Thucydides](https://en.wikipedia.org/wiki/Thucydides) (Θουκυδίδης) - 🔗 ([PG](https://www.gutenberg.org/ebooks/7142), [Hackett](https://hackettpublishing.com/the-peloponnesian-war))
+- _The History of the Peloponnesian War_ by [Thucydides](https://en.wikipedia.org/wiki/Thucydides) (Θουκυδίδης) - 🔗 ([PG](https://www.gutenberg.org/ebooks/7142), [Hackett](https://hackettpublishing.com/the-peloponnesian-war))

@@ -2,6 +2,31 @@
 
 ## NEXT
 
+- site taxonomy
+
+## 1.3.2 (2025-08-15)
+
+- Make landing header bigger and show site text (but only on devices larger than mobile)
+- Add formatter
+- Add recent works read by the club, and update Characters to selections
+- Update arc names (anabasis 3 -> nostoi 1, and anabasis 4 -> anabasis 3)
+- Change page template to create a title link to the present page
+- Minor changes to CSS organization
+- Add a "scroll ->" hint on the home page
+- Add more resources: podcasts (ancient greece declassified, the hellenistic age), a stock footage category (with FedFlix), simple description of what the page is for, and a table of contents with emoji for each item
+- Update serve npm script to not give 0.0.0.0 address because it was breaking document fragment links
+
+## 1.3.1 (2025-07-24)
+
+- Add works read since Homer
+- Refactor list of works to a table
+- Add 'Year' and 'Arc' columns to table (tracking club history)
+- Add a notes column and style table
+- Add asterisk to indicate works that were read in selection
+- Add UPenn online books page to resources
+- Update font styling for columns
+- Force centering for order column
+
 ## 1.2.3 (2025-01-03)
 
 - Update public domain year
@@ -10,7 +35,7 @@
 
 - Remove remaining reference to old URL
 - Add ClassicistORG YouTube channel, for excellent videos and playlists on Classical Architecture
-- Update readings with Plato's *Republic*, Euripedes' *Herakles*, and Homer's *Odyssey*
+- Update readings with Plato's _Republic_, Euripedes' _Herakles_, and Homer's _Odyssey_
 
 ## 1.2.1 (2024-01-31)
 
@@ -94,16 +119,16 @@
 
 ## 1.0.2 (2023-05-16)
 
-- add *Zhuangzi* [COMPLETED READING]
+- add _Zhuangzi_ [COMPLETED READING]
 - fix typos in headers file
 
 ## 1.0.1 (2023-05-09)
 
-- add *federalist papers* [COMPLETED READING]
+- add _federalist papers_ [COMPLETED READING]
 - add more context to README
 
 ## 1.0.0 (2023-04-03)
 
 - prototype basic look and feel of site
-- add prior works read (i.e. *Meditations*, *The Tempest*, *Antigone*, *The Book of the Thousand Nights and a Night*) [COMPLETED READING]
+- add prior works read (i.e. _Meditations_, _The Tempest_, _Antigone_, _The Book of the Thousand Nights and a Night_) [COMPLETED READING]
 - establish Content Security Policy headers
