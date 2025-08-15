@@ -2,6 +2,31 @@
 
 ## NEXT
 
+- site taxonomy
+
+## 1.3.2 (2025-08-15)
+
+- Make landing header bigger and show site text (but only on devices larger than mobile)
+- Add formatter
+- Add recent works read by the club, and update Characters to selections
+- Update arc names (anabasis 3 -> nostoi 1, and anabasis 4 -> anabasis 3)
+- Change page template to create a title link to the present page
+- Minor changes to CSS organization
+- Add a "scroll ->" hint on the home page
+- Add more resources: podcasts (ancient greece declassified, the hellenistic age), a stock footage category (with FedFlix), simple description of what the page is for, and a table of contents with emoji for each item
+- Update serve npm script to not give 0.0.0.0 address because it was breaking document fragment links
+
+## 1.3.1 (2025-07-24)
+
+- Add works read since Homer
+- Refactor list of works to a table
+- Add 'Year' and 'Arc' columns to table (tracking club history)
+- Add a notes column and style table
+- Add asterisk to indicate works that were read in selection
+- Add UPenn online books page to resources
+- Update font styling for columns
+- Force centering for order column
+
 ## 1.2.3 (2025-01-03)
 
 - Update public domain year
