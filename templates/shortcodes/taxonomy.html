@@ -1,0 +1,5 @@
+<ul>
+  {% for taxonomy in config.taxonomies  %}
+    <li><a href="/{{ taxonomy.slug }}">{{ taxonomy.name }}</a></li>
+  {% endfor %}
+</ul>

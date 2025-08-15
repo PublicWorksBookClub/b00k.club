@@ -25,7 +25,7 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#FBBD5E" />
     Note: I don't really like safari pinned tab style #}
     <meta name="msapplication-TileColor" content="#2d89ef" />
-    <meta name="theme-color" content="{{ page.extra.theme_color }}" />
+    <meta name="theme-color" content="{{ page.extra.theme_color | default(value='#fff')}}" />
     {# end favicon #}
     {% block og %}
       {# Note: Maximum 35 characters #}
@@ -57,7 +57,7 @@
     {% endblock og %}
   </head>
 
-  <body class="{{ page.extra.bg_color }}">
+  <body class="{{ page.extra.bg_color | default(value='bg-white') }}">
     <main>
       <article
         class="prose mx-auto md:prose-lg prose-img:rounded-xl prose-img:border-2 prose-img:border-dashed prose-img:border-green-500 md:mt-16 md:prose-img:border-[5px]"

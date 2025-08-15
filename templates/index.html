@@ -60,17 +60,15 @@
   <body class="bg-yellow-400">
     <main>
       <article>
-        <header class="md:flex md:h-screen md:items-center md:justify-center md:p-12 md:align-middle">
+        <header class="md:flex md:h-screen md:items-center md:justify-center md:p-12 md:align-middle overflow-hidden">
           <img
-            width="512"
-            height="512"
-            class="mb-2 h-full w-full md:mb-8"
+            class="mb-2 h-auto max-w-full md:mb-8 max-h-full"
             src="/illo/sophocles-nested.svg"
             alt="A bust of sophpocles, repeating to infinty in different bright colors"
           />
           {# Note font-weights: https://tailwindcss.com/docs/font-weight #}
           <div id="heading" class="not-prose px-2 text-gray-900">
-            <h1 class="text-left font-playfair-display text-7xl font-semibold md:text-9xl">The Public Works Book Club</h1>
+            <h1 class="text-left font-playfair-display text-7xl font-semibold md:text-8xl xl:text-9xl">The Public Works Book Club</h1>
             {# Note for semantic html and screen-readers, use this ARIA role for
           subtitle-y stuff https://www.w3.org/TR/dpub-aria-1.0/#doc-subtitle #}
             <p role="doc-subtitle" class="my-2 text-right font-fira-sans text-lg font-extralight md:text-2xl">Since 35,000 BCE</p>
