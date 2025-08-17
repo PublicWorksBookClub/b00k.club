@@ -1,0 +1,342 @@
+/* Note: the following css is input into tailwindcss and will end up in style.css when the site is built */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Note: discussion on supporting variable and static font-weights in tailwind https://github.com/tailwindlabs/tailwindcss/discussions/3225
+  Note: `font-named-instance` is kind of new but it's real https://www.w3.org/TR/css-fonts-4/#font-named-instance
+*/
+
+/* /// **************************
+/// * BEGIN Playfair Display *
+/// ************************** */
+/* VariableFonts */
+@supports (font-variation-settings: normal) {
+  @font-face {
+    font-family: 'Playfair Display'; /* https://fonts.google.com/specimen/Playfair+Display */
+    font-style: normal;
+    font-weight: 400 900; /* Playfair Display goes from 'Regular' to 'Black', i.e. 400 - 900 */
+    src: url('/font/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf') format('ttf');
+    font-display: swap;
+  }
+}
+
+/* Static Fonts */
+@supports not (font-variation-settings: normal) {
+  @font-face {
+    font-family: 'Playfair Display';
+    font-style: normal;
+    font-weight: 600;
+    src: url('/font/Playfair_Display/static/PlayfairDisplay-SemiBold.ttf') format('ttf');
+    font-display: swap;
+    font-named-instance: 'SemiBold';
+  }
+}
+/* /// **************************
+/// ** END Playfair Display **
+/// **************************
+
+/// **************************
+/// **** BEGIN Fira Sans *****
+/// ************************** */
+@supports (font-variation-settings: normal) {
+  @font-face {
+    font-family: 'Fira Sans'; /* https://github.com/hellogreg/firava (variable version of Fira Sans) */
+    font-style: normal;
+    font-weight: 100 900; /* Fira Sans goes from 'Thin' to 'Black', i.e. 100 - 900 */
+    src: url('/font/Firava/Firava.woff2') format('woff2-variations');
+    font-display: swap;
+  }
+}
+
+@supports not (font-variation-settings: normal) {
+  @font-face {
+    font-family: 'Fira Sans'; /* https://fonts.google.com/specimen/Fira+Sans */
+    src: url('/font/Fira_Sans/FiraSans-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-Bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-BoldItalic.woff2') format('woff2');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-ExtraBold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-ExtraBoldItalic.woff2') format('woff2');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-BlackItalic.woff2') format('woff2');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-ExtraLight.woff2') format('woff2');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-Italic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-ExtraLightItalic.woff2') format('woff2');
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-LightItalic.woff2') format('woff2');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-MediumItalic.woff2') format('woff2');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-Thin.woff2') format('woff2');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-SemiBoldItalic.woff2') format('woff2');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Fira Sans';
+    src: url('/font/Fira_Sans/FiraSans-ThinItalic.woff2') format('woff2');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+  }
+}
+/* /// **************************
+/// ***** END Fira Sans ******
+/// ************************** */
+
+/* /// **************************
+/// ** BEGIN Arca Majora 3 ***
+/// ************************** */
+@font-face {
+  font-family: 'Arca Majora';
+  src: url('/font/ArcaMajora3/ArcaMajora3-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Arca Majora';
+  src: url('/font/ArcaMajora3/ArcaMajora3-Heavy.woff2') format('woff2');
+  font-weight: black;
+  font-style: normal;
+  font-display: swap;
+}
+/* /// **************************
+/// *** END Arca Majora 3 ****
+/// ************************** */
+
+/* /// **************************
+/// ***** BEGIN Homepage *****
+/// ************************** */
+/* // Indicate there are more columns that require horizontal scrolling to be viewed */
+#timeline-of-readings {
+  position: relative;
+
+  &::after {
+    content: '(scroll →)';
+    font-family: serif;
+    font-size: medium;
+    font-style: italic;
+    font-weight: 400;
+    position: absolute;
+    right: 0;
+    bottom: 0.25em;
+  }
+}
+
+/* // Styles the front page list of readings (note the ID + sibling selector) */
+#timeline-of-readings + table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-collapse: collapse;
+
+  border-color: navy;
+
+  th {
+    font-size: large;
+  }
+
+  /* // Order column */
+  td:nth-child(1) {
+    color: hotpink;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  /* // Title column */
+  td:nth-child(2) {
+    min-width: 14em;
+    /* // allow wrapping */
+    a {
+      font-family: serif;
+      font-size: medium;
+      white-space: wrap;
+      color: indianred;
+    }
+
+    /* // asterisk used to indicate work was read in selection */
+    sup {
+      top: -0.2em;
+      left: 0.2em;
+      color: crimson;
+    }
+  }
+  /* // Author column */
+  td:nth-child(3) a {
+    color: darkcyan;
+  }
+
+  /* // Period column */
+  td:nth-child(4) {
+    font-style: italic;
+    white-space: wrap;
+    min-width: 7em;
+  }
+
+  /* // Year column */
+  td:nth-child(5) {
+    color: grey;
+  }
+
+  /* // Arc column */
+  td:nth-child(6) {
+    font-style: italic;
+    font-family: monospace;
+  }
+
+  /* // Note column */
+  td:nth-child(7) a {
+    color: rebeccapurple;
+  }
+}
+/* /// **************************
+/// ****** END Homepage ******
+/// ************************** */
+
+/* /// **************************
+/// **** Begin Resources *****
+/// ************************** */
+#resources-toc {
+  text-align: center;
+  /* // border-color: black;
+  // border-width: 1px; */
+}
+
+#resources-toc + ul {
+  text-align: center;
+  list-style-type: none;
+  list-style-position: inside;
+  margin: 0px;
+  padding: 0px;
+  /* // border-color: black;
+  // border-width: 1px; */
+}
+
+#resources-toc + ul + hr {
+  border-width: 0.1em;
+  border-color: black;
+  border-style: dashed;
+}
+/* /// **************************
+/// ***** End Resources ******
+/// ************************** */
