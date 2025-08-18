@@ -4,6 +4,10 @@
 
 - site taxonomy
 
+## 1.4.0 (2025-08-18)
+
+- Upgrade the site to tailwind v4
+
 ## 1.3.2 (2025-08-15)
 
 - Make landing header bigger and show site text (but only on devices larger than mobile)
