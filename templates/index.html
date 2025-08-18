@@ -57,7 +57,7 @@
     {% endblock og %}
   </head>
 
-  <body class="bg-yellow-400">
+  <body class="bg-pwbc-yellow">
     <main>
       <article>
         <header class="overflow-hidden md:flex md:h-screen md:items-center md:justify-center md:p-12 md:align-middle">
@@ -67,14 +67,14 @@
             alt="A bust of sophpocles, repeating to infinty in different bright colors"
           />
           {# Note font-weights: https://tailwindcss.com/docs/font-weight #}
-          <div id="heading" class="not-prose px-2 text-gray-900">
-            <h1 class="text-left font-playfair-display text-7xl font-semibold md:text-8xl xl:text-9xl">The Public Works Book Club</h1>
+          <div id="heading" class="px-2 text-gray-900">
+            <h1 class="font-playfair-display text-left text-7xl font-semibold md:text-8xl xl:text-9xl">The Public Works Book Club</h1>
             {# Note for semantic html and screen-readers, use this ARIA role for
           subtitle-y stuff https://www.w3.org/TR/dpub-aria-1.0/#doc-subtitle #}
-            <p role="doc-subtitle" class="my-2 text-right font-fira-sans text-lg font-extralight md:text-2xl">Since 35,000 BCE</p>
+            <p role="doc-subtitle" class="font-fira-sans my-2 text-right text-lg font-extralight md:text-2xl">Since 35,000 BCE</p>
           </div>
         </header>
-        <div id="content" class="prose prose-blue prose-landing mx-auto mb-16 px-2 font-fira-sans font-normal md:prose-lg">
+        <div id="content" class="prose prose-blue prose-landing font-fira-sans md:prose-lg mx-auto mb-16 px-2 font-normal">
           {{ section.content | safe }}
         </div>
       </article>
