@@ -4,6 +4,10 @@
 
 - site taxonomy
 
+## 1.4.1 (2025-08-19)
+
+- Add Demosthene's _First Philippic_ and Plato's _Apology_
+
 ## 1.4.0 (2025-08-18)
 
 - Upgrade the site to tailwind v4
