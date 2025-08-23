@@ -6,7 +6,8 @@
 
 ## 1.4.1 (2025-08-19)
 
-- Add Demosthene's _First Philippic_ and Plato's _Apology_
+- Add link to library of esoterica in the Netherlands
+- Add Demosthenes' _First Philippic_ and Plato's _Apology_
 
 ## 1.4.0 (2025-08-18)
 

@@ -13,7 +13,7 @@ Below is a collection of resources in the public domain that are updated on a re
 
 - 📇 [Reference Material](#reference-material)
 - 📚 [Reading Material](#reading-material)
-- 🏛️ [Digital Museum Galleries](#digital-museum-galleries)
+- 🏛️ [Digital Museum Galleries and Libraries](#digital-museum-galleries-and-libraries)
 - 🖼️ [Public Domain Artwork](#public-domain-artwork-a-z)
 - 🎞️ [Video and Stock Footage](#video-and-stock-footage)
 - ✈️ [Virtual Tours](#virtual-tours)
@@ -42,11 +42,12 @@ Below is a collection of resources in the public domain that are updated on a re
 - [Google Books](https://books.google.com/)
 - [Biodiversity Heritage Library](https://www.biodiversitylibrary.org)
 
-## Digital Museum Galleries:
+## Digital Museum Galleries and Libraries:
 
 - [Penn Museum](https://www.penn.museum/tour/tour.php?id=2) (UPenn)
 - [Ashmolean Museum](https://www.ashmolean.org/ground-floor) (Oxford)
 - [The British Museum](https://www.britishmuseum.org/collection/galleries)
+- [The Bibliotheca Philosophica Hermetica](https://embassyofthefreemind.com/en/library)
 
 ## Public Domain Artwork [A/Z]:
 
