@@ -16,6 +16,17 @@ periods = ["4th c. BCE", "Late Classical Athens", "Classical Greece"]
 arcs = ["Anabasis 3"]
 +++
 
+{% further_reading(unordered=true) %}
+
+| Citation Key         | [Locator]     | [Remark]                             |
+| -------------------- | ------------- | ------------------------------------ |
+| Aeschylus879         | pp 29         | for score, and seven years years ago |
+| Aristophanes881      | Scene 1 act 4 | enter the guy.                       |
+| RichmondLattimore883 |               |                                      |
+| Plato1997            |               | All you really ever need to read     |
+
+{% end %}
+
 ## Links
 
 - [Wikipedia](https://en.wikipedia.org/wiki/On_the_Crown)

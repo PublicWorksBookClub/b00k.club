@@ -1,0 +1,10 @@
+{% macro note(references, citation_key, locator, remark) %}
+  {% set bibs = references.bibliographies | group_by(attribute="citation_key") %}
+  {% set reference = bibs[citation_key] | first %}
+  {% set first_author = reference.tags.author | split(pat=" and ") | first | trim %}
+  {% set title = reference.tags.title %}
+  <span class='author font-serif after:content-[","]'>{{ first_author }}</span>
+  <span class="title font-sans font-light"><em>"{{ title }}"</em></span>
+  {% if locator %}<span class="locator font-medium">({{ locator }})</span>{% endif %}
+  {% if remark %}<span class="remark font-fira-sans font-extralight">— {{ remark }}</span>{% endif %}
+{% endmacro note %}
