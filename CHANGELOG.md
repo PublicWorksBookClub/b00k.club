@@ -4,6 +4,10 @@
 
 - site taxonomy
 
+## 1.4.2 (2025-09-15)
+
+- Add Demosthenes' _On the Crown_ and Plato's _Crito_
+
 ## 1.4.1 (2025-08-19)
 
 - Add link to library of esoterica in the Netherlands
