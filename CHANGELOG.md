@@ -2,6 +2,7 @@
 
 ## NEXT
 
+- PWBC bibliography
 - site taxonomy
 
 ## 1.4.1 (2025-08-19)

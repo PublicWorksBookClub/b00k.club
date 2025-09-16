@@ -1,6 +1,6 @@
 {% import "macro/cite.html" as cite %}
 
-{% set references = load_data(path="references.bib", format="bibtex") %}
+{% set references = load_data(path="pwbc.bib", format="bibtex") %}
 
 {% set body_md = body | markdown %}
 {% set tbl_body = body_md | regex_replace(pattern="(?ms)^.*<tbody>(.*)</tbody>.*$", rep="$1") %}

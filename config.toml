@@ -25,13 +25,15 @@ feed = false
 name = "authors"
 feed = false
 
-# e.g. play, dialogue, novel, epic poem, speech, tetraology, letter, etc...
+# The way the work is packaged (outside the content)
+# e.g. play, dialogue, novel, epic poem, lyric poem, speech/oration, tetraology, letter/epistle, treatise, essay, fable, myth, history, commentary, manual, treatise, biography, tragedy (in terms of structure), comedy (in terms of structure), apologia, etc...
 # (Note: lowercase)
 [[taxonomies]]
 name = "forms"
 feed = false
 
-# e.g. tragedy, myth, comedy, satire, sci-fi, folk tale, potrait, etc...
+# The mode of the work's content and its literary aim
+# e.g. tragedy, myth, comedy, satire, sci-fi, folk tale, potrait, didactic, parable, allegory, romance, etc...
 # (Note: lowercase)
 [[taxonomies]]
 name = "genres"

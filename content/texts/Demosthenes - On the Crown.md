@@ -18,12 +18,10 @@ arcs = ["Anabasis 3"]
 
 {% further_reading(unordered=true) %}
 
-| Citation Key         | [Locator]     | [Remark]                             |
-| -------------------- | ------------- | ------------------------------------ |
-| Aeschylus879         | pp 29         | for score, and seven years years ago |
-| Aristophanes881      | Scene 1 act 4 | enter the guy.                       |
-| RichmondLattimore883 |               |                                      |
-| Plato1997            |               | All you really ever need to read     |
+| Citation Key                          | [Locator] | [Remark]                                |
+| ------------------------------------- | --------- | ----------------------------------------|
+| plato_apology                         | pp 29     | for score, and seven years years ago    |
+| platoCrito1999                        |  53       | Crito resembles a temptation narrative  |
 
 {% end %}
 
