@@ -19,10 +19,12 @@ arcs = ["Anabasis 3"]
 
 [extra]
 abstract = """
-Demosthenes tries to rally the troops to face Philipp.
+On the Crown is a famous speech delivered by the Athenian orator Demosthenes in 330 BCE, defending his political career and the legacy of his ally, Ctesiphon, against charges brought by his rival Aeschines. In the oration, Demosthenes praises the virtues of civic duty, the defense of Athens, and the responsibilities of leadership, while attacking corruption and complacency among public officials. The speech is a masterpiece of classical rhetoric and political argumentation, exemplifying the art of persuasion in the context of Athens’ democratic institutions.
 """
 same_as = ["https://en.wikipedia.org/wiki/On_the_Crown", "https://www.wikidata.org/wiki/Q969706"]
 +++
+
+{{ abstract() }}
 
 {% further_reading(unordered=true) %}
 

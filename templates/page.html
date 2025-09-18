@@ -1,5 +1,9 @@
 {% extends "root.html" %}
 {% block body %}
+  {% block header %}
+
+  {% endblock header %}
+
   {% block main %}
     <main>
       {% set additional_prose_styles = page.extra.extra_prose | default(value="") %}
