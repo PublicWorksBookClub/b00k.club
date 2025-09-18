@@ -1,10 +1,22 @@
 +++
-template = "minutes.html"
-insert_anchor_links = "left"
+title = "Meeting Minutes"
+template = "page.html"
 draft = true
+
+[extra]
+bg_color = "bg-emerald-200"
+extra_prose = """
+prose-h2:text-right
+prose-h2:prose-a:text-gray-900
+prose-h2:prose-a:no-underline
+prose-h2:prose-a:hover:before:content-['#']
+prose-h3:font-playfair-display
+prose-h3:prose-a:text-gray-800
+prose-hr:border-black
+"""
 +++
 
-## 15 May, 2023
+## [15 May, 2023](#15-May-2023)
 
 ### [_Zhuangzi_](<https://en.wikipedia.org/wiki/Zhuangzi_(book)>)
 
@@ -18,7 +30,7 @@ draft = true
 
 ---
 
-## 16 April, 2023
+## [16 April, 2023](16-April-2023)
 
 ### [_The Federalist Papers_](https://en.wikipedia.org/wiki/The_Federalist_Papers)
 
@@ -29,7 +41,7 @@ draft = true
 
 ---
 
-## 02 April, 2023
+## [02 April, 2023](02-April-2023)
 
 ### [_The Book of the Thousand Nights and a Night_](https://en.wikipedia.org/wiki/The_Book_of_the_Thousand_Nights_and_a_Night) [(cont.)](#26-march-2023)
 
@@ -41,7 +53,7 @@ This is Meeting #2 for Arabian Nights. See: [Meeting #1](#26-march-2023) for pri
 
 ---
 
-## 26 March, 2023
+## [26 March, 2023](26-March-2023)
 
 ### [_The Book of the Thousand Nights and a Night_](https://en.wikipedia.org/wiki/The_Book_of_the_Thousand_Nights_and_a_Night)
 
@@ -55,7 +67,7 @@ This meeting #1 for Arabian nights. See [Meeting #2](#02-april-2023) for later m
 
 ---
 
-## 25 February, 2023
+## [25 February, 2023](25-February-2023)
 
 ### [_Antigone_](<https://en.wikipedia.org/wiki/Antigone_(Sophocles_play)>)
 
@@ -66,7 +78,7 @@ This meeting #1 for Arabian nights. See [Meeting #2](#02-april-2023) for later m
 
 ---
 
-## 23 July, 2022
+## [23 July, 2022](23-July-2022)
 
 ### [_The Tempest_](https://en.wikipedia.org/wiki/The_Tempest)
 
@@ -77,7 +89,7 @@ This meeting #1 for Arabian nights. See [Meeting #2](#02-april-2023) for later m
 
 ---
 
-## 03 May, 2022
+## [03 May, 2022](03-May-2022)
 
 ### [_Meditations_](https://en.wikipedia.org/wiki/Meditations)
 

@@ -2,10 +2,12 @@
 {% block body %}
   {% block main %}
     <main>
+      {% set additional_prose_styles = page.extra.extra_prose | default(value="") %}
+      {% set main_article_styles = "prose prose-ul:marker:text-black prose-blue md:prose-lg prose-img:rounded-xl prose-img:border-2 prose-img:border-dashed prose-img:border-green-500 md:prose-img:border-[5px] mx-auto md:mt-16" ~ " " ~ additional_prose_styles %}
+      {% block main_article_styles_override %}
+      {% endblock %}
       {% block article %}
-        <article
-          class="prose prose-ul:marker:text-black prose-blue md:prose-lg prose-img:rounded-xl prose-img:border-2 prose-img:border-dashed prose-img:border-green-500 md:prose-img:border-[5px] mx-auto md:mt-16"
-        >
+        <article class="{{ main_article_styles }}">
           {% block article_heading %}
             <div id="heading" class="not-prose px-2 text-gray-900">
               {% block article_heading_h1 %}
