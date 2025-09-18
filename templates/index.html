@@ -1,86 +1,27 @@
-{# Note: this is the first page of the website #}
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% block title %}
-      <title>Public Works Book Club: since 35,000 BCE</title>
-    {% endblock title %}
-    {% block meta_description %}
-      {# Note: Maximum of 155
-    characters #}
-      <meta name="description" content="The website for the Public Works book club, where we only read works in the public domain." />
-    {% endblock meta_description %}
-
-    <link rel="stylesheet" href="/style.css" />
-
-    {# begin favicon - Note: https://realfavicongenerator.net #}
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-    {#
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#FBBD5E" />
-    Note: I don't really like safari pinned tab style #}
-    <meta name="msapplication-TileColor" content="#2d89ef" />
-    <meta name="theme-color" content="#facc15" />
-    {# end favicon #}
-    {% block og %}
-      {# Note: Maximum 35 characters #}
-      <meta property="og:title" content="{% block og_title %}The Public Works Book Club{% endblock og_title %}" />
-
-      {# Note: List of the global types available: http://ogp.me/#types #}
-      <meta property="og:type" content="{% block og_type %}website{% endblock og_type %}" />
-
-      {# Note: defaults to en_US. Alternate can be specified like, '
-    <meta property="og:locale:alternate" content="es_ES" />
-    ' #}
-      <meta property="og:locale" content="{% block og_locale %}en_US{% endblock og_locale %}" />
-      <meta
-        property="og:url"
-        content="{% block og_url %}{{ current_url | default(value=config.base_url ~ '/404.html') }}{% endblock og_url %}"
-      />
-
-      {# Note: Maximum 65 characters #}
-      <meta
-        property="og:description"
-        content="{% block og_description %}Where we only read books before 1928{% endblock og_description %}"
-      />
-
-      {# Note: Image(JPG or PNG) with a size less than 300KB and minimum
-    dimensions of 300 x 200 #}
-      <meta property="og:image" content="/img/social-preview-banner.png" />
-      <meta property="og:image:width" content="600" />
-      <meta property="og:image:height" content="315" />
-    {% endblock og %}
-  </head>
-
-  <body class="bg-amber-300">
-    <main>
-      <article>
-        <header class="overflow-hidden md:flex md:h-screen md:items-center md:justify-center md:p-12 md:align-middle">
-          <img
-            class="mb-2 h-auto max-h-full max-w-full md:mb-8"
-            src="/illo/sophocles-nested.svg"
-            alt="A bust of sophpocles, repeating to infinty in different bright colors"
-          />
-          {# Note font-weights: https://tailwindcss.com/docs/font-weight #}
-          <div id="heading" class="px-2 text-gray-900">
-            <h1 class="font-playfair-display text-left text-7xl font-semibold md:text-8xl xl:text-9xl">The Public Works Book Club</h1>
-            {# Note for semantic html and screen-readers, use this ARIA role for
-          subtitle-y stuff https://www.w3.org/TR/dpub-aria-1.0/#doc-subtitle #}
-            <p role="doc-subtitle" class="font-fira-sans my-2 text-right text-lg font-extralight md:text-2xl">Since 35,000 BCE</p>
-          </div>
-        </header>
-        <div
-          id="content"
-          class="prose prose-ul:marker:text-black prose-blue prose-landing font-fira-sans md:prose-lg mx-auto mb-16 px-2 font-normal"
-        >
-          {{ section.content | safe }}
+{% extends "root.html" %}
+{% block body %}
+  <main>
+    <article>
+      <header class="overflow-hidden md:flex md:h-screen md:items-center md:justify-center md:p-12 md:align-middle">
+        <img
+          class="mb-2 h-auto max-h-full max-w-full md:mb-8"
+          src="/illo/sophocles-nested.svg"
+          alt="A bust of sophpocles, repeating to infinty in different bright colors"
+        />
+        {# Note font-weights: https://tailwindcss.com/docs/font-weight #}
+        <div id="heading" class="px-2 text-gray-900">
+          <h1 class="font-playfair-display text-left text-7xl font-semibold md:text-8xl xl:text-9xl">The Public Works Book Club</h1>
+          {# Note for semantic html and screen-readers, use this ARIA role for
+      subtitle-y stuff https://www.w3.org/TR/dpub-aria-1.0/#doc-subtitle #}
+          <p role="doc-subtitle" class="font-fira-sans my-2 text-right text-lg font-extralight md:text-2xl">Since 35,000 BCE</p>
         </div>
-      </article>
-    </main>
-  </body>
-</html>
+      </header>
+      <div
+        id="content"
+        class="prose prose-ul:marker:text-black prose-blue prose-landing font-fira-sans md:prose-lg mx-auto mb-16 px-2 font-normal"
+      >
+        {{ section.content | safe }}
+      </div>
+    </article>
+  </main>
+{% endblock body %}

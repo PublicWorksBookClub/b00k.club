@@ -1,5 +1,8 @@
 +++
 template = "index.html"
+
+[extra]
+bg_color = "bg-amber-300"
 +++
 
 <!-- Note no '#' level title, because that title is style independently -->
