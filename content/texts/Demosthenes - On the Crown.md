@@ -1,19 +1,27 @@
 +++
 draft = true
 title = "On the Crown"
-author = "Demosthenes"
+authors = ["Demosthenes"]
+template = "text.html"
 
 [taxonomies]
 # Textual taxonomies
-titles = ["On the Crown", "Demosthenes 18"]
+titles = ["On the Crown", "Demosthenes 18", "De Corona"]
 authors = ["Demosthenes"]
 forms = ["speech", "forensic oration"]
 genres = ["attic oration", "rhetorical oration", "political speech"]
 subjects = ["rhetoric", "civic duty", "ethics"]
 periods = ["4th c. BCE", "Late Classical Athens", "Classical Greece"]
+languages = ["grc-att"]
 
 # General taxonomies
 arcs = ["Anabasis 3"]
+
+[extra]
+abstract = """
+Demosthenes tries to rally the troops to face Philipp.
+"""
+same_as = ["https://en.wikipedia.org/wiki/On_the_Crown", "https://www.wikidata.org/wiki/Q969706"]
 +++
 
 {% further_reading(unordered=true) %}

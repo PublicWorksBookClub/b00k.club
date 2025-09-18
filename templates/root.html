@@ -1,100 +1,105 @@
 {# for the purposes of the root template, merge page and section (note 404, etc... don't apply) #}
 {% if page or section %}{% set doc = page | default(value=section) %}{% endif %}
-<!doctype html>
-<html lang="en">
-  {% block head_tag %}
-    <head>
-      {% block head %}
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        {% block title %}
-          {% block document_title %}
-            {% if doc.title %}
-              <title>PWBC: {{ doc.title }}</title>
+{% block root %}
+  <!doctype html>
+  <html lang="en">
+    {% block head_tag %}
+      <head>
+        {% block head %}
+          <meta charset="UTF-8" />
+          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          {% block title %}
+            {% block document_title %}
+              {% if doc.title %}
+                <title>PWBC: {{ doc.title }}</title>
+              {% else %}
+                <title>{{ config.title }}</title>
+              {% endif %}
+            {% endblock document_title %}
+            {% block og_title %}
+              {# <= 35 chars recommended #}
+              {% if doc.title %}
+                <meta property="og:title" content="PWBC: {{ doc.title }}" />
+              {% else %}
+                <meta property="og:title" content="{{ config.title }}" />
+              {% endif %}
+            {% endblock og_title %}
+          {% endblock title %}
+          {% block description %}
+            {# <= 155 characters recommended #}
+            {% block document_description %}
+              {% if doc.description %}
+                <meta name="description" content="{{ doc.description }}" />
+              {% else %}
+                <meta name="description" content="{{ config.description }}" />
+              {% endif %}
+            {% endblock document_description %}
+            {# <= 65 characters recommended #}
+            {% block og_description %}
+              {% if doc.description %}
+                <meta property="og:description" content="{{ doc.description }}" />
+              {% else %}
+                <meta property="og:description" content="{{ config.description }}" />
+              {% endif %}
+            {% endblock og_description %}
+          {% endblock description %}
+          {% block styles %}<link rel="stylesheet" href="/style.css" />{% endblock styles %}
+          {% block extra_styles %}
+          {% endblock extra_styles %}
+          {# Note: https://realfavicongenerator.net #}
+          {% block favicon %}
+            {% block favicon_apple %}
+              <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+            {% endblock favicon_apple %}
+            {% block favicon_32x32 %}
+              <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+            {% endblock favicon_32x32 %}
+            {% block favicon_16x16 %}
+              <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+            {% endblock favicon_16x16 %}
+          {% endblock favicon %}
+          {% block mask_icon %}
+            {# Note: I don't really like safari pinned tab style #}
+            {# <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#FBBD5E" /> #}
+          {% endblock mask_icon %}
+          {% block ms_app_tile_color %}
+            <meta name="msapplication-TileColor" content="#2d89ef" />
+          {% endblock ms_app_tile_color %}
+          {% block theme_color %}
+            <meta name="theme-color" content="{{ doc.extra.theme_color | default(value='#fff') }}" />
+          {% endblock theme_color %}
+          {% block manifest %}<link rel="manifest" href="/site.webmanifest" />{% endblock manifest %}
+          {# end favicon #}
+          {# Note: List of the global types available: http://ogp.me/#types #}
+          {% block og_type %}<meta property="og:type" content="website" />{% endblock og_type %}
+          {# Note: Alternate's like `<meta property="og:locale:alternate" content="es_ES" />` #}
+          {% block og_locale %}<meta property="og:locale" content="en_US" />{% endblock og_locale %}
+          {% block og_url %}<meta property="og:url" content="{{ current_url }}" />{% endblock og_url %}
+          {# jpg or png <= 300KB and w x h of at least 300px x 200px #}
+          {% block og_image %}
+            {% if doc.extra.og_image.src %}
+              <meta property="og:image" content="{{ doc.extra.og_image.src }}" />
+              <meta property="og:image:width" content="{{ doc.extra.og_image.w }}" />
+              <meta property="og:image:height" content="{{ doc.extra.og_image.h }}" />
             {% else %}
-              <title>{{ config.title }}</title>
+              <meta property="og:image" content="/img/social-preview-banner.png" />
+              <meta property="og:image:width" content="600" />
+              <meta property="og:image:height" content="315" />
             {% endif %}
-          {% endblock document_title %}
-          {% block og_title %}
-            {# <= 35 chars recommended #}
-            {% if doc.title %}
-              <meta property="og:title" content="PWBC: {{ doc.title }}" />
-            {% else %}
-              <meta property="og:title" content="{{ config.title }}" />
-            {% endif %}
-          {% endblock og_title %}
-        {% endblock title %}
-        {% block description %}
-          {# <= 155 characters recommended #}
-          {% block document_description %}
-            {% if doc.description %}
-              <meta name="description" content="{{ doc.description }}" />
-            {% else %}
-              <meta name="description" content="{{ config.description }}" />
-            {% endif %}
-          {% endblock document_description %}
-          {# <= 65 characters recommended #}
-          {% block og_description %}
-            {% if doc.description %}
-              <meta property="og:description" content="{{ doc.description }}" />
-            {% else %}
-              <meta property="og:description" content="{{ config.description }}" />
-            {% endif %}
-          {% endblock og_description %}
-        {% endblock description %}
-        {% block styles %}<link rel="stylesheet" href="/style.css" />{% endblock styles %}
-        {% block extra_styles %}
-        {% endblock extra_styles %}
-        {# Note: https://realfavicongenerator.net #}
-        {% block favicon %}
-          {% block favicon_apple %}
-            <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-          {% endblock favicon_apple %}
-          {% block favicon_32x32 %}
-            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-          {% endblock favicon_32x32 %}
-          {% block favicon_16x16 %}
-            <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-          {% endblock favicon_16x16 %}
-        {% endblock favicon %}
-        {% block mask_icon %}
-          {# Note: I don't really like safari pinned tab style #}
-          {# <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#FBBD5E" /> #}
-        {% endblock mask_icon %}
-        {% block ms_app_tile_color %}
-          <meta name="msapplication-TileColor" content="#2d89ef" />
-        {% endblock ms_app_tile_color %}
-        {% block theme_color %}
-          <meta name="theme-color" content="{{ doc.extra.theme_color | default(value='#fff') }}" />
-        {% endblock theme_color %}
-        {% block manifest %}<link rel="manifest" href="/site.webmanifest" />{% endblock manifest %}
-        {# end favicon #}
-        {# Note: List of the global types available: http://ogp.me/#types #}
-        {% block og_type %}<meta property="og:type" content="website" />{% endblock og_type %}
-        {# Note: Alternate's like `<meta property="og:locale:alternate" content="es_ES" />` #}
-        {% block og_locale %}<meta property="og:locale" content="en_US" />{% endblock og_locale %}
-        {% block og_url %}<meta property="og:url" content="{{ current_url }}" />{% endblock og_url %}
-        {# jpg or png <= 300KB and w x h of at least 300px x 200px #}
-        {% block og_image %}
-          {% if doc.extra.og_image.src %}
-            <meta property="og:image" content="{{ doc.extra.og_image.src }}" />
-            <meta property="og:image:width" content="{{ doc.extra.og_image.w }}" />
-            <meta property="og:image:height" content="{{ doc.extra.og_image.h }}" />
-          {% else %}
-            <meta property="og:image" content="/img/social-preview-banner.png" />
-            <meta property="og:image:width" content="600" />
-            <meta property="og:image:height" content="315" />
-          {% endif %}
-        {% endblock og_image %}
-      {% endblock head %}
-    </head>
-  {% endblock head_tag %}
-  {% block body_tag %}
-    {% set body_styles = doc.extra.bg_color | default(value='bg-white') %}
-    <body class="{{ body_styles }}">
-      {% block body %}
-      {% endblock body %}
-    </body>
-  {% endblock body_tag %}
-</html>
+          {% endblock og_image %}
+          {% block extra_head %}
+            {# Append items to head here, i.e. to extend root.html #}
+          {% endblock extra_head %}
+        {% endblock head %}
+      </head>
+    {% endblock head_tag %}
+    {% block body_tag %}
+      {% set body_styles = doc.extra.bg_color | default(value='bg-white') %}
+      <body class="{{ body_styles }}">
+        {% block body %}
+        {% endblock body %}
+      </body>
+    {% endblock body_tag %}
+  </html>
+{% endblock root %}

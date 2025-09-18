@@ -1,0 +1,75 @@
+{# prettier-ignore-start #}
+{% macro abstract_text(doc) %}
+{% set data = load_data(path="data.toml", format="toml") %}
+{
+  "@context": "https//schema.org/docs/jsonldcontext.json",
+  "@type": "CreativeWork", "@id": "{{ doc.permalink | safe }}",
+  "name": "{{ doc.title }}",
+  "alternateName": {{ doc.taxonomies.titles | slice(start=1) | json_encode }},
+  "author": [
+    {% for name in doc.taxonomies.authors %}
+      {% if not loop.first %},{% endif %}
+      {
+        "@type": "Person",
+        "name": "{{ name }}",
+        {% if data.author[name] %}
+        "same_as": {{ data.author[name].same_as | json_encode }}
+        {% endif %}
+      }
+    {% endfor %}
+  ],
+  "genre": {{ doc.taxonomies.genres | json_encode }},
+  "about": [
+    {% for subject in doc.taxonomies.subjects %}
+      {% if not loop.first %},{% endif %}
+      {
+        "@type": "Thing",
+        "name": "{{ subject }}"
+      }
+    {% endfor %}
+  ],
+  "temporalCoverage": [
+    {% for period in doc.taxonomies.periods %}
+      {% if not loop.first %},{% endif %}
+      {% set slug = period | slugify %}
+      {% if data.period[slug] %}
+      {
+        "@id": "{{ data.period[slug].wikidata }}",
+        "name": "{{ period }}"
+      }
+      {% else %}
+        "{{ period }}"
+      {% endif %}
+    {% endfor %}
+  ],
+  {% if doc.taxonomies.languages %}
+  "inLanguage": {{ doc.taxonomies.languages | json_encode }},
+  {% endif %}
+  "keywords": [
+  {% for tag in doc.taxonomies.tags | default(value=[]) %}
+    {% if not loop.first %},{% endif %}
+    "{{ tag }}"
+  {% endfor %}
+  ],
+  {% if doc.description %}
+  "description": "doc.description",
+  {% endif %}
+  {% if doc.extra.same_as %}
+  "sameAs": {{ doc.extra.same_as | json_encode }},
+  {% endif %}
+  "partOfSeries": [
+  {% for arc in doc.taxonomies.arcs %}
+    {% if not loop.first %},{% endif %}
+    {
+      "@type": "CreativeWorkSeries",
+      "@id": "{{ get_taxonomy_url(kind="arcs", name=arc, lang=doc.lang) }}",
+      "name": "{{ arc }}"
+    }
+  {% endfor %}
+  ],
+  {% if doc.extra.abstract %}
+  "abstract": "{{ doc.extra.abstract | trim }}"
+  {% endif %}
+}
+{% endmacro abstract_text %}
+{# prettier-ignore-end #}

@@ -1,0 +1,10 @@
+{% extends "page.html" %}
+{% import "macro/json-ld.html" as json_ld %}
+
+{% block extra_head %}
+  <script type="application/ld+json">
+  {%- set json = json_ld::abstract_text(doc=page) -%}
+  {%- set json = load_data(literal=json, format="json") -%}
+  {{ json | json_encode | safe }}
+  </script>
+{% endblock extra_head %}
