@@ -1,6 +1,10 @@
 # The URL the site will be built for
 base_url = "https://b00k.club"
 
+# The title and description of the website
+title = "Public Works Book Club: since 35,000 BCE"
+description = "A book club dedicated to works in the public domain."
+
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
 
