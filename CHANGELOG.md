@@ -6,6 +6,7 @@
 
 ## 1.4.3 (2025-09-19)
 
+- Remove .vscode/spellright.dict from source control
 - Fix missing alternate title for Demosthenes' *First Philippic*
 
 ## 1.4.2 (2025-09-15)
