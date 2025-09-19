@@ -4,6 +4,10 @@
 
 - site taxonomy
 
+## 1.4.3 (2025-09-19)
+
+- Fix missing alternate title for Demosthenes' *First Philippic*
+
 ## 1.4.2 (2025-09-15)
 
 - Add Demosthenes' _On the Crown_ and Plato's _Crito_
