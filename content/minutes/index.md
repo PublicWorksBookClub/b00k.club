@@ -16,6 +16,36 @@ prose-hr:border-black
 """
 +++
 
+<!--
+To add, from my notes, covering our post-Peloponnesian-pre-alexander period Peloponnesian
+
+1. 09 Mar 2025: Aeschylus’ “The Persians”
+2. 16 Mar 2025: M. Gagarin “Telling Stories in Athenian Law”, R. Bonner “Lawyers and Litigants” (ch. 1), Antiphon 3 “Second Tetralogy”
+3. 23 Mar 2025: Lysias 3 “Against Simon”, Demosthenes 54 “Against Conon”, and Theophrastus 21 “The Disagreeable”
+4. 30 Mar 2025: Sophocles “Philoctetes”
+5. 06 Apr 2025: Aristotle “Categories” (selections)
+6. 13 Apr 2025: Aristotle “De Interpretatione” (selections) [Started with finished “Categories” and then doing the first half of “De Intrepretatione”]
+7. 20 Apr 2025: No meeting, because of Easter
+8. 27 Apr 2025: Aristotle “Prior Analytics” (selections) [Started with finishing “De Interpretatione” and then doing the first half of “Prior Analytics” - Nikita out for half Marathon]
+9. 04 May 2025: Aristotle “Prior Analytics” (selections) [Second half of “De Interpretatione” - Andrew out for back pain, Ben also out for reasons unknown]
+10. 11 May 2025: No meeting
+11. 18 May 2025: First 1/2 of Bacchae by Euripides
+12. 25 May 2025: Finish 2/2 of Bacchae by Euripides
+13. 01 June 2025: Frogs 1/3 by Aristophanes (no Elisa)
+14. 08 June 2025: Frogs 2/3 by Aristophanes (no Ben)
+15. 15 June 2025: Frogs 3/3 by Aristophanes
+16. 22 June 2025: Posterior Analytics 1/3 by Aristotle (Andrew presents)
+17. 29 June 2025: Posterior Analytics 2/3 by Aristotle (Nikita presents)
+18. 06 July 2025: Posterior Analytics 3/3 by Aristotle (Nikita presents)
+19. 13 July 2025: Topics 1/3 by Aristotle (Spencer presents)
+20. 20 July 2025: Topics 2/3 by Aristotle (Spencer presents)
+21. 27 July 2025: Topics 3/3 by Aristotle (Spencer presents)
+22. 03 August 2025:  Dyskolos 1/2 by Menander (read as a group)
+23. 10 August 2025: Dyskolos 2/2 by Menander (read as a group) and Selections from Theophrastus’ Characters
+24. 17 August 2025: Demosthenes “First Philippic” (Spencer presents)
+25. 24 August 2025: Demosthenes “On the Crown” (Elisa presents)
+-->
+
 ## [15 May, 2023](#15-May-2023)
 
 ### [_Zhuangzi_](<https://en.wikipedia.org/wiki/Zhuangzi_(book)>)
