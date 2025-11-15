@@ -1,0 +1,47 @@
+version = "0.0.1"
+enabled = true
+
+[[site]]
+domain = "site.local.test"
+r3ply = "cli.r3ply.test"
+signet = "45HH6mQ8aRRy8CsvRmtQ2w"
+issued = "2025-11-15"
+label = "CLI"
+
+[[site]]
+domain = "b00k.club"
+r3ply = "cli.r3ply.test"
+signet = "w4s0-9_RhoqWdZbHX-rbCg"
+issued = "2025-11-19"
+
+[[site]]
+domain = "b00k.club"
+r3ply = "r3ply.com"
+signet = "gchTwqHz8qmbMt1_SdDi3w"
+issued = 2025-11-19
+label = "production"
+
+[comments.email]
+enabled = true
+
+[moderation]
+enabled = true
+webhook = [ ]
+
+  [[moderation.local]]
+  "file_path_{}" = "comment_{{ comment.id[:8] }}.json"
+  enabled = true
+  "allow*" = [ ]
+
+  # Github moderation: Specify how comments should be sent to GitHub for moderation.
+  [[moderation.github]]
+  # Repo owner: This should be the user or org name.
+  # Examples: ["asimpletune","r3ply"]
+  owner = "PublicWorksBookClub"
+  # Repo name: Name of GitHub repository.
+  # Examples: ["yoursite"]
+  repo = "b00k.club"
+  # File path template (string): Specifies the file path of the new comment.
+  # Examples: ["content/comments/{{ comment.id | slice(end=8) }}.md"]
+  # Can never begin with a `/`.
+  "file_path_{}" = "comment_{{ comment.id[:8] }}.json"
