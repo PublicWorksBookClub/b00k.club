@@ -1,0 +1,12 @@
+domains = [ "cli.r3ply.test" ]
+version = "0.0.1"
+enabled = true
+
+[[admin]]
+name = "Guybrush Threepwood"
+email = "guybrush@example.com"
+
+[email]
+enabled = true
+attachments = false
+max_size_bytes = 5_242_880
