@@ -1,8 +1,12 @@
 +++
 draft = true
+# The main title
 title = "On the Crown"
-authors = ["Demosthenes"]
-template = "text.html"
+# (Not the authors of the work, but the authors of the page)
+authors = ["Spencer Scorcelletti"]
+template = "work.html"
+# You can override the default by specifying a slug, e.g.
+# slug = "arabian-nights"
 
 [taxonomies]
 # Textual taxonomies
@@ -12,7 +16,7 @@ forms = ["speech", "forensic oration"]
 genres = ["attic oration", "rhetorical oration", "political speech"]
 subjects = ["rhetoric", "civic duty", "ethics"]
 periods = ["4th c. BCE", "Late Classical Athens", "Classical Greece"]
-languages = ["grc-att"]
+languages = ["grc"]
 
 # General taxonomies
 arcs = ["Anabasis 3"]

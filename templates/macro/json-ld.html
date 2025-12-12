@@ -1,19 +1,20 @@
 {# prettier-ignore-start #}
 {% macro abstract_text(doc) %}
-{% set data = load_data(path="data.toml", format="toml") %}
+{% set authors = load_data(path="data/vocab/authors.toml", format="toml") %}
+{% set periods = load_data(path="data/vocab/periods.toml", format="toml") %}
 {
   "@context": "https//schema.org/docs/jsonldcontext.json",
   "@type": "CreativeWork", "@id": "{{ doc.permalink | safe }}",
   "name": "{{ doc.title }}",
   "alternateName": {{ doc.taxonomies.titles | slice(start=1) | json_encode }},
   "author": [
-    {% for name in doc.taxonomies.authors %}
+    {% for a in doc.taxonomies.authors %}
       {% if not loop.first %},{% endif %}
       {
         "@type": "Person",
-        "name": "{{ name }}",
-        {% if data.author[name] %}
-        "same_as": {{ data.author[name].same_as | json_encode }}
+        "name": "{{ a }}",
+        {% if authors[a] %}
+        "same_as": {{ authors[a].same_as | json_encode }}
         {% endif %}
       }
     {% endfor %}
@@ -29,16 +30,16 @@
     {% endfor %}
   ],
   "temporalCoverage": [
-    {% for period in doc.taxonomies.periods %}
+    {% for p in doc.taxonomies.periods %}
       {% if not loop.first %},{% endif %}
-      {% set slug = period | slugify %}
-      {% if data.period[slug] %}
+      {% set slug = p | slugify %}
+      {% if periods[p] %}
       {
-        "@id": "{{ data.period[slug].wikidata }}",
-        "name": "{{ period }}"
+        "@id": "{{ periods[p].id }}",
+        "name": "{{ periods[p].label | default(value=p) }}"
       }
       {% else %}
-        "{{ period }}"
+        "{{ p }}"
       {% endif %}
     {% endfor %}
   ],
@@ -52,7 +53,7 @@
   {% endfor %}
   ],
   {% if doc.description %}
-  "description": "doc.description",
+  "description": "{{ doc.description }}",
   {% endif %}
   {% if doc.extra.same_as %}
   "sameAs": {{ doc.extra.same_as | json_encode }},
