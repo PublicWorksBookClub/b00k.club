@@ -16,7 +16,7 @@ forms = ["speech", "forensic oration"]
 genres = ["attic oration", "rhetorical oration", "political speech"]
 subjects = ["rhetoric", "civic duty", "ethics"]
 periods = ["4th c. BCE", "Late Classical Athens", "Classical Greece"]
-languages = ["grc"]
+languages = ["Ancient Greek"]
 
 # General taxonomies
 arcs = ["Anabasis 3"]

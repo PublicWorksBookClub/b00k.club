@@ -1,0 +1,11 @@
+# https://iso639-3.sil.org/code_tables/639/data
+
+["Ancient Greek"]
+label = "Ancient Greek"
+iso_639_3 = "grc"
+
+["Homeric Greek"]
+label = "Homeric Greek"
+wikidata = "https://www.wikidata.org/wiki/Q990062"
+iso_639_3 = "grc"
+aliases = ["Epic Greek"]

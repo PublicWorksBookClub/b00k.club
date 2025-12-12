@@ -2,6 +2,7 @@
 {% macro abstract_text(doc) %}
 {% set authors = load_data(path="data/vocab/authors.toml", format="toml") %}
 {% set periods = load_data(path="data/vocab/periods.toml", format="toml") %}
+{% set languages = load_data(path="data/vocab/languages.toml", format="toml") %}
 {
   "@context": "https//schema.org/docs/jsonldcontext.json",
   "@type": "CreativeWork", "@id": "{{ doc.permalink | safe }}",
@@ -19,7 +20,7 @@
       }
     {% endfor %}
   ],
-  "genre": {{ doc.taxonomies.genres | json_encode }},
+  "genre": {{ doc.taxonomies.genres | concat(with=doc.taxonomies.forms) | json_encode }},
   "about": [
     {% for subject in doc.taxonomies.subjects %}
       {% if not loop.first %},{% endif %}
@@ -44,7 +45,17 @@
     {% endfor %}
   ],
   {% if doc.taxonomies.languages %}
-  "inLanguage": {{ doc.taxonomies.languages | json_encode }},
+  "inLanguage": [
+    {# A language entry is required (in languages.toml) #}
+    {% for l in doc.taxonomies.languages %}
+    {
+      "@type": "Language",
+      "name": "{{ languages[l].label }}",
+      "alternateName": "{{ languages[l].iso_639_3 }}"
+    }
+    {% if not loop.first %},{% endif %}
+    {% endfor %}
+  ],
   {% endif %}
   "keywords": [
   {% for tag in doc.taxonomies.tags | default(value=[]) %}
