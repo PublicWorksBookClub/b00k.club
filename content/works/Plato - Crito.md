@@ -13,11 +13,38 @@ subjects = ["epistemology", "ethics", "civic duty", "political philosophy", "pra
 periods = ["5th c. BCE", "4th c. BCE", "Late Classical Athens", "Classical Greece"]
 
 # General taxonomies
-tags = ["social contract", "definition of impious", "subjective vs objective truth", "moral relativity", "the good life", "feasting in Thessaly", "messianic myth", "opinion of the majority", "the golden rule", "help your friends, harm your enemies", "do no harm", "the laws speak"]
+tags = [
+  "social contract",
+  "definition of impious",
+  "subjective vs objective truth",
+  "moral relativity",
+  "the good life",
+  "feasting in Thessaly",
+  "messianic myth",
+  "opinion of the majority",
+  "the golden rule",
+  "help your friends, harm your enemies",
+  "do no harm",
+  "the laws speak",
+]
 arcs = ["Memorabilia 2"]
 contributors = ["Spencer"]
 references = ["Apology"]
-index = ["Socrates", "Crito", "Phthia", "Cebes", "Simmias the Theban", "Thessaly", "Athens", "Megara", "Thebes", "Sparta", "Crete", "Delos", "Sunium"]
+index = [
+  "Socrates",
+  "Crito",
+  "Phthia",
+  "Cebes",
+  "Simmias the Theban",
+  "Thessaly",
+  "Athens",
+  "Megara",
+  "Thebes",
+  "Sparta",
+  "Crete",
+  "Delos",
+  "Sunium",
+]
 
 [extra]
 order = 32

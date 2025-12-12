@@ -4,7 +4,7 @@ label = "Classical Greece"
 id = "https://www.wikidata.org/wiki/Q843745"
 # Approximate temporal boundaries
 start = "490 BCE"
-end   = "323 BCE"
+end = "323 BCE"
 # Optional curator notes
 description = "Greek historical period from the end of the Persian War to the death of Alexander the Great."
 
