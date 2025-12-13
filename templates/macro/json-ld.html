@@ -1,49 +1,82 @@
 {# prettier-ignore-start #}
 {% macro abstract_text(doc) %}
-{% set authors = load_data(path="data/vocab/authors.toml", format="toml") %}
 {% set periods = load_data(path="data/vocab/periods.toml", format="toml") %}
 {% set languages = load_data(path="data/vocab/languages.toml", format="toml") %}
 {
   "@context": "https//schema.org/docs/jsonldcontext.json",
-  "@type": "CreativeWork", "@id": "{{ doc.permalink | safe }}",
+  "@type": "CreativeWork",
+  "@id": "{{ doc.permalink | safe }}",
   "name": "{{ doc.title }}",
   "alternateName": {{ doc.taxonomies.titles | slice(start=1) | json_encode }},
+  {# PWBC Reading List and Order #}
+  "isPartOf": {
+    "@type": "CreativeWorkSeries",
+    "@id": "https://b00k.club/works/",
+    "name": "List of works read by the Public Works Book Club"
+  },
+  "hasPart": {
+    "@type": "ListItem",
+    "position": {{ doc.extra.order }},
+    "item": {
+      "@id": "{{ doc.permalink }}"
+    }
+  },
+  {# Authors #}
   "author": [
+    {% set authors = load_data(path="data/vocab/authors.toml", format="toml") %}
     {% for a in doc.taxonomies.authors %}
-      {% if not loop.first %},{% endif %}
       {
         "@type": "Person",
-        "name": "{{ a }}",
+        "name": "{{ authors[a].label | default(value=a) }}",
         {% if authors[a] %}
         "same_as": {{ authors[a].same_as | json_encode }}
         {% endif %}
-      }
+      }{% if not loop.last %},{% endif %}
     {% endfor %}
   ],
-  "genre": {{ doc.taxonomies.genres | concat(with=doc.taxonomies.forms) | json_encode }},
+  {# Genres #}
+  "genre": [
+    {% for g in doc.taxonomies.genres %}
+      {
+        "@id": "{{ get_taxonomy_url(kind="genres", name=g, lang=doc.lang) }}",
+        "name": "{{ g }}"
+      }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ],
+  {# Forms #}
+  "literaryForm": [
+    {% for f in doc.taxonomies.forms %}
+      {
+        "@id": "{{ get_taxonomy_url(kind="forms", name=f, lang=doc.lang) }}",
+        "name": "{{ f }}"
+      }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ],
+  {# Subjects #}
   "about": [
     {% for subject in doc.taxonomies.subjects %}
-      {% if not loop.first %},{% endif %}
       {
         "@type": "Thing",
         "name": "{{ subject }}"
-      }
+      }{% if not loop.last %},{% endif %}
     {% endfor %}
   ],
+  {# Periods #}
   "temporalCoverage": [
     {% for p in doc.taxonomies.periods %}
-      {% if not loop.first %},{% endif %}
       {% set slug = p | slugify %}
       {% if periods[p] %}
       {
-        "@id": "{{ periods[p].id }}",
+        "@id": "{{ periods[p].wikidata }}",
         "name": "{{ periods[p].label | default(value=p) }}"
       }
       {% else %}
         "{{ p }}"
       {% endif %}
+      {% if not loop.last %},{% endif %}
     {% endfor %}
   ],
+  {# Languages #}
   {% if doc.taxonomies.languages %}
   "inLanguage": [
     {# A language entry is required (in languages.toml) #}
@@ -52,33 +85,34 @@
       "@type": "Language",
       "name": "{{ languages[l].label }}",
       "alternateName": "{{ languages[l].iso_639_3 }}"
-    }
-    {% if not loop.first %},{% endif %}
+    }{% if not loop.last %},{% endif %}
     {% endfor %}
   ],
   {% endif %}
+  {# Tags #}
   "keywords": [
   {% for tag in doc.taxonomies.tags | default(value=[]) %}
-    {% if not loop.first %},{% endif %}
-    "{{ tag }}"
+    "{{ tag }}"{% if not loop.last %},{% endif %}
   {% endfor %}
   ],
+  {# Description #}
   {% if doc.description %}
   "description": "{{ doc.description }}",
   {% endif %}
   {% if doc.extra.same_as %}
   "sameAs": {{ doc.extra.same_as | json_encode }},
   {% endif %}
+  {# Arcs #}
   "partOfSeries": [
   {% for arc in doc.taxonomies.arcs %}
-    {% if not loop.first %},{% endif %}
     {
       "@type": "CreativeWorkSeries",
       "@id": "{{ get_taxonomy_url(kind="arcs", name=arc, lang=doc.lang) }}",
       "name": "{{ arc }}"
-    }
+    }{% if not loop.last %},{% endif %}
   {% endfor %}
   ],
+  {# Abstract #}
   {% if doc.extra.abstract %}
   "abstract": "{{ doc.extra.abstract | trim }}"
   {% endif %}

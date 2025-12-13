@@ -1,1 +1,10 @@
-# https://www.wikidata.org/wiki/Q223393
+# The mode of the work's content and its literary aim
+# e.g. tragedy, myth, comedy, satire, sci-fi, folk tale, potrait, didactic, parable, allegory, romance, etc...
+# (Note: lowercase)
+#
+# Can be looked up at https://vocab.getty.edu
+# E.g. https://vocab.getty.edu/aat/300026674
+
+["funeral oration"]
+label = "funeral oration"
+id = "https://vocab.getty.edu/aat/300417770.jsonld"

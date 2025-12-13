@@ -55,7 +55,7 @@ feed = false
 name = "periods"
 feed = false
 
-# USE ISO 639-2 or 3 https://en.wikipedia.org/wiki/List_of_ISO_639-3_codes
+# see data/vocab/languages.toml
 [[taxonomies]]
 name = "languages"
 feed = false

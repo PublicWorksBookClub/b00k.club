@@ -1,11 +1,37 @@
-# https://iso639-3.sil.org/code_tables/639/data
+# Used to map an english name for a language to a language code:
+# iso_639_3 is the minimum and is the broadest
+# linguist_list allows extensions of ISO 639-3, for language variants, e.g. grc-hom for Homeric Greek
+# glottolog is an optional database reference to open source bibliographic data of the world's languages
+#
+# see https://en.wikipedia.org/wiki/Linguistic_Linked_Open_Data for more
+# or https://iso639-3.sil.org/code_tables/639/data for a simple table
 
 ["Ancient Greek"]
 label = "Ancient Greek"
 iso_639_3 = "grc"
+# no `linguist_list` entry
+glottolog = "anci1242"
+lexvo = "http://lexvo.org/id/iso639-3/grc"
+wikipedia = "https://en.wikipedia.org/wiki/Ancient_Greek"
+# no `wikidata` entry
+
+["Attic Greek"]
+label = "Attic Greek"
+iso_639_3 = "grc"
+linguist_list = "grc-att"
+glottolog = "atti1240"
+lexvo = "http://lexvo.org/id/iso639-3/grc"
+wikidata = "https://www.wikidata.org/wiki/Q506588"
+wikipedia = "https://en.wikipedia.org/wiki/Attic_Greek"
+variety_of = "Ancient Greek"
 
 ["Homeric Greek"]
 label = "Homeric Greek"
-wikidata = "https://www.wikidata.org/wiki/Q990062"
 iso_639_3 = "grc"
+linguist_list = "grc-hom"
+# no `glottolog` entry
 aliases = ["Epic Greek"]
+lexvo = "http://lexvo.org/id/iso639-3/grc"
+wikidata = "https://www.wikidata.org/wiki/Q990062"
+wikipedia = "https://en.wikipedia.org/wiki/Homeric_Greek"
+variety_of = "Ancient Greek"

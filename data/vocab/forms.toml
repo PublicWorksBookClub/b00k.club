@@ -1,4 +1,7 @@
-# https://www.wikidata.org/wiki/Q4263830
+# The way the work is packaged (outside the content)
+#
+# e.g. play, dialogue, novel, epic poem, lyric poem, speech/oration, tetraology, letter/epistle, treatise, essay, fable, myth, history, commentary, manual, treatise, biography, tragedy (in terms of structure), comedy (in terms of structure), apologia, etc...
+# (Note: lowercase)
 
 [speech] # Also "oration"
 id = "https://www.wikidata.org/wiki/Q861911"

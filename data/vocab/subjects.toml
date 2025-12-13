@@ -1,10 +1,16 @@
-# https://www.wikidata.org/wiki/Q26256810
+# The subject or topic of a creative work.
+#
+# e.g. ethics, rhetoric, philosophy, political philosophy, mythology, how-to, etc...
+# (Note: lowercase)
 
 [rhetoric]
-id = "https://www.wikidata.org/wiki/Q81009"
+wikidata = "https://www.wikidata.org/wiki/Q81009"
+wikipedia = "https://en.wikipedia.org/wiki/Rhetoric"
 
 ["civic duty"]
-id = "https://www.wikidata.org/wiki/Q1021376"
+wikidata = "https://www.wikidata.org/wiki/Q1021376"
+# no wikipedia entry
 
 [ethics]
-id = "https://www.wikidata.org/wiki/Q9465"
+wikidata = "https://www.wikidata.org/wiki/Q9465"
+wikipedia = "https://en.wikipedia.org/wiki/Ethics"

@@ -1,5 +1,10 @@
+# (some texts may have more than one e.g. "Moses" and "Anonymous")
+# (Note: Capitalize, always a proper now including with "Anonymous")
+
 [Anonymous]
+label = "Anonymous"
 same_as = ["https://en.wikipedia.org/wiki/Anonymous_work", "https://www.wikidata.org/wiki/Q4233718"]
 
 [Demosthenes]
+label = "Demosthenes"
 same_as = ["https://en.wikipedia.org/wiki/Demosthenes", "https://www.wikidata.org/wiki/Q117253"]

@@ -1,13 +1,27 @@
+# e.g. 4th c. BCE, enlightenment, middle eastern antiquity, renaissance, etc...
+# (Note: capitalize historic periods but not centuries)
+
 ["Classical Greece"]
 label = "Classical Greece"
 # Primary Linked Data ID (e.g. Wikidata)
-id = "https://www.wikidata.org/wiki/Q843745"
+wikidata = "https://www.wikidata.org/wiki/Q843745"
+# Optional link to wikipedia
+wikipedia = "https://en.wikipedia.org/wiki/Classical_Greece"
 # Approximate temporal boundaries
-start = "490 BCE"
-end = "323 BCE"
+start = "510 BCE" # Fall of Pisistratids in Athens
+end = "323 BCE" # Death of Alexander the Great
 # Optional curator notes
-description = "Greek historical period from the end of the Persian War to the death of Alexander the Great."
+description = "Greek historical period from the beginning of Democracy in Athens to the death of Alexander the Great."
 
 ["4th c. BCE"]
 label = "4th century BC"
-id = "https://www.wikidata.org/wiki/Q25335"
+wikidata = "https://www.wikidata.org/wiki/Q25335"
+wikipedia = "https://en.wikipedia.org/wiki/4th_century_BC"
+
+["Theban hegemony"]
+label = "Theban hegemony"
+wikidata = "https://www.wikidata.org/wiki/Q3200440"
+wikipedia = "https://en.wikipedia.org/wiki/Theban_hegemony"
+start = "371 BCE"
+end = "362 BCE"
+description = "Brief period where Thebes eclipsed Sparta in influence after the battle of Leuctra."
