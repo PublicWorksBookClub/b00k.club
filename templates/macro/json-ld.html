@@ -28,8 +28,8 @@
       {
         "@type": "Person",
         "name": "{{ authors[a].label | default(value=a) }}",
-        {% if authors[a] %}
-        "same_as": {{ authors[a].same_as | json_encode }}
+        {% if authors[a].wikidata %}
+        "sameAs": "{{ authors[a].wikidata }}"
         {% endif %}
       }{% if not loop.last %},{% endif %}
     {% endfor %}
@@ -99,10 +99,11 @@
   {% if doc.description %}
   "description": "{{ doc.description }}",
   {% endif %}
-  {% if doc.extra.same_as %}
-  "sameAs": {{ doc.extra.same_as | json_encode }},
-  {% endif %}
-  {# Arcs #}
+  {# Link to other sources #}
+  {% set same_as = load_data(literal="[]", format="json") %}
+  {% if doc.extra.wikidata %}{% set same_as = same_as | concat(with=doc.extra.wikidata) %}{% endif %}
+  {% if doc.extra.wikipedia %}{% set same_as = same_as | concat(with=doc.extra.wikipedia) %}{% endif %}
+  "sameAs": {{ same_as | json_encode }},
   "partOfSeries": [
   {% for arc in doc.taxonomies.arcs %}
     {

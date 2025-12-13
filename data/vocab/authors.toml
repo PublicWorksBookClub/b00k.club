@@ -3,16 +3,25 @@
 
 [Anonymous]
 label = "Anonymous"
-same_as = ["https://en.wikipedia.org/wiki/Anonymous_work", "https://www.wikidata.org/wiki/Q4233718"]
+wikipedia = "https://en.wikipedia.org/wiki/Anonymous_work"
+wikidata = "https://www.wikidata.org/wiki/Q4233718"
 
 [Demosthenes]
 label = "Demosthenes"
-same_as = ["https://en.wikipedia.org/wiki/Demosthenes", "https://www.wikidata.org/wiki/Q117253"]
+wikipedia = "https://en.wikipedia.org/wiki/Demosthenes"
+wikidata = "https://www.wikidata.org/wiki/Q117253"
 
 ["Marcus Aurelius"]
 label = "Marcus Aurelius"
-same_as = ["https://en.wikipedia.org/wiki/Marcus_Aurelius", "https://www.wikidata.org/wiki/Q1430"]
+wikipedia = "https://en.wikipedia.org/wiki/Marcus_Aurelius"
+wikidata = "https://www.wikidata.org/wiki/Q1430"
+
+[Plato]
+label = "Plato"
+wikipedia = "https://en.wikipedia.org/wiki/Plato"
+wikidata = "https://www.wikidata.org/wiki/Q859"
 
 [Plutarch]
 label = "Plutarch"
-same_as = ["https://en.wikipedia.org/wiki/Plutarch", "https://www.wikidata.org/wiki/Q41523"]
+wikipedia = "https://en.wikipedia.org/wiki/Plutarch"
+wikidata = "https://www.wikidata.org/wiki/Q41523"
