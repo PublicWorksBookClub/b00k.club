@@ -6,6 +6,11 @@ label = "Anonymous"
 wikipedia = "https://en.wikipedia.org/wiki/Anonymous_work"
 wikidata = "https://www.wikidata.org/wiki/Q4233718"
 
+[Aristotle]
+label = "Aristotle"
+wikipedia = "https://en.wikipedia.org/wiki/Aristotle"
+wikidata = "https://www.wikidata.org/wiki/Q868"
+
 [Demosthenes]
 label = "Demosthenes"
 wikipedia = "https://en.wikipedia.org/wiki/Demosthenes"
