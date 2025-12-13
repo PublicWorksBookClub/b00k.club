@@ -84,7 +84,7 @@
     {
       "@type": "Language",
       "name": "{{ languages[l].label }}",
-      "alternateName": "{{ languages[l].iso_639_3 }}"
+      "alternateName": "{{ languages[l].bcp_47 }}"
     }{% if not loop.last %},{% endif %}
     {% endfor %}
   ],

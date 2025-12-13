@@ -11,4 +11,8 @@ same_as = ["https://en.wikipedia.org/wiki/Demosthenes", "https://www.wikidata.or
 
 ["Marcus Aurelius"]
 label = "Marcus Aurelius"
-same_as = ["https://www.wikidata.org/wiki/Q1430", "https://en.wikipedia.org/wiki/Marcus_Aurelius"]
+same_as = ["https://en.wikipedia.org/wiki/Marcus_Aurelius", "https://www.wikidata.org/wiki/Q1430"]
+
+[Plutarch]
+label = "Plutarch"
+same_as = ["https://en.wikipedia.org/wiki/Plutarch", "https://www.wikidata.org/wiki/Q41523"]
