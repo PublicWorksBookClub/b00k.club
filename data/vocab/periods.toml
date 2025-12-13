@@ -13,6 +13,23 @@ end = "323 BCE" # Death of Alexander the Great
 # Optional curator notes
 description = "Greek historical period from the beginning of Democracy in Athens to the death of Alexander the Great."
 
+["2nd c. CE"]
+label = "2nd century AD"
+wikidata = "https://www.wikidata.org/wiki/Q8103"
+wikipedia = "https://en.wikipedia.org/wiki/2nd_century"
+
+["Roman imperial period"]
+label = "Roman imperial period"
+wikidata = "https://www.wikidata.org/wiki/Q16147990"
+wikipedia = "https://en.wikipedia.org/wiki/Roman_imperial_period_(chronology)"
+
+["Pax Romana"]
+label = "Pax Romana"
+wikidata = "https://www.wikidata.org/wiki/Q75207"
+wikipedia = "https://en.wikipedia.org/wiki/Pax_Romana"
+start = "27 BCE"
+end = "180 CE"
+
 ["4th c. BCE"]
 label = "4th century BC"
 wikidata = "https://www.wikidata.org/wiki/Q25335"

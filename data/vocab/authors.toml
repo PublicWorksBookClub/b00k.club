@@ -8,3 +8,7 @@ same_as = ["https://en.wikipedia.org/wiki/Anonymous_work", "https://www.wikidata
 [Demosthenes]
 label = "Demosthenes"
 same_as = ["https://en.wikipedia.org/wiki/Demosthenes", "https://www.wikidata.org/wiki/Q117253"]
+
+["Marcus Aurelius"]
+label = "Marcus Aurelius"
+same_as = ["https://www.wikidata.org/wiki/Q1430", "https://en.wikipedia.org/wiki/Marcus_Aurelius"]
