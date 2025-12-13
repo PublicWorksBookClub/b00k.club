@@ -4,6 +4,10 @@
 
 - site taxonomy
 
+## 1.4.4 (2025-12-13)
+
+- Add _Life of Alexander_ and _Phaedo_
+
 ## 1.4.3 (2025-09-19)
 
 - Remove .vscode/spellright.dict from source control
