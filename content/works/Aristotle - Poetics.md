@@ -4,7 +4,7 @@ template = "work.html"
 # You can override `title`, `authors`, and `slug`
 
 [extra]
-id = "aristotle_poetics"
+id = "aristotle-poetics"
 order = 35
 wikidata = "https://www.wikidata.org/wiki/Q264714"
 wikipedia = "https://en.wikipedia.org/wiki/Poetics_(Aristotle)"

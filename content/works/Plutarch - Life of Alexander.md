@@ -4,7 +4,7 @@ template = "work.html"
 # You can override `title`, `authors`, and `slug`
 
 [extra]
-id = "plutarch_alexander"
+id = "plutarch-alexander"
 order = 33
 wikipedia = "https://en.wikipedia.org/wiki/Plutarch#Life_of_Alexander"
 wikidata = "https://www.wikidata.org/wiki/Q11850689"

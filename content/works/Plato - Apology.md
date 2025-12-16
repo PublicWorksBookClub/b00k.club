@@ -4,7 +4,7 @@ template = "work.html"
 # You can override `title`, `authors`, and `slug`
 
 [extra]
-id = "plato_apology"
+id = "plato-apology"
 order = 30
 wikidata = "https://www.wikidata.org/wiki/Q273668"
 wikipedia = "https://en.wikipedia.org/wiki/Apology_(Plato)"
