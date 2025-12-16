@@ -3,5 +3,19 @@
 # e.g. play, dialogue, novel, epic poem, lyric poem, speech/oration, tetraology, letter/epistle, treatise, essay, fable, myth, history, commentary, manual, treatise, biography, tragedy (in terms of structure), comedy (in terms of structure), apologia, etc...
 # (Note: lowercase)
 
-[speech] # Also "oration"
-id = "https://www.wikidata.org/wiki/Q861911"
+[dialogue]
+description = "conversation between two or more people"
+synonyms = ["dialectic"]
+wikidata = "https://www.wikidata.org/wiki/Q131395"
+wikipedia = "https://en.wikipedia.org/wiki/Dialogue"
+
+[oration]
+description = "address delivered to an audience"
+synonyms = ["speech"]
+wikidata = "https://www.wikidata.org/wiki/Q861911"
+# no wikipedia entry
+
+[treatise]
+description = "formal and systematic written discourse on some subject"
+wikidata = "https://www.wikidata.org/wiki/Q384515"
+wikipedia = "https://en.wikipedia.org/wiki/Treatise"

@@ -5,6 +5,16 @@
 # Can be looked up at https://vocab.getty.edu
 # E.g. https://vocab.getty.edu/aat/300026674
 
+["dialogue"]
+label = "dialogue"
+wikidata = "https://www.wikidata.org/wiki/Q3025978"
+wikipedia = "https://en.wikipedia.org/wiki/Dialogue"
+
+["Socractic dialogue"]
+label = "Socratic dialogue"
+wikidata = "https://www.wikidata.org/wiki/Q3026054"
+wikipedia = "https://en.wikipedia.org/wiki/Socratic_dialogue"
+
 ["funeral oration"]
 label = "funeral oration"
 id = "https://vocab.getty.edu/aat/300417770.jsonld"

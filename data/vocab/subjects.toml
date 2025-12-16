@@ -11,6 +11,23 @@ wikipedia = "https://en.wikipedia.org/wiki/Rhetoric"
 wikidata = "https://www.wikidata.org/wiki/Q1021376"
 # no wikipedia entry
 
-[ethics]
-wikidata = "https://www.wikidata.org/wiki/Q9465"
-wikipedia = "https://en.wikipedia.org/wiki/Ethics"
+["philosophy"]
+wikidata = "https://www.wikidata.org/wiki/Q5891"
+wikipeda = "https://en.wikipedia.org/wiki/Philosophy"
+
+  [epistemology]
+  wikidata = "https://www.wikidata.org/wiki/Q9471"
+  wikipedia = "https://en.wikipedia.org/wiki/Epistemology"
+
+  [ethics]
+  synonyms = ["moral philosophy"]
+  wikidata = "https://www.wikidata.org/wiki/Q9465"
+  wikipedia = "https://en.wikipedia.org/wiki/Ethics"
+
+  ["political philosophy"]
+  wikidata = "https://www.wikidata.org/wiki/Q179805"
+  wikipedia = "https://en.wikipedia.org/wiki/Political_philosophy"
+
+  ["practical philosophy"]
+  wikidata = "https://www.wikidata.org/wiki/Q1888684"
+  wikipedia = "https://en.wikipedia.org/wiki/Practical_philosophy"

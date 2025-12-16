@@ -35,6 +35,11 @@ label = "4th century BC"
 wikidata = "https://www.wikidata.org/wiki/Q25335"
 wikipedia = "https://en.wikipedia.org/wiki/4th_century_BC"
 
+["5th c. BCE"]
+lbale = "5th century BC"
+wikidata = "https://www.wikidata.org/wiki/Q25339"
+wikipedia = "https://en.wikipedia.org/wiki/5th_century_BC"
+
 ["Theban hegemony"]
 label = "Theban hegemony"
 wikidata = "https://www.wikidata.org/wiki/Q3200440"

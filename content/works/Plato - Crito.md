@@ -1,18 +1,31 @@
 +++
 draft = true
-title = "Crito"
-author = "Plato"
+template = "work.html"
+# You can override `title` and `author` if needed
+# title = "Crito"
+# authors = ["Plato"]
+
+[extra]
+id = "plato_crito"
+order = 32
+wikidata = "https://en.wikipedia.org/wiki/Crito"
+wikipedia = "https://en.wikipedia.org/wiki/Crito"
+abstract = """
+Socrates listens and responds to his longtime friend's appeal to accept help escaping punishment after being sentenced to death in his trial from the "Apology".
+"""
 
 [taxonomies]
 # Textual taxonomies
 titles = ["Crito"]
 authors = ["Plato"]
-forms = ["dialogue"]
-genres = ["socratic dialogue", "didactic", "temptation narrative"]
-subjects = ["epistemology", "ethics", "civic duty", "political philosophy", "practical philosophy"]
-periods = ["5th c. BCE", "4th c. BCE", "Late Classical Athens", "Classical Greece"]
-
+forms = ["dialectic"]
+genres = ["Socratic dialogue", "didactic", "temptation narrative"]
+subjects = ["philosophy", "epistemology", "ethics", "civic duty", "political philosophy", "practical philosophy"]
+periods = ["5th c. BCE", "4th c. BCE", "Classical Greece"]
 # General taxonomies
+arcs = ["Memorabilia 2"]
+contributors = ["Spencer Scorcelletti"]
+references = ["Apology"]
 tags = [
   "social contract",
   "definition of impious",
@@ -27,9 +40,6 @@ tags = [
   "do no harm",
   "the laws speak",
 ]
-arcs = ["Memorabilia 2"]
-contributors = ["Spencer"]
-references = ["Apology"]
 index = [
   "Socrates",
   "Crito",
@@ -45,9 +55,6 @@ index = [
   "Delos",
   "Sunium",
 ]
-
-[extra]
-order = 32
 +++
 
 @Plato-LCL36
