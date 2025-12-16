@@ -6,6 +6,11 @@
 [admonition]
 description = "rebuke or reproof"
 
+["Ancient Greek comedy"]
+description = "a representation of laughable people that does not cause pain"
+wikidata = "https://www.wikidata.org/wiki/Q1100736"
+wikipedia = "https://en.wikipedia.org/wiki/Ancient_Greek_comedy"
+
 [aphorism]
 description = "observation in few words that is broadly true"
 wikidata = "https://www.wikidata.org/wiki/Q165740"
@@ -44,6 +49,16 @@ label = "epideictic oratory"
 description = "a speech to praise or blame, often in a ceremonial setting"
 synonyms = ["ceremonial oratory", "demonstrative oratory"]
 # End oration genus
+
+[drama]
+description = "a representative work meant to be performed"
+wikidata = "https://www.wikidata.org/wiki/Q25372"
+wikipedia = "https://en.wikipedia.org/wiki/Drama"
+
+[play]
+description = "a type of theatrical dramatic work"
+wikidata = "https://www.wikidata.org/wiki/Q25379"
+wikipedia = "https://en.wikipedia.org/wiki/Play_(theatre)"
 
 [treatise]
 description = "formal and systematic written discourse on some subject"

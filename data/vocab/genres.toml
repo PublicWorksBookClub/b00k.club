@@ -10,16 +10,24 @@ label = "dialogue"
 wikidata = "https://www.wikidata.org/wiki/Q3025978"
 wikipedia = "https://en.wikipedia.org/wiki/Dialogue"
 
+["comedy of manners"]
+label = "comedy of manners"
+description = "humorous observation of the manners of high society"
+wikidata = "https://www.wikidata.org/wiki/Q222926"
+wikipedia = "https://en.wikipedia.org/wiki/Comedy_of_manners"
+
+["comedy of intrigue"]
+label = "comedy of intrigue"
+description = "humor from plot driven by intricate and ridiculous strategems"
+synonyms = ["comedy of situations"]
+wikidata = "https://www.wikidata.org/wiki/Q2991535"
+wikipedia = "https://en.wikipedia.org/wiki/Comedy_of_intrigue"
+
 ["philippic"]
 label = "philippic"
-description = "A fiery, damning speech condemning a political opponent."
+description = "a fiery, damning speech condemning a political opponent"
 wikipedia = "https://en.wikipedia.org/wiki/Philippic"
 wikidata = "https://www.wikidata.org/wiki/Q110629616"
-
-["Socractic dialogue"]
-label = "Socratic dialogue"
-wikidata = "https://www.wikidata.org/wiki/Q3026054"
-wikipedia = "https://en.wikipedia.org/wiki/Socratic_dialogue"
 
 ["funeral oration"]
 label = "funeral oration"
@@ -30,3 +38,8 @@ label = "satire"
 description = "ridicule for the purposes of social commentary or observation"
 wikidata = "https://www.wikidata.org/wiki/Q128758"
 wikipedia = "https://en.wikipedia.org/wiki/Satire"
+
+["Socractic dialogue"]
+label = "Socratic dialogue"
+wikidata = "https://www.wikidata.org/wiki/Q3026054"
+wikipedia = "https://en.wikipedia.org/wiki/Socratic_dialogue"
