@@ -63,9 +63,9 @@ The front matter for each of the works use common english terms such as "Ancient
 
 JSON-LD is designed for creating links between pieces of data representing relationships. Here are some sources that can be reused.
 
-* [Wikidata](https://wikidata.org) - for general linked data
-* [Getty Vocabularies](https://vocab.getty.edu) - for literary terms
-* [Lexvo](http://www.lexvo.org/) - for languages
+- [Wikidata](https://wikidata.org) - for general linked data
+- [Getty Vocabularies](https://vocab.getty.edu) - for literary terms
+- [Lexvo](http://www.lexvo.org/) - for languages
 
 ## Templates
 

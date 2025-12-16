@@ -9,7 +9,7 @@ wikidata = "https://www.wikidata.org/wiki/Q843745"
 wikipedia = "https://en.wikipedia.org/wiki/Classical_Greece"
 # Approximate temporal boundaries
 start = "510 BCE" # Fall of Pisistratids in Athens
-end = "323 BCE" # Death of Alexander the Great
+end = "323 BCE"   # Death of Alexander the Great
 # Optional curator notes
 description = "Greek historical period from the beginning of Democracy in Athens to the death of Alexander the Great."
 
