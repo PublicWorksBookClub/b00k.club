@@ -11,6 +11,11 @@ description = "observation in few words that is broadly true"
 wikidata = "https://www.wikidata.org/wiki/Q165740"
 wikipedia = "https://en.wikipedia.org/wiki/Aphorism"
 
+["character sketch"]
+description = "A portayal of individual"
+wikidata = "https://www.wikidata.org/wiki/Q5073748"
+wikipedia = "https://en.wikipedia.org/wiki/Character_sketch"
+
 [dialogue]
 description = "conversation between two or more people"
 synonyms = ["dialectic"]

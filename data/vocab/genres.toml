@@ -24,3 +24,9 @@ wikipedia = "https://en.wikipedia.org/wiki/Socratic_dialogue"
 ["funeral oration"]
 label = "funeral oration"
 id = "https://vocab.getty.edu/aat/300417770.jsonld"
+
+[satire]
+label = "satire"
+description = "ridicule for the purposes of social commentary or observation"
+wikidata = "https://www.wikidata.org/wiki/Q128758"
+wikipedia = "https://en.wikipedia.org/wiki/Satire"
