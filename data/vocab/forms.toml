@@ -3,6 +3,14 @@
 # e.g. play, dialogue, novel, epic poem, lyric poem, speech/oration, tetraology, letter/epistle, treatise, essay, fable, myth, history, commentary, manual, treatise, biography, tragedy (in terms of structure), comedy (in terms of structure), apologia, etc...
 # (Note: lowercase)
 
+[admonition]
+description = "rebuke or reproof"
+
+[aphorism]
+description = "observation in few words that is broadly true"
+wikidata = "https://www.wikidata.org/wiki/Q165740"
+wikipedia = "https://en.wikipedia.org/wiki/Aphorism"
+
 [dialogue]
 description = "conversation between two or more people"
 synonyms = ["dialectic"]

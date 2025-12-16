@@ -1,11 +1,7 @@
 +++
 draft = true
 template = "work.html"
-# You can override `title` and `author` if needed
-# title = "Poetics"
-# authors = ["Aristotle"]
-# You can override the default by specifying a slug, e.g.
-# slug = "arabian-nights"
+# You can override `title`, `authors`, and `slug`
 
 [extra]
 id = "aristotle_poetics"

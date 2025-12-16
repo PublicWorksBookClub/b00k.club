@@ -11,6 +11,7 @@ wikipedia = "https://en.wikipedia.org/wiki/Rhetoric"
 wikidata = "https://www.wikidata.org/wiki/Q1021376"
 # no wikipedia entry
 
+# BEGIN Philosophy genus
 ["philosophy"]
 wikidata = "https://www.wikidata.org/wiki/Q5891"
 wikipeda = "https://en.wikipedia.org/wiki/Philosophy"
@@ -31,3 +32,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Political_philosophy"
 ["practical philosophy"]
 wikidata = "https://www.wikidata.org/wiki/Q1888684"
 wikipedia = "https://en.wikipedia.org/wiki/Practical_philosophy"
+
+[stoicism]
+wikidata = "https://www.wikidata.org/wiki/Q48235"
+wikipedia = "https://en.wikipedia.org/wiki/Stoicism"
+# END Philosophy genus

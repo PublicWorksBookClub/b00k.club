@@ -1,9 +1,7 @@
 +++
 draft = true
 template = "work.html"
-# You can override `title` and `author` if needed
-# title = "Crito"
-# authors = ["Plato"]
+# You can override `title`, `authors`, and `slug`
 
 [extra]
 id = "plato_crito"
