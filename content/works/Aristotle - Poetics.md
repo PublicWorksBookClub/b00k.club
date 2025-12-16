@@ -20,7 +20,7 @@ forms = ["treatise"]
 genres = ["philosophy", "literary theory"]
 subjects = ["drama", "tragedy", "comedy", "plot", "epic"]
 periods = ["4th c. BCE", "Classical Greece"]
-languages = ["Attic Greek"]
+languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies
 arcs = ["Elementa 1"]
