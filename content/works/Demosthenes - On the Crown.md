@@ -1,32 +1,29 @@
 +++
 draft = true
-# The main title
-title = "On the Crown"
-# (Not the authors of the work, but the authors of the page)
-authors = ["Spencer Scorcelletti"]
 template = "work.html"
-# You can override the default by specifying a slug, e.g.
-# slug = "arabian-nights"
+# You can override `title`, `authors`, and `slug`
+
+[extra]
+id = "demosthenes_18"
+order = 31
+wikipedia = "https://en.wikipedia.org/wiki/On_the_Crown"
+wikidata = "https://www.wikidata.org/wiki/Q969706"
+abstract = """
+A famous speech delivered by the Athenian orator in 330 BCE, defending his political career and the legacy of his ally, Ctesiphon, against charges brought by his rival Aeschines. In the oration, Demosthenes praises the virtues of civic duty, the defense of Athens, and the responsibilities of leadership, while attacking corruption and complacency among public officials. The speech is a masterpiece of classical rhetoric and political argumentation, exemplifying the art of persuasion in the context of Athens’ democratic institutions.
+"""
 
 [taxonomies]
 # Textual taxonomies
 titles = ["On the Crown", "Demosthenes 18", "De Corona"]
 authors = ["Demosthenes"]
-forms = ["speech", "forensic oration"]
+forms = ["oration", "forensic oration"]
 genres = ["attic oration", "rhetorical oration", "political speech"]
 subjects = ["rhetoric", "civic duty", "ethics"]
-periods = ["4th c. BCE", "Late Classical Athens", "Classical Greece"]
-languages = ["Ancient Greek"]
-
+periods = ["4th c. BCE", "Classical Greece"]
+languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 arcs = ["Anabasis 3"]
-
-[extra]
-order = 31
-abstract = """
-A famous speech delivered by the Athenian orator Demosthenes in 330 BCE, defending his political career and the legacy of his ally, Ctesiphon, against charges brought by his rival Aeschines. In the oration, Demosthenes praises the virtues of civic duty, the defense of Athens, and the responsibilities of leadership, while attacking corruption and complacency among public officials. The speech is a masterpiece of classical rhetoric and political argumentation, exemplifying the art of persuasion in the context of Athens’ democratic institutions.
-"""
-same_as = ["https://en.wikipedia.org/wiki/On_the_Crown", "https://www.wikidata.org/wiki/Q969706"]
+contributors = ["Spencer Scorcelletti"]
 +++
 
 {{ abstract() }}
