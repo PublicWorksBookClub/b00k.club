@@ -16,7 +16,7 @@ Socrates listens and responds to his longtime friend's appeal to accept help esc
 # Textual taxonomies
 titles = ["Crito"]
 authors = ["Plato"]
-forms = ["dialectic"]
+forms = ["dialogue"]
 genres = ["Socratic dialogue", "didactic", "temptation narrative"]
 subjects = ["philosophy", "epistemology", "ethics", "civic duty", "political philosophy", "practical philosophy"]
 periods = ["5th c. BCE", "4th c. BCE", "Classical Greece"]
