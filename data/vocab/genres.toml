@@ -10,6 +10,12 @@ label = "dialogue"
 wikidata = "https://www.wikidata.org/wiki/Q3025978"
 wikipedia = "https://en.wikipedia.org/wiki/Dialogue"
 
+["philippic"]
+label = "philippic"
+description = "A fiery, damning speech condemning a political opponent."
+wikipedia = "https://en.wikipedia.org/wiki/Philippic"
+wikidata = "https://www.wikidata.org/wiki/Q110629616"
+
 ["Socractic dialogue"]
 label = "Socratic dialogue"
 wikidata = "https://www.wikidata.org/wiki/Q3026054"
