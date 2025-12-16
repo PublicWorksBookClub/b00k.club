@@ -25,6 +25,11 @@ synonyms = ["moral philosophy"]
 wikidata = "https://www.wikidata.org/wiki/Q9465"
 wikipedia = "https://en.wikipedia.org/wiki/Ethics"
 
+["philosophy of science"]
+synonyms = ["theory of science"]
+wikidata = "https://www.wikidata.org/wiki/Q59115"
+wikipedia = "https://en.wikipedia.org/wiki/Philosophy_of_science"
+
 ["political philosophy"]
 wikidata = "https://www.wikidata.org/wiki/Q179805"
 wikipedia = "https://en.wikipedia.org/wiki/Political_philosophy"
