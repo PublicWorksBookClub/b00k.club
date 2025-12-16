@@ -1,10 +1,16 @@
 +++
 draft = true
-title = "Life of Alexander"
-authors = ["Spencer Scorcelletti"]
 template = "work.html"
-# You can override the default by specifying a slug, e.g.
-# slug = "arabian-nights"
+# You can override `title`, `authors`, and `slug`
+
+[extra]
+id = "plutarch_alexander"
+order = 33
+wikipedia = "https://en.wikipedia.org/wiki/Plutarch#Life_of_Alexander"
+wikidata = "https://www.wikidata.org/wiki/Q11850689"
+abstract = """
+A biography on Alexander III of Macedonia with an emphasis on his character and motivations, while still covering the basics of his miltary campaign through Europe, Asia Minor, and India.
+"""
 
 [taxonomies]
 # Textual taxonomies
@@ -18,11 +24,4 @@ languages = ["Koine Greek"]
 
 # General taxonomies
 arcs = ["Metamorphoses 1"]
-
-[extra]
-order = 33
-same_as = ["https://www.wikidata.org/wiki/Q11850689"]
-abstract = """
-A biography on Alexander of Macedonia with an emphasis on his character and motivations, although still covering the basics of his miltary campaign through Europe, Asia Minor, and India.
-"""
 +++
