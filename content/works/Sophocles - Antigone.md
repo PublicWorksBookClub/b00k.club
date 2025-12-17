@@ -1,10 +1,10 @@
 +++
 draft = true
-template = "work.html"
-# You can override `title`, `authors`, and `slug`
+template = "works/single.html"
+slug = "sophocles-antigone"
+# You can also override `title` and `authors`
 
 [extra]
-id = "sophocles-antigone"
 order = 3
 wikidata = "https://www.wikidata.org/wiki/Q241077"
 wikipedia = "https://en.wikipedia.org/wiki/Antigone_(Sophocles_play)"

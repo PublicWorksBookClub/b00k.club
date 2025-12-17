@@ -1,10 +1,10 @@
 +++
 draft = true
-template = "work.html"
-# You can override `title`, `authors`, and `slug`
+template = "works/single.html"
+slug = "shakespeare-tempest"
+# You can also override `title` and `authors`
 
 [extra]
-id = "shakespeare-tempest"
 order = 2
 wikidata = "https://www.wikidata.org/wiki/Q86440"
 wikipedia = "https://en.wikipedia.org/wiki/The_Tempest"

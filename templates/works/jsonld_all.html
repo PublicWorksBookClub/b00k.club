@@ -1,0 +1,13 @@
+{% import "macro/json-ld.html" as json_ld %}
+
+{% set works_section = get_section(path="works/_index.md") %}
+{%- set pages = works_section.pages | sort(attribute="extra.order") -%}
+{ "@context": "https://schema.org", "@graph":
+[{%- for p in pages -%}
+  {%- if p.extra.order != -1 -%}
+    {%- set json = json_ld::abstract_text(doc=p) -%}
+    {%- set json = load_data(literal=json, format="json") -%}
+    {{ json | json_encode | safe }}{% if not loop.last %},{% endif %}
+  {%- endif -%}
+{%- endfor -%}
+] }

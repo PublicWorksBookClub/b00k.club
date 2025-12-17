@@ -1,10 +1,10 @@
 +++
 draft = true
-template = "work.html"
-# You can override `title`, `authors`, and `slug`
+template = "works/single.html"
+slug = "plato-apology"
+# You can also override `title` and `authors`
 
 [extra]
-id = "plato-apology"
 order = 30
 wikidata = "https://www.wikidata.org/wiki/Q273668"
 wikipedia = "https://en.wikipedia.org/wiki/Apology_(Plato)"

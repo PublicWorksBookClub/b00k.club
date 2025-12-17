@@ -1,10 +1,10 @@
 +++
 draft = true
-template = "work.html"
-# You can override `title`, `authors`, and `slug`
+template = "works/single.html"
+slug = "aristotle-posterior-analytics"
+# You can also override `title` and `authors`
 
 [extra]
-id = "aristotle-posterior-analytics"
 order = 24
 wikidata = "https://www.wikidata.org/wiki/Q485206"
 wikipedia = "https://en.wikipedia.org/wiki/Posterior_Analytics"

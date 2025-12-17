@@ -1,11 +1,10 @@
 +++
 draft = true
-template = "work.html"
+template = "works/single.html"
 slug = "zhuangzi"
-# You can override `title`, `authors`, and `slug`
+# You can also override `title` and `authors`
 
 [extra]
-id = "zhuangzi"
 order = 6
 wikidata = "https://www.wikidata.org/wiki/Q1074987"
 wikipedia = "https://en.wikipedia.org/wiki/Zhuangzi_(book)"

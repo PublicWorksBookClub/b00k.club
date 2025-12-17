@@ -1,10 +1,10 @@
 +++
 draft = true
-template = "work.html"
-# You can override `title`, `authors`, and `slug`
+template = "works/single.html"
+slug = "thucydides"
+# You can also override `title` and `authors`
 
 [extra]
-id = "xenophon-hellenica"
 order = 7
 wikidata = "https://www.wikidata.org/wiki/Q639493"
 wikipedia = "https://en.wikipedia.org/wiki/History_of_the_Peloponnesian_War"

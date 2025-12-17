@@ -1,10 +1,10 @@
 +++
 draft = true
-template = "work.html"
-# You can override `title`, `authors`, and `slug`
+template = "works/single.html"
+slug = "aristotle-categories"
+# You can also override `title` and `authors`
 
 [extra]
-id = "aristotle-categories"
 order = 19
 wikidata = "https://www.wikidata.org/wiki/Q1735826"
 wikipedia = "https://en.wikipedia.org/wiki/Categories_(Aristotle)"

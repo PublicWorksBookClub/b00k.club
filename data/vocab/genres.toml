@@ -57,7 +57,6 @@ synonyms = ["judicial oratory", "forensic oratory"]
 
 ["funeral oration"]
 label = "funeral oration"
-id = "https://vocab.getty.edu/aat/300417770.jsonld"
 
 [parable]
 label = "parable"

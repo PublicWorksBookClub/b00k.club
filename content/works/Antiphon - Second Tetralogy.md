@@ -1,10 +1,10 @@
 +++
 draft = true
-template = "work.html"
-# You can override `title`, `authors`, and `slug`
+template = "works/single.html"
+slug = "antiphon-3"
+# You can also override `title` and `authors`
 
 [extra]
-id = "antiphon-3"
 order = 16
 wikidata = "https://www.wikidata.org/wiki/Q110732747"
 wikipedia = "https://en.wikipedia.org/wiki/Antiphon_(orator)#List_of_extant_speeches"

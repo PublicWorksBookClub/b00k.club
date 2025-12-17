@@ -1,10 +1,10 @@
 +++
 draft = true
-template = "work.html"
-# You can override `title`, `authors`, and `slug`
+template = "works/single.html"
+slug = "plutarch-alexander"
+# You can also override `title` and `authors`
 
 [extra]
-id = "plutarch-alexander"
 order = 33
 wikipedia = "https://en.wikipedia.org/wiki/Plutarch#Life_of_Alexander"
 wikidata = "https://www.wikidata.org/wiki/Q11850689"
