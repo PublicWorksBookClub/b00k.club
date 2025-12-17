@@ -23,6 +23,11 @@ synonyms = ["comedy of situations"]
 wikidata = "https://www.wikidata.org/wiki/Q2991535"
 wikipedia = "https://en.wikipedia.org/wiki/Comedy_of_intrigue"
 
+[epistle]
+description = "letter written for a didactic purpose"
+wikidata = "https://www.wikidata.org/wiki/Q215495"
+wikipedia = "https://en.wikipedia.org/wiki/Epistle"
+
 ["philippic"]
 label = "philippic"
 description = "a fiery, damning speech condemning a political opponent"
