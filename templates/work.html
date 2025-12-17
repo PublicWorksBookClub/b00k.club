@@ -5,6 +5,9 @@
 {% block extra_head %}
   <script type="application/ld+json">
   {%- set json = json_ld::abstract_text(doc=page) -%}
+  {% if doc.extra.order in [] %}
+  {{ throw(message=json) }}
+  {% endif %}
   {%- set json = load_data(literal=json, format="json") -%}
   {{ json | json_encode | safe }}
   </script>

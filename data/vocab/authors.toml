@@ -1,6 +1,11 @@
 # (some texts may have more than one e.g. "Moses" and "Anonymous")
 # (Note: Capitalize, always a proper now including with "Anonymous")
 
+[Aeschylus]
+label = "Aeschylus"
+wikipedia = "https://en.wikipedia.org/wiki/Aeschylus"
+wikidata = "https://www.wikidata.org/wiki/Q40939"
+
 [Anonymous]
 label = "Anonymous"
 wikipedia = "https://en.wikipedia.org/wiki/Anonymous_work"
@@ -12,6 +17,11 @@ synonyms = ["Antiphon of Rhamnus"]
 wikipedia = "https://en.wikipedia.org/wiki/Antiphon_(orator)"
 wikidata = "https://www.wikidata.org/wiki/Q335560"
 
+[Aristophanes]
+label = "Aristophanes"
+wikipedia = "https://en.wikipedia.org/wiki/Aristophanes"
+wikidata = "https://www.wikidata.org/wiki/Q43353"
+
 [Aristotle]
 label = "Aristotle"
 wikipedia = "https://en.wikipedia.org/wiki/Aristotle"
@@ -21,6 +31,11 @@ wikidata = "https://www.wikidata.org/wiki/Q868"
 label = "Demosthenes"
 wikipedia = "https://en.wikipedia.org/wiki/Demosthenes"
 wikidata = "https://www.wikidata.org/wiki/Q117253"
+
+[Euripides]
+label = "Euripides"
+wikipedia = "https://en.wikipedia.org/wiki/Euripides"
+wikidata = "https://www.wikidata.org/wiki/Q48305"
 
 [Homer]
 label = "Homer"
@@ -37,6 +52,11 @@ label = "Marcus Aurelius"
 wikipedia = "https://en.wikipedia.org/wiki/Marcus_Aurelius"
 wikidata = "https://www.wikidata.org/wiki/Q1430"
 
+["Menander"]
+label = "Menander"
+wikipedia = "https://en.wikipedia.org/wiki/Menander"
+wikidata = "https://www.wikidata.org/wiki/Q118992"
+
 [Plato]
 label = "Plato"
 wikipedia = "https://en.wikipedia.org/wiki/Plato"
@@ -46,3 +66,13 @@ wikidata = "https://www.wikidata.org/wiki/Q859"
 label = "Plutarch"
 wikipedia = "https://en.wikipedia.org/wiki/Plutarch"
 wikidata = "https://www.wikidata.org/wiki/Q41523"
+
+[Sophocles]
+label = "Sophocles"
+wikipedia = "https://en.wikipedia.org/wiki/Sophocles"
+wikidata = "https://www.wikidata.org/wiki/Q7235"
+
+[Theophrastus]
+label = "Theophrastus"
+wikipedia = "https://en.wikipedia.org/wiki/Theophrastus"
+wikidata = "https://www.wikidata.org/wiki/Q160362"

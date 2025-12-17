@@ -115,7 +115,7 @@
   ],
   {# Abstract #}
   {% if doc.extra.abstract %}
-  "abstract": "{{ doc.extra.abstract | trim }}"
+  "abstract": {{ doc.extra.abstract | trim | json_encode }}
   {% endif %}
 }
 {% endmacro abstract_text %}
