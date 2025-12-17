@@ -27,9 +27,9 @@
     {% for a in doc.taxonomies.authors %}
       {
         "@type": "Person",
-        "name": "{{ authors[a].label | default(value=a) }}",
+        "name": "{{ authors[a].label | default(value=a) }}"
         {% if authors[a].wikidata %}
-        "sameAs": "{{ authors[a].wikidata }}"
+        , "sameAs": "{{ authors[a].wikidata }}"
         {% endif %}
       }{% if not loop.last %},{% endif %}
     {% endfor %}

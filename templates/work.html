@@ -5,6 +5,7 @@
 {% block extra_head %}
   <script type="application/ld+json">
   {%- set json = json_ld::abstract_text(doc=page) -%}
+  {# For debugging #}
   {% if doc.extra.order in [] %}
   {{ throw(message=json) }}
   {% endif %}

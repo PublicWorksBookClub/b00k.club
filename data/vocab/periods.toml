@@ -86,3 +86,14 @@ description = "Brief period where Thebes eclipsed Sparta in influence after the 
 label = "Warring States period"
 wikidata = "https://www.wikidata.org/wiki/Q185063"
 wikipedia = "https://en.wikipedia.org/wiki/Warring_States_period"
+
+["18th c. CE"]
+label = "18th century AD"
+wikidata = "https://www.wikidata.org/wiki/Q7015"
+wikipedia = "https://en.wikipedia.org/wiki/18th_century"
+
+["Confederation Period"]
+label = "Confederation Period"
+synonyms = ["America's Critical Period"]
+wikidata = "https://www.wikidata.org/wiki/Q4742531"
+wikipedia = "https://en.wikipedia.org/wiki/Confederation_period"

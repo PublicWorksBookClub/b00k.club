@@ -16,8 +16,8 @@ Socrates responds to the charges against him in court, culiminating in a forcefu
 # Textual taxonomies
 titles = ["Apology"]
 authors = ["Plato"]
-forms = ["oration", "forensic oratory"]
-genres = ["forensic oratory"]
+forms = ["oration"]
+genres = ["forensic"]
 subjects = ["philosophy", "social contract", "political philosophy", "ethics"]
 periods = ["5th c. BCE", "4th c. BCE", "Classical Greece"]
 # General taxonomies

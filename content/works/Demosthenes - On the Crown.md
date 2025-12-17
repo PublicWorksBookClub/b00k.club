@@ -16,8 +16,8 @@ A famous speech delivered by the Athenian orator in 330 BCE, defending his polit
 # Textual taxonomies
 titles = ["On the Crown", "Demosthenes 18", "De Corona"]
 authors = ["Demosthenes"]
-forms = ["oration", "forensic oratory"]
-genres = ["attic oration", "rhetorical oratory", "political speech"]
+forms = ["oration"]
+genres = ["forensic", "attic oration", "rhetorical oratory", "political speech"]
 subjects = ["rhetoric", "civic duty", "ethics"]
 periods = ["4th c. BCE", "Classical Greece"]
 languages = ["Ancient Greek", "Attic Greek"]

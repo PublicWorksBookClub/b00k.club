@@ -48,28 +48,11 @@ synonym = ["epistle"]
 wikidata = "https://www.wikidata.org/wiki/Q133492"
 wikipedia = "https://en.wikipedia.org/wiki/Letter_(message)"
 
-# Begin oration genus
 [oration]
 description = "address delivered to an audience"
 synonyms = ["speech"]
 wikidata = "https://www.wikidata.org/wiki/Q861911"
 # no wikipedia
-
-["forensic oratory"]
-label = "foresnic oratory"
-description = "a speech to accuse or defend, often in a court setting"
-synonyms = ["judicial oratory"]
-
-["deliberative oratory"]
-label = "deliberative oratory"
-description = "a speech to exhort or dissuade, often in an assembly"
-synonyms = ["legislative oratory"]
-
-["epideictic oratory"]
-label = "epideictic oratory"
-description = "a speech to praise or blame, often in a ceremonial setting"
-synonyms = ["ceremonial oratory", "demonstrative oratory"]
-# End oration genus
 
 [play]
 description = "a type of theatrical dramatic work"

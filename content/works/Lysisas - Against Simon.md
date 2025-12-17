@@ -16,8 +16,8 @@ An unnamed Athenian defends himself from assault charges prosecuted by an Atheni
 # Textual taxonomies
 titles = ["Against Simon", "Lysias 3"]
 authors = ["Lysias"]
-forms = ["oration", "forensic oratory"]
-genres = ["forensic defense"]
+forms = ["oration"]
+genres = ["forensic", "forensic defense"]
 subjects = ["justice", "assault", "rhetoric"]
 periods = ["4th c. BCE", "Classical Greece"]
 languages = ["Ancient Greek", "Attic Greek"]

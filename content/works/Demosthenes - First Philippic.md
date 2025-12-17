@@ -16,8 +16,8 @@ Demosthenes urges the Athenians to abandon complacency and take decisive, proact
 # Textual taxonomies
 titles = ["First Philippic", "Demosthenes 4"]
 authors = ["Demosthenes"]
-forms = ["oration", "deliberative oratory"]
-genres = ["political speech"]
+forms = ["oration"]
+genres = ["political speech", "deliberative"]
 subjects = ["rhetoric", "civic duty", "war", "Philip II"]
 periods = ["4th c. BCE", "Classical Greece"]
 languages = ["Ancient Greek", "Attic Greek"]

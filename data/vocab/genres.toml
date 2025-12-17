@@ -24,10 +24,20 @@ synonyms = ["comedy of situations"]
 wikidata = "https://www.wikidata.org/wiki/Q2991535"
 wikipedia = "https://en.wikipedia.org/wiki/Comedy_of_intrigue"
 
+["deliberative"]
+label = "deliberative"
+description = "to exhort or dissuade, often in an assembly"
+synonyms = ["legislative oratory", "deliberative oratory"]
+
 ["dialogue"]
 label = "dialogue"
 wikidata = "https://www.wikidata.org/wiki/Q3025978"
 wikipedia = "https://en.wikipedia.org/wiki/Dialogue"
+
+["epideictic"]
+label = "epideictic"
+description = "to praise or blame, often in a ceremonial setting"
+synonyms = ["ceremonial oratory", "demonstrative oratory", "epideictic"]
 
 [epistle]
 description = "letter written for a didactic purpose"
@@ -39,6 +49,11 @@ label = "fable"
 description = "short didactic that uses non-humans to illustrate a moral lesson"
 wikipedia = "https://en.wikipedia.org/wiki/Fable"
 wikidata = "https://www.wikidata.org/wiki/Q693"
+
+["forensic"]
+label = "foresnic"
+description = "to accuse or defend, often in a court setting"
+synonyms = ["judicial oratory", "forensic oratory"]
 
 ["funeral oration"]
 label = "funeral oration"

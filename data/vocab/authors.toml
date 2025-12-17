@@ -27,6 +27,11 @@ label = "Aristotle"
 wikipedia = "https://en.wikipedia.org/wiki/Aristotle"
 wikidata = "https://www.wikidata.org/wiki/Q868"
 
+["Marcus Aurelius"]
+label = "Marcus Aurelius"
+wikipedia = "https://en.wikipedia.org/wiki/Marcus_Aurelius"
+wikidata = "https://www.wikidata.org/wiki/Q1430"
+
 [Demosthenes]
 label = "Demosthenes"
 wikipedia = "https://en.wikipedia.org/wiki/Demosthenes"
@@ -37,20 +42,30 @@ label = "Euripides"
 wikipedia = "https://en.wikipedia.org/wiki/Euripides"
 wikidata = "https://www.wikidata.org/wiki/Q48305"
 
+["Alexander Hamilton"]
+label = "Alexander Hamilton"
+wikipedia = "https://en.wikipedia.org/wiki/Alexander_Hamilton"
+wikidata = "https://www.wikidata.org/wiki/Q178903"
+
 [Homer]
 label = "Homer"
 wikipedia = "https://en.wikipedia.org/wiki/Homer"
 wikidata = "https://www.wikidata.org/wiki/Q6691"
+
+["John Jay"]
+label = "John Jay"
+wikipedia = "https://en.wikipedia.org/wiki/John_Jay"
+wikidata = "https://www.wikidata.org/wiki/Q310847"
 
 [Lysias]
 label = "Lysias"
 wikipedia = "https://en.wikipedia.org/wiki/Lysias"
 wikidata = "https://www.wikidata.org/wiki/Q310164"
 
-["Marcus Aurelius"]
-label = "Marcus Aurelius"
-wikipedia = "https://en.wikipedia.org/wiki/Marcus_Aurelius"
-wikidata = "https://www.wikidata.org/wiki/Q1430"
+["James Madison"]
+label = "James Madison"
+wikipedia = "https://en.wikipedia.org/wiki/James_Madison"
+wikidata = "https://www.wikidata.org/wiki/Q11813"
 
 ["Menander"]
 label = "Menander"
@@ -66,6 +81,11 @@ wikidata = "https://www.wikidata.org/wiki/Q859"
 label = "Plutarch"
 wikipedia = "https://en.wikipedia.org/wiki/Plutarch"
 wikidata = "https://www.wikidata.org/wiki/Q41523"
+
+["Publius (Federalist Papers pseudonym)"]
+label = "Publius"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Sophocles]
 label = "Sophocles"

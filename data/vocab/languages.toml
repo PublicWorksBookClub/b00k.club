@@ -8,7 +8,7 @@
 # see https://en.wikipedia.org/wiki/Linguistic_Linked_Open_Data for more
 # or https://iso639-3.sil.org/code_tables/639/data for a simple table
 
-# BEGIN Greek languages
+# BEGIN Ancient Greek languages
 ["Ancient Greek"]
 label = "Ancient Greek"
 bcp_47 = "grc"
@@ -52,7 +52,7 @@ synonyms = ["Biblical Greek", "ecclesiastical Greek", "New Testament Greek", "pa
 glottolog = "koin1234"
 wikidata = "https://www.wikidata.org/wiki/Q107358"
 wikipedia = "https://en.wikipedia.org/wiki/Koine_Greek"
-# END Greek languages
+# END Ancient Greek languages
 
 ["Classical Chinese"]
 label = "Classical Chinese"
@@ -64,3 +64,13 @@ synonyms = ["Wenyan", "zh-classical", "lzh", "Literary Chinese", "Traditional Ch
 lexvo = "http://www.lexvo.org/page/iso639-3/lzh"
 wikidata = "https://www.wikidata.org/wiki/Q37041"
 wikipedia = "https://en.wikipedia.org/wiki/Classical_Chinese"
+
+[English]
+label = "English"
+bcp_47 = "eng"
+iso_639_3 = "eng"
+# no `linguist_list`
+glottolog = "stan1293"
+lexvo = "http://www.lexvo.org/page/iso639-3/eng"
+wikidata = "https://www.wikidata.org/wiki/Q1860"
+wikipedia = "https://en.wikipedia.org/wiki/English_language"
