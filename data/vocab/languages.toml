@@ -54,6 +54,15 @@ wikidata = "https://www.wikidata.org/wiki/Q107358"
 wikipedia = "https://en.wikipedia.org/wiki/Koine_Greek"
 # END Ancient Greek languages
 
+["Classical Arabic"]
+label = "Classical Arabic"
+bcp_47 = "ar"
+# No `iso_639_3` (arb is modern arabic)
+# No `linguist_list`
+# No `glottolog`
+wikidata = "https://www.wikidata.org/wiki/Q1654327"
+wikipedia = "https://en.wikipedia.org/wiki/Classical_Arabic"
+
 ["Classical Chinese"]
 label = "Classical Chinese"
 bcp_47 = "lzh"

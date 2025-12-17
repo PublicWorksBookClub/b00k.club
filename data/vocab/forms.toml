@@ -42,6 +42,15 @@ description = "the representation of an action divided into many episodes and pe
 wikidata = "https://www.wikidata.org/wiki/Q2367164"
 wikipedia = "https://en.wikipedia.org/wiki/Epic_(genre)"
 
+[folktale]
+description = "a traditional story passed down orally"
+
+["frame story"]
+description = "story told in nested narration"
+synonyms = ["frame tale", "frame narrative", "framing device", "outer story", "outer narrative"]
+wikidata = "https://www.wikidata.org/wiki/Q1505819"
+wikipedia = "https://en.wikipedia.org/wiki/Frame_story"
+
 [letter]
 description = "written message from one person to another"
 synonym = ["epistle"]
