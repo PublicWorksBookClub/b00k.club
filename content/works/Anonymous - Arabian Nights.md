@@ -6,7 +6,7 @@ slug = "arabian-nights"
 
 [extra]
 id = "arabian-nights"
-order = 3
+order = 4
 wikidata = "https://www.wikidata.org/wiki/Q8258"
 wikipedia = "https://en.wikipedia.org/wiki/One_Thousand_and_One_Nights"
 abstract = """

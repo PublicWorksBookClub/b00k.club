@@ -92,6 +92,21 @@ label = "Islamic Golden Age"
 wikidata = "https://www.wikidata.org/wiki/Q745799"
 wikipedia = "https://en.wikipedia.org/wiki/Islamic_Golden_Age"
 
+["English Renaissance"]
+label = "English Renaissance"
+wikidata = "https://www.wikidata.org/wiki/Q2272912"
+wikipedia = "https://en.wikipedia.org/wiki/English_Renaissance"
+
+["Elizabethan Era"]
+label = "Elizabethan Era"
+wikidata = "https://www.wikidata.org/wiki/Q912595"
+wikipedia = "https://en.wikipedia.org/wiki/Elizabethan_era"
+
+["Jacobean Era"]
+label = "Jacobean Era"
+wikidata = "https://www.wikidata.org/wiki/Q2559155"
+wikipedia = "https://en.wikipedia.org/wiki/Jacobean_era"
+
 ["18th c. CE"]
 label = "18th century AD"
 wikidata = "https://www.wikidata.org/wiki/Q7015"

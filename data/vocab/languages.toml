@@ -74,6 +74,15 @@ lexvo = "http://www.lexvo.org/page/iso639-3/lzh"
 wikidata = "https://www.wikidata.org/wiki/Q37041"
 wikipedia = "https://en.wikipedia.org/wiki/Classical_Chinese"
 
+["Early Modern English"]
+label = "Early Modern English"
+bcp_47 = "en"
+# no `iso_639_3`
+# no `linguist_list`
+# no `glottolog`
+wikidata = "https://www.wikidata.org/wiki/Q1472196"
+wikipedia = "https://en.wikipedia.org/wiki/Early_Modern_English"
+
 [English]
 label = "English"
 bcp_47 = "eng"

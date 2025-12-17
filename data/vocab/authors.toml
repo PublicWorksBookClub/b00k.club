@@ -87,6 +87,11 @@ label = "Publius"
 # no `wikipedia` entry
 # no `wikidata` entry
 
+["William Shakespeare"]
+label = "William Shakespeare"
+wikipedia = "https://en.wikipedia.org/wiki/William_Shakespeare"
+wikidata = "https://www.wikidata.org/wiki/Q692"
+
 [Sophocles]
 label = "Sophocles"
 wikipedia = "https://en.wikipedia.org/wiki/Sophocles"
