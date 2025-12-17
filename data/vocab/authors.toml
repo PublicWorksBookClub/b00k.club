@@ -6,6 +6,12 @@ label = "Anonymous"
 wikipedia = "https://en.wikipedia.org/wiki/Anonymous_work"
 wikidata = "https://www.wikidata.org/wiki/Q4233718"
 
+[Antiphon]
+label = "Antiphon"
+synonyms = ["Antiphon of Rhamnus"]
+wikipedia = "https://en.wikipedia.org/wiki/Antiphon_(orator)"
+wikidata = "https://www.wikidata.org/wiki/Q335560"
+
 [Aristotle]
 label = "Aristotle"
 wikipedia = "https://en.wikipedia.org/wiki/Aristotle"
@@ -15,6 +21,16 @@ wikidata = "https://www.wikidata.org/wiki/Q868"
 label = "Demosthenes"
 wikipedia = "https://en.wikipedia.org/wiki/Demosthenes"
 wikidata = "https://www.wikidata.org/wiki/Q117253"
+
+[Homer]
+label = "Homer"
+wikipedia = "https://en.wikipedia.org/wiki/Homer"
+wikidata = "https://www.wikidata.org/wiki/Q6691"
+
+[Lysias]
+label = "Lysias"
+wikipedia = "https://en.wikipedia.org/wiki/Lysias"
+wikidata = "https://www.wikidata.org/wiki/Q310164"
 
 ["Marcus Aurelius"]
 label = "Marcus Aurelius"

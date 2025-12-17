@@ -1,6 +1,40 @@
 # e.g. 4th c. BCE, enlightenment, middle eastern antiquity, renaissance, etc...
 # (Note: capitalize historic periods but not centuries)
 
+["heroic age"]
+label = "heroic age"
+wikidata = "https://www.wikidata.org/wiki/Q67484198"
+
+["late Bronze Age"]
+label = "late Bronze Age"
+wikidata = "https://www.wikidata.org/wiki/Q1758757"
+wikipedia = "https://en.wikipedia.org/wiki/Late_Bronze_Age"
+
+["Mycenaean Greece"]
+label = "Mycenaean Greece"
+synonyms = [
+  "Mycenaean civilization",
+  "Mycenaean culture",
+  "Mycenaean civilisation",
+  "Mycenaean",
+  "Mycenaeans",
+  "Mycenaean age",
+  "Mycenaean period",
+  "Mycenaean era",
+]
+wikidata = "https://www.wikidata.org/wiki/Q181264"
+wikipedia = "https://en.wikipedia.org/wiki/Mycenaean_Greece"
+
+["Archaic Greece"]
+label = "Archaic Greece"
+wikidata = "https://www.wikidata.org/wiki/Q271834"
+wikipedia = "https://en.wikipedia.org/wiki/Archaic_Greece"
+
+["8th c. BCE"]
+label = "8th century BC"
+wikidata = "https://www.wikidata.org/wiki/Q25346"
+wikipedia = "https://en.wikipedia.org/wiki/8th_century_BC"
+
 ["Classical Greece"]
 label = "Classical Greece"
 # Primary Linked Data ID (e.g. Wikidata)

@@ -17,7 +17,7 @@ wikidata = "https://www.wikidata.org/wiki/Q165740"
 wikipedia = "https://en.wikipedia.org/wiki/Aphorism"
 
 ["character sketch"]
-description = "A portayal of individual"
+description = "a portayal of individual"
 wikidata = "https://www.wikidata.org/wiki/Q5073748"
 wikipedia = "https://en.wikipedia.org/wiki/Character_sketch"
 
@@ -26,6 +26,16 @@ description = "conversation between two or more people"
 synonyms = ["dialectic"]
 wikidata = "https://www.wikidata.org/wiki/Q131395"
 wikipedia = "https://en.wikipedia.org/wiki/Dialogue"
+
+[drama]
+description = "a representative work meant to be performed"
+wikidata = "https://www.wikidata.org/wiki/Q25372"
+wikipedia = "https://en.wikipedia.org/wiki/Drama"
+
+[epic]
+description = "the representation of an action divided into many episodes and performed by a single story teller"
+wikidata = "https://www.wikidata.org/wiki/Q2367164"
+wikipedia = "https://en.wikipedia.org/wiki/Epic_(genre)"
 
 # Begin oration genus
 [oration]
@@ -49,11 +59,6 @@ label = "epideictic oratory"
 description = "a speech to praise or blame, often in a ceremonial setting"
 synonyms = ["ceremonial oratory", "demonstrative oratory"]
 # End oration genus
-
-[drama]
-description = "a representative work meant to be performed"
-wikidata = "https://www.wikidata.org/wiki/Q25372"
-wikipedia = "https://en.wikipedia.org/wiki/Drama"
 
 [play]
 description = "a type of theatrical dramatic work"
