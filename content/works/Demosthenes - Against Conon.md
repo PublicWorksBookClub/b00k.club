@@ -17,8 +17,8 @@ An athenian named Ariston prosecutes Athenians Conon and his sons for assaulting
 titles = ["Against Conon", "Demosthenes 54"]
 authors = ["Demosthenes"]
 forms = ["oration", "forensic oratory"]
-genres = ["todo"]
-subjects = ["justice", "witness character"]
+genres = ["forensic prosecution"]
+subjects = ["justice", "witness character", "rhetoric"]
 periods = ["4th c. BCE", "Classical Greece"]
 languages = ["Ancient Greek", "Attic Greek"]
 
