@@ -76,3 +76,13 @@ wikidata = "https://www.wikidata.org/wiki/Q7235"
 label = "Theophrastus"
 wikipedia = "https://en.wikipedia.org/wiki/Theophrastus"
 wikidata = "https://www.wikidata.org/wiki/Q160362"
+
+[Thucydides]
+label = "Thucydides"
+wikipedia = "https://en.wikipedia.org/wiki/Thucydides"
+wikidata = "https://www.wikidata.org/wiki/Q41683"
+
+[Xenophon]
+label = "Xenophon"
+wikipedia = "https://en.wikipedia.org/wiki/Xenophon"
+wikidata = "https://www.wikidata.org/wiki/Q129772"
