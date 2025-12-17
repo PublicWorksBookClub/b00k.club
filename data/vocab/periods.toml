@@ -81,3 +81,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Theban_hegemony"
 start = "371 BCE"
 end = "362 BCE"
 description = "Brief period where Thebes eclipsed Sparta in influence after the battle of Leuctra."
+
+["Warring States period"]
+label = "Warring States period"
+wikidata = "https://www.wikidata.org/wiki/Q185063"
+wikipedia = "https://en.wikipedia.org/wiki/Warring_States_period"

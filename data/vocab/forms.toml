@@ -11,6 +11,11 @@ description = "a representation of laughable people that does not cause pain"
 wikidata = "https://www.wikidata.org/wiki/Q1100736"
 wikipedia = "https://en.wikipedia.org/wiki/Ancient_Greek_comedy"
 
+[anecdote]
+description = "a remarkable story"
+wikidata = "https://www.wikidata.org/wiki/Q193206"
+wikipedia = "https://en.wikipedia.org/wiki/Anecdote"
+
 [aphorism]
 description = "observation in few words that is broadly true"
 wikidata = "https://www.wikidata.org/wiki/Q165740"

@@ -86,3 +86,8 @@ wikidata = "https://www.wikidata.org/wiki/Q41683"
 label = "Xenophon"
 wikipedia = "https://en.wikipedia.org/wiki/Xenophon"
 wikidata = "https://www.wikidata.org/wiki/Q129772"
+
+[Zhuangzi]
+label = "Zhuang Zhou"
+wikipedia = "https://en.wikipedia.org/wiki/Zhuang_Zhou"
+wikidata = "https://www.wikidata.org/wiki/Q47739"
