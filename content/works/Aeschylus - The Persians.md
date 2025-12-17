@@ -9,7 +9,7 @@ order = 14
 wikidata = "https://www.wikidata.org/wiki/Q788458"
 wikipedia = "https://en.wikipedia.org/wiki/The_Persians"
 abstract = """
-The Queen Mother Attosa in Susa, alongside the rest of the court, awaits news of her son, King Xerxes, from the Battle of Salamis
+The Queen Mother Attosa in Susa, alongside the rest of the court, awaits news of her son, King Xerxes, from the Battle of Salamis.
 """
 
 [taxonomies]
