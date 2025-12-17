@@ -20,6 +20,7 @@ forms = ["personal reflection", "aphorism", "admonition"]
 genres = ["philosophy", "practical philosophy"]
 subjects = ["ethics", "Stoicism", "virtue", "self-discipline", "death", "nature", "duty"]
 periods = ["2nd c. CE", "Pax Romana", "Roman imperial period"]
+languages = ["Koine Greek"]
 # General taxonomies
 arcs = ["Theogony 1"]
 +++

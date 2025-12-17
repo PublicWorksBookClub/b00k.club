@@ -20,6 +20,7 @@ forms = ["dialogue"]
 genres = ["Socratic dialogue", "didactic", "temptation narrative"]
 subjects = ["philosophy", "epistemology", "ethics", "civic duty", "political philosophy", "practical philosophy"]
 periods = ["5th c. BCE", "4th c. BCE", "Classical Greece"]
+languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 arcs = ["Memorabilia 2"]
 contributors = ["Spencer Scorcelletti"]
