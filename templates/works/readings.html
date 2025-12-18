@@ -1,0 +1,27 @@
+{% extends "root.html" %}
+{% import "macro/json-ld.html" as json_ld %}
+{% import "macro/works.html" as works %}
+
+{% block body %}
+  <a
+    href="../"
+    class="fixed top-0 left-0 flex h-10 w-20 items-center justify-center border-r-2 border-b-2 border-gray-700 hover:bg-black/5"
+  >
+    Back
+  </a>
+  <main>
+    <article
+      class="prose prose-lg prose-headings:font-fira-sans prose-headings:font-bold prose-headings:text-gray-600 prose-a:text-gray-600 prose-th:text-gray-800/80 prose-tr:border-gray-400 prose-thead:border-gray-700/60 prose-hr:border-gray-700 mx-auto mt-18 max-w-prose text-lg text-gray-700"
+    >
+      <header class="not-prose text-gray-700">
+        <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
+          <a class="hover:underline" href="{{ section.permalink }}">Reading List</a>
+        </h1>
+      </header>
+      <section class="mt-16">
+        <p class="font-fira-sans -mb-6 text-right text-xs italic">(scroll →)</p>
+        {{ works::tablular_listing_of_works(section=get_section(path="works/_index.md")) }}
+      </section>
+    </article>
+  </main>
+{% endblock body %}
