@@ -11,6 +11,7 @@ wikipedia = "https://en.wikipedia.org/wiki/On_Interpretation"
 abstract = """
 A treatise on the relationship between language and logic by describing the formation of propositions and how they can be qualified.
 """
+bg_color = "bg-yellow-100"
 
 [taxonomies]
 # Textual taxonomies

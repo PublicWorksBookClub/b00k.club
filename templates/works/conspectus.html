@@ -12,9 +12,12 @@
 {% endblock extra_head %}
 {% block body %}
 <main>
-  <article class="max-w-prose mx-auto mt-18 text-lg">
-    <header>
-      <h1 class="font-playfair-display text-5xl font-extrabold">
+  <article class="max-w-prose mx-auto mt-18 text-lg prose prose-lg
+    prose-headings:font-fira-sans prose-headings:font-bold prose-headings:text-gray-600
+    text-gray-700 prose-a:text-gray-600 prose-th:text-gray-800/80
+    prose-tr:border-gray-400 prose-thead:border-gray-700/60 prose-hr:border-gray-700">
+    <header class="not-prose text-gray-700">
+      <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
         <a class="hover:underline" href="{{ page.permalink }}">{{ page.taxonomies.titles[0] }}</a>
       </h1>
       <p class="mt-6 text-xl font-fira-sans font-extralight">
@@ -32,11 +35,11 @@
       </p>
     </header>
     <hr class="mt-0">
-    <section class="mt-12 prose prose-lg prose-headings:font-fira-sans">
+    <section class="mt-12">
       <h2 class="mb-4">Abstract</h2>
       {{ page.extra.abstract | safe }}
     </section>
-    <section class="mt-8 prose prose-lg prose-headings:font-fira-sans">
+    <section class="mt-8">
       <h2>Bibliographic Data</h2>
       <table>
         <caption class="caption-bottom mt-2 text-sm italic font-serif"><a href="https://en.wikipedia.org/wiki/Linked_data">Linked data</a> embedded within this page (<a href="">JSON-LD</a>)</caption>
@@ -65,7 +68,7 @@
           </tr>
           <tr>
             <td>period</td>
-            <td>{{ works::list_taxonomy_terms(work=page, taxonomy="periods", add="italic") }}/td>
+            <td>{{ works::list_taxonomy_terms(work=page, taxonomy="periods", add="italic") }}</td>
           </tr>
           <tr>
             <td>language</td>
@@ -97,34 +100,39 @@
         </tbody>
       </table>
     </section>
-    <section class="mt-8 prose prose-lg prose-headings:font-fira-sans">
+    <section class="mt-8">
       <h2>Contextual Relations</h2>
-      {% if page.taxonomies.references %}
       <h3>Refers To</h3>
       <ul>
+        {% if page.taxonomies.references and page.taxonomies.references | length > 0 %}
         {% set works_section = get_section(path="works/_index.md") %}
         {% for r in page.taxonomies.references %}
         {% set w = works_section.pages | filter(attribute="slug", value=r) | nth(n=0) %}
         <li>
           <a class="font-light" href="{{ w.permalink }}">{{ w.taxonomies.titles[0] }}</a> by {{ works::list_taxonomy_terms(work=w, taxonomy="authors", add="italic font-extralight") }}</li>
         {% endfor %}
+        {% else %}
+        <li>(none)</li>
+        {% endif %}
       </ul>
-      {% endif %}
       {% set referenced_by = get_taxonomy(kind="references", lang=page.lang) | get(key="items") | filter(attribute="name", value=page.slug) %}
-      {% if referenced_by | length > 0 %}
-      {% set referenced_by = referenced_by | first | get(key="pages") %}
       <h3>Referenced By</h3>
       <ul>
+        {% if referenced_by | length > 0 %}
+        {% set referenced_by = referenced_by | first | get(key="pages") %}
         {% set works = referenced_by | filter(attribute="components.0", value="works") | sort(attribute="taxonomies.titles.0") %}
         {% for w in works %}
         <li>
           <a class="font-light" href="{{ w.permalink }}">{{ w.taxonomies.titles[0] }}</a> by {{ works::list_taxonomy_terms(work=w, taxonomy="authors", add="italic font-extralight") }}
         </li>
         {% endfor %}
+        {% else %}
+        <li>(none)</li>
+        {% endif %}
         {# TODO: then display commentary that references this work by further filtering it #}
       </ul>
-      {% endif %}
     </section>
+    <hr>
     <section class="mt-8 prose prose-lg prose-headings:font-fira-sans">
       {{ page.content | safe }}
     </section>

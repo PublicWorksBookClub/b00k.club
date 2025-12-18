@@ -4,8 +4,6 @@
 
 @plugin "@tailwindcss/typography";
 
-/* @config "../tailwind.config.js"; */
-
 @theme {
   --font-playfair-display: Playfair Display, serif;
   --font-fira-sans: Fira Sans, sans-serif;
