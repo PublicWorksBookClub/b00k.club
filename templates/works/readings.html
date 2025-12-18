@@ -4,14 +4,14 @@
 {% import "macro/util.html" as util %}
 
 {% block body %}
-  {{ util::back() }}
+  {{ util::back(text="Home") }}
   <main class="px-4 md:px-0">
     <article
       class="prose prose-lg prose-headings:font-fira-sans prose-headings:font-bold prose-headings:text-gray-600 prose-a:text-gray-600 prose-th:text-gray-800/80 prose-tr:border-gray-400 prose-thead:border-gray-700/60 prose-hr:border-gray-700 mx-auto mt-18 max-w-prose text-lg text-gray-700"
     >
       <header class="not-prose text-gray-700">
         <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
-          <a class="hover:underline" href="{{ section.permalink }}">Reading List</a>
+          <a class="hover:underline" href="{{ section.permalink }}">Readings</a>
         </h1>
       </header>
       <section class="mt-16">
