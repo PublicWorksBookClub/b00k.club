@@ -1,15 +1,11 @@
 {% extends "root.html" %}
 {% import "macro/json-ld.html" as json_ld %}
 {% import "macro/works.html" as works %}
+{% import "macro/util.html" as util %}
 
 {% block body %}
-  <a
-    href="../"
-    class="fixed top-0 left-0 flex h-10 w-20 items-center justify-center border-r-2 border-b-2 border-gray-700 hover:bg-black/5"
-  >
-    Back
-  </a>
-  <main>
+  {{ util::back() }}
+  <main class="px-4 md:px-0">
     <article
       class="prose prose-lg prose-headings:font-fira-sans prose-headings:font-bold prose-headings:text-gray-600 prose-a:text-gray-600 prose-th:text-gray-800/80 prose-tr:border-gray-400 prose-thead:border-gray-700/60 prose-hr:border-gray-700 mx-auto mt-18 max-w-prose text-lg text-gray-700"
     >

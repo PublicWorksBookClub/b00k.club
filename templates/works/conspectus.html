@@ -1,6 +1,7 @@
 {% extends "root.html" %}
 {% import "macro/json-ld.html" as json_ld %}
 {% import "macro/works.html" as works %}
+{% import "macro/util.html" as util %}
 {# prettier-ignore-start #}
 {% block extra_head %}
   <script type="application/ld+json">
@@ -11,10 +12,8 @@
   </script>
 {% endblock extra_head %}
 {% block body %}
-<a href="../" class="fixed top-0 left-0 border-b-2 border-r-2 border-gray-700 w-20 h-10 flex items-center justify-center hover:bg-black/5">
-  Back
-</a>
-<main>
+{{ util::back() }}
+<main class="px-4 md:px-0">
   <article class="max-w-prose mx-auto mt-18 text-lg prose prose-lg
     prose-headings:font-fira-sans prose-headings:font-bold prose-headings:text-gray-600
     text-gray-700 prose-a:text-gray-600 prose-th:text-gray-800/80
