@@ -1,6 +1,6 @@
 +++
 draft = true
-template = "works/single.html"
+template = "works/conspectus.html"
 slug = "menander-dyskolos"
 # You can also override `title` and `authors`
 

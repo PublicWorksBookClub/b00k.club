@@ -15,7 +15,7 @@
 {% endblock extra_head %}
 {% block article_heading %}
   <header id="heading">
-    <h1 class="font-serif">{{ page.taxonomies.titles[0] }}</h1>
+    <h1 class="font-playfair-display">{{ page.taxonomies.titles[0] }}</h1>
     <p>by <em>{{ page.taxonomies.authors | join(sep=", ") }}</em></p>
   </header>
 {% endblock article_heading %}
@@ -26,7 +26,7 @@
     </section>
     <section>
       <table>
-        <caption>Textual Taxonomy</caption>
+        <caption>Bibliographic Data</caption>
         <thead>
           <tr>
             <th>Term</th>
@@ -35,33 +35,29 @@
         </thead>
         <tbody>
           <tr>
-            <td>Title(s)</td>
-            <td>{{ page.taxonomies.titles | join(sep=", ")}}</td>
-          </tr>
-          <tr>
-            <td>Author(s)</td>
+            <td>Authorship</td>
             <td>
               {{ page.taxonomies.authors | join(sep=", ")}}
             </td>
           </tr>
           <tr>
-            <td>Literary Form(s)</td>
+            <td>Literary form</td>
             <td>{{ page.taxonomies.forms | join(sep=", ")}}</td>
           </tr>
           <tr>
-            <td>Genre(s)</td>
+            <td>Genres</td>
             <td>{{ page.taxonomies.genres | join(sep=", ")}}</td>
           </tr>
           <tr>
-            <td>Subject(s)</td>
+            <td>Subjects</td>
             <td>{{ page.taxonomies.subjects | join(sep=", ")}}</td>
           </tr>
           <tr>
-            <td>Period(s)</td>
+            <td>Periods</td>
             <td>{{ page.taxonomies.periods | join(sep=", ")}}</td>
           </tr>
           <tr>
-            <td>Language(s)</td>
+            <td>Languages</td>
             <td>{{ page.taxonomies.languages | join(sep=", ")}}</td>
           </tr>
           <tr>
@@ -79,43 +75,29 @@
               {% endif %}
             </td>
           </tr>
-        </tbody>
-      </table>
-      <table>
-        <caption>General/Club Taxonomy</caption>
-        <thead>
-          <tr>
-            <th>Term</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Arc(s)</td>
-            <td>{{ page.taxonomies.arcs | join(sep=", ")}}</td>
-          </tr>
-          {% if page.taxonomies.contributors %}
-          <tr>
-            <td>Contributor(s)</td>
-            <td>
-              {{ page.taxonomies.contributors | join(sep=", ")}}
-            </td>
-          </tr>
-          {% endif %}
           {% if page.taxonomies.references %}
           <tr>
-            <td>Reference(s)</td>
+            <td>References</td>
             <td>{{ page.taxonomies.references | join(sep=", ")}}</td>
           </tr>
           {% endif %}
           {% if page.taxonomies.tags %}
           <tr>
-            <td>Tag(s)</td>
+            <td>Tags</td>
             <td>{{ page.taxonomies.genres | join(sep=", ")}}</td>
+          </tr>
+          {% endif %}
+          {% if page.taxonomies.index %}
+          <tr>
+            <td>Index</td>
+            <td>{{ page.taxonomies.index | join(sep=", ")}}</td>
           </tr>
           {% endif %}
         </tbody>
       </table>
+    </section>
+    <section>
+      {{ page.content | safe }}
     </section>
   {# <div id="content" class="font-fira-sans my-16 px-2 font-normal">{{ page.content | safe }}</div> #}
 {% endblock article_content %}

@@ -1,6 +1,6 @@
 +++
 draft = true
-template = "works/single.html"
+template = "works/conspectus.html"
 slug = "antiphon-3"
 # You can also override `title` and `authors`
 
