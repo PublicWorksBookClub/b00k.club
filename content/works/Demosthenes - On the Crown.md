@@ -21,7 +21,9 @@ genres = ["forensic", "attic oration", "rhetorical oratory", "political speech"]
 subjects = ["rhetoric", "civic duty", "ethics"]
 periods = ["4th c. BCE", "Classical Greece"]
 languages = ["Ancient Greek", "Attic Greek"]
+
 # General taxonomies
+years = ["2025"]
 arcs = ["Anabasis 3"]
 contributors = ["Spencer Scorcelletti"]
 +++

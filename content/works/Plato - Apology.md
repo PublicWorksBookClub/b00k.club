@@ -21,7 +21,9 @@ genres = ["forensic"]
 subjects = ["philosophy", "social contract", "political philosophy", "ethics"]
 periods = ["Classical Greece", "5th c. BCE", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
+
 # General taxonomies
+years = ["2025"]
 arcs = ["Memorabilia 2"]
 contributors = ["Spencer Scorcelletti"]
 +++

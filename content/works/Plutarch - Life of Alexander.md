@@ -23,5 +23,7 @@ periods = ["4th c. BCE", "Late Classical Athens", "Classical Greece", "2nd c. CE
 languages = ["Koine Greek"]
 
 # General taxonomies
+years = ["2025"]
 arcs = ["Metamorphoses 1"]
+contributors = ["Spencer Scorcelletti"]
 +++

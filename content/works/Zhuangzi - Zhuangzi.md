@@ -23,6 +23,7 @@ periods = ["Warring States period", "4th c. BCE", "2nd c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies
+years = ["2023"]
 arcs = ["Theogony 2"]
 contributors = ["Spencer Scorcelletti"]
 +++

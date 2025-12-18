@@ -23,6 +23,7 @@ periods = ["5th c. BCE", "4th c. BCE", "Classical Greece"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies
+years = ["2025"]
 arcs = ["Memorabilia 2"]
 contributors = ["Spencer Scorcelletti"]
 +++

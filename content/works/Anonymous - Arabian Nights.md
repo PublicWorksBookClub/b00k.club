@@ -23,6 +23,7 @@ periods = ["Islamic Golden Age"]
 languages = ["Classical Arabic"]
 
 # General taxonomies
+years = ["2023"]
 arcs = ["Theogony 2"]
 contributors = ["Spencer Scorcelletti"]
 +++

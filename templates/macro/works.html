@@ -1,0 +1,9 @@
+{% macro list_taxonomy_terms(work, taxonomy, sep=", ", add="", override=false) %}
+  {% for t in work.taxonomies[taxonomy] %}
+    <a
+      class="{% if override %}{{ override }}{% else %}{% endif %} {{ add }}"
+      href="{{ get_taxonomy_url(kind=taxonomy, name=t, lang=page.lang) }}"
+      >{{ t }}</a
+    >{%- if not loop.last %}<span>{{ sep }}</span>{% endif %}
+  {% endfor %}
+{% endmacro %}

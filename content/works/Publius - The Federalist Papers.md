@@ -23,6 +23,7 @@ periods = ["Confederation Period", "18th c. CE"]
 languages = ["English"]
 
 # General taxonomies
+years = ["2023"]
 arcs = ["Theogony 2"]
 contributors = ["Spencer Scorcelletti"]
 +++

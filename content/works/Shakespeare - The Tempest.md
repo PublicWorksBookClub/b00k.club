@@ -23,6 +23,7 @@ periods = ["English Renaissance", "Jacobean Era"]
 languages = ["English", "Early Modern English"]
 
 # General taxonomies
+years = ["2023"]
 arcs = ["Theogony 1"]
 contributors = ["Spencer Scorcelletti"]
 +++

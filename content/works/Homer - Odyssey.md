@@ -37,6 +37,7 @@ periods = ["8th c. BCE", "Archaic Greece", "late Bronze Age", "Mycenaean Greece"
 languages = ["Ancient Greek", "Homeric Greek"]
 
 # General taxonomies
+years = ["2024"]
 arcs = ["Nostoi 1"]
 contributors = ["Spencer Scorcelletti"]
 +++

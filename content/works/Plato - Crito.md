@@ -9,7 +9,7 @@ order = 32
 wikidata = "https://en.wikipedia.org/wiki/Crito"
 wikipedia = "https://en.wikipedia.org/wiki/Crito"
 abstract = """
-Socrates listens and responds to his longtime friend's appeal to accept help escaping punishment after being sentenced to death in his trial from the "Apology".
+Socrates listens and responds to his longtime friend's appeal to accept help escaping punishment after being sentenced to death in his trial from "Apology".
 """
 
 [taxonomies]
@@ -21,10 +21,12 @@ genres = ["Socratic dialogue", "didactic", "temptation narrative"]
 subjects = ["philosophy", "epistemology", "ethics", "civic duty", "political philosophy", "practical philosophy"]
 periods = ["5th c. BCE", "4th c. BCE", "Classical Greece"]
 languages = ["Ancient Greek", "Attic Greek"]
+
 # General taxonomies
+years = ["2025"]
 arcs = ["Memorabilia 2"]
 contributors = ["Spencer Scorcelletti"]
-references = ["Apology"]
+references = ["plato-apology"]
 tags = [
   "social contract",
   "definition of impious",

@@ -23,6 +23,7 @@ periods = ["5th c. BCE", "Classical Greece"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies
+years = ["2025"]
 arcs = ["Anabasis 3"]
 contributors = ["Spencer Scorcelletti"]
 +++

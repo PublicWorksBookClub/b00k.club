@@ -73,9 +73,14 @@ feed = false
 name = "tags"
 feed = false
 
-# correspond to the club's various arcs and doesn't have to be used only for texts
+# corresponds to the club's various arcs and doesn't have to be used only for texts
 [[taxonomies]]
 name = "arcs"
+feed = false
+
+# corresponds to the club's activities in that year, e.g. when a text was read
+[[taxonomies]]
+name = "years"
 feed = false
 
 # meant to be used in place of author for things outside of texts
