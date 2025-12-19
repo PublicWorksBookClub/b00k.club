@@ -6,6 +6,7 @@ slug = "menander-dyskolos"
 
 [extra]
 order = 27
+sort = "Dyskolos"
 wikidata = "https://www.wikidata.org/wiki/Q1248766"
 wikipedia = "https://en.wikipedia.org/wiki/Dyskolos"
 abstract = """

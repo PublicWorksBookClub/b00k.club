@@ -6,6 +6,7 @@ slug = "zhuangzi"
 
 [extra]
 order = 6
+sort = "Zhuangzi"
 wikidata = "https://www.wikidata.org/wiki/Q1074987"
 wikipedia = "https://en.wikipedia.org/wiki/Zhuangzi_(book)"
 abstract = """

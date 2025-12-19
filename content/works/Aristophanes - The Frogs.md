@@ -6,6 +6,7 @@ slug = "aristophanes-frogs"
 
 [extra]
 order = 23
+sort = "Frogs, The"
 wikidata = "https://www.wikidata.org/wiki/Q815376"
 wikipedia = "https://en.wikipedia.org/wiki/The_Frogs"
 abstract = """

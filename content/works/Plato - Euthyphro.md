@@ -6,6 +6,7 @@ sluf = "plato-euthyphro"
 
 [extra]
 order = 26
+sort = "Euthyphro"
 wikidata = "https://www.wikidata.org/wiki/Q648889"
 wikipedia = "https://en.wikipedia.org/wiki/Euthyphro"
 abstract = """

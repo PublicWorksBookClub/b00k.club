@@ -6,6 +6,7 @@ slug = "plato-crito"
 
 [extra]
 order = 32
+sort = "Crito"
 wikidata = "https://en.wikipedia.org/wiki/Crito"
 wikipedia = "https://en.wikipedia.org/wiki/Crito"
 abstract = """

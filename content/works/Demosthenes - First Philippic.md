@@ -6,6 +6,7 @@ slug = "demosthenes-4"
 
 [extra]
 order = 29
+sort = "Demosthenes 4"
 wikipedia = "https://en.wikipedia.org/wiki/First_Philippic"
 wikidata = "https://www.wikidata.org/wiki/Q5453516"
 abstract = """

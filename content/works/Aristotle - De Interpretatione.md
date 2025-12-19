@@ -6,6 +6,7 @@ slug = "aristotle-interpretation"
 
 [extra]
 order = 20
+sort = "Interpretatione, De"
 wikidata = "https://www.wikidata.org/wiki/Q648627"
 wikipedia = "https://en.wikipedia.org/wiki/On_Interpretation"
 abstract = """

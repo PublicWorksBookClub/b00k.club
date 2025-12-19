@@ -6,6 +6,7 @@ slug = "lysias-3"
 
 [extra]
 order = 17
+sort = "Lysias 3"
 wikidata = "https://www.wikidata.org/wiki/Q4691051"
 wikipedia = "https://en.wikipedia.org/wiki/Against_Simon"
 abstract = """

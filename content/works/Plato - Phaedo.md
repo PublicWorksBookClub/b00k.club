@@ -6,6 +6,7 @@ slug = "plato-phaedo"
 
 [extra]
 order = 34
+sort = "Phaedo"
 wikidata = "https://www.wikidata.org/wiki/Q244161"
 wikipedia = "https://en.wikipedia.org/wiki/Phaedo"
 abstract = """

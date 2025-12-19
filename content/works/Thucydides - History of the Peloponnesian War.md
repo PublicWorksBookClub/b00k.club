@@ -6,6 +6,7 @@ slug = "thucydides"
 
 [extra]
 order = 7
+sort = "History of the Peloponnesian War"
 wikidata = "https://www.wikidata.org/wiki/Q639493"
 wikipedia = "https://en.wikipedia.org/wiki/History_of_the_Peloponnesian_War"
 abstract = """

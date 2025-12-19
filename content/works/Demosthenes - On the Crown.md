@@ -6,6 +6,7 @@ slug = "demosthenes-18"
 
 [extra]
 order = 31
+sort = "Demosthenes 18"
 wikipedia = "https://en.wikipedia.org/wiki/On_the_Crown"
 wikidata = "https://www.wikidata.org/wiki/Q969706"
 abstract = """

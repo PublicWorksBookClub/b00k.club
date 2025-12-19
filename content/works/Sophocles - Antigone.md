@@ -6,6 +6,7 @@ slug = "sophocles-antigone"
 
 [extra]
 order = 3
+sort = "Antigone"
 wikidata = "https://www.wikidata.org/wiki/Q241077"
 wikipedia = "https://en.wikipedia.org/wiki/Antigone_(Sophocles_play)"
 abstract = """

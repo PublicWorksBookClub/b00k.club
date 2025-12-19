@@ -6,6 +6,7 @@ slug = "aristotle-poetics"
 
 [extra]
 order = 35
+sort = "Poetics"
 wikidata = "https://www.wikidata.org/wiki/Q264714"
 wikipedia = "https://en.wikipedia.org/wiki/Poetics_(Aristotle)"
 abstract = """

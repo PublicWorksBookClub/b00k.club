@@ -6,6 +6,7 @@ slug = "plato-republic"
 
 [extra]
 order = 9
+sort = "Republic"
 wikidata = "https://www.wikidata.org/wiki/Q123397"
 wikipedia = "https://en.wikipedia.org/wiki/Republic_(Plato)"
 abstract = """

@@ -6,6 +6,7 @@ slug = "sophocles-philoctetes"
 
 [extra]
 order = 19
+sort = "Philoctetes"
 wikidata = "https://www.wikidata.org/wiki/Q1415903"
 wikipedia = "https://en.wikipedia.org/wiki/Philoctetes_(Sophocles_play)"
 abstract = """

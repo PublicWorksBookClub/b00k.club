@@ -6,6 +6,7 @@ slug = "plato-laws"
 
 [extra]
 order = 13
+sort = "Laws"
 wikidata = "https://www.wikidata.org/wiki/Q752285"
 wikipedia = "https://en.wikipedia.org/wiki/Laws_(dialogue)"
 abstract = """

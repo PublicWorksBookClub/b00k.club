@@ -6,6 +6,7 @@ slug = "federalist-papers"
 
 [extra]
 order = 5
+sort = "Federalist Papers, The"
 wikidata = "https://www.wikidata.org/wiki/Q858036"
 wikipedia = "https://en.wikipedia.org/wiki/The_Federalist_Papers"
 abstract = """

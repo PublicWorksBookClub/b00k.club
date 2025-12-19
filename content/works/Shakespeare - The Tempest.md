@@ -6,6 +6,7 @@ slug = "shakespeare-tempest"
 
 [extra]
 order = 2
+sort = "Tempest, The"
 wikidata = "https://www.wikidata.org/wiki/Q86440"
 wikipedia = "https://en.wikipedia.org/wiki/The_Tempest"
 abstract = """

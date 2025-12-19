@@ -6,6 +6,7 @@ slug = "euripedes-bacchae"
 
 [extra]
 order = 22
+sort = "Bacchae, The"
 wikidata = "https://www.wikidata.org/wiki/Q934597"
 wikipedia = "https://en.wikipedia.org/wiki/The_Bacchae"
 abstract = """

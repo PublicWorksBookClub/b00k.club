@@ -6,6 +6,7 @@ slug = "antiphon-3"
 
 [extra]
 order = 16
+sort = "Antiphon 3"
 wikidata = "https://www.wikidata.org/wiki/Q110732747"
 wikipedia = "https://en.wikipedia.org/wiki/Antiphon_(orator)#List_of_extant_speeches"
 abstract = """

@@ -6,6 +6,7 @@ slug = "homer-odyssey"
 
 [extra]
 order = 12
+sort = "Odyssey"
 wikidata = "https://www.wikidata.org/wiki/Q35160"
 wikipedia = "https://en.wikipedia.org/wiki/Odyssey"
 abstract = """

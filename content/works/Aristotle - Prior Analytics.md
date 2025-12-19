@@ -6,6 +6,7 @@ slug = "aristotle-prior-analytics"
 
 [extra]
 order = 21
+sort = "Prior Analytics"
 wikidata = "https://www.wikidata.org/wiki/Q485217"
 wikipedia = "https://en.wikipedia.org/wiki/Prior_Analytics"
 abstract = """

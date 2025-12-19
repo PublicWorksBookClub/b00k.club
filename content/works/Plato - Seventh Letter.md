@@ -6,6 +6,7 @@ slug = "plato-seventh-letter"
 
 [extra]
 order = 12
+sort = "Seventh Letter"
 wikidata = "https://www.wikidata.org/wiki/Q252159"
 wikipedia = "https://en.wikipedia.org/wiki/Seventh_Letter"
 abstract = """

@@ -6,6 +6,7 @@ slug = "aristotle-categories"
 
 [extra]
 order = 19
+sort = "Categories"
 wikidata = "https://www.wikidata.org/wiki/Q1735826"
 wikipedia = "https://en.wikipedia.org/wiki/Categories_(Aristotle)"
 abstract = """

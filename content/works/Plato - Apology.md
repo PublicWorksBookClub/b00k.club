@@ -6,6 +6,7 @@ slug = "plato-apology"
 
 [extra]
 order = 30
+sort = "Apology"
 wikidata = "https://www.wikidata.org/wiki/Q273668"
 wikipedia = "https://en.wikipedia.org/wiki/Apology_(Plato)"
 abstract = """

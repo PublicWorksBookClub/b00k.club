@@ -6,6 +6,7 @@ slug = "theophrastus-characters"
 
 [extra]
 order = 28
+sort = "Characters"
 wikidata = "https://en.wikipedia.org/wiki/Theophrastus#On_moral_characters"
 wikipedia = "https://www.wikidata.org/wiki/Q3231273"
 abstract = """

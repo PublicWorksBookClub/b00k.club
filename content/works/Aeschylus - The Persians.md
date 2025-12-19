@@ -6,6 +6,7 @@ slug = "aeschylus-persians"
 
 [extra]
 order = 14
+sort = "Persians, The"
 wikidata = "https://www.wikidata.org/wiki/Q788458"
 wikipedia = "https://en.wikipedia.org/wiki/The_Persians"
 abstract = """

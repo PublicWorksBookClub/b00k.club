@@ -6,6 +6,7 @@ slug = "euripides-herakles"
 
 [extra]
 order = 10
+sort = "Herakles"
 wikidata = "https://www.wikidata.org/wiki/Q1233835"
 wikipedia = "https://en.wikipedia.org/wiki/Herakles_(Euripides)"
 abstract = """

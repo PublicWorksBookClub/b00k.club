@@ -5,17 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body>
-    {%
-      set context = "```json
-      " ~ __tera_context ~ "
-      ```"
-    %}
-    {{ context | markdown | safe }}
+  <body class="prose">
+    <h1>{{ taxonomy.name | title }}: {{ term.name }}</h1>
+    <p>Titles:</p>
     <ul>
-      {% for page in term.pages %}
+      {% for page in term.pages | sort(attribute="extra.sort") %}
         <li>
-          <a href="{{ page.path }}">{{ page.title | default(value=page.path) | safe }}</a>
+          <a href="{{ page.path }}">{{ page.taxonomies.titles[0] }}</a>
         </li>
       {% endfor %}
     </ul>

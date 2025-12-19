@@ -6,6 +6,7 @@ slug = "demosthenes-54"
 
 [extra]
 order = 18
+sort = "Demosthenes 54"
 wikidata = "https://www.wikidata.org/wiki/Q87738427"
 # no english wikipedia
 abstract = """

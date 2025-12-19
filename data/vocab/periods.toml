@@ -1,17 +1,20 @@
 # e.g. 4th c. BCE, enlightenment, middle eastern antiquity, renaissance, etc...
 # (Note: capitalize historic periods but not centuries)
 
-["heroic age"]
-label = "heroic age"
-wikidata = "https://www.wikidata.org/wiki/Q67484198"
-
 ["late Bronze Age"]
 label = "late Bronze Age"
+sort = 0
 wikidata = "https://www.wikidata.org/wiki/Q1758757"
 wikipedia = "https://en.wikipedia.org/wiki/Late_Bronze_Age"
 
+["heroic age"]
+label = "heroic age"
+sort = 1
+wikidata = "https://www.wikidata.org/wiki/Q67484198"
+
 ["Mycenaean Greece"]
 label = "Mycenaean Greece"
+sort = 2
 synonyms = [
   "Mycenaean civilization",
   "Mycenaean culture",
@@ -27,16 +30,19 @@ wikipedia = "https://en.wikipedia.org/wiki/Mycenaean_Greece"
 
 ["Archaic Greece"]
 label = "Archaic Greece"
+sort = 3
 wikidata = "https://www.wikidata.org/wiki/Q271834"
 wikipedia = "https://en.wikipedia.org/wiki/Archaic_Greece"
 
 ["8th c. BCE"]
 label = "8th century BC"
+sort = 4
 wikidata = "https://www.wikidata.org/wiki/Q25346"
 wikipedia = "https://en.wikipedia.org/wiki/8th_century_BC"
 
 ["Classical Greece"]
 label = "Classical Greece"
+sort = 5
 # Primary Linked Data ID (e.g. Wikidata)
 wikidata = "https://www.wikidata.org/wiki/Q843745"
 # Optional link to wikipedia
@@ -47,73 +53,86 @@ end = "323 BCE"   # Death of Alexander the Great
 # Optional curator notes
 description = "Greek historical period from the beginning of Democracy in Athens to the death of Alexander the Great."
 
-["2nd c. CE"]
-label = "2nd century AD"
-wikidata = "https://www.wikidata.org/wiki/Q8103"
-wikipedia = "https://en.wikipedia.org/wiki/2nd_century"
-
-["Roman imperial period"]
-label = "Roman imperial period"
-wikidata = "https://www.wikidata.org/wiki/Q16147990"
-wikipedia = "https://en.wikipedia.org/wiki/Roman_imperial_period_(chronology)"
-
-["Pax Romana"]
-label = "Pax Romana"
-wikidata = "https://www.wikidata.org/wiki/Q75207"
-wikipedia = "https://en.wikipedia.org/wiki/Pax_Romana"
-start = "27 BCE"
-end = "180 CE"
-
-["4th c. BCE"]
-label = "4th century BC"
-wikidata = "https://www.wikidata.org/wiki/Q25335"
-wikipedia = "https://en.wikipedia.org/wiki/4th_century_BC"
-
 ["5th c. BCE"]
-lbale = "5th century BC"
+label = "5th century BC"
+sort = 6
 wikidata = "https://www.wikidata.org/wiki/Q25339"
 wikipedia = "https://en.wikipedia.org/wiki/5th_century_BC"
 
+["Warring States period"]
+label = "Warring States period"
+sort = 6.5
+wikidata = "https://www.wikidata.org/wiki/Q185063"
+wikipedia = "https://en.wikipedia.org/wiki/Warring_States_period"
+
+["4th c. BCE"]
+label = "4th century BC"
+sort = 7
+wikidata = "https://www.wikidata.org/wiki/Q25335"
+wikipedia = "https://en.wikipedia.org/wiki/4th_century_BC"
+
 ["Theban hegemony"]
 label = "Theban hegemony"
+sort = 7.5
 wikidata = "https://www.wikidata.org/wiki/Q3200440"
 wikipedia = "https://en.wikipedia.org/wiki/Theban_hegemony"
 start = "371 BCE"
 end = "362 BCE"
 description = "Brief period where Thebes eclipsed Sparta in influence after the battle of Leuctra."
 
-["Warring States period"]
-label = "Warring States period"
-wikidata = "https://www.wikidata.org/wiki/Q185063"
-wikipedia = "https://en.wikipedia.org/wiki/Warring_States_period"
+["Roman imperial period"]
+label = "Roman imperial period"
+sort = 8
+wikidata = "https://www.wikidata.org/wiki/Q16147990"
+wikipedia = "https://en.wikipedia.org/wiki/Roman_imperial_period_(chronology)"
+
+["Pax Romana"]
+label = "Pax Romana"
+sort = 9
+wikidata = "https://www.wikidata.org/wiki/Q75207"
+wikipedia = "https://en.wikipedia.org/wiki/Pax_Romana"
+start = "27 BCE"
+end = "180 CE"
+
+["2nd c. CE"]
+label = "2nd century AD"
+sort = 10
+wikidata = "https://www.wikidata.org/wiki/Q8103"
+wikipedia = "https://en.wikipedia.org/wiki/2nd_century"
 
 ["Islamic Golden Age"]
 label = "Islamic Golden Age"
+sort = 11
 wikidata = "https://www.wikidata.org/wiki/Q745799"
 wikipedia = "https://en.wikipedia.org/wiki/Islamic_Golden_Age"
 
 ["English Renaissance"]
 label = "English Renaissance"
+sort = 12
 wikidata = "https://www.wikidata.org/wiki/Q2272912"
 wikipedia = "https://en.wikipedia.org/wiki/English_Renaissance"
 
 ["Elizabethan Era"]
 label = "Elizabethan Era"
+sort = 13
 wikidata = "https://www.wikidata.org/wiki/Q912595"
 wikipedia = "https://en.wikipedia.org/wiki/Elizabethan_era"
 
 ["Jacobean Era"]
 label = "Jacobean Era"
+sort = 14
 wikidata = "https://www.wikidata.org/wiki/Q2559155"
 wikipedia = "https://en.wikipedia.org/wiki/Jacobean_era"
 
 ["18th c. CE"]
 label = "18th century AD"
+sort = 15
 wikidata = "https://www.wikidata.org/wiki/Q7015"
 wikipedia = "https://en.wikipedia.org/wiki/18th_century"
 
 ["Confederation Period"]
 label = "Confederation Period"
+sort = 16
 synonyms = ["America's Critical Period"]
 wikidata = "https://www.wikidata.org/wiki/Q4742531"
 wikipedia = "https://en.wikipedia.org/wiki/Confederation_period"

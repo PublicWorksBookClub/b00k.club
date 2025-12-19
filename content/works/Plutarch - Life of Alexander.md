@@ -6,6 +6,7 @@ slug = "plutarch-alexander"
 
 [extra]
 order = 33
+sort = "Life of Alexander"
 wikipedia = "https://en.wikipedia.org/wiki/Plutarch#Life_of_Alexander"
 wikidata = "https://www.wikidata.org/wiki/Q11850689"
 abstract = """

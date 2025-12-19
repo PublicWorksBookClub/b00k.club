@@ -6,6 +6,7 @@ slug = "aurelius-meditations"
 
 [extra]
 order = 1
+sort = "Meditations"
 wikidata = "https://www.wikidata.org/wiki/Q1152283"
 wikipedia = "https://en.wikipedia.org/wiki/Meditations"
 abstract = """
