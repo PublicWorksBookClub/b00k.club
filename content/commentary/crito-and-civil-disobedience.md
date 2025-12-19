@@ -1,6 +1,7 @@
 +++
 draft = true
 title = "Crito and Civil Disobedience"
+path = "test"
 
 [extra]
 bg_color = "bg-slate-950"
@@ -37,3 +38,5 @@ Random title ideas:
 In Crito, Socrates rebuffs his longtime friend's contention that escaping is the most just thing to do, rejoining instead that it is always wrong to do wrong – even to one's enemies – and that by breaking the pact he has made with the city's laws he would be inflicting the gravest harm. Furthermore, he manages to refute on every practical account that his punishment is preferable to becoming a lawbreaker, no matter the injustice of his sentence. In this respect, Socrates states his case clearly and forcefully, while the complete parameters of how they work and may apply to one's own life are left for the reader to contemplate.
 
 What are the bounds of Socrates' social contract? Are his conclusions as resolute as they seem, or might they depend on some qualities that hold especially true in Socrates's case? What might these qualities be and how might their variance affect things? Would the opposite also hold true? Were the conditions to be different, but injustice remains, would we be compelled to disobey? Let's see what questions we can ask to explicate the criterion of Socrate's position, and more broadly consider the aspects left out of Plato's dialogue.
+
+{{ cite(key="plato-apology", loc="345a") }}

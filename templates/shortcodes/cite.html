@@ -1,0 +1,8 @@
+<cite
+  data-citation-format="{{ format | default(value='inline') }}"
+  data-citation-key="{{ key }}"
+  data-citation-loc{% if loc %}="{{ loc }}"{% else %}="false"{% endif %}
+  data-citation-remark{% if body %}="true"{% else %}="false"{% endif %}
+>
+  {{ key }}{% if loc %}{{ loc }}{% endif %}{% if body %}{{ body | trim | safe }}{% endif %}
+</cite>

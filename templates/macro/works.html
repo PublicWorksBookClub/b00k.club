@@ -11,6 +11,10 @@
 {% macro tablular_listing_of_works(section) %}
   {% set works = section.pages | sort(attribute="extra.order") %}
   <table class="block w-max max-w-full overflow-x-auto whitespace-nowrap">
+    <caption class="mt-2 caption-bottom text-left font-serif italic">
+      <span>*</span>
+      = selections of work
+    </caption>
     <thead>
       <tr>
         <th>order</th>

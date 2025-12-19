@@ -20,7 +20,12 @@
         id="content"
         class="prose prose-ul:marker:text-black prose-blue prose-landing font-fira-sans md:prose-lg mx-auto mb-16 px-2 font-normal"
       >
-        {{ section.content | safe }}
+        {{ section.extra.sections.intro | markdown | safe }}
+        {{ section.extra.sections.readings | markdown | safe }}
+        {{ works::tablular_listing_of_works(section=get_section(path="works/_index.md")) }}
+        {{ section.extra.sections.links_to_resources | markdown | safe }}
+        {{ section.extra.sections.contact | markdown | safe }}
+        {# {{ section.content | safe }} #}
       </div>
     </article>
   </main>
