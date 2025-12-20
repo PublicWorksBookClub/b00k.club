@@ -1,23 +1,23 @@
-{% extends "root.html" %}
+{% extends "base.html" %}
 {% import "macro/json-ld.html" as json_ld %}
 {% import "macro/works.html" as works %}
 {% import "macro/util.html" as util %}
 
-{% block body %}
-  {{ util::back(text="Home") }}
-  <main class="px-4 md:px-0">
-    <article
-      class="mx-auto mt-18 prose prose-pwbc prose-lg prose-headings:font-fira-sans prose-headings:font-bold"
-    >
-      <header class="not-prose text-gray-700">
-        <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
-          <a class="hover:underline" href="{{ section.permalink }}">Readings</a>
-        </h1>
-      </header>
-      <section class="mt-16">
-        <p class="font-fira-sans -mb-6 text-right text-xs italic">(scroll →)</p>
-        {{ works::tablular_listing_of_works(section=get_section(path="works/_index.md")) }}
-      </section>
-    </article>
-  </main>
-{% endblock body %}
+{% block banner %}
+{{ util::back(text="Home") }}
+{% endblock banner %}
+
+{% block main %}
+<article class="mx-auto mt-18 px-4 md:px-0 prose prose-pwbc prose-lg
+prose-headings:font-fira-sans prose-headings:font-bold">
+  <header class="not-prose text-gray-700">
+    <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
+      <a class="hover:underline" href="{{ section.permalink }}">Readings</a>
+    </h1>
+  </header>
+  <section class="mt-16">
+    <p class="font-fira-sans -mb-6 text-right text-xs italic">(scroll →)</p>
+    {{ works::tablular_listing_of_works(section=get_section(path="works/_index.md")) }}
+  </section>
+</article>
+{% endblock main %}
