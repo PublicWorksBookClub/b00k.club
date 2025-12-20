@@ -373,6 +373,24 @@
 /*  **************************
     ***** End Resources ******
     ************************** */
+.prose-pwbc {
+  h1 {
+    font-family: var(--font-playfair-display);
+  }
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-fira-sans);
+    font-weight: var(--font-weight-bold);
+  }
+
+  p {
+    font-family: var(--font-fira-sans);
+  }
+}
+
 @utility prose-pwbc {
   --tw-prose-body: var(--color-gray-700);
   --tw-prose-headings: var(--color-gray-600);

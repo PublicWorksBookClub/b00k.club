@@ -7,7 +7,7 @@ bg_color = "bg-yellow-50"
 
 [extra.sections]
 intro = """
-We read texts from the [public domain](https://en.wikipedia.org/wiki/Public_domain_in_the_United_States), i.e. before January 1st, 1930. This site serves as a formal archive of our proceedings and a resource for those seeking to deepen their appreciation of classic literature.
+We read texts from the [public domain](https://en.wikipedia.org/wiki/Public_domain_in_the_United_States). This site serves as a formal archive of our proceedings and a resource for those seeking to deepen their appreciation of classic literature.
 """
 
 readings = """

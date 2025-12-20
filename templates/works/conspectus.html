@@ -30,8 +30,8 @@
       {% endfor %}
     </p>
     <p class="mt-2 text-right font-fira-sans font-medium">
-      <a class="hover:underline" href="/works/">Reading #{{ page.extra.order }}</a>
-      (<em>"<a class="hover:underline" href='{{ get_taxonomy_url(kind="arcs", name=page.taxonomies.arcs[0], lang=page.lang) }}'>{{ page.taxonomies.arcs[0] }}</a>"</em>, <a class="ml-[0.5ch] hover:underline" href='{{ get_taxonomy_url(kind="years", name=page.taxonomies.years[0], lang=page.lang) }}'>{{ page.taxonomies.years[0] }}</a>)
+      <a class="hover:underline mr-1" href="/works/">Reading #{{ page.extra.order }}</a>
+      (<em><span class="text-gray-500">"</span><a class="hover:underline" href='{{ get_taxonomy_url(kind="arcs", name=page.taxonomies.arcs[0], lang=page.lang) }}'>{{ page.taxonomies.arcs[0] }}</a><span class="text-gray-500">"</span></em>, <a class="ml-[0.5ch] hover:underline" href='{{ get_taxonomy_url(kind="years", name=page.taxonomies.years[0], lang=page.lang) }}'>{{ page.taxonomies.years[0] }}</a>)
     </p>
   </header>
   <hr class="mt-0">
