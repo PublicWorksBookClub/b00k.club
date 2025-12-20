@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "macro/works.html" as works %}
 
-{% block body_styles %}bg-yellow-100{% endblock body_styles %}
+{% block body_styles %}{{ section.extra.bg_color | default(value="bg-yellow-100") }}{% endblock body_styles %}
 {% block main %}
 <section>
   <header class="flex flex-col md:flex-row md:h-screen p-4 md:p-12 items-center">
@@ -23,7 +23,6 @@
   <div>
     <div class="flow-root prose prose-lg prose-pwbc mx-auto py-12 md:py-16
     prose-headings:px-4 prose-p:px-4 prose-table:pb-4 prose-table:px-4">
-      {% set section = get_section(path="_index.md") %}
       {{ section.extra.sections.intro | markdown | safe }}
       {{ section.extra.sections.readings | markdown | safe }}
       <div class="overflow-x-auto">

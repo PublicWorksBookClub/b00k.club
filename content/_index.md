@@ -1,17 +1,17 @@
 +++
-template = "index.html"
+title = "The Public Works Book Club"
+template = "landing.html"
 
 [extra]
-bg_color = "bg-amber-300"
+bg_color = "bg-yellow-50"
 
 [extra.sections]
-
 intro = """
-Public works is a **book club** where we only read stuff that is in the [public domain](https://en.wikipedia.org/wiki/Public_domain_in_the_United_States), i.e. before January 1st, 1930. This website serves as a record of our meetings, as well as to advance interest in classic literature.
+We read texts from the [public domain](https://en.wikipedia.org/wiki/Public_domain_in_the_United_States), i.e. before January 1st, 1930. This site serves as a formal archive of our proceedings and a resource for those seeking to deepen their appreciation of classic literature.
 """
 
 readings = """
-## Texts Read So Far {#timeline-of-readings}
+## Readings {#timeline-of-readings}
 """
 
 links_to_resources = """
