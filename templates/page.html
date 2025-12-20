@@ -1,42 +1,24 @@
-{% extends "root.html" %}
-{% block body %}
-  {% block header %}
-  {% endblock header %}
-  {% block main %}
-    <main>
-      {% set additional_prose_styles = page.extra.extra_prose | default(value="") %}
-      {% set main_article_styles = "prose prose-ul:marker:text-black prose-blue md:prose-lg prose-img:rounded-xl prose-img:border-2 prose-img:border-dashed prose-img:border-green-500 md:prose-img:border-[5px] mx-auto md:mt-16" ~ " " ~ additional_prose_styles %}
-      {% block main_article_styles_override %}
-      {% endblock %}
-      {% block article %}
-        <article class="{{ main_article_styles }}">
-          {% block article_heading %}
-            <div id="heading" class="not-prose px-2 text-gray-900">
-              {% block article_heading_h1 %}
-                <h1>
-                  {% block article_heading_site_title %}
-                    <a class="font-playfair-display block text-left text-7xl font-semibold md:text-9xl" href="/">Public Works</a>
-                  {% endblock article_heading_site_title %}
-                  {% block article_heading_article_title %}
-                    <a class="block text-right text-5xl font-thin md:text-7xl" href="{{ page.permalink }}">{{ page.title }}</a>
-                  {% endblock article_heading_article_title %}
-                </h1>
-              {% endblock article_heading_h1 %}
-            </div>
-          {% endblock article_heading %}
-          {% block article_heading_divider %}
-            <hr class="border-[1.5px] border-black" />
-          {% endblock article_heading_divider %}
-          {% block article_content %}
-            <div id="content" class="font-fira-sans my-16 px-2 font-normal">{{ page.content | safe }}</div>
-          {% endblock article_content %}
-        </article>
-      {% endblock article %}
-    </main>
-  {% endblock main %}
-  {% block footer %}
-    <footer class="flex pb-14">
-      <a class="mx-auto text-xl text-pink-500 underline" href="/">Back to main</a>
-    </footer>
-  {% endblock footer %}
-{% endblock body %}
+{% extends "base.html" %}
+{% import "macro/util.html" as util %}
+
+{% block body_styles %}{{ page.extra.bg_color | default(value="bg-yellow-100") }}{% endblock body_styles %}
+{% block banner %}
+{{ util::back(text="Home") }}
+{% endblock banner %}
+{% block main %}
+<article class="prose prose-ul:marker:text-black prose-blue md:prose-lg prose-img:rounded-xl prose-img:border-2 prose-img:border-dashed prose-img:border-green-500 md:prose-img:border-[5px] mx-auto md:mt-16">
+  <header class="not-prose px-2 text-gray-900">
+    <a class="font-playfair-display block text-left text-7xl font-semibold md:text-9xl" href="/">Public Works</a>
+    <h1>
+      <a class="block text-right text-5xl font-thin md:text-7xl" href="{{ page.permalink }}">{{ page.title }}</a>
+    </h1>
+  </header>
+  <hr class="border-[1.5px] border-black" />
+  <div id="content" class="font-fira-sans my-16 px-2 font-normal">{{ page.content | safe }}</div>
+</article>
+{% endblock main %}
+{% block footer %}
+<footer class="flex pb-14">
+  <a class="mx-auto text-xl text-pink-500 underline" href="/">Back to main</a>
+</footer>
+{% endblock footer %}

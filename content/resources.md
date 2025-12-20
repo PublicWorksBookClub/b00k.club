@@ -3,7 +3,7 @@ template = "page.html"
 title = "Resources"
 
 [extra]
-bg_color = "bg-rose-300"
+bg_color = "bg-rose-100"
 theme_color = "#fda4af"
 +++
 
