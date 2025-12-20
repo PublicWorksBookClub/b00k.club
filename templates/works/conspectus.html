@@ -10,9 +10,13 @@
   {{ json | json_encode | safe }}
   </script>
 {% endblock extra_head %}
+
+{% block body_styles %}{{ section.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
+
 {% block banner %}
 {{ util::back(text="Readings") }}
 {% endblock banner %}
+
 {% block main %}
 <article class="max-w-prose mx-auto mt-18 px-4 md:px-0 text-lg prose prose-lg
   prose-headings:font-fira-sans prose-headings:font-bold prose-pwbc">

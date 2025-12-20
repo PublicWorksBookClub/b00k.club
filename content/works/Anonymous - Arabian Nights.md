@@ -16,7 +16,7 @@ Stricken by grief from his wife's infidelity, a sultan marries a new virgin each
 
 [taxonomies]
 # Textual taxonomies
-titles = ["One Thousand and One Nights", "Arabian Nights", "The Book of the Thousand Nights and a Night"]
+titles = ["Arabian Nights", "One Thousand and One Nights", "The Book of the Thousand Nights and a Night"]
 authors = ["Anonymous"]
 forms = ["folktale", "frame story"]
 genres = ["fable", "Arabic literature", "fairy tale"]

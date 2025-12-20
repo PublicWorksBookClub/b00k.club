@@ -1,19 +1,22 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body class="prose">
-    <h1>{{ taxonomy.name | title }}: {{ term.name }}</h1>
-    <p>Titles:</p>
-    <ul>
-      {% for page in term.pages | sort(attribute="extra.sort") %}
-        <li>
-          <a href="{{ page.path }}">{{ page.taxonomies.titles[0] }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  </body>
-</html>
+{% extends "base.html" %}
+{% import "macro/util.html" as util %}
+
+{% block banner %}
+{{ util::back(text=taxonomy.name | title) }}
+{% endblock banner %}
+
+{% block main %}
+<section class="prose prose-lg prose-pwbc mx-auto mt-18">
+  <header>
+    <h1>{{ term.name }}</h1>
+  </header>
+  <hr>
+  <ul>
+    {% for page in term.pages | sort(attribute="extra.sort") %}
+      <li>
+        <a href="{{ page.path }}">{{ page.taxonomies.titles[0] }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock main %}

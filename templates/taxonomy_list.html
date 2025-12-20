@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+{% import "macro/util.html" as util %}
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -14,3 +17,32 @@
     </ul>
   </body>
 </html>
+
+{% block title %}
+  {% set title = taxonomy.name | title %}
+  {% set title = title ~ " | PWBC Taxonomy"%}
+  <title>{{ title }}</title>
+  <meta property="og:title" content="{{ title }}" />
+  <meta name="twitter:title" content="{{ title }}" />
+{% endblock title %}
+
+{% block body_styles %}
+  bg-fuchsia-50
+{% endblock body_styles %}
+
+{% block banner %}
+{{ util::back(text="Home") }}
+{% endblock banner %}
+{% block main %}
+<section class="prose prose-lg prose-pwbc mx-auto mt-18">
+  <header>
+    <h1>{{ taxonomy.name | title }}</h1>
+  </header>
+  <hr>
+  <ul>
+    {% for term in terms %}
+      <li><a href="{{ term.path }}">{{ term.name }}</a> ({{ term.pages | length }})</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock main %}

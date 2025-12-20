@@ -3,7 +3,7 @@ title = "The Public Works Book Club"
 template = "landing.html"
 
 [extra]
-bg_color = "bg-yellow-50"
+bg_color = "bg-teal-50"
 
 [extra.sections]
 intro = """
