@@ -1,142 +1,144 @@
-{% extends "root.html" %}
+{% extends "base.html" %}
 {% import "macro/json-ld.html" as json_ld %}
 {% import "macro/works.html" as works %}
 {% import "macro/util.html" as util %}
-{# prettier-ignore-start #}
+
 {% block extra_head %}
   <script type="application/ld+json">
   {%- set json = json_ld::abstract_text(doc=page) -%}
-  {# For debugging #}{% if doc.extra.order in [] %}{{ throw(message=json) }}{% endif %}
   {%- set json = load_data(literal=json, format="json") -%}
   {{ json | json_encode | safe }}
   </script>
 {% endblock extra_head %}
-{% block body %}
+{% block banner %}
 {{ util::back(text="Readings") }}
-<main class="px-4 md:px-0">
-  <article class="max-w-prose mx-auto mt-18 text-lg prose prose-lg
-    prose-headings:font-fira-sans prose-headings:font-bold prose-pwbc">
-    <header class="not-prose text-gray-700">
-      <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
-        <a class="hover:underline" href="{{ page.permalink }}">{{ page.taxonomies.titles[0] }}</a>
-      </h1>
-      <p class="mt-6 text-xl font-fira-sans font-extralight">
-        <span>by</span>
-        {% for a in page.taxonomies.authors %}
-        <em class="font-light">
-          <a class="hover:underline" href='{{ get_taxonomy_url(kind="authors", name=a, lang=page.lang) }}'>{{ a }}</a>
-        </em>
-        {% if not loop.last %}<span>&</span>{% endif %}
-        {% endfor %}
-      </p>
-      <p class="mt-2 text-right font-fira-sans font-medium">
-        <a class="hover:underline" href="/works/">Reading #{{ page.extra.order }}</a>
-        (<em>"<a class="hover:underline" href='{{ get_taxonomy_url(kind="arcs", name=page.taxonomies.arcs[0], lang=page.lang) }}'>{{ page.taxonomies.arcs[0] }}</a>"</em>, <a class="ml-[0.5ch] hover:underline" href='{{ get_taxonomy_url(kind="years", name=page.taxonomies.years[0], lang=page.lang) }}'>{{ page.taxonomies.years[0] }}</a>)
-      </p>
-    </header>
-    <hr class="mt-0">
-    <section class="mt-12">
-      <h2 class="mb-4">Abstract</h2>
-      {{ page.extra.abstract | safe }}
-    </section>
-    <section class="mt-8">
-      <h2>Bibliographic Data</h2>
-      <table>
-        <caption class="caption-bottom mt-2 text-sm italic font-serif"><a href="https://en.wikipedia.org/wiki/Linked_data">Linked data</a> embedded within this page (<a href="">JSON-LD</a>)</caption>
-        <thead>
-          <tr>
-            <th>Field</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>authors</td>
-            <td>{{ works::list_taxonomy_terms(work=page, taxonomy="authors", add="italic") }}</td>
-          </tr>
-          <tr>
-            <td>literary form</td>
-            <td>{{ works::list_taxonomy_terms(work=page, taxonomy="forms", add="italic") }}</td>
-          </tr>
-          <tr>
-            <td>genres</td>
-            <td>{{ works::list_taxonomy_terms(work=page, taxonomy="genres", add="italic") }}</td>
-          </tr>
-          <tr>
-            <td>subjects</td>
-            <td>{{ works::list_taxonomy_terms(work=page, taxonomy="subjects", add="italic") }}</td>
-          </tr>
-          <tr>
-            <td>period</td>
-            <td>{{ works::list_taxonomy_terms(work=page, taxonomy="periods", add="italic") }}</td>
-          </tr>
-          <tr>
-            <td>language</td>
-            <td>{{ works::list_taxonomy_terms(work=page, taxonomy="languages", add="italic") }}</td>
-          </tr>
-          <tr>
-            <td>same as</td>
-            <td>
-              {% set same_as = [] %}
-              {% if page.extra.wikidata %}
-              {% set same_as = same_as | concat(with='<a href="{{ page.extra.wikidata }}">wikidata</a>') %}
-              {% endif %}
-              {% if page.extra.wikipedia %}
-              {% set same_as = same_as | concat(with='<a href="{{ page.extra.wikipedia }}">wikipedia</a>') %}
-              {% endif %}
-              {{ same_as | join(sep=" | ") | safe }}
-            </td>
-          </tr>
-          <tr>
-            <td>keywords & tags</td>
-            <td>
-              {% if page.taxonomy.tags %}
-                {{ works::list_taxonomy_terms(work=page, taxonomy="tags", add="italic") }}
-              {% else %}
-                <span class="italic">none</span>
-              {% endif %}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-    <section class="mt-8">
-      <h2>Contextual Relations</h2>
-      <h3>Refers To</h3>
-      <ul>
-        {% if page.taxonomies.references and page.taxonomies.references | length > 0 %}
-        {% set works_section = get_section(path="works/_index.md") %}
-        {% for r in page.taxonomies.references %}
-        {% set w = works_section.pages | filter(attribute="slug", value=r) | nth(n=0) %}
-        <li>
-          <a class="font-light" href="{{ w.permalink }}">{{ w.taxonomies.titles[0] }}</a> by {{ works::list_taxonomy_terms(work=w, taxonomy="authors", add="italic font-extralight") }}</li>
-        {% endfor %}
-        {% else %}
-        <li>(none)</li>
-        {% endif %}
-      </ul>
-      {% set referenced_by = get_taxonomy(kind="references", lang=page.lang) | get(key="items") | filter(attribute="name", value=page.slug) %}
-      <h3>Referenced By</h3>
-      <ul>
-        {% if referenced_by | length > 0 %}
-        {% set referenced_by = referenced_by | first | get(key="pages") %}
-        {% set works = referenced_by | filter(attribute="components.0", value="works") | sort(attribute="taxonomies.titles.0") %}
-        {% for w in works %}
-        <li>
-          <a class="font-light" href="{{ w.permalink }}">{{ w.taxonomies.titles[0] }}</a> by {{ works::list_taxonomy_terms(work=w, taxonomy="authors", add="italic font-extralight") }}
-        </li>
-        {% endfor %}
-        {% else %}
-        <li>(none)</li>
-        {% endif %}
-        {# TODO: then display commentary that references this work by further filtering it #}
-      </ul>
-    </section>
-    <hr>
-    <section class="mt-8 prose prose-lg prose-headings:font-fira-sans">
-      {{ page.content | safe }}
-    </section>
-  </article>
-</main>
-{% endblock body %}
-{# prettier-ignore-end #}
+{% endblock banner %}
+{% block main %}
+<article class="max-w-prose mx-auto mt-18 px-4 md:px-0 text-lg prose prose-lg
+  prose-headings:font-fira-sans prose-headings:font-bold prose-pwbc">
+  <header class="not-prose text-gray-700">
+    <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
+      <a class="hover:underline" href="{{ page.permalink }}">{{ page.taxonomies.titles[0] }}</a>
+    </h1>
+    <p class="mt-6 text-xl font-fira-sans font-extralight">
+      <span>by</span>
+      {% for a in page.taxonomies.authors %}
+      <em class="font-light">
+        <a class="hover:underline" href='{{ get_taxonomy_url(kind="authors", name=a, lang=page.lang) }}'>{{ a }}</a>
+      </em>
+      {% if not loop.last %}<span>&</span>{% endif %}
+      {% endfor %}
+    </p>
+    <p class="mt-2 text-right font-fira-sans font-medium">
+      <a class="hover:underline" href="/works/">Reading #{{ page.extra.order }}</a>
+      (<em>"<a class="hover:underline" href='{{ get_taxonomy_url(kind="arcs", name=page.taxonomies.arcs[0], lang=page.lang) }}'>{{ page.taxonomies.arcs[0] }}</a>"</em>, <a class="ml-[0.5ch] hover:underline" href='{{ get_taxonomy_url(kind="years", name=page.taxonomies.years[0], lang=page.lang) }}'>{{ page.taxonomies.years[0] }}</a>)
+    </p>
+  </header>
+  <hr class="mt-0">
+  {# Abstract #}
+  <section class="mt-12">
+    <h2 class="mb-4">Abstract</h2>
+    {{ page.extra.abstract | safe }}
+  </section>
+  {# Bibliographic Data #}
+  <section class="mt-8">
+    <h2>Bibliographic Data</h2>
+    <table>
+      <caption class="caption-bottom mt-2 text-sm italic font-serif"><a href="https://en.wikipedia.org/wiki/Linked_data">Linked data</a> embedded within this page (<a href="">JSON-LD</a>)</caption>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>authors</td>
+          <td>{{ works::list_taxonomy_terms(work=page, taxonomy="authors", add="italic") }}</td>
+        </tr>
+        <tr>
+          <td>literary form</td>
+          <td>{{ works::list_taxonomy_terms(work=page, taxonomy="forms", add="italic") }}</td>
+        </tr>
+        <tr>
+          <td>genres</td>
+          <td>{{ works::list_taxonomy_terms(work=page, taxonomy="genres", add="italic") }}</td>
+        </tr>
+        <tr>
+          <td>subjects</td>
+          <td>{{ works::list_taxonomy_terms(work=page, taxonomy="subjects", add="italic") }}</td>
+        </tr>
+        <tr>
+          <td>period</td>
+          <td>{{ works::list_taxonomy_terms(work=page, taxonomy="periods", add="italic") }}</td>
+        </tr>
+        <tr>
+          <td>language</td>
+          <td>{{ works::list_taxonomy_terms(work=page, taxonomy="languages", add="italic") }}</td>
+        </tr>
+        <tr>
+          <td>same as</td>
+          <td>
+            {% set same_as = [] %}
+            {% if page.extra.wikidata %}
+            {% set same_as = same_as | concat(with='<a href="{{ page.extra.wikidata }}">wikidata</a>') %}
+            {% endif %}
+            {% if page.extra.wikipedia %}
+            {% set same_as = same_as | concat(with='<a href="{{ page.extra.wikipedia }}">wikipedia</a>') %}
+            {% endif %}
+            {{ same_as | join(sep=" | ") | safe }}
+          </td>
+        </tr>
+        <tr>
+          <td>keywords & tags</td>
+          <td>
+            {% if page.taxonomy.tags %}
+              {{ works::list_taxonomy_terms(work=page, taxonomy="tags", add="italic") }}
+            {% else %}
+              <span class="italic">none</span>
+            {% endif %}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  {# Contextual Relations #}
+  <section class="mt-8">
+    <h2>Contextual Relations</h2>
+    <h3>Refers To</h3>
+    <ul>
+      {% if page.taxonomies.references and page.taxonomies.references | length > 0 %}
+      {% set works_section = get_section(path="works/_index.md") %}
+      {% for r in page.taxonomies.references %}
+      {% set w = works_section.pages | filter(attribute="slug", value=r) | nth(n=0) %}
+      <li>
+        <a class="font-light" href="{{ w.permalink }}">{{ w.taxonomies.titles[0] }}</a> by {{ works::list_taxonomy_terms(work=w, taxonomy="authors", add="italic font-extralight") }}</li>
+      {% endfor %}
+      {% else %}
+      <li>(none)</li>
+      {% endif %}
+    </ul>
+    {% set referenced_by = get_taxonomy(kind="references", lang=page.lang) | get(key="items") | filter(attribute="name", value=page.slug) %}
+    <h3>Referenced By</h3>
+    <ul>
+      {% if referenced_by | length > 0 %}
+      {% set referenced_by = referenced_by | first | get(key="pages") %}
+      {% set works = referenced_by | filter(attribute="components.0", value="works") | sort(attribute="taxonomies.titles.0") %}
+      {% for w in works %}
+      <li>
+        <a class="font-light" href="{{ w.permalink }}">{{ w.taxonomies.titles[0] }}</a> by {{ works::list_taxonomy_terms(work=w, taxonomy="authors", add="italic font-extralight") }}
+      </li>
+      {% endfor %}
+      {% else %}
+      <li>(none)</li>
+      {% endif %}
+      {# TODO: then display commentary that references this work by further filtering it #}
+    </ul>
+  </section>
+  <hr>
+  {# Content #}
+  <section class="mt-8 prose prose-lg prose-headings:font-fira-sans">
+    {{ page.content | safe }}
+  </section>
+</article>
+{% endblock main %}
