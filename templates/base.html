@@ -1,0 +1,73 @@
+{#-
+  To override a block in an extending template just redeclare it.
+  To extend a block, redeclare it and use `{{ super() }}` to render the parent.
+
+  Sometimes you can't do that, for example if you need to change the parent AND declare it before or after. In which case there are {% block_open/close_tag %}. This way you can always place content before/after some other content AND change the middle content. For example:
+
+  {% block main_tag%}
+  {{ super() }} <!-- re-render the parent's main tag -->
+    <aside>...</aside>{% endblock main_tag%} <!-- add an <aside> -->
+    <!-- AND change the article -->
+    {% block article %}<article>...change the parent</article>{% endblock article %}
+  </main>
+-#}
+<!DOCTYPE html>
+{% block html %}
+<html lang="{{ lang }}" class="scroll-smooth">
+{% block head %}
+<head>
+  {% block preamble %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% endblock preamble %}
+  {% block title %}
+    {% set title = section.title | default(value=page.title | default(value=config.title)) %}
+    <title>{{ title }}</title>
+    <meta property="og:title" content="{{ title }}" />
+    <meta name="twitter:title" content="{{ title }}" />
+  {% endblock title %}
+  {% block description %}
+    {% if page or section or taxonomy %}
+      {% set description = section.description
+        | default(value=page.description
+        | default(value=config.description)) %}
+    {% endif %}
+    <meta name="description" content="{{ description }}" />
+    <meta property="og:description" content="{{ description }}" />
+    <meta name="twitter:description" content="{{ description }}" />
+  {% endblock description %}
+  {% block styling %}
+    <link rel="stylesheet" href="/style.css">
+    <meta name="color-scheme" content="{# todo: dark #} light">
+  {% endblock styling %}
+  {% block favicon %}
+    {% include "includes/favicon.html" %}
+  {% endblock favicon %}
+  {% block share_img %}
+  <meta property="og:image" content="/img/social-preview-banner.png" />
+  <meta name="twitter:image" content="/img/social-preview-banner.png" />
+  <meta property="og:image:width" content="600" />
+  <meta property="og:image:height" content="315" />
+  <meta name="og:image:alt" content="Bust of Sophocles" />
+  <meta name="twitter:image:alt" content="Bust of Sophocles" />
+  {% endblock share_img %}
+</head>
+{% endblock head %}
+{% block body %}
+<body>
+  {# i.e. "page header", for logo and primary nav. See mdn <header> usage notes for more. #}
+  <header>
+  {% block banner %}{% endblock banner %}
+  </header>
+  <main>
+    {% block main %}{% endblock main %}
+  </main>
+  {% block comments %}
+  {% endblock comments %}
+  <footer>
+    {% block footer %}{% endblock footer %}
+  </footer>
+</body>
+{% endblock body %}
+</html>
+{% endblock html %}
