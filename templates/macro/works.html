@@ -30,7 +30,7 @@
         <tr>
           <td class="text-center">{{ w.extra.order }}</td>
           <td>
-            <a href="{{ w.permalink }}">{{ w.taxonomies.titles | first }}</a>
+            <a href="{{ w.permalink }}">{{ w.taxonomies.titles | first }}</a>{% if w.extra.read_in_selection %}*{% endif %}
           </td>
           <td>
             {% set author = get_taxonomy_term(kind="authors", term=w.taxonomies.authors | first) %}

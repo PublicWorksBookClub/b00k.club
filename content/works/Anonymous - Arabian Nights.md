@@ -7,6 +7,7 @@ slug = "arabian-nights"
 [extra]
 order = 4
 sort = "Arabian Nights"
+read_in_selection = true
 wikidata = "https://www.wikidata.org/wiki/Q8258"
 wikipedia = "https://en.wikipedia.org/wiki/One_Thousand_and_One_Nights"
 abstract = """

@@ -7,6 +7,7 @@ slug = "xenophon-hellenica"
 [extra]
 order = 8
 sort = "Hellenica"
+read_in_selection = true
 wikidata = "https://www.wikidata.org/wiki/Q674638"
 wikipedia = "https://en.wikipedia.org/wiki/Hellenica"
 abstract = """

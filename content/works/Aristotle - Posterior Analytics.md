@@ -7,6 +7,7 @@ slug = "aristotle-posterior-analytics"
 [extra]
 order = 24
 sort = "Posterior Analytics"
+read_in_selection = true
 wikidata = "https://www.wikidata.org/wiki/Q485206"
 wikipedia = "https://en.wikipedia.org/wiki/Posterior_Analytics"
 abstract = """

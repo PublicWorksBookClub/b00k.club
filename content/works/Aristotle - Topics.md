@@ -7,6 +7,7 @@ slug = "aristotle-topics"
 [extra]
 order = 25
 sort = "Topics"
+read_in_selection = true
 wikidata = "https://www.wikidata.org/wiki/Q1095335"
 wikipedia = "https://en.wikipedia.org/wiki/Topics_(Aristotle)"
 abstract = """
