@@ -54,7 +54,9 @@
 </head>
 {% endblock head %}
 {% block body %}
-<body>
+<body class="
+  {% block body_styles %}{% endblock body_styles %}
+">
   {# i.e. "page header", for logo and primary nav. See mdn <header> usage notes for more. #}
   <header>
   {% block banner %}{% endblock banner %}

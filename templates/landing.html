@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% import "macro/works.html" as works %}
 
+{% block body_styles %}bg-yellow-100{% endblock body_styles %}
 {% block main %}
 <section>
-  <header class="flex flex-col md:flex-row md:h-screen p-4 md:p-12 items-center bg-amber-300">
+  <header class="flex flex-col md:flex-row md:h-screen p-4 md:p-12 items-center">
     <img
       class="w-full md:w-1/2"
       src="/illo/sophocles-nested.svg"
@@ -19,7 +20,7 @@
       </p>
     </div>
   </header>
-  <div class="bg-amber-300">
+  <div>
     <div class="flow-root prose prose-lg mx-auto py-12 md:py-16
     prose-headings:px-4 prose-p:px-4 prose-table:pb-4 prose-table:px-4">
       {% set section = get_section(path="_index.md") %}
