@@ -26,7 +26,8 @@
       {{ section.extra.sections.intro | markdown | safe }}
       {{ section.extra.sections.readings | markdown | safe }}
       <div class="overflow-x-auto">
-        {{ works::tablular_listing_of_works(section=get_section(path="works/_index.md")) }}
+        {% set works_section = get_section(path="works/_index.md") %}
+        {{ works::tablular_listing_of_works(works=works_section.pages) }}
       </div>
       {{ section.extra.sections.links_to_resources | markdown | safe }}
       {{ section.extra.sections.contact | markdown | safe }}

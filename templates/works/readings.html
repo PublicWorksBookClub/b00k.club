@@ -19,7 +19,8 @@ prose-headings:font-fira-sans prose-headings:font-bold">
   </header>
   <section class="mt-16">
     <p class="font-fira-sans -mb-6 text-right text-xs italic">(scroll →)</p>
-    {{ works::tablular_listing_of_works(section=get_section(path="works/_index.md")) }}
+    {% set works_section = get_section(path="works/_index.md") %}
+    {{ works::tablular_listing_of_works(works=works_section.pages) }}
   </section>
 </article>
 {% endblock main %}
