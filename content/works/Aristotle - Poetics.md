@@ -24,7 +24,7 @@ periods = ["4th c. BCE", "Classical Greece"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies
-years = ["2025"]
+years = ["2026"]
 arcs = ["Elementa 1"]
 contributors = ["Spencer Scorcelletti"]
 +++

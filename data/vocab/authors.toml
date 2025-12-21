@@ -19,6 +19,13 @@ sort = "Antiphon"
 synonyms = ["Antiphon of Rhamnus"]
 wikipedia = "https://en.wikipedia.org/wiki/Antiphon_(orator)"
 wikidata = "https://www.wikidata.org/wiki/Q335560"
+notes = ["It's disputed whether Antiphon the orator is the same figure as Antiphon the sophist."]
+
+[Arrian]
+label = "Arrian"
+sort = "Arrian"
+wikipedia = "https://en.wikipedia.org/wiki/Arrian"
+wikidata = "https://www.wikidata.org/wiki/Q31845"
 
 [Aristophanes]
 label = "Aristophanes"
@@ -91,6 +98,7 @@ label = "Plato"
 sort = "Plato"
 wikipedia = "https://en.wikipedia.org/wiki/Plato"
 wikidata = "https://www.wikidata.org/wiki/Q859"
+notes = ["Works organized by 'Stephanus Pagination' https://en.wikipedia.org/wiki/Stephanus_pagination."]
 
 [Plutarch]
 label = "Plutarch"
