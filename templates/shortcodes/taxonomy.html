@@ -1,5 +1,11 @@
 <ul>
   {% for taxonomy in config.taxonomies %}
-    <li><a href="/{{ taxonomy.slug }}">{{ taxonomy.name }}</a></li>
+  {% set toml = load_data(path="data/vocab/" ~ taxonomy.name ~ ".toml", format="toml", required=false) %}
+  <li>
+    <a href="/{{ taxonomy.slug }}">{{ taxonomy.name }}</a>
+    {% if toml.description %}
+    - {{ toml.description }}
+    {% endif %}
+  </li>
   {% endfor %}
 </ul>

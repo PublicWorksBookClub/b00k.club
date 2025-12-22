@@ -22,6 +22,7 @@ genres = ["philosophy", "practical philosophy"]
 subjects = ["ethics", "Stoicism", "virtue", "self-discipline", "death", "nature", "duty"]
 periods = ["2nd c. CE", "Pax Romana", "Roman imperial period"]
 languages = ["Koine Greek"]
+contributors = ["Spencer Scorcelletti"]
 
 # General taxonomies
 years = ["2022"]

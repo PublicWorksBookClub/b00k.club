@@ -68,14 +68,20 @@ feed = false
 ### Begin general taxonomy ####
 ###############################
 
+# indicates references to other content (primary or secondary)
+[[taxonomies]]
+name = "references"
+feed = false
+description = "foo"
+
+# indicates references to people, places, terms, etc... (from primary or secondary sources)
+[[taxonomies]]
+name = "index"
+feed = false
+
 # arbitrary, more editorialized tags e.g. "how to build a raft" for Homer's "Odyssey"
 [[taxonomies]]
 name = "tags"
-feed = false
-
-# corresponds to the club's various arcs and doesn't have to be used only for texts
-[[taxonomies]]
-name = "arcs"
 feed = false
 
 # corresponds to the club's activities in that year, e.g. when a text was read
@@ -83,19 +89,14 @@ feed = false
 name = "years"
 feed = false
 
+# corresponds to the club's various arcs and doesn't have to be used only for texts
+[[taxonomies]]
+name = "arcs"
+feed = false
+
 # meant to be used in place of author for things outside of texts
 [[taxonomies]]
 name = "contributors"
-feed = false
-
-# indicates references to other content (primary or secondary)
-[[taxonomies]]
-name = "references"
-feed = false
-
-# indicates references to people, places, terms, etc... (from primary or secondary sources)
-[[taxonomies]]
-name = "index"
 feed = false
 
 ###############################

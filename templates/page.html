@@ -6,11 +6,11 @@
 {{ util::back(text="Home") }}
 {% endblock banner %}
 {% block main %}
-<article class="prose prose-ul:marker:text-black prose-blue md:prose-lg prose-img:rounded-xl prose-img:border-2 prose-img:border-dashed prose-img:border-green-500 md:prose-img:border-[5px] mx-auto md:mt-16">
+<article class="prose prose-pwbc md:prose-lg prose-img:rounded-xl prose-img:border-2 prose-img:border-dashed prose-img:border-green-500 md:prose-img:border-[5px] mx-auto md:my-16">
   <header class="not-prose px-2 text-gray-900">
-    <a class="font-playfair-display block text-left text-7xl font-semibold md:text-9xl" href="/">Public Works</a>
-    <h1>
-      <a class="block text-right text-5xl font-thin md:text-7xl" href="{{ page.permalink }}">{{ page.title }}</a>
+    <a class="font-playfair-display block text-left text-7xl font-semibold md:text-9xl text-gray-800" href="/">Public Works</a>
+    <h1 class="text-right text-gray-700">
+      <a class="font-fira-sans text-5xl font-thin md:text-7xl" href="{{ page.permalink }}">{{ page.title }}</a>
     </h1>
   </header>
   <hr class="border-[1.5px] border-black" />

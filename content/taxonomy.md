@@ -1,7 +1,9 @@
 +++
+title = "Taxonomy"
 draft = true
-+++
 
-# Site Taxonomy
+[extra]
+bg_color = "bg-lime-500/20"
++++
 
 {{ taxonomy() }}

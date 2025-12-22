@@ -8,6 +8,8 @@
 # see https://en.wikipedia.org/wiki/Linguistic_Linked_Open_Data for more
 # or https://iso639-3.sil.org/code_tables/639/data for a simple table
 
+description = "language a creative work is written in"
+
 # BEGIN Ancient Greek languages
 ["Ancient Greek"]
 label = "Ancient Greek"

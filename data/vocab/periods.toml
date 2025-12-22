@@ -1,5 +1,6 @@
 # e.g. 4th c. BCE, enlightenment, middle eastern antiquity, renaissance, etc...
 # (Note: capitalize historic periods but not centuries)
+description = "period a work was written or is set"
 
 ["late Bronze Age"]
 label = "late Bronze Age"
