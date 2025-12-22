@@ -17,8 +17,8 @@ In the decades following the end of the Persian War, rising tensions between an 
 # Textual taxonomies
 titles = ["History of the Peloponnesian War"]
 authors = ["Thucydides"]
-forms = ["history"]
-genres = ["Ancient Greek history"]
+forms = ["narrative"]
+genres = ["historiography"]
 subjects = [
   "Greece",
   "Peloponnesian War",

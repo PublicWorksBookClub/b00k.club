@@ -18,7 +18,7 @@ Plato urges his followers to resist the temptation to participate in partisan st
 titles = ["Seventh Letter", "Seventh Letter of Plato", "Epistle VII", "Letter VII", "Seventh Epistle"]
 authors = ["Plato"]
 forms = ["letter"]
-genres = ["epistle", "history"]
+genres = ["epistle", "autobiography"]
 subjects = ["philosophy", "ethics", "platonic forms", "political philosophy", "Dionysius I", "Plato"]
 periods = ["Ancient Greece", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]

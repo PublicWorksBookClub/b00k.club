@@ -1,48 +1,40 @@
 {% extends "base.html" %}
 {% import "macro/util.html" as util %}
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body class="prose">
-    <h1>{{ taxonomy.name | title }}</h1>
-    <ul>
-      {% for term in terms %}
-        <li><a href="{{ term.path }}">{{ term.name }}</a> ({{ term.pages | length }})</li>
-      {% endfor %}
-    </ul>
-  </body>
-</html>
-
 {% block title %}
-  {% set title = taxonomy.name | title %}
-  {% set title = title ~ " | PWBC Taxonomy"%}
-  <title>{{ title }}</title>
-  <meta property="og:title" content="{{ title }}" />
-  <meta name="twitter:title" content="{{ title }}" />
+  <title>{{ taxonomy.name | capitalize }} | PWBC Taxonomy</title>
+  <meta property="og:title" content="{{ taxonomy.name | capitalize }} | PWBC Taxonomy" />
+  <meta name="twitter:title" content="{{ taxonomy.name | capitalize }} | PWBC Taxonomy" />
 {% endblock title %}
 
 {% block body_styles %}
-  bg-fuchsia-50
+bg-fuchsia-50
 {% endblock body_styles %}
 
 {% block banner %}
 {{ util::back(text="Home") }}
 {% endblock banner %}
 {% block main %}
-<section class="prose prose-lg prose-pwbc mx-auto mt-18">
-  <header>
-    <h1>{{ taxonomy.name | title }}</h1>
+<section class="prose prose-lg prose-pwbc mx-auto my-18">
+  <header class="not-prose">
+    {% block header %}
+    <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
+      <a class="hover:underline" href="{{ current_url }}">{{ taxonomy.name | capitalize }}</a>
+    </h1>
+    {% endblock header %}
   </header>
+  {% block divider %}
   <hr>
+  {% endblock divider %}
+  {% block paratext %}{% endblock paratext %}
+  {% block terms %}
+  <h2>Terms</h2>
   <ul>
-    {% for term in terms %}
-      <li><a href="{{ term.path }}">{{ term.name }}</a> ({{ term.pages | length }})</li>
-    {% endfor %}
+  {% for term in terms %}
+    <li><a href="{{ term.path }}">{{ term.name }}</a> ({{ term.pages | length }})</li>
+  {% endfor %}
   </ul>
+  {% endblock terms %}
+  {% block references %}{% endblock references %}
 </section>
 {% endblock main %}

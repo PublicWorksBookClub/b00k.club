@@ -4,12 +4,23 @@
 #
 # Can be looked up at https://vocab.getty.edu
 # E.g. https://vocab.getty.edu/aat/300026674
+description = "thematic category based on a work's content"
+synonyms = ["thematic genre"]
+wikidata = "https://www.wikidata.org/wiki/Q223393"
+wikipedia = "https://en.wikipedia.org/wiki/Literary_genre"
 
 [allegory]
 label = "allegory"
 description = "a narrative used to deliver a broader message"
 wikidata = "https://www.wikidata.org/wiki/Q18535"
 wikipedia = "https://en.wikipedia.org/wiki/Allegory"
+
+[autobiography]
+label = "autobiography"
+description = "biography written by the subject"
+synonyms = ["autobiographical account"]
+wikidata = "https://www.wikidata.org/wiki/Q4184"
+wikipedia = "https://en.wikipedia.org/wiki/Autobiography"
 
 ["comedy of manners"]
 label = "comedy of manners"
@@ -57,6 +68,13 @@ synonyms = ["judicial oratory", "forensic oratory"]
 
 ["funeral oration"]
 label = "funeral oration"
+
+["historiography"]
+label = "historiography"
+synonyms = ["history"]
+description = "a body of historical work on a subject"
+wikidata = "https://www.wikidata.org/wiki/Q30277550"
+wikipedia = "https://en.wikipedia.org/wiki/Historiography"
 
 [parable]
 label = "parable"

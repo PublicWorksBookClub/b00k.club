@@ -17,8 +17,8 @@ Historical account of the wars of Alexander the Great.
 # Textual taxonomies
 titles = ["Anabasis of Alexander", "The Anabasis of Alexander", "Anabasis"]
 authors = ["Arrian"]
-forms = ["history"]
-genres = ["todo"]
+forms = ["narrative"]
+genres = ["historiography"]
 subjects = ["drama", "tragedy", "comedy", "plot", "epic"]
 periods = ["4th c. BCE", "Classical Greece"]
 languages = ["Ancient Greek", "Attic Greek"]

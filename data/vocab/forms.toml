@@ -1,7 +1,8 @@
-# The way the work is packaged (outside the content)
-#
-# e.g. play, dialogue, novel, epic poem, lyric poem, speech/oration, tetraology, letter/epistle, treatise, essay, fable, myth, history, commentary, manual, treatise, biography, tragedy (in terms of structure), comedy (in terms of structure), apologia, etc...
 # (Note: lowercase)
+synonyms = ["formal genre"]
+description = "the structure or kind of a work"
+wikidata = "https://www.wikidata.org/wiki/Q4263830"
+wikipedia = "https://en.wikipedia.org/wiki/Literature#Types"
 
 [admonition]
 description = "rebuke or reproof"
@@ -56,6 +57,11 @@ description = "written message from one person to another"
 synonym = ["epistle"]
 wikidata = "https://www.wikidata.org/wiki/Q133492"
 wikipedia = "https://en.wikipedia.org/wiki/Letter_(message)"
+
+[narrative]
+description = "an account of related events"
+wikidata = "https://www.wikidata.org/wiki/Q1318295"
+wikipedia = "https://en.wikipedia.org/wiki/Narrative"
 
 [oration]
 description = "address delivered to an audience"

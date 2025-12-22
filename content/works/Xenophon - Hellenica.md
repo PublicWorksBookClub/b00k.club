@@ -18,8 +18,8 @@ History of the Greek people covering the end of Peloponnesian War through the Ba
 # Textual taxonomies
 titles = ["Hellenica"]
 authors = ["Xenophon"]
-forms = ["history"]
-genres = ["Ancient Greek history"]
+forms = ["narrative"]
+genres = ["historiography"]
 subjects = ["Greece", "Peloponnesian War", "Athens", "Sparta", "Thebes", "war", "democracy", "oligarchy", "Epaminondas", "Xenophon"]
 periods = ["Ancient Greece", "5th c. BCE", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
