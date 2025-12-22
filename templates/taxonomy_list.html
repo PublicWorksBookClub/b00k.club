@@ -18,7 +18,7 @@ bg-fuchsia-50
 {% endblock banner %}
 {% block main %}
 {% set toml = load_data(path="data/vocab/" ~ taxonomy.name ~ ".toml", format="toml", required=false) %}
-<section class="prose prose-lg prose-pwbc mx-auto my-18">
+<section class="prose prose-lg prose-pwbc mx-auto my-18 px-4 md:px-0">
   <header class="not-prose">
     {% block header %}
     <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">

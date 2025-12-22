@@ -17,20 +17,24 @@
 
 {% block main %}
 <section class="prose prose-lg prose-pwbc mx-auto my-18">
-  <header class="not-prose">
-    {% block header %}
-    <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
-      <a class="hover:underline" href="{{ current_url }}">{{ term.name }}</a>
-    </h1>
-    {% endblock header %}
-  </header>
-  {% block divider %}
-  <hr>
-  {% endblock divider %}
+  <div class="px-4 md:px-0">
+    <header class="not-prose">
+      {% block header %}
+      <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
+        <a class="hover:underline" href="{{ current_url }}">{{ term.name }}</a>
+      </h1>
+      {% endblock header %}
+    </header>
+    {% block divider %}
+    <hr>
+    {% endblock divider %}
+  </div>
   {% block paratext %}{% endblock paratext %}
   {% block works_with_term %}
-  <h2>Works</h2>
-  {{ works::tablular_listing_of_works(works=term.pages) }}
+  <div class="overflow-x-auto prose-headings:px-4 prose-p:px-4 prose-table:pb-4 prose-table:px-4">
+    <h2>Works</h2>
+    {{ works::tablular_listing_of_works(works=term.pages) }}
+  </div>
   {% endblock works_with_term %}
   {% block references %}{% endblock references %}
 </section>
