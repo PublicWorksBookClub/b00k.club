@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 {% import "macro/util.html" as util %}
+{% import "macro/works.html" as works %}
+
+{% block title %}
+  <title>{{ taxonomy.name | capitalize }}: {{ term.name }} | PWBC</title>
+  <meta property="og:title" content="{{ taxonomy.name | capitalize }}: {{ term.name }} | PWBC" />
+  <meta name="twitter:title" content="{{ taxonomy.name | capitalize }}: {{ term.name }} | PWBC" />
+{% endblock title %}
 
 {% block banner %}
 {{ util::back(text=taxonomy.name | title) }}
@@ -7,16 +14,21 @@
 
 {% block main %}
 <section class="prose prose-lg prose-pwbc mx-auto mt-18">
-  <header>
-    <h1>{{ term.name }}</h1>
+  <header class="not-prose">
+    {% block header %}
+    <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
+      <a class="hover:underline" href="{{ current_url }}">{{ term.name | capitalize }}</a>
+    </h1>
+    {% endblock header %}
   </header>
+  {% block divider %}
   <hr>
-  <ul>
-    {% for page in term.pages | sort(attribute="extra.sort") %}
-      <li>
-        <a href="{{ page.path }}">{{ page.taxonomies.titles[0] }}</a>
-      </li>
-    {% endfor %}
-  </ul>
+  {% endblock divider %}
+  {% block paratext %}{% endblock paratext %}
+  {% block works_with_term %}
+  <h2>Works</h2>
+  {{ works::tablular_listing_of_works(works=term.pages) }}
+  {% endblock works_with_term %}
+  {% block references %}{% endblock references %}
 </section>
 {% endblock main %}
