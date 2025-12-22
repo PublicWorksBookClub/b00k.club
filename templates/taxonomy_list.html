@@ -15,12 +15,21 @@ bg-fuchsia-50
 {{ util::back(text="Home") }}
 {% endblock banner %}
 {% block main %}
+{% set toml = load_data(path="data/vocab/" ~ taxonomy.name ~ ".toml", format="toml", required=false) %}
 <section class="prose prose-lg prose-pwbc mx-auto my-18">
   <header class="not-prose">
     {% block header %}
     <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
       <a class="hover:underline" href="{{ current_url }}">{{ taxonomy.name | capitalize }}</a>
     </h1>
+    {% if toml and toml["description"] %}
+    <p class="mt-6 text-xl font-fira-sans font-extralight">
+      Taxonomical category:
+      <em class="font-light">
+        {{ toml["description"] }}
+      </em>
+    </p>
+    {% endif %}
     {% endblock header %}
   </header>
   {% block divider %}
@@ -35,6 +44,18 @@ bg-fuchsia-50
   {% endfor %}
   </ul>
   {% endblock terms %}
-  {% block references %}{% endblock references %}
+  {% block references %}
+  {% if toml and toml.wikidata or toml.wikipedia%}
+  <h2>References</h2>
+  <ul>
+    {% if toml.wikidata %}
+    <li><a href="{{ toml.wikidata }}">wikidata</a></li>
+    {% endif %}
+    {% if toml.wikipedia %}
+    <li><a href="{{ toml.wikipedia }}">wikipedia</a></li>
+    {% endif %}
+  </ul>
+  {% endif %}
+  {% endblock references %}
 </section>
 {% endblock main %}
