@@ -11,7 +11,8 @@
 {% block banner %}
 {{ util::nav(href="/", text="Home") }}
 {{ util::nav(href="/works", text="Readings") }}
-{{ util::nav(href="../", text=taxonomy.name | title) }}
+{{ util::nav(href="/taxonomy", text="Taxon.") }}
+{{ util::nav(href="../", text="../" ~ taxonomy.name | title) }}
 {% endblock banner %}
 
 {% block main %}
