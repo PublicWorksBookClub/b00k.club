@@ -9,7 +9,9 @@
 {% endblock title %}
 
 {% block banner %}
-{{ util::back(text=taxonomy.name | title) }}
+{{ util::nav(href="/", text="Home") }}
+{{ util::nav(href="/works", text="Readings") }}
+{{ util::nav(href="../", text=taxonomy.name | title) }}
 {% endblock banner %}
 
 {% block main %}

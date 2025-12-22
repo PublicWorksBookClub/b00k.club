@@ -13,6 +13,7 @@ bg-fuchsia-50
 
 {% block banner %}
 {{ util::back(text="Home") }}
+{{ util::nav(href="/works", text="Readings") }}
 {% endblock banner %}
 {% block main %}
 {% set toml = load_data(path="data/vocab/" ~ taxonomy.name ~ ".toml", format="toml", required=false) %}
