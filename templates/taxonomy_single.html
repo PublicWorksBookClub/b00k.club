@@ -31,10 +31,8 @@
   </div>
   {% block paratext %}{% endblock paratext %}
   {% block works_with_term %}
-  <div class="overflow-x-auto prose-headings:px-4 prose-p:px-4 prose-table:pb-4 prose-table:px-4">
-    <h2>Works</h2>
-    {{ works::tablular_listing_of_works(works=term.pages) }}
-  </div>
+  <h2 class="px-4">Works</h2>
+  {{ works::tablular_listing_of_works(works=term.pages) }}
   {% endblock works_with_term %}
   {% block references %}{% endblock references %}
 </section>

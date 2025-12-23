@@ -10,15 +10,15 @@
 {% endblock banner %}
 
 {% block main %}
-<article class="mx-auto my-16 px-4 md:px-0 prose prose-pwbc prose-lg
+<article class="mx-auto my-16 prose prose-pwbc prose-lg
 prose-headings:font-fira-sans prose-headings:font-bold">
-  <header class="not-prose text-gray-700">
+  <header class="px-4 md:px-0 not-prose text-gray-700">
     <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
       <a class="hover:underline" href="{{ section.permalink }}">Readings</a>
     </h1>
   </header>
-  <section class="mt-8 overflow-x-auto">
-    <p class="font-fira-sans -mb-6 text-right text-xs italic">(scroll →)</p>
+  <section class="mt-8">
+    <p class="font-fira-sans -mb-6 text-right text-xs italic pr-2">(scroll →)</p>
     {% set works_section = get_section(path="works/_index.md") %}
     {{ works::tablular_listing_of_works(works=works_section.pages) }}
   </section>

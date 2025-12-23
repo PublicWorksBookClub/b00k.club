@@ -21,14 +21,12 @@
     </div>
   </header>
   <div>
-    <div class="flow-root prose prose-lg prose-pwbc mx-auto py-12 md:py-16
-    prose-headings:px-4 prose-p:px-4 prose-table:pb-4 prose-table:px-4">
+    <div class="flow-root prose prose-lg prose-pwbc mx-auto py-12 md:py-16 prose-p:px-4 prose-h2:px-4">
       {{ section.extra.sections.intro | markdown | safe }}
       {{ section.extra.sections.readings | markdown | safe }}
-      <div class="overflow-x-auto">
-        {% set works_section = get_section(path="works/_index.md") %}
-        {{ works::tablular_listing_of_works(works=works_section.pages) }}
-      </div>
+      {% set works_section = get_section(path="works/_index.md") %}
+      <p class="font-fira-sans -mr-2 -mb-6 text-right text-xs italic text-gray-500">(scroll →)</p>
+      {{ works::tablular_listing_of_works(works=works_section.pages) }}
       {{ section.extra.sections.links_to_resources | markdown | safe }}
       {{ section.extra.sections.contact | markdown | safe }}
     </div>

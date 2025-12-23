@@ -10,60 +10,62 @@
 
 {% macro tablular_listing_of_works(works) %}
   {% set works = works | sort(attribute="extra.order") %}
-  <table class="overflow-x-auto whitespace-nowrap">
-    <caption class="mt-2 caption-bottom text-left font-serif italic">
-      <span>*</span>
-      = selections of work
-    </caption>
-    <thead>
-      <tr>
-        <th>
-          <a class="not-prose hover:underline" href="/works">Order</a>
-        </th>
-        <th>
-          <a class="not-prose hover:underline" href="/titles">Title</a>
-        </th>
-        <th>
-          <a class="not-prose hover:underline" href="/authors">Author</a>
-        </th>
-        <th>
-          <a class="not-prose hover:underline" href="/periods">Period</a>
-        </th>
-        <th>
-          <a class="not-prose hover:underline" href="/years">Year</a>
-        </th>
-        <th>
-          <a class="not-prose hover:underline" href="/arcs">Arc</a>
-        </th>
-      </tr>
-    </thead>
-    <tbody class="prose-a:no-underline prose-a:hover:underline ">
-      {% for w in works %}
+  <div class="overflow-x-auto">
+    <table class="whitespace-nowrap">
+      <caption class="mt-2 pl-2 caption-bottom text-left font-serif italic">
+        <span>*</span>
+        = selections of work
+      </caption>
+      <thead>
         <tr>
-          <td class="text-center">{{ w.extra.order }}</td>
-          <td>
-            <a href="{{ w.permalink }}" class="font-serif italic">{{ w.taxonomies.titles | first }}</a>{% if w.extra.read_in_selection %}*{% endif %}
-          </td>
-          <td>
-            {% set author = get_taxonomy_term(kind="authors", term=w.taxonomies.authors | first) %}
-            <a href="{{ author.permalink }}" class="font-light">{{ author.name }}</a>
-            {% if w.taxonomies.authors | length > 1 %}et al.{% endif %}
-          </td>
-          <td>
-            {% set period = get_taxonomy_term(kind="periods", term=w.taxonomies.periods | last) %}
-            <a href="{{ period.permalink }}" class="font-medium! underline! italic">{{ period.name }}</a>
-          </td>
-          <td>
-            {% set year = get_taxonomy_term(kind="years", term=w.taxonomies.years | first) %}
-            <a href="{{ year.permalink }}" class="font-extrabold">{{ year.name }}</a>
-          </td>
-          <td>
-            {% set arc = get_taxonomy_term(kind="arcs", term=w.taxonomies.arcs | first) %}
-            <a href="{{ arc.permalink }}" class="font-light italic">{{ arc.name }}</a>
-          </td>
+          <th class="pl-4">
+            <a class="not-prose hover:underline" href="/works">Order</a>
+          </th>
+          <th>
+            <a class="not-prose hover:underline" href="/titles">Title</a>
+          </th>
+          <th>
+            <a class="not-prose hover:underline" href="/authors">Author</a>
+          </th>
+          <th>
+            <a class="not-prose hover:underline" href="/periods">Period</a>
+          </th>
+          <th>
+            <a class="not-prose hover:underline" href="/years">Year</a>
+          </th>
+          <th>
+            <a class="not-prose hover:underline" href="/arcs">Arc</a>
+          </th>
         </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+      </thead>
+      <tbody class="prose-a:no-underline prose-a:hover:underline ">
+        {% for w in works %}
+          <tr>
+            <td class="text-center pl-4">{{ w.extra.order }}</td>
+            <td>
+              <a href="{{ w.permalink }}" class="font-serif italic">{{ w.taxonomies.titles | first }}</a>{% if w.extra.read_in_selection %}*{% endif %}
+            </td>
+            <td>
+              {% set author = get_taxonomy_term(kind="authors", term=w.taxonomies.authors | first) %}
+              <a href="{{ author.permalink }}" class="font-light">{{ author.name }}</a>
+              {% if w.taxonomies.authors | length > 1 %}et al.{% endif %}
+            </td>
+            <td>
+              {% set period = get_taxonomy_term(kind="periods", term=w.taxonomies.periods | last) %}
+              <a href="{{ period.permalink }}" class="font-medium! underline! italic">{{ period.name }}</a>
+            </td>
+            <td>
+              {% set year = get_taxonomy_term(kind="years", term=w.taxonomies.years | first) %}
+              <a href="{{ year.permalink }}" class="font-extrabold">{{ year.name }}</a>
+            </td>
+            <td class="pr-4">
+              {% set arc = get_taxonomy_term(kind="arcs", term=w.taxonomies.arcs | first) %}
+              <a href="{{ arc.permalink }}" class="font-light italic">{{ arc.name }}</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 {% endmacro %}
 
