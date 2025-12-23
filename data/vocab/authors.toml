@@ -1,6 +1,6 @@
 # (some texts may have more than one e.g. "Moses" and "Anonymous")
 # (Note: Capitalize, always a proper now including with "Anonymous")
-description = "authors of creative works"
+description = "author of creative work"
 
 [Aeschylus]
 label = "Aeschylus"
