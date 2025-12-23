@@ -96,6 +96,7 @@ The following is an alphabetically sorted list of museums and galleries that off
 ## Video Channels
 
 - [The Center for Hellenic Studies](https://www.youtube.com/channel/UC4CZOzGtFzZe2pcONCNT15w) - performances of ancient greek works, as well as in-depth studies of specific texts
+- [The Great Minds of the Western Intellectual Tradition](https://www.youtube.com/@dr.michaelsugrue/featured) - vintage philosophy and literature lectures recorded at Princeton by Dr. Michael Sugrue and Dr. Darren Staloff.
 - [Thersites the Historian](https://www.youtube.com/@ThersitestheHistorian) - a professor of archaeology who presents clear, detailed information on all matters of antiquity.
 - [Astarte Resources](https://www.youtube.com/@astarteresources2532) - a producer of educational resources that has since closed, but they share their videos on YT still, which are excellent resources on antiquity
 - [Historia Civilis](https://www.youtube.com/@HistoriaCivilis/) - a detailed and entertaining channel that covers many arcs of antiquity. Historia Civilis does battles especially well. The author's series on [Julius Caesar](https://www.youtube.com/watch?v=gsK4nX0tCGQ&list=PLODnBH8kenOoLUW8BmHhX55I-qexvyU32&pp=iAQB) and [Octavian](https://www.youtube.com/watch?v=2-PYwEsTll0&list=PLODnBH8kenOonO62euH1PLlMm8hT5lHlL&pp=iAQB) in particular are excellent.
