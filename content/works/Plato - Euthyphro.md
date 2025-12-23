@@ -1,5 +1,5 @@
 +++
-draft = true
+draft = false
 template = "works/conspectus.html"
 sluf = "plato-euthyphro"
 # You can also override `title` and `authors`
