@@ -1,5 +1,22 @@
 {% import "macro/cite_old.html" as cite %}
 
+{#
+  Currently this is used as a shortcode as follows:
+
+  ```
+  {% further_reading(unordered=true) %}
+
+  | Citation Key   | [Locator] | [Remark]                               |
+  | -------------- | --------- | -------------------------------------- |
+  | plato_apology  | pp 29     | for score, and seven years years ago   |
+  | platoCrito1999 | 53        | Crito resembles a temptation narrative |
+
+  {% end %}
+  ```
+
+  But it should also be a macro that the shortcode just calls
+#}
+
 {% set references = load_data(path="pwbc.bib", format="bibtex") %}
 
 {% set body_md = body | markdown %}

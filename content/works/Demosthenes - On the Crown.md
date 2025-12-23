@@ -29,20 +29,8 @@ arcs = ["Anabasis 3"]
 contributors = ["Spencer Scorcelletti"]
 +++
 
-{{ abstract() }}
-
-{% further_reading(unordered=true) %}
-
-| Citation Key   | [Locator] | [Remark]                               |
-| -------------- | --------- | -------------------------------------- |
-| plato_apology  | pp 29     | for score, and seven years years ago   |
-| platoCrito1999 | 53        | Crito resembles a temptation narrative |
-
-{% end %}
-
 ## Links
 
-- [Wikipedia](https://en.wikipedia.org/wiki/On_the_Crown)
 - Public domain sources:
   - [Perseus Library](https://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.01.0072%3A18)
   - [Gutenberg](https://www.gutenberg.org/ebooks/9061)
