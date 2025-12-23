@@ -25,7 +25,7 @@
     {{ section.extra.sections.readings | markdown | safe }}
     {% set works_section = get_section(path="works/_index.md") %}
     <p class="font-fira-sans -mr-2 -mb-6 text-right text-xs italic text-gray-500">(scroll →)</p>
-    {{ works::tablular_listing_of_works(works=works_section.pages) }}
+    {{ works::tablular_listing_of_works(works=works_section.pages, limit=20) }}
     {{ section.extra.sections.links_to_resources | markdown | safe }}
     {{ section.extra.sections.contact | markdown | safe }}
   </div>
