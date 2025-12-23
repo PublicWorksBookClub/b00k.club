@@ -3,12 +3,19 @@
 {% import "macro/works.html" as works %}
 {% import "macro/util.html" as util %}
 
+{% block title %}
+  <title>{{ page.taxonomies.titles[0] }} | PWBC Readings</title>
+  <meta property="og:title" content="{{ page.taxonomies.titles[0] }} | PWBC Readings" />
+  <meta name="twitter:title" content="{{ page.taxonomies.titles[0] }} | PWBC Readings" />
+{% endblock title %}
+
+
 {% block extra_head %}
-  <script type="application/ld+json">
-  {%- set json = json_ld::abstract_text(doc=page) -%}
-  {%- set json = load_data(literal=json, format="json") -%}
-  {{ json | json_encode | safe }}
-  </script>
+<script type="application/ld+json">
+{%- set json = json_ld::abstract_text(doc=page) -%}
+{%- set json = load_data(literal=json, format="json") -%}
+{{ json | json_encode | safe }}
+</script>
 {% endblock extra_head %}
 
 {% block body_styles %}{{ section.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
