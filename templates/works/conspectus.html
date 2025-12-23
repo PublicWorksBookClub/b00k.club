@@ -14,7 +14,8 @@
 {% block body_styles %}{{ section.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
 
 {% block banner %}
-{{ util::back(text="Readings") }}
+{{ util::nav(href="/", text="Home") }}
+{{ util::nav(href="../", text="Readings") }}
 {% endblock banner %}
 
 {% block main %}
