@@ -44,7 +44,7 @@
         <tr>
           <td class="text-center pl-4">{{ w.extra.order }}</td>
           <td>
-            <a href="{{ w.permalink }}" class="font-serif italic">{{ w.taxonomies.titles | first }}</a>{% if w.extra.read_in_selection %}<span class="pl-0.5 text-gray-400">*</span>{% endif %}
+            <a href="{{ w.permalink }}" class="font-serif italic font-normal">{{ w.taxonomies.titles | first }}</a>{% if w.extra.read_in_selection %}<span class="pl-0.5 text-gray-400">*</span>{% endif %}
           </td>
           <td>
             {% set author = get_taxonomy_term(kind="authors", term=w.taxonomies.authors | first) %}
