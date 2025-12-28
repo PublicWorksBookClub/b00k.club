@@ -17,7 +17,7 @@ A series of 85 essays arguing in favor of the ratification of the US Constitutio
 [taxonomies]
 # Textual taxonomies
 titles = ["The Federalist Papers", "The Federalist"]
-authors = ["Alexander Hamilton", "James Madison", "John Jay", "Publius"]
+authors = ["Publius", "Alexander Hamilton", "James Madison", "John Jay"]
 forms = ["essay"]
 genres = ["philippic", "deliberative"]
 subjects = ["Constitution of the United States", "Ancient Greece", "Peloponnesian War", "democracy", "federalism"]

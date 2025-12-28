@@ -1,1 +1,55 @@
 description = "theme of a reading campaign"
+
+["Theogony 1"]
+label = "Theogony 1"
+sort = "Theogony 1"
+series.name = "Theogony"
+series.number = 1
+description = """
+This was the first arc and existed before the arcs themselves were even conceived. Before then there was no book club, only public works. One of us was in one kind of exile, while the other, was in another. In any case, one day it had been decided to read the same things and talk about them. From this nothingness came chaos that quickly took a shape, and thus from it's very first moments the book club was meant to be one that would read all kinds of literature from the public domain.
+"""
+
+["Theogony 2"]
+label = "Theogony 2"
+sort = "Theogony 2"
+series.name = "Theogony"
+series.number = 2
+description = """
+Amidst these amorphous beginnings, what was once two became three. There was suddenly someone new to bear witness to our meetings; this strange priesthood.
+"""
+
+["Anabsis 1"]
+label = "Anabasis 1"
+sort = "Anabasis 1"
+series.name = "Anabasis"
+series.number = 1
+description = """
+"It hath reached me", began one – and we all agreed – that an ambitious adventure can and should be undertaken, and so it came to pass that the club embarked on a strange journey in search of some beginning, that we may better understand the world from the point of view of Pluribus and their kin. We lept and landed in the midst of a tremendous and tragic conflict that consumed all of Hellas in its twisting and turning, as did our priesthood for the public did not always work.
+"""
+
+["Anabsis 2"]
+label = "Anabasis 2"
+sort = "Anabasis 2"
+series.name = "Anabasis"
+series.number = 2
+description = """
+We pressed on our grand excursion and came to see that what we see is not all there is, that knowledge can not be transferred, and – above all – virtue has no master. It was at this time that our priesthood grew – one in number but also many in admiration for this many who seemed so wise as to choose an ordinary life above all others.
+"""
+
+["Nostoi 1"]
+label = "Nostoi 1"
+sort = "Nostoi 1"
+series.name = "Nostoi"
+series.number = 1
+description = """
+The priests and priestess reached a crossroad where it became clear that to go further forward would require us to go backwards, and so we grew one more in anticipation of a journey only to learn it was a homecoming all along.
+"""
+
+["Anabsis 3"]
+label = "Anabasis 3"
+sort = "Anabasis 3"
+series.name = "Anabasis"
+series.number = 3
+description = """
+After our homecoming...
+"""
