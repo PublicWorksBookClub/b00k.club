@@ -1,0 +1,7 @@
+{% extends "taxonomy_list.html" %}
+{% import "macro/svg.html" as svg %}
+
+{% block terms %}
+{% set arcs = load_data(path="data/vocab/arcs.toml") | get(key="arcs") %}
+{{ svg::geneaological_tree(width=600, height=1066, arcs=arcs) }}
+{% endblock terms %}

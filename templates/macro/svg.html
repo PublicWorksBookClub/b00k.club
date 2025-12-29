@@ -1,0 +1,48 @@
+{% macro geneaological_tree(width=1200, height, arcs) %}
+
+{% set page_padding = 1 %}
+
+<svg class="w-full" viewBox="0 0 {{ width }} {{ height }}" xmlns="http://www.w3.org/2000/svg">
+{% set root = arcs | filter(attribute="predecessor", value=false) | first %}
+{% set x = width/2 %}
+{% set y = page_padding %}
+{{ self::geneaological_tree_draw_node(node=root, arcs=arcs, width=width, x=x, y=y) }}
+</svg>
+
+{% endmacro  %}
+
+{% macro geneaological_tree_draw_node(node, arcs, width, x, y) %}
+{% set label_width = 200 %}
+{% set label_height = 70 %}
+{% set link_length = 72 %}
+{% set sibling_gap = label_width/2 %}
+{# Draw node #}
+<a class="no-underline" href="{{ get_taxonomy_url(kind='arcs', name=node.label) }}">
+  <g class="fill-teal-200">
+    <rect class="stroke-gray-700" x="{{ x - label_width / 2 }}" y="{{ y }}" width="{{ label_width }}" height="{{ label_height }}" />
+    <text class="fill-gray-600 text-xl font-bold" text-anchor="middle" x="{{ x }}" y="{{ y + label_height / 2 - 5}}">{{ node.label }}</text>
+    <text class="fill-gray-500 text-xl" text-anchor="middle" x="{{ x }}" y="{{ y + label_height / 2 + 22 }}">({{ node.years }})</text>
+  </g>
+</a>
+{# Update y coordinate #}
+{% set y = y + label_height %}
+{# Fetch children #}
+{% set children = arcs | filter(attribute="predecessor", value=node.label) %}
+{% set children_count = children | length %}
+{# Draw first half of a link #}
+{% if children_count > 0 %}
+<path class="stroke-gray-700" d="M {{ x }} {{ y }} V {{ y + link_length / 2 }}" />
+{% set y = y + link_length / 2 %}
+{% endif %}
+{% if children_count > 1 %}
+{% set horizontal_line_length = (label_width * (children_count - 1)) + (sibling_gap * (children_count - 1))  %}
+{% set x = x - horizontal_line_length / 2 %}
+<path class="stroke-gray-700" d="M {{ x }} {{ y }} H {{ x + horizontal_line_length }}" />
+{% endif %}
+{% for c in children %}
+{# Draw second half of a link #}
+<path class="stroke-gray-700" d="M {{ x }} {{ y }} V {{ y + link_length / 2 }}" />
+{{ self::geneaological_tree_draw_node(node=c, arcs=arcs, width=width, x=x, y=y + link_length / 2) }}
+{% set_global x = x + label_width + sibling_gap %}
+{% endfor %}
+{% endmacro  %}
