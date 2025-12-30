@@ -99,13 +99,13 @@ description = """
 TODO
 """
 
-[["arcs"]]
-label = "Elementa 1"
-sort = "Elementa 1"
-series.name = "Elementa"
-series.number = 1
-years = "2025"
-predecessor = "Memorabilia 2"
-description = """
-TODO
-"""
+# [["arcs"]]
+# label = "Elementa 1"
+# sort = "Elementa 1"
+# series.name = "Elementa"
+# series.number = 1
+# years = "2025"
+# predecessor = "Memorabilia 2"
+# description = """
+# TODO
+# """
