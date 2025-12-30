@@ -300,7 +300,7 @@
 }
 
 @utility prose-pwbc {
-  --tw-prose-body: var(--color-gray-700);
+  --tw-prose-body: var(--color-gray-600);
   --tw-prose-headings: var(--color-gray-600);
   --tw-prose-lead: var(--color-pink-700);
   --tw-prose-links: var(--color-gray-600);

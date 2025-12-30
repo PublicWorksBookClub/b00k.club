@@ -20,7 +20,7 @@
 <a class="no-underline" href="{{ get_taxonomy_url(kind='arcs', name=node.label) }}">
   <g class="fill-teal-200">
     <rect class="stroke-gray-700" x="{{ x - label_width / 2 }}" y="{{ y }}" width="{{ label_width }}" height="{{ label_height }}" />
-    <text class="fill-gray-600 text-xl font-bold" text-anchor="middle" x="{{ x }}" y="{{ y + label_height / 2 - 5}}">{{ node.label }}</text>
+    <text class="fill-gray-600 text-xl font-bold italic" text-anchor="middle" x="{{ x }}" y="{{ y + label_height / 2 - 5}}">{{ node.label }}</text>
     <text class="fill-gray-500 text-xl" text-anchor="middle" x="{{ x }}" y="{{ y + label_height / 2 + 22 }}">({{ node.years }})</text>
   </g>
 </a>

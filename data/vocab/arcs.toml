@@ -1,4 +1,4 @@
-description = "theme of a reading campaign"
+description = "club theme and reading campaign"
 
 [["arcs"]]
 label = "Theogony 1"
@@ -8,7 +8,7 @@ series.number = 1
 years = "2023"
 predecessor = false
 description = """
-This was the first arc and existed before the arcs themselves were even conceived. Before then there was no book club, only public works. One of us was in one kind of exile, while the other, was in another. In any case, one day it had been decided to read the same things and talk about them. From this nothingness came chaos that quickly took a shape, and thus from it's very first moments the book club was meant to be one that would read all kinds of literature from the public domain.
+One day it came to pass that some individuals agreed to read the same things and talk about them. These were the first two members of the book club, and yet from this nothingness came fourth nonetheless it's present day form: that we were to apply ourselves in the reading of any and all literature within the public domain.
 """
 
 [["arcs"]]
@@ -19,7 +19,7 @@ series.number = 2
 years = "2023"
 predecessor = "Theogony 1"
 description = """
-Amidst these amorphous beginnings, what was once two became three. There was suddenly someone new to bear witness to our meetings; this strange priesthood.
+Some time later what was once two became three. There was suddenly someone new to bear witness to our meetings; this strange priesthood.
 """
 
 [["arcs"]]
