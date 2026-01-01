@@ -6,6 +6,7 @@
 
 - PWBC bibliography
 - site taxonomy
+- Add reference to historical thesaurus of english
 
 ## 1.4.1 (2025-08-19)
 
