@@ -19,7 +19,17 @@ series.number = 2
 years = "2023"
 predecessor = "Theogony 1"
 description = """
-Some time later what was once two became three. There was suddenly someone new to bear witness to our meetings; this strange priesthood.
+```
+Some time later our couplet was naught
+For our rank had grown by one
+This dyadic lot hitherto
+A strange priesthood it had become
+
+Witness it wrought to our triad new
+Where none there lie before
+This exegetical scrawl now done
+And balance askew never more
+```
 """
 
 [["arcs"]]

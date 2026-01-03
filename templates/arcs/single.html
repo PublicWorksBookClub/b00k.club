@@ -14,7 +14,8 @@ bg-indigo-200/80
 
 {% block paratext %}
 <h2 class="px-4 md:px-0">Description</h2>
-<p class="text-gray-600">{{ arc.description }}</p>
+{# prose overrides for displaying poetry using code formatting #}
+<div class="text-gray-600 prose-pre:bg-transparent! prose-pre:text-gray-600! prose-pre:font-fira-sans prose-pre:text-xl! prose-pre:p-0!">{{ arc.description | markdown | safe }}</div>
 <h2 class="px-4 md:px-0">Context</h2>
 <ul>
   {% if arc.predecessor %}
