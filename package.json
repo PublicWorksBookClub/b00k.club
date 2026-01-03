@@ -5,7 +5,7 @@
   "scripts": {
     "fmt": "npx prettier . --write",
     "build": "zola build $BUILD_OPTS && npx @tailwindcss/cli -i ./css/input.css -o ./public/style.css -m",
-    "serve": "zola serve $SERVE_OPTS & npx @tailwindcss/cli  -i ./css/input.css -o ./public/style.css --watch && wait",
+    "serve": "zola serve --port 2665 $SERVE_OPTS & npx @tailwindcss/cli  -i ./css/input.css -o ./public/style.css --watch && wait",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

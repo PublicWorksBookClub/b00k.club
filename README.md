@@ -24,12 +24,12 @@ npm install
 # Use BUILD_OPTS to pass options to the zola build command
 npm run build
 
-# starts a local server that binds to `0.0.0.0:1111`, and watches the respective directories and rebuilds upon every change
+# starts a local server that binds to `0.0.0.0:2665`, and watches the respective directories and rebuilds upon every change
 # Use SERVE_OPTS to pass options to the zola serve command
 npm run serve
 ```
 
-For example, you can run `npm run serve` and then go to `localhost:1111` in your browser to see the websites. As you make changes to the code or content, the website will be updated.
+For example, you can run `npm run serve` and then go to `localhost:2665` in your browser to see the websites. As you make changes to the code or content, the website will be updated.
 
 ## Updates
 
