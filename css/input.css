@@ -281,21 +281,24 @@
 /*  **************************
     ***** End Resources ******
     ************************** */
-.prose-pwbc {
+.prose.prose-pwbc {
+  font-family: var(--font-fira-sans);
+  text-align: justify;
+  h1, h2, h3, h4, h5, h6 {
+    @apply lining-nums;
+  }
   h1 {
-    font-family: var(--font-playfair-display);
+    @apply font-playfair-display;
   }
   h2,
   h3,
   h4,
   h5,
   h6 {
-    font-family: var(--font-fira-sans);
-    font-weight: var(--font-weight-bold);
+    @apply font-fira-sans font-bold;
   }
-
   p {
-    font-family: var(--font-fira-sans);
+    @apply font-fira-sans;
   }
 }
 
