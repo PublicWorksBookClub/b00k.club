@@ -1,0 +1,80 @@
+# (Note: lowercase)
+synonyms = ["formal genre"]
+description = "the structure or kind of a work"
+wikidata = "https://www.wikidata.org/wiki/Q4263830"
+wikipedia = "https://en.wikipedia.org/wiki/Literature#Types"
+
+[admonition]
+description = "rebuke or reproof"
+
+["Ancient Greek comedy"]
+description = "a representation of laughable people that does not cause pain"
+wikidata = "https://www.wikidata.org/wiki/Q1100736"
+wikipedia = "https://en.wikipedia.org/wiki/Ancient_Greek_comedy"
+
+[anecdote]
+description = "a remarkable story"
+wikidata = "https://www.wikidata.org/wiki/Q193206"
+wikipedia = "https://en.wikipedia.org/wiki/Anecdote"
+
+[aphorism]
+description = "observation in few words that is broadly true"
+wikidata = "https://www.wikidata.org/wiki/Q165740"
+wikipedia = "https://en.wikipedia.org/wiki/Aphorism"
+
+["character sketch"]
+description = "a portayal of individual"
+wikidata = "https://www.wikidata.org/wiki/Q5073748"
+wikipedia = "https://en.wikipedia.org/wiki/Character_sketch"
+
+[dialogue]
+description = "conversation between two or more people"
+synonyms = ["dialectic"]
+wikidata = "https://www.wikidata.org/wiki/Q131395"
+wikipedia = "https://en.wikipedia.org/wiki/Dialogue"
+
+[drama]
+description = "a representative work meant to be performed"
+wikidata = "https://www.wikidata.org/wiki/Q25372"
+wikipedia = "https://en.wikipedia.org/wiki/Drama"
+
+[epic]
+description = "the representation of an action divided into many episodes and performed by a single story teller"
+wikidata = "https://www.wikidata.org/wiki/Q2367164"
+wikipedia = "https://en.wikipedia.org/wiki/Epic_(genre)"
+
+[folktale]
+description = "a traditional story passed down orally"
+
+["frame story"]
+description = "story told in nested narration"
+synonyms = ["frame tale", "frame narrative", "framing device", "outer story", "outer narrative"]
+wikidata = "https://www.wikidata.org/wiki/Q1505819"
+wikipedia = "https://en.wikipedia.org/wiki/Frame_story"
+
+[letter]
+description = "written message from one person to another"
+synonym = ["epistle"]
+wikidata = "https://www.wikidata.org/wiki/Q133492"
+wikipedia = "https://en.wikipedia.org/wiki/Letter_(message)"
+
+[narrative]
+description = "an account of related events"
+wikidata = "https://www.wikidata.org/wiki/Q1318295"
+wikipedia = "https://en.wikipedia.org/wiki/Narrative"
+
+[oration]
+description = "address delivered to an audience"
+synonyms = ["speech"]
+wikidata = "https://www.wikidata.org/wiki/Q861911"
+# no wikipedia
+
+[play]
+description = "a type of theatrical dramatic work"
+wikidata = "https://www.wikidata.org/wiki/Q25379"
+wikipedia = "https://en.wikipedia.org/wiki/Play_(theatre)"
+
+[treatise]
+description = "formal and systematic written discourse on some subject"
+wikidata = "https://www.wikidata.org/wiki/Q384515"
+wikipedia = "https://en.wikipedia.org/wiki/Treatise"

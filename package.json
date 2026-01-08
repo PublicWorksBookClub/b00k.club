@@ -1,11 +1,11 @@
 {
   "name": "b00k.club",
-  "version": "1.4.4",
+  "version": "1.5.0",
   "description": "The website for the Public Works Book Club: we only read works in the public domain",
   "scripts": {
     "fmt": "npx prettier . --write",
     "build": "zola build $BUILD_OPTS && npx @tailwindcss/cli -i ./css/input.css -o ./public/style.css -m",
-    "serve": "zola serve $SERVE_OPTS & npx @tailwindcss/cli  -i ./css/input.css -o ./public/style.css --watch && wait",
+    "serve": "zola serve --port 2665 $SERVE_OPTS & npx @tailwindcss/cli  -i ./css/input.css -o ./public/style.css --watch && wait",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -14,8 +14,7 @@
   },
   "keywords": [
     "books",
-    "book",
-    "club",
+    "book club",
     "public domain",
     "public works"
   ],
@@ -26,7 +25,9 @@
   },
   "homepage": "https://b00k.club/",
   "devDependencies": {
+    "@tailwindcss/cli": "^4.1.18",
     "@tailwindcss/typography": "^0.5.9",
+    "jsonld-cli": "^2.0.0",
     "prettier": "^3.6.2",
     "prettier-plugin-jinja-template": "^2.1.0",
     "prettier-plugin-tailwindcss": "^0.6.14",

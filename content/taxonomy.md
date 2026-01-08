@@ -1,7 +1,5 @@
 +++
-draft = true
+draft = false
+title = "Taxonomical Categories | PWBC"
+template = "taxonomy.html"
 +++
-
-# Site Taxonomy
-
-{{ taxonomy() }}

@@ -1,0 +1,35 @@
+{% import "macro/cite_old.html" as cite %}
+
+{#
+  Currently this is used as a shortcode as follows:
+
+  ```
+  {% further_reading(unordered=true) %}
+
+  | Citation Key   | [Locator] | [Remark]                               |
+  | -------------- | --------- | -------------------------------------- |
+  | plato_apology  | pp 29     | for score, and seven years years ago   |
+  | platoCrito1999 | 53        | Crito resembles a temptation narrative |
+
+  {% end %}
+  ```
+
+  But it should also be a macro that the shortcode just calls
+#}
+
+{% set references = load_data(path="pwbc.bib", format="bibtex") %}
+
+{% set body_md = body | markdown %}
+{% set tbl_body = body_md | regex_replace(pattern="(?ms)^.*<tbody>(.*)</tbody>.*$", rep="$1") %}
+{% set tbl_rows = tbl_body | split(pat="</tr>") | slice(end=-1) %}
+<!-- prettier-ignore-start -->
+{% if unordered %}<ul class="further-reading">{% else %}<ol class="further-reading">{% endif %}
+{% for row in tbl_rows %}
+  {% set cols = "(?ms)^.*<tr><td>(.*?)</td><td>(.*?)</td><td>(.*?)</td>.*$" %}
+  {% set citation_key = row | regex_replace(pattern=cols, rep="$1") | trim %}
+  {% set locator = row | regex_replace(pattern=cols, rep="$2") | trim %}
+  {% set remark = row | regex_replace(pattern=cols, rep="$3") | trim %}
+  <li>{{ cite::note(references=references, citation_key=citation_key, locator=locator, remark=remark) }}</li>
+{% endfor %}
+{% if unordered %}</ul>{% else %}</ol>{% endif %}
+<!-- prettier-ignore-end -->

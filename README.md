@@ -24,12 +24,12 @@ npm install
 # Use BUILD_OPTS to pass options to the zola build command
 npm run build
 
-# starts a local server that binds to `0.0.0.0:1111`, and watches the respective directories and rebuilds upon every change
+# starts a local server that binds to `localhost:2665`, and watches the respective directories and rebuilds upon every change
 # Use SERVE_OPTS to pass options to the zola serve command
 npm run serve
 ```
 
-For example, you can run `npm run serve` and then go to `localhost:1111` in your browser to see the websites. As you make changes to the code or content, the website will be updated.
+For example, you can run ` SERVE_OPTS="--interface 0.0.0.0 --base-url 192.168.0.1" npm run serve` and then go to `localhost:2665` in your browser to see the website, as well as access from a mobile device on the same network. As you make changes to the code or content, the website will be updated.
 
 ## Updates
 
@@ -48,6 +48,24 @@ For example, releasing a huge new initiative to launch our theoretical youtube c
 ## Content
 
 Content is stored in [markdown text](https://commonmark.org/help/) files located within the `content` directory. Files named `_index.md` are called "sections", and files by any other name ending in `.md` are called "pages". For more information you can read the [zola](https://getzola.com) documentation. It is written in markdown and inserted into the html via the "[template](#templates)", which is indicated on the top of the content.
+
+### Bibliography
+
+Works that have been read in the club are located under `[/content/works/](./content/works/)`. Each page within there has front matter that is designed to be read by a macro (see [macro/json-ld](./templates/macro/json-ld.html)) that then outputs [json-ld](https://en.wikipedia.org/wiki/JSON-LD). This constitutes a bibliography of abstract works that can be cited throughout other parts of the site and is meant to work as a single source of truth.
+
+See [Demosthenes - On the Crown](./content/works/Demosthenes%20-%20On%20the%20Crown.md) as an example.
+
+#### Controlled Vocabulary
+
+The front matter for each of the works use common english terms such as "Ancient Greek" for language or "funeral oration" for literary form. These terms are then defined as a vocabulary under [data/vocab](./data/vocab/) where additional data and links can live. This allows common terms to be used and promotes reuse across the site.
+
+#### Linked Data Sources
+
+JSON-LD is designed for creating links between pieces of data representing relationships. Here are some sources that can be reused.
+
+- [Wikidata](https://wikidata.org) - for general linked data
+- [Getty Vocabularies](https://vocab.getty.edu) - for literary terms
+- [Lexvo](http://www.lexvo.org/) - for languages
 
 ## Templates
 

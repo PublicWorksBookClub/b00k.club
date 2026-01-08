@@ -1,0 +1,43 @@
+synonyms = ["topics"]
+description = "the subject or topic of a creative work"
+wikidata = "https://www.wikidata.org/wiki/Q26256810"
+
+[rhetoric]
+wikidata = "https://www.wikidata.org/wiki/Q81009"
+wikipedia = "https://en.wikipedia.org/wiki/Rhetoric"
+
+["civic duty"]
+wikidata = "https://www.wikidata.org/wiki/Q1021376"
+# no wikipedia entry
+
+# BEGIN Philosophy genus
+["philosophy"]
+wikidata = "https://www.wikidata.org/wiki/Q5891"
+wikipeda = "https://en.wikipedia.org/wiki/Philosophy"
+
+[epistemology]
+wikidata = "https://www.wikidata.org/wiki/Q9471"
+wikipedia = "https://en.wikipedia.org/wiki/Epistemology"
+
+[ethics]
+synonyms = ["moral philosophy"]
+wikidata = "https://www.wikidata.org/wiki/Q9465"
+wikipedia = "https://en.wikipedia.org/wiki/Ethics"
+
+["philosophy of science"]
+synonyms = ["theory of science"]
+wikidata = "https://www.wikidata.org/wiki/Q59115"
+wikipedia = "https://en.wikipedia.org/wiki/Philosophy_of_science"
+
+["political philosophy"]
+wikidata = "https://www.wikidata.org/wiki/Q179805"
+wikipedia = "https://en.wikipedia.org/wiki/Political_philosophy"
+
+["practical philosophy"]
+wikidata = "https://www.wikidata.org/wiki/Q1888684"
+wikipedia = "https://en.wikipedia.org/wiki/Practical_philosophy"
+
+[stoicism]
+wikidata = "https://www.wikidata.org/wiki/Q48235"
+wikipedia = "https://en.wikipedia.org/wiki/Stoicism"
+# END Philosophy genus

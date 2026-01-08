@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% import "macro/json-ld.html" as json_ld %}
+{% import "macro/works.html" as works %}
+{% import "macro/util.html" as util %}
+
+{% block body_styles %}{{ section.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
+
+{% block banner %}
+{{ util::back(text="Home") }}
+{% endblock banner %}
+
+{% block main %}
+<article class="mx-auto my-16 prose prose-pwbc prose-lg
+prose-headings:font-fira-sans prose-headings:font-bold">
+  <header class="px-4 md:px-0 not-prose text-gray-700">
+    <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
+      <a class="hover:underline" href="{{ section.permalink }}">Readings</a>
+    </h1>
+  </header>
+  <section class="mt-8">
+    <p class="font-fira-sans -mb-6 text-right text-xs italic pr-2">(scroll →)</p>
+    {% set works_section = get_section(path="works/_index.md") %}
+    {{ works::tablular_listing_of_works(works=works_section.pages) }}
+  </section>
+</article>
+{% endblock main %}

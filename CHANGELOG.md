@@ -2,7 +2,11 @@
 
 ## NEXT
 
+## 1.5.0 (2025-12-28)
+
+- PWBC bibliography
 - site taxonomy
+- Add reference to historical thesaurus of english
 
 ## 1.4.4 (2025-12-13)
 

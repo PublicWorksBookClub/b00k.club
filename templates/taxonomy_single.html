@@ -1,23 +1,41 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    {%
-      set context = "```json
-      " ~ __tera_context ~ "
-      ```"
-    %}
-    {{ context | markdown | safe }}
-    <ul>
-      {% for page in term.pages %}
-        <li>
-          <a href="{{ page.path }}">{{ page.title | default(value=page.path) | safe }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  </body>
-</html>
+{% extends "base.html" %}
+{% import "macro/util.html" as util %}
+{% import "macro/works.html" as works %}
+
+{% block body_styles %}bg-orange-50{% endblock body_styles %}
+
+{% block title %}
+  <title>{{ taxonomy.name | capitalize }}: {{ term.name }} | PWBC</title>
+  <meta property="og:title" content="{{ taxonomy.name | capitalize }}: {{ term.name }} | PWBC" />
+  <meta name="twitter:title" content="{{ taxonomy.name | capitalize }}: {{ term.name }} | PWBC" />
+{% endblock title %}
+
+{% block banner %}
+{{ util::nav(href="/", text="Home") }}
+{{ util::nav(href="/works", text="Readings") }}
+{{ util::nav(href="/taxonomy", text="Taxon.") }}
+{{ util::nav(href="../", text="../" ~ taxonomy.name | title) }}
+{% endblock banner %}
+
+{% block main %}
+<section class="prose prose-lg prose-pwbc mx-auto my-18">
+  <div class="px-4 md:px-0">
+    <header class="not-prose">
+      {% block header %}
+      <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700 text-left">
+        <a class="hover:underline" href="{{ current_url }}">{{ term.name }}</a>
+      </h1>
+      {% endblock header %}
+    </header>
+    {% block divider %}
+    <hr>
+    {% endblock divider %}
+  </div>
+  {% block paratext %}{% endblock paratext %}
+  {% block works_with_term %}
+  <h2 class="px-4 md:px-0">Works</h2>
+  {{ works::tablular_listing_of_works(works=term.pages) }}
+  {% endblock works_with_term %}
+  {% block references %}{% endblock references %}
+</section>
+{% endblock main %}

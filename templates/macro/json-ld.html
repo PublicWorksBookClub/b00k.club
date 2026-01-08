@@ -1,0 +1,122 @@
+{# prettier-ignore-start #}
+{% macro abstract_text(doc) %}
+{% set periods = load_data(path="data/vocab/periods.toml", format="toml") %}
+{% set languages = load_data(path="data/vocab/languages.toml", format="toml") %}
+{
+  "@context": "https//schema.org/docs/jsonldcontext.json",
+  "@type": "CreativeWork",
+  "@id": "{{ doc.permalink | safe }}",
+  "name": "{{ doc.title }}",
+  "alternateName": {{ doc.taxonomies.titles | slice(start=1) | json_encode }},
+  {# PWBC Reading List and Order #}
+  "isPartOf": {
+    "@type": "CreativeWorkSeries",
+    "@id": "https://b00k.club/works/",
+    "name": "List of works read by the Public Works Book Club"
+  },
+  "hasPart": {
+    "@type": "ListItem",
+    "position": {{ doc.extra.order }},
+    "item": {
+      "@id": "{{ doc.permalink }}"
+    }
+  },
+  {# Authors #}
+  "author": [
+    {% set authors = load_data(path="data/vocab/authors.toml", format="toml") %}
+    {% for a in doc.taxonomies.authors %}
+      {
+        "@type": "Person",
+        "name": "{{ authors[a].label | default(value=a) }}"
+        {% if authors[a].wikidata %}
+        , "sameAs": "{{ authors[a].wikidata }}"
+        {% endif %}
+      }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ],
+  {# Genres #}
+  "genre": [
+    {% for g in doc.taxonomies.genres %}
+      {
+        "@id": "{{ get_taxonomy_url(kind="genres", name=g, lang=doc.lang) }}",
+        "name": "{{ g }}"
+      }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ],
+  {# Forms #}
+  "literaryForm": [
+    {% for f in doc.taxonomies.forms %}
+      {
+        "@id": "{{ get_taxonomy_url(kind="forms", name=f, lang=doc.lang) }}",
+        "name": "{{ f }}"
+      }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ],
+  {# Subjects #}
+  "about": [
+    {% for subject in doc.taxonomies.subjects %}
+      {
+        "@type": "Thing",
+        "name": "{{ subject }}"
+      }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ],
+  {# Periods #}
+  "temporalCoverage": [
+    {% for p in doc.taxonomies.periods %}
+      {% set slug = p | slugify %}
+      {% if periods[p] %}
+      {
+        "@id": "{{ periods[p].wikidata }}",
+        "name": "{{ periods[p].label | default(value=p) }}"
+      }
+      {% else %}
+        "{{ p }}"
+      {% endif %}
+      {% if not loop.last %},{% endif %}
+    {% endfor %}
+  ],
+  {# Languages #}
+  {% if doc.taxonomies.languages %}
+  "inLanguage": [
+    {# A language entry is required (in languages.toml) #}
+    {% for l in doc.taxonomies.languages %}
+    {
+      "@type": "Language",
+      "name": "{{ languages[l].label }}",
+      "alternateName": "{{ languages[l].bcp_47 }}"
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ],
+  {% endif %}
+  {# Tags #}
+  "keywords": [
+  {% for tag in doc.taxonomies.tags | default(value=[]) %}
+    "{{ tag }}"{% if not loop.last %},{% endif %}
+  {% endfor %}
+  ],
+  {# Description #}
+  {% if doc.description %}
+  "description": "{{ doc.description }}",
+  {% endif %}
+  {# Link to other sources #}
+  {% set same_as = load_data(literal="[]", format="json") %}
+  {% if doc.extra.wikidata %}{% set same_as = same_as | concat(with=doc.extra.wikidata) %}{% endif %}
+  {% if doc.extra.wikipedia %}{% set same_as = same_as | concat(with=doc.extra.wikipedia) %}{% endif %}
+  "sameAs": {{ same_as | json_encode }},
+  "partOfSeries": [
+  {% for arc in doc.taxonomies.arcs %}
+    {
+      "@type": "CreativeWorkSeries",
+      "@id": "{{ get_taxonomy_url(kind="arcs", name=arc, lang=doc.lang) }}",
+      "name": "{{ arc }}"
+    }{% if not loop.last %},{% endif %}
+  {% endfor %}
+  ],
+  {# Abstract #}
+  {% if doc.extra.abstract %}
+  "abstract": {{ doc.extra.abstract | trim | json_encode }}
+  {% endif %}
+}
+{% endmacro abstract_text %}
+{# prettier-ignore-end #}

@@ -1,0 +1,100 @@
+# The mode of the work's content and its literary aim
+# e.g. tragedy, myth, comedy, satire, sci-fi, folk tale, potrait, didactic, parable, allegory, romance, etc...
+# (Note: lowercase)
+#
+# Can be looked up at https://vocab.getty.edu
+# E.g. https://vocab.getty.edu/aat/300026674
+description = "thematic category based on a work's content"
+synonyms = ["thematic genre"]
+wikidata = "https://www.wikidata.org/wiki/Q223393"
+wikipedia = "https://en.wikipedia.org/wiki/Literary_genre"
+
+[allegory]
+label = "allegory"
+description = "a narrative used to deliver a broader message"
+wikidata = "https://www.wikidata.org/wiki/Q18535"
+wikipedia = "https://en.wikipedia.org/wiki/Allegory"
+
+[autobiography]
+label = "autobiography"
+description = "biography written by the subject"
+synonyms = ["autobiographical account"]
+wikidata = "https://www.wikidata.org/wiki/Q4184"
+wikipedia = "https://en.wikipedia.org/wiki/Autobiography"
+
+["comedy of manners"]
+label = "comedy of manners"
+description = "humorous observation of the manners of high society"
+wikidata = "https://www.wikidata.org/wiki/Q222926"
+wikipedia = "https://en.wikipedia.org/wiki/Comedy_of_manners"
+
+["comedy of intrigue"]
+label = "comedy of intrigue"
+description = "humor from plot driven by intricate and ridiculous strategems"
+synonyms = ["comedy of situations"]
+wikidata = "https://www.wikidata.org/wiki/Q2991535"
+wikipedia = "https://en.wikipedia.org/wiki/Comedy_of_intrigue"
+
+["deliberative"]
+label = "deliberative"
+description = "to exhort or dissuade, often in an assembly"
+synonyms = ["legislative oratory", "deliberative oratory"]
+
+["dialogue"]
+label = "dialogue"
+wikidata = "https://www.wikidata.org/wiki/Q3025978"
+wikipedia = "https://en.wikipedia.org/wiki/Dialogue"
+
+["epideictic"]
+label = "epideictic"
+description = "to praise or blame, often in a ceremonial setting"
+synonyms = ["ceremonial oratory", "demonstrative oratory", "epideictic"]
+
+[epistle]
+description = "letter written for a didactic purpose"
+wikidata = "https://www.wikidata.org/wiki/Q215495"
+wikipedia = "https://en.wikipedia.org/wiki/Epistle"
+
+[fable]
+label = "fable"
+description = "short didactic that uses non-humans to illustrate a moral lesson"
+wikipedia = "https://en.wikipedia.org/wiki/Fable"
+wikidata = "https://www.wikidata.org/wiki/Q693"
+
+["forensic"]
+label = "foresnic"
+description = "to accuse or defend, often in a court setting"
+synonyms = ["judicial oratory", "forensic oratory"]
+
+["funeral oration"]
+label = "funeral oration"
+
+["historiography"]
+label = "historiography"
+synonyms = ["history"]
+description = "a body of historical work on a subject"
+wikidata = "https://www.wikidata.org/wiki/Q30277550"
+wikipedia = "https://en.wikipedia.org/wiki/Historiography"
+
+[parable]
+label = "parable"
+description = "short didactic story which illustrates in metaphor a moral lesson"
+wikidata = "https://www.wikidata.org/wiki/Q208555"
+wikipedia = "https://en.wikipedia.org/wiki/Parable"
+
+["philippic"]
+label = "philippic"
+description = "a fiery, damning speech condemning a political opponent"
+wikipedia = "https://en.wikipedia.org/wiki/Philippic"
+wikidata = "https://www.wikidata.org/wiki/Q110629616"
+
+[satire]
+label = "satire"
+description = "ridicule for the purposes of social commentary or observation"
+wikidata = "https://www.wikidata.org/wiki/Q128758"
+wikipedia = "https://en.wikipedia.org/wiki/Satire"
+
+["Socractic dialogue"]
+label = "Socratic dialogue"
+wikidata = "https://www.wikidata.org/wiki/Q3026054"
+wikipedia = "https://en.wikipedia.org/wiki/Socratic_dialogue"

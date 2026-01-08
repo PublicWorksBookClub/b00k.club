@@ -1,20 +1,61 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body class="prose">
-    {# {% set context = "```json
-  " ~ __tera_context ~ "
-  ```"%}
-  {{ context | markdown | safe }} #}
-    <h1>{{ taxonomy.name | title }}</h1>
-    <ul>
-      {% for term in terms %}
-        <li><a href="{{ term.path }}">{{ term.name }}</a></li>
-      {% endfor %}
-    </ul>
-  </body>
-</html>
+{% extends "base.html" %}
+{% import "macro/util.html" as util %}
+
+{% block title %}
+  <title>{{ taxonomy.name | capitalize }} | PWBC Taxonomy</title>
+  <meta property="og:title" content="{{ taxonomy.name | capitalize }} | PWBC Taxonomy" />
+  <meta name="twitter:title" content="{{ taxonomy.name | capitalize }} | PWBC Taxonomy" />
+{% endblock title %}
+
+{% block body_styles %}bg-orange-50{% endblock body_styles %}
+
+{% block banner %}
+{{ util::back(text="Home") }}
+{{ util::nav(href="/works", text="Readings") }}
+{{ util::nav(href="/taxonomy", text="Taxon.") }}
+{% endblock banner %}
+{% block main %}
+{% set toml = load_data(path="data/vocab/" ~ taxonomy.name ~ ".toml", format="toml", required=false) %}
+<section class="prose prose-lg prose-pwbc mx-auto my-18 px-4 md:px-0">
+  <header class="not-prose text-left">
+    {% block header %}
+    <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
+      <a class="hover:underline" href="{{ current_url }}">{{ taxonomy.name | capitalize }}</a>
+    </h1>
+    {% if toml and toml["description"] %}
+    <p class="mt-6 text-xl font-fira-sans font-extralight">
+      Taxonomical category:
+      <em class="font-light">
+        {{ toml["description"] }}
+      </em>
+    </p>
+    {% endif %}
+    {% endblock header %}
+  </header>
+  {% block divider %}
+  <hr>
+  {% endblock divider %}
+  {% block paratext %}{% endblock paratext %}
+  {% block terms %}
+  <h2>Terms</h2>
+  <ul>
+  {% for term in terms %}
+    <li><a href="{{ term.path }}">{{ term.name }}</a> ({{ term.pages | length }})</li>
+  {% endfor %}
+  </ul>
+  {% endblock terms %}
+  {% block references %}
+  {% if toml and toml.wikidata or toml.wikipedia%}
+  <h2>References</h2>
+  <ul>
+    {% if toml.wikidata %}
+    <li><a href="{{ toml.wikidata }}">wikidata</a></li>
+    {% endif %}
+    {% if toml.wikipedia %}
+    <li><a href="{{ toml.wikipedia }}">wikipedia</a></li>
+    {% endif %}
+  </ul>
+  {% endif %}
+  {% endblock references %}
+</section>
+{% endblock main %}

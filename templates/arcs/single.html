@@ -1,0 +1,43 @@
+{% extends "taxonomy_single.html" %}
+
+{% block body_styles %}bg-orange-50{% endblock body_styles %}
+
+{% block header %}
+{% set arc = load_data(path="data/vocab/arcs.toml", format="toml") | get(key="arcs") | filter(attribute="label", value=term.name) | first %}
+{{ super() }}
+<p class="mt-6 text-xl font-fira-sans font-extralight">
+  Club arc/Reading Campaign - <em>{{ arc.years }}</em>
+</p>
+{% endblock header %}
+
+{% block paratext %}
+<section class="px-4 md:px-0">
+  <div class="text-gray-600 prose-pre:bg-transparent! prose-pre:text-gray-600! prose-pre:font-fira-sans prose-pre:text-lg! prose-pre:italic prose-pre:p-0! prose-pre:pl-8!
+  drop-cap">
+  {{ arc.prosa | default(value="TODO") | markdown | safe }}
+  </div>
+  <h2 class="px-4 md:px-0">Context</h2>
+  <ul>
+    {% if arc.predecessor %}
+    <li>Preceeded by: <a href="{{ get_taxonomy_url(kind='arcs', name=arc.predecessor) }}">{{ arc.predecessor }}</a></li>
+    {% endif %}
+    {% set successors = load_data(path="data/vocab/arcs.toml", format="toml") | get(key="arcs") | filter(attribute="predecessor", value=term.name) %}
+    {% if successors | length > 0 %}
+    <li>Succeeded by:
+      {% for s in successors %}
+      <a href="{{ get_taxonomy_url(kind='arcs', name=s.label) }}">{{ s.label }}</a>
+      {%- if not loop.last %},{% endif %}
+      {% endfor %}
+    </li>
+    {% endif %}
+    {% if arc.coinciding and arc.coinciding | length > 0 %}
+    <li>Coinciding with:
+      {% for c in arc.coinciding %}
+      <a href="{{ get_taxonomy_url(kind='arcs', name=c) }}">{{ c }}</a>
+      {%- if not loop.last %},{% endif %}
+      {% endfor %}
+    </li>
+    {% endif %}
+  </ul>
+</section>
+{% endblock paratext %}

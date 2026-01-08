@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% import "macro/works.html" as works %}
+
+{% block body_styles %}{{ section.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
+{% block main %}
+<section>
+  <header class="flex flex-col md:flex-row md:h-screen p-4 md:p-12 items-center">
+    <img
+      class="w-full md:w-1/2"
+      src="/illo/sophocles-nested.svg"
+      alt="A bust of sophpocles, repeating to infinty in different bright colors"
+    />
+    <div class="w-full md:w-1/2">
+      <h1 class="font-playfair-display text-left text-7xl font-semibold md:text-8xl xl:text-9xl text-gray-800">
+        The Public Works Book Club
+      </h1>
+      {# https://www.w3.org/TR/dpub-aria-1.0/#doc-subtitle #}
+      <p role="doc-subtitle" class="mt-2 text-right font-fira-sans text-lg font-extralight md:text-2xl">
+        Since 35,000 BCE
+      </p>
+    </div>
+  </header>
+  <div class="flow-root prose prose-lg prose-pwbc mx-auto py-12 md:py-16 prose-p:px-4 prose-h2:px-4">
+    {{ section.extra.sections.intro | markdown | safe }}
+    {{ section.extra.sections.readings | markdown | safe }}
+    {% set works_section = get_section(path="works/_index.md") %}
+    <p class="font-fira-sans -mr-2 -mb-6 text-right text-xs italic text-gray-500">(scroll →)</p>
+    {{ works::tablular_listing_of_works(works=works_section.pages, limit=20) }}
+    {{ section.extra.sections.links_to_resources | markdown | safe }}
+    {{ section.extra.sections.contact | markdown | safe }}
+  </div>
+</section>
+{% endblock main %}

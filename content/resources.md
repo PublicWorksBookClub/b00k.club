@@ -3,8 +3,7 @@ template = "page.html"
 title = "Resources"
 
 [extra]
-bg_color = "bg-rose-300"
-theme_color = "#fda4af"
+bg_color = "bg-rose-50"
 +++
 
 Below is a collection of resources in the public domain that are updated on a regular basis, as well as some non-public domain content that is still useful and informative. Please [email](mailto:info@b00k.club) the club to recommend a listing or for other suggestions.
@@ -26,6 +25,7 @@ Below is a collection of resources in the public domain that are updated on a re
 
 ## Reference Material:
 
+- [The Historical Thesaurus of English](https://www.ht.ac.uk)
 - [Stanford Encyclopedia of Philosophy](https://plato.stanford.edu)
 - [Perseus Digital Library](http://www.perseus.tufts.edu/hopper/) (Tufts University)
 - Loeb Classical Library - [catalogue](https://www.hup.harvard.edu/collection.php?), [search](https://www.loebclassics.com)
@@ -96,6 +96,7 @@ The following is an alphabetically sorted list of museums and galleries that off
 ## Video Channels
 
 - [The Center for Hellenic Studies](https://www.youtube.com/channel/UC4CZOzGtFzZe2pcONCNT15w) - performances of ancient greek works, as well as in-depth studies of specific texts
+- [The Great Minds of the Western Intellectual Tradition](https://www.youtube.com/@dr.michaelsugrue/featured) - vintage philosophy and literature lectures by Dr. Michael Sugrue and Dr. Darren Staloff.
 - [Thersites the Historian](https://www.youtube.com/@ThersitestheHistorian) - a professor of archaeology who presents clear, detailed information on all matters of antiquity.
 - [Astarte Resources](https://www.youtube.com/@astarteresources2532) - a producer of educational resources that has since closed, but they share their videos on YT still, which are excellent resources on antiquity
 - [Historia Civilis](https://www.youtube.com/@HistoriaCivilis/) - a detailed and entertaining channel that covers many arcs of antiquity. Historia Civilis does battles especially well. The author's series on [Julius Caesar](https://www.youtube.com/watch?v=gsK4nX0tCGQ&list=PLODnBH8kenOoLUW8BmHhX55I-qexvyU32&pp=iAQB) and [Octavian](https://www.youtube.com/watch?v=2-PYwEsTll0&list=PLODnBH8kenOonO62euH1PLlMm8hT5lHlL&pp=iAQB) in particular are excellent.
@@ -111,13 +112,12 @@ The following is an alphabetically sorted list of museums and galleries that off
 ## Podcasts
 
 - [Ancient Greece Declassified](https://www.greecepodcast.com/)
-- [The Hellenistic Age Podcast](https://hellenisticagepodcast.wordpress.com)
+- [Literature and History](https://literatureandhistory.com)
 
 ## Secondary/Editorialized Content
 
 - [Antigone Journal](https://antigonejournal.com/) - articles and contests on classics, as well as links to useful resources
 - [Xenophon Group International](http://www.xenophon-mil.org) - an index of information on military history, including essays, timelines, and other useful secondary sources
-- [A Collection of Unmitigated Pedantry](https://acoup.blog/) - blog posts summarizing a variety of ancient world topics in an approachable way, particularly the Roman world
 
 ## Tools
 

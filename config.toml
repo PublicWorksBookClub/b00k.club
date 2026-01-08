@@ -1,28 +1,107 @@
 # The URL the site will be built for
 base_url = "https://b00k.club"
 
+# The title and description of the website
+title = "Public Works Book Club: since 35,000 BCE"
+description = "A book club dedicated to works in the public domain."
+
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
 
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = true
 
-# TODO: develop site taxonomy for commentary and meeting minutes
-# [[taxonomies]]
-# name = "titles"
-# feed = false
-#
-# [[taxonomies]]
-# name = "authors"
-# feed = false
-#
-# [[taxonomies]]
-# name = "epochs"
-# feed = false
-#
-# [[taxonomies]]
-# name = "arcs"
-# feed = false
+###############################
+### Begin taxonomy of texts ###
+###############################
+
+# these taxonomical terms are meant more to be used for classifying the texts that we've read in the club. Some taxonomies, such as `authors` may seem appropriate for other types of content, like /commentary, but the intention for now is to strictly use the following taxonomies only for content nested under /texts.
+# more general, all-purpose taxonomies are further below
+
+# (some texts may have more than one e.g. "First Philippic" and "Demosthenes 4")
+[[taxonomies]]
+name = "titles"
+feed = false
+
+# (some texts may have more than one e.g. "Moses" and "Anonymous")
+# (Note: Capitalize, always a proper now including with "Anonymous")
+[[taxonomies]]
+name = "authors"
+feed = false
+
+# The way the work is packaged (outside the content)
+# e.g. play, dialogue, novel, epic poem, lyric poem, speech/oration, tetraology, letter/epistle, treatise, essay, fable, myth, history, commentary, manual, treatise, biography, tragedy (in terms of structure), comedy (in terms of structure), apologia, etc...
+# (Note: lowercase)
+[[taxonomies]]
+name = "forms"
+feed = false
+
+# The mode of the work's content and its literary aim
+# e.g. tragedy, myth, comedy, satire, sci-fi, folk tale, potrait, didactic, parable, allegory, romance, etc...
+# (Note: lowercase)
+[[taxonomies]]
+name = "genres"
+feed = false
+
+# e.g. ethics, rhetoric, philosophy, political philosophy, mythology, how-to, etc...
+# (Note: lowercase)
+[[taxonomies]]
+name = "subjects"
+feed = false
+
+# e.g. 4th c. BCE, enlightenment, middle eastern antiquity, renaissance, etc...
+# (Note: capitalize historic periods but not centuries)
+[[taxonomies]]
+name = "periods"
+feed = false
+
+# see data/vocab/languages.toml
+[[taxonomies]]
+name = "languages"
+feed = false
+
+###############################
+#### End taxonomy of texts ####
+###############################
+
+###############################
+### Begin general taxonomy ####
+###############################
+
+# indicates references to other content (primary or secondary)
+[[taxonomies]]
+name = "references"
+feed = false
+description = "foo"
+
+# indicates references to people, places, terms, etc... (from primary or secondary sources)
+[[taxonomies]]
+name = "index"
+feed = false
+
+# arbitrary, more editorialized tags e.g. "how to build a raft" for Homer's "Odyssey"
+[[taxonomies]]
+name = "tags"
+feed = false
+
+# corresponds to the club's activities in that year, e.g. when a text was read
+[[taxonomies]]
+name = "years"
+feed = false
+
+# corresponds to the club's various arcs and doesn't have to be used only for texts
+[[taxonomies]]
+name = "arcs"
+feed = false
+
+# meant to be used in place of author for things outside of texts
+[[taxonomies]]
+name = "contributors"
+feed = false
+
+###############################
+#### End general taxonomy #####
+###############################
 
 [markdown]
 # Whether to do syntax highlighting
@@ -53,6 +132,20 @@ external_links_no_referrer = true
 # Whether smart punctuation is enabled (changing quotes, dashes, dots in their typographic form)
 # For example, `...` into `…`, `"quote"` into `“curly”` etc
 smart_punctuation = true
+
+# Whether parsing of definition lists is enabled
+definition_list = true
+
+# Whether footnotes are rendered in the GitHub-style (at the bottom, with back references) or plain (in the place, where they are defined)
+bottom_footnotes = false
+
+# This determines whether to insert a link for each header like the ones you can see on this site if you hover over
+# a header.
+# The default template can be overridden by creating an `anchor-link.html` file in the `templates` directory.
+# This value can be "left", "right", "heading" or "none".
+# "heading" means the full heading becomes the text of the anchor.
+# See "Internal links & deep linking" in the documentation for more information.
+insert_anchor_links = "none"
 
 [extra]
 # Put all your custom variables here

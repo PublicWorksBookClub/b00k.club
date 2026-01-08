@@ -1,0 +1,43 @@
++++
+draft = false
+template = "works/conspectus.html"
+slug = "thucydides"
+# You can also override `title` and `authors`
+
+[extra]
+order = 7
+sort = "History of the Peloponnesian War"
+wikidata = "https://www.wikidata.org/wiki/Q639493"
+wikipedia = "https://en.wikipedia.org/wiki/History_of_the_Peloponnesian_War"
+abstract = """
+In the decades following the end of the Persian War, rising tensions between an ascendant Athens and her oligarichal neighbors lead to an all out war, the likes of which had never been seen before, between the Peloponnesian League, led by Sparta, against the Delian League, led by Athens.
+"""
+
+[taxonomies]
+# Textual taxonomies
+titles = ["History of the Peloponnesian War"]
+authors = ["Thucydides"]
+forms = ["narrative"]
+genres = ["historiography"]
+subjects = [
+  "Greece",
+  "Peloponnesian War",
+  "Athens",
+  "Sparta",
+  "Thebes",
+  "Corinth",
+  "Platea",
+  "Persia",
+  "war",
+  "democracy",
+  "oligarchy",
+  "Thucydides",
+]
+periods = ["Ancient Greece", "5th c. BCE"]
+languages = ["Ancient Greek", "Attic Greek"]
+
+# General taxonomies
+years = ["2023"]
+arcs = ["Anabasis 1"]
+contributors = ["Spencer Scorcelletti"]
++++

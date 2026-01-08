@@ -1,0 +1,30 @@
++++
+draft = false
+template = "works/conspectus.html"
+slug = "aristophanes-frogs"
+# You can also override `title` and `authors`
+
+[extra]
+order = 23
+sort = "Frogs, The"
+wikidata = "https://www.wikidata.org/wiki/Q815376"
+wikipedia = "https://en.wikipedia.org/wiki/The_Frogs"
+abstract = """
+After the passing of Euripedes, Dionysus laments the sad state of Athenian theater, and thus goes to Hades with the aim of reviving tragedy.
+"""
+
+[taxonomies]
+# Textual taxonomies
+titles = ["The Frogs"]
+authors = ["Aristophanes"]
+forms = ["Ancient Greek comedy", "Attic old comedy", "drama", "play"]
+genres = ["Attic old comedy"]
+subjects = ["todo"]
+periods = ["5th c. BCE", "Classical Greece"]
+languages = ["Ancient Greek", "Attic Greek"]
+
+# General taxonomies
+years = ["2025"]
+arcs = ["Anabasis 3"]
+contributors = ["Spencer Scorcelletti"]
++++

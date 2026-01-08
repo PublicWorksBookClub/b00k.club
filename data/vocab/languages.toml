@@ -1,0 +1,96 @@
+# Used to map an english name to its language code from the BCP 47 standard.
+#
+# Usually ISO 693-3 is supported, but not always (see Koine Greek).
+#
+# linguist_list allows extensions of ISO 639-3, for language variants, e.g. grc-hom for Homeric Greek
+# glottolog is an optional database reference to open source bibliographic data of the world's languages
+#
+# see https://en.wikipedia.org/wiki/Linguistic_Linked_Open_Data for more
+# or https://iso639-3.sil.org/code_tables/639/data for a simple table
+
+description = "language a creative work is written in"
+
+# BEGIN Ancient Greek languages
+["Ancient Greek"]
+label = "Ancient Greek"
+bcp_47 = "grc"
+iso_639_3 = "grc"
+# no `linguist_list` entry
+glottolog = "anci1242"
+lexvo = "http://lexvo.org/id/iso639-3/grc"
+wikipedia = "https://en.wikipedia.org/wiki/Ancient_Greek"
+# no `wikidata` entry
+
+["Attic Greek"]
+label = "Attic Greek"
+bcp_47 = "grc"
+iso_639_3 = "grc"
+linguist_list = "grc-att"
+glottolog = "atti1240"
+lexvo = "http://lexvo.org/id/iso639-3/grc"
+wikidata = "https://www.wikidata.org/wiki/Q506588"
+wikipedia = "https://en.wikipedia.org/wiki/Attic_Greek"
+variety_of = "Ancient Greek"
+
+["Homeric Greek"]
+label = "Homeric Greek"
+bcp_47 = "grc"
+iso_639_3 = "grc"
+linguist_list = "grc-hom"
+# no `glottolog` entry
+synonyms = ["Epic Greek"]
+lexvo = "http://lexvo.org/id/iso639-3/grc"
+wikidata = "https://www.wikidata.org/wiki/Q990062"
+wikipedia = "https://en.wikipedia.org/wiki/Homeric_Greek"
+variety_of = "Ancient Greek"
+
+["Koine Greek"]
+label = "Koine Greek"
+bcp_47 = "grc"
+# no `iso_639_3`
+iso_639_2 = "grc"
+linguist_list = "grc-koi"
+synonyms = ["Biblical Greek", "ecclesiastical Greek", "New Testament Greek", "patristic Greek"]
+glottolog = "koin1234"
+wikidata = "https://www.wikidata.org/wiki/Q107358"
+wikipedia = "https://en.wikipedia.org/wiki/Koine_Greek"
+# END Ancient Greek languages
+
+["Classical Arabic"]
+label = "Classical Arabic"
+bcp_47 = "ar"
+# No `iso_639_3` (arb is modern arabic)
+# No `linguist_list`
+# No `glottolog`
+wikidata = "https://www.wikidata.org/wiki/Q1654327"
+wikipedia = "https://en.wikipedia.org/wiki/Classical_Arabic"
+
+["Classical Chinese"]
+label = "Classical Chinese"
+bcp_47 = "lzh"
+iso_639_3 = "lzh"
+# no `linguist_list`
+glottolog = "lite1248"
+synonyms = ["Wenyan", "zh-classical", "lzh", "Literary Chinese", "Traditional Chinese", "Wen yan wen"]
+lexvo = "http://www.lexvo.org/page/iso639-3/lzh"
+wikidata = "https://www.wikidata.org/wiki/Q37041"
+wikipedia = "https://en.wikipedia.org/wiki/Classical_Chinese"
+
+["Early Modern English"]
+label = "Early Modern English"
+bcp_47 = "en"
+# no `iso_639_3`
+# no `linguist_list`
+# no `glottolog`
+wikidata = "https://www.wikidata.org/wiki/Q1472196"
+wikipedia = "https://en.wikipedia.org/wiki/Early_Modern_English"
+
+[English]
+label = "English"
+bcp_47 = "eng"
+iso_639_3 = "eng"
+# no `linguist_list`
+glottolog = "stan1293"
+lexvo = "http://www.lexvo.org/page/iso639-3/eng"
+wikidata = "https://www.wikidata.org/wiki/Q1860"
+wikipedia = "https://en.wikipedia.org/wiki/English_language"

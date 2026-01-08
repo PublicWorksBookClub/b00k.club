@@ -4,8 +4,6 @@
 
 @plugin "@tailwindcss/typography";
 
-/* @config "../tailwind.config.js"; */
-
 @theme {
   --font-playfair-display: Playfair Display, serif;
   --font-fira-sans: Fira Sans, sans-serif;
@@ -33,6 +31,102 @@
   --color-attic-gray-200: rgb(240, 212, 195);
   --color-attic-gray-300: rgb(178, 171, 171);
   /* End attic colors */
+}
+
+@layer components {
+  .drop-cap {
+    p:first-child:first-letter {
+      @apply float-left text-7xl leading-13 mt-0.5 mr-1 pt-2 px-2 font-bold inline-block;
+    }
+  }
+}
+
+@utility pat1 {
+  p:first-child::first-letter {
+    @apply bg-[url('/img/drop-caps/107643ab.jpg')] bg-center bg-size-[120%] text-orange-100;
+  }
+}
+@utility pat2 {
+  p:first-child::first-letter {
+    @apply bg-[url('/img/drop-caps/105415ab.jpg')] bg-center bg-size-[150%] text-red-500/95;
+  }
+}
+@utility pat3 {
+  p:first-child::first-letter {
+    @apply bg-[url('/img/drop-caps/925232il.jpg')] bg-center bg-size-[110%] text-amber-50;
+  }
+}
+@utility pat4 {
+  p:first-child::first-letter {
+    @apply bg-[url('/img/drop-caps/53299pl.jpg')] bg-center bg-size-[110%] text-amber-50;
+  }
+}
+@utility pat5 {
+  p:first-child::first-letter {
+    @apply bg-[url('/img/drop-caps/64900pl.jpg')] bg-center bg-size-[150%] text-yellow-500;
+  }
+}
+@utility pat6 {
+  p:first-child::first-letter {
+    @apply bg-[url('/img/drop-caps/69939pl.jpg')] bg-center bg-size-[110%] text-amber-50;
+  }
+}
+@utility pat7 {
+  p:first-child::first-letter {
+    @apply bg-[url('/img/drop-caps/69959pl.jpg')] bg-center bg-size-[160%] text-gray-800;
+    -webkit-text-stroke: 2px white;
+  }
+}
+@utility pat8 {
+  p:first-child::first-letter {
+    @apply bg-[url('/img/drop-caps/407036mt-2.jpg')] bg-center bg-size-[110%] text-gray-200/75;
+    -webkit-text-stroke: 1px black;
+  }
+}
+@utility pat9 {
+  p:first-child::first-letter {
+    @apply bg-[url('/img/drop-caps/709823an.jpg')] bg-center bg-size-[110%] text-gray-900/50;
+  }
+}
+@utility pat10 {
+  p:first-child::first-letter {
+    @apply bg-[url('/img/drop-caps/902351il.jpg')] bg-center bg-size-[180%] text-violet-200;
+  }
+}
+@utility pat11 {
+  p:first-child::first-letter {
+    @apply bg-[url('/img/drop-caps/912228il.jpg')] bg-center bg-size-[300%] text-blue-950;
+  }
+}
+@utility pat12 {
+  p:first-child::first-letter {
+    @apply bg-[url('/img/drop-caps/912334il.jpg')] bg-center bg-size-[150%] text-rose-600;
+  }
+}
+@utility pat13 {
+  p:first-child::first-letter {
+    @apply bg-[url('/img/drop-caps/912352il.jpg')] bg-center bg-size-[150%] text-gray-200;
+  }
+}
+@utility pat14 {
+  p:first-child::first-letter {
+    @apply bg-[url('/img/drop-caps/925232il.jpg')] bg-center bg-size-[150%] text-violet-950;
+  }
+}
+@utility pat15 {
+  p:first-child::first-letter {
+    @apply bg-[url('/img/drop-caps/971124il.jpg')] bg-center bg-contain text-gray-50;
+  }
+}
+@utility pat16 {
+  p:first-child::first-letter {
+    @apply bg-[url('/img/drop-caps/981716il.jpg')] bg-center bg-contain text-gray-950/50;
+  }
+}
+@utility pat17 {
+  p:first-child::first-letter {
+    @apply bg-[url('/img/drop-caps/981719il.jpg')] bg-center bg-contain text-gray-950/50;
+  }
 }
 
 /*  **************************
@@ -257,98 +351,6 @@
     ************************** */
 
 /*  **************************
-    ***** BEGIN Homepage *****
-    ************************** */
-
-/* Indicate there are more columns that require horizontal scrolling to be viewed */
-#timeline-of-readings {
-  position: relative;
-
-  &::after {
-    content: '(scroll →)';
-    font-family: serif;
-    font-size: medium;
-    font-style: italic;
-    font-weight: 400;
-    position: absolute;
-    right: 0;
-    bottom: 0.25em;
-  }
-}
-
-/* Styles the front page list of readings (note the ID + sibling selector) */
-#timeline-of-readings + table {
-  display: block;
-  width: max-content;
-  max-width: 100%;
-  overflow-x: auto;
-  white-space: nowrap;
-  border-collapse: collapse;
-
-  border-color: navy;
-
-  th {
-    font-size: large;
-  }
-
-  /* Order column */
-  td:nth-child(1) {
-    color: hotpink;
-    font-weight: bold;
-    text-align: center;
-  }
-
-  /* Title column */
-  td:nth-child(2) {
-    min-width: 14em;
-    /* allow wrapping */
-    a {
-      font-family: serif;
-      font-size: medium;
-      white-space: wrap;
-      color: indianred;
-    }
-
-    /* asterisk used to indicate work was read in selection */
-    sup {
-      top: -0.2em;
-      left: 0.2em;
-      color: crimson;
-    }
-  }
-  /* Author column */
-  td:nth-child(3) a {
-    color: darkcyan;
-  }
-
-  /* Period column */
-  td:nth-child(4) {
-    font-style: italic;
-    white-space: wrap;
-    min-width: 7em;
-  }
-
-  /* Year column */
-  td:nth-child(5) {
-    color: grey;
-  }
-
-  /* Arc column */
-  td:nth-child(6) {
-    font-style: italic;
-    font-family: monospace;
-  }
-
-  /* Note column */
-  td:nth-child(7) a {
-    color: rebeccapurple;
-  }
-}
-/*  **************************
-    ****** END Homepage ******
-    ************************** */
-
-/*  **************************
     **** Begin Resources *****
     ************************** */
 #resources-toc {
@@ -375,3 +377,61 @@
 /*  **************************
     ***** End Resources ******
     ************************** */
+.prose.prose-pwbc {
+  font-family: var(--font-fira-sans);
+  text-align: justify;
+  h1, h2, h3, h4, h5, h6 {
+    @apply lining-nums;
+  }
+  h1 {
+    @apply font-playfair-display;
+  }
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-fira-sans font-bold;
+  }
+  p {
+    @apply font-fira-sans;
+  }
+}
+
+@utility prose-pwbc {
+  --tw-prose-body: var(--color-gray-600);
+  --tw-prose-headings: var(--color-gray-600);
+  --tw-prose-lead: var(--color-pink-700);
+  --tw-prose-links: var(--color-gray-600);
+  --tw-prose-bold: var(--color-gray-800);
+  --tw-prose-counters: var(--color-gray-800);
+  --tw-prose-bullets: var(--color-gray-700);
+  --tw-prose-hr: var(--color-gray-950);
+  --tw-prose-quotes: var(--color-gray-600);
+  --tw-prose-quote-borders: var(--color-gray-600);
+  --tw-prose-captions: var(--color-pink-700);
+  --tw-prose-code: var(--color-gray-400);
+  --tw-prose-pre-code: var(--color-gray-100);
+  --tw-prose-pre-bg: var(--color-gray-950);
+  --tw-prose-th-borders: var(--color-gray-700);
+  --tw-prose-td-borders: var(--color-gray-400);
+
+  /*  TODO
+  --tw-prose-invert-body: var(--color-pink-200);
+  --tw-prose-invert-headings: var(--color-white);
+  --tw-prose-invert-lead: var(--color-pink-300);
+  --tw-prose-invert-links: var(--color-white);
+  --tw-prose-invert-bold: var(--color-white);
+  --tw-prose-invert-counters: var(--color-pink-400);
+  --tw-prose-invert-bullets: var(--color-pink-600);
+  --tw-prose-invert-hr: var(--color-pink-700);
+  --tw-prose-invert-quotes: var(--color-pink-100);
+  --tw-prose-invert-quote-borders: var(--color-pink-700);
+  --tw-prose-invert-captions: var(--color-pink-400);
+  --tw-prose-invert-code: var(--color-white);
+  --tw-prose-invert-pre-code: var(--color-pink-300);
+  --tw-prose-invert-pre-bg: rgb(0 0 0 / 50%);
+  --tw-prose-invert-th-borders: var(--color-pink-600);
+  --tw-prose-invert-td-borders: var(--color-pink-700);
+   */
+}

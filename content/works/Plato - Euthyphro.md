@@ -1,0 +1,30 @@
++++
+draft = false
+template = "works/conspectus.html"
+sluf = "plato-euthyphro"
+# You can also override `title` and `authors`
+
+[extra]
+order = 26
+sort = "Euthyphro"
+wikidata = "https://www.wikidata.org/wiki/Q648889"
+wikipedia = "https://en.wikipedia.org/wiki/Euthyphro"
+abstract = """
+On his way to answer a summons at the court, Socrates encounters Euthyphro who is also there to bring charges against his father for the wrongful killing of a slave. Their dialogue centers around the question of what is pious.
+"""
+
+[taxonomies]
+# Textual taxonomies
+titles = ["Euthyphro"]
+authors = ["Plato"]
+forms = ["dialogue"]
+genres = ["Socratic dialogue"]
+subjects = ["philosophy", "theology", "ethics", "justice", "rhetoric"]
+periods = ["5th c. BCE", "4th c. BCE", "Classical Greece"]
+languages = ["Ancient Greek", "Attic Greek"]
+
+# General taxonomies
+years = ["2025"]
+arcs = ["Memorabilia 2"]
+contributors = ["Spencer Scorcelletti"]
++++
