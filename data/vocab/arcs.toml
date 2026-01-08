@@ -47,7 +47,9 @@ series.name = "Anabasis"
 series.number = 1
 years = "2023"
 predecessor = "Theogony 2"
-prosa = "After [_The Federalist Papers_](/works/federalist-papers/) the group decided to commit to reading from antiquity onwards—instead of skipping around as before—with the ancilliary benefit being to understand the kinds of references made by Hamilton et. al. and more broadly to give our group a structure that we could never possibly outgrow."
+prosa = """
+After [_The Federalist Papers_](/works/federalist-papers/) the group decided to commit to reading from antiquity onwards—instead of skipping around as before—with the ancilliary benefit being to understand the kinds of references made by Hamilton et. al. and more broadly to give our group a structure that we could never possibly outgrow.
+"""
 metrum = """
 TODO:
 They lept into an era without knowing what lie ahead, landing amidst a conflict that had consumed all of Hellas in its twisting and turning. Whensoever they habituated themselves to their new surroundings they were met by an outsider whom they welcomed. It was not long after that this decision was regretted for the stranger was wont to argue and proved to be loathsome in manner.
@@ -73,7 +75,9 @@ series.name = "Nostoi"
 series.number = 1
 years = "2024"
 predecessor = "Anabasis 2"
-prosa = "After reading Plato's [_Republic_](/works/plato-republic/), the club was joined by a fifth member and decided to move backward chronologically to Homer's [_Odyssey_](/works/homer-odyssey/) to better understand the esteemed figure whom Plato indicated epitomized this special kind of virtue."
+prosa = """
+After reading Plato's [_Republic_](/works/plato-republic/), the club was joined by a fifth member and decided to move backward chronologically to Homer's [_Odyssey_](/works/homer-odyssey/) to better understand the esteemed figure whom Plato indicated epitomized this special kind of virtue.
+"""
 metrum = """
 TODO:
 The priests and priestess reached a crossroad where it became clear that to go further forward would require us to go backwards, and so we grew one more in anticipation of a journey only to learn it was a homecoming all along.
@@ -102,7 +106,9 @@ series.number = 3
 years = "2025"
 predecessor = "Nostoi 1"
 coinciding = ["Memorabilia 1"]
-prosa = "The club returned to the original campaign started in [Anabasis 1](/arcs/anabasis-1/) seeking to get a broader exposure of different types of literature from [Classical Greece](/periods/classical-greece/), before moving to the [Hellenistic Period](/periods/hellenistic-period/)."
+prosa = """
+The club returned to the original campaign started in [Anabasis 1](/arcs/anabasis-1/) seeking to get a broader exposure of different types of literature from [Classical Greece](/periods/classical-greece/), before moving to the [Hellenistic Period](/periods/hellenistic-period/).
+"""
 description = """
 TODO
 """
