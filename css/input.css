@@ -36,7 +36,7 @@
 @layer components {
   .drop-cap {
     p:first-child:first-letter {
-      @apply float-left text-7xl leading-13 -mt-1.5 mr-1 p-2 font-bold inline-block;
+      @apply float-left text-7xl leading-13 mt-0.5 mr-1 pt-2 px-2 font-bold inline-block;
     }
   }
 }

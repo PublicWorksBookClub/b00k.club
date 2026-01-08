@@ -5,10 +5,12 @@ label = "Theogony 1"
 sort = "Theogony 1"
 series.name = "Theogony"
 series.number = 1
-years = "2023"
+years = "2022"
 predecessor = false
-description = """
-One day it came to pass that some individuals agreed to read the same things and talk about them. These were the first two members of the book club, and yet from this void came forth it's present day order: that we were to apply ourselves to the reading of literature within the public domain, in all its forms.
+prosa = "In early 2023 the book club was founded by two friends. From the beginning the goal was to read books in the public domain."
+metrum = """
+TODO:
+One day it came to pass that some individuals agreed to read the same things and talk about them. These were the first two members of the book club, and from then came its present day order: that we were to apply ourselves to the reading of literature within the public domain, in all its forms.
 """
 
 [["arcs"]]
@@ -18,18 +20,24 @@ series.name = "Theogony"
 series.number = 2
 years = "2023"
 predecessor = "Theogony 1"
-description = """
+prosa = "The following year another friend joined the duo, who suggested reading [_The Federalist Papers_](/works/federalist-papers/). It made extensive reference to Ancient Greece in its argumnetation."
+metrum = """
+TODO:
+Then a third member joined the duo, and in so doing brought some shape:
+
 ```
-Some time later our couplet was naught
-For our rank had grown by one
+In time their couplet was naught
+The club's rank increased by one
 This dyadic lot hitherto
-A strange priesthood it had become
+A strange priesthood had become
 
 Witness it wrought to our triad new
 Where none there lie before
 This exegetical scrawl now done
 And balance askew never more
 ```
+
+Some time passed and then trio was addressed, "Brethren! It hath reached me that this man Publius knows much I do not." The others confessed that though they marveled at his words, there were many gaps in their own understanding. The problem lie in the detailed references to events long past. Thus it agreed an adventure should be undertaken, in search of a beginning no matter how long it took or what the cost; the prize would be that they may better understand their present day.
 """
 
 [["arcs"]]
@@ -39,8 +47,10 @@ series.name = "Anabasis"
 series.number = 1
 years = "2023"
 predecessor = "Theogony 2"
-description = """
-"It hath reached me", began one – and we all agreed – that an ambitious adventure can and should be undertaken, and so it came to pass that the club embarked on a strange journey in search of some beginning, that we may better understand the world from the point of view of Pluribus and their kin. We lept and landed in the midst of a tremendous and tragic conflict that consumed all of Hellas in its twisting and turning, as did our priesthood for the public did not always work.
+prosa = "After [_The Federalist Papers_](/works/federalist-papers/) the group decided to commit to reading from antiquity onwards—instead of skipping around as before—with the ancilliary benefit being to understand the kinds of references made by Hamilton et. al. and more broadly to give our group a structure that we could never possibly outgrow."
+metrum = """
+TODO:
+They lept into an era without knowing what lie ahead, landing amidst a conflict that had consumed all of Hellas in its twisting and turning. Whensoever they habituated themselves to their new surroundings they were met by an outsider whom they welcomed. It was not long after that this decision was regretted for the stranger was wont to argue and proved to be loathsome in manner.
 """
 
 [["arcs"]]
@@ -50,7 +60,9 @@ series.name = "Anabasis"
 series.number = 2
 years = "2024"
 predecessor = "Anabasis 1"
-description = """
+prosa = "The club was joined by a fourth member at the time of reading [_Republic_](/works/plato-republic/). Homer was referenced throughout the work—especially Odysseus in the Myth of Er."
+metrum = """
+TODO:
 We pressed on our grand excursion and came to see that what we see is not all there is, that knowledge can not be transferred, and – above all – virtue has no master. It was at this time that our priesthood grew – one in number but also many in admiration for this many who seemed so wise as to choose an ordinary life above all others.
 """
 
@@ -61,7 +73,9 @@ series.name = "Nostoi"
 series.number = 1
 years = "2024"
 predecessor = "Anabasis 2"
-description = """
+prosa = "The club was joined by a fifth member and decided to go backward chronologically, to Homer's [_Odyssey_](/works/homer-odyssey/) to better understand the esteemed figure whom Plato indicated epitomized the kind of virtue in his [_Republic_](/works/plato-republic/)."
+metrum = """
+TODO:
 The priests and priestess reached a crossroad where it became clear that to go further forward would require us to go backwards, and so we grew one more in anticipation of a journey only to learn it was a homecoming all along.
 """
 

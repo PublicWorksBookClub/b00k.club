@@ -13,10 +13,10 @@ bg-indigo-200/80
 {% endblock header %}
 
 {% block paratext %}
-<h2 class="px-4 md:px-0">Description</h2>
 <div class="text-gray-600 prose-pre:bg-transparent! prose-pre:text-gray-600! prose-pre:font-fira-sans prose-pre:text-lg! prose-pre:italic prose-pre:p-0! prose-pre:pl-8!
-drop-cap
-">{{ arc.description | markdown | safe }}</div>
+drop-cap">
+{{ arc.prosa | default(value="TODO") | markdown | safe }}
+</div>
 <h2 class="px-4 md:px-0">Context</h2>
 <ul>
   {% if arc.predecessor %}
