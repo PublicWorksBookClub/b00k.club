@@ -8,6 +8,19 @@
 - site taxonomy
 - Add reference to historical thesaurus of english
 
+## 1.4.4 (2025-12-13)
+
+- Add _Life of Alexander_ and _Phaedo_
+
+## 1.4.3 (2025-09-19)
+
+- Remove .vscode/spellright.dict from source control
+- Fix missing alternate title for Demosthenes' *First Philippic*
+
+## 1.4.2 (2025-09-15)
+
+- Add Demosthenes' _On the Crown_ and Plato's _Crito_
+
 ## 1.4.1 (2025-08-19)
 
 - Add link to library of esoterica in the Netherlands
