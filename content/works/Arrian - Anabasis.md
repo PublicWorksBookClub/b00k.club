@@ -20,7 +20,7 @@ authors = ["Arrian"]
 forms = ["narrative"]
 genres = ["historiography"]
 subjects = ["drama", "tragedy", "comedy", "plot", "epic"]
-periods = ["4th c. BCE", "Classical Greece"]
+periods = ["4th c. BCE", "Classical Greece", "Hellenistic Period", "2nd c. CE", "Roman Imperial Period", "Pax Romana"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

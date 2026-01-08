@@ -1,5 +1,5 @@
 +++
-draft = true
+draft = false
 template = "works/conspectus.html"
 slug = "aristotle-poetics"
 # You can also override `title` and `authors`

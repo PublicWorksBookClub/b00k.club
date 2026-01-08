@@ -24,10 +24,20 @@ drop-cap">
   {% endif %}
   {% set successors = load_data(path="data/vocab/arcs.toml", format="toml") | get(key="arcs") | filter(attribute="predecessor", value=term.name) %}
   {% if successors | length > 0 %}
-   <li>Succeeded by: {% for s in successors %}
+  <li>Succeeded by:
+    {% for s in successors %}
     <a href="{{ get_taxonomy_url(kind='arcs', name=s.label) }}">{{ s.label }}</a>
     {%- if not loop.last %},{% endif %}
-   {% endfor %}</li>
+    {% endfor %}
+  </li>
+  {% endif %}
+  {% if arc.coinciding and arc.coinciding | length > 0 %}
+  <li>Coinciding with:
+    {% for c in arc.coinciding %}
+    <a href="{{ get_taxonomy_url(kind='arcs', name=c) }}">{{ c }}</a>
+    {%- if not loop.last %},{% endif %}
+    {% endfor %}
+  </li>
   {% endif %}
 </ul>
 {% endblock paratext %}

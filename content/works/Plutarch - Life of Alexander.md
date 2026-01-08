@@ -20,7 +20,7 @@ authors = ["Plutarch"]
 forms = ["biography"]
 genres = ["ancient biography"]
 subjects = ["Alexander the Great", "military strategy", "conquest of Asia", "conquest of Europe", "conquest of India"]
-periods = ["4th c. BCE", "Late Classical Athens", "Classical Greece", "2nd c. CE", "Roman imperial period", "Pax Romana"]
+periods = ["4th c. BCE", "Late Classical Athens", "Classical Greece", "Hellenistic Period", "2nd c. CE", "Roman imperial period", "Pax Romana"]
 languages = ["Koine Greek"]
 
 # General taxonomies

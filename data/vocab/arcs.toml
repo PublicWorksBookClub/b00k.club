@@ -73,7 +73,7 @@ series.name = "Nostoi"
 series.number = 1
 years = "2024"
 predecessor = "Anabasis 2"
-prosa = "The club was joined by a fifth member and decided to go backward chronologically, to Homer's [_Odyssey_](/works/homer-odyssey/) to better understand the esteemed figure whom Plato indicated epitomized the kind of virtue in his [_Republic_](/works/plato-republic/)."
+prosa = "After reading Plato's [_Republic_](/works/plato-republic/), the club was joined by a fifth member and decided to move backward chronologically to Homer's [_Odyssey_](/works/homer-odyssey/) to better understand the esteemed figure whom Plato indicated epitomized this special kind of virtue."
 metrum = """
 TODO:
 The priests and priestess reached a crossroad where it became clear that to go further forward would require us to go backwards, and so we grew one more in anticipation of a journey only to learn it was a homecoming all along.
@@ -86,8 +86,12 @@ series.name = "Memorabilia"
 series.number = 1
 years = "2025"
 predecessor = "Nostoi 1"
-description = """
-TODO ("After our homecoming...")
+coinciding = ["Anabasis 3"]
+prosa = """
+A separate, parallel track, with the [original members](/arcs/theogony-1), developed alongside the main campaign (continued in [Anabasis 3](/arcs/anabasis-3/)) to more comprehensively read works that the full book club might not have time for.
+"""
+metrum = """
+TODO
 """
 
 [["arcs"]]
@@ -97,6 +101,8 @@ series.name = "Anabasis"
 series.number = 3
 years = "2025"
 predecessor = "Nostoi 1"
+coinciding = ["Memorabilia 1"]
+prosa = "The club returned to the original campaign started in [Anabasis 1](/arcs/anabasis-1/) seeking to get a broader exposure of different types of literature from [Classical Greece](/periods/classical-greece/), before moving to the [Hellenistic Period](/periods/hellenistic-period/)."
 description = """
 TODO
 """
@@ -108,7 +114,11 @@ series.name = "Memorabilia"
 series.number = 2
 years = "2025"
 predecessor = "Memorabilia 1"
-description = """
+coinciding = ["Anabasis 3", "Metamorphoses 1"]
+prosa = """
+Upon finishing [Laws](/works/plato-laws/), the offshoot of the main club grew by one—for a total of three—and decided to focus more on Plato by reading his complete works as tetralogies grouped by [Thrasyllus of Mendes](https://en.wikipedia.org/wiki/Thrasyllus_of_Mendes).
+"""
+metrum = """
 TODO
 """
 
@@ -119,17 +129,25 @@ series.name = "Metamorphoses"
 series.number = 1
 years = "2025"
 predecessor = "Anabasis 3"
-description = """
+coinciding = ["Memorabilia 2", "Elementa 1"]
+prosa = """
+In anticipation of the shift away from [Classical Greece](/periods/classical-greece)—the club's focus for the past two years—to the [Hellenistic Period](/periods/hellenistic-period/), the club dedicated an arc to [Alexander the Great](https://en.wikipedia.org/wiki/Alexander_the_Great).
+"""
+metrum = """
 TODO
 """
 
-# [["arcs"]]
-# label = "Elementa 1"
-# sort = "Elementa 1"
-# series.name = "Elementa"
-# series.number = 1
-# years = "2025"
-# predecessor = "Memorabilia 2"
-# description = """
-# TODO
-# """
+[["arcs"]]
+label = "Elementa 1"
+sort = "Elementa 1"
+series.name = "Elementa"
+series.number = 1
+years = "2025"
+predecessor = "Memorabilia 2"
+coinciding = ["Metamorphoses 1"]
+prosa = """
+The logic of Aristotle in [Anabasis 3](/arcs/anabasis-3/) was difficult and very abstract (until [_Topics_](/works/aristotle-topics/)); therefore, the spin-off of the main club chose to focus more on the author by reading his [Poetics](/works/aristotle-poetics).
+"""
+metrum = """
+TODO
+"""

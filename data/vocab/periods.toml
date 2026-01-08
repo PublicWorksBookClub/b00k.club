@@ -81,6 +81,15 @@ start = "371 BCE"
 end = "362 BCE"
 description = "Brief period where Thebes eclipsed Sparta in influence after the battle of Leuctra."
 
+["Hellenistic Period"]
+label = "Hellenistic Period"
+sort = 7.8
+wikidata = "https://www.wikidata.org/wiki/Q428995"
+wikipedia = "https://en.wikipedia.org/wiki/Hellenistic_period"
+start = "323 BCE"
+end = "30 BCE"
+description = "The period of Hellenic hegemony following the death of Alexander the Great in his former empire."
+
 ["Roman imperial period"]
 label = "Roman imperial period"
 sort = 8
