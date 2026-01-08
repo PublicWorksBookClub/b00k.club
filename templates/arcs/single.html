@@ -1,8 +1,6 @@
 {% extends "taxonomy_single.html" %}
 
-{% block body_styles %}
-bg-indigo-200/80
-{% endblock body_styles %}
+{% block body_styles %}bg-orange-50{% endblock body_styles %}
 
 {% block header %}
 {% set arc = load_data(path="data/vocab/arcs.toml", format="toml") | get(key="arcs") | filter(attribute="label", value=term.name) | first %}

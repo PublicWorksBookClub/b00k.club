@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "macro/util.html" as util %}
 
-{% block body_styles %}{{ page.extra.bg_color | default(value="bg-yellow-100") }}{% endblock body_styles %}
+{% block body_styles %}{{ page.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
 {% block banner %}
 {{ util::back(text="Home") }}
 {% endblock banner %}

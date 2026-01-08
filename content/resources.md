@@ -4,7 +4,6 @@ title = "Resources"
 
 [extra]
 bg_color = "bg-rose-50"
-theme_color = "#fda4af"
 +++
 
 Below is a collection of resources in the public domain that are updated on a regular basis, as well as some non-public domain content that is still useful and informative. Please [email](mailto:info@b00k.club) the club to recommend a listing or for other suggestions.

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% import "macro/util.html" as util %}
 
+{% block body_styles %}{{ page.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
 {% block banner %}
 {{ util::nav(href="/", text="Home") }}
 {{ util::nav(href="/works", text="Readings") }}

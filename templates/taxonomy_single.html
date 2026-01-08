@@ -2,6 +2,8 @@
 {% import "macro/util.html" as util %}
 {% import "macro/works.html" as works %}
 
+{% block body_styles %}bg-orange-50{% endblock body_styles %}
+
 {% block title %}
   <title>{{ taxonomy.name | capitalize }}: {{ term.name }} | PWBC</title>
   <meta property="og:title" content="{{ taxonomy.name | capitalize }}: {{ term.name }} | PWBC" />
