@@ -6,6 +6,7 @@
 
 @theme {
   --font-playfair-display: Playfair Display, serif;
+  --font-source-serif: Source Serif, serif;
   --font-fira-sans: Fira Sans, sans-serif;
   --font-junicode: Junicode, serif;
   --font-arca-majora: Arca Majora, sans-serif;
@@ -188,6 +189,31 @@
 }
 /***************************
   ** END Junicode **
+  ************************** */
+
+/***************************
+  * BEGIN Source Serif 4 *
+  ************************** */
+@supports (font-variation-settings: normal) {
+  /* https://github.com/adobe-fonts/source-serif*/
+  @font-face {
+    font-family: 'Source Serif';
+    font-style: normal;
+    src: url('/font/Source_Serif_4/SourceSerif4Variable-Roman.ttf.woff') format('truetype-variations');
+    font-display: swap;
+  }
+}
+@supports (font-variation-settings: normal) {
+  /* https://github.com/adobe-fonts/source-serif */
+  @font-face {
+    font-family: 'Source Serif';
+    font-style: italic;
+    src: url('/font/Source_Serif_4/SourceSerif4Variable-Italic.ttf.woff') format('truetype-variations');
+    font-display: swap;
+  }
+}
+/***************************
+  ** END Source Serif 4 **
   ************************** */
 
 /***************************
