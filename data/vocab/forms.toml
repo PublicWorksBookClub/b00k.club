@@ -3,24 +3,15 @@ synonyms = ["formal genre"]
 description = "the structure or kind of a work"
 wikidata = "https://www.wikidata.org/wiki/Q4263830"
 wikipedia = "https://en.wikipedia.org/wiki/Literature#Types"
+# TIP: https://query.wikidata.org/#SELECT%20%3Fitem%20%3FitemLabel%0AWHERE%20%7B%0A%20%20%3Fitem%20wdt%3AP31%2Fwdt%3AP279%2a%20wd%3AQ4263830%20.%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%0A%7D%0AORDER%20BY%20%3FitemLabel%0A
 
 [admonition]
 description = "rebuke or reproof"
-
-["Ancient Greek comedy"]
-description = "a representation of laughable people that does not cause pain"
-wikidata = "https://www.wikidata.org/wiki/Q1100736"
-wikipedia = "https://en.wikipedia.org/wiki/Ancient_Greek_comedy"
 
 [anecdote]
 description = "a remarkable story"
 wikidata = "https://www.wikidata.org/wiki/Q193206"
 wikipedia = "https://en.wikipedia.org/wiki/Anecdote"
-
-[aphorism]
-description = "observation in few words that is broadly true"
-wikidata = "https://www.wikidata.org/wiki/Q165740"
-wikipedia = "https://en.wikipedia.org/wiki/Aphorism"
 
 ["character sketch"]
 description = "a portayal of individual"
@@ -38,13 +29,14 @@ description = "a representative work meant to be performed"
 wikidata = "https://www.wikidata.org/wiki/Q25372"
 wikipedia = "https://en.wikipedia.org/wiki/Drama"
 
-[epic]
-description = "the representation of an action divided into many episodes and performed by a single story teller"
-wikidata = "https://www.wikidata.org/wiki/Q2367164"
-wikipedia = "https://en.wikipedia.org/wiki/Epic_(genre)"
+[essay]
+description = "piece of writing manifesting an author's point of view"
+wikidata = "https://www.wikidata.org/wiki/Q35760"
+wikipedia = "https://en.wikipedia.org/wiki/Essay"
 
 [folktale]
 description = "a traditional story passed down orally"
+wikidata = "https://www.wikidata.org/wiki/Q1221280"
 
 ["frame story"]
 description = "story told in nested narration"
@@ -69,10 +61,18 @@ synonyms = ["speech"]
 wikidata = "https://www.wikidata.org/wiki/Q861911"
 # no wikipedia
 
+["personal reflection"]
+description = "writing in the form of the author's thoughts"
+
 [play]
 description = "a type of theatrical dramatic work"
 wikidata = "https://www.wikidata.org/wiki/Q25379"
 wikipedia = "https://en.wikipedia.org/wiki/Play_(theatre)"
+
+[poetry]
+description = "a representative form of literature that uses rhythm and other qualities of lanuage to evoke meaning"
+wikidata = "https://www.wikidata.org/wiki/Q482"
+wikipedia = "https://en.wikipedia.org/wiki/Poetry"
 
 [treatise]
 description = "formal and systematic written discourse on some subject"

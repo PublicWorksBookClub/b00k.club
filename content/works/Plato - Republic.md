@@ -15,10 +15,10 @@ Socrates spends the evening chatting with friends about justice and its meaning,
 
 [taxonomies]
 # Textual taxonomies
-titles = ["Republic", "Republic", "Plato's Republic"]
+titles = ["Republic", "Plato's Republic"]
 authors = ["Plato"]
-forms = ["dialogue", "allegory"]
-genres = ["socratic dialogue", "philosophical myth", "historical fiction"]
+forms = ["dialogue"]
+genres = ["socratic dialogue", "allegory", "myth", "historical fiction"]
 subjects = [
   "justice",
   "philosophy",
@@ -33,7 +33,7 @@ subjects = [
   "the soul",
   "platonic forms",
 ]
-periods = ["Ancient Greece", "5th c. BCE", "4th c. BCE"]
+periods = ["Classical Greece", "5th c. BCE", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies
@@ -41,3 +41,5 @@ years = ["2024"]
 arcs = ["Anabasis 2"]
 contributors = ["Spencer Scorcelletti"]
 +++
+
+<!-- TODO: https://en.wikipedia.org/wiki/Allegorical_interpretations_of_Plato -->

@@ -5,7 +5,7 @@ slug = "sophocles-philoctetes"
 # You can also override `title` and `authors`
 
 [extra]
-order = 19
+order = 18
 sort = "Philoctetes"
 wikidata = "https://www.wikidata.org/wiki/Q1415903"
 wikipedia = "https://en.wikipedia.org/wiki/Philoctetes_(Sophocles_play)"
@@ -17,8 +17,8 @@ Neoptolemus tries to convince a wounded Philoctetes and his Herculean bow to ret
 # Textual taxonomies
 titles = ["Philoctetes"]
 authors = ["Sophocles"]
-forms = ["Ancient Greek tragedy", "drama", "play"]
-genres = ["todo"]
+forms = ["drama", "play"]
+genres = ["tragedy"]
 subjects = [
   "ethics",
   "friendship",
@@ -32,7 +32,7 @@ subjects = [
   "pride",
   "ends vs the means",
 ]
-periods = ["5th c. BCE", "Classical Greece"]
+periods = ["Classical Greece", "5th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

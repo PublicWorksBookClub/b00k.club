@@ -20,11 +20,11 @@
       </p>
     </div>
   </header>
-  <div class="flow-root prose prose-lg prose-pwbc mx-auto py-12 md:py-16 prose-p:px-4 prose-h2:px-4">
+  <div class="flow-root prose prose-lg prose-pwbc mx-auto py-12 md:py-16 prose-p:px-4 prose-h2:px-4 text-justify">
     {{ section.extra.sections.intro | markdown | safe }}
     {{ section.extra.sections.readings | markdown | safe }}
     {% set works_section = get_section(path="works/_index.md") %}
-    <p class="font-fira-sans -mr-2 -mb-6 text-right text-xs italic text-gray-500">(scroll →)</p>
+    <p class="font-fira-sans -mb-6 text-right text-xs italic">(scroll →)</p>
     {{ works::tablular_listing_of_works(works=works_section.pages, limit=20) }}
     {{ section.extra.sections.links_to_resources | markdown | safe }}
     {{ section.extra.sections.contact | markdown | safe }}

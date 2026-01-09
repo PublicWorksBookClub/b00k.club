@@ -19,8 +19,8 @@ titles = ["Phaedo"]
 authors = ["Plato"]
 forms = ["dialogue"]
 genres = ["Socratic dialogue"]
-subjects = ["philosopohy", "death", "ethics", "immortality of the soul", "knowledge", "Platonic Forms"]
-periods = ["5th c. BCE", "4th c. BCE", "Classical Greece"]
+subjects = ["philosophy", "death", "ethics", "immortality of the soul", "knowledge", "Platonic Forms"]
+periods = ["Classical Greece", "5th c. BCE", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

@@ -1,0 +1,14 @@
+{% extends "taxonomy_single.html" %}
+
+{% block header %}
+{{ super() }}
+<p class="mt-6 text-xl font-fira-sans font-extralight">
+  <a class="hover:underline" href='../'>literary genre</a>
+  {%- if vocab and vocab["description"] -%}
+  <span>: </span>
+  <em class="font-light">
+    {{ toml[term.name]["description"] }}
+  </em>
+  {% endif %}
+</p>
+{% endblock header %}

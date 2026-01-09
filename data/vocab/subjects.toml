@@ -24,6 +24,11 @@ synonyms = ["moral philosophy"]
 wikidata = "https://www.wikidata.org/wiki/Q9465"
 wikipedia = "https://en.wikipedia.org/wiki/Ethics"
 
+[jurispudence]
+synonyms = ["philosophy of law"]
+wikidata = "https://www.wikidata.org/wiki/Q4932206"
+wikipedia = "https://en.wikipedia.org/wiki/Jurisprudence"
+
 ["philosophy of science"]
 synonyms = ["theory of science"]
 wikidata = "https://www.wikidata.org/wiki/Q59115"

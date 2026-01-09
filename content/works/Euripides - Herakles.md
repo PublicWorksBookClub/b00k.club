@@ -17,8 +17,8 @@ Herakles returns from his twelve labors to find his household under threat by th
 # Textual taxonomies
 titles = ["Herakles"]
 authors = ["Euripides"]
-forms = ["Ancient Greek tragedy", "drama", "play"]
-genres = ["tragedy"]
+forms = ["drama", "play"]
+genres = ["tragedy", "complex tragedy"]
 subjects = ["fate", "blame", "insanity", "friendship", "Herakles", "Theseus", "Athens", "Thebes", "divine intervention"]
 periods = ["Ancient Greece", "5th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]

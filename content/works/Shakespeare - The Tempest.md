@@ -18,7 +18,7 @@ Prospero, the exiled duke of Milan, uses magic to shipwreck his enemies on a rem
 titles = ["The Tempest", "Tempest"]
 authors = ["Shakespeare"]
 forms = ["drama", "play"]
-genres = ["todo"]
+genres = ["tragedy"]
 subjects = ["forgiveness"]
 periods = ["English Renaissance", "Jacobean Era"]
 languages = ["English", "Early Modern English"]

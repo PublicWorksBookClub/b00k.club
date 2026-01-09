@@ -6,7 +6,10 @@
 
 @theme {
   --font-playfair-display: Playfair Display, serif;
+  --font-source-serif: Source Serif, serif;
   --font-fira-sans: Fira Sans, sans-serif;
+  --font-sans: var(--font-fira-sans);
+  --font-junicode: Junicode, serif;
   --font-arca-majora: Arca Majora, sans-serif;
   --color-pwbc-yellow: oklch(0.8502 0.1714 93.13);
   /* Begin attic colors (for an unreleased project) */
@@ -160,13 +163,63 @@
     font-named-instance: 'SemiBold';
   }
 }
-/*  **************************
-    ** END Playfair Display **
-    ************************** */
+/***************************
+  ** END Playfair Display **
+  ************************** */
 
-/*  **************************
-    **** BEGIN Fira Sans *****
-    ************************** */
+/***************************
+  * BEGIN Junicode *
+  ************************** */
+@supports (font-variation-settings: normal) {
+  /* https://github.com/psb1558/Junicode-font */
+  @font-face {
+    font-family: 'Junicode';
+    font-style: normal;
+    src: url('/font/Junicode/WOFF2/JunicodeVF-Roman.woff2') format('truetype-variations');
+    font-display: swap;
+  }
+}
+@supports (font-variation-settings: normal) {
+  /* https://github.com/psb1558/Junicode-font */
+  @font-face {
+    font-family: 'Junicode';
+    font-style: italic;
+    src: url('/font/Junicode/WOFF2/JunicodeVF-Italic.woff2') format('truetype-variations');
+    font-display: swap;
+  }
+}
+/***************************
+  ** END Junicode **
+  ************************** */
+
+/***************************
+  * BEGIN Source Serif 4 *
+  ************************** */
+@supports (font-variation-settings: normal) {
+  /* https://github.com/adobe-fonts/source-serif*/
+  @font-face {
+    font-family: 'Source Serif';
+    font-style: normal;
+    src: url('/font/Source_Serif_4/SourceSerif4Variable-Roman.ttf.woff') format('truetype-variations');
+    font-display: swap;
+  }
+}
+@supports (font-variation-settings: normal) {
+  /* https://github.com/adobe-fonts/source-serif */
+  @font-face {
+    font-family: 'Source Serif';
+    font-style: italic;
+    src: url('/font/Source_Serif_4/SourceSerif4Variable-Italic.ttf.woff') format('truetype-variations');
+    font-display: swap;
+  }
+}
+/***************************
+  ** END Source Serif 4 **
+  ************************** */
+
+/***************************
+  **** BEGIN Fira Sans *****
+  ************************** */
 @supports (font-variation-settings: normal) {
   /* https://github.com/hellogreg/firava (variable version of Fira Sans) */
   @font-face {
@@ -324,13 +377,13 @@
     font-display: swap;
   }
 }
-/*  **************************
-    ***** END Fira Sans ******
-    ************************** */
+/***************************
+  ***** END Fira Sans ******
+  ************************** */
 
-/*  **************************
-    ** BEGIN Arca Majora 3 ***
-    ************************** */
+/***************************
+  ** BEGIN Arca Majora 3 ***
+  ************************** */
 @font-face {
   font-family: 'Arca Majora';
   src: url('/font/ArcaMajora3/ArcaMajora3-Bold.woff2') format('woff2');
@@ -346,13 +399,13 @@
   font-style: normal;
   font-display: swap;
 }
-/*  **************************
-    *** END Arca Majora 3 ****
-    ************************** */
+/***************************
+  *** END Arca Majora 3 ****
+  ************************** */
 
-/*  **************************
-    **** Begin Resources *****
-    ************************** */
+/***************************
+  **** Begin Resources *****
+  ************************** */
 #resources-toc {
   text-align: center;
   /* border-color: black;
@@ -374,12 +427,10 @@
   border-color: black;
   border-style: dashed;
 }
-/*  **************************
-    ***** End Resources ******
-    ************************** */
+/***************************
+  ***** End Resources ******
+  ************************** */
 .prose.prose-pwbc {
-  font-family: var(--font-fira-sans);
-  text-align: justify;
   h1, h2, h3, h4, h5, h6 {
     @apply lining-nums;
   }

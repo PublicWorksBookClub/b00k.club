@@ -11,7 +11,7 @@ read_in_selection = true
 wikidata = "https://www.wikidata.org/wiki/Q8258"
 wikipedia = "https://en.wikipedia.org/wiki/One_Thousand_and_One_Nights"
 abstract = """
-Stricken by grief from his wife's infidelity, a sultan marries a new virgin each night, only to execute her at daybreak. After some time he marries his vizier's clever daughter, Scheherazade, who tells the sultan a fascinating story that does not reach its conclusion. He stays her execution so she can finish it the next night and as it turns out the story continues by one of its characters recounting a fascinating story. The process continued like this for one thousand and one nights.
+Stricken by grief from his wife's infidelity, a sultan marries a new virgin each night, only to execute her at daybreak. After some time he marries his vizier's clever daughter, Scheherazade, who tells the sultan a fascinating story that does not reach its conclusion. He stays her execution until next night, but the rest of the story continues with one of its characters recounting another fascinating story. The process continues like this for one thousand and one nights.
 """
 
 [taxonomies]
@@ -19,7 +19,7 @@ Stricken by grief from his wife's infidelity, a sultan marries a new virgin each
 titles = ["Arabian Nights", "One Thousand and One Nights", "The Book of the Thousand Nights and a Night"]
 authors = ["Anonymous"]
 forms = ["folktale", "frame story"]
-genres = ["fable", "Arabic literature", "fairy tale"]
+genres = ["fable", "fairy tale"]
 subjects = ["magic", "infidelity", "greed", "curiosity", "sex"]
 periods = ["Islamic Golden Age"]
 languages = ["Classical Arabic"]

@@ -18,11 +18,12 @@ An old Athenian, Cretan, and Spartan take a long walk together discussing Law an
 titles = ["Laws"]
 authors = ["Plato"]
 forms = ["dialogue"]
-genres = ["legal text", "Socratic dialogue", "philosophical myth"]
+genres = ["Socratic dialogue"]
 subjects = [
   "laws",
   "ethics",
   "philosophy",
+  "jurisprudence",
   "the soul",
   "justice",
   "courage",
@@ -34,7 +35,7 @@ subjects = [
   "literature",
   "athletics",
 ]
-periods = ["4th c. BCE", "Classical Greece"]
+periods = ["Classical Greece", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

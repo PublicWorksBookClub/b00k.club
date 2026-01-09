@@ -2,7 +2,13 @@
 
 ## NEXT
 
-## 1.5.0 (2025-12-28)
+## 1.5.1 (2026-01-09)
+
+- Corrections to bibliography
+- Add junicode and source serif 4 fonts
+- Update social preview banner
+
+## 1.5.0 (2026-01-08)
 
 - PWBC bibliography
 - site taxonomy

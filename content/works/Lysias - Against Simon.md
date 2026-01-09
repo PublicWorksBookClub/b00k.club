@@ -5,7 +5,7 @@ slug = "lysias-3"
 # You can also override `title` and `authors`
 
 [extra]
-order = 17
+order = 16
 sort = "Lysias 3"
 wikidata = "https://www.wikidata.org/wiki/Q4691051"
 wikipedia = "https://en.wikipedia.org/wiki/Against_Simon"
@@ -20,7 +20,7 @@ authors = ["Lysias"]
 forms = ["oration"]
 genres = ["forensic", "forensic defense"]
 subjects = ["justice", "assault", "rhetoric"]
-periods = ["4th c. BCE", "Classical Greece"]
+periods = ["Classical Greece", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies
