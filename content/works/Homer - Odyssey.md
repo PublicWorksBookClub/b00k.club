@@ -17,9 +17,10 @@ Odysseus tries to return to his home in Ithaca, but is resisted by a god. Meanwh
 # Textual taxonomies
 titles = ["Odyssey", "The Odyssey"]
 authors = ["Homer"]
-forms = ["epic"]
-genres = ["nostoi", "revenge story", "antihero"]
+forms = ["poetry"]
+genres = ["epic"]
 subjects = [
+  "nostos",
   "home",
   "love",
   "family",

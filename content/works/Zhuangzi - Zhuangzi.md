@@ -19,7 +19,7 @@ A collection of stories and maxims that exemplify the Tao or the "Way".
 titles = ["Zhuangzi"]
 authors = ["Zhuangzi"]
 forms = ["poetry", "anecdote"]
-genres = ["philosophy", "allegory", "parable", "fable"]
+genres = ["allegory", "parable", "fable"]
 subjects = ["Taoism", "philosophy"]
 periods = ["Warring States period", "4th c. BCE", "2nd c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]

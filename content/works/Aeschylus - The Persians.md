@@ -17,7 +17,7 @@ The Queen Mother Attosa in Susa, alongside the rest of the court, awaits news of
 # Textual taxonomies
 titles = ["The Persians", "Persae", "Persians"]
 authors = ["Aeschylus"]
-forms = ["Ancient Greek tragedy", "drama", "play"]
+forms = ["drama", "play"]
 genres = ["tragedy"]
 subjects = ["Persian War", "hubris"]
 periods = ["Classical Greece", "5th c. BCE"]

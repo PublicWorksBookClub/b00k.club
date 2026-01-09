@@ -17,8 +17,8 @@ After the passing of Euripedes, Dionysus laments the sad state of Athenian theat
 # Textual taxonomies
 titles = ["The Frogs"]
 authors = ["Aristophanes"]
-forms = ["Ancient Greek comedy", "Attic old comedy", "drama", "play"]
-genres = ["Attic old comedy"]
+forms = ["drama", "play"]
+genres = ["comedy"]
 subjects = ["todo"]
 periods = ["Classical Greece", "5th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]

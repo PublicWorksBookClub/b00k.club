@@ -18,7 +18,7 @@ Socrates listens and responds to his longtime friend's appeal to accept help esc
 titles = ["Crito"]
 authors = ["Plato"]
 forms = ["dialogue"]
-genres = ["Socratic dialogue", "didactic", "temptation narrative"]
+genres = ["Socratic dialogue", "temptation narrative"]
 subjects = ["philosophy", "epistemology", "ethics", "civic duty", "political philosophy", "practical philosophy"]
 periods = ["Classical Greece", "5th c. BCE", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]

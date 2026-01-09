@@ -17,8 +17,8 @@ Neoptolemus tries to convince a wounded Philoctetes and his Herculean bow to ret
 # Textual taxonomies
 titles = ["Philoctetes"]
 authors = ["Sophocles"]
-forms = ["Ancient Greek tragedy", "drama", "play"]
-genres = ["todo"]
+forms = ["drama", "play"]
+genres = ["tragedy"]
 subjects = [
   "ethics",
   "friendship",

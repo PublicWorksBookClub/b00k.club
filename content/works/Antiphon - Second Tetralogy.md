@@ -17,7 +17,7 @@ Prosecution and defense take turns in the hypothetical case of wrongful death fr
 # Textual taxonomies
 titles = ["Second Tetralogy", "Antiphon 3"]
 authors = ["Antiphon"]
-forms = ["oration", "tetralogy"]
+forms = ["oration"]
 genres = ["forensic", "forensic prosecution", "forensic defense"]
 subjects = ["justice", "assault", "rhetoric"]
 periods = ["Classical Greece", "4th c. BCE"]

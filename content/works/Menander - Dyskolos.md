@@ -17,8 +17,8 @@ A misanthropic man is subjected to a series of intrigues as his daughter is purs
 # Textual taxonomies
 titles = ["Dyskolos", "The Misanthrope", "Old Cantankerous", "The Bad-tempered Man"]
 authors = ["Menander"]
-forms = ["Ancient Greek comedy", "drama", "play"]
-genres = ["Attic new comedy", "romantic comedy", "comedy of manners", "comedy of intrigue"]
+forms = ["drama", "play"]
+genres = ["romantic comedy", "comedy of manners", "comedy of intrigue"]
 subjects = ["drama", "tragedy", "comedy", "plot", "epic"]
 periods = ["Classical Greece", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]

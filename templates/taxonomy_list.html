@@ -40,7 +40,13 @@
   <h2>Terms</h2>
   <ul>
   {% for term in terms %}
-    <li><a href="{{ term.path }}">{{ term.name }}</a> ({{ term.pages | length }})</li>
+    <li>
+      <a href="{{ term.path }}">{{ term.name }}</a> <span>({{ term.pages | length }})</span>
+      {# Debug — uncomment to debug #}
+      {# {% if not toml[term.name] or not toml[term.name]["description"] %}
+       <span>*</span>
+      {% endif %}<span></span> #}
+    </li>
   {% endfor %}
   </ul>
   {% endblock terms %}

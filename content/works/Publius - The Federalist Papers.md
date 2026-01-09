@@ -11,7 +11,7 @@ read_in_selection = true
 wikidata = "https://www.wikidata.org/wiki/Q858036"
 wikipedia = "https://en.wikipedia.org/wiki/The_Federalist_Papers"
 abstract = """
-A series of 85 essays arguing in favor of the ratification of the US Constitution.
+A series of 85 essays arguing in favor of ratifying the US Constitution.
 """
 
 [taxonomies]

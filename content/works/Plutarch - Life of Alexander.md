@@ -17,8 +17,8 @@ A biography on Alexander III of Macedonia with an emphasis on his character and 
 # Textual taxonomies
 titles = ["Life of Alexander"]
 authors = ["Plutarch"]
-forms = ["biography"]
-genres = ["ancient biography"]
+forms = ["narrative"]
+genres = ["biography"]
 subjects = ["Alexander the Great", "military strategy", "conquest of Asia", "conquest of Europe", "conquest of India"]
 periods = ["Classical Greece", "Hellenistic Period", "4th c. BCE", "Roman imperial period", "Pax Romana", "2nd c. CE"]
 languages = ["Koine Greek"]

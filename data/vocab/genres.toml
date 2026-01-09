@@ -8,6 +8,11 @@ description = "thematic category based on a work's content"
 synonyms = ["thematic genre"]
 wikidata = "https://www.wikidata.org/wiki/Q223393"
 wikipedia = "https://en.wikipedia.org/wiki/Literary_genre"
+# TIP: https://query.wikidata.org/#SELECT%20%3Fitem%20%3FitemLabel%0AWHERE%20%7B%0A%20%20%3Fitem%20wdt%3AP31%2Fwdt%3AP279%2a%20wd%3AQ223393%20.%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%0A%7D%0AORDER%20BY%20%3FitemLabel%0A
+
+[admonition]
+label = "admonition"
+description = "rebuke as didactic literature"
 
 [allegory]
 label = "allegory"
@@ -15,12 +20,27 @@ description = "a narrative used to deliver a broader message"
 wikidata = "https://www.wikidata.org/wiki/Q18535"
 wikipedia = "https://en.wikipedia.org/wiki/Allegory"
 
+[aphorism]
+description = "observation in few words that is broadly true"
+wikidata = "https://www.wikidata.org/wiki/Q165740"
+wikipedia = "https://en.wikipedia.org/wiki/Aphorism"
+
 [autobiography]
 label = "autobiography"
 description = "biography written by the subject"
 synonyms = ["autobiographical account"]
 wikidata = "https://www.wikidata.org/wiki/Q4184"
 wikipedia = "https://en.wikipedia.org/wiki/Autobiography"
+
+[biography]
+description = "written account of someone's life"
+wikidata = "https://www.wikidata.org/wiki/Q36279"
+wikipedia = "https://en.wikipedia.org/wiki/Biography"
+
+["comedy"]
+description = "representative literature that is laughable"
+wikidata = "https://www.wikidata.org/wiki/Q40831"
+wikipedia = "https://en.wikipedia.org/wiki/Comedy"
 
 ["comedy of manners"]
 label = "comedy of manners"
@@ -45,6 +65,11 @@ label = "dialogue"
 wikidata = "https://www.wikidata.org/wiki/Q3025978"
 wikipedia = "https://en.wikipedia.org/wiki/Dialogue"
 
+[epic]
+description = "the representation of an action divided into many episodes and performed by a single story teller"
+wikidata = "https://www.wikidata.org/wiki/Q2367164"
+wikipedia = "https://en.wikipedia.org/wiki/Epic_(genre)"
+
 ["epideictic"]
 label = "epideictic"
 description = "to praise or blame, often in a ceremonial setting"
@@ -65,13 +90,29 @@ description = "story that uses anthropomoprhization to teach a moral"
 wikipedia = "https://en.wikipedia.org/wiki/Fable"
 wikidata = "https://www.wikidata.org/wiki/Q693"
 
+["fairy tale"]
+description = "a type of folk tale featuring magic"
+wikipedia = "https://en.wikipedia.org/wiki/Fairy_tale"
+wikidata = "https://www.wikidata.org/wiki/Q699"
+
 ["forensic"]
 label = "foresnic"
 description = "to accuse or defend, often in a court setting"
 synonyms = ["judicial oratory", "forensic oratory"]
 
+["forensic defense"]
+description = "the defense portion of forensic oratory"
+
+["forensic prosecution"]
+description = "the prosecutorial portion of forensic oratory"
+
 ["funeral oration"]
 label = "funeral oration"
+
+["historical fiction"]
+description = "story that is set in the past during real, historical events"
+wikidata = "https://www.wikidata.org/wiki/Q1196408"
+wikipedia = "https://en.wikipedia.org/wiki/Historical_fiction"
 
 ["historiography"]
 label = "historiography"
@@ -79,6 +120,11 @@ synonyms = ["history"]
 description = "a body of historical work on a subject"
 wikidata = "https://www.wikidata.org/wiki/Q30277550"
 wikipedia = "https://en.wikipedia.org/wiki/Historiography"
+
+[myth]
+description = "traditional narrative that plays a fundamental role in society"
+wikidata = "https://www.wikidata.org/wiki/Q12827256"
+wikipedia = "https://en.wikipedia.org/wiki/Myth"
 
 [parable]
 label = "parable"
@@ -89,8 +135,13 @@ wikipedia = "https://en.wikipedia.org/wiki/Parable"
 ["philippic"]
 label = "philippic"
 description = "a fiery, damning speech condemning a political opponent"
-wikipedia = "https://en.wikipedia.org/wiki/Philippic"
 wikidata = "https://www.wikidata.org/wiki/Q110629616"
+wikipedia = "https://en.wikipedia.org/wiki/Philippic"
+
+["romantic comedy"]
+description = "blend of romance and comedy that is often lighthearted"
+wikidata = "https://www.wikidata.org/wiki/Q860626"
+wikipedia = "https://en.wikipedia.org/wiki/Romantic_comedy"
 
 [satire]
 label = "satire"
@@ -98,7 +149,30 @@ description = "ridicule for the purposes of social commentary or observation"
 wikidata = "https://www.wikidata.org/wiki/Q128758"
 wikipedia = "https://en.wikipedia.org/wiki/Satire"
 
-["Socractic dialogue"]
+["Socratic dialogue"]
 label = "Socratic dialogue"
+description = "a dialogue that has a questioner and answering using the Socratic method of argumentation"
 wikidata = "https://www.wikidata.org/wiki/Q3026054"
 wikipedia = "https://en.wikipedia.org/wiki/Socratic_dialogue"
+
+["temptation narrative"]
+description = "theme in literature featuring a test of will or virtue"
+
+[tragedy]
+label = "tragedy"
+description = "a representation of a serious action that is intended to be performed by actors"
+wikidata = "https://www.wikidata.org/wiki/Q80930"
+wikipedia = "https://en.wikipedia.org/wiki/Tragedy"
+
+["complex tragedy"]
+label = "complex tragedy"
+description = "tragedy marked by the use of reversal and recognition"
+
+["tragedy of suffering"]
+description = "tragedy that focuses on suffering"
+
+["tragedy of character"]
+description = "tragedy that focuses on how decisions reveal character"
+
+["tragedy of spectacle"]
+description = "tragedy that focuses on spectacle"

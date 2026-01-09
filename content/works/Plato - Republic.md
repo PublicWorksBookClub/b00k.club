@@ -17,8 +17,8 @@ Socrates spends the evening chatting with friends about justice and its meaning,
 # Textual taxonomies
 titles = ["Republic", "Republic", "Plato's Republic"]
 authors = ["Plato"]
-forms = ["dialogue", "allegory"]
-genres = ["socratic dialogue", "philosophical myth", "historical fiction"]
+forms = ["dialogue"]
+genres = ["socratic dialogue", "allegory", "myth", "historical fiction"]
 subjects = [
   "justice",
   "philosophy",
@@ -41,3 +41,5 @@ years = ["2024"]
 arcs = ["Anabasis 2"]
 contributors = ["Spencer Scorcelletti"]
 +++
+
+<!-- TODO: https://en.wikipedia.org/wiki/Allegorical_interpretations_of_Plato -->
