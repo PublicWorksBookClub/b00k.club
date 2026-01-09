@@ -1,40 +1,14 @@
 {% extends "taxonomy_single.html" %}
 
 {% block header %}
-{% set genres = load_data(path="data/vocab/genres.toml", format="toml") %}
-{% set g = genres[term.name] | default(value=false) %}
 {{ super() }}
 <p class="mt-6 text-xl font-fira-sans font-extralight">
   <a class="hover:underline" href='../'>literary genre</a>
-  {%- if g and g["description"] -%}
+  {%- if vocab and vocab["description"] -%}
   <span>: </span>
   <em class="font-light">
-    {{ genres[term.name]["description"] }}
+    {{ toml[term.name]["description"] }}
   </em>
   {% endif %}
 </p>
 {% endblock header %}
-
-{% block references %}
-{% if g.synonyms %}
-<h2>Synonyms</h2>
-<p class="font-light italic">
-  {{ g.synonyms | join(sep=", ") }}
-</p>
-{% endif %}
-{% if g and (g.wikidata or g.wikipedia or g.references) %}
-<h2>References</h2>
-<ul>
-  {% if g and g.wikidata %}
-  <li>
-    <a href="{{ g.wikidata }}">wikidata</a>
-  </li>
-  {% endif %}
-  {% if g and g.wikipedia %}
-  <li>
-    <a href="{{ g.wikipedia }}">wikipedia</a>
-  </li>
-  {% endif %}
-</ul>
-{% endif %}
-{% endblock references %}

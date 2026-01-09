@@ -15,7 +15,7 @@ Socrates spends the evening chatting with friends about justice and its meaning,
 
 [taxonomies]
 # Textual taxonomies
-titles = ["Republic", "Republic", "Plato's Republic"]
+titles = ["Republic", "Plato's Republic"]
 authors = ["Plato"]
 forms = ["dialogue"]
 genres = ["socratic dialogue", "allegory", "myth", "historical fiction"]

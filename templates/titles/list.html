@@ -1,0 +1,17 @@
+{% extends "taxonomy_list.html" %}
+
+{% block terms %}
+<ul>
+{% for term in terms %}
+  {% for p in term.pages %}
+  <li>
+    <a href="{{ p.permalink }}" class="font-serif italic">{{ term.name }}</a>{% if term.pages | length > 1 %}<span class="font-light"> ({{ p.taxonomies.authors | first }})</span>{% endif %}
+    {# Debug — uncomment to debug #}
+    {# {% if not toml[term.name] or not toml[term.name]["description"] %}
+      <span>*</span>
+    {% endif %}<span></span> #}
+  </li>
+  {% endfor %}
+{% endfor %}
+</ul>
+{% endblock terms %}

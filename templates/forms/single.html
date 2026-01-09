@@ -1,40 +1,14 @@
 {% extends "taxonomy_single.html" %}
 
 {% block header %}
-{% set forms = load_data(path="data/vocab/forms.toml", format="toml") %}
-{% set f = forms[term.name] | default(value=false) %}
 {{ super() }}
 <p class="mt-6 text-xl font-fira-sans font-extralight">
   <a class="hover:underline" href='../'>literary form</a>
-  {%- if f and f["description"] -%}
+  {%- if vocab and vocab["description"] -%}
   <span>: </span>
   <em class="font-light">
-    {{ forms[term.name]["description"] }}
+    {{ vocab["description"] }}
   </em>
   {% endif %}
 </p>
 {% endblock header %}
-
-{% block references %}
-{% if f.synonyms %}
-<h2>Synonyms</h2>
-<p class="font-light italic">
-  {{ f.synonyms | join(sep=", ") }}
-</p>
-{% endif %}
-{% if f and (f.wikidata or f.wikipedia or f.references) %}
-<h2>References</h2>
-<ul>
-  {% if f and f.wikidata %}
-  <li>
-    <a href="{{ f.wikidata }}">wikidata</a>
-  </li>
-  {% endif %}
-  {% if f and f.wikipedia %}
-  <li>
-    <a href="{{ f.wikipedia }}">wikipedia</a>
-  </li>
-  {% endif %}
-</ul>
-{% endif %}
-{% endblock references %}

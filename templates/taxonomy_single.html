@@ -18,6 +18,8 @@
 {% endblock banner %}
 
 {% block main %}
+{% set toml = load_data(path="data/vocab/" ~ taxonomy.name ~ ".toml", format="toml") %}
+{% set vocab = toml[term.name] | default(value=false) %}
 <section class="prose prose-lg prose-pwbc mx-auto my-18">
   <div class="px-4 md:px-0">
     <header class="not-prose">
@@ -36,6 +38,28 @@
   <h2 class="px-4 md:px-0">Works</h2>
   {{ works::tablular_listing_of_works(works=term.pages) }}
   {% endblock works_with_term %}
-  {% block references %}{% endblock references %}
+  {% block references %}
+  {% if vocab.synonyms %}
+  <h2>Synonyms</h2>
+  <p class="font-light italic">
+    {{ vocab.synonyms | join(sep=", ") }}
+  </p>
+  {% endif %}
+  {% if vocab and (vocab.wikidata or vocab.wikipedia or vocab.references) %}
+  <h2>References</h2>
+  <ul>
+    {% if vocab and vocab.wikidata %}
+    <li>
+      <a href="{{ vocab.wikidata }}">wikidata</a>
+    </li>
+    {% endif %}
+    {% if vocab and vocab.wikipedia %}
+    <li>
+      <a href="{{ vocab.wikipedia }}">wikipedia</a>
+    </li>
+    {% endif %}
+  </ul>
+  {% endif %}
+  {% endblock references %}
 </section>
 {% endblock main %}
