@@ -41,7 +41,7 @@
   <ul>
   {% for term in terms %}
     <li>
-      <a href="{{ term.path }}">{{ term.name }}</a> <span>({{ term.pages | length }})</span>
+      <a class="font-normal" href="{{ term.path }}">{{ term.name }}</a> <span class="font-light">({{ term.pages | length }})</span>
       {# Debug — uncomment to debug #}
       {# {% if not toml[term.name] or not toml[term.name]["description"] %}
        <span>*</span>
