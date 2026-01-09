@@ -26,6 +26,7 @@
 {% endblock banner %}
 
 {% block main %}
+{% set works_section = get_section(path="works/_index.md") %}
 <article class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg
   prose-headings:font-fira-sans prose-headings:font-bold prose-pwbc">
   <header class="not-prose text-gray-700">
@@ -44,9 +45,19 @@
     <p class="mt-2 text-right font-fira-sans font-medium">
       <a class="hover:underline mr-1" href="/works/">Reading #{{ page.extra.order }}</a>
       (<em><span class="text-gray-500">"</span><a class="hover:underline" href='{{ get_taxonomy_url(kind="arcs", name=page.taxonomies.arcs[0], lang=page.lang) }}'>{{ page.taxonomies.arcs[0] }}</a><span class="text-gray-500">"</span></em>, <a class="ml-[0.5ch] hover:underline" href='{{ get_taxonomy_url(kind="years", name=page.taxonomies.years[0], lang=page.lang) }}'>{{ page.taxonomies.years[0] }}</a>)
+      {# <span class="[font-variant:small-caps] font-light p-0 mt-1"><a href="">prev</a>–<a href="">next</a></span> #}
     </p>
   </header>
-  <hr class="mt-0">
+  <hr class="my-0!">
+  <div class="not-prose text-center">
+    {% set prev = works_section.pages | filter(attribute="extra.order", value=page.extra.order-1) | first | default(value=false) %}
+    {% set next = works_section.pages | filter(attribute="extra.order", value=page.extra.order+1) | first | default(value=false) %}
+    <span class="[font-variant:small-caps] text-sm font-fira-sans font-light p-1 text-gray-500">
+      {% if prev %}<a class="hover:underline" href="{{ prev.permalink }}">prev</a>{% endif %}
+      {%- if prev and next %}-{% endif -%}
+      {% if next %}<a class="hover:underline" href="{{ next.permalink }}">next</a>{% endif %}
+    </span>
+  </div>
   {# Abstract #}
   <section class="mt-12">
     <h2 class="mb-4">Abstract</h2>
@@ -63,29 +74,29 @@
           <th>Value</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="prose-td:first-of-type:prose-a:no-underline prose-td:first-of-type:prose-a:font-normal prose-td:first-of-type:prose-a:hover:underline">
         <tr>
-          <td>authors</td>
+          <td><a href="{{ get_taxonomy(kind='authors') | get(key='permalink') }}">authors</a></td>
           <td>{{ works::list_taxonomy_terms(work=page, taxonomy="authors", add="italic") }}</td>
         </tr>
         <tr>
-          <td>literary form</td>
+          <td><a href="{{ get_taxonomy(kind='forms') | get(key='permalink') }}">literary form</a></td>
           <td>{{ works::list_taxonomy_terms(work=page, taxonomy="forms", add="italic") }}</td>
         </tr>
         <tr>
-          <td>genres</td>
+          <td><a href="{{ get_taxonomy(kind='genres') | get(key='permalink') }}">genres</a></td>
           <td>{{ works::list_taxonomy_terms(work=page, taxonomy="genres", add="italic") }}</td>
         </tr>
         <tr>
-          <td>subjects</td>
+          <td><a href="{{ get_taxonomy(kind='subjects') | get(key='permalink') }}">subjects</a></td>
           <td>{{ works::list_taxonomy_terms(work=page, taxonomy="subjects", add="italic") }}</td>
         </tr>
         <tr>
-          <td>period</td>
+          <td><a href="{{ get_taxonomy(kind='periods') | get(key='permalink') }}">period</a></td>
           <td>{{ works::list_taxonomy_terms(work=page, taxonomy="periods", add="italic") }}</td>
         </tr>
         <tr>
-          <td>language</td>
+          <td><a href="{{ get_taxonomy(kind='languages') | get(key='permalink') }}">language</a></td>
           <td>{{ works::list_taxonomy_terms(work=page, taxonomy="languages", add="italic") }}</td>
         </tr>
         <tr>
@@ -102,7 +113,7 @@
           </td>
         </tr>
         <tr>
-          <td>keywords & tags</td>
+          <td class="w-36"><a href="{{ get_taxonomy(kind='tags') | get(key='permalink') }}">keywords & tags</a></td>
           <td>
             {% if page.taxonomy.tags %}
               {{ works::list_taxonomy_terms(work=page, taxonomy="tags", add="italic") }}
@@ -120,7 +131,6 @@
     <h3>Refers To</h3>
     <ul>
       {% if page.taxonomies.references and page.taxonomies.references | length > 0 %}
-      {% set works_section = get_section(path="works/_index.md") %}
       {% for r in page.taxonomies.references %}
       {% set w = works_section.pages | filter(attribute="slug", value=r) | nth(n=0) %}
       <li>
