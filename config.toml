@@ -72,7 +72,6 @@ feed = false
 [[taxonomies]]
 name = "references"
 feed = false
-description = "foo"
 
 # indicates references to people, places, terms, etc... (from primary or secondary sources)
 [[taxonomies]]
