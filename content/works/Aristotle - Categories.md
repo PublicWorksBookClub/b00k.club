@@ -19,9 +19,9 @@ A treatise on the enumeration of all the things that can form the subject or the
 titles = ["Categories", "Categoriae"]
 authors = ["Aristotle"]
 forms = ["treatise"]
-genres = ["philosophy"]
-subjects = ["philsophy", "logic", "language", "propositions", "propositional logic", "grammar", "subject", "predicate"]
-periods = ["5th c. BCE", "Classical Greece"]
+genres = ["exposition"]
+subjects = ["philosophy", "logic", "language", "propositions", "propositional logic", "grammar", "subject", "predicate"]
+periods = ["Classical Greece", "5th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

@@ -20,7 +20,7 @@ authors = ["Plato"]
 forms = ["dialogue"]
 genres = ["Socratic dialogue", "didactic", "temptation narrative"]
 subjects = ["philosophy", "epistemology", "ethics", "civic duty", "political philosophy", "practical philosophy"]
-periods = ["5th c. BCE", "4th c. BCE", "Classical Greece"]
+periods = ["Classical Greece", "5th c. BCE", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

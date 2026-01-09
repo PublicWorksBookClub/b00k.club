@@ -5,7 +5,7 @@ slug = "antiphon-3"
 # You can also override `title` and `authors`
 
 [extra]
-order = 16
+order = 15
 sort = "Antiphon 3"
 wikidata = "https://www.wikidata.org/wiki/Q110732747"
 wikipedia = "https://en.wikipedia.org/wiki/Antiphon_(orator)#List_of_extant_speeches"
@@ -20,7 +20,7 @@ authors = ["Antiphon"]
 forms = ["oration", "tetralogy"]
 genres = ["forensic", "forensic prosecution", "forensic defense"]
 subjects = ["justice", "assault", "rhetoric"]
-periods = ["4th c. BCE", "Classical Greece"]
+periods = ["Classical Greece", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

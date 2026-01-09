@@ -34,7 +34,7 @@ subjects = [
   "literature",
   "athletics",
 ]
-periods = ["4th c. BCE", "Classical Greece"]
+periods = ["Classical Greece", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

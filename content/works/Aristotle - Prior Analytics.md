@@ -19,9 +19,9 @@ A treatise on inference by the correct use of deduction.
 titles = ["Prior Analytics"]
 authors = ["Aristotle"]
 forms = ["treatise"]
-genres = ["philosophy"]
-subjects = ["philsophy", "logic", "deduction", "inference", "syllogism"]
-periods = ["5th c. BCE", "Classical Greece"]
+genres = ["exposition"]
+subjects = ["philosophy", "logic", "deduction", "inference", "syllogism"]
+periods = ["Classical Greece", "5th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

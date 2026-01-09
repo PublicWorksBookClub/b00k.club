@@ -19,9 +19,9 @@ A treatise on the dialectic in which arguments are formed from propositions comi
 titles = ["Topics"]
 authors = ["Aristotle"]
 forms = ["treatise"]
-genres = ["philosophy"]
-subjects = ["rhetoric", "logic", "dialectic"]
-periods = ["4th c. BCE", "Classical Greece"]
+genres = ["exposition"]
+subjects = ["philosophy", "rhetoric", "logic", "dialectic"]
+periods = ["Classical Greece", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

@@ -21,7 +21,7 @@ authors = ["Theophrastus"]
 forms = ["character sketch"]
 genres = ["satire"]
 subjects = ["todo"]
-periods = ["4th c. BCE", "Classical Greece"]
+periods = ["Classical Greece", "4th c. BCE"]
 languages = ["Attic Greek"]
 
 # General taxonomies

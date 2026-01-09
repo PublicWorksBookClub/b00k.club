@@ -34,7 +34,7 @@ subjects = [
   "philosophy",
   "adventure",
 ]
-periods = ["8th c. BCE", "Archaic Greece", "late Bronze Age", "Mycenaean Greece", "heroic age"]
+periods = ["heroic age", "late Bronze Age", "Mycenaean Greece", "Archaic Greece", "8th c. BCE"]
 languages = ["Ancient Greek", "Homeric Greek"]
 
 # General taxonomies

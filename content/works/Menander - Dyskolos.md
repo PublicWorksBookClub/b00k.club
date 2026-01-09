@@ -20,7 +20,7 @@ authors = ["Menander"]
 forms = ["Ancient Greek comedy", "drama", "play"]
 genres = ["Attic new comedy", "romantic comedy", "comedy of manners", "comedy of intrigue"]
 subjects = ["drama", "tragedy", "comedy", "plot", "epic"]
-periods = ["4th c. BCE", "Classical Greece"]
+periods = ["Classical Greece", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

@@ -33,7 +33,7 @@ subjects = [
   "the soul",
   "platonic forms",
 ]
-periods = ["Ancient Greece", "5th c. BCE", "4th c. BCE"]
+periods = ["Classical Greece", "5th c. BCE", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

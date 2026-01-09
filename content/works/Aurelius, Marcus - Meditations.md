@@ -17,10 +17,10 @@ A collections of personal reflections from the Roman emperor Marcus Aurelius on 
 # Textual taxonomies
 titles = ["Meditations", "Untitled"]
 authors = ["Marcus Aurelius"]
-forms = ["personal reflection", "aphorism", "admonition"]
-genres = ["philosophy", "practical philosophy"]
-subjects = ["ethics", "Stoicism", "virtue", "self-discipline", "death", "nature", "duty"]
-periods = ["2nd c. CE", "Pax Romana", "Roman imperial period"]
+forms = ["personal reflection"]
+genres = ["aphorism", "admonition"]
+subjects = ["philosophy", "practical philosophy", "ethics", "Stoicism", "virtue", "self-discipline", "death", "nature", "duty"]
+periods = ["Pax Romana", "Roman imperial period", "2nd c. CE"]
 languages = ["Koine Greek"]
 contributors = ["Spencer Scorcelletti"]
 

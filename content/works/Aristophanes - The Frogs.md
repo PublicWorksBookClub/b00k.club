@@ -20,7 +20,7 @@ authors = ["Aristophanes"]
 forms = ["Ancient Greek comedy", "Attic old comedy", "drama", "play"]
 genres = ["Attic old comedy"]
 subjects = ["todo"]
-periods = ["5th c. BCE", "Classical Greece"]
+periods = ["Classical Greece", "5th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

@@ -20,7 +20,7 @@ authors = ["Euripides"]
 forms = ["Ancient Greek tragedy", "drama", "play"]
 genres = ["tragedy"]
 subjects = ["todo"]
-periods = ["5th c. BCE", "Classical Greece"]
+periods = ["Classical Greece", "5th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

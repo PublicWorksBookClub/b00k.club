@@ -21,7 +21,7 @@ authors = ["Xenophon"]
 forms = ["narrative"]
 genres = ["historiography"]
 subjects = ["Greece", "Peloponnesian War", "Athens", "Sparta", "Thebes", "war", "democracy", "oligarchy", "Epaminondas", "Xenophon"]
-periods = ["Ancient Greece", "5th c. BCE", "4th c. BCE"]
+periods = ["Classical Greece", "5th c. BCE", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

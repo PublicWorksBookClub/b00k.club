@@ -33,7 +33,7 @@ subjects = [
   "oligarchy",
   "Thucydides",
 ]
-periods = ["Ancient Greece", "5th c. BCE"]
+periods = ["Classical Greece", "5th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

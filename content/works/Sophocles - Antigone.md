@@ -20,7 +20,7 @@ authors = ["Sophocles"]
 forms = ["Ancient Greek tragedy", "drama", "play"]
 genres = ["tragedy"]
 subjects = ["right vs legal"]
-periods = ["Ancient Greece", "5th c. BCE"]
+periods = ["Classical Greece", "5th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

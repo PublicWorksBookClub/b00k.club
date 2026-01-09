@@ -5,7 +5,7 @@ slug = "plato-seventh-letter"
 # You can also override `title` and `authors`
 
 [extra]
-order = 12
+order = 11
 sort = "Seventh Letter"
 wikidata = "https://www.wikidata.org/wiki/Q252159"
 wikipedia = "https://en.wikipedia.org/wiki/Seventh_Letter"
@@ -20,7 +20,7 @@ authors = ["Plato"]
 forms = ["letter"]
 genres = ["epistle", "autobiography"]
 subjects = ["philosophy", "ethics", "platonic forms", "political philosophy", "Dionysius I", "Plato"]
-periods = ["Ancient Greece", "4th c. BCE"]
+periods = ["Classical Greece", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

@@ -20,7 +20,7 @@ authors = ["Demosthenes"]
 forms = ["oration"]
 genres = ["political speech", "deliberative"]
 subjects = ["rhetoric", "civic duty", "war", "Philip II"]
-periods = ["4th c. BCE", "Classical Greece"]
+periods = ["Classical Greece", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2025"]

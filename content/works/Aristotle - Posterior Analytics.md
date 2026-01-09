@@ -19,9 +19,9 @@ A treatise on acquiring knowledge from first principles via the formulations of 
 titles = ["Posterior Analytics"]
 authors = ["Aristotle"]
 forms = ["treatise"]
-genres = ["philosophy"]
+genres = ["exposition"]
 subjects = ["philosophy", "philosophy of science", "epistemology", "logic", "deductive reasoning", "inductive reasoning"]
-periods = ["4th c. BCE", "Classical Greece"]
+periods = ["Classical Greece", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

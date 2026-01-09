@@ -19,9 +19,9 @@ A treatise on the relationship between language and logic by describing the form
 titles = ["De Interpretatione", "On Interpretation"]
 authors = ["Aristotle"]
 forms = ["treatise"]
-genres = ["philosophy"]
-subjects = ["philsophy", "logic", "language", "propositions", "propositional logic"]
-periods = ["5th c. BCE", "Classical Greece"]
+genres = ["exposition"]
+subjects = ["philosophy", "logic", "language", "propositions", "propositional logic"]
+periods = ["Classical Greece", "5th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

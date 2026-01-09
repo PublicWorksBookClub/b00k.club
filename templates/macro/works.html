@@ -52,7 +52,7 @@
             {% if w.taxonomies.authors | length > 1 %}et al.{% endif %}
           </td>
           <td>
-            {% set period = get_taxonomy_term(kind="periods", term=w.taxonomies.periods | last) %}
+            {% set period = get_taxonomy_term(kind="periods", term=w.taxonomies.periods | first) %}
             <a href="{{ period.permalink }}" class="font-medium! underline! italic">{{ period.name }}</a>
           </td>
           <td>

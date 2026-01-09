@@ -18,9 +18,9 @@ An analysis by Aristotle of the different aspects of representative literature i
 titles = ["Poetics"]
 authors = ["Aristotle"]
 forms = ["treatise"]
-genres = ["philosophy", "literary theory"]
-subjects = ["drama", "tragedy", "comedy", "plot", "epic"]
-periods = ["4th c. BCE", "Classical Greece"]
+genres = ["exposition"]
+subjects = ["literary theory", "drama", "tragedy", "comedy", "plot", "epic"]
+periods = ["Classical Greece", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies
