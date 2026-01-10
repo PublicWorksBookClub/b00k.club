@@ -22,7 +22,7 @@ forms = ["poetry", "anecdote"]
 genres = ["allegory", "parable", "fable"]
 subjects = ["Taoism", "philosophy"]
 periods = ["Warring States period", "4th c. BCE", "2nd c. BCE"]
-languages = ["Ancient Greek", "Attic Greek"]
+languages = ["Classical Chinese"]
 
 # General taxonomies
 years = ["2023"]

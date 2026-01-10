@@ -10,7 +10,7 @@ sort = "Crito"
 wikidata = "https://en.wikipedia.org/wiki/Crito"
 wikipedia = "https://en.wikipedia.org/wiki/Crito"
 abstract = """
-Socrates listens and responds to his longtime friend's appeal to accept help escaping punishment after being sentenced to death in his trial from "Apology".
+Socrates listens and responds to his longtime friend's appeal to accept help escaping punishment after being sentenced to death in his trial from [_Apology_](/works/plato-apology/).
 """
 
 [taxonomies]
@@ -18,8 +18,8 @@ Socrates listens and responds to his longtime friend's appeal to accept help esc
 titles = ["Crito"]
 authors = ["Plato"]
 forms = ["dialogue"]
-genres = ["Socratic dialogue", "temptation narrative"]
-subjects = ["philosophy", "epistemology", "ethics", "civic duty", "political philosophy", "practical philosophy"]
+genres = ["Socratic dialogue"]
+subjects = ["temptation narrative", "philosophy", "epistemology", "ethics", "civic duty", "political philosophy", "practical philosophy"]
 periods = ["Classical Greece", "5th c. BCE", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 

@@ -10,7 +10,7 @@ sort = "Phaedo"
 wikidata = "https://www.wikidata.org/wiki/Q244161"
 wikipedia = "https://en.wikipedia.org/wiki/Phaedo"
 abstract = """
-Socrates discusses death and what a philosopher lives for in his final moments with his friends before serving out his final sentence.
+Socrates discusses with his friends death and what a philosopher lives for in the final moments before his execution.
 """
 
 [taxonomies]

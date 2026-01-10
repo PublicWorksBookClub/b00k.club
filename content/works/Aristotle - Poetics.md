@@ -10,7 +10,7 @@ sort = "Poetics"
 wikidata = "https://www.wikidata.org/wiki/Q264714"
 wikipedia = "https://en.wikipedia.org/wiki/Poetics_(Aristotle)"
 abstract = """
-An analysis by Aristotle of the different aspects of representative literature in regards to tragedy, comedy, and epic.
+An analysis by Aristotle of the different aspects of representative literature in regards to tragedy, epic, and comedy.
 """
 
 [taxonomies]

@@ -45,7 +45,6 @@
     <p class="mt-2 text-right font-fira-sans font-medium">
       <a class="hover:underline mr-1" href="/works/">Reading #{{ page.extra.order }}</a>
       (<em><span class="text-gray-500">"</span><a class="hover:underline" href='{{ get_taxonomy_url(kind="arcs", name=page.taxonomies.arcs[0], lang=page.lang) }}'>{{ page.taxonomies.arcs[0] }}</a><span class="text-gray-500">"</span></em>, <a class="ml-[0.5ch] hover:underline" href='{{ get_taxonomy_url(kind="years", name=page.taxonomies.years[0], lang=page.lang) }}'>{{ page.taxonomies.years[0] }}</a>)
-      {# <span class="[font-variant:small-caps] font-light p-0 mt-1"><a href="">prev</a>–<a href="">next</a></span> #}
     </p>
   </header>
   <hr class="not-prose">
@@ -61,7 +60,7 @@
   {# Abstract #}
   <section class="mt-12 text-justify">
     <h2 class="mb-4">Abstract</h2>
-    {{ page.extra.abstract | safe }}
+    {{ page.extra.abstract | markdown | safe }}
   </section>
   {# Bibliographic Data #}
   <section class="mt-8">

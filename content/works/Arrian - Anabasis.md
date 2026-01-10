@@ -20,7 +20,7 @@ titles = ["Anabasis of Alexander", "The Anabasis of Alexander", "Anabasis"]
 authors = ["Arrian"]
 forms = ["narrative"]
 genres = ["historiography"]
-subjects = ["drama", "tragedy", "comedy", "plot", "epic"]
+subjects = ["military history", "todo"]
 periods = ["Classical Greece", "Hellenistic Period", "4th c. BCE", "Roman Imperial Period", "Pax Romana", "2nd c. CE"]
 languages = ["Ancient Greek", "Attic Greek"]
 

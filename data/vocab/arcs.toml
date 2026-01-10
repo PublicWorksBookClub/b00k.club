@@ -20,7 +20,7 @@ series.name = "Theogony"
 series.number = 2
 years = "2023"
 predecessor = "Theogony 1"
-prosa = "The following year another friend joined the duo, who suggested reading [_The Federalist Papers_](/works/federalist-papers/). It made extensive reference to Ancient Greece in its argumnetation."
+prosa = "The following year another friend joined the duo and suggested reading [_The Federalist Papers_](/works/federalist-papers/). It made extensive reference to Ancient Greece in its argumnetation."
 metrum = """
 TODO:
 Then a third member joined the duo, and in so doing brought some shape:
@@ -48,7 +48,7 @@ series.number = 1
 years = "2023"
 predecessor = "Theogony 2"
 prosa = """
-After [_The Federalist Papers_](/works/federalist-papers/) the group decided to commit to reading from antiquity onwards—instead of skipping around as before—with the ancilliary benefit being to understand the kinds of references made by Hamilton et. al. and more broadly to give our group a structure that we could never possibly outgrow.
+After [_The Federalist Papers_](/works/federalist-papers/) the group decided to commit to reading from antiquity onwards—instead of skipping around as before—with the ancilliary benefit being to understand the kinds of references made by Hamilton et. al.
 """
 metrum = """
 TODO:
@@ -76,7 +76,7 @@ series.number = 1
 years = "2024"
 predecessor = "Anabasis 2"
 prosa = """
-After reading Plato's [_Republic_](/works/plato-republic/), the club was joined by a fifth member and decided to move backward chronologically to Homer's [_Odyssey_](/works/homer-odyssey/) to better understand the esteemed figure whom Plato indicated epitomized this special kind of virtue.
+After reading [_Republic_](/works/plato-republic/), the club was joined by a fifth member and decided to move backward chronologically to Homer's [_Odyssey_](/works/homer-odyssey/) to better understand the esteemed figure so prominently featured in the last book of Plato's.
 """
 metrum = """
 TODO:
@@ -92,7 +92,7 @@ years = "2025"
 predecessor = "Nostoi 1"
 coinciding = ["Anabasis 3"]
 prosa = """
-A separate, parallel track, with the [original members](/arcs/theogony-1), developed alongside the main campaign (continued in [Anabasis 3](/arcs/anabasis-3/)) to more comprehensively read works that the full book club might not have time for.
+A separate, parallel track, with the [original members](/arcs/theogony-1), developed alongside the main campaign (continued in [Anabasis 3](/arcs/anabasis-3/)) to more comprehensively read works that the full book club might have not had time for.
 """
 metrum = """
 TODO

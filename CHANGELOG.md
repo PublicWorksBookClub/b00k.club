@@ -2,6 +2,8 @@
 
 ## NEXT
 
+- Add more revisions to taxonomy
+
 ## 1.5.2 (2026-01-10)
 
 - Add _Cratylus_
