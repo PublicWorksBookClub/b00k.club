@@ -9,6 +9,7 @@
   --font-source-serif: Source Serif, serif;
   --font-fira-sans: Fira Sans, sans-serif;
   --font-sans: var(--font-fira-sans);
+  --font-serif: var(--font-source-serif);
   --font-junicode: Junicode, serif;
   --font-arca-majora: Arca Majora, sans-serif;
   --color-pwbc-yellow: oklch(0.8502 0.1714 93.13);
