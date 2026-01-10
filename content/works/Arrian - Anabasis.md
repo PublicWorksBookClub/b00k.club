@@ -1,5 +1,5 @@
 +++
-draft = true
+draft = false
 template = "works/conspectus.html"
 slug = "arrian-anabasis"
 # You can also override `title` and `authors`
@@ -12,6 +12,7 @@ wikipedia = "https://en.wikipedia.org/wiki/Anabasis_of_Alexander"
 abstract = """
 Historical account of the wars of Alexander the Great.
 """
+currently_reading = true
 
 [taxonomies]
 # Textual taxonomies

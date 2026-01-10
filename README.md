@@ -29,7 +29,7 @@ npm run build
 npm run serve
 ```
 
-For example, you can run ` SERVE_OPTS="--interface 0.0.0.0 --base-url 192.168.0.1" npm run serve` and then go to `localhost:2665` in your browser to see the website, as well as access from a mobile device on the same network. As you make changes to the code or content, the website will be updated.
+For example, you can run `SERVE_OPTS="--interface 0.0.0.0 --base-url 192.168.0.1" npm run serve` and then go to `localhost:2665` in your browser to see the website, as well as access from a mobile device on the same network. As you make changes to the code or content, the website will be updated.
 
 ## Updates
 

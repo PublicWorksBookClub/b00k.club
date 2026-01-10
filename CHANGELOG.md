@@ -2,6 +2,11 @@
 
 ## NEXT
 
+## 1.5.2 (2026-01-10)
+
+- Add _Cratylus_
+- Add 'currently reading' field and display it in work listing macro
+
 ## 1.5.1 (2026-01-09)
 
 - Corrections to bibliography
@@ -10,8 +15,10 @@
 
 ## 1.5.0 (2026-01-08)
 
+- Add _Anabasis_ (Arrian)
 - PWBC bibliography
-- site taxonomy
+- Site taxonomy
+- Add macros for displaying readings
 - Add reference to historical thesaurus of english
 
 ## 1.4.4 (2025-12-13)

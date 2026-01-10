@@ -10,12 +10,17 @@
 
 {% macro tablular_listing_of_works(works, limit=false) %}
   {% set works = works | sort(attribute="extra.order") %}
-  {% if limit %}{% set works = works | slice(end=limit) %}{% endif %}
+  {% if limit %}
+  {% set currently_reading = works | filter(attribute="extra.currently_reading", value=true) %}
+  {% set works = works | slice(end=limit) | concat(with=currently_reading) %}
+  {% endif %}
   <div class="overflow-x-auto">
     <table class="whitespace-nowrap">
-      <caption class="mt-2 pl-2 caption-bottom text-left font-serif italic">
-        <span class="text-gray-400">*</span>
-        = selections of work
+      <caption class="mt-2 pl-2 caption-bottom text-left font-serif not-prose">
+        <ul>
+          <li><span class="text-gray-400">*</span> = <span class="italic">selections of work</span></li>
+          <li><span class="text-gray-400">†</span> = <span class="italic">currently reading</span></li>
+        </ul>
       </caption>
       <thead>
         <tr>
@@ -41,10 +46,18 @@
       </thead>
       <tbody class="prose-a:no-underline prose-a:hover:underline ">
         {% for w in works %}
+        {% if limit and loop.index == limit %}
+        <tr>
+          <td class="text-center pl-4">...</td>
+          <td>
+            <span class="font-semibold">——See <a href="/works" class="underline!">full list</a> of readings</span> <span class="font-normal not-prose font-serif italic">(or <a href="/taxonomy" class="underline!">taxonomy</a>)</span>
+          </td>
+        </tr>
+        {% else %}
         <tr>
           <td class="text-center pl-4">{{ w.extra.order }}</td>
           <td>
-            <a href="{{ w.permalink }}" class="font-serif italic font-normal">{{ w.taxonomies.titles | first }}</a>{% if w.extra.read_in_selection %}<span class="pl-0.5 text-gray-400">*</span>{% endif %}
+            <a href="{{ w.permalink }}" class="font-serif italic font-normal tracking-normal">{{ w.taxonomies.titles | first }}</a>{% if w.extra.read_in_selection %}<span class="pl-0.5 text-gray-400">*</span>{% endif %}{% if w.extra.currently_reading %}<span class="pl-0.5 text-gray-400">†</span>{% endif %}
           </td>
           <td>
             {% set author = get_taxonomy_term(kind="authors", term=w.taxonomies.authors | first) %}
@@ -64,15 +77,8 @@
             <a href="{{ arc.permalink }}" class="font-light italic">{{ arc.name }}</a>
           </td>
         </tr>
-        {% endfor %}
-        {% if limit %}
-        <tr>
-          <td class="text-center pl-4">...</td>
-          <td>
-            See <a href="/works" class="underline!">full list</a> of readings <span class="font-normal not-prose font-serif italic">(or <a href="/taxonomy" class="underline!">taxonomy</a>)</span>
-          </td>
-        </tr>
         {% endif %}
+        {% endfor %}
       </tbody>
     </table>
   </div>
