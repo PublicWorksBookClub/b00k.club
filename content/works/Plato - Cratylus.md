@@ -12,6 +12,7 @@ wikipedia = "https://en.wikipedia.org/wiki/Cratylus_(dialogue)"
 abstract = """
 TODO
 """
+started = 2026-01-11
 currently_reading = true
 
 [taxonomies]
