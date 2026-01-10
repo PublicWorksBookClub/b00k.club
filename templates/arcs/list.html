@@ -3,5 +3,6 @@
 
 {% block terms %}
 {% set arcs = load_data(path="data/vocab/arcs.toml") | get(key="arcs") %}
-{{ svg::geneaological_tree(width=600, height=1066, arcs=arcs) }}
+{# Note: you will need to increment the height by ~142 for each successive arc #}
+{{ svg::geneaological_tree(width=600, height=1208, arcs=arcs) }}
 {% endblock terms %}

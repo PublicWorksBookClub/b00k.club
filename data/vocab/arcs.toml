@@ -157,3 +157,18 @@ The logic of Aristotle in [Anabasis 3](/arcs/anabasis-3/) was difficult and very
 metrum = """
 TODO
 """
+
+[["arcs"]]
+label = "Memorabilia 3"
+sort = "Memorabilia 3"
+series.name = "Memorabilia"
+series.number = 3
+years = "2026"
+predecessor = "Elementa 1"
+coinciding = ["Metamorphoses 1"]
+prosa = """
+After [_Poetics_](/works/aristotle-poetics/) the subgroup resumed their campaign (See [Memorabilia 2](/arcs/memorabilia-1/)) of Platonic dialogues with a new tetralogy beginning with [_Craytlus_](/works/plato-cratylus/).
+"""
+metrum = """
+TODO
+"""
