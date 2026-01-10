@@ -28,7 +28,7 @@
 {% block main %}
 {% set works_section = get_section(path="works/_index.md") %}
 <article class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg
-  prose-headings:font-fira-sans prose-headings:font-bold prose-pwbc">
+  prose-headings:font-fira-sans prose-pwbc">
   <header class="not-prose text-gray-700">
     <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
       <a class="hover:underline" href="{{ page.permalink }}">{{ page.taxonomies.titles[0] }}</a>
@@ -69,11 +69,11 @@
       <caption class="caption-bottom mt-2 text-sm italic font-serif"><a href="https://en.wikipedia.org/wiki/Linked_data">Linked data</a> embedded within this page (<a href="">JSON-LD</a>)</caption>
       <thead>
         <tr>
-          <th>Field</th>
-          <th>Value</th>
+          <th><a class="no-underline hover:underline" href="/taxonomy/">Kind</a></th>
+          <th>Term</th>
         </tr>
       </thead>
-      <tbody class="prose-td:first-of-type:prose-a:no-underline prose-td:first-of-type:prose-a:font-normal prose-td:first-of-type:prose-a:hover:underline">
+      <tbody class="prose-td:first-of-type:prose-a:font-serif prose-td:first-of-type:prose-a:font-normal prose-td:first-of-type:prose-a:italic">
         <tr>
           <td><a href="{{ get_taxonomy(kind='authors') | get(key='permalink') }}">authors</a></td>
           <td>{{ works::list_taxonomy_terms(work=page, taxonomy="authors", add="italic") }}</td>
