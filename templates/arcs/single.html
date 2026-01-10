@@ -19,11 +19,11 @@
   <h2 class="px-4 md:px-0">Context</h2>
   <ul>
     {% if arc.predecessor %}
-    <li>Preceeded by: <a href="{{ get_taxonomy_url(kind='arcs', name=arc.predecessor) }}">{{ arc.predecessor }}</a></li>
+    <li><span class="[font-variant:small-caps]">Preceeded by</span> <a href="{{ get_taxonomy_url(kind='arcs', name=arc.predecessor) }}">{{ arc.predecessor }}</a></li>
     {% endif %}
     {% set successors = load_data(path="data/vocab/arcs.toml", format="toml") | get(key="arcs") | filter(attribute="predecessor", value=term.name) %}
     {% if successors | length > 0 %}
-    <li>Succeeded by:
+    <li><span class="[font-variant:small-caps]">Succeeded by</span>
       {% for s in successors %}
       <a href="{{ get_taxonomy_url(kind='arcs', name=s.label) }}">{{ s.label }}</a>
       {%- if not loop.last %},{% endif %}
@@ -31,7 +31,7 @@
     </li>
     {% endif %}
     {% if arc.coinciding and arc.coinciding | length > 0 %}
-    <li>Coinciding with:
+    <li><span class="[font-variant:small-caps]">Coinciding with</span>
       {% for c in arc.coinciding %}
       <a href="{{ get_taxonomy_url(kind='arcs', name=c) }}">{{ c }}</a>
       {%- if not loop.last %},{% endif %}
