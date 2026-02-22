@@ -10,7 +10,7 @@ sort = "Demosthenes 18"
 wikipedia = "https://en.wikipedia.org/wiki/On_the_Crown"
 wikidata = "https://www.wikidata.org/wiki/Q969706"
 abstract = """
-A famous speech delivered by the Athenian orator in 330 BCE, defending his political career and the legacy of his ally, Ctesiphon, against charges brought by his rival Aeschines. In the oration, Demosthenes praises the virtues of civic duty, the defense of Athens, and the responsibilities of leadership, while attacking corruption and complacency among public officials. The speech is a masterpiece of classical rhetoric and political argumentation, exemplifying the art of persuasion in the context of Athens’ democratic institutions.
+Demosthenes defends his political career and the legacy of his ally, Ctesiphon, against charges brought by his rival Aeschines.
 """
 
 [taxonomies]
@@ -18,7 +18,7 @@ A famous speech delivered by the Athenian orator in 330 BCE, defending his polit
 titles = ["On the Crown", "Demosthenes 18", "De Corona"]
 authors = ["Demosthenes"]
 forms = ["oration"]
-genres = ["forensic", "deliberative"]
+genres = ["forensic", "deliberative", "forensic defense"]
 subjects = ["rhetoric", "civic duty", "ethics"]
 periods = ["Classical Greece", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]

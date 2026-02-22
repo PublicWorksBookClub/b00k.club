@@ -18,7 +18,7 @@ Neoptolemus tries to convince a wounded Philoctetes and his Herculean bow to ret
 titles = ["Philoctetes"]
 authors = ["Sophocles"]
 forms = ["drama", "play"]
-genres = ["tragedy"]
+genres = ["tragedy", "tragedy of character", "complex tragedy", "tragedy of suffering"]
 subjects = [
   "ethics",
   "friendship",

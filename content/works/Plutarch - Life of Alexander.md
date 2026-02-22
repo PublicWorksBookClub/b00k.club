@@ -10,7 +10,7 @@ sort = "Life of Alexander"
 wikipedia = "https://en.wikipedia.org/wiki/Plutarch#Life_of_Alexander"
 wikidata = "https://www.wikidata.org/wiki/Q11850689"
 abstract = """
-A biography on Alexander III of Macedonia with an emphasis on his character and motivations, while still covering the basics of his miltary campaign through Europe, Asia Minor, and India.
+A biography on Alexander III of Macedonia emphasizing his character and motivations while still covering the basics of his military campaign.
 """
 
 [taxonomies]

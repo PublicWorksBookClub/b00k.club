@@ -18,7 +18,7 @@ King Pentheus rejects the cult of a mysterious new god, Dionysus.
 titles = ["The Bacchae"]
 authors = ["Euripides"]
 forms = ["drama", "play"]
-genres = ["tragedy"]
+genres = ["tragedy", "complex tragedy", "tragedy of suffering"]
 subjects = ["todo"]
 periods = ["Classical Greece", "5th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]

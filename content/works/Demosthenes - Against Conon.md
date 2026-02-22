@@ -10,7 +10,7 @@ sort = "Demosthenes 54"
 wikidata = "https://www.wikidata.org/wiki/Q87738427"
 # no english wikipedia
 abstract = """
-An athenian named Ariston prosecutes Athenians Conon and his sons for assaulting him.
+An Athenian named Ariston prosecutes Conon and his sons for assault.
 """
 
 [taxonomies]

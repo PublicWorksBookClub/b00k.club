@@ -10,7 +10,7 @@ sort = "Lysias 3"
 wikidata = "https://www.wikidata.org/wiki/Q4691051"
 wikipedia = "https://en.wikipedia.org/wiki/Against_Simon"
 abstract = """
-An unnamed Athenian defends himself from assault charges prosecuted by an Athenian named Simon after an altercation involving over a young lover.
+An unnamed Athenian defends himself from assault charges brought by Simon over a young lover.
 """
 
 [taxonomies]

@@ -86,7 +86,7 @@ description = "explanation of an idea or theory"
 
 [fable]
 label = "fable"
-description = "story that uses anthropomoprhization to teach a moral"
+description = "story that uses anthropomoprhization and teaches a moral"
 wikipedia = "https://en.wikipedia.org/wiki/Fable"
 wikidata = "https://www.wikidata.org/wiki/Q693"
 
@@ -151,12 +151,9 @@ wikipedia = "https://en.wikipedia.org/wiki/Satire"
 
 ["Socratic dialogue"]
 label = "Socratic dialogue"
-description = "a dialogue that has a questioner and answering using the Socratic method of argumentation"
+description = "a dialogue that has a questioner and answerer and uses the Socratic method of argumentation"
 wikidata = "https://www.wikidata.org/wiki/Q3026054"
 wikipedia = "https://en.wikipedia.org/wiki/Socratic_dialogue"
-
-["temptation narrative"]
-description = "theme in literature featuring a test of will or virtue"
 
 [tragedy]
 label = "tragedy"

@@ -28,7 +28,7 @@
 {% block main %}
 {% set works_section = get_section(path="works/_index.md") %}
 <article class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg
-  prose-headings:font-fira-sans prose-headings:font-bold prose-pwbc">
+  prose-headings:font-fira-sans prose-pwbc">
   <header class="not-prose text-gray-700">
     <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
       <a class="hover:underline" href="{{ page.permalink }}">{{ page.taxonomies.titles[0] }}</a>
@@ -45,7 +45,6 @@
     <p class="mt-2 text-right font-fira-sans font-medium">
       <a class="hover:underline mr-1" href="/works/">Reading #{{ page.extra.order }}</a>
       (<em><span class="text-gray-500">"</span><a class="hover:underline" href='{{ get_taxonomy_url(kind="arcs", name=page.taxonomies.arcs[0], lang=page.lang) }}'>{{ page.taxonomies.arcs[0] }}</a><span class="text-gray-500">"</span></em>, <a class="ml-[0.5ch] hover:underline" href='{{ get_taxonomy_url(kind="years", name=page.taxonomies.years[0], lang=page.lang) }}'>{{ page.taxonomies.years[0] }}</a>)
-      {# <span class="[font-variant:small-caps] font-light p-0 mt-1"><a href="">prev</a>–<a href="">next</a></span> #}
     </p>
   </header>
   <hr class="not-prose">
@@ -61,7 +60,7 @@
   {# Abstract #}
   <section class="mt-12 text-justify">
     <h2 class="mb-4">Abstract</h2>
-    {{ page.extra.abstract | safe }}
+    {{ page.extra.abstract | markdown | safe }}
   </section>
   {# Bibliographic Data #}
   <section class="mt-8">
@@ -70,11 +69,11 @@
       <caption class="caption-bottom mt-2 text-sm italic font-serif"><a href="https://en.wikipedia.org/wiki/Linked_data">Linked data</a> embedded within this page (<a href="">JSON-LD</a>)</caption>
       <thead>
         <tr>
-          <th>Field</th>
-          <th>Value</th>
+          <th><a class="no-underline hover:underline" href="/taxonomy/">Kind</a></th>
+          <th>Term</th>
         </tr>
       </thead>
-      <tbody class="prose-td:first-of-type:prose-a:no-underline prose-td:first-of-type:prose-a:font-normal prose-td:first-of-type:prose-a:hover:underline">
+      <tbody class="prose-td:first-of-type:prose-a:font-serif prose-td:first-of-type:prose-a:font-normal prose-td:first-of-type:prose-a:italic">
         <tr>
           <td><a href="{{ get_taxonomy(kind='authors') | get(key='permalink') }}">authors</a></td>
           <td>{{ works::list_taxonomy_terms(work=page, taxonomy="authors", add="italic") }}</td>

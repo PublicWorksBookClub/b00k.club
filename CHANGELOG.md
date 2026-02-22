@@ -2,6 +2,13 @@
 
 ## NEXT
 
+- Catalogue of names for Argonautica
+- Shortcode for reading CSV's and producing tables
+
+## 1.5.3 (2026-02-22)
+
+- Add more revisions to taxonomy
+
 ## 1.5.2 (2026-01-10)
 
 - Add _Cratylus_

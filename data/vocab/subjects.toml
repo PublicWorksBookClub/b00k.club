@@ -46,3 +46,6 @@ wikipedia = "https://en.wikipedia.org/wiki/Practical_philosophy"
 wikidata = "https://www.wikidata.org/wiki/Q48235"
 wikipedia = "https://en.wikipedia.org/wiki/Stoicism"
 # END Philosophy genus
+
+["temptation narrative"]
+description = "theme in literature featuring a test of will or virtue"
