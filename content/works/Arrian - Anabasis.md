@@ -12,7 +12,6 @@ wikipedia = "https://en.wikipedia.org/wiki/Anabasis_of_Alexander"
 abstract = """
 Historical account of the wars of Alexander the Great.
 """
-currently_reading = true
 
 [taxonomies]
 # Textual taxonomies
