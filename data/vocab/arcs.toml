@@ -135,7 +135,7 @@ series.name = "Metamorphoses"
 series.number = 1
 years = "2025"
 predecessor = "Anabasis 3"
-coinciding = ["Memorabilia 2", "Elementa 1"]
+coinciding = ["Memorabilia 2", "Elementa 1", "Memorabilia 3"]
 prosa = """
 In anticipation of the shift away from [Classical Greece](/periods/classical-greece)—the club's focus for the past two years—to the [Hellenistic Period](/periods/hellenistic-period/), the club dedicated an arc to [Alexander the Great](https://en.wikipedia.org/wiki/Alexander_the_Great).
 """
@@ -168,6 +168,21 @@ predecessor = "Elementa 1"
 coinciding = ["Metamorphoses 1"]
 prosa = """
 After [_Poetics_](/works/aristotle-poetics/) the subgroup resumed their campaign (See [Memorabilia 2](/arcs/memorabilia-1/)) of Platonic dialogues with a new tetralogy beginning with [_Craytlus_](/works/plato-cratylus/).
+"""
+metrum = """
+TODO
+"""
+
+[["arcs"]]
+label = "Metamorphoses 2"
+sort = "Metamorphoses 2"
+series.name = "Metamorphoses"
+series.number = 2
+years = "2026"
+predecessor = "Metamorphoses 1"
+coinciding = ["Memorabilia 3"]
+prosa = """
+The group was joined by a new member. TODO the rest.
 """
 metrum = """
 TODO
