@@ -29,4 +29,5 @@ languages = ["Ancient Greek", "Attic Greek"]
 years = ["2026"]
 arcs = ["Memorabilia 3"]
 contributors = ["Spencer Scorcelletti"]
+index = ["Hermogenes", "Socrates", "Cratylus", "Hipponicus", '“fine things are very difficult”', "Prodicus"]
 +++
