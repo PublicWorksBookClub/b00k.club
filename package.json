@@ -1,6 +1,6 @@
 {
   "name": "b00k.club",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "The website for the Public Works Book Club: we only read works in the public domain",
   "scripts": {
     "fmt": "npx prettier . --write",
