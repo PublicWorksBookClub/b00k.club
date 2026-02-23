@@ -4,6 +4,7 @@
 
 - Catalogue of names for Argonautica
 - Shortcode for reading CSV's and producing tables
+- Add NewComputerModern10 as a font (for article font, especially when Greek glyphs are needed)
 
 ## 1.5.3 (2026-02-22)
 

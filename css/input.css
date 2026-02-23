@@ -8,10 +8,11 @@
   --font-playfair-display: Playfair Display, serif;
   --font-source-serif: Source Serif, serif;
   --font-fira-sans: Fira Sans, sans-serif;
+  --font-junicode: Junicode, serif;
+  --font-ncm-10: NewComputerModern10, serif;
+  --font-arca-majora: Arca Majora, sans-serif;
   --font-sans: var(--font-fira-sans);
   --font-serif: var(--font-source-serif);
-  --font-junicode: Junicode, serif;
-  --font-arca-majora: Arca Majora, sans-serif;
   --color-pwbc-yellow: oklch(0.8502 0.1714 93.13);
   /* Begin attic colors (for an unreleased project) */
   --color-attic-black-500: rgb(70, 60, 51);
@@ -191,6 +192,58 @@
 }
 /***************************
   ** END Junicode **
+  ************************** */
+
+/***************************
+  * BEGIN NewComputerModern10 *
+  ************************** */
+@supports (font-variation-settings: normal) {
+  /* https://ctan.org/tex-archive/fonts/newcomputermodern */
+  @font-face {
+    font-family: 'NewCM10';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/font/NewComputerModern10/NewCM10-Regular.woff2') format('woff2');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'NewCM10';
+    font-style: italic;
+    font-weight: 400;
+    src: url('/font/NewComputerModern10/NewCM10-Italic.woff2') format('woff2');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'NewCM10';
+    font-style: normal;
+    font-weight: 500;
+    src: url('/font/NewComputerModern10/NewCM10-Book.woff2') format('woff2');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'NewCM10';
+    font-style: italic;
+    font-weight: 500;
+    src: url('/font/NewComputerModern10/NewCM10-BookItalic.woff2') format('woff2');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'NewCM10';
+    font-style: normal;
+    font-weight: 700;
+    src: url('/font/NewComputerModern10/NewCM10-Bold.woff2') format('woff2');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'NewCM10';
+    font-style: italic;
+    font-weight: 700;
+    src: url('/font/NewComputerModern10/NewCM10-BoldItalic.woff2') format('woff2');
+    font-display: swap;
+  }
+}
+/***************************
+  ** END NewComputerModern10 **
   ************************** */
 
 /***************************
