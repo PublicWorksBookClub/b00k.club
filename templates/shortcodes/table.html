@@ -1,0 +1,44 @@
+{#
+    Use this shortcode by passing in your table head as a body argument. This is so you can control the columns from your markdown.
+
+    `styles` allows you to pass in tailwind. You can use `prose-[...]` almost like a selector. This can be useful for making certain rows/columns sticky.
+
+    E.g.
+    {% table(csv="data/tables/Argonautica—Catalogue of Names.csv" styles="mt-8 prose-td:first:text-center prose-td:nth-of-type-2:bg-orange-100 prose-td:nth-of-type-2:z-10") %}
+    <thead>
+      <tr class="sticky top-0 bg-orange-50">
+        <th class="w-18 text-center">Order</th>
+        <th class="w-32">Name</th>
+        <th class="w-48">Son of</th>
+        <th class="w-32">Relative to</th>
+        <th class="w-72">From</th>
+        <th class="w-32">Ability/Title</th>
+        <th class="w-72">Known for</th>
+        <th class="w-92">Notes</th>
+      </tr>
+    </thead>
+    {% end %}
+
+    In this example, a table of the argonauts is loaded, but the width of each particular column is set by the table head. Captions can also be added here. The "Name" column is made sticky, as well as the header row.
+#}
+{% set csv = load_data(path=csv, format="csv") %}
+
+<div class="{{ styles }}">
+  <p class="font-fira-sans -mb-6 text-right text-xs italic pr-2">(scroll →)</p>
+  <div class="overflow-x-auto max-h-[75vh]">
+    <table class="table-fixed w-full">
+      {{ body | safe }}
+      <tbody>
+        {% for row in csv.records %}
+        <tr>
+          {% for cell in row %}
+          <td class="py-2 whitespace-normal {% if loop.index == 2 %}sticky left-0{% endif %}">
+            {{ cell }}
+          </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
