@@ -103,10 +103,10 @@
           <td>
             {% set same_as = [] %}
             {% if page.extra.wikidata %}
-            {% set same_as = same_as | concat(with='<a href="{{ page.extra.wikidata }}">wikidata</a>') %}
+            {% set same_as = same_as | concat(with='<a href="' ~ page.extra.wikidata ~ '">wikidata</a>') %}
             {% endif %}
             {% if page.extra.wikipedia %}
-            {% set same_as = same_as | concat(with='<a href="{{ page.extra.wikipedia }}">wikipedia</a>') %}
+            {% set same_as = same_as | concat(with='<a href="' ~ page.extra.wikipedia ~ '">wikipedia</a>') %}
             {% endif %}
             {{ same_as | join(sep=" | ") | safe }}
           </td>

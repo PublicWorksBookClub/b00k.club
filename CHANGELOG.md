@@ -2,8 +2,12 @@
 
 ## NEXT
 
+## 1.5.4 (2026-02-23)
+
 - Catalogue of names for Argonautica
 - Shortcode for reading CSV's and producing tables
+- Add NewComputerModern10 as a font (for article font, especially when Greek glyphs are needed)
+- Fix broken link on conspectus to wikidata/wikipedia pages
 
 ## 1.5.3 (2026-02-22)
 
