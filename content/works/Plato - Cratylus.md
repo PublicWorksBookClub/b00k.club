@@ -10,7 +10,7 @@ sort = "Cratylus"
 wikidata = "https://www.wikidata.org/wiki/Q1347394"
 wikipedia = "https://en.wikipedia.org/wiki/Cratylus_(dialogue)"
 abstract = """
-TODO
+Socrates, Hermogenes, and Cratylus discuss whether names—or even all words—have a natural basis or not, in a dialogue filled with etymological digression.
 """
 started = 2026-01-11
 
