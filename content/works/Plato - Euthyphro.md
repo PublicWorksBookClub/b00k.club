@@ -1,7 +1,7 @@
 +++
 draft = false
 template = "works/conspectus.html"
-sluf = "plato-euthyphro"
+slug = "plato-euthyphro"
 # You can also override `title` and `authors`
 
 [extra]
@@ -10,7 +10,7 @@ sort = "Euthyphro"
 wikidata = "https://www.wikidata.org/wiki/Q648889"
 wikipedia = "https://en.wikipedia.org/wiki/Euthyphro"
 abstract = """
-On his way to answer a summons at the court, Socrates encounters Euthyphro who is also there to bring charges against his father for the wrongful killing of a slave. Their dialogue centers around the question of what is pious.
+Euthyphro encounters Socrates at the court, when the latter is answering a summons. Euthyphro is there to bring charges against his father for the wrongful killing of a slave, and thus their dialogue turns towards the question of the pious.
 """
 
 [taxonomies]
