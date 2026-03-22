@@ -10,7 +10,7 @@ sort = "Apology"
 wikidata = "https://www.wikidata.org/wiki/Q273668"
 wikipedia = "https://en.wikipedia.org/wiki/Apology_(Plato)"
 abstract = """
-Socrates responds to the charges against him in court, culiminating in a forceful defense that breaks the mold of typical Athenian forensic oratory.
+Socrates responds to the charges against him in court, culminating in a forceful defense that breaks the mold of typical Athenian forensic oratory.
 """
 
 [taxonomies]

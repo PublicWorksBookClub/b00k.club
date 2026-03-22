@@ -10,9 +10,10 @@ sort = "Cratylus"
 wikidata = "https://www.wikidata.org/wiki/Q1347394"
 wikipedia = "https://en.wikipedia.org/wiki/Cratylus_(dialogue)"
 abstract = """
-TODO
+Socrates, Hermogenes, and Cratylus discuss whether names—or even all words—have a natural basis or not, in a dialogue filled with etymological digression.
 """
 started = 2026-01-11
+finished = 2026-02-22
 
 [taxonomies]
 # Textual taxonomies
@@ -20,7 +21,7 @@ titles = ["Cratylus"]
 authors = ["Plato"]
 forms = ["dialogue"]
 genres = ["Socratic dialogue"]
-subjects = []
+subjects = ["etymology", "linguistics", "philosophy", "laws", "logic", "pre-history"]
 periods = ["Classical Greece", "5th c. BCE", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
