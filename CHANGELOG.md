@@ -2,6 +2,12 @@
 
 ## NEXT
 
+## 1.5.5 (2026-03-22)
+
+- Update conspectus info for Cratylus
+- Fix typos and tweak templates
+- Begin adding Theaetetus info
+
 ## 1.5.4 (2026-02-23)
 
 - Catalogue of names for Argonautica
