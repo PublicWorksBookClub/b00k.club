@@ -2,6 +2,7 @@
 
 ## NEXT
 
+- Add David Rumsey Map Collection
 - Add "Mnamon" to resources page
 - Add AWMC, pleides, and the "myth files" to resources page
 

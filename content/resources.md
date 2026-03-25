@@ -28,14 +28,15 @@ Below is a collection of resources in the public domain that are updated on a re
 
 ## Reference Material:
 
-- [The Ancient World Mapping Center](https://awmc.unc.edu) (continuation of the [Barrington Atlas](https://en.wikipedia.org/wiki/Barrington_Atlas_of_the_Greek_and_Roman_World))
-- [Pleiades](https://pleiades.stoa.org/home) open access geospatial data of the ancient world
 - [The Historical Thesaurus of English](https://www.ht.ac.uk)
 - [Stanford Encyclopedia of Philosophy](https://plato.stanford.edu)
 - [Perseus Digital Library](http://www.perseus.tufts.edu/hopper/) (Tufts University)
 - Loeb Classical Library - [catalogue](https://www.hup.harvard.edu/collection.php?), [search](https://www.loebclassics.com)
 - [Center for Hellenic Studies](https://chs.harvard.edu/publications/) (Harvard University)
 - [Mnamon](https://mnamon.sns.it/) ancient writing systems in the Mediterranean
+- [The Ancient World Mapping Center](https://awmc.unc.edu) (continuation of the [Barrington Atlas](https://en.wikipedia.org/wiki/Barrington_Atlas_of_the_Greek_and_Roman_World))
+- [Pleiades](https://pleiades.stoa.org/home) open access geospatial data of the ancient world
+- [David Rumsey Map Collection](https://www.davidrumsey.com) maps and interactive globes
 
 ## Reading Material:
 
