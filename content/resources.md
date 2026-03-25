@@ -28,6 +28,8 @@ Below is a collection of resources in the public domain that are updated on a re
 
 ## Reference Material:
 
+- [The Ancient World Mapping Center](https://awmc.unc.edu) (continuation of the [Barrington Atlas](https://en.wikipedia.org/wiki/Barrington_Atlas_of_the_Greek_and_Roman_World))
+- [Pleiades](https://pleiades.stoa.org/home) open access geospatial data of the ancient world
 - [The Historical Thesaurus of English](https://www.ht.ac.uk)
 - [Stanford Encyclopedia of Philosophy](https://plato.stanford.edu)
 - [Perseus Digital Library](http://www.perseus.tufts.edu/hopper/) (Tufts University)
@@ -116,6 +118,7 @@ The following is an alphabetically sorted list of museums and galleries that off
 
 - [Ancient Greece Declassified](https://www.greecepodcast.com/)
 - [Literature and History](https://literatureandhistory.com)
+- [The Greek Myth Files](https://www.manto-myth.org/gmf)—Partnership between The University of New Hampshire Classics Program and Macquarie University
 
 ## Secondary/Editorialized Content
 

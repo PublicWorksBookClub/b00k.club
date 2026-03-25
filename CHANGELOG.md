@@ -2,6 +2,8 @@
 
 ## NEXT
 
+- Add AWMC, pleides, and the "myth files" to resources page
+
 ## 1.5.5 (2026-03-22)
 
 - Update conspectus info for Cratylus
