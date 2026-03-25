@@ -35,6 +35,7 @@ Below is a collection of resources in the public domain that are updated on a re
 - [Perseus Digital Library](http://www.perseus.tufts.edu/hopper/) (Tufts University)
 - Loeb Classical Library - [catalogue](https://www.hup.harvard.edu/collection.php?), [search](https://www.loebclassics.com)
 - [Center for Hellenic Studies](https://chs.harvard.edu/publications/) (Harvard University)
+- [Mnamon](https://mnamon.sns.it/) ancient writing systems in the Mediterranean
 
 ## Reading Material:
 

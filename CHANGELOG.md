@@ -2,6 +2,7 @@
 
 ## NEXT
 
+- Add "Mnamon" to resources page
 - Add AWMC, pleides, and the "myth files" to resources page
 
 ## 1.5.5 (2026-03-22)
