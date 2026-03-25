@@ -129,6 +129,7 @@ The following is an alphabetically sorted list of museums and galleries that off
 
 ## Tools
 
-- Artvee, public domain artwork search interface - ([Search](https://artvee.com), [About](https://artvee.com/about-us/))
-- Calibre e-book management software - ([Homepage](https://calibre-ebook.com), [GitHub](https://github.com/kovidgoyal/calibre))
-- Standard Ebooks (Tools) - ([Github](https://github.com/standardebooks/tools))
+- Artvee, public domain artwork search interface — ([Search](https://artvee.com), [About](https://artvee.com/about-us/))
+- Calibre e-book management software — ([Homepage](https://calibre-ebook.com), [GitHub](https://github.com/kovidgoyal/calibre))
+- Standard Ebooks (Tools) — ([Github](https://github.com/standardebooks/tools))
+- [PastVu](https://pastvu.com) — find public photos by geolocation
