@@ -2,6 +2,7 @@
 
 ## NEXT
 
+- Update to tailwind 4.2.x
 - Add an Azgaar fantasy map of the Mediterranean basin
 - Add PastVu to resources pages
 - Add David Rumsey Map Collection to resources page
