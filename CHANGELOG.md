@@ -2,6 +2,9 @@
 
 ## NEXT
 
+## 1.5.6 (2026-03-28)
+
+- Update "Theaetetus" outline
 - Edit css to colorize endnote links (pink)
 - Add `details` shortcode for displaying details elements and summaries
 - Update to tailwind 4.2.x
@@ -9,7 +12,7 @@
 - Add PastVu to resources pages
 - Add David Rumsey Map Collection to resources page
 - Add "Mnamon" to resources page
-- Add AWMC, pleides, and the "myth files" to resources page
+- Add AWMC, Pleides, and the "myth files" to resources page
 
 ## 1.5.5 (2026-03-22)
 
