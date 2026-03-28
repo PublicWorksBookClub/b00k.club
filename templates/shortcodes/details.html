@@ -1,0 +1,6 @@
+<details {% if open %}open{% endif %}>
+<summary class="cursor-pointer">{{ summary | default(value="show") }}</summary>
+  <div class="pl-4 border-l border-gray-400 border-dashed">
+  {{ body | markdown | safe }}
+  </div>
+</details>

@@ -33,6 +33,10 @@ Below is a collection of resources in the public domain that are updated on a re
 - [Perseus Digital Library](http://www.perseus.tufts.edu/hopper/) (Tufts University)
 - Loeb Classical Library - [catalogue](https://www.hup.harvard.edu/collection.php?), [search](https://www.loebclassics.com)
 - [Center for Hellenic Studies](https://chs.harvard.edu/publications/) (Harvard University)
+- [Mnamon](https://mnamon.sns.it/) ancient writing systems in the Mediterranean
+- [The Ancient World Mapping Center](https://awmc.unc.edu) (continuation of the [Barrington Atlas](https://en.wikipedia.org/wiki/Barrington_Atlas_of_the_Greek_and_Roman_World))
+- [Pleiades](https://pleiades.stoa.org/home) open access geospatial data of the ancient world
+- [David Rumsey Map Collection](https://www.davidrumsey.com) maps and interactive globes
 
 ## Reading Material:
 
@@ -116,6 +120,7 @@ The following is an alphabetically sorted list of museums and galleries that off
 
 - [Ancient Greece Declassified](https://www.greecepodcast.com/)
 - [Literature and History](https://literatureandhistory.com)
+- [The Greek Myth Files](https://www.manto-myth.org/gmf)—Partnership between The University of New Hampshire Classics Program and Macquarie University
 
 ## Secondary/Editorialized Content
 
@@ -124,6 +129,7 @@ The following is an alphabetically sorted list of museums and galleries that off
 
 ## Tools
 
-- Artvee, public domain artwork search interface - ([Search](https://artvee.com), [About](https://artvee.com/about-us/))
-- Calibre e-book management software - ([Homepage](https://calibre-ebook.com), [GitHub](https://github.com/kovidgoyal/calibre))
-- Standard Ebooks (Tools) - ([Github](https://github.com/standardebooks/tools))
+- Artvee, public domain artwork search interface — ([Search](https://artvee.com), [About](https://artvee.com/about-us/))
+- Calibre e-book management software — ([Homepage](https://calibre-ebook.com), [GitHub](https://github.com/kovidgoyal/calibre))
+- Standard Ebooks (Tools) — ([Github](https://github.com/standardebooks/tools))
+- [PastVu](https://pastvu.com) — find public photos by geolocation

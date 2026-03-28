@@ -49,3 +49,16 @@ The names of the heroes, in order, along with: their parentage, any other relati
   </tr>
 </thead>
 {% end %}
+
+## Outline
+
+<!-- Note: cool images: https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~275891~90048663# -->
+
+* [Book I](#book-i)
+* [Book II](#book-ii)
+
+### Book I
+
+
+
+### Book II
