@@ -2,6 +2,9 @@
 
 @import 'tailwindcss';
 
+/* large files w/ no class names = bad */
+@source not "../**/*.map";
+
 @plugin "@tailwindcss/typography";
 
 @theme {
@@ -472,6 +475,7 @@
   list-style-position: inside;
   margin: 0px;
   padding: 0px;
+  display: none;
   /* border-color: black;
   border-width: 1px; */
 }
