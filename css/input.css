@@ -525,6 +525,11 @@
   --tw-prose-th-borders: var(--color-gray-700);
   --tw-prose-td-borders: var(--color-gray-400);
 
+  /* for styling links to endnotes */
+  sup a {
+    color: var(--color-pink-400);
+  }
+
   /*  TODO
   --tw-prose-invert-body: var(--color-pink-200);
   --tw-prose-invert-headings: var(--color-white);

@@ -2,6 +2,8 @@
 
 ## NEXT
 
+- Edit css to colorize endnote links (pink)
+- Add `details` shortcode for displaying details elements and summaries
 - Update to tailwind 4.2.x
 - Add an Azgaar fantasy map of the Mediterranean basin
 - Add PastVu to resources pages
