@@ -50,15 +50,37 @@ The names of the heroes, in order, along with: their parentage, any other relati
 </thead>
 {% end %}
 
-## Outline
+<!-- ## Outline -->
 
 <!-- Note: cool images: https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~275891~90048663# -->
 
-* [Book I](#book-i)
-* [Book II](#book-ii)
+<!-- * [Book I](#book-i)
+* [Book II](#book-ii) -->
 
-### Book I
+<!-- ### Book I
 
 
 
-### Book II
+### Book II -->
+
+## Map
+
+<button class="cursor-pointer border rounded-xl px-2" id="loadMapBtn">Load Map</button>
+
+<iframe class="w-full aspect-square" id="mapFrame"></iframe>
+
+<script>
+  const btn = document.getElementById('loadMapBtn');
+  const iframe = document.getElementById('mapFrame');
+
+  btn.addEventListener('click', () => {
+    // Replace with your hosted map file URL
+    const mapURL = encodeURIComponent('http://localhost:2665/maps/mediterranean%20basin.map');
+
+    // Azgaar URL with map parameter
+    iframe.src = `https://azgaar.github.io/Fantasy-Map-Generator/?maplink=${mapURL}`;
+
+    iframe.style.display = 'block';
+    btn.style.display = 'none';
+  });
+</script>
