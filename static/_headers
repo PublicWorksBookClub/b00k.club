@@ -7,7 +7,7 @@ https://:project.pages.dev/*
 # Using Cloudflare with CSP: https://developers.cloudflare.com/fundamentals/get-started/reference/content-security-policies/
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'none'; script-src 'self' static.cloudflareinsights.com; style-src 'self'; style-src-attr 'self'; img-src 'self' *.r33d.pages.dev; font-src 'self'; connect-src 'self' cloudflareinsights.com; prefetch-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; manifest-src 'self'
+  Content-Security-Policy: default-src 'none'; script-src 'self' static.cloudflareinsights.com 'unsafe-inline'; style-src 'self'; style-src-attr 'self'; img-src 'self' *.public-works.pages.dev; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; prefetch-src 'self'; child-src https://azgaar.github.io; frame-src https://azgaar.github.io; worker-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; manifest-src 'self'
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer-when-downgrade
@@ -15,3 +15,5 @@ https://:project.pages.dev/*
   Feature-Policy: default 'none'
   X-XSS-Protection: 1; mode=block
 
+/maps/*
+  Access-Control-Allow-Origin: https://azgaar.github.io
