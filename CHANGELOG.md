@@ -2,6 +2,10 @@
 
 ## NEXT
 
+## 1.5.7 (2026-03-29)
+
+- Add embedded azgaar map to Argonautica conspectus
+
 ## 1.5.6 (2026-03-28)
 
 - Update "Theaetetus" outline

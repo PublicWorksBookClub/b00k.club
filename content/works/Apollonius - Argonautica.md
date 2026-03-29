@@ -72,8 +72,8 @@ The names of the heroes, in order, along with: their parentage, any other relati
     <button class="inline-block cursor-pointer border px-2 h-9 m-0" id="loadMapBtn">Load Map</button>
   </li>
   <li>
-    <a class="inline-block border px-2 h-9 m-0 no-underline font-normal"
-    href="https://azgaar.github.io/Fantasy-Map-Generator/?maplink={{ get_url(path='/maps/mediterranean%20basin.map') }}">
+    <a class="inline-block border px-2 h-9 m-0 no-underline font-normal" target="_blank"
+    href="https://azgaar.github.io/Fantasy-Map-Generator/?maplink={{ get_url(path='/maps/mediterranean_basin_50k.map') }}">
       Open Externally
     </a>
   </li>
