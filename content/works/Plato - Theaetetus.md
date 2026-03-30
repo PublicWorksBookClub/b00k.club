@@ -30,7 +30,7 @@ languages = ["Ancient Greek", "Attic Greek"]
 years = ["2026"]
 arcs = ["Memorabilia 3"]
 contributors = ["Spencer Scorcelletti"]
-index = ["Euclides", "Terpsion", "Corinth", "Megara", "Athens", "Socrates", "Cyrene", "Theodorus", "Euphronius of Sunium", "Sunium", "Phaenarete", "Artemis"]
+index = ["Euclides", "Terpsion", "Corinth", "Megara", "Athens", "Socrates", "Cyrene", "Theodorus", "Euphronius of Sunium", "Sunium", "Phaenarete", "Artemis", "Aristides", "Lysimachus", "Prodicus"]
 +++
 
 ## Outline (142a–210d)
@@ -38,10 +38,12 @@ index = ["Euclides", "Terpsion", "Corinth", "Megara", "Athens", "Socrates", "Cyr
 * [**142a–144e**: the frame story](#142a-144e)
   * [**142a–143c**: the outer frame story](#142a-143c)
   * [**143c–144e**: the inner frame story](#143c-144e)
-* [**144e–145b**: Theaetetus agrees to be questioned](#144e-145b)
-* [**145d–148b**: the meaning of "What is knowledge?" as a question](#145d-148b)
+* [**144e–151d**: prologue](#144e-151d)
+  * [**144e–145b**: Theaetetus agrees to be questioned](#144e-145b)
+  * [**145d–148b**: the meaning of "What is knowledge?" as a question](#145d-148b)
+  * [**148c–151d**: metaphor of the dialectician as a midwife](#148c-151d)
 
-### 142a–144e the frame story {#142a-144e}
+### 142a–144e: the frame story {#142a-144e}
 
 _Summary:_ the dialogue begins with Socrates inquiring upon young Theaetetus as to whether it is the case that they have similar faces, and is preceded by a brief digression whereupon we learn that dialogue is the product of notes written by Euclides, who first heard an account of it from Socrates himself.
 
@@ -63,7 +65,11 @@ When Theaetetus arrives Socrates claims that he desires to know what kind of fac
 
 [^theodorus-says-they-look-alike]: I.e. at **(143e)** Theodorus says that Theaetetus is not beautiful, and has a face like Socrates.
 
-### 144e–145b: why Theaetetus should agree to be questioned {#144e-145b}
+### 144e–151d: prologue {#144e-151d}
+
+_Summary:_ in response to hearing that this young boy, Theaetetus, has the same face as him, Socrates seeks the boy's presence to see for himself. He explains to the boy what he's heard and in the process manages to cleverly secure both the boy's agreement to questioning and the topic at hand: what is knowledge? Socrates turns to the metaphor of the midwife in explaining his role as a facilitator of labor for the soul. In the process the nature of the question is further clarified; they seek a single, general answer of what is knowledge.
+
+#### 144e–145b: why Theaetetus should agree to be questioned {#144e-145b}
 
 _Summary:_ Theaetetus unwittingly agrees to submitting himself for interrogation by Socrates, who jokingly ambushes him by securing his agreement in principle that: **A.)** one should want to earn the kind of praise that's directed towards one's soul and **B.)** that one can not simply take another's word for it in this matter.
 
@@ -87,20 +93,24 @@ _Summary:_ Theaetetus unwittingly agrees to submitting himself for interrogation
 **Conclusion**: therefore Theaetetus should be eager now to do precisely that, as Theodorus was just praising him so.
 {% end %}
 
-### 145d–148b: the meaning of the question "What is knowledge?" {#145d-148b}
+#### 145d–148b: the meaning of the question "What is knowledge?" {#145d-148b}
 
-- 145d-146b preamble
-- 146c–146e What is knowledge? I
-  - Theaetetus: the kinds of things Theodorus teaches 146c
-  - Socrates: those are things one may have _knowledge of_ not what _knowledge itself_ is 146e
-- 147a–147c Knowledge cannot be examples of knowledge
-  - Can the name of a thing be understood without knowing the thing?—No 147b
+- **145d-146b**: is knowledge different from wisdom?
+  - To learn is to become wiser?—Of course
+  - Wisdom is what makes men wise?—Yes
+  - Is wisdom then different from knowledge?—They are not
+  - Socrates is conflicted with this
+- **146c–146e**: what is knowledge?
+  - Theaetetus: the kinds of things Theodorus teaches **(146c)**
+  - Socrates: those are things one may have _knowledge of_ not what _knowledge itself_ is **(146e)**
+- **147a–147c**: knowledge cannot be examples of knowledge
+  - Can the name of a thing be understood without knowing the thing?—No **(147b)**
   - Therefore if one does not know what knowledge is they cannot know what knowledge of shoes is (i.e. cobbling), and ignorance of knowledge precludes any craft
-- 147d–148b Geometrical digression by Theaetetus exemplifying this concept by giving a general account for what an irrational number is (rather than examples of irrational numbers)
+- **147d–148b**: Geometrical digression by Theaetetus exemplifying this concept by giving a general account for what an irrational number is (rather than examples of irrational numbers)
 
-### 148c–???: dialectician as midwife {#148c-???}
+#### 148c–151d: dialectician as midwife {#148c-151d}
 
-Socrates' mother, Phaenarete, was a midwife, and he continues to practice the art in secret 149a.
+Socrates' mother, Phaenarete, was a midwife, and he continues to practice the art in secret **(149a)**.
 
 > Q: Why is it a secret that Socrates practices the art of midwifery?
 
@@ -130,15 +140,15 @@ The implication here is that it is important for many reasons—including one's 
 
 {% end %}
 
-While it's a secret that Socrates practices midwifery, it is common knowledge that he is strange and causes difficulties for people 149a. In order to explain why he must explain midwifery more generally.
+However, it is common knowledge that he is strange and causes difficulties for people **(149a)**. In order to explain why he must explain midwifery more generally.
 
-First, the art of midwifery is never practiced by those who are still conceiving and bearing children 149b. This requires some reconciliation with the goddess Artemis, who is the goddess of childbirth.
+First, the art of midwifery is never practiced by those who are still conceiving and bearing children **(149b)**. This requires some reconciliation with the goddess Artemis, who is the goddess of childbirth.
 
 ---
 
 **Mythological digression about Artemis as the deity of midwifery**
 
-Socrates accounts for the apparent contradiction between his earlier statement (in 149b) and Artemis as a virgin and the goddess of childbirth. The explanation is that Artemis made it as such—that midwifes are always women past the age of childbirth—because human nature is too weak to acquire skill—i.e. knowledge of something—without experience. Those who are past child–bearing age are entrusted with this task because they have the benefit of experience.
+Socrates accounts for the apparent contradiction between his earlier statement **(149b)** and Artemis as a virgin and the goddess of childbirth. The explanation is that Artemis made it as such—that midwifes are always women past the age of childbirth—because human nature is too weak to acquire skill—i.e. knowledge of something—without experience. Those who are past child–bearing age are entrusted with this task because they have the benefit of experience.
 
 > Q: What is the implication?
 
@@ -148,7 +158,7 @@ Experience isn't necessary to practice an art, but knowledge is. Since human nat
 
 ---
 
-Socrates continues that midwives also have certain abilities that come from their knowledge, like how to bring about the (labor) pains, how and when to use certain drugs, the singing of incantations, as well as matchmaking. He notes that this is not the same thing as the illegal act of procuring[^illegal-procuring] 150c.
+Socrates continues that midwives also have certain abilities that come from their knowledge, like how to bring about the (labor) pains, how and when to use certain drugs, the singing of incantations, as well as matchmaking. He notes that this is not the same thing as the illegal act of procuring[^illegal-procuring] **(150c)**.
 
 [^illegal-procuring]: Prostitution was a legal profession in Athens, but many other sexual acts, such as adultery, were strictly forbidden. In this case, procuring implies arranging a marriage—i.e. domestic union involving sex—for money or under duress. One of the clear differentiators is procuring involves marriage and citizens. In this sense, marriage was a more sacred act than sex and using money as leverage to produce a union was a defilement of that institution.
 
@@ -162,8 +172,8 @@ If the dialectician is the midwife—and therefore the matchmaker—it seems tha
 
 **The nature of Socrates' own form of midwifery**
 
-But Socrates contends that his own work is even more important than midwifery (150a), because he watches over the labor of the soul (150b). Aside from this he gives the following differences between the two arts:
+But Socrates contends that his own work is even more important than midwifery **(150a)**, because he watches over the labor of the soul **(150b)**. Aside from this he gives the following differences between the two arts:
 
-* in his work the patient can give birth to either a reality or a delusion (150b), which is
+* in his work the patient can give birth to either a reality or a delusion **(150b)**, which is
 
 ---
