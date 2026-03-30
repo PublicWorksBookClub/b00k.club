@@ -73,7 +73,7 @@ The names of the heroes, in order, along with: their parentage, any other relati
   </li>
   <li>
     <a class="inline-block border px-2 h-9 m-0 no-underline font-normal" target="_blank"
-    href="https://azgaar.github.io/Fantasy-Map-Generator/?maplink={{ get_url(path='/maps/mediterranean_basin_50k.map') }}">
+    href="https://azgaar.github.io/Fantasy-Map-Generator/?maplink={{ get_url(path='/maps/argonautica.map') }}">
       Open Externally
     </a>
   </li>
@@ -85,7 +85,7 @@ The names of the heroes, in order, along with: their parentage, any other relati
 
   btn.addEventListener('click', () => {
     // Replace with your hosted map file URL
-    const mapURL = encodeURIComponent('{{ get_url(path="/maps/mediterranean%20basin.map") }}');
+    const mapURL = encodeURIComponent('{{ get_url(path="/maps/argonautica.map") }}');
 
     // Azgaar URL with map parameter
     iframe.src = `https://azgaar.github.io/Fantasy-Map-Generator/?maplink=${mapURL}`;
