@@ -4,6 +4,7 @@
 
 ## 1.5.8 (2026-03-30)
 
+- Update Theaetetus notes
 - Update argonautica map
 
 ## 1.5.7 (2026-03-29)
