@@ -2,6 +2,8 @@
 
 ## NEXT
 
+- Finish Book I of Argonautica map
+
 ## 1.5.8 (2026-03-30)
 
 - Update Theaetetus notes
