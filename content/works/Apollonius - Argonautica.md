@@ -65,6 +65,8 @@ The names of the heroes, in order, along with: their parentage, any other relati
 
 ## Map
 
+Choose an option below to view and edit an interactive map of the Argo's voyage. Edits can be added to the website by saving the file and then [emailing it](mailto:info@b00k.club) or submitting a [pull-request](https://github.com/PublicWorksBookClub/b00k.club).
+
 <iframe class="w-full aspect-square hidden" id="mapFrame"></iframe>
 
 <menu class="flex list-none m-0 p-0 gap-1">

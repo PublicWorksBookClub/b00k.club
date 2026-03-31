@@ -2,6 +2,7 @@
 
 ## NEXT
 
+- Add instructions on how to submit edits to the Argonautica map
 - Add Greek cultures to Argonautica map
 - Edit Argonautica map to have large labels on two lines and distinguish places and peoples with different fonts and colors
 - Finish Book I of Argonautica map
