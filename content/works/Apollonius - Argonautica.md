@@ -66,6 +66,7 @@ The names of the heroes, in order, along with: their parentage, any other relati
 ## Map
 
 Choose an option below to view and edit an interactive map of the Argo's voyage. Edits can be added to the website by saving the file and then [emailing it](mailto:info@b00k.club) or submitting a [pull-request](https://github.com/PublicWorksBookClub/b00k.club).
+<!-- Note: greek tribes divided according to this map https://en.wikipedia.org/wiki/List_of_ancient_Greek_tribes#/media/File:Ἀρχαῖα_Ἑλληνικὰ_φῦλα.png -->
 
 <iframe class="w-full aspect-square hidden" id="mapFrame"></iframe>
 
