@@ -80,6 +80,11 @@ description = "letter written for a didactic purpose"
 wikidata = "https://www.wikidata.org/wiki/Q215495"
 wikipedia = "https://en.wikipedia.org/wiki/Epistle"
 
+[etiology]
+description = "an explanation of the origination of some thing and its causes"
+wikidata = "https://www.wikidata.org/wiki/Q156318"
+wikipedia = "https://en.wikipedia.org/wiki/Etiology"
+
 [exposition]
 label = "exposition"
 description = "explanation of an idea or theory"

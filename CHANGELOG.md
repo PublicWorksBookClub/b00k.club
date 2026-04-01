@@ -2,6 +2,12 @@
 
 ## NEXT
 
+## 1.5.10 (2026-04-01)
+
+- Add etiology as a genre
+- Add citations to the Argonautica map
+- Add a "presentation mode" saved layer to the Argonautica map
+
 ## 1.5.9 (2026-03-31)
 
 - Add instructions on how to submit edits to the Argonautica map
