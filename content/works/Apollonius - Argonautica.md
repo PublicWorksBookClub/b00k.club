@@ -72,28 +72,9 @@ Choose an option below to view and edit an interactive map of the Argo's voyage.
 
 <menu class="flex list-none m-0 p-0 gap-1">
   <li>
-    <button class="inline-block cursor-pointer border px-2 h-9 m-0" id="loadMapBtn">Load Map</button>
-  </li>
-  <li>
     <a class="inline-block border px-2 h-9 m-0 no-underline font-normal" target="_blank"
-    href="https://azgaar.github.io/Fantasy-Map-Generator/?maplink={{ get_url(path='/maps/argonautica.map') }}&burg=24&scale=3">
-      Open Externally
+    href="{{ get_url(path='/maps/interactive/') }}/?maplink={{ get_url(path='/maps/argonautica.map') }}&burg=24&scale=3">
+      Interactive Map
     </a>
   </li>
 </menu>
-
-<script>
-  const btn = document.getElementById('loadMapBtn');
-  const iframe = document.getElementById('mapFrame');
-
-  btn.addEventListener('click', () => {
-    // Replace with your hosted map file URL
-    const mapURL = encodeURIComponent('{{ get_url(path="/maps/argonautica.map") }}');
-
-    // Azgaar URL with map parameter
-    iframe.src = `https://azgaar.github.io/Fantasy-Map-Generator/?maplink=${mapURL}&burg=24&scale=2`;
-
-    iframe.style.display = 'block';
-    btn.style.display = 'none';
-  });
-</script>

@@ -2,6 +2,8 @@
 
 ## NEXT
 
+- Host the azgaar map to avoid iframe and cross origin issues
+
 ## 1.5.10 (2026-04-01)
 
 - Add etiology as a genre
