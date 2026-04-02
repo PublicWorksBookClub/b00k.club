@@ -2,7 +2,10 @@
 
 ## NEXT
 
+## 1.5.11 (2026-04-02)
+
 - Host the azgaar map to avoid iframe and cross origin issues
+- Update argonautica map with more birthplaces
 
 ## 1.5.10 (2026-04-01)
 
