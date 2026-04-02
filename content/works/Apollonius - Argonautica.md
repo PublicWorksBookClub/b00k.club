@@ -65,35 +65,14 @@ The names of the heroes, in order, along with: their parentage, any other relati
 
 ## Map
 
-Choose an option below to view and edit an interactive map of the Argo's voyage. Edits can be added to the website by saving the file and then [emailing it](mailto:info@b00k.club) or submitting a [pull-request](https://github.com/PublicWorksBookClub/b00k.club).
+The link below loads an interactive version of the Argo's voyage. Edits can temporarily be made in the browser. Changes can become permanent by first saving the map file and then either [emailing it](mailto:info@b00k.club) or submitting a [pull-request](https://github.com/PublicWorksBookClub/b00k.club).
 <!-- Note: greek tribes divided according to this map https://en.wikipedia.org/wiki/List_of_ancient_Greek_tribes#/media/File:Ἀρχαῖα_Ἑλληνικὰ_φῦλα.png -->
-
-<iframe class="w-full aspect-square hidden" id="mapFrame"></iframe>
 
 <menu class="flex list-none m-0 p-0 gap-1">
   <li>
-    <button class="inline-block cursor-pointer border px-2 h-9 m-0" id="loadMapBtn">Load Map</button>
-  </li>
-  <li>
     <a class="inline-block border px-2 h-9 m-0 no-underline font-normal" target="_blank"
-    href="https://azgaar.github.io/Fantasy-Map-Generator/?maplink={{ get_url(path='/maps/argonautica.map') }}&burg=24&scale=3">
-      Open Externally
+    href="{{ get_url(path='/maps/interactive/') }}/?maplink={{ get_url(path='/maps/argonautica.map') }}&burg=24&scale=3">
+      Interactive Map
     </a>
   </li>
 </menu>
-
-<script>
-  const btn = document.getElementById('loadMapBtn');
-  const iframe = document.getElementById('mapFrame');
-
-  btn.addEventListener('click', () => {
-    // Replace with your hosted map file URL
-    const mapURL = encodeURIComponent('{{ get_url(path="/maps/argonautica.map") }}');
-
-    // Azgaar URL with map parameter
-    iframe.src = `https://azgaar.github.io/Fantasy-Map-Generator/?maplink=${mapURL}&burg=24&scale=2`;
-
-    iframe.style.display = 'block';
-    btn.style.display = 'none';
-  });
-</script>
