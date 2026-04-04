@@ -26,6 +26,7 @@ periods = ["Hellenistic Period", "TODO"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies
+tags = ["when to leave a party", "celestial navigation", "spell casting", "how to yoke and harness bulls", "how to plow a field"]
 years = ["2026"]
 arcs = ["Metamorphoses 2"]
 contributors = ["Spencer Scorcelletti"]
