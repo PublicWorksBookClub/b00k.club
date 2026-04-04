@@ -65,7 +65,7 @@ function editNotes(id, name) {
 
   async function initEditor() {
     if (!window.tinymce) {
-      const url = "https://azgaar.github.io/Fantasy-Map-Generator/libs/tinymce/tinymce.min.js";
+      const url = "./libs/tinymce/tinymce.min.js";
       try {
         await import(url);
       } catch (error) {
@@ -80,7 +80,7 @@ function editNotes(id, name) {
     }
 
     if (window.tinymce) {
-      window.tinymce._setBaseUrl("https://azgaar.github.io/Fantasy-Map-Generator/libs/tinymce");
+      window.tinymce._setBaseUrl("./libs/tinymce");
       tinymce.init({
         license_key: "gpl",
         selector: "#notesLegend",
