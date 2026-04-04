@@ -15,7 +15,7 @@ https://:project.pages.dev/*
   Feature-Policy: default 'none'
   X-XSS-Protection: 1; mode=block
 
-# More liberal CSP below is sandboxed to only /maps/interactive/
+# More liberal CSP below is sandboxed at /maps/*
 /maps/*
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   ! Content-Security-Policy
