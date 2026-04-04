@@ -7,7 +7,7 @@ https://:project.pages.dev/*
 # Using Cloudflare with CSP: https://developers.cloudflare.com/fundamentals/get-started/reference/content-security-policies/
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'none'; script-src 'self' static.cloudflareinsights.com https://storage.googleapis.com 'unsafe-inline'; style-src 'self' 'unsafe-inline'; style-src-attr 'self' 'unsafe-inline'; img-src 'self' *.public-works.pages.dev; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://cloudflareinsights.com; prefetch-src 'self'; child-src https://azgaar.github.io; frame-src https://azgaar.github.io; worker-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; manifest-src 'self'
+  Content-Security-Policy: default-src 'none'; script-src 'self' static.cloudflareinsights.com https://storage.googleapis.com 'unsafe-inline'; style-src 'self' 'unsafe-inline'; style-src-attr 'self' 'unsafe-inline'; img-src 'self' *.public-works.pages.dev; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://cloudflareinsights.com https://fonts.gstatic.com; prefetch-src 'self'; child-src https://azgaar.github.io; frame-src https://azgaar.github.io; worker-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; manifest-src 'self'
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer-when-downgrade
