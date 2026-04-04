@@ -7,7 +7,7 @@ https://:project.pages.dev/*
 # Using Cloudflare with CSP: https://developers.cloudflare.com/fundamentals/get-started/reference/content-security-policies/
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'none'; script-src 'self' static.cloudflareinsights.com https://storage.googleapis.com 'unsafe-inline' https://cdn.openwidget.com https://api.openwidget.com/; style-src 'self' 'unsafe-inline'; style-src-attr 'self' 'unsafe-inline'; img-src 'self' *.public-works.pages.dev; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://cloudflareinsights.com https://fonts.gstatic.com https://cdn.openwidget.com; prefetch-src 'self'; child-src https://azgaar.github.io; frame-src https://azgaar.github.io https://cdn.openwidget.com; worker-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; manifest-src 'self'
+  Content-Security-Policy: default-src 'none'; script-src 'self' static.cloudflareinsights.com; style-src 'self'; style-src-attr 'self'; img-src 'self'; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; prefetch-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; manifest-src 'self'
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer-when-downgrade
@@ -15,5 +15,13 @@ https://:project.pages.dev/*
   Feature-Policy: default 'none'
   X-XSS-Protection: 1; mode=block
 
-/maps/*
-  Access-Control-Allow-Origin: https://azgaar.github.io
+# More liberal CSP below is sandboxed to only /maps/interactive/
+/maps/interactive/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: default-src 'none'; script-src 'self' static.cloudflareinsights.com https://storage.googleapis.com 'unsafe-inline' https://cdn.openwidget.com https://api.openwidget.com/; style-src 'self' 'unsafe-inline'; style-src-attr 'self' 'unsafe-inline'; img-src 'self' *.public-works.pages.dev; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://cloudflareinsights.com https://fonts.gstatic.com https://cdn.openwidget.com; prefetch-src 'self'; child-src https://azgaar.github.io; frame-src https://azgaar.github.io https://cdn.openwidget.com; worker-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; manifest-src 'self'
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer-when-downgrade
+  Permissions-Policy: accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), gamepad=(), speaker-selection=(), conversion-measurement=(), focus-without-user-activation=(), hid=(), idle-detection=(), serial=(), sync-script=(), trust-token-redemption=(), vertical-scroll=()
+  Feature-Policy: default 'none'
+  X-XSS-Protection: 1; mode=block
