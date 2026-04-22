@@ -2,6 +2,8 @@
 
 ## NEXT
 
+## 1.5.12 (2026-04-22)
+
 - Add Epicurus' Principle Doctrines to readings
 - Add Epicurus' Letter to Menoeceus to readings
 - Add Euclid's Elements to readings
