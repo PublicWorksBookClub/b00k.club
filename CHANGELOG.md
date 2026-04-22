@@ -2,7 +2,7 @@
 
 ## NEXT
 
-- Update Argonautica's conspectus tags
+- Update Argonautica's abstract and conspectus tags
 - Sandbox hosted interactive map's more liberal CSP's
 
 ## 1.5.11 (2026-04-02)
