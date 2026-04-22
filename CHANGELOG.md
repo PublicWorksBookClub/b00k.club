@@ -2,6 +2,7 @@
 
 ## NEXT
 
+- Add Euclid's Elements to readings
 - Update Argonautica's abstract and conspectus tags
 - Sandbox hosted interactive map's more liberal CSP's
 
