@@ -2,6 +2,7 @@
 
 ## NEXT
 
+- Add Epicurus' Principle Doctrines to readings
 - Add Epicurus' Letter to Menoeceus to readings
 - Add Euclid's Elements to readings
 - Update Argonautica's abstract and conspectus tags

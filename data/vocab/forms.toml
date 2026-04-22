@@ -50,6 +50,11 @@ synonym = ["epistle"]
 wikidata = "https://www.wikidata.org/wiki/Q133492"
 wikipedia = "https://en.wikipedia.org/wiki/Letter_(message)"
 
+[list]
+description = "a set of discrete pieces of information"
+wikidata = "https://www.wikidata.org/wiki/Q12139612"
+wikipedia = "https://en.wikipedia.org/wiki/List"
+
 [narrative]
 description = "an account of related events"
 wikidata = "https://www.wikidata.org/wiki/Q1318295"

@@ -65,6 +65,12 @@ label = "dialogue"
 wikidata = "https://www.wikidata.org/wiki/Q3025978"
 wikipedia = "https://en.wikipedia.org/wiki/Dialogue"
 
+[doctrine]
+description = "a codification of beliefs, or body of essential teachings"
+synonyms = ["catechism"]
+wikidata = "https://www.wikidata.org/wiki/Q117850"
+wikipedia = "https://en.wikipedia.org/wiki/Doctrine"
+
 [epic]
 description = "the representation of an action divided into many episodes and performed by a single story teller"
 wikidata = "https://www.wikidata.org/wiki/Q2367164"
