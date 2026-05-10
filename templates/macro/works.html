@@ -8,8 +8,10 @@
   {% endfor %}
 {% endmacro %}
 
-{% macro tablular_listing_of_works(works, limit=false) %}
+{% macro tablular_listing_of_works(works, limit=false, reverse=false) %}
+  {% if limit and reverse %}{{ throw(message="TODO: limit and reverse don't work together yet.") }}{% endif %}
   {% set works = works | sort(attribute="extra.order") %}
+  {% if reverse %}{% set works = works | reverse %}{% endif %}
   {% if limit %}
   {% set currently_reading = works | filter(attribute="extra.currently_reading", value=true) %}
   {% set works = works | slice(end=limit) | concat(with=currently_reading) %}
