@@ -22,6 +22,13 @@ wikipedia = "https://en.wikipedia.org/wiki/Antiphon_(orator)"
 wikidata = "https://www.wikidata.org/wiki/Q335560"
 notes = ["It's disputed whether Antiphon the orator is the same figure as Antiphon the sophist."]
 
+["Apollonius of Rhodes"]
+label = "Apollonius of Rhodes"
+sort = "Apollonius of Rhodes"
+synonyms = ["Apollonius"]
+wikipedia = "https://en.wikipedia.org/wiki/Apollonius_of_Rhodes"
+wikidata = "https://www.wikidata.org/wiki/Q192638"
+
 [Arrian]
 label = "Arrian"
 sort = "Arrian"
@@ -51,6 +58,18 @@ label = "Demosthenes"
 sort = "Demosthenes"
 wikipedia = "https://en.wikipedia.org/wiki/Demosthenes"
 wikidata = "https://www.wikidata.org/wiki/Q117253"
+
+[Epicurus]
+label = "Epicurus"
+sort = "Epicurus"
+wikipedia = "https://en.wikipedia.org/wiki/Epicurus"
+wikidata = "https://www.wikidata.org/wiki/Q43216"
+
+[Euclid]
+label = "Euclid"
+sort = "Euclid"
+wikipedia = "https://en.wikipedia.org/wiki/Euclid"
+wikidata = "https://www.wikidata.org/wiki/Q8747"
 
 [Euripides]
 label = "Euripides"

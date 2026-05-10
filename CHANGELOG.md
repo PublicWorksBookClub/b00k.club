@@ -2,6 +2,7 @@
 
 ## NEXT
 
+- Add Epicurus, Euclid, Apollonius to authors file
 - Remove underline from "Period" column in works macro
 
 ## 1.5.12 (2026-04-22)
