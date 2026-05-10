@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Crito"
 abstract = """
 Socrates listens and responds to his longtime friend's appeal to accept help escaping punishment after being sentenced to death in his trial from [_Apology_](/works/plato-apology/).
 """
+started = 2025-08-24
+stopped = 2025-10-05
 
 [taxonomies]
 # Textual taxonomies

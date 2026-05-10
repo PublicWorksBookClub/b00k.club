@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Seventh_Letter"
 abstract = """
 Plato urges his followers to resist the temptation to participate in partisan strife by recounting his time as adviser to Dionysius I of Syracuse.
 """
+started = 2024-05-04
+stopped = 2024-05-11
 
 [taxonomies]
 # Textual taxonomies

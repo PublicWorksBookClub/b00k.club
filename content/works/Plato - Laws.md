@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Laws_(dialogue)"
 abstract = """
 An old Athenian, Cretan, and Spartan take a long walk together discussing Law and how it may be used for the creation of a just state.
 """
+started = 2024-07-27
+stopped = 2025-07-27
 
 [taxonomies]
 # Textual taxonomies
