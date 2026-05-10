@@ -2,7 +2,10 @@
 
 ## NEXT
 
-- Add Epicurus, Euclid, Apollonius to authors file
+- Add "Quoted Works" to conspectus (for works that make extensive literal quotation of other works, e.g. Lives and Opinions of Eminent Philosophers)
+- Change works macro for listing taxonomy terms to accept a list of terms rather than a page
+- Remove letters of Epicurus as independent works and add "Life of Epicurus" by Diogenes Laërtius
+- Add Epicurus, Euclid, Apollonius, Diogenes Laërtius to authors file
 - Remove underline from "Period" column in works macro
 
 ## 1.5.12 (2026-04-22)

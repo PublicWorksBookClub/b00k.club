@@ -25,7 +25,11 @@
     <header class="not-prose">
       {% block header %}
       <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700 text-left">
-        <a class="hover:underline" href="{{ current_url }}">{{ term.name }}</a>
+        <a class="hover:underline" href="{{ current_url }}">
+          {% if vocab.label %}{{ vocab.label}}
+          {% else %}{{ term.name }}
+          {% endif %}
+        </a>
       </h1>
       {% endblock header %}
     </header>

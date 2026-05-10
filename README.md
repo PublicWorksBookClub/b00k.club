@@ -59,6 +59,8 @@ See [Demosthenes - On the Crown](./content/works/Demosthenes%20-%20On%20the%20Cr
 
 The front matter for each of the works use common english terms such as "Ancient Greek" for language or "funeral oration" for literary form. These terms are then defined as a vocabulary under [data/vocab](./data/vocab/) where additional data and links can live. This allows common terms to be used and promotes reuse across the site.
 
+**Note: controlled vocabulary that have non-ascii characters should use an ascii-ized name and a `label` field in their vocabulary. E.g. "Diogenes Laërtius" should be referred to as "Diogenes Laertius" for coding tasks, and access the `label = "Diogenes Laërtius"` for displaying the name correctly.**
+
 #### Linked Data Sources
 
 JSON-LD is designed for creating links between pieces of data representing relationships. Here are some sources that can be reused.

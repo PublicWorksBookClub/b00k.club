@@ -59,6 +59,13 @@ sort = "Demosthenes"
 wikipedia = "https://en.wikipedia.org/wiki/Demosthenes"
 wikidata = "https://www.wikidata.org/wiki/Q117253"
 
+["Diogenes Laertius"]
+label = "Diogenes Laërtius"
+sort = "Diogenes Laertius"
+synonyms = ["Diogenes Laertius"]
+wikipedia = "https://en.wikipedia.org/wiki/Diogenes_Laertius"
+wikidata = "https://www.wikidata.org/wiki/Q59138"
+
 [Epicurus]
 label = "Epicurus"
 sort = "Epicurus"
