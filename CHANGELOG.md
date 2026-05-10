@@ -2,6 +2,8 @@
 
 ## NEXT
 
+- Remove underline from "Period" column in works macro
+
 ## 1.5.12 (2026-04-22)
 
 - Add Epicurus' Principle Doctrines to readings
