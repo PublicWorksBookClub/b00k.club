@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Odyssey"
 abstract = """
 Odysseus tries to return to his home in Ithaca, but is resisted by a god. Meanwhile his home is under threat as suitors drain his resources, court his wife, and plot the death of his son Telemachus.
 """
+started = 2024-08-19
+stopped = 2025-03-02
 
 [taxonomies]
 # Textual taxonomies

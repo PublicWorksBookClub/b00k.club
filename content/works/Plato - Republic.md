@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Republic_(Plato)"
 abstract = """
 Socrates spends the evening chatting with friends about justice and its meaning, and whether it is important to actually be just or only perceived as so. In defense of justice Socrates leads a thought experiment of a republic that is just by definition so that they may succeed in answering the question for the individual.
 """
+started = 2023-11-28
+stopped = 2024-08-18
 
 [taxonomies]
 # Textual taxonomies

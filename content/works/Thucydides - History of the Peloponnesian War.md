@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/History_of_the_Peloponnesian_War"
 abstract = """
 In the decades following the end of the Persian War, rising tensions between an ascendant Athens and her oligarichal neighbors lead to an all out war, the likes of which had never been seen before, between the Peloponnesian League, led by Sparta, against the Delian League, led by Athens.
 """
+started = 2023-05-19
+stopped = 2023-11-01
 
 [taxonomies]
 # Textual taxonomies

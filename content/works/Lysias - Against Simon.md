@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Against_Simon"
 abstract = """
 An unnamed Athenian defends himself from assault charges brought by Simon over a young lover.
 """
+started = 2025-03-23
+stopped = 2025-03-23
 
 [taxonomies]
 # Textual taxonomies

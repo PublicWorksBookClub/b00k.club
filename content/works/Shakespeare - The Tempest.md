@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/The_Tempest"
 abstract = """
 Prospero, the exiled duke of Milan, uses magic to shipwreck his enemies on a remote island.
 """
+started = 2022-05-15
+stopped = 2022-07-23
 
 [taxonomies]
 # Textual taxonomies

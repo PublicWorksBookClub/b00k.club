@@ -13,6 +13,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Zhuangzi_(book)"
 abstract = """
 A collection of stories and maxims that exemplify the Tao or the "Way".
 """
+started = 2023-05-04
+stopped = 2023-05-14
 
 [taxonomies]
 # Textual taxonomies

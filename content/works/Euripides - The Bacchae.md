@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/The_Bacchae"
 abstract = """
 King Pentheus rejects the cult of a mysterious new god, Dionysus.
 """
+started = 2025-05-18
+stopped = 2025-05-25
 
 [taxonomies]
 # Textual taxonomies

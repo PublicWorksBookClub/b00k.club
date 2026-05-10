@@ -13,6 +13,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Categories_(Aristotle)"
 abstract = """
 A treatise on the enumeration of all the things that can form the subject or the predicate of a proposition.
 """
+started = 2025-04-01
+stopped = 2025-04-06
 
 [taxonomies]
 # Textual taxonomies

@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Dyskolos"
 abstract = """
 A misanthropic man is subjected to a series of intrigues as his daughter is pursued by a wealthy nobleman.
 """
+started = 2025-08-03
+stopped = 2025-08-10
 
 [taxonomies]
 # Textual taxonomies

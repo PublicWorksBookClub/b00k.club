@@ -13,6 +13,8 @@ wikipedia = "https://www.wikidata.org/wiki/Q3231273"
 abstract = """
 A series of brief, observational sketches that catalog moral and social types, exposing everyday vices through concise, recognizable behavior rather than argument.
 """
+started = 2025-05-07
+stopped = 2025-08-17
 
 [taxonomies]
 # Textual taxonomies

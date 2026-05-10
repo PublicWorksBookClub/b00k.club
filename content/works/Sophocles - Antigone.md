@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Antigone_(Sophocles_play)"
 abstract = """
 Antigone disobeys a decree by her uncle Creon, the tyrant of Thebes, to bury her brother Polynices.
 """
+started = 2022-07-29
+stopped = 2022-11-11
 
 [taxonomies]
 # Textual taxonomies

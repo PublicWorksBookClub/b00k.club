@@ -12,6 +12,8 @@ wikidata = "https://www.wikidata.org/wiki/Q5453516"
 abstract = """
 Demosthenes urges the Athenians to abandon complacency and take decisive, proactive action against Philip of Macedon, redefining political oratory as a call to collective responsibility rather than reactive debate.
 """
+started = 2025-08-12
+stopped = 2025-08-17
 
 [taxonomies]
 # Textual taxonomies

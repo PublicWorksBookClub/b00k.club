@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Anabasis_of_Alexander"
 abstract = """
 Historical account of the wars of Alexander the Great.
 """
+started = 2025-10-12
+stopped = 2026-02-15
 
 [taxonomies]
 # Textual taxonomies

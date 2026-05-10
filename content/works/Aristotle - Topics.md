@@ -13,6 +13,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Topics_(Aristotle)"
 abstract = """
 A treatise on the dialectic in which arguments are formed from propositions coming from common belief.
 """
+started = 2025-07-08
+stopped = 2025-07-27
 
 [taxonomies]
 # Textual taxonomies

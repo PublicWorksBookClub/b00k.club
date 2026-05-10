@@ -12,6 +12,8 @@ wikidata = "https://www.wikidata.org/wiki/Q11850689"
 abstract = """
 A biography on Alexander III of Macedonia emphasizing his character and motivations while still covering the basics of his military campaign.
 """
+started = 2025-09-15
+stopped = 2025-10-12
 
 [taxonomies]
 # Textual taxonomies
