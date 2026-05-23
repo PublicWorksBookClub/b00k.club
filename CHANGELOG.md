@@ -2,6 +2,8 @@
 
 ## NEXT
 
+## 1.5.13 (2026-05-23)
+
 - Add start and end dates for all Major/Minor Works™️ readings
 - Add a "reverse" parameter to works listing macro
 - Add "Quoted Works" to conspectus (for works that make extensive literal quotation of other works, e.g. Lives and Opinions of Eminent Philosophers)
