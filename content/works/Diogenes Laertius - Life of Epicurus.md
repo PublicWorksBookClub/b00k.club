@@ -10,10 +10,11 @@ sort = "Life of Epicurus"
 wikidata = "https://www.wikidata.org/wiki/Q1282359"
 wikipedia = "https://en.wikipedia.org/wiki/Lives_and_Opinions_of_Eminent_Philosophers"
 abstract = """
-TODO
+A summary of the life of Epicurus, along with extensive quotes from letters and doctrine that summarize his philosophy.
 """
 started = 2026-04-26
-currently_reading = true
+stopped = 2026-05-17
+currently_reading = false
 
 [[extra.quoted_works]]
 description = "will of Epicurus"
