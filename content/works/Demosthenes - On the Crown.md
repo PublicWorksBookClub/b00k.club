@@ -12,6 +12,8 @@ wikidata = "https://www.wikidata.org/wiki/Q969706"
 abstract = """
 Demosthenes defends his political career and the legacy of his ally, Ctesiphon, against charges brought by his rival Aeschines.
 """
+started = 2025-08-17
+stopped = 2025-08-24
 
 [taxonomies]
 # Textual taxonomies

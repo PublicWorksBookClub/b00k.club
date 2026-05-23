@@ -13,6 +13,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Prior_Analytics"
 abstract = """
 A treatise on inference by the correct use of deduction.
 """
+started = 2025-04-13
+stopped = 2025-04-27
 
 [taxonomies]
 # Textual taxonomies

@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/The_Frogs"
 abstract = """
 After the passing of Euripedes, Dionysus laments the sad state of Athenian theater, and thus goes to Hades with the aim of reviving tragedy.
 """
+started = 2025-05-25
+stopped = 2025-06-01
 
 [taxonomies]
 # Textual taxonomies

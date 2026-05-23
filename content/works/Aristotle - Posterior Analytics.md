@@ -13,6 +13,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Posterior_Analytics"
 abstract = """
 A treatise on acquiring knowledge from first principles via the formulations of definitions and demonstrations.
 """
+started = 2025-06-01
+stopped = 2025-07-06
 
 [taxonomies]
 # Textual taxonomies

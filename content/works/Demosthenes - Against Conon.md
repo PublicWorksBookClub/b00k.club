@@ -12,6 +12,8 @@ wikidata = "https://www.wikidata.org/wiki/Q87738427"
 abstract = """
 An Athenian named Ariston prosecutes Conon and his sons for assault.
 """
+started = 2025-03-23
+stopped = 2025-03-23
 
 [taxonomies]
 # Textual taxonomies

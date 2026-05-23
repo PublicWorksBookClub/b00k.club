@@ -13,6 +13,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Hellenica"
 abstract = """
 History of the Greek people covering the end of Peloponnesian War through the Battle of Mantineia.
 """
+started = 2023-11-01
+stopped = 2023-11-27
 
 [taxonomies]
 # Textual taxonomies

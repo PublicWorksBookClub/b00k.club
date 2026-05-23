@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Philoctetes_(Sophocles_play)"
 abstract = """
 Neoptolemus tries to convince a wounded Philoctetes and his Herculean bow to return to the Trojan War front.
 """
+started = 2025-03-26
+stopped = 2025-03-30
 
 [taxonomies]
 # Textual taxonomies

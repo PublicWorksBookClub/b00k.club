@@ -13,6 +13,8 @@ wikipedia = "https://en.wikipedia.org/wiki/The_Federalist_Papers"
 abstract = """
 A series of 85 essays arguing in favor of ratifying the US Constitution.
 """
+started = 2023-04-09
+stopped = 2023-04-23
 
 [taxonomies]
 # Textual taxonomies

@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Meditations"
 abstract = """
 A collections of personal reflections from the Roman emperor Marcus Aurelius on subjects such as duty, man's social nature, and living a virtuous life.
 """
+started = 2022-04-02
+stopped = 2022-05-03
 
 [taxonomies]
 # Textual taxonomies

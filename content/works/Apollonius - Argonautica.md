@@ -12,9 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Argonautica"
 abstract = """
 Jason, a prince of Thessaly, quests to return the legendary golden fleece from the ends of the earth, alongside a crew of heroes and god descendants in their ship, the Argo.
 """
-started = 2026-02-22
+started = 2026-02-15
 stopped = 2026-04-19
-currently_reading = false
 
 [taxonomies]
 # Textual taxonomies

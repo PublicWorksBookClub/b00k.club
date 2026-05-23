@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Phaedo"
 abstract = """
 Socrates discusses with his friends death and what a philosopher lives for in the final moments before his execution.
 """
+started = 2025-10-05
+stopped = 2025-11-16
 
 [taxonomies]
 # Textual taxonomies

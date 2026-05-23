@@ -20,7 +20,7 @@ prose-headings:font-fira-sans">
   <section class="mt-8">
     <p class="font-fira-sans -mb-6 text-right text-xs italic pr-2">(scroll →)</p>
     {% set works_section = get_section(path="works/_index.md") %}
-    {{ works::tablular_listing_of_works(works=works_section.pages) }}
+    {{ works::tablular_listing_of_works(works=works_section.pages, reverse=true) }}
   </section>
 </article>
 {% endblock main %}

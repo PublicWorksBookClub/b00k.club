@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Antiphon_(orator)#List_of_extant_spee
 abstract = """
 Prosecution and defense take turns in the hypothetical case of wrongful death from a javelin throwing accident.
 """
+started = 2025-03-16
+stopped = 2025-03-16
 
 [taxonomies]
 # Textual taxonomies

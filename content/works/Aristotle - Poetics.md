@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Poetics_(Aristotle)"
 abstract = """
 An analysis by Aristotle of the different aspects of representative literature in regards to tragedy, epic, and comedy.
 """
+started = 2025-11-16
+stopped = 2026-01-04
 
 [taxonomies]
 # Textual taxonomies

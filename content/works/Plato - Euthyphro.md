@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Euthyphro"
 abstract = """
 Euthyphro encounters Socrates at the court, when the latter is answering a summons. Euthyphro is there to bring charges against his father for the wrongful killing of a slave, and thus their dialogue turns towards the question of the pious.
 """
+started = 2025-08-03
+stopped = 2025-08-10
 
 [taxonomies]
 # Textual taxonomies

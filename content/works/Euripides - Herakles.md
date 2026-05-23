@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Herakles_(Euripides)"
 abstract = """
 Herakles returns from his twelve labors to find his household under threat by the usurper of the Theban throne, Lycus.
 """
+started = 2024-03-10
+stopped = 2024-03-17
 
 [taxonomies]
 # Textual taxonomies

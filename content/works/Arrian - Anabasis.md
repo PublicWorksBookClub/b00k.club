@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Anabasis_of_Alexander"
 abstract = """
 Historical account of the wars of Alexander the Great.
 """
+started = 2025-10-12
+stopped = 2026-02-15
 
 [taxonomies]
 # Textual taxonomies
@@ -20,7 +22,7 @@ authors = ["Arrian"]
 forms = ["narrative"]
 genres = ["historiography"]
 subjects = ["military history", "todo"]
-periods = ["Classical Greece", "Hellenistic Period", "4th c. BCE", "Roman Imperial Period", "Pax Romana", "2nd c. CE"]
+periods = ["Classical Greece", "Hellenistic Period", "4th c. BCE", "Roman imperial period", "Pax Romana", "2nd c. CE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

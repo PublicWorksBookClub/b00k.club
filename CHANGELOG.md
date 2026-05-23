@@ -2,6 +2,16 @@
 
 ## NEXT
 
+## 1.5.13 (2026-05-23)
+
+- Add start and end dates for all Major/Minor Works™️ readings
+- Add a "reverse" parameter to works listing macro
+- Add "Quoted Works" to conspectus (for works that make extensive literal quotation of other works, e.g. Lives and Opinions of Eminent Philosophers)
+- Change works macro for listing taxonomy terms to accept a list of terms rather than a page
+- Remove letters of Epicurus as independent works and add "Life of Epicurus" by Diogenes Laërtius
+- Add Epicurus, Euclid, Apollonius, Diogenes Laërtius to authors file
+- Remove underline from "Period" column in works macro
+
 ## 1.5.12 (2026-04-22)
 
 - Add Epicurus' Principle Doctrines to readings

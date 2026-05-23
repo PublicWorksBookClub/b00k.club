@@ -12,6 +12,8 @@ wikipedia = "https://en.wikipedia.org/wiki/Apology_(Plato)"
 abstract = """
 Socrates responds to the charges against him in court, culminating in a forceful defense that breaks the mold of typical Athenian forensic oratory.
 """
+started = 2025-08-10
+stopped = 2025-08-24
 
 [taxonomies]
 # Textual taxonomies
