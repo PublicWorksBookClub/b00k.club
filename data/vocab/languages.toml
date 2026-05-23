@@ -94,3 +94,14 @@ glottolog = "stan1293"
 lexvo = "http://www.lexvo.org/page/iso639-3/eng"
 wikidata = "https://www.wikidata.org/wiki/Q1860"
 wikipedia = "https://en.wikipedia.org/wiki/English_language"
+
+["Classical Latin"]
+label = "Classical Latin"
+bcp_47 = false
+# no bcp_47
+# no isio_639_3
+# no glottolog
+linguist_list = "lat-cla"
+# no lexvo
+wikidata = "https://www.wikidata.org/wiki/Q253854"
+wikipedia = "https://en.wikipedia.org/wiki/Classical_Latin"

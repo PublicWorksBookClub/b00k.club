@@ -22,7 +22,7 @@ authors = ["Arrian"]
 forms = ["narrative"]
 genres = ["historiography"]
 subjects = ["military history", "todo"]
-periods = ["Classical Greece", "Hellenistic Period", "4th c. BCE", "Roman Imperial Period", "Pax Romana", "2nd c. CE"]
+periods = ["Classical Greece", "Hellenistic Period", "4th c. BCE", "Roman imperial period", "Pax Romana", "2nd c. CE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies

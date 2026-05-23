@@ -65,6 +65,11 @@ label = "dialogue"
 wikidata = "https://www.wikidata.org/wiki/Q3025978"
 wikipedia = "https://en.wikipedia.org/wiki/Dialogue"
 
+["didactic poetry"]
+label = "didactic poetry"
+wikidata = "https://www.wikidata.org/wiki/Q777828"
+wikipedia = "https://it.wikipedia.org/wiki/Poesia_didascalica"
+
 [doctrine]
 description = "a codification of beliefs, or body of essential teachings"
 synonyms = ["catechism"]

@@ -47,7 +47,7 @@ titles = ["Life of Epicurus"]
 authors = ["Diogenes Laertius", "Epicurus"]
 forms = ["narrative", "letter", "list"]
 genres = ["biography", "epistle", "doctrine"]
-subjects = ["TODO"]
+subjects = ["physics", "astronomy", "ethics",  "Epicurus", "atoms"]
 periods = ["Hellenistic Period", "Roman imperial period"]
 languages = ["Ancient Greek"]
 

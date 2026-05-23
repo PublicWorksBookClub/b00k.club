@@ -114,6 +114,12 @@ sort = "Madison, James"
 wikipedia = "https://en.wikipedia.org/wiki/James_Madison"
 wikidata = "https://www.wikidata.org/wiki/Q11813"
 
+[Lucretius]
+label = "Lucretius"
+sort = "Lucretius"
+wikipedia = "https://en.wikipedia.org/wiki/Lucretius"
+wikidata = "https://www.wikidata.org/wiki/Q47154"
+
 ["Menander"]
 label = "Menander"
 sort = "Menander"
