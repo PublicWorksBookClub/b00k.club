@@ -22,7 +22,7 @@ authors = ["Lucretius"]
 forms = ["poetry"]
 genres = ["didactic poetry"]
 subjects = ["TODO"]
-periods = ["Roman imperial period"]
+periods = ["Roman Republic"]
 languages = ["Classical Latin"]
 
 # General taxonomies

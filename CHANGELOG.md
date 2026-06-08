@@ -2,6 +2,13 @@
 
 ## NEXT
 
+## 1.5.14 (2026-06-08)
+
+- Add Sophist
+- Fix tags taxonomy in conspectus template
+- Update word count for Theaetetus
+- Add Roman Republic as a period
+
 ## 1.5.13 (2026-05-23)
 
 - Add start and end dates for all Major/Minor Works™️ readings

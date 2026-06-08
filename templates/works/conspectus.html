@@ -139,7 +139,7 @@
         <tr>
           <td class="w-36"><a href="{{ get_taxonomy(kind='tags') | get(key='permalink') }}">keywords & tags</a></td>
           <td>
-            {% if page.taxonomy.tags %}
+            {% if page.taxonomies.tags %}
               {{ works::list_taxonomy_terms(terms=page.taxonomies["tags"], taxonomy="tags", add="italic") }}
             {% else %}
               <span class="italic">none</span>
