@@ -9,12 +9,13 @@ order = 39
 sort = "Theaetetus"
 wikidata = "https://www.wikidata.org/wiki/Q846241"
 wikipedia = "https://en.wikipedia.org/wiki/Theaetetus_(dialogue)"
-word_count = 23803
+word_count = 31384
 abstract = """
-TODO——Currently Reading
+A conversation between Socrates and a young Theaetetus is relayed upon hearing that the latter is near death. In this account Theaetetus is questioned by Socrates about what knowledge is.
 """
 started = 2026-03-01
-currently_reading = true
+stopped = 2026-06-07
+currently_reading = false
 
 [taxonomies]
 # Textual taxonomies
@@ -22,16 +23,19 @@ titles = ["Theaetetus"]
 authors = ["Plato"]
 forms = ["dialogue"]
 genres = ["Socratic dialogue"]
-subjects = []
+subjects = ["knowledge", "epistemology", "true judgement"]
 periods = ["Classical Greece", "5th c. BCE", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies
+tags = ["Theaetetus begins", "a new hope", "possessing vs having", "knowing that you know", "knowing that you don't know", "not knowing that you know", "not knowing that you don't know", "knowledge vs true judgement", "little wax facsimiles", "hunters and atriums"]
 years = ["2026"]
 arcs = ["Memorabilia 3"]
 contributors = ["Spencer Scorcelletti"]
-index = ["Euclides", "Terpsion", "Corinth", "Megara", "Athens", "Socrates", "Cyrene", "Theodorus", "Euphronius of Sunium", "Sunium", "Phaenarete", "Artemis", "Aristides", "Lysimachus", "Prodicus"]
+index = ["Euclides", "Terpsion", "Corinth", "Megara", "Athens", "Socrates", "Cyrene", "Theodorus", "Euphronius of Sunium", "Sunium", "Phaenarete", "Artemis", "Aristides", "Lysimachus", "Prodicus", "Theaetetus"]
 +++
+
+<!-- TODO
 
 ## Outline (142a–210d)
 
@@ -177,3 +181,5 @@ But Socrates contends that his own work is even more important than midwifery **
 * in his work the patient can give birth to either a reality or a delusion **(150b)**, which is
 
 ---
+
+-->
