@@ -25,6 +25,7 @@
   },
   "homepage": "https://b00k.club/",
   "devDependencies": {
+    "@r3ply/cli": "^0.0.1",
     "@tailwindcss/cli": "^4.2.2",
     "@tailwindcss/typography": "^0.5.9",
     "jsonld-cli": "^2.0.0",

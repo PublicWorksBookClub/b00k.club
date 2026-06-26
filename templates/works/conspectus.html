@@ -2,6 +2,7 @@
 {% import "macro/json-ld.html" as json_ld %}
 {% import "macro/works.html" as works %}
 {% import "macro/util.html" as util %}
+{% import "r3ply.html" as r3ply %}
 
 {% block title %}
   <title>{{ page.taxonomies.titles[0] }} | PWBC Readings</title>
@@ -188,3 +189,11 @@
   </section>
 </article>
 {% endblock main %}
+{% block comments %}
+<section id="comments" class="max-w-full prose prose-lg prose-pwbc border-t-4 border-dashed py-8 px-2">
+  {% set comments = get_taxonomy_term(kind="comment-subjects", term=page.path | split(pat="") | slice(start=2, end=-2) | join(sep=""), required=false) %}
+  {% if comments is object %}{% set comments = comments.pages %}{% else %}{% set comments = [] %}{% endif %}
+  <h2>Comments <a href="#comments">#</a><span class="font-medium"> ({{ comments | length }})</span></h2>
+  {{ r3ply::render_comments_sorted_by_activity(comments=comments) }}
+</section>
+{% endblock comments %}

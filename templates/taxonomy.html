@@ -33,7 +33,9 @@
       {% set toml = load_data(path="data/vocab/" ~ taxonomy.name ~ ".toml", format="toml", required=false) %}
       <tr>
         <td class="font-serif italic"><a href="/{{ taxonomy.slug }}">{{ taxonomy.name }}</a></td>
+        {% if toml is object %}
         <td>{{ toml.description }}</td>
+        {% endif %}
       </tr>
       {% endfor %}
     </tbody>

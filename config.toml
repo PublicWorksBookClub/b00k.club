@@ -11,6 +11,8 @@ compile_sass = true
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = true
 
+theme = "r3ply"
+
 ###############################
 ### Begin taxonomy of texts ###
 ###############################
@@ -100,6 +102,29 @@ feed = false
 
 ###############################
 #### End general taxonomy #####
+###############################
+###############################
+#### Begin r3ply taxonomy #####
+###############################
+
+[[taxonomies]]
+name = "commenters"
+feed = true
+
+[[taxonomies]]
+name = "comment-subjects"
+feed = true
+
+[[taxonomies]]
+name = "threads"
+feed = false
+
+[[taxonomies]]
+name = "replies"
+feed = true
+
+###############################
+##### End r3ply taxonomy ######
 ###############################
 
 [markdown]
