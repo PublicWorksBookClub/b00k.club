@@ -2,6 +2,10 @@
 
 ## NEXT
 
+## 1.6.0 (2026-06-29)
+
+- Integrate PWBC site with r3ply comments
+
 ## 1.5.14 (2026-06-08)
 
 - Add Sophist
