@@ -130,7 +130,7 @@
 {% macro write_thread(parent, comments) %}
 {# You most likely do not want to change the children #}
 {% set children = comments | filter(attribute="taxonomies.replies.1", value=parent.slug) | sort(attribute="extra.latest_activity") | reverse %}
-<details open class="w-xl">
+<details open class="max-w-prose">
   <summary class="border-b">
     <span class="inline-flex gap-2">
       <span>
