@@ -17,14 +17,6 @@ signet = "gchTwqHz8qmbMt1_SdDi3w"
 issued = 2025-11-19
 label = "production"
 
-# each (site x r3ply) pair has an entry
-[[site]]
-domain = "r3ply-config.public-works.pages.dev"
-r3ply = "r3ply.com"
-signet = "zCn3U1L5aLP77Pri5vFQzA"
-issued = 2026-06-29
-label = "config development"
-
 [comments]
 "paths*" = ["!/", "!{,/}comments{,/}", "/works/**"]
 
