@@ -13,7 +13,7 @@ word_count = 22108
 abstract = """
 TODO——Currently Reading
 """
-started = 2026-06-14
+started = 2026-06-28
 currently_reading = true
 
 [taxonomies]
