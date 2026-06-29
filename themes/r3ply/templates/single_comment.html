@@ -9,7 +9,7 @@
 {% endblock link %}
 {% block setup %}
 {% set context_path = "/" ~ page.taxonomies["comment-subjects"][0] ~ "/#" ~ page.slug %}
-{% set to = config.extra.r3ply.site_domain ~ "@" ~ config.extra.r3ply.r3ply_domain %}
+{% set to = config.extra.r3ply.to_email | default(value="CHANGE_ME") %}
 {% endblock setup %}
 
 {% block body %}

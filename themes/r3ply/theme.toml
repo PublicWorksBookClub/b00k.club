@@ -11,10 +11,8 @@ demo = "https://r3ply.com/demo/"
 
 # You can override these in your top-level zola config file
 [extra.r3ply]
-# This will be used in the local portion of mailto links, i.e. <YOUR_DOMAIN>@r3ply.com
-site_domain = "<YOUR_SITE_DOMAIN>"
-# This will be used in the domain portion of mailto, i.e. example.com@<R3PLY_DOMAIN>
-r3ply_domain = "r3ply.com"
+# This will be used when generating mailto links, i.e. "Your Name <example.com@r3ply.com>"
+to_email = "CHANGE ME <your-site.com@r3ply.com>"
 # This will be prepopulated in the mailto link's body, i.e. "WRITE COMMENT ABOVE ^^^"
 email_body = ""
 
