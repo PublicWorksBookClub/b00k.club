@@ -1,0 +1,11 @@
+{% extends "r3ply/templates/taxonomy_single.html" %}
+{% import "r3ply.html" as r3ply %}
+
+{# Comments that should be rendered are setup over here, allowing for the rendering itself to be overriden#}
+{% block setup %}
+{% endblock setup %}
+
+{# To change how comments are rendered, change this block #}
+{% block render %}
+  {{ r3ply::render_comments_sorted_by_activity(comments=term.pages) }}
+{% endblock render %}

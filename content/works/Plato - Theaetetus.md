@@ -23,16 +23,16 @@ titles = ["Theaetetus"]
 authors = ["Plato"]
 forms = ["dialogue"]
 genres = ["Socratic dialogue"]
-subjects = ["knowledge", "epistemology", "true judgement"]
+subjects = ["knowledge", "epistemology", "perception"]
 periods = ["Classical Greece", "5th c. BCE", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies
-tags = ["Theaetetus begins", "a new hope", "possessing vs having", "knowing that you know", "knowing that you don't know", "not knowing that you know", "not knowing that you don't know", "knowledge vs true judgement", "little wax facsimiles", "hunters and atriums"]
+tags = ["how to know nothing", "wind-egg", "true judgement", "Theaetetus begins", "a new hope", "possessing vs having", "knowing that you know", "knowing that you don't know", "not knowing that you know", "not knowing that you don't know", "knowledge vs true judgement", "little wax facsimiles", "hunters and atriums", "motion and being", "skepticism of perception", "dreams and insanity", "being and becoming", "what is a man", "true philosopher"]
 years = ["2026"]
 arcs = ["Memorabilia 3"]
 contributors = ["Spencer Scorcelletti"]
-index = ["Euclides", "Terpsion", "Corinth", "Megara", "Athens", "Socrates", "Cyrene", "Theodorus", "Euphronius of Sunium", "Sunium", "Phaenarete", "Artemis", "Aristides", "Lysimachus", "Prodicus", "Theaetetus"]
+index = ["Euclides", "Terpsion", "Corinth", "Megara", "Athens", "Socrates", "Cyrene", "Theodorus", "Euphronius of Sunium", "Sunium", "Phaenarete", "Artemis", "Aristides", "Lysimachus", "Prodicus", "Theaetetus", "Protagoras","Heraclitus"]
 +++
 
 <!-- TODO

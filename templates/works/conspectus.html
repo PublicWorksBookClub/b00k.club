@@ -2,6 +2,7 @@
 {% import "macro/json-ld.html" as json_ld %}
 {% import "macro/works.html" as works %}
 {% import "macro/util.html" as util %}
+{% import "r3ply.html" as r3ply %}
 
 {% block title %}
   <title>{{ page.taxonomies.titles[0] }} | PWBC Readings</title>
@@ -188,3 +189,19 @@
   </section>
 </article>
 {% endblock main %}
+{% block comments %}
+<section id="comments" class="max-w-full py-8 px-2 prose prose-lg prose-pwbc border-t-4 border-dashed">
+  {% set comments = get_taxonomy_term(kind="comment-subjects", term=page.path | split(pat="") | slice(start=2, end=-2) | join(sep=""), required=false) %}
+  {% if comments is object %}{% set comments = comments.pages %}{% else %}{% set comments = [] %}{% endif %}
+  <div class="max-w-prose mx-auto">
+    <h2>Comments <a class="no-underline hover:underline" href="#comments">#</a><span class="font-medium"> ({{ comments | length }})</span></h2>
+    <a
+      href="{{ r3ply::mailto(to=config.extra.r3ply.to_email | default(value=`CHANGE_ME`), body='', subject=current_path) }}"
+      class="inline-flex h-10 min-w-20 px-4 mb-6 items-center justify-center mt-1 ml-1 border-2 border-gray-700 hover:bg-black/5 no-underline hover:underline"
+    >
+      Comment
+    </a>
+  {{ r3ply::render_comments_sorted_by_activity(comments=comments) }}
+  </div>
+</section>
+{% endblock comments %}

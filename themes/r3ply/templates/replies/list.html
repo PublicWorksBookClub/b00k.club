@@ -1,0 +1,75 @@
+{% extends "r3ply/templates/taxonomy_list.html" %}
+{% import "r3ply.html" as r3ply %}
+
+{# Comments that should be rendered are setup over here, allowing for the rendering itself to be overriden#}
+{% block setup %}
+{% endblock setup %}
+
+{# To change how comments are rendered, change this block #}
+{% block render %}
+  {% block table %}
+  <table class="{% block table_classes %}{% endblock table_classes %}">
+    {% block thead %}
+    <thead class="{% block thead_classes %}{% endblock thead_classes %}">
+      {% block thead_row %}
+      <tr class="{% block heading_row_classes %}{% endblock heading_row_classes %}">
+        {% block author_heading %}      <th>Author</th>       {% endblock author_heading %}
+        {% block comment_ID_heading %}  <th>Comment ID</th>   {% endblock comment_ID_heading %}
+        {% block date_heading %}        <th>Date</th>         {% endblock date_heading %}
+        {% block preview_heading %}     <th>Preview</th>      {% endblock preview_heading %}
+        {% block subject_heading %}     <th>Subject</th>      {% endblock subject_heading %}
+        {% block reply_count_heading %} <th># of Replies</th> {% endblock reply_count_heading %}
+        {% block latest_reply %}        <th>Latest Reply</th> {% endblock latest_reply %}
+        {% block RSS_heading %}         <th>RSS</th>          {% endblock RSS_heading %}
+      </tr>
+      {% endblock thead_row %}
+    </thead>
+    {% endblock thead %}
+    {% block tbody %}
+    <tbody class="{% block tbody_classes %}{% endblock tbody_classes %}">
+      {% for t in terms %}
+      {% set original_comment = t.pages | sort(attribute="date") | first %}
+      {% set latest_reply = t.pages | sort(attribute="date") | reverse | first %}
+      {% set reply_count = t.pages | length %}
+      {% set reply_count = reply_count - 1 %}
+      {% set author = original_comment.taxonomies.commenters[0] %}
+      {% set subject = original_comment.taxonomies["comment-subjects"][0] %}
+      <tr>
+        {# Author #}
+        <td><span>@</span><a href="/commenters/{{ author }}/">{{ author }}</span></td>
+        {# Comment ID #}
+        <td><span>#</span><a href="/replies/{{ original_comment.slug }}/">{{ original_comment.slug }}</a></td>
+        {# Date #}
+        <td>
+          <a href="/comments/{{ original_comment.slug }}/">
+            <time datetime="{{ original_comment.date }}">{{ original_comment.date | date(format="%Y-%m-%d %H:%M") }}</time>
+          </a>
+        </td>
+        {# Preview #}
+        <td>{{ original_comment.content | safe }}</td>
+        {# Subject #}
+        <td>
+          <a href="/{{ subject }}/">/{{ subject }}</a>
+        </td>
+        {# # of Replies #}
+        <td>{{ reply_count }}</td>
+        {# Latest Reply #}
+        <td>
+          {% if reply_count%}
+          <a href="/comments/{{ latest_reply.slug }}/">
+            <time datetime="{{ latest_reply.date }}">{{ latest_reply.date | date(format="%Y-%m-%d %H:%M") }}</time>
+          </a>
+          {% else %}
+          <span>NA</span>
+          {% endif %}
+        </td>
+        <td>
+          <a href="/replies/{{ t.name }}/atom.xml">replies</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    {% endblock tbody %}
+  </table>
+  {% endblock table %}
+{% endblock render %}

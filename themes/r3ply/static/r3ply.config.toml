@@ -1,22 +1,13 @@
+#:schema https://r3ply.com/schemas/v0.0.1/config/site.v0.0.1.json
 version = "0.0.1"
 enabled = true
 
 [[site]]
 domain = "site.local.test"
 r3ply = "cli.r3ply.test"
-signet = "45HH6mQ8aRRy8CsvRmtQ2w"
-issued = "2025-11-15"
+signet = "A2hioZg5Y-YnjzgOgs4bQw"
+issued = 2026-06-21
 label = "CLI"
-
-[[site]]
-domain = "b00k.club"
-r3ply = "r3ply.com"
-signet = "gchTwqHz8qmbMt1_SdDi3w"
-issued = 2025-11-19
-label = "production"
-
-[comments]
-"paths*" = ["!/", "!{,/}comments{,/}", "/works/**"]
 
 [comments.email]
 enabled = true

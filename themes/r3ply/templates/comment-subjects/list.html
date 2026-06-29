@@ -1,0 +1,58 @@
+{% extends "r3ply/templates/taxonomy_list.html" %}
+{% import "r3ply.html" as r3ply %}
+
+{# Comments that should be rendered are setup over here, allowing for the rendering itself to be overriden#}
+{% block setup %}
+{% endblock setup %}
+
+{# To change how comments are rendered, change this block #}
+{% block render %}
+  {% block table %}
+  <table class="{% block table_classes %}{% endblock table_classes %}">
+    {% block thead %}
+    <thead class="{% block thead_classes %}{% endblock thead_classes %}">
+      {% block thead_row %}
+      <tr class="{% block heading_row_classes %}{% endblock heading_row_classes %}">
+        {% block path_heading %}<th>Path</th>{% endblock path_heading %}
+        {% block comment_count_heading %}<th># of Comments</th>{% endblock comment_count_heading %}
+        {% block latest_comment_heading %}<th>Latest Comment</th>{% endblock latest_comment_heading %}
+        {% block comment_date_heading %}<th>Comment Date</th>{% endblock comment_date_heading %}
+        {% block latest_comment_id_heading %}<th>Comment ID</th>{% endblock latest_comment_id_heading %}
+        {% block comment_author_heading %}<th>Author</th>{% endblock comment_author_heading %}
+        {% block rss_heading %}<th>Subject RSS</th>{% endblock rss_heading %}
+      </tr>
+      {% endblock thead_row %}
+    </thead>
+    {% endblock thead %}
+    {% block tbody %}
+    <tbody class="{% block tbody_classes %}{% endblock tbody_classes %}">
+      {% for subject in terms %}
+      {% set latest_comment = subject.pages | sort(attribute="date") | reverse | first %}
+      {% set author = latest_comment.taxonomies.commenters | first %}
+      <tr>
+        {# Path #}
+        <td><a href="/{{ subject.name }}/">/{{ subject.name }}</a></td>
+        {# # of Comments# #}
+        <td>
+          <a href="/{{ subject.name }}/#comments">{{ subject.pages | length }}</a></td>
+        {# Latest Comment #}
+        <td>{{ latest_comment.content | safe }}</td>
+        {# Comment Date #}
+        <td>
+          <a href="/{{ subject.name }}/#{{ latest_comment.slug }}">
+            <time datetime="{{ latest_comment.date }}">{{ latest_comment.date | date(format="%Y-%m-%d %H:%M") }}</time>
+          </a>
+        </td>
+        {# Comment ID #}
+        <td><span>#</span><a href="/comments/{{ latest_comment.slug }}">{{ latest_comment.slug }}</a></td>
+        {# Author #}
+        <td><span>@</span><a href="/commenters/{{ author }}">{{ author }}</span></td>
+        {# RSS #}
+        <td><a href="/comment-subjects/{{ subject.name }}/atom.xml">Thread</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    {% endblock tbody %}
+  </table>
+  {% endblock table %}
+{% endblock render %}

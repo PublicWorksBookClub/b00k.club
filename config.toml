@@ -11,6 +11,8 @@ compile_sass = true
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = true
 
+theme = "r3ply"
+
 ###############################
 ### Begin taxonomy of texts ###
 ###############################
@@ -101,6 +103,29 @@ feed = false
 ###############################
 #### End general taxonomy #####
 ###############################
+###############################
+#### Begin r3ply taxonomy #####
+###############################
+
+[[taxonomies]]
+name = "commenters"
+feed = true
+
+[[taxonomies]]
+name = "comment-subjects"
+feed = true
+
+[[taxonomies]]
+name = "threads"
+feed = false
+
+[[taxonomies]]
+name = "replies"
+feed = true
+
+###############################
+##### End r3ply taxonomy ######
+###############################
 
 [markdown]
 # Whether to do syntax highlighting
@@ -146,5 +171,9 @@ bottom_footnotes = true
 # See "Internal links & deep linking" in the documentation for more information.
 insert_anchor_links = "none"
 
-[extra]
-# Put all your custom variables here
+# You can override these in your top-level zola config file
+[extra.r3ply]
+# This will be used when generating mailto links, i.e. "Your Name <example.com@r3ply.com>"
+to_email = "Public Works: Comments <b00k.club@r3ply.com>"
+# This will be prepopulated in the mailto link's body, i.e. "WRITE COMMENT ABOVE ^^^"
+email_body = ""

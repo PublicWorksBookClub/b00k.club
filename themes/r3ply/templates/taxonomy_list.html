@@ -1,0 +1,11 @@
+{% extends "r3ply/templates/base.html" %}
+{% import "r3ply.html" as r3ply %}
+
+{# Override body #}
+{% block body %}
+<main>
+  {# Render stuff here. Use setup block (in base.html) to expose any variables that might be used. #}
+  {% block render %}
+  {% endblock render %}
+</main>
+{% endblock body %}

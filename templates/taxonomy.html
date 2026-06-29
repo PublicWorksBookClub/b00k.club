@@ -31,10 +31,12 @@
     <tbody>
       {% for taxonomy in config.taxonomies %}
       {% set toml = load_data(path="data/vocab/" ~ taxonomy.name ~ ".toml", format="toml", required=false) %}
+      {% if toml is object %}
       <tr>
         <td class="font-serif italic"><a href="/{{ taxonomy.slug }}">{{ taxonomy.name }}</a></td>
         <td>{{ toml.description }}</td>
       </tr>
+      {% endif %}
       {% endfor %}
     </tbody>
   </table>

@@ -1,0 +1,40 @@
+{% extends "r3ply/templates/base.html" %}
+{% import "r3ply.html" as r3ply %}
+
+{% block title %}
+<title>#{{ page.slug }}: "{{ page.title | truncate(len=24) }}"</title>
+{% endblock title %}
+{% block link %}
+
+{% endblock link %}
+{% block setup %}
+{% set context_path = "/" ~ page.taxonomies["comment-subjects"][0] ~ "/#" ~ page.slug %}
+{% set to = config.extra.r3ply.to_email | default(value="CHANGE_ME") %}
+{% endblock setup %}
+
+{% block body %}
+<main>
+  <article>
+    <header>
+      <dl>
+        <dt>Comment ID</dt><dd>{{ page.slug }}</dd>
+        <dt>From</dt><dd>{{ page.taxonomies.commenters | first }}</dd>
+        <dt>Subject</dt><dd>/{{ page.taxonomies["comment-subjects"] | first }}</dd>
+        <dt>Date</dt><dd><time datetime="{{ page.date }}">{{ page.date | date(format="%a, %d %b %Y %H:%M %z") }}</time></dd>
+        <dt>Auth</dt>
+        <dd>dkim: {{ page.extra.email.dkim }}</dd>
+        <dd>spf: {{ page.extra.email.spf }}</dd>
+        <dd>dmarc: {{ page.extra.email.dmarc }}</dd>
+        <dt>Meta</dt>
+        <dd><a href="{{ context_path }}">context</a></dd>
+        <dd><a href="/threads/{{ page.slug }}/">thread</a></dd>
+        <dd><a href="/replies/{{ page.slug }}/">replies</a><span>…</span><a href="/replies/{{ page.slug }}/atom.xml">RSS</a></dd>
+      </dl>
+    </header>
+    <div>
+    {{ page.content | safe }}
+    </div>
+    <a href="{{ self::mailto(to=to, subject=context_path, body=config.extra.r3ply.email_body) }}">reply</a>
+  </article>
+</main>
+{% endblock body %}

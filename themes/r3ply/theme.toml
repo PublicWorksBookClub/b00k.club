@@ -1,0 +1,22 @@
+name = "r3ply Zola theme"
+description = "Add comments to your static website"
+# An optional tags to allow quick search
+tags = ["commenting", "comments", "r3ply", "email", "static sites", "zola"]
+license = "MIT"
+homepage = "https://github.com/getzola/hyde"
+# The minimum version of Zola required
+min_version = "0.20.0"
+# An optional live demo URL
+demo = "https://r3ply.com/demo/"
+
+# You can override these in your top-level zola config file
+[extra.r3ply]
+# This will be used when generating mailto links, i.e. "Your Name <example.com@r3ply.com>"
+to_email = "CHANGE ME <your-site.com@r3ply.com>"
+# This will be prepopulated in the mailto link's body, i.e. "WRITE COMMENT ABOVE ^^^"
+email_body = ""
+
+# Author of the theme
+[author]
+name = "Spencer Van Wessem Scorcelletti"
+homepage = "https://spenc.es"
