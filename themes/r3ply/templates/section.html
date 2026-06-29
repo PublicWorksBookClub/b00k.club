@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% import "r3ply.html" as r3ply %}
+
+{% block setup %}
+{% set subject = section.path | split(pat="") | slice(start=2, end=-2) | join(sep="") %}
+{% set term = get_taxonomy_term(kind="comment-subjects", term=subject, required=false) %}
+{% if term is object %}{% set comments = term.pages %}{% else %}{% set comments = [] %}{% endif %}
+{% endblock setup %}
+
+{% block body %}
+  {% block page_list %}
+  <ul>
+    {% for page in section.pages | sort(attribute="slug") %}
+    <li>
+      <a href="{{ page.permalink }}">{{ page.path }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endblock page_list %}
+  <hr>
+  {% block section_list %}
+  <ul>
+    {% for subsection in section.subsections %}
+    <li>
+      {% set subsection = get_section(path=subsection) %}
+      <a href="{{ subsection.permalink }}">{{ subsection.path }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endblock section_list %}
+  {% if section.extra.comments.enabled %}
+  {% block comments %}
+  <section id="comments">
+    {{ r3ply::render_comments_sorted_by_activity(comments=comments) }}
+  </section>
+  {% endblock comments %}
+  {% endif %}
+{% endblock body %}

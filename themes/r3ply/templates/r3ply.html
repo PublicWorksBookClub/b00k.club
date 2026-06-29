@@ -1,0 +1,170 @@
+{#
+  Zola/Tera don't have a urldecode feature
+#}
+{% macro urldecode(encoded) %}
+ {{ encoded
+  | regex_replace(pattern="%20", rep=" ")
+  | regex_replace(pattern="%21", rep="!")
+  | regex_replace(pattern="%22", rep='"')
+  | regex_replace(pattern="%23", rep="#")
+  | regex_replace(pattern="%24", rep="$")
+  | regex_replace(pattern="%25", rep="%")
+  | regex_replace(pattern="%26", rep="&")
+  | regex_replace(pattern="%27", rep="'")
+  | regex_replace(pattern="%28", rep="(")
+  | regex_replace(pattern="%29", rep=")")
+  | regex_replace(pattern="%2C", rep=",")
+  | regex_replace(pattern="%2D", rep="-")
+  | regex_replace(pattern="%2E", rep=".")
+  | regex_replace(pattern="%2F", rep="/")
+  | regex_replace(pattern="%3A", rep=":")
+  | regex_replace(pattern="%3B", rep=";")
+  | regex_replace(pattern="%3F", rep="?")
+}}
+{% endmacro  %}
+
+{% macro mailto(to, subject, body) -%}
+  mailto:{{ to | urlencode }}?subject={{ subject | urlencode }}&body={{ body | urlencode }}
+{%- endmacro %}
+
+{#
+    This macro takes a child comment as a page (i.e. a Zola page under `/content/comments/`) and prints the slug of it, and all of its ancestors, in ascending order.
+    `stop_at_id` is an optional parameter, where you can specify the ID of the last ancestor to include.
+
+    Note 1: the results has to be split on "," to get back a list of slugs.
+    Note 2: be careful when editing this macro because whitespace matters.
+
+    E.g.
+    A
+     \
+      B
+     / \
+    D   C
+    get_ancestors(C) -> "[C, B, A]"
+    get_ancestors(C, B) -> "[C, B]"
+#}
+{%- macro get_ancestors(child, stop_at_id=false) -%}
+  {{ child.slug }}{# always include the current child #}
+  {%- if child.slug != stop_at_id -%}
+    {%- set ancestor = child.extra.comment.in_reply_to -%}
+    {%- if ancestor == false -%}{# base case: ancestor of child is false sos do nothing #}
+    {%- else -%}{# recursive case: print comma and call get_root, continuing upwards #}
+      {%- set ancestor=get_taxonomy_term(kind="threads", term=child.taxonomies.replies[1]) | get(key="pages") | nth(n=0) -%},{{ r3ply::get_ancestors(child=ancestor, stop_at_id=stop_at_id) }}
+    {%- endif -%}
+  {%- endif -%}
+{%- endmacro -%}
+
+{#
+    This macro takes a parent comment as a page (i.e. a Zola page under `/content/comments/`) and prints the slug of it, and all of its descendants, in descending order.
+
+    Note 1: the results has to be split on "," to get back a list of slugs.
+    Note 2: be careful when editing this macro because whitespace matters.
+
+    E.g.
+    A
+     \
+      B
+     / \
+    D   C
+    get_descendants(A) -> "[A, B, C]"
+#}
+{%- macro get_descendants(parent) -%}
+  {%- set comments = get_section(path="comments/_index.md") | get(key="pages") -%}
+  {%- set children = comments | filter(attribute="taxonomies.replies.1", value=parent.slug) -%}
+  {{ parent.slug }}
+  {%- for child in children -%}
+  ,{{ r3ply::get_descendants(parent=child) }}
+  {%- endfor -%}
+{%- endmacro  -%}
+
+
+{#
+    This macro takes a list of comments as zola pages and it renders them in the order of thread with the most recent activity.
+    A thread is a comment and all of its descendants.
+    `starting_from_id` is an optional parameter from which to begin the thread, allowing one to render subtrees.
+    It will not render any comments outside of the ones given.
+
+    Note: To customize the HTML edit the `write_thread` macro.
+#}
+{% macro render_comments_sorted_by_activity(comments, starting_from_id=false) %}
+{% set slugs = comments | map(attribute="slug") %}
+{% set list_of_lists_of_ancestors = [] %}
+{% set comments_with_latest_activity = [] %}
+{% set seen = [] %}
+{% for comment in comments | sort(attribute="date") | reverse %}
+  {# This gives the full list of ancestors, which may go past the `comments` passed in, so there's some processing below to refine that list #}
+  {% set full_ancestors_of_comment = r3ply::get_ancestors(child=comment, stop_at_id=starting_from_id) | split(pat=",") %}
+  {% set_global ancestors_of_comment = [] %}
+  {% for a in full_ancestors_of_comment %}{% if a in slugs %}{% set_global ancestors_of_comment = ancestors_of_comment | concat(with=a) %}{% endif %}{% endfor %}
+  {# Build list of lists of ancestors AND label each node with latest_activity (of its subtree) #}
+  {% for a in ancestors_of_comment %}
+    {% if a not in seen %}
+      {% set_global seen = seen | concat(with=a) %}
+      {% set ancestor_page = comments | filter(attribute="slug", value=a) | first %}
+      {% set updated_comment = load_data(literal=ancestor_page
+        | json_encode
+        | regex_replace(pattern='"extra":\{', rep='"extra":{ "latest_activity": ' ~ '"' ~ comment.date ~ '",')
+        , format="json") %}
+      {% set_global comments_with_latest_activity = comments_with_latest_activity | concat(with=updated_comment) %}
+      {% if loop.last %}
+        {% set_global list_of_lists_of_ancestors = list_of_lists_of_ancestors | concat(with=[ancestors_of_comment | reverse]) %}
+      {% endif %}
+    {% else %}
+      {# If a single ancestor has been seen then its safe to break the whole loop #}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+{% for root in list_of_lists_of_ancestors | map(attribute=".0") %}
+  {{ r3ply::write_thread(parent=comments | filter(attribute="slug", value=root) | first, comments=comments_with_latest_activity) }}
+{% endfor %}
+{% endmacro  %}
+
+{#
+    `parent`    is the top of this comment subtree
+    `comments`  is just a pool of comments constituting consisting of the whole thread
+
+    Note 1: this is the macro you will want to edit to change the actual HTML of the comment threads.
+    Note 2: pay close attention to the recursion when editing, as that's crucial to traversing the thread.
+#}
+{% macro write_thread(parent, comments) %}
+{# You most likely do not want to change the children #}
+{% set children = comments | filter(attribute="taxonomies.replies.1", value=parent.slug) | sort(attribute="extra.latest_activity") | reverse %}
+<details open class="w-xl">
+  <summary class="border-b">
+    <span class="inline-flex gap-2">
+      <span>
+        <span class="text-gray-600">#</span><a href="#{{ parent.slug }}">{{ parent.slug }}</a>
+      </span>
+      <span>|</span>
+      <time datetime="{{ parent.date }}">
+        <a href="/comments/{{ parent.slug }}">
+          <span>{{ parent.date | date(format="%Y-%m-%d") }}</span>
+          <span>{{ parent.date | date(format="%H:%M") }}</span>
+        </a>
+      </time>
+      <span>|</span>
+      <span>
+        {% set author = parent.taxonomies.commenters[0] %}
+        <span class="text-gray-600">@</span><a href="/commenters/{{ author }}">{{ author }}</a>
+      </span>
+    </span>
+  </summary>
+  <article class="my-2">
+  {{ parent.content | safe }}
+  </article>
+  {% set subject = "/" ~ parent.taxonomies['comment-subjects'][0] ~ "/#" ~ parent.slug %}
+  <div class="m-2">
+    <a class="px-2 py-1 rounded-xl border text-purple-400 not-prose"
+    href="{{ r3ply::mailto(to=config.extra.domain | default(value='CHANGE_ME'),
+    subject=subject,
+    body='') }}">reply</a>
+  </div>
+  <div class="ml-4 pt-2">
+    {% for child in children %}
+      {# Note: see comment in theme template for why this is `comments::` instead of `self::` #}
+      {{ r3ply::write_thread(parent=child, comments=comments) }}
+    {% endfor %}
+  </div>
+</details>
+{% endmacro  %}

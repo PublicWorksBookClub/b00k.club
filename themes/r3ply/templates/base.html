@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% block html %}
+<html lang="{{ config.lang | default(value='en') }}">
+{% block head %}
+<head>
+  {# Set title #}
+  {% block title %}
+  <title>{{ page.title | default(value=section.title | default(value=config.title)) }}</title>
+  {% endblock title %}
+
+  {# Set meta tags #}
+  {% block meta %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% endblock meta %}
+
+  {# Set link tags #}
+  {% block link %}
+  <link rel="stylesheet" href="/style.css">
+  {% endblock link %}
+
+  {# You can add additional tags here #}
+  {% block add_tags_in_head %}
+  {% endblock add_tags_in_head %}
+</head>
+{% endblock head %}
+
+{# Setup any variables in here that can be reused by extending templates, while still more UI stuff to be override #}
+{% block setup %}
+{% endblock setup %}
+
+{% block body_tag %}
+<body>
+{# Define body here #}
+{% block body %}
+
+{% endblock body %}
+</body>
+{% endblock body_tag %}
+</html>
+{% endblock html %}

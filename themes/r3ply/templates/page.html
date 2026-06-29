@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% import "r3ply.html" as r3ply %}
+
+{% block setup %}
+{% set subject = page.path | split(pat="") | slice(start=2, end=-2) | join(sep="") %}
+{% set term = get_taxonomy_term(kind="comment-subjects", term=subject, required=false) %}
+{% if term is object %}{% set comments = term.pages %}{% else %}{% set comments = [] %}{% endif %}
+{% endblock setup %}
+
+{% block body %}
+  {% block comments %}
+  <section id="comments">
+    {{ r3ply::render_comments_sorted_by_activity(comments=comments) }}
+  </section>
+  {% endblock comments %}
+{% endblock body %}
