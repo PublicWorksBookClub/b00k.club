@@ -1,3 +1,4 @@
+#:schema https://r3ply.com/schemas/v0.0.1/config/site.v0.0.1.json
 version = "0.0.1"
 enabled = true
 
@@ -5,9 +6,10 @@ enabled = true
 domain = "site.local.test"
 r3ply = "cli.r3ply.test"
 signet = "45HH6mQ8aRRy8CsvRmtQ2w"
-issued = "2025-11-15"
+issued = 2025-11-15
 label = "CLI"
 
+# each (site x r3ply) pair has an entry
 [[site]]
 domain = "b00k.club"
 r3ply = "r3ply.com"
@@ -24,9 +26,48 @@ enabled = true
 
 [moderation]
 enabled = true
-github = [ ]
 webhook = [ ]
 
   [[moderation.local]]
   "file_path_{}" = "content/comments/{{ comment.ts_rcvd }}_{{ comment.id[:8] }}-{{ author.pseudonym[:7] }}.md"
   enabled = true
+
+  [[moderation.github]]
+  # Repo owner: This should be the user or org name.
+  # Examples: ["asimpletune","r3ply"]
+  owner = "PublicWorksBookClub"
+  # Repo name: Name of GitHub repository.
+  # Examples: ["yoursite"]
+  repo = "b00k.club"
+  # File path template (string): Specifies the file path of the new comment.
+  # Examples: ["content/comments/{{ comment.id | slice(end=8) }}.md"]
+  # Can never begin with a `/`.
+  "file_path_{}" = "content/comments/{{ comment.ts_rcvd }}_{{ comment.id[:8] }}-{{ author.pseudonym[:7] }}.md"
+  # Base branch template (string): Specifies the base branch of the new comment, e.g. `main`.
+  # Default: "main"
+  "base_branch_{}" = "main"
+  # Head branch template (string): Specifies the head branch of the new comment, e.g. `comment-123`.
+  # Default: "comment-{{ comment.ts_rcvd }}-{{ comment.id[:8] }}.md"
+  # Examples: ["{{ comment.id[:8] }}-{{ comment.ts_rcvd }}"]
+  "head_branch_{}" = "comment-{{ comment.ts_rcvd }}-{{ comment.id[:8] }}.md"
+  # Commit message template (string): Specifies the commit message of the new comment.
+  # Default: (same as what's shown below)
+  "commit_msg_{}" = """Comment submitted:\n
+    - Sender: {{ author.pseudonym }}
+    - Timestamp: {{ comment.ts_rcvd }}
+    - Subject: {{ comment.subject.url }}
+  \n> {{ comment.txt | split(pat="\r\n") | join(sep="\n> ") }}"""
+  # PR title template (string): Specifies the PR title of the new comment.
+  # Default: (same as what's shown below)
+  "pr_title_{}" = "New comment ({{ comment.id[:8] }}) on {{ comment.subject.url }} by author `{{ author.pseudonym[:7] }}`"
+  # PR body template (string): Specifies the PR body of the new comment.
+  # Default: (same as what's shown below)
+  "pr_body_{}" = ""
+  # Enable moderation: False completely turns off moderation for this channel.
+  # Default: true
+  # See `moderation.enabled`.
+  enabled = true
+  # Allow list: Plain text email or pseudonym bypassing moderation.
+  # Default: []
+  # Examples: ["*@alice.com","bob@example.com"]
+  "allow*" = [ ]
