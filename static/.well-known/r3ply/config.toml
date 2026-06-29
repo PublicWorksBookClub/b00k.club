@@ -10,19 +10,13 @@ label = "CLI"
 
 [[site]]
 domain = "b00k.club"
-r3ply = "cli.r3ply.test"
-signet = "w4s0-9_RhoqWdZbHX-rbCg"
-issued = "2025-11-19"
-
-[[site]]
-domain = "b00k.club"
 r3ply = "r3ply.com"
 signet = "gchTwqHz8qmbMt1_SdDi3w"
 issued = 2025-11-19
 label = "production"
 
 [comments]
-"paths*" = ["!/", "!{,/}comments{,/}"]
+"paths*" = ["!/", "!{,/}comments{,/}", "/works/**"]
 
 [comments.email]
 enabled = true
