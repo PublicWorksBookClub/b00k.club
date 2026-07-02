@@ -24,6 +24,7 @@ dmarc = {{ email.auth.dmarc }}
 spf = {{ email.auth.spf }}
 
 [extra.comment]
+ts_rcvd = {{ comment.ts_rcvd }}
 document = {{ (comment.subject.path[1:-1] if comment.subject.path is ending_with(pat="/") else comment.subject.path[1:]) | json_encode }}
 root = {{ comment.subject.fragment is undefined or comment.subject.fragment[:8] == "#:~:text" }}
 in_reply_to = {{ comment.subject.fragment | json_encode if comment.subject.fragment else false }}

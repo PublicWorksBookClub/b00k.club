@@ -18,7 +18,7 @@ issued = 2025-11-19
 label = "production"
 
 [comments]
-"paths*" = ["!/", "!{,/}comments{,/}", "/works/**"]
+"paths*" = ["/works/**", "/aliases?(/)"]
 
 [comments.email]
 enabled = true

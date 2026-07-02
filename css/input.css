@@ -493,6 +493,7 @@
   }
   h1 {
     @apply font-playfair-display;
+    color: var(--color-gray-700)
   }
   h2,
   h3,

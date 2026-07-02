@@ -54,6 +54,9 @@
   {% block extra_head %}{% endblock extra_head %}
 </head>
 {% endblock head %}
+{# You can set important variables here #}
+{% block setup %}
+{% endblock setup %}
 {% block body %}
 <body class="{% block body_styles %}{% endblock body_styles %}">
   {# i.e. "page header", for logo and primary nav. See mdn <header> usage notes for more. #}

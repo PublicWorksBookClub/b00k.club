@@ -1,0 +1,70 @@
+{% import "macro/util.html" as util %}
+{% import "r3ply.html" as r3ply %}
+{% extends "base.html" %}
+
+{% block setup %}
+{% set aliases = load_data(literal=r3ply::aliases(), format="json") | sort(attribute="ts") | reverse %}
+{% endblock setup %}
+
+{% block body_styles %}{{ section.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
+
+{% block banner %}
+{{ util::nav(href="/", text="Home") }}
+{% endblock banner %}
+
+{% block main %}
+<article class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg
+  prose-headings:font-fira-sans prose-pwbc">
+  {{ page.content | safe }}
+</article>
+{% endblock main %}
+{% block comments %}
+<section id="comments" class="max-w-prose mx-auto prose prose-lg">
+  <div>
+    <a
+      href="{{
+        r3ply::mailto(to=config.extra.r3ply.to_email | default(value='CHANGE_ME'), subject='/aliases/',
+        body='')
+      }}"
+      class="inline-flex h-10 min-w-20 px-4 items-center justify-center mt-1 ml-1 border-2 border-gray-700 hover:bg-black/5"
+      >Add Comment</a>
+
+  </div>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>Commenter ID</th>
+          <th>Alias</th>
+          <th>Date</th>
+          <th>
+            <span>RSS</span>
+            <svg
+              class=" inline-block"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2m0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2m.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"
+              />
+            </svg>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for a in aliases %}
+          <tr>
+            <td>@<a href="/commenters/{{ a.user }}">{{ a.user }}</a></td>
+            <td>✨<a href="/commenters/{{ a.user }}">{{ a.alias }}</a></td>
+            <td><span>{{ a.ts | date(format="%Y-%m-%d %H:%M:%S UTC") }}</span></td>
+            <td><a href="/commenters/{{ a.user }}/atom.xml">Subscribe</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock comments %}
