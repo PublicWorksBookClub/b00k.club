@@ -68,8 +68,70 @@
   </main>
   {% block comments %}
   {% endblock comments %}
-  <footer>
-    {% block footer %}{% endblock footer %}
+  <footer id="footer" class="h-full flex flex-col place-items-center">
+    {% block footer %}
+    <div class="mt-12 w-full bg-indigo-950 border-t-2 border-cyan-400 relative">
+      <a href="#footer" class="absolute top-3 right-4 text-pink-400 text-2xl">#</a>
+      <ul class="px-4 md:px-0 mt-2 py-10 md:py-48 grow h-full w-full grid grid-cols-2 md:grid-cols-4 gap-y-6 justify-items-center text-slate-300">
+        {% set sub_menu_headers = "font-medium text-lg md:text-xl" %}
+        {# {% set main_menu_items = "ml-12 md:ml-0" %} #}
+        {% set sub_menu_styles = "pt-3" %}
+        {% set sub_menu_items = "underline decoration-dotted text-sm md:text-lg font-light hover:text-white hover:decoration-solid" %}
+
+        {# Site Sections #}
+        <li class="w-32 md:w-auto text-right">
+          <span class="text-teal-300 {{ sub_menu_headers }}">Sections<span class="hidden md:inline">:</span></span>
+          <ul class="{{ sub_menu_styles }}">
+            <li class="{{ sub_menu_items }}"><a href="/">Home</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/resources/">Resources</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/works/">Readings</a></li>
+            <li class="{{ sub_menu_items }} cursor-not-allowed text-gray-600">Commentary</li>
+            <li class="{{ sub_menu_items }} cursor-not-allowed text-gray-600">Updates</li>
+            <li class="{{ sub_menu_items }} cursor-not-allowed text-gray-600">Trips</li>
+          </ul>
+        </li>
+        <li class="w-32 md:w-auto text-auto md:text-right">
+          <span class="text-pink-300 {{ sub_menu_headers }}"><a href="/taxonomy/">Site Links</a><span class="hidden md:inline">:</span></span>
+          <ul class="{{ sub_menu_styles }}">
+            <li class="{{ sub_menu_items }}"><a href="/sitemap.xml">Sitemap.xml</a></li>
+            <li class="{{ sub_menu_items }}"><a href="https://github.com/PublicWorksBookClub/b00k.club/">GitHub</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/taxonomy/">Taxonomy</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/comments/">Comments</a></li>
+          </ul>
+        </li>
+        <li class="w-32 md:w-auto text-right md:text-left">
+          <span class="text-yellow-200 {{ sub_menu_headers }}"><a href="/taxonomy">Taxonomy</a><span class="hidden md:inline">:</span></span>
+          <ul class="{{ sub_menu_styles }} grid grid-cols-2 gap-x-2">
+            <li class="{{ sub_menu_items }}"><a href="/arcs/">Arcs</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/authors/">Authors</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/forms/">Forms</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/genres/">Genres</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/titles/">Titles</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/index/">Index</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/languages/">Languages</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/periods/">Periods</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/references/">References</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/subjects/">Subjects</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/tags/">Tags</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/years/">Years</a></li>
+            <li class="{{ sub_menu_items }} col-span-2"><a href="/contributors/">Contributors</a></li>
+          </ul>
+
+        </li>
+        <li class="w-32 md:w-auto text-left">
+          <span class="text-red-300 {{ sub_menu_headers }}"><a href="/comments/">Comments</a><span class="hidden md:inline">:</span></span>
+          <ul class="{{ sub_menu_styles }}">
+            <li class="{{ sub_menu_items }}"><a href="/comments/">All Comments</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/comment-subjects/">By Page</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/commenters/">By Author</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/threads/">By Thread</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/replies/">Replies</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/aliases/">Aliases</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    {% endblock footer %}
   </footer>
 </body>
 {% endblock body %}
