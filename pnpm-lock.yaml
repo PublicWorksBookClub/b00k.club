@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@r3ply/cli':
-        specifier: ^0.0.1
-        version: 0.0.1
+        specifier: ^0.0.2
+        version: 0.0.2
       '@tailwindcss/cli':
         specifier: ^4.2.2
         version: 4.2.2
@@ -539,8 +539,8 @@ packages:
   '@poppinss/exception@1.2.3':
     resolution: {integrity: sha512-dCED+QRChTVatE9ibtoaxc+WkdzOSjYTKi/+uacHWIsfodVfpsueo3+DKpgU5Px8qXjgmXkSvhXvSCz3fnP9lw==}
 
-  '@r3ply/cli@0.0.1':
-    resolution: {integrity: sha512-e40GZssii6zT36zJkKOovbkzGP/njwcwMakQDtpRyl8o40tD9p9U7Ec//aqcqGygfVI78GTBOsm52S9j7R8SZA==}
+  '@r3ply/cli@0.0.2':
+    resolution: {integrity: sha512-GKfI/agz6Q95lBZO5kl3WgObrzTU4BrTiyLbxptT/IFAhnwCaZowmMJ0ZYOffA9/4IruMP1ZlV+s8FN6wSjckA==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -662,8 +662,8 @@ packages:
   '@taplo/lib@0.5.0':
     resolution: {integrity: sha512-+xIqpQXJco3T+VGaTTwmhxLa51qpkQxCjRwezjFZgr+l21ExlywJFcDfTrNmL6lG6tqb0h8GyJKO3UPGPtSCWg==}
 
-  '@types/node@26.0.1':
-    resolution: {integrity: sha512-fc3KiUoBt6kie0N9bIW3E47vZsuaMf0PM2AaUpLCLT0s/LvX1nxAim6Fc049cNxODPpGm6qRAuUOB86SkRuPQw==}
+  '@types/node@26.1.0':
+    resolution: {integrity: sha512-O0A1G3xPGy4w7AgQdAQYUlQ+BKk2Oovw8eRpofyp5KdBZULnbe+WqaOVNrm705SHphCiG4XHsACrSmPu1f+Kgw==}
 
   '@types/prompts@2.4.9':
     resolution: {integrity: sha512-qTxFi6Buiu8+50/+3DGIWLHM6QuWsEKugJnnP6iv2Mc4ncxE4A/OJkjuVOA+5X0X1S/nq5VJRa8Lu+nwcvbrKA==}
@@ -1689,7 +1689,7 @@ snapshots:
 
   '@poppinss/exception@1.2.3': {}
 
-  '@r3ply/cli@0.0.1':
+  '@r3ply/cli@0.0.2':
     dependencies:
       '@exodus/schemasafe': 1.3.0
       '@iarna/toml': 2.2.5
@@ -1811,13 +1811,13 @@ snapshots:
     dependencies:
       '@taplo/core': 0.2.0
 
-  '@types/node@26.0.1':
+  '@types/node@26.1.0':
     dependencies:
       undici-types: 8.3.0
 
   '@types/prompts@2.4.9':
     dependencies:
-      '@types/node': 26.0.1
+      '@types/node': 26.1.0
       kleur: 3.0.3
 
   '@ungap/structured-clone@1.3.2': {}
