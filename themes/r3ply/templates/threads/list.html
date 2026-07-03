@@ -1,16 +1,36 @@
-{% extends "r3ply/templates/taxonomy_list.html" %}
 {% import "r3ply.html" as r3ply %}
+{% import "macro/util.html" as util %}
+{% extends "base.html" %}
 
-{# Comments that should be rendered are setup over here, allowing for the rendering itself to be overriden#}
+{% block title %}
+  <title>Comments Threads | PWBC</title>
+  <meta property="og:title" content="All Threads | PWBC" />
+  <meta name="twitter:title" content="All Threads | PWBC" />
+{% endblock title %}
+
 {% block setup %}
-  {% set comments = [] %}
-  {% for term in terms %}
-  {% set_global comments = comments | concat(with=term.pages) %}
-  {% endfor %}
-  {% set comments = comments | unique(attribute="slug") %}
+{% set comments = get_section(path="comments/_index.md") | get(key="pages") %}
 {% endblock setup %}
 
-{# To change how comments are rendered, change this block #}
-{% block render %}
+{% block body_styles %}
+{{ section.extra.bg_color | default(value="bg-orange-50") }}
+{% endblock body_styles %}
+
+{% block banner %}
+{{ util::nav(href="/", text="Home") }}
+{% endblock banner %}
+
+{% block main %}
+<article class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg
+  prose-headings:font-fira-sans prose-pwbc">
+  <h1>All Comment Threads</h1>
+</article>
+{% endblock main %}
+
+{% block comments %}
+<section id="comments" class="max-w-full py-8 px-2 prose prose-lg prose-pwbc">
+  <div class="max-w-prose mx-auto">
   {{ r3ply::render_comments_sorted_by_activity(comments=comments) }}
-{% endblock render %}
+  </div>
+</section>
+{% endblock comments %}

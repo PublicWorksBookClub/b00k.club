@@ -202,35 +202,38 @@
 <details id="{{ parent.slug }}" open class="max-w-prose overflow-x-scroll">
   <summary class="border-b whitespace-nowrap">
     <span class="inline-flex gap-2">
-      <span>
-        {% set author = parent.taxonomies.commenters[0] %}
-        <span class="text-gray-600">@</span><a href="/commenters/{{ author }}">{{ author }}</a>
+      <span class="prose-a:font-bold prose-a:font-serif prose-a:text-pink-400">
+        <span class="font-extralight text-gray-500">@</span><a tabindex="-1" href="/commenters/{{ parent.taxonomies.commenters[0] }}/">{{ parent.taxonomies.commenters[0] }}
+        </a>
       </span>
       <span>|</span>
-      <time datetime="{{ parent.date }}">
-        <a href="/comments/{{ parent.slug }}">
-          <span>{{ parent.date | date(format="%Y-%m-%d") }}</span>
-          <span>{{ parent.date | date(format="%H:%M") }}</span>
+      <time datetime="{{ parent.date }}" class="flex items-center gap-1">
+        <a href="/{{ parent.taxonomies['comment-subjects'][0] }}/#{{ parent.slug }}" tabindex="-1" class="no-underline">
+          <span class="text-emerald-700 font-medium oldstyle-nums">{{ parent.date | date(format="%Y-%m-%d") }}</span>
+          <span class="ml-1 text-teal-600 font-light font-serif">{{ parent.date | date(format="%H:%M") }}</span>
+          <span class="ml-0.5 text-lime-800 italic font-thin">{{ parent.date | date(format="%Z") }}</span>
         </a>
       </time>
       <span>|</span>
       <span>
-        <span class="text-gray-600">#</span><a href="#{{ parent.slug }}">{{ parent.slug }}</a>
+        <span class="font-light text-gray-400">#</span><a tabindex="-1" class="font-mono text-blue-400" href="/comments/{{ parent.slug }}">{{ parent.slug }}</a>
       </span>
     </span>
   </summary>
   <article class="my-2">
     {% if parent.extra.comment.text_fragment %}
     <blockquote class="">
-      <a href="/{{ parent.taxonomies['comment-subjects'][0] }}{{ '#:~:text' ~ parent.extra.comment.text_fragment }}" class="font-serif font-light text-gray-400 no-underline hover:underline">{{ r3ply::urldecode(encoded=parent.extra.comment.text_fragment) }}</a>
+      <a tabindex="-1" href="/{{ parent.taxonomies['comment-subjects'][0] }}{{ '#:~:text' ~ parent.extra.comment.text_fragment }}" class="font-serif font-light text-gray-400 no-underline hover:underline">{{ r3ply::urldecode(encoded=parent.extra.comment.text_fragment) }}</a>
     </blockquote>
     {% endif %}
     {% set ctx = load_data(literal=parent.extra.comment.ctx, format="json") %}
-    {{ ctx.comment.html | safe }}
+    <div class="font-light text-orange-950">
+      {{ ctx.comment.html | safe }}
+    </div>
   </article>
   {% set subject = "/" ~ parent.taxonomies['comment-subjects'][0] ~ "/#" ~ parent.slug %}
   <div class="m-2">
-    <a class="px-2 py-1 rounded-xl border text-purple-400 not-prose"
+    <a tabindex="-1" class="px-2 py-1 rounded-xl border text-purple-400 not-prose"
     href="{{ r3ply::mailto(
       to=config.extra.r3ply.to_email,
       subject=subject,

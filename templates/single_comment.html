@@ -81,7 +81,7 @@
         </blockquote>
         {% endif %}
         {% set ctx = load_data(literal=page.extra.comment.ctx, format="json") %}
-        <div class="font-light">
+        <div class="font-light text-orange-950">
           {{ ctx.comment.html | safe }}
         </div>
       </div>
