@@ -222,10 +222,11 @@
   <article class="my-2">
     {% if parent.extra.comment.text_fragment %}
     <blockquote class="">
-      <a href="{{ '#:~:text' ~ parent.extra.comment.text_fragment }}" class="font-serif font-light text-gray-400 no-underline hover:underline">{{ r3ply::urldecode(encoded=parent.extra.comment.text_fragment) }}</a>
+      <a href="/{{ parent.taxonomies['comment-subjects'][0] }}{{ '#:~:text' ~ parent.extra.comment.text_fragment }}" class="font-serif font-light text-gray-400 no-underline hover:underline">{{ r3ply::urldecode(encoded=parent.extra.comment.text_fragment) }}</a>
     </blockquote>
     {% endif %}
-    {{ parent.content | safe }}
+    {% set ctx = load_data(literal=parent.extra.comment.ctx, format="json") %}
+    {{ ctx.comment.html | safe }}
   </article>
   {% set subject = "/" ~ parent.taxonomies['comment-subjects'][0] ~ "/#" ~ parent.slug %}
   <div class="m-2">
@@ -377,4 +378,9 @@
     {%- endif -%}
   {%- endfor -%}
   ]
+{%- endmacro -%}
+
+{%- macro alias(user_id, aliases) -%}
+{%- set alias_object = aliases | filter(attribute="user", value=user_id) | first -%}
+{%- if alias_object is object %}{{ alias_object.alias }}{% else %}{{ user_id }}{% endif -%}
 {%- endmacro -%}
