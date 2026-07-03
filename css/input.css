@@ -16,6 +16,7 @@
   --font-arca-majora: Arca Majora, sans-serif;
   --font-sans: var(--font-fira-sans);
   --font-serif: var(--font-source-serif);
+  --font-porson: GFS Porson, sans-serif;
   --color-pwbc-yellow: oklch(0.8502 0.1714 93.13);
   /* Begin attic colors (for an unreleased project) */
   --color-attic-black-500: rgb(70, 60, 51);
@@ -458,6 +459,20 @@
 }
 /***************************
   *** END Arca Majora 3 ****
+  ************************** */
+
+/***************************
+  *** BEGIN GFS Porson *****
+  ************************** */
+@font-face {
+  font-family: 'GFS Porson';
+  src: url('/font/GFS_Porson/GFSPorson.otf') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+/***************************
+  *** END GFS Porson *******
   ************************** */
 
 /***************************

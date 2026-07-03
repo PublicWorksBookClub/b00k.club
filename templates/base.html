@@ -70,9 +70,9 @@
   {% endblock comments %}
   <footer id="footer" class="h-full flex flex-col place-items-center">
     {% block footer %}
-    <div class="mt-12 w-full bg-indigo-950 border-t-2 border-cyan-400 relative">
+    <div class="mt-12 w-full bg-indigo-950 bg-[url('bank-note_dark.svg')] border-t-2 border-cyan-400 relative">
       <a href="#footer" class="absolute top-3 right-4 text-pink-400 text-2xl">#</a>
-      <ul class="px-4 md:px-0 mt-2 py-10 md:py-48 grow h-full w-full grid grid-cols-2 md:grid-cols-4 gap-y-6 justify-items-center text-slate-300">
+      <ul class="px-4 md:px-0 mt-2 py-10 md:pt-48 md:pb-36 grow h-full w-full grid grid-cols-2 md:grid-cols-4 gap-y-6 justify-items-center text-slate-300">
         {% set sub_menu_headers = "font-medium text-lg md:text-xl" %}
         {# {% set main_menu_items = "ml-12 md:ml-0" %} #}
         {% set sub_menu_styles = "pt-3" %}
@@ -101,9 +101,10 @@
         </li>
         <li class="w-32 md:w-auto text-right md:text-left">
           <span class="text-yellow-200 {{ sub_menu_headers }}"><a href="/taxonomy">Taxonomy</a><span class="hidden md:inline">:</span></span>
-          <ul class="{{ sub_menu_styles }} grid grid-cols-2 gap-x-2">
+          <ul class="{{ sub_menu_styles }} grid grid-flow-col grid-rows-7 gap-x-2 items-end justify-end md:justify-items-start">
             <li class="{{ sub_menu_items }}"><a href="/arcs/">Arcs</a></li>
             <li class="{{ sub_menu_items }}"><a href="/authors/">Authors</a></li>
+            <li class="{{ sub_menu_items }}"><a href="/contributors/"><span class="md:hidden">Contrib.</span><span class="hidden md:inline">Contributors</span></a></li>
             <li class="{{ sub_menu_items }}"><a href="/forms/">Forms</a></li>
             <li class="{{ sub_menu_items }}"><a href="/genres/">Genres</a></li>
             <li class="{{ sub_menu_items }}"><a href="/titles/">Titles</a></li>
@@ -114,7 +115,6 @@
             <li class="{{ sub_menu_items }}"><a href="/subjects/">Subjects</a></li>
             <li class="{{ sub_menu_items }}"><a href="/tags/">Tags</a></li>
             <li class="{{ sub_menu_items }}"><a href="/years/">Years</a></li>
-            <li class="{{ sub_menu_items }} col-span-2"><a href="/contributors/">Contributors</a></li>
           </ul>
 
         </li>
@@ -130,6 +130,11 @@
           </ul>
         </li>
       </ul>
+      <p class="text-center mb-8 md:mb-3.5 text-indigo-300">
+        <span class="hover:underline decoration-gray-800 tracking-tight font-porson">ἀρετὴ δὲ ἀδέσποτον</span>
+        <span> | <span>
+        <span class="font-serif">Rome MMXXII</span>
+      </p>
     </div>
     {% endblock footer %}
   </footer>
