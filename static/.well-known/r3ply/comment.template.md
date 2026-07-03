@@ -27,7 +27,8 @@ spf = {{ email.auth.spf }}
 ts_rcvd = {{ comment.ts_rcvd }}
 document = {{ (comment.subject.path[1:-1] if comment.subject.path is ending_with(pat="/") else comment.subject.path[1:]) | json_encode }}
 root = {{ comment.subject.fragment is undefined or comment.subject.fragment[:8] == "#:~:text" }}
-in_reply_to = {{ comment.subject.fragment | json_encode if comment.subject.fragment else false }}
+in_reply_to = {{ comment.subject.fragment | json_encode if comment.subject.fragment and comment.subject.fragment is not starting_with(pat="#:~:text") else false }}
+text_fragment = {{ comment.subject.fragment[9:] | json_encode if comment.subject.fragment and comment.subject.fragment is starting_with(pat="#:~:text") else false }}
 ctx = {{ __tera_context | str | json_encode }}
 +++
 

@@ -13,13 +13,82 @@
   | regex_replace(pattern="%27", rep="'")
   | regex_replace(pattern="%28", rep="(")
   | regex_replace(pattern="%29", rep=")")
+  | regex_replace(pattern="%2A", rep="*")
+  | regex_replace(pattern="%2B", rep="+")
   | regex_replace(pattern="%2C", rep=",")
   | regex_replace(pattern="%2D", rep="-")
   | regex_replace(pattern="%2E", rep=".")
   | regex_replace(pattern="%2F", rep="/")
+  | regex_replace(pattern="%30", rep="0")
+  | regex_replace(pattern="%31", rep="1")
+  | regex_replace(pattern="%32", rep="2")
+  | regex_replace(pattern="%33", rep="3")
+  | regex_replace(pattern="%34", rep="4")
+  | regex_replace(pattern="%35", rep="5")
+  | regex_replace(pattern="%36", rep="6")
+  | regex_replace(pattern="%37", rep="7")
+  | regex_replace(pattern="%38", rep="8")
+  | regex_replace(pattern="%39", rep="9")
   | regex_replace(pattern="%3A", rep=":")
   | regex_replace(pattern="%3B", rep=";")
+  | regex_replace(pattern="%3C", rep="<")
+  | regex_replace(pattern="%3D", rep="=")
+  | regex_replace(pattern="%3E", rep=">")
   | regex_replace(pattern="%3F", rep="?")
+  | regex_replace(pattern="%40", rep="@")
+  | regex_replace(pattern="%5B", rep="[")
+  | regex_replace(pattern="%5C", rep="\\")
+  | regex_replace(pattern="%5D", rep="]")
+  | regex_replace(pattern="%5E", rep="^")
+  | regex_replace(pattern="%5F", rep="_")
+  | regex_replace(pattern="%60", rep="`")
+  | regex_replace(pattern="%7B", rep="{")
+  | regex_replace(pattern="%7C", rep="|")
+  | regex_replace(pattern="%7D", rep="}")
+  | regex_replace(pattern="%7E", rep="~")
+
+  | regex_replace(pattern="%E2%80%98", rep="‘")
+  | regex_replace(pattern="%E2%80%99", rep="’")
+  | regex_replace(pattern="%E2%80%9C", rep="“")
+  | regex_replace(pattern="%E2%80%9D", rep="”")
+  | regex_replace(pattern="%E2%80%93", rep="–")
+  | regex_replace(pattern="%E2%80%94", rep="—")
+  | regex_replace(pattern="%E2%80%A6", rep="…")
+  | regex_replace(pattern="%E2%80%A2", rep="•")
+  | regex_replace(pattern="%E2%84%A2", rep="™")
+  | regex_replace(pattern="%C2%A9", rep="©")
+  | regex_replace(pattern="%C2%AE", rep="®")
+  | regex_replace(pattern="%C2%B0", rep="°")
+  | regex_replace(pattern="%C2%B1", rep="±")
+  | regex_replace(pattern="%C2%B5", rep="µ")
+
+  | regex_replace(pattern="%C3%A0", rep="à")
+  | regex_replace(pattern="%C3%A1", rep="á")
+  | regex_replace(pattern="%C3%A2", rep="â")
+  | regex_replace(pattern="%C3%A3", rep="ã")
+  | regex_replace(pattern="%C3%A4", rep="ä")
+  | regex_replace(pattern="%C3%A5", rep="å")
+  | regex_replace(pattern="%C3%A6", rep="æ")
+  | regex_replace(pattern="%C3%A7", rep="ç")
+  | regex_replace(pattern="%C3%A8", rep="è")
+  | regex_replace(pattern="%C3%A9", rep="é")
+  | regex_replace(pattern="%C3%AA", rep="ê")
+  | regex_replace(pattern="%C3%AB", rep="ë")
+  | regex_replace(pattern="%C3%AC", rep="ì")
+  | regex_replace(pattern="%C3%AD", rep="í")
+  | regex_replace(pattern="%C3%AE", rep="î")
+  | regex_replace(pattern="%C3%AF", rep="ï")
+  | regex_replace(pattern="%C3%B1", rep="ñ")
+  | regex_replace(pattern="%C3%B2", rep="ò")
+  | regex_replace(pattern="%C3%B3", rep="ó")
+  | regex_replace(pattern="%C3%B4", rep="ô")
+  | regex_replace(pattern="%C3%B5", rep="õ")
+  | regex_replace(pattern="%C3%B6", rep="ö")
+  | regex_replace(pattern="%C3%B9", rep="ù")
+  | regex_replace(pattern="%C3%BA", rep="ú")
+  | regex_replace(pattern="%C3%BB", rep="û")
+  | regex_replace(pattern="%C3%BC", rep="ü")
+  | regex_replace(pattern="%C3%BD", rep="ý")
 }}
 {% endmacro  %}
 
@@ -47,7 +116,7 @@
   {{ child.slug }}{# always include the current child #}
   {%- if child.slug != stop_at_id -%}
     {%- set ancestor = child.extra.comment.in_reply_to -%}
-    {%- if ancestor == false -%}{# base case: ancestor of child is false sos do nothing #}
+    {%- if ancestor == false -%}{# base case: ancestor of child is false so do nothing #}
     {%- else -%}{# recursive case: print comma and call get_root, continuing upwards #}
       {%- set ancestor=get_taxonomy_term(kind="threads", term=child.taxonomies.replies[1]) | get(key="pages") | nth(n=0) -%},{{ r3ply::get_ancestors(child=ancestor, stop_at_id=stop_at_id) }}
     {%- endif -%}
@@ -130,7 +199,7 @@
 {% macro write_thread(parent, comments) %}
 {# You most likely do not want to change the children #}
 {% set children = comments | filter(attribute="taxonomies.replies.1", value=parent.slug) | sort(attribute="extra.latest_activity") | reverse %}
-<details open class="max-w-prose overflow-x-scroll">
+<details id="{{ parent.slug }}" open class="max-w-prose overflow-x-scroll">
   <summary class="border-b whitespace-nowrap">
     <span class="inline-flex gap-2">
       <span>
@@ -151,7 +220,12 @@
     </span>
   </summary>
   <article class="my-2">
-  {{ parent.content | safe }}
+    {% if parent.extra.comment.text_fragment %}
+    <blockquote class="">
+      <a href="{{ '#:~:text' ~ parent.extra.comment.text_fragment }}" class="font-serif font-light text-gray-400 no-underline hover:underline">{{ r3ply::urldecode(encoded=parent.extra.comment.text_fragment) }}</a>
+    </blockquote>
+    {% endif %}
+    {{ parent.content | safe }}
   </article>
   {% set subject = "/" ~ parent.taxonomies['comment-subjects'][0] ~ "/#" ~ parent.slug %}
   <div class="m-2">
@@ -229,7 +303,7 @@
     {#- Step 1: If there are no pages, end. Otherwise, process the most recent page. Then go to step 2. You 'process' the page by "making" a claim. -#}
     {%- set alias = a.content | striptags | trim | slugify -%}
     {%- set ts = a.extra.comment.ts_rcvd -%}
-    {%- set new_claim = `{ "user": "` ~ a.taxonomies.commenters[0] ~ `", "claims": [{ "alias": "` ~ alias ~ `", "ts": ` ~ ts ~ ` }] }` -%}
+    {%- set new_claim = `{ "user": "` ~ a.taxonomies.commenters[0] ~ `", "claims": [{ "alias": "` ~ alias ~ `", "ts": ` ~ ts ~ `, "id": "` ~ a.slug ~ `" }] }` -%}
     {%- set new_claim = load_data(literal=new_claim, format="json") -%}
     {%- set_global claims = claims | concat(with=new_claim) -%}
     {#- CLAIMS: {{ claims | json_encode() }} <br /> -#}
@@ -299,7 +373,7 @@
   [
   {%- for c in claims_accumulator | default(value=[]) | sort(attribute="user") -%}
     {%- if c.claims | length > 0 -%}
-      { "alias": "{{ c.claims[0].alias }}", "ts": {{ c.claims[0].ts }}, "user": "{{ c.user }}"}{%- if not loop.last -%},{%- endif -%}
+      { "alias": "{{ c.claims[0].alias }}", "ts": {{ c.claims[0].ts }}, "user": "{{ c.user }}", "id": "{{ c.claims[0].id }}" }{%- if not loop.last -%},{%- endif -%}
     {%- endif -%}
   {%- endfor -%}
   ]

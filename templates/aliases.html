@@ -56,7 +56,7 @@
       </thead>
       <tbody>
         {% for a in aliases %}
-          <tr>
+          <tr id="{{ a.id }}">
             <td>@<a href="/commenters/{{ a.user }}">{{ a.user }}</a></td>
             <td>✨<a href="/commenters/{{ a.user }}">{{ a.alias }}</a></td>
             <td><span>{{ a.ts | date(format="%Y-%m-%d %H:%M:%S UTC") }}</span></td>

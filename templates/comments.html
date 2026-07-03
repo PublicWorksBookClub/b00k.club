@@ -41,7 +41,7 @@
             width="16"
             height="16"
             fill="currentColor"
-            class="inline align-text-bottom text-red-300"
+            class="inline align-text-bottom text-rose-300"
             viewBox="0 0 16 16"
           >
             <path
@@ -58,23 +58,23 @@
         {# Comment Preview #}
         <td class="w-72 md:w-96">
           <em class="line-clamp-3 font-serif">
-            <span class="text-indigo-800">“</span><a class="text-gray-500 no-underline" href="{{ context_url }}">{{ c.content | striptags | trim }}</a><span class="text-indigo-800">”</span>
+            <span class="text-indigo-700">“</span><a class="font-light text-orange-800 no-underline" href="/{{ context_url }}">
+              {{ c.content | striptags | trim }}
+            </a><span class="text-indigo-700">”</span>
           </em>
         </td>
         {# Date #}
         <td class="font-sans text-lg">
           <time datetime="{{ c.date }}" class="flex items-center gap-1">
-            <span class="text-stone-500 font-medium oldstyle-nums">{{ c.date | date(format="%Y-%m-%d") }}</span>
-            <span class="ml-1 text-mauve-600 font-light font-serif">{{ c.date | date(format="%H:%M") }}</span>
-            <span class="ml-0.5 text-mist-800 italic font-thin">{{ c.date | date(format="%Z") }}</span>
+            <span class="text-emerald-700 font-medium oldstyle-nums">{{ c.date | date(format="%Y-%m-%d") }}</span>
+            <span class="ml-1 text-teal-600 font-light font-serif">{{ c.date | date(format="%H:%M") }}</span>
+            <span class="ml-0.5 text-lime-800 italic font-thin">{{ c.date | date(format="%Z") }}</span>
           </time>
         </td>
         {# Page #}
-        <td class="min-w-48">
+        <td class="min-w-48 max-w-80">
           {% set url = get_url(path=c.extra.comment.document, trailing_slash=true) %}
-          <a class="line-clamp-2
-          font-extralight text-indigo-500
-          " href="{{ url }}">/{{ c.extra.comment.document }}/</a>
+          <a class="line-clamp-2 font-extralight text-indigo-500" href="{{ url }}">/{{ c.extra.comment.document }}/</a>
         </td>
         {# Author #}
         <td class="prose-a:font-bold prose-a:font-serif prose-a:text-pink-400">
@@ -82,37 +82,37 @@
           {% if alias_object is object %}
           <span>🫆</span><a href="/commenters/{{ c.taxonomies.commenters[0] }}/">{{ alias_object.alias }}</a>
           {% else %}
-          <span class="font-thin text-gray-500">@</span><a href="/commenters/{{ c.taxonomies.commenters[0] }}/">{{ c.taxonomies.commenters[0] }}</a>
+          <span class="font-extralight text-gray-500">@</span><a href="/commenters/{{ c.taxonomies.commenters[0] }}/">{{ c.taxonomies.commenters[0] }}</a>
           {% endif %}
         </td>
         {# Comment ID #}
         <td class="text-center">
-          <span class="text-thin text-gray-500">#</span><a class="font-mono text-blue-400" href="/comments/{{ c.slug }}">{{ c.slug }}</a>
+          <span class="font-light text-gray-400">#</span><a class="font-mono text-blue-400" href="/comments/{{ c.slug }}">{{ c.slug }}</a>
         </td>
         {# Verified #}
         <td class="text-center">
           {% if c.extra.email.dkim and c.extra.email.dmarc and c.extra.email.spf %}
-            <span class="text-green-400">✓ </span>
+            <span class="text-slate-600">✓ </span>
           {% else %}
-            <span class="text-yellow-400">? </span>
+            <span class="text-slate-300">? </span>
           {% endif %}
         </td>
         {# Replying To #}
-        <td class="min-w-48">
+        <td class="min-w-48 max-w-80">
           <span class="line-clamp-2 prose-a:font-extralight">
           {# Comment is in response to just the document #}
           {% if c.extra.comment.in_reply_to == false %}
-            <a class="text-violet-500" href="{{ c.extra.comment.document }}">/{{ c.extra.comment.document }}/</a>
+            <a class="line-clamp-2 font-extralight text-indigo-500" href="{{ c.extra.comment.document }}">/{{ c.extra.comment.document }}/</a>
           {# Comment is in response to a text fragment #}
           {% elif c.extra.comment.in_reply_to is starting_with("#:~:text=") %}
           {% set text = c.extra.comment.in_reply_to | split(pat="") | slice(start=10) | join(sep="") %}
-          <a href="{{ c.extra.comment.document }}{{ c.extra.comment.in_reply_to }}" class="text-red-500">
-            <em>“{{ util::urldecode(encoded=text) | truncate(length=15) | trim }}”</em>
-          </a>
+            <a href="{{ c.extra.comment.document }}{{ c.extra.comment.in_reply_to }}" class="text-red-500">
+              <em>“{{ r3ply::urldecode(encoded=text) | truncate(length=15) | trim }}”</em>
+            </a>
           {# Comment is in response to another comment #}
           {% else %}
             {% set in_reply_to = c.extra.comment.in_reply_to | split(pat="") | slice(start=2) | join(sep="") %}
-            <span>#</span><a class="" href="/comments/{{ in_reply_to }}">{{ in_reply_to }}</a>
+            <span class="font-light text-gray-400">#</span><a class="font-mono text-blue-400" href="/comments/{{ in_reply_to }}">{{ in_reply_to }}</a>
           {% endif %}
           </span>
         </td>
