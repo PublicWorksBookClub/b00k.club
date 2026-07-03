@@ -14,7 +14,13 @@ demo = "https://r3ply.com/demo/"
 # This will be used when generating mailto links, i.e. "Your Name <example.com@r3ply.com>"
 to_email = "CHANGE ME <your-site.com@r3ply.com>"
 # This will be prepopulated in the mailto link's body, i.e. "WRITE COMMENT ABOVE ^^^"
-email_body = ""
+email_body = """
+
+
+-------------------
+COMMENT 👆
+-------------------
+"""
 
 # Author of the theme
 [author]

@@ -23,10 +23,10 @@
   <div>
     <a
       href="{{
-        r3ply::mailto(to=config.extra.r3ply.to_email | default(value='CHANGE_ME'), subject='/aliases/',
-        body='')
-      }}"
-      class="inline-flex h-10 min-w-20 px-4 items-center justify-center mt-1 ml-1 border-2 border-gray-700 hover:bg-black/5"
+        r3ply::mailto(to=config.extra.r3ply.to_email,
+        subject='/aliases/',
+        body=config.extra.r3ply.email_body) }}"
+      class="inline-flex h-10 min-w-20 px-4 items-center justify-center mt-1 ml-1 border-2 border-gray-700 hover:bg-black/5 no-underline"
       >Add Comment</a>
 
   </div>

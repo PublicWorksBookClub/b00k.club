@@ -34,7 +34,10 @@
     <div>
     {{ page.content | safe }}
     </div>
-    <a href="{{ self::mailto(to=to, subject=context_path, body=config.extra.r3ply.email_body) }}">reply</a>
+    <a href="{{ self::mailto(
+      to=to,
+      subject=context_path,
+      body=config.extra.r3ply.email_body) }}">reply</a>
   </article>
 </main>
 {% endblock body %}

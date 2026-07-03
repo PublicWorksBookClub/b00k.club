@@ -15,9 +15,10 @@
     <div>
     <a
       href="{{
-        r3ply::mailto(to=config.extra.r3ply.to_email | default(value='CHANGE_ME'), subject='/aliases/',
-        body='')
-      }}"
+        r3ply::mailto(
+          to=config.extra.r3ply.to_email,
+          subject='/aliases/',
+          body=config.extra.r3ply.email_body) }}"
       >Add Comment</a>
   </div>
   <div>

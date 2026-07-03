@@ -156,9 +156,10 @@
   {% set subject = "/" ~ parent.taxonomies['comment-subjects'][0] ~ "/#" ~ parent.slug %}
   <div class="m-2">
     <a class="px-2 py-1 rounded-xl border text-purple-400 not-prose"
-    href="{{ r3ply::mailto(to=config.extra.r3ply.to_email | default(value='CHANGE_ME'),
-    subject=subject,
-    body='') }}">reply</a>
+    href="{{ r3ply::mailto(
+      to=config.extra.r3ply.to_email,
+      subject=subject,
+      body=config.extra.r3ply.email_body) }}">reply</a>
   </div>
   <div class="ml-4 pt-2">
     {% for child in children %}
