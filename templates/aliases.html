@@ -3,7 +3,7 @@
 {% extends "base.html" %}
 
 {% block setup %}
-{% set aliases = load_data(literal=r3ply::aliases(), format="json") | sort(attribute="ts") | reverse %}
+{# Aliases are calculated in the `aliases` block in base #}
 {% endblock setup %}
 
 {% block body_styles %}{{ section.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
