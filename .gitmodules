@@ -1,0 +1,3 @@
+[submodule "content/comments"]
+	path = content/comments
+	url = git@github.com:PublicWorksBookClub/b00k.club-comments.git

@@ -2,6 +2,10 @@
 
 ## NEXT
 
+## 1.6.2 (2026-06-29)
+
+- Migrate comments to a submodule and separate github repo
+
 ## 1.6.1 (2026-06-29)
 
 - Update look for r3ply integration
