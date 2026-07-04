@@ -39,11 +39,11 @@ webhook = [ ]
   owner = "PublicWorksBookClub"
   # Repo name: Name of GitHub repository.
   # Examples: ["yoursite"]
-  repo = "b00k.club"
+  repo = "b00k.club-comments"
   # File path template (string): Specifies the file path of the new comment.
   # Examples: ["content/comments/{{ comment.id | slice(end=8) }}.md"]
   # Can never begin with a `/`.
-  "file_path_{}" = "content/comments/{{ comment.ts_rcvd }}_{{ comment.id[:8] }}-{{ author.pseudonym[:7] }}.md"
+  "file_path_{}" = "{{ comment.ts_rcvd }}_{{ comment.id[:8] }}-{{ author.pseudonym[:7] }}.md"
   # Base branch template (string): Specifies the base branch of the new comment, e.g. `main`.
   # Default: "main"
   "base_branch_{}" = "main"
