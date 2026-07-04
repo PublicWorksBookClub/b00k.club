@@ -150,7 +150,12 @@
 {#
     This macro takes a list of comments as zola pages and it renders them in the order of thread with the most recent activity.
     A thread is a comment and all of its descendants.
-    `starting_from_id` is an optional parameter from which to begin the thread, allowing one to render subtrees.
+
+    `commments`         pool of comments to use while rendering the thread
+    `starting_from_id`  is an optional parameter from which to begin the thread, allowing one to render subtrees.
+    `write_subject`     will add a subject line to the top of the thread
+    `aliases`           a list of aliases that can be shown instead of commenter ID
+
     It will not render any comments outside of the ones given.
 
     Note: To customize the HTML edit the `write_thread` macro.
@@ -191,8 +196,10 @@
 {% endmacro  %}
 
 {#
-    `parent`    is the top of this comment subtree
-    `comments`  is just a pool of comments constituting consisting of the whole thread
+    `parent`        is the top of this comment subtree
+    `comments`      is just a pool of comments constituting consisting of the whole thread
+    `write_subject` will add a subject line to the top of the thread
+    `aliases`       a list of aliases that can be shown instead of commenter ID
 
     Note 1: this is the macro you will want to edit to change the actual HTML of the comment threads.
     Note 2: pay close attention to the recursion when editing, as that's crucial to traversing the thread.
