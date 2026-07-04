@@ -1,3 +1,4 @@
+{% import "r3ply.html" as r3ply %}
 {#-
   To override a block in an extending template just redeclare it.
   To extend a block, redeclare it and use `{{ super() }}` to render the parent.
@@ -11,6 +12,13 @@
     {% block article %}<article>...change the parent</article>{% endblock article %}
   </main>
 -#}
+{% block aliases %}
+{# Hopefully the aliases will only be calculated once if they're just done here #}
+{% set aliases = load_data(literal=r3ply::aliases(), format="json") | sort(attribute="ts") | reverse %}
+{% endblock aliases %}
+{# You can set important variables here #}
+{% block setup %}
+{% endblock setup %}
 <!DOCTYPE html>
 {% block html %}
 <html lang="{{ lang }}" class="scroll-smooth">
@@ -56,18 +64,89 @@
 {% endblock head %}
 {% block body %}
 <body class="{% block body_styles %}{% endblock body_styles %}">
-  {# i.e. "page header", for logo and primary nav. See mdn <header> usage notes for more. #}
-  <header>
-  {% block banner %}{% endblock banner %}
-  </header>
-  <main>
-    {% block main %}{% endblock main %}
-  </main>
-  {% block comments %}
-  {% endblock comments %}
-  <footer>
-    {% block footer %}{% endblock footer %}
-  </footer>
+  <div class=" min-h-screen flex flex-col">
+    {# i.e. "page header", for logo and primary nav. See mdn <header> usage notes for more. #}
+    <header>
+    {% block banner %}{% endblock banner %}
+    </header>
+    <main>
+      {% block main %}{% endblock main %}
+    </main>
+    {% block comments %}
+    {% endblock comments %}
+    <footer id="footer" class="h-full flex flex-col place-items-center mt-auto">
+      {% block footer %}
+      <div class="mt-12 w-full bg-indigo-950 bg-[url('bank-note_dark.svg')] border-t-2 border-cyan-400 relative">
+        <a href="#footer" class="absolute top-3 right-4 md:top-5 md:right-6 text-pink-400 text-2xl">#</a>
+        <ul class="px-4 md:px-0 mt-2 py-10 md:pt-48 md:pb-36 grow h-full w-full grid grid-cols-2 md:grid-cols-4 gap-y-6 justify-items-center text-slate-300">
+          {% set sub_menu_headers = "font-medium text-lg md:text-xl" %}
+          {# {% set main_menu_items = "ml-12 md:ml-0" %} #}
+          {% set sub_menu_styles = "pt-3" %}
+          {% set sub_menu_items = "underline decoration-violet-300 decoration-dashed text-sm md:text-lg font-light hover:text-white hover:decoration-solid" %}
+
+          {# Site Sections #}
+          <li class="w-32 md:w-auto text-right">
+            <span class="text-teal-300 {{ sub_menu_headers }}">Sections<span class="hidden md:inline">:</span></span>
+            <ul class="{{ sub_menu_styles }}">
+              <li class="{{ sub_menu_items }}"><a href="/">Home</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/resources/">Resources</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/works/">Readings</a></li>
+              <li class="{{ sub_menu_items }} cursor-not-allowed text-gray-600">Commentary</li>
+              <li class="{{ sub_menu_items }} cursor-not-allowed text-gray-600">Updates</li>
+              <li class="{{ sub_menu_items }} cursor-not-allowed text-gray-600">Trips</li>
+            </ul>
+          </li>
+          <li class="w-32 md:w-auto text-auto md:text-right">
+            <span class="text-pink-300 {{ sub_menu_headers }}"><a href="/taxonomy/">Site Links</a><span class="hidden md:inline">:</span></span>
+            <ul class="{{ sub_menu_styles }}">
+              <li class="{{ sub_menu_items }}"><a href="/sitemap.xml">Sitemap.xml</a></li>
+              <li class="{{ sub_menu_items }}"><a href="https://github.com/PublicWorksBookClub/b00k.club/">GitHub</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/taxonomy/">Taxonomy</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/comments/">Comments</a></li>
+            </ul>
+          </li>
+          <li class="w-32 md:w-auto text-right md:text-left">
+            <span class="text-yellow-200 {{ sub_menu_headers }}"><a href="/taxonomy">Taxonomy</a><span class="hidden md:inline">:</span></span>
+            <ul class="{{ sub_menu_styles }} grid grid-flow-col grid-rows-7 gap-x-2 items-end justify-end md:justify-items-start">
+              <li class="{{ sub_menu_items }}"><a href="/arcs/">Arcs</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/authors/">Authors</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/contributors/"><span class="md:hidden">Contrib.</span><span class="hidden md:inline">Contributors</span></a></li>
+              <li class="{{ sub_menu_items }}"><a href="/forms/">Forms</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/genres/">Genres</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/titles/">Titles</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/index/">Index</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/languages/">Languages</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/periods/">Periods</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/references/">References</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/subjects/">Subjects</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/tags/">Tags</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/years/">Years</a></li>
+            </ul>
+
+          </li>
+          <li class="w-32 md:w-auto text-left">
+            <span class="text-red-300 {{ sub_menu_headers }}"><a href="/comments/">Comments</a><span class="hidden md:inline">:</span></span>
+            <ul class="{{ sub_menu_styles }}">
+              <li class="{{ sub_menu_items }}"><a href="/comments/">All Comments</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/comment-subjects/">By Page</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/commenters/">By Author</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/threads/">By Thread</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/replies/">Replies</a></li>
+              <li class="{{ sub_menu_items }}"><a href="/aliases/">Aliases</a></li>
+            </ul>
+          </li>
+        </ul>
+        <p class="text-center mb-8 md:mb-3.5">
+          <span class="inline-flex gap-1 not-prose items-center justify-center">
+            <a href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.01.0167%3Abook%3D10%3Asection%3D617e#:~:text=ᾧ%20συνέσται%20ἐξ%20ἀνάγκης.-,ἀρετὴ%20δὲ%20ἀδέσποτον,-%2C%20ἣν%20τιμῶν%20καὶ" class="hover:underline text-lg tracking-tight font-porson text-cyan-700">ἀρετὴ δὲ ἀδέσποτον</a>
+            <span class="text-indigo-200"> | <span>
+            <span class="font-serif tracking-tight text-sky-700">Rome MMXXII</span>
+          </span>
+        </p>
+      </div>
+      {% endblock footer %}
+    </footer>
+  </div>
 </body>
 {% endblock body %}
 </html>

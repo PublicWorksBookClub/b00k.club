@@ -10,7 +10,7 @@
 {% block body %}
   {% block comments %}
   <section id="comments">
-    {{ r3ply::render_comments_sorted_by_activity(comments=comments) }}
+    {{ r3ply::render_comments_sorted_by_activity(comments=comments, aliases=aliases, aliases=aliases) }}
   </section>
   {% endblock comments %}
 {% endblock body %}

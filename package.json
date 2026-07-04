@@ -1,6 +1,6 @@
 {
   "name": "b00k.club",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "private": true,
   "description": "The website for the Public Works Book Club: we only read works in the public domain",
   "scripts": {
@@ -27,7 +27,7 @@
   },
   "homepage": "https://b00k.club/",
   "devDependencies": {
-    "@r3ply/cli": "^0.0.1",
+    "@r3ply/cli": "^0.0.2",
     "@tailwindcss/cli": "^4.2.2",
     "@tailwindcss/typography": "^0.5.9",
     "jsonld-cli": "^2.0.0",

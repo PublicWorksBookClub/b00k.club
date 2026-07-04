@@ -1,20 +1,44 @@
-{% extends "r3ply/templates/taxonomy_single.html" %}
 {% import "r3ply.html" as r3ply %}
+{% import "macro/util.html" as util %}
+{% extends "base.html" %}
 
-{# Comments that should be rendered are setup over here, allowing for the rendering itself to be overriden#}
 {% block setup %}
-  {% set parent = term.pages | first %}
-  {% set subject_comments = get_taxonomy_term(kind="comment-subjects", term=parent.taxonomies["comment-subjects"][0])
-    | get(key="pages") | group_by(attribute="slug") %}
-  {% set descendant_ids = r3ply::get_descendants(parent=parent) | split(pat=",") %}
-  {% set comments = [] %}
-  {# Get pages of descendants #}
-  {% for d in descendant_ids %}
-    {% set_global comments = comments | concat(with=subject_comments[d]) %}
-  {% endfor %}
+{% set descendants = r3ply::get_descendants(parent=term.pages[0]) | split(pat=",") %}
+{% set comments = [] %}
+{% for c in get_taxonomy_term(kind="comment-subjects", term=term.pages[0].taxonomies['comment-subjects'][0]) | get(key="pages")  %}
+{% if c.slug in descendants %}{% set_global comments = comments | concat(with=c) %}{% endif %}
+{% endfor %}
 {% endblock setup %}
 
-{# To change how comments are rendered, change this block #}
-{% block render %}
-  {{ r3ply::render_comments_sorted_by_activity(comments=comments, starting_from_id=parent.slug) }}
-{% endblock render %}
+{% block title %}
+<title>#{{ term.name }} Thread | PWBC</title>
+{% endblock title %}
+
+{% block body_styles %}
+{{ section.extra.bg_color | default(value="bg-orange-50") }}
+{% endblock body_styles %}
+
+{% block banner %}
+{{ util::nav(href="/", text="Home") }}
+{{ util::nav(href="/threads/", text="All Threads") }}
+{{ util::nav(href="/aliases/", text="Aliases") }}
+{% endblock banner %}
+
+{% block main %}
+<article class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg
+  prose-headings:font-fira-sans prose-pwbc">
+  <h1>
+    <span>Thread </span>
+    <span>
+      <span class="text-gray-400">#</span><span class="text-blue-400 font-mono">{{ term.name }}</span>
+    </span>
+  </h1>
+</article>
+{% endblock main %}
+{% block comments %}
+<section id="comments" class="max-w-full py-8 px-2 prose prose-lg prose-pwbc">
+  <div class="max-w-prose mx-auto">
+  {{ r3ply::render_comments_sorted_by_activity(comments=comments, aliases=aliases) }}
+  </div>
+</section>
+{% endblock comments %}

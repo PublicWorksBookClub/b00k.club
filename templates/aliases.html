@@ -1,0 +1,81 @@
+{% import "macro/util.html" as util %}
+{% import "r3ply.html" as r3ply %}
+{% extends "base.html" %}
+
+{% block setup %}
+{# Aliases are calculated in the `aliases` block in base #}
+{% endblock setup %}
+
+{% block body_styles %}{{ section.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
+
+{% block banner %}
+{{ util::nav(href="/", text="Home") }}
+{{ util::nav(href="/comments/", text="All Comments") }}
+{% endblock banner %}
+
+{% block main %}
+<article class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg
+  prose-headings:font-fira-sans prose-pwbc">
+  {{ page.content | safe }}
+</article>
+{% endblock main %}
+{% block comments %}
+<section id="comments" class="max-w-prose w-full min-w-0 mx-auto px-1 md:px-0 prose prose-lg prose-pwbc prose-th:whitespace-nowrap">
+  <div>
+    <a
+      href="{{
+        r3ply::mailto(to=config.extra.r3ply.to_email,
+        subject='/aliases/',
+        body=config.extra.r3ply.email_body) }}"
+      class="inline-flex h-10 min-w-20 px-4 items-center justify-center mt-1 ml-1 border-2 border-gray-700 hover:bg-black/5 no-underline"
+      >Add Comment</a>
+
+  </div>
+  <div class="overflow-x-auto">
+    <table>
+      <thead>
+        <tr>
+          <th>Commenter ID</th>
+          <th>Alias</th>
+          <th>Date</th>
+          <th class="flex justify-center items-center gap-1">
+            <span>RSS</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="inline align-text-bottom text-rose-300"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2m0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2m.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"
+              />
+            </svg>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for a in aliases %}
+          <tr id="{{ a.id }}">
+            <td class="prose-a:font-bold prose-a:font-serif prose-a:text-pink-400">
+              <span>@</span><a href="/commenters/{{ a.user }}">{{ a.user }}</a>
+            </td>
+            <td class="prose-a:font-bold prose-a:font-serif prose-a:text-pink-400">
+              <span>🫆</span><a href="/commenters/{{ a.user }}">{{ a.alias }}</a>
+            </td>
+            <td class="min-w-60 font-sans text-lg not-prose align-baseline">
+              <time datetime="{{ a.ts }}" class="flex items-center gap-1">
+                <span class="text-emerald-700 font-medium oldstyle-nums">{{ a.ts | date(format="%Y-%m-%d") }}</span>
+                <span class="ml-1 text-teal-600 font-light font-serif">{{ a.ts | date(format="%H:%M") }}</span>
+                <span class="ml-0.5 text-lime-800 italic font-thin">00:00</span>
+              </time>
+            </td>
+            <td class="text-center"><a href="/commenters/{{ a.user }}/atom.xml">Subscribe</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock comments %}

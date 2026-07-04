@@ -1,11 +1,44 @@
-{% extends "r3ply/templates/taxonomy_single.html" %}
 {% import "r3ply.html" as r3ply %}
+{% import "macro/util.html" as util %}
+{% extends "base.html" %}
 
-{# Comments that should be rendered are setup over here, allowing for the rendering itself to be overriden#}
 {% block setup %}
+{% set comments = term.pages %}
 {% endblock setup %}
 
-{# To change how comments are rendered, change this block #}
-{% block render %}
-  {{ r3ply::render_comments_sorted_by_activity(comments=term.pages) }}
-{% endblock render %}
+{% block title %}
+<title>Replies to #{{ term.name }} | PWBC</title>
+{% endblock title %}
+
+{% block extra_head %}
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/replies/{{ term.name }}/atom.xml">
+{% endblock extra_head %}
+
+{% block body_styles %}
+{{ section.extra.bg_color | default(value="bg-orange-50") }}
+{% endblock body_styles %}
+
+{% block banner %}
+{{ util::nav(href="/", text="Home") }}
+{{ util::nav(href="/replies/", text="All Replies") }}
+{{ util::nav(href="/aliases/", text="Aliases") }}
+{% endblock banner %}
+
+{% block main %}
+<article class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg
+  prose-headings:font-fira-sans prose-pwbc">
+  <h1>
+    <span>Replies to</span>
+    <span>
+      <span class="text-gray-400">#</span><span class="text-blue-400 font-mono">{{ term.name }}</span>
+    </span>
+  </h1>
+</article>
+{% endblock main %}
+{% block comments %}
+<section id="comments" class="max-w-full py-8 px-2 prose prose-lg prose-pwbc">
+  <div class="max-w-prose mx-auto">
+  {{ r3ply::render_comments_sorted_by_activity(comments=comments, aliases=aliases) }}
+  </div>
+</section>
+{% endblock comments %}

@@ -1,45 +1,111 @@
-{% extends "r3ply/templates/taxonomy_list.html" %}
 {% import "r3ply.html" as r3ply %}
+{% import "macro/util.html" as util %}
+{% extends "base.html" %}
 
-{# Comments that should be rendered are setup over here, allowing for the rendering itself to be overriden#}
 {% block setup %}
 {% endblock setup %}
 
-{# To change how comments are rendered, change this block #}
-{% block render %}
-  {% block table %}
-  <table class="{% block table_classes %}{% endblock table_classes %}">
-    {% block thead %}
-    <thead class="{% block thead_classes %}{% endblock thead_classes %}">
-      {% block thead_row %}
-      <tr class="{% block heading_row_classes %}{% endblock heading_row_classes %}">
-        {% block author_heading %}<th>Author</th>{% endblock author_heading %}
-        {% block alias_heading %}<th>Alias</th>{% endblock alias_heading %}
-        {% block comment_count_heading %}<th># of Comments</th>{% endblock comment_count_heading %}
-        {% block latest_comment_heading %}<th>Last Comment</th>{% endblock latest_comment_heading %}
-        {% block latest_comment_id_heading %}<th>Comment ID</th>{% endblock latest_comment_id_heading %}
-        {% block date_heading %}<th>Date</th>{% endblock date_heading %}
-      </tr>
-      {% endblock thead_row %}
-    </thead>
-    {% endblock thead %}
-    {% block tbody %}
-    <tbody class="{% block tbody_classes %}{% endblock tbody_classes %}">
-      {% for t in terms %}
-      {% set latest_comment = t.pages | sort(attribute="date") | reverse | first %}
-      <tr>
-        <td><span>@</span><a href="/commenters/{{ t.name }}">{{ t.name }}</span></td>
-        <td>TODO</td>
-        <td>{{ t.pages | length }}</td>
-        <td>{{ latest_comment.content | safe }}</td>
-        <td><span>#</span><a href="/comments/{{ latest_comment.slug }}">{{ latest_comment.slug }}</a></td>
-        <td>
-          <time datetime="{{ latest_comment.date }}">{{ latest_comment.date | date(format="%Y-%m-%d %H:%M") }}</time>
-        </td>
-      </tr>
+{% block body_styles %}
+{{ section.extra.bg_color | default(value="bg-orange-50") }}
+{% endblock body_styles %}
+
+{% block banner %}
+{{ util::nav(href="/", text="Home") }}
+{{ util::nav(href="/aliases/", text="Aliases") }}
+{% endblock banner %}
+
+{% block main %}
+<article class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg
+  prose-headings:font-fira-sans prose-pwbc">
+  <h1>Comments by Author</h1>
+  <p>Pages are sorted by comment count</p>
+</article>
+{% endblock main %}
+
+{% block comments %}
+<section id="comments" class="max-w-5xl w-full min-w-0 mx-auto px-1 md:px-0 prose prose-lg prose-pwbc prose-th:whitespace-nowrap">
+  <div class="overflow-x-auto">
+    <table>
+      <thead>
+        <tr>
+          {# TODO: sort out having multilingual taxonomies for comments #}
+          <th>Author</th>
+          <th>Most Recent Comment</th>
+          <th>Preview</th>
+          <th class="text-center"># of Comments</th>
+          <th class="text-center">All Verified</th>
+          <th class="flex justify-center items-center gap-1">
+            RSS
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="inline align-text-bottom text-rose-300"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2m0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2m.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"
+              />
+            </svg>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for author in terms | sort(attribute="page_count") | reverse %}
+        {% set most_recent_page = author.pages | sort(attribute="date") | reverse | first %}
+        {% set dkim = author.pages | filter(attribute="extra.email.dkim", value=true) %}
+        {% set spf = author.pages | filter(attribute="extra.email.spf", value=true) %}
+        {% set dmarc = author.pages | filter(attribute="extra.email.dmarc", value=true) %}
+        {% set all_verified = dkim | length == author.pages | length and spf | length == author.pages | length and dmarc | length == author.pages | length %}
+        <tr>
+          {# Author #}
+          <td class="prose-a:font-bold prose-a:font-serif prose-a:text-pink-400">
+            {% set from = r3ply::alias(user_id=author.name, aliases=aliases) %}
+            {% if from != author.name and all_verified %}
+            <span>🫆</span><a href="{{ author.path }}">{{ from }}</a>
+            {% else %}
+            <span>@</span><a href="{{ author.path }}">{{ author.name }}</a>
+            {% endif %}
+          </td>
+          {# Date #}
+          <td class="font-sans text-lg not-prose align-baseline">
+            <a href="/{{ most_recent_page.taxonomies['comment-subjects'][0] }}/#{{ most_recent_page.slug }}" class="no-underline">
+              <time datetime="{{ most_recent_page.date }}" class="flex items-center gap-1">
+                <span class="text-emerald-700 font-medium oldstyle-nums">{{ most_recent_page.date | date(format="%Y-%m-%d") }}</span>
+                <span class="ml-1 text-teal-600 font-light font-serif">{{ most_recent_page.date | date(format="%H:%M") }}</span>
+                <span class="ml-0.5 text-lime-800 italic font-thin">{{ most_recent_page.date | date(format="%Z") }}</span>
+              </time>
+            </a>
+          </td>
+          {# Preview #}
+          <td class="w-72 md:w-96">
+            <em class="line-clamp-3 font-serif">
+              <span class="text-indigo-700">“</span><a class="font-light text-orange-800 no-underline" href="{{ most_recent_page.path }}">
+                {{ most_recent_page.content | striptags | trim }}
+              </a><span class="text-indigo-700">”</span>
+            </em>
+          </td>
+          {# Num. of Comments #}
+          <td class="text-center">
+            <a class="text-mauve-600" href="{{ author.path }}">{{ author.pages | length }}</a>
+          </td>
+          {# Verified #}
+          <td class="text-center">
+            {% if all_verified%}
+            <span class="text-slate-600">✓</span>
+            {% else %}
+            <span class="text-slate-300">✗</span>
+            {% endif %}
+          </td>
+          {# RSS #}
+          <td class="text-center whitespace-nowrap">
+            <a class="text-gray-500" href="{{ author.path }}atom.xml">Feed</a>
+          </td>
+        </tr>
       {% endfor %}
-    </tbody>
-    {% endblock tbody %}
-  </table>
-  {% endblock table %}
-{% endblock render %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock comments %}

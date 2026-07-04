@@ -1,0 +1,105 @@
+{% import "r3ply.html" as r3ply %}
+{% import "macro/util.html" as util %}
+{% extends "base.html" %}
+
+{% block title %}
+<title>#{{ page.slug }}: "{{ page.title | truncate(len=24) }}"</title>
+{% endblock title %}
+{% block setup %}
+{% set context_path = "/" ~ page.taxonomies["comment-subjects"][0] ~ "/#" ~ page.slug %}
+{% endblock setup %}
+
+{% block extra_head %}
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/replies/{{ page.slug }}/atom.xml">
+{% endblock extra_head %}
+
+{% block body_styles %}
+{{ section.extra.bg_color | default(value="bg-orange-50") }}
+{% endblock body_styles %}
+
+{% block banner %}
+{{ util::nav(href="/", text="Home") }}
+{{ util::nav(href="/comments/", text="All Comments") }}
+{{ util::nav(href="/aliases/", text="Aliases") }}
+{% endblock banner %}
+
+{% block main %}
+<article id="{{ page.slug }}">
+  <div class="max-w-prose mx-auto my-6 md:my-18 px-2 md:px-0 prose-headings:font-fira-sans prose prose-lg prose-pwbc">
+    <div class="border bg-blue-400/5 bg-[url('/bank-note.svg')] border-gray-600 p-2 md:p-8 overflow-x-auto">
+      <header class="prose-dt:m-0 prose-dt:p-0 prose-dd:m-0 prose-dd:p-0 prose-dl:m-0 overflow-x-auto">
+        <dl class="grid grid-cols-[8rem_1fr] gap-y-1
+            prose-dt:after:content-[':'] prose-dt:font-serif prose-dt:font-light">
+          <dt>Comment ID</dt>
+          <dd>
+            <span class="font-light text-gray-400">#</span><a class="font-mono text-blue-400" href="/comments/{{ page.slug }}">{{ page.slug }}</a>
+          </dd>
+          <dt>From</dt>
+          <dd class="prose-a:font-bold prose-a:font-serif prose-a:text-pink-400">
+            {% set from = r3ply::alias(user_id=page.taxonomies.commenters | first, aliases=aliases) %}
+            {% if from != page.taxonomies.commenters[0]
+              and page.extra.email.dkim
+              and page.extra.email.spf
+              and page.extra.email.dmarc %}
+            <span>🫆</span><a href="/commenters/{{ page.taxonomies.commenters[0] }}/">{{ from }}</a>
+            {% else %}
+            <span>@</span><a href="/commenters/{{ page.taxonomies.commenters[0] }}/">{{ page.taxonomies.commenters[0] }}</a>
+            {% endif %}
+          </dd>
+          <dt>Subject</dt>
+          <dd>
+            <a class="line-clamp-2 font-extralight text-indigo-500" href='/{{ page.taxonomies["comment-subjects"] | first }}'> /{{ page.taxonomies["comment-subjects"] | first }}</a>
+          </dd>
+          <dt>Date</dt>
+          <dd>
+            <time datetime="{{ page.date }}" class="flex items-center gap-1">
+              <span class="text-emerald-700 font-medium oldstyle-nums">{{ page.date | date(format="%Y-%m-%d") }}</span>
+              <span class="ml-1 text-teal-600 font-light font-serif">{{ page.date | date(format="%H:%M") }}</span>
+              <span class="ml-0.5 text-lime-800 italic font-thin">{{ page.date | date(format="%Z") }}</span>
+            </time>
+          </dd>
+          <dt>Auth</dt>
+          <div class="flex gap-2 prose-dd:not-last:after:content-[',']">
+            <dd class="whitespace-nowrap">
+              <span class="mr-1">dkim:</span>
+              {%- if page.extra.email.dkim -%}<span class="text-green-400">✓</span>{%- else -%}<span class="text-red-400">✗</span>{%- endif -%}
+            </dd>
+            <dd class="whitespace-nowrap">
+              <span class="mr-1">spf:</span>
+              {%- if page.extra.email.spf -%}<span class="text-green-400">✓</span>{%- else -%}<span class="text-red-400">✗</span>{%- endif -%}
+            </dd>
+            <dd class="whitespace-nowrap">
+              <span class="mr-1">dmarc:</span>
+              {%- if page.extra.email.dmarc -%}<span class="text-green-400">✓</span>{%- else -%}<span class="text-red-400">✗</span>{%- endif -%}
+            </dd>
+          </div>
+          <dt>Meta</dt>
+          <div class="flex gap-2 prose-dd:not-last:after:content-[','] prose-a:text-mauve-500">
+            <dd class=""><a href="{{ context_path }}">context</a></dd>
+            <dd class=""><a href="/threads/{{ page.slug }}/">thread</a></dd>
+            <dd class="whitespace-nowrap"><a href="/replies/{{ page.slug }}/">replies</a><span>/</span><a href="/replies/{{ page.slug }}/atom.xml">RSS</a></dd>
+          </div>
+        </dl>
+      </header>
+      <hr>
+      <div>
+        {% if page.extra.comment.text_fragment %}
+        <blockquote class="">
+          <a href="/{{ page.taxonomies['comment-subjects'][0] }}{{ '#:~:text' ~ page.extra.comment.text_fragment }}" class="font-serif font-light text-gray-400 no-underline hover:underline">{{ r3ply::urldecode(encoded=page.extra.comment.text_fragment) }}</a>
+        </blockquote>
+        {% endif %}
+        {% set ctx = load_data(literal=page.extra.comment.ctx, format="json") %}
+        <div class="font-light text-orange-950">
+          {{ ctx.comment.html | safe }}
+        </div>
+      </div>
+    </div>
+    <div class="mx-auto w-30 mt-4">
+      <a class="inline-flex h-10 min-w-20 px-4 items-center justify-center mt-1 ml-1 border-2 border-gray-700 hover:bg-black/5" href="{{ self::mailto(
+        to=config.extra.r3ply.to_email,
+        subject=context_path,
+        body=config.extra.r3ply.email_body) }}">reply</a>
+    </div>
+  </div>
+</article>
+{% endblock main %}

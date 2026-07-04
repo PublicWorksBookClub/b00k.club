@@ -13,13 +13,82 @@
   | regex_replace(pattern="%27", rep="'")
   | regex_replace(pattern="%28", rep="(")
   | regex_replace(pattern="%29", rep=")")
+  | regex_replace(pattern="%2A", rep="*")
+  | regex_replace(pattern="%2B", rep="+")
   | regex_replace(pattern="%2C", rep=",")
   | regex_replace(pattern="%2D", rep="-")
   | regex_replace(pattern="%2E", rep=".")
   | regex_replace(pattern="%2F", rep="/")
+  | regex_replace(pattern="%30", rep="0")
+  | regex_replace(pattern="%31", rep="1")
+  | regex_replace(pattern="%32", rep="2")
+  | regex_replace(pattern="%33", rep="3")
+  | regex_replace(pattern="%34", rep="4")
+  | regex_replace(pattern="%35", rep="5")
+  | regex_replace(pattern="%36", rep="6")
+  | regex_replace(pattern="%37", rep="7")
+  | regex_replace(pattern="%38", rep="8")
+  | regex_replace(pattern="%39", rep="9")
   | regex_replace(pattern="%3A", rep=":")
   | regex_replace(pattern="%3B", rep=";")
+  | regex_replace(pattern="%3C", rep="<")
+  | regex_replace(pattern="%3D", rep="=")
+  | regex_replace(pattern="%3E", rep=">")
   | regex_replace(pattern="%3F", rep="?")
+  | regex_replace(pattern="%40", rep="@")
+  | regex_replace(pattern="%5B", rep="[")
+  | regex_replace(pattern="%5C", rep="\\")
+  | regex_replace(pattern="%5D", rep="]")
+  | regex_replace(pattern="%5E", rep="^")
+  | regex_replace(pattern="%5F", rep="_")
+  | regex_replace(pattern="%60", rep="`")
+  | regex_replace(pattern="%7B", rep="{")
+  | regex_replace(pattern="%7C", rep="|")
+  | regex_replace(pattern="%7D", rep="}")
+  | regex_replace(pattern="%7E", rep="~")
+
+  | regex_replace(pattern="%E2%80%98", rep="‘")
+  | regex_replace(pattern="%E2%80%99", rep="’")
+  | regex_replace(pattern="%E2%80%9C", rep="“")
+  | regex_replace(pattern="%E2%80%9D", rep="”")
+  | regex_replace(pattern="%E2%80%93", rep="–")
+  | regex_replace(pattern="%E2%80%94", rep="—")
+  | regex_replace(pattern="%E2%80%A6", rep="…")
+  | regex_replace(pattern="%E2%80%A2", rep="•")
+  | regex_replace(pattern="%E2%84%A2", rep="™")
+  | regex_replace(pattern="%C2%A9", rep="©")
+  | regex_replace(pattern="%C2%AE", rep="®")
+  | regex_replace(pattern="%C2%B0", rep="°")
+  | regex_replace(pattern="%C2%B1", rep="±")
+  | regex_replace(pattern="%C2%B5", rep="µ")
+
+  | regex_replace(pattern="%C3%A0", rep="à")
+  | regex_replace(pattern="%C3%A1", rep="á")
+  | regex_replace(pattern="%C3%A2", rep="â")
+  | regex_replace(pattern="%C3%A3", rep="ã")
+  | regex_replace(pattern="%C3%A4", rep="ä")
+  | regex_replace(pattern="%C3%A5", rep="å")
+  | regex_replace(pattern="%C3%A6", rep="æ")
+  | regex_replace(pattern="%C3%A7", rep="ç")
+  | regex_replace(pattern="%C3%A8", rep="è")
+  | regex_replace(pattern="%C3%A9", rep="é")
+  | regex_replace(pattern="%C3%AA", rep="ê")
+  | regex_replace(pattern="%C3%AB", rep="ë")
+  | regex_replace(pattern="%C3%AC", rep="ì")
+  | regex_replace(pattern="%C3%AD", rep="í")
+  | regex_replace(pattern="%C3%AE", rep="î")
+  | regex_replace(pattern="%C3%AF", rep="ï")
+  | regex_replace(pattern="%C3%B1", rep="ñ")
+  | regex_replace(pattern="%C3%B2", rep="ò")
+  | regex_replace(pattern="%C3%B3", rep="ó")
+  | regex_replace(pattern="%C3%B4", rep="ô")
+  | regex_replace(pattern="%C3%B5", rep="õ")
+  | regex_replace(pattern="%C3%B6", rep="ö")
+  | regex_replace(pattern="%C3%B9", rep="ù")
+  | regex_replace(pattern="%C3%BA", rep="ú")
+  | regex_replace(pattern="%C3%BB", rep="û")
+  | regex_replace(pattern="%C3%BC", rep="ü")
+  | regex_replace(pattern="%C3%BD", rep="ý")
 }}
 {% endmacro  %}
 
@@ -47,7 +116,7 @@
   {{ child.slug }}{# always include the current child #}
   {%- if child.slug != stop_at_id -%}
     {%- set ancestor = child.extra.comment.in_reply_to -%}
-    {%- if ancestor == false -%}{# base case: ancestor of child is false sos do nothing #}
+    {%- if ancestor == false -%}{# base case: ancestor of child is false so do nothing #}
     {%- else -%}{# recursive case: print comma and call get_root, continuing upwards #}
       {%- set ancestor=get_taxonomy_term(kind="threads", term=child.taxonomies.replies[1]) | get(key="pages") | nth(n=0) -%},{{ r3ply::get_ancestors(child=ancestor, stop_at_id=stop_at_id) }}
     {%- endif -%}
@@ -81,12 +150,18 @@
 {#
     This macro takes a list of comments as zola pages and it renders them in the order of thread with the most recent activity.
     A thread is a comment and all of its descendants.
-    `starting_from_id` is an optional parameter from which to begin the thread, allowing one to render subtrees.
+
+    `commments`         pool of comments to use while rendering the thread
+    `starting_from_id`  is an optional parameter from which to begin the thread, allowing one to render subtrees.
+    `write_subject`     will add a subject line to the top of the thread
+    `aliases`           a list of aliases that can be shown instead of commenter ID
+
     It will not render any comments outside of the ones given.
 
     Note: To customize the HTML edit the `write_thread` macro.
 #}
-{% macro render_comments_sorted_by_activity(comments, starting_from_id=false) %}
+{% macro render_comments_sorted_by_activity(comments, starting_from_id=false, write_subject=false, aliases=false) %}
+{% if aliases == false %}{% set aliases = [] %}{% endif %}
 {% set slugs = comments | map(attribute="slug") %}
 {% set list_of_lists_of_ancestors = [] %}
 {% set comments_with_latest_activity = [] %}
@@ -116,55 +191,225 @@
   {% endfor %}
 {% endfor %}
 {% for root in list_of_lists_of_ancestors | map(attribute=".0") %}
-  {{ r3ply::write_thread(parent=comments | filter(attribute="slug", value=root) | first, comments=comments_with_latest_activity) }}
+  {{ r3ply::write_thread(parent=comments | filter(attribute="slug", value=root) | first, comments=comments_with_latest_activity, write_subject=write_subject, aliases=aliases) }}
 {% endfor %}
 {% endmacro  %}
 
 {#
-    `parent`    is the top of this comment subtree
-    `comments`  is just a pool of comments constituting consisting of the whole thread
+    `parent`        is the top of this comment subtree
+    `comments`      is just a pool of comments constituting consisting of the whole thread
+    `write_subject` will add a subject line to the top of the thread
+    `aliases`       a list of aliases that can be shown instead of commenter ID
 
     Note 1: this is the macro you will want to edit to change the actual HTML of the comment threads.
     Note 2: pay close attention to the recursion when editing, as that's crucial to traversing the thread.
 #}
-{% macro write_thread(parent, comments) %}
+{% macro write_thread(parent, comments, write_subject=false, aliases=false) %}
+{% if aliases == false %}{% set aliases = [] %}{% endif %}
 {# You most likely do not want to change the children #}
 {% set children = comments | filter(attribute="taxonomies.replies.1", value=parent.slug) | sort(attribute="extra.latest_activity") | reverse %}
-<details open class="max-w-prose overflow-x-scroll">
+<details id="{{ parent.slug }}" open class="max-w-prose overflow-x-scroll">
   <summary class="border-b whitespace-nowrap">
-    <span class="inline-flex gap-2">
+    {% if write_subject %}
+    <span class="inline-grid grid-rows-2">
       <span>
-        {% set author = parent.taxonomies.commenters[0] %}
-        <span class="text-gray-600">@</span><a href="/commenters/{{ author }}">{{ author }}</a>
+        <span>Subject: </span>
+        <a  tabindex="-1" class="font-extralight text-indigo-500" href="">{{ parent.taxonomies['comment-subjects'][0] }}</a>
       </span>
-      <span>|</span>
-      <time datetime="{{ parent.date }}">
-        <a href="/comments/{{ parent.slug }}">
-          <span>{{ parent.date | date(format="%Y-%m-%d") }}</span>
-          <span>{{ parent.date | date(format="%H:%M") }}</span>
-        </a>
-      </time>
-      <span>|</span>
-      <span>
-        <span class="text-gray-600">#</span><a href="#{{ parent.slug }}">{{ parent.slug }}</a>
+    {% endif %}
+      <span class="inline-flex gap-2">
+        <span class="prose-a:font-bold prose-a:font-serif prose-a:text-pink-400">
+          {% set from = r3ply::alias(user_id=parent.taxonomies.commenters | first, aliases=aliases) %}
+          {% if from != parent.taxonomies.commenters[0]
+            and parent.extra.email.dkim
+            and parent.extra.email.spf
+            and parent.extra.email.dmarc %}
+          <span>🫆</span><a tabindex="-1" href="/commenters/{{ parent.taxonomies.commenters[0] }}/">{{ from }}</a>
+          {% else %}
+          <span>@</span><a tabindex="-1" href="/commenters/{{ parent.taxonomies.commenters[0] }}/">{{ parent.taxonomies.commenters[0] }}</a>
+          {% endif %}
+        </span>
+        <span>|</span>
+        <time datetime="{{ parent.date }}" class="flex items-center gap-1">
+          <a href="/{{ parent.taxonomies['comment-subjects'][0] }}/#{{ parent.slug }}" tabindex="-1" class="no-underline">
+            <span class="text-emerald-700 font-medium oldstyle-nums">{{ parent.date | date(format="%Y-%m-%d") }}</span>
+            <span class="ml-1 text-teal-600 font-light font-serif">{{ parent.date | date(format="%H:%M") }}</span>
+            <span class="ml-0.5 text-lime-800 italic font-thin">{{ parent.date | date(format="%Z") }}</span>
+          </a>
+        </time>
+        <span>|</span>
+        <span>
+          <span class="font-light text-gray-400">#</span><a tabindex="-1" class="font-mono text-blue-400" href="/comments/{{ parent.slug }}">{{ parent.slug }}</a>
+        </span>
       </span>
+    {% if write_subject %}
     </span>
+    {% endif %}
   </summary>
   <article class="my-2">
-  {{ parent.content | safe }}
+    {% if parent.extra.comment.text_fragment %}
+    <blockquote class="">
+      <a tabindex="-1" href="/{{ parent.taxonomies['comment-subjects'][0] }}{{ '#:~:text' ~ parent.extra.comment.text_fragment }}" class="font-serif font-light text-gray-400 no-underline hover:underline">{{ r3ply::urldecode(encoded=parent.extra.comment.text_fragment) }}</a>
+    </blockquote>
+    {% endif %}
+    {% set ctx = load_data(literal=parent.extra.comment.ctx, format="json") %}
+    <div class="font-light text-orange-950">
+      {{ ctx.comment.html | safe }}
+    </div>
   </article>
   {% set subject = "/" ~ parent.taxonomies['comment-subjects'][0] ~ "/#" ~ parent.slug %}
   <div class="m-2">
-    <a class="px-2 py-1 rounded-xl border text-purple-400 not-prose"
-    href="{{ r3ply::mailto(to=config.extra.r3ply.to_email | default(value='CHANGE_ME'),
-    subject=subject,
-    body='') }}">reply</a>
+    <a tabindex="-1" class="px-2 py-1 rounded-xl border text-purple-400 not-prose"
+    href="{{ r3ply::mailto(
+      to=config.extra.r3ply.to_email,
+      subject=subject,
+      body=config.extra.r3ply.email_body) }}">reply</a>
   </div>
   <div class="ml-4 pt-2">
     {% for child in children %}
       {# Note: see comment in theme template for why this is `comments::` instead of `self::` #}
-      {{ r3ply::write_thread(parent=child, comments=comments) }}
+      {{ r3ply::write_thread(parent=child, comments=comments, write_subject=false,aliases=aliases) }}
     {% endfor %}
   </div>
 </details>
 {% endmacro  %}
+
+{#
+    `claims` is a data structure that looks like this
+    [{ <commenter_id>: [{ <alias_a>: comment_page_t }, ...]}],
+
+      where `commenter_id` is the same that's been used throughtout the site already to uniquely identify commenters, followed by 0 or more claims
+
+      A claim is an object of KV pair:
+        where `alias_a` is some claimed alias (a string) by `commenter_id` and
+        where `comment_page_t` is the comment (markdown page) with a ts where they made this claim
+
+    The algorithm is as follows
+
+    0. Start with a list of no claims and a list of all the pages to process, reverse sorted by ts. Then go to step 1. A page is a comment file with a timestamp, user_id, and claimed alias.
+    1. If there are no pages, end. Otherwise, process the most recent page. Then go to step 2. You 'process' the page by "making" a claim.
+      E.g. claims: [], pages: [{ ts: 1, commenter: u1, alias: 'A'}] -> claims: [{ u1: [{'A': ts: 1}] }]
+    2. Determine if there are conflicts, and go to step 3 if there are. If there are no conflicts go to step 1. The rules of conflict are as follows:
+      a. If there are two or more commenters with the same id within claims
+        To resolve this, the duplicate commenters must combine their claims. and more recent claims always come before less recent claims
+        E.g. [{ u1: [{'B', {ts: 2}]} }, {'A': {ts: 1}}], { u1: [{'C': {ts: 3}}]} }] -> [{ u1: [{'C': {ts: 3}}, {'B', {ts: 2}]} }, {'A': {ts: 1}}] }]
+      b. If two unique commenters both claim the same alias in their most recent claim (first)
+        To resolve this, the user with the oldest claim keeps theirs, and the other one loses their claim altogether:
+        E.g. [{ u3: [{'A', {ts: 0}}] }, { u2: [{'B', {ts: 4}}, {'A', {ts: 2}}] }, { u1: [{'A', {ts: 3}}, {'B', {ts: 1}}] }]
+
+        Here u3 is in conflict with u1, who both have alias 'A' as part of their most recent claims. After resolving it's now:
+
+        [{ u3: [{'A', {ts: 0}}] }, { u2: [{'B', {ts: 4}}, {'A', {ts: 2}}] }, { u1: [{'B', {ts: 1}}] }]
+
+        But again we have a new conflict, now u2 and u1 both claim alias B most recently. In this case u1's claim preceeds u2's. So the resolution is as follows:
+
+        [{ u3: [{'A', {ts: 0}}] }, { u2: [{'A', {ts: 2}}] }, { u1: [{'B', {ts: 1}}] }]
+
+        But again we have a new conflict, now u3 and u2 both claim alias A most recently. In this case u3's claim preceeds u2's. So the resolution is as follows:
+
+        [{ u3: [{'A', {ts: 0}}] }, { u2: [] }, { u1: [{'B', {ts: 1}}] }]
+
+        And there are no longer and conflicts. The final alias will be 'A' -> u3, u2 -> u2, and 'B' -> u1
+    3. Resolve the conflict based on the rules, and then go to step 2. The rules of resolution are as follows.
+      a. if the conflict is 2a then unite the duplicate users into a single user, with the most recent claim coming first
+      b. if the conflict is 2b then remove the claim of the user who is most recent
+#}
+{# This is the algorithm (above), note that `aliases_subject` is where aliases is expected to be but defaults as if it were /aliases/ #}
+{%- macro aliases(aliases_subject="aliases") -%}
+  {# Step 0: start with an empty list of claims and all pages to process, reverse sorted by timestamp #}
+  {%- set claims = [] -%}
+  {%- set aliases_term = get_taxonomy_term(kind="comment-subjects", term=aliases_subject, required=false) -%}
+  {% if aliases_term is object %}
+  {%- set pages_of_alias_comments = aliases_term.pages
+    | filter(attribute="extra.email.dkim", value=true)
+    | filter(attribute="extra.email.dmarc", value=true)
+    | filter(attribute="extra.email.spf", value=true)
+    | sort(attribute="date")
+    | reverse -%}
+  {% else %}
+  {% set pages_of_alias_comments = [] %}
+  {% endif %}
+  {%- for a in pages_of_alias_comments -%}
+    {#- Step 1: If there are no pages, end. Otherwise, process the most recent page. Then go to step 2. You 'process' the page by "making" a claim. -#}
+    {%- set alias = a.content | striptags | trim | slugify -%}
+    {%- set ts = a.extra.comment.ts_rcvd -%}
+    {%- set new_claim = `{ "user": "` ~ a.taxonomies.commenters[0] ~ `", "claims": [{ "alias": "` ~ alias ~ `", "ts": ` ~ ts ~ `, "id": "` ~ a.slug ~ `" }] }` -%}
+    {%- set new_claim = load_data(literal=new_claim, format="json") -%}
+    {%- set_global claims = claims | concat(with=new_claim) -%}
+    {#- CLAIMS: {{ claims | json_encode() }} <br /> -#}
+    {# Step 2: Determine if there are conflicts, and go to step 3 if there are. If there are no conflicts go to step 1. #}
+    {%- set claims_by_user = claims | group_by(attribute="user") -%}
+    {#- CLAIMS_BY_USER: {{ claims_by_user | json_encode() }} <br /> -#}
+    {%- set_global claims_accumulator = [] -%}
+    {%- for user, user_claims in claims_by_user -%}
+      {#- Step 2a: is there a conflict of duplicate users? -#}
+      {#- EXAMINING `{{ user }}`, with claims {{ user_claims | json_encode() }} <br /> -#}
+      {%- if user_claims | length > 1 -%}
+        {#- CONFLICT type 2a: {{ user }} (resolve by uniting the duplicate users, with aliases ordered by ts)<br /> -#}
+        {%- set dupe_user_0 = user_claims[0] -%}
+        {%- set dupe_user_1 = user_claims[1] -%}
+        {%- set combined_claims = dupe_user_0.claims | concat(with=dupe_user_1.claims) | sort(attribute="ts") | reverse | json_encode() -%}
+        {#- COMBINED: {{ combined_claims }} <br /> -#}
+        {#- Step 3: Resolve the conflict according to rules 3a. -#}
+        {%- set new_claim = `{ "user": "` ~ user ~ `", "claims": ` ~ combined_claims ~ ` }` -%}
+        {%- set new_claim = load_data(literal=new_claim, format="json") -%}
+        {#- RESOLVED via rule 3a: {{ new_claim | json_encode() }} <br /> -#}
+        {%- set_global claims_accumulator = claims_accumulator | concat(with=new_claim) -%}
+        {#- Then go to step 2 -#}
+        {#- GO BACK TO BEGINNING OF STEP 2<br /> -#}
+        {%- continue -%}
+      {%- endif -%}
+      {#- NO CONFLICT, CONTINUING <br /> -#}
+      {%- set_global claims_accumulator = claims_accumulator | concat(with=user_claims) -%}
+    {%- endfor -%}
+    {#- FINISHED STEP 2a: {{ claims_accumulator | json_encode() }} <br /> -#}
+    {%- set_global claims = claims_accumulator -%}
+  {%- endfor -%}
+  {%- for counter in pages_of_alias_comments -%}
+    {%- set next_claims_to_check = claims_accumulator -%}
+    {%- set_global claims_accumulator = [] -%}
+    {#- NEW CLAIMS: {{ next_claims_to_check | json_encode() }} <br /> -#}
+    {#- Step 2b. is there a conflict of duplicate aliases? -#}
+    {%- for c1 in next_claims_to_check -%}
+      {#- If no claims, then nothing to check, so output to accumulator and continue -#}
+      {%- set_global add_next = c1 -%}
+      {%- if c1.claims | length == 0 -%}
+        {#- NO CLAIMS, SO ACCUMULATING AND CONTINUING <br /> -#}
+        {%- set_global claims_accumulator = claims_accumulator | concat(with=add_next) -%}
+        {%- continue -%}
+      {%- endif -%}
+      {%- for c2 in next_claims_to_check -%}
+        {#- Don't bother comparing a claim to itself or to another claim that is empty -#}
+        {%- if c2.user != c1.user and c2.claims | length > 0 -%}
+          {%- set c1_alias = c1.claims[0].alias -%}
+          {%- set c1_ts = c1.claims[0].ts -%}
+          {%- set c2_alias = c2.claims[0].alias -%}
+          {%- set c2_ts = c2.claims[0].ts -%}
+          {#- If there are duplicate aliases, then we only delete the one that is most recent -#}
+          {%- if c1_alias == c2_alias and c1_ts > c2_ts -%}
+            {# CONFLICT of type 2b! Betweeen {{ c1.user }} and {{ c2.user }} over alias {{ c1_alias }} <br /> #}
+            {%- set new_claims = c1.claims | slice(start=1) | json_encode() -%}
+            {%- set new_claim = `{ "user": "` ~ c1.user ~ `", "claims": ` ~ new_claims ~ ` }` -%}
+            {%- set new_claim = load_data(literal=new_claim, format="json") -%}
+            {#- NEW CLAIM: {{ new_claim | json_encode() }} <br /> -#}
+            {#- OUTPUTTING NEW CLAIM TO accumulator <br /><br /> -#}
+            {%- set_global add_next = new_claim -%}
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- set_global claims_accumulator = claims_accumulator | concat(with=add_next) -%}
+    {%- endfor -%}
+  {%- endfor -%}
+  [
+  {%- for c in claims_accumulator | default(value=[]) | sort(attribute="user") -%}
+    {%- if c.claims | length > 0 -%}
+      { "alias": "{{ c.claims[0].alias }}", "ts": {{ c.claims[0].ts }}, "user": "{{ c.user }}", "id": "{{ c.claims[0].id }}" }{%- if not loop.last -%},{%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  ]
+{%- endmacro -%}
+
+{%- macro alias(user_id, aliases) -%}
+{%- set alias_object = aliases | filter(attribute="user", value=user_id) | first -%}
+{%- if alias_object is object %}{{ alias_object.alias }}{% else %}{{ user_id }}{% endif -%}
+{%- endmacro -%}

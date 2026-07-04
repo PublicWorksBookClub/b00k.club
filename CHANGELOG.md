@@ -2,6 +2,11 @@
 
 ## NEXT
 
+## 1.6.1 (2026-06-29)
+
+- Update look for r3ply integration
+- Add a footer to the base template
+
 ## 1.6.0 (2026-06-29)
 
 - Integrate PWBC site with r3ply comments
