@@ -20,7 +20,7 @@
 </article>
 {% endblock main %}
 {% block comments %}
-<section id="comments" class="max-w-prose mx-auto prose prose-lg">
+<section id="comments" class="max-w-prose w-full min-w-0 mx-auto px-1 md:px-0 prose prose-lg prose-pwbc prose-th:whitespace-nowrap">
   <div>
     <a
       href="{{
@@ -31,21 +31,21 @@
       >Add Comment</a>
 
   </div>
-  <div>
+  <div class="overflow-x-auto">
     <table>
       <thead>
         <tr>
           <th>Commenter ID</th>
           <th>Alias</th>
           <th>Date</th>
-          <th>
+          <th class="flex justify-center items-center gap-1">
             <span>RSS</span>
             <svg
-              class=" inline-block"
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
               fill="currentColor"
+              class="inline align-text-bottom text-rose-300"
               viewBox="0 0 16 16"
             >
               <path
@@ -58,10 +58,20 @@
       <tbody>
         {% for a in aliases %}
           <tr id="{{ a.id }}">
-            <td>@<a href="/commenters/{{ a.user }}">{{ a.user }}</a></td>
-            <td>✨<a href="/commenters/{{ a.user }}">{{ a.alias }}</a></td>
-            <td><span>{{ a.ts | date(format="%Y-%m-%d %H:%M:%S UTC") }}</span></td>
-            <td><a href="/commenters/{{ a.user }}/atom.xml">Subscribe</a></td>
+            <td class="prose-a:font-bold prose-a:font-serif prose-a:text-pink-400">
+              <span>@</span><a href="/commenters/{{ a.user }}">{{ a.user }}</a>
+            </td>
+            <td class="prose-a:font-bold prose-a:font-serif prose-a:text-pink-400">
+              <span>🫆</span><a href="/commenters/{{ a.user }}">{{ a.alias }}</a>
+            </td>
+            <td class="font-sans text-lg">
+              <time datetime="{{ a.ts }}" class="flex items-center gap-1">
+                <span class="text-emerald-700 font-medium oldstyle-nums">{{ a.ts | date(format="%Y-%m-%d") }}</span>
+                <span class="ml-1 text-teal-600 font-light font-serif">{{ a.ts | date(format="%H:%M") }}</span>
+                <span class="ml-0.5 text-lime-800 italic font-thin">00:00</span>
+              </time>
+            </td>
+            <td class="text-center"><a href="/commenters/{{ a.user }}/atom.xml">Subscribe</a></td>
           </tr>
         {% endfor %}
       </tbody>
