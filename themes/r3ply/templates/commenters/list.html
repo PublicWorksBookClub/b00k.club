@@ -69,7 +69,7 @@
             {% endif %}
           </td>
           {# Date #}
-          <td class="font-sans text-lg">
+          <td class="font-sans text-lg not-prose align-baseline">
             <a href="/{{ most_recent_page.taxonomies['comment-subjects'][0] }}/#{{ most_recent_page.slug }}" class="no-underline">
               <time datetime="{{ most_recent_page.date }}" class="flex items-center gap-1">
                 <span class="text-emerald-700 font-medium oldstyle-nums">{{ most_recent_page.date | date(format="%Y-%m-%d") }}</span>

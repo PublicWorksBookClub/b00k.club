@@ -57,7 +57,7 @@
               <a class="line-clamp-2 font-extralight text-indigo-500" href="/{{ subject.name }}/">{{ subject.name }}</a>
           </td>
           {# Date #}
-          <td class="font-sans text-lg">
+          <td class="font-sans text-lg not-prose">
             {% set most_recent_page = subject.pages | sort(attribute="date") | reverse | first %}
             <a href="/{{ subject.name }}/#{{ most_recent_page.slug }}" class="no-underline">
               <time datetime="{{ most_recent_page.date }}" class="flex items-center gap-1">
