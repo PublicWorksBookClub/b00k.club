@@ -155,7 +155,7 @@
 
     Note: To customize the HTML edit the `write_thread` macro.
 #}
-{% macro render_comments_sorted_by_activity(comments, starting_from_id=false, aliases=false) %}
+{% macro render_comments_sorted_by_activity(comments, starting_from_id=false, write_subject=false, aliases=false) %}
 {% if aliases == false %}{% set aliases = [] %}{% endif %}
 {% set slugs = comments | map(attribute="slug") %}
 {% set list_of_lists_of_ancestors = [] %}
@@ -186,7 +186,7 @@
   {% endfor %}
 {% endfor %}
 {% for root in list_of_lists_of_ancestors | map(attribute=".0") %}
-  {{ r3ply::write_thread(parent=comments | filter(attribute="slug", value=root) | first, comments=comments_with_latest_activity, aliases=aliases) }}
+  {{ r3ply::write_thread(parent=comments | filter(attribute="slug", value=root) | first, comments=comments_with_latest_activity, write_subject=write_subject, aliases=aliases) }}
 {% endfor %}
 {% endmacro  %}
 
@@ -197,34 +197,44 @@
     Note 1: this is the macro you will want to edit to change the actual HTML of the comment threads.
     Note 2: pay close attention to the recursion when editing, as that's crucial to traversing the thread.
 #}
-{% macro write_thread(parent, comments, aliases=false) %}
+{% macro write_thread(parent, comments, write_subject=false, aliases=false) %}
 {% if aliases == false %}{% set aliases = [] %}{% endif %}
 {# You most likely do not want to change the children #}
 {% set children = comments | filter(attribute="taxonomies.replies.1", value=parent.slug) | sort(attribute="extra.latest_activity") | reverse %}
 <details id="{{ parent.slug }}" open class="max-w-prose overflow-x-scroll">
   <summary class="border-b whitespace-nowrap">
-    <span class="inline-flex gap-2">
-      <span class="prose-a:font-bold prose-a:font-serif prose-a:text-pink-400">
-        {% set from = r3ply::alias(user_id=parent.taxonomies.commenters | first, aliases=aliases) %}
-        {% if from == parent.taxonomies.commenters[0] %}
-        <span>@</span><a tabindex="-1" href="/commenters/{{ parent.taxonomies.commenters[0] }}/">{{ from }}</a>
-        {% else %}
-        <span>🫆</span><a tabindex="-1" href="/commenters/{{ parent.taxonomies.commenters[0] }}/">{{ from }}</a>
-        {% endif %}
-      </span>
-      <span>|</span>
-      <time datetime="{{ parent.date }}" class="flex items-center gap-1">
-        <a href="/{{ parent.taxonomies['comment-subjects'][0] }}/#{{ parent.slug }}" tabindex="-1" class="no-underline">
-          <span class="text-emerald-700 font-medium oldstyle-nums">{{ parent.date | date(format="%Y-%m-%d") }}</span>
-          <span class="ml-1 text-teal-600 font-light font-serif">{{ parent.date | date(format="%H:%M") }}</span>
-          <span class="ml-0.5 text-lime-800 italic font-thin">{{ parent.date | date(format="%Z") }}</span>
-        </a>
-      </time>
-      <span>|</span>
+    {% if write_subject %}
+    <span class="inline-grid grid-rows-2">
       <span>
-        <span class="font-light text-gray-400">#</span><a tabindex="-1" class="font-mono text-blue-400" href="/comments/{{ parent.slug }}">{{ parent.slug }}</a>
+        <span>Subject: </span>
+        <a  tabindex="-1" class="font-extralight text-indigo-500" href="">{{ parent.taxonomies['comment-subjects'][0] }}</a>
       </span>
+    {% endif %}
+      <span class="inline-flex gap-2">
+        <span class="prose-a:font-bold prose-a:font-serif prose-a:text-pink-400">
+          {% set from = r3ply::alias(user_id=parent.taxonomies.commenters | first, aliases=aliases) %}
+          {% if from == parent.taxonomies.commenters[0] %}
+          <span>@</span><a tabindex="-1" href="/commenters/{{ parent.taxonomies.commenters[0] }}/">{{ from }}</a>
+          {% else %}
+          <span>🫆</span><a tabindex="-1" href="/commenters/{{ parent.taxonomies.commenters[0] }}/">{{ from }}</a>
+          {% endif %}
+        </span>
+        <span>|</span>
+        <time datetime="{{ parent.date }}" class="flex items-center gap-1">
+          <a href="/{{ parent.taxonomies['comment-subjects'][0] }}/#{{ parent.slug }}" tabindex="-1" class="no-underline">
+            <span class="text-emerald-700 font-medium oldstyle-nums">{{ parent.date | date(format="%Y-%m-%d") }}</span>
+            <span class="ml-1 text-teal-600 font-light font-serif">{{ parent.date | date(format="%H:%M") }}</span>
+            <span class="ml-0.5 text-lime-800 italic font-thin">{{ parent.date | date(format="%Z") }}</span>
+          </a>
+        </time>
+        <span>|</span>
+        <span>
+          <span class="font-light text-gray-400">#</span><a tabindex="-1" class="font-mono text-blue-400" href="/comments/{{ parent.slug }}">{{ parent.slug }}</a>
+        </span>
+      </span>
+    {% if write_subject %}
     </span>
+    {% endif %}
   </summary>
   <article class="my-2">
     {% if parent.extra.comment.text_fragment %}
@@ -248,7 +258,7 @@
   <div class="ml-4 pt-2">
     {% for child in children %}
       {# Note: see comment in theme template for why this is `comments::` instead of `self::` #}
-      {{ r3ply::write_thread(parent=child, comments=comments, aliases=aliases) }}
+      {{ r3ply::write_thread(parent=child, comments=comments, write_subject=false,aliases=aliases) }}
     {% endfor %}
   </div>
 </details>
