@@ -77,7 +77,7 @@
           <a class="line-clamp-2 font-extralight text-indigo-500" href="{{ url }}">/{{ c.extra.comment.document }}/</a>
         </td>
         {# Author #}
-        <td class="prose-a:font-bold prose-a:font-serif prose-a:text-pink-400">
+        <td class="prose-a:font-bold prose-a:font-serif prose-a:text-pink-400 whitespace-nowrap">
           {% set alias = r3ply::alias(user_id=c.taxonomies.commenters[0], aliases=aliases) %}
           {% if alias != c.taxonomies.commenters[0]
               and c.extra.email.dkim
