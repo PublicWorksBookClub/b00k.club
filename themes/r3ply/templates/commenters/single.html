@@ -21,6 +21,10 @@
 </title>
 {% endblock title %}
 
+{% block extra_head %}
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/commenters/{{ term.name }}/atom.xml">
+{% endblock extra_head %}
+
 {% block body_styles %}
 {{ section.extra.bg_color | default(value="bg-orange-50") }}
 {% endblock body_styles %}

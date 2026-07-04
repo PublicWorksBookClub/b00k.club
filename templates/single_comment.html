@@ -9,6 +9,10 @@
 {% set context_path = "/" ~ page.taxonomies["comment-subjects"][0] ~ "/#" ~ page.slug %}
 {% endblock setup %}
 
+{% block extra_head %}
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/replies/{{ page.slug }}/atom.xml">
+{% endblock extra_head %}
+
 {% block body_styles %}
 {{ section.extra.bg_color | default(value="bg-orange-50") }}
 {% endblock body_styles %}
