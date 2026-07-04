@@ -4,8 +4,9 @@
   "private": true,
   "description": "The website for the Public Works Book Club: we only read works in the public domain",
   "scripts": {
+    "initialize": "git submodule update --init --remote --recursive",
     "fmt": "npx prettier . --write",
-    "build": "zola build $BUILD_OPTS && npx @tailwindcss/cli -i ./css/input.css -o ./public/style.css -m",
+    "build": "pnpm initialize && zola build $BUILD_OPTS && npx @tailwindcss/cli -i ./css/input.css -o ./public/style.css -m",
     "build:cf": "if [ \"$CF_PAGES_BRANCH\" = \"main\" ]; then pnpm build; else BUILD_OPTS=\"--base-url $CF_PAGES_URL\" pnpm build; fi",
     "serve": "zola serve --port 2665 $SERVE_OPTS & npx @tailwindcss/cli  -i ./css/input.css -o ./public/style.css --watch && wait",
     "test": "echo \"Error: no test specified\" && exit 1"
