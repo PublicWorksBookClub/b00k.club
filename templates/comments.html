@@ -78,9 +78,12 @@
         </td>
         {# Author #}
         <td class="prose-a:font-bold prose-a:font-serif prose-a:text-pink-400">
-          {% set alias_object = aliases | filter(attribute="user", value=c.taxonomies.commenters[0]) | first %}
-          {% if alias_object is object %}
-          <span>🫆</span><a href="/commenters/{{ c.taxonomies.commenters[0] }}/">{{ alias_object.alias }}</a>
+          {% set alias = r3ply::alias(user_id=c.taxonomies.commenters[0], aliases=aliases) %}
+          {% if alias != c.taxonomies.commenters[0]
+              and c.extra.email.dkim
+              and c.extra.email.spf
+              and c.extra.email.dmarc %}
+          <span>🫆</span><a href="/commenters/{{ c.taxonomies.commenters[0] }}/">{{ alias }}</a>
           {% else %}
           <span class="font-extralight text-gray-500">@</span><a href="/commenters/{{ c.taxonomies.commenters[0] }}/">{{ c.taxonomies.commenters[0] }}</a>
           {% endif %}

@@ -61,10 +61,13 @@
           {# Author #}
           <td class="prose-a:font-bold prose-a:font-serif prose-a:text-pink-400">
             {% set from = r3ply::alias(user_id=original_author, aliases=aliases) %}
-            {% if from == original_author %}
-            <span>@</span><a href="/commenters/{{ original_author }}/">{{ from }}</a>
-            {% else %}
+            {% if from != original_author
+              and original_comment.extra.email.dkim
+              and original_comment.extra.email.spf
+              and original_comment.extra.email.dmarc %}
             <span>🫆</span><a href="/commenters/{{ original_author }}/">{{ from }}</a>
+            {% else %}
+            <span>@</span><a href="/commenters/{{ original_author }}/">{{ original_author }}</a>
             {% endif %}
           </td>
           {# Date #}

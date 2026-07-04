@@ -5,14 +5,18 @@
 {% block setup %}
 {% set alias = r3ply::alias(user_id=term.name, aliases=aliases) %}
 {% set comments = term.pages %}
+{% set dkim = comments | filter(attribute="extra.email.dkim", value=true) %}
+{% set spf = comments | filter(attribute="extra.email.spf", value=true) %}
+{% set dmarc = comments | filter(attribute="extra.email.dmarc", value=true) %}
+{% set all_verified = dkim | length == comments | length and spf | length == comments | length and dmarc | length == comments | length %}
 {% endblock setup %}
 
 {% block title %}
 <title>
-{% if alias == term.name %}
-  Comments by @{{ alias }} | PWBC
-{% else %}
+{% if alias != term.name and all_verified %}
   Comments by 🫆{{ alias }} | PWBC
+{% else %}
+  Comments by @{{ term.name }} | PWBC
 {% endif %}
 </title>
 {% endblock title %}
@@ -23,7 +27,7 @@
 
 {% block banner %}
 {{ util::nav(href="/", text="Home") }}
-{{ util::nav(href="/commenters/", text="Commenters") }}
+{{ util::nav(href="/commenters/", text="All Commenters") }}
 {{ util::nav(href="/aliases/", text="Aliases") }}
 {% endblock banner %}
 
@@ -32,10 +36,10 @@
   prose-headings:font-fira-sans prose-pwbc">
   <h1>
     <span>Comments by</span>
-    {% if alias == term.name %}
-    <span class="text-gray-600">@</span><span class="text-pink-400 font-bold">{{ alias }}</span>
-    {% else %}
+    {% if alias != term.name and all_verified %}
     <span>🫆</span><span class="text-pink-400 font-bold">{{ alias }}</span>
+    {% else %}
+    <span class="text-gray-600">@</span><span class="text-pink-400 font-bold">{{ term.name }}</span>
     {% endif %}
   </h1>
 </article>

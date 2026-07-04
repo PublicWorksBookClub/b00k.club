@@ -220,10 +220,13 @@
       <span class="inline-flex gap-2">
         <span class="prose-a:font-bold prose-a:font-serif prose-a:text-pink-400">
           {% set from = r3ply::alias(user_id=parent.taxonomies.commenters | first, aliases=aliases) %}
-          {% if from == parent.taxonomies.commenters[0] %}
-          <span>@</span><a tabindex="-1" href="/commenters/{{ parent.taxonomies.commenters[0] }}/">{{ from }}</a>
-          {% else %}
+          {% if from != parent.taxonomies.commenters[0]
+            and parent.extra.email.dkim
+            and parent.extra.email.spf
+            and parent.extra.email.dmarc %}
           <span>🫆</span><a tabindex="-1" href="/commenters/{{ parent.taxonomies.commenters[0] }}/">{{ from }}</a>
+          {% else %}
+          <span>@</span><a tabindex="-1" href="/commenters/{{ parent.taxonomies.commenters[0] }}/">{{ parent.taxonomies.commenters[0] }}</a>
           {% endif %}
         </span>
         <span>|</span>

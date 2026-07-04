@@ -3,7 +3,6 @@
 {% extends "base.html" %}
 
 {% block setup %}
-{% set alias = r3ply::alias(user_id=term.name, aliases=aliases) %}
 {% set descendants = r3ply::get_descendants(parent=term.pages[0]) | split(pat=",") %}
 {% set comments = [] %}
 {% for c in get_taxonomy_term(kind="comment-subjects", term=term.pages[0].taxonomies['comment-subjects'][0]) | get(key="pages")  %}
@@ -21,7 +20,7 @@
 
 {% block banner %}
 {{ util::nav(href="/", text="Home") }}
-{{ util::nav(href="/replies/", text="All Replies") }}
+{{ util::nav(href="/threads/", text="All Threads") }}
 {{ util::nav(href="/aliases/", text="Aliases") }}
 {% endblock banner %}
 

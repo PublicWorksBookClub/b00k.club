@@ -54,19 +54,23 @@
       <tbody>
       {% for author in terms | sort(attribute="page_count") | reverse %}
         {% set most_recent_page = author.pages | sort(attribute="date") | reverse | first %}
+        {% set dkim = author.pages | filter(attribute="extra.email.dkim", value=true) %}
+        {% set spf = author.pages | filter(attribute="extra.email.spf", value=true) %}
+        {% set dmarc = author.pages | filter(attribute="extra.email.dmarc", value=true) %}
+        {% set all_verified = dkim | length == author.pages | length and spf | length == author.pages | length and dmarc | length == author.pages | length %}
         <tr>
           {# Author #}
           <td class="prose-a:font-bold prose-a:font-serif prose-a:text-pink-400">
             {% set from = r3ply::alias(user_id=author.name, aliases=aliases) %}
-            {% if from == author.name %}
-            <span>@</span><a href="{{ author.path }}">{{ from }}</a>
-            {% else %}
+            {% if from != author.name and all_verified %}
             <span>🫆</span><a href="{{ author.path }}">{{ from }}</a>
+            {% else %}
+            <span>@</span><a href="{{ author.path }}">{{ author.name }}</a>
             {% endif %}
           </td>
           {# Date #}
           <td class="font-sans text-lg">
-            <a href="/{{ author.name }}/#{{ most_recent_page.slug }}" class="no-underline">
+            <a href="/{{ most_recent_page.taxonomies['comment-subjects'][0] }}/#{{ most_recent_page.slug }}" class="no-underline">
               <time datetime="{{ most_recent_page.date }}" class="flex items-center gap-1">
                 <span class="text-emerald-700 font-medium oldstyle-nums">{{ most_recent_page.date | date(format="%Y-%m-%d") }}</span>
                 <span class="ml-1 text-teal-600 font-light font-serif">{{ most_recent_page.date | date(format="%H:%M") }}</span>
@@ -88,10 +92,7 @@
           </td>
           {# Verified #}
           <td class="text-center">
-            {% set dkim = author.pages | filter(attribute="extra.email.dkim", value=true) %}
-            {% set spf = author.pages | filter(attribute="extra.email.spf", value=true) %}
-            {% set dmarc = author.pages | filter(attribute="extra.email.dmarc", value=true) %}
-            {% if dkim | length == author.pages | length and spf | length == author.pages | length and dmarc | length == author.pages | length %}
+            {% if all_verified%}
             <span class="text-slate-600">✓</span>
             {% else %}
             <span class="text-slate-300">✗</span>
