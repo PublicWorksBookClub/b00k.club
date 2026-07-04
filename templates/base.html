@@ -12,6 +12,13 @@
     {% block article %}<article>...change the parent</article>{% endblock article %}
   </main>
 -#}
+{% block aliases %}
+{# Hopefully the aliases will only be calculated once if they're just done here #}
+{% set aliases = load_data(literal=r3ply::aliases(), format="json") | sort(attribute="ts") | reverse %}
+{% endblock aliases %}
+{# You can set important variables here #}
+{% block setup %}
+{% endblock setup %}
 <!DOCTYPE html>
 {% block html %}
 <html lang="{{ lang }}" class="scroll-smooth">
@@ -55,13 +62,6 @@
   {% block extra_head %}{% endblock extra_head %}
 </head>
 {% endblock head %}
-{# You can set important variables here #}
-{% block setup %}
-{% endblock setup %}
-{% block aliases %}
-{# Hopefully the aliases will only be calculated once if they're just done here #}
-{% set aliases = load_data(literal=r3ply::aliases(), format="json") | sort(attribute="ts") | reverse %}
-{% endblock aliases %}
 {% block body %}
 <body class="{% block body_styles %}{% endblock body_styles %}">
   <div class=" min-h-screen flex flex-col">
