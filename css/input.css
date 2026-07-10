@@ -544,6 +544,9 @@
   sup a {
     color: var(--color-pink-400);
   }
+  a strong {
+    color: var(--color-gray-800);
+  }
 
   /*  TODO
   --tw-prose-invert-body: var(--color-pink-200);

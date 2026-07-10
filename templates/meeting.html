@@ -1,0 +1,49 @@
+{% import "macro/util.html" as util %}
+{% import "r3ply.html" as r3ply %}
+{% extends "base.html" %}
+
+{% block setup %}
+
+{% endblock setup %}
+
+{% block title %}
+  <title>{{ page.date | date(format="%Y-%m-%d") }} | PWBC Minutes</title>
+  <meta property="og:title" content="{{ page.date | date(format='%Y-%m-%d') }} | PWBC Minutes" />
+  <meta name="twitter:title" content="{{ page.date | date(format='%Y-%m-%d') }} | PWBC Minutes" />
+{% endblock title %}
+
+{% block body_styles %}{{ page.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
+
+
+{% block banner %}
+{{ util::nav(href="/", text="Home") }}
+{{ util::nav(href="../", text="Minutes") }}
+{% endblock banner %}
+
+{% block main %}
+<article class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg
+  prose-headings:font-fira-sans prose-pwbc">
+  <h1>{{ page.date |date(format="%A, %d %B %Y") }}</h1>
+  {{ page.content | safe }}
+</article>
+{% endblock main %}
+
+{% block comments %}
+<section id="comments" class="max-w-full py-8 px-2 prose prose-lg prose-pwbc border-t-4 border-dashed">
+  {% set comments = get_taxonomy_term(kind="comment-subjects", term=page.path | split(pat="") | slice(start=2, end=-2) | join(sep=""), required=false) %}
+  {% if comments is object %}{% set comments = comments.pages %}{% else %}{% set comments = [] %}{% endif %}
+  <div class="max-w-prose mx-auto">
+    <h2>Comments <a class="no-underline hover:underline" href="#comments">#</a><span class="font-medium"> ({{ comments | length }})</span></h2>
+    <a
+      href="{{ r3ply::mailto(
+        to=config.extra.r3ply.to_email,
+        body=config.extra.r3ply.email_body,
+        subject=current_path) }}"
+      class="inline-flex h-10 min-w-20 px-4 mb-6 items-center justify-center mt-1 ml-1 border-2 border-gray-700 hover:bg-black/5 no-underline hover:underline"
+    >
+      Comment
+    </a>
+  {{ r3ply::render_comments_sorted_by_activity(comments=comments, aliases=aliases) }}
+  </div>
+</section>
+{% endblock comments %}

@@ -1,6 +1,5 @@
 +++
 title = "Meeting Minutes"
-template = "page.html"
 draft = true
 
 [extra]
