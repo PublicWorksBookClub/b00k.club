@@ -46,3 +46,192 @@
 {% set_global x = x + label_width + sibling_gap %}
 {% endfor %}
 {% endmacro  %}
+
+{% macro burndown(work, date, units, total) %}
+{% set minutes = get_section(path="minutes/_index.md") %}
+
+{# Meetings that contain burndown data for this work #}
+{% set data_points = minutes.pages
+    | filter(attribute="extra.burndown." ~ work)
+    | sort(attribute="date")
+%}
+
+{% set width = 700 %}
+{% set height = 450 %}
+
+{% set left = 70 %}
+{% set right = 20 %}
+{% set top = 20 %}
+{% set bottom = 80 %}
+
+{% set plot_width = width - left - right %}
+{% set plot_height = height - top - bottom %}
+
+{# Current page timestamp #}
+{% set end_ts = date | date(format="%s") %}
+{% set end_ts = load_data(literal=end_ts, format="json") %}
+
+{# Find first visible meeting #}
+{% set_global first_ts = 0 %}
+{% set_global visible = 0 %}
+
+{% for dp in data_points %}
+  {% set ts = dp.date | date(format="%s") %}
+  {% set ts = load_data(literal=ts, format="json") %}
+  {% if ts <= end_ts %}
+    {% if visible == 0 %}
+      {% set_global first_ts = ts %}
+    {% endif %}
+    {% set_global visible = visible + 1 %}
+  {% endif %}
+{% endfor %}
+
+{% if visible == 0 %}
+    <p>No burndown data.</p>
+{% else %}
+
+{% set span = end_ts - first_ts %}
+
+{% set_global remaining = total %}
+{% set_global points = "" %}
+
+<svg
+    viewBox="0 0 {{ width }} {{ height }}"
+    xmlns="http://www.w3.org/2000/svg">
+
+    {# --- Horizontal grid & Y axis labels --- #}
+
+    {% set ticks = 5 %}
+
+    {% for i in range(end=ticks + 1) %}
+        {% set value = total - (i * total / ticks) %}
+        {% set y = top + (i * plot_height / ticks) %}
+
+        <line
+            x1="{{ left }}"
+            y1="{{ y }}"
+            x2="{{ width - right }}"
+            y2="{{ y }}"
+            stroke="#ddd"/>
+
+        <line
+            x1="{{ left - 5 }}"
+            y1="{{ y }}"
+            x2="{{ left }}"
+            y2="{{ y }}"
+            stroke="black"/>
+
+        <text
+            x="{{ left - 10 }}"
+            y="{{ y + 4 }}"
+            font-size="11"
+            text-anchor="end">
+            {{ value | round(method="floor") }}
+        </text>
+
+    {% endfor %}
+
+    {# Axes #}
+
+    <line
+        x1="{{ left }}"
+        y1="{{ top }}"
+        x2="{{ left }}"
+        y2="{{ height - bottom }}"
+        stroke="black"/>
+
+    <line
+        x1="{{ left }}"
+        y1="{{ height - bottom }}"
+        x2="{{ width - right }}"
+        y2="{{ height - bottom }}"
+        stroke="black"/>
+
+    {# Axis title #}
+
+    <text
+        x="18"
+        y="{{ height / 2 }}"
+        text-anchor="middle"
+        transform="rotate(-90 18 {{ height / 2 }})">
+        {{ units }} remaining
+    </text>
+
+    {# TODO: Ideal burndown line #}
+    {# {% set ideal_start_x = left %}
+    {% set ideal_start_y = top %}
+    {% set ideal_end_x = width - right %}
+    {% set ideal_end_y = height - bottom %} #}
+    {# <line
+        x1="{{ ideal_start_x }}"
+        y1="{{ ideal_start_y }}"
+        x2="{{ ideal_end_x }}"
+        y2="{{ ideal_end_y }}"
+        stroke="green"
+        stroke-width="2"
+        stroke-dasharray="6,4"/> #}
+
+    {# Data points #}
+
+    {% for dp in data_points %}
+
+        {% set ts = dp.date | date(format="%s") %}
+        {% set ts = load_data(literal=ts, format="json") %}
+
+        {% if ts > end_ts %}
+            {% break %}
+        {% endif %}
+
+        {% set_global remaining = dp.extra.burndown[work] %}
+
+        {% if span > 0 %}
+            {% set x = left + ((ts - first_ts) * plot_width / span) %}
+        {% else %}
+            {% set x = left %}
+        {% endif %}
+
+        {# {% set y = top + (remaining * plot_height / total) %} #}
+        {% set y = top + ((total - remaining) * plot_height / total) %}
+
+        {% set_global points = points ~ x ~ "," ~ y ~ " " %}
+
+        <circle
+            class="hover:cursor-pointer fill-red-500"
+            title="Bob"
+            cx="{{ x }}"
+            cy="{{ y }}"
+            r="5">
+          <title>{{ dp.date }}, {{ remaining }} {{ units }} remaining</title>
+        </circle>
+
+        <text
+            x="{{ x }}"
+            y="{{ height - bottom + 22 }}"
+            font-size="10"
+            text-anchor="end"
+            transform="rotate(-45 {{ x }} {{ height - bottom + 22 }})">
+            {{ dp.date | date(format="%Y-%m-%d") }}
+        </text>
+
+    {% endfor %}
+
+    <polyline
+        points="{{ points }}"
+        fill="none"
+        stroke="steelblue"
+        stroke-width="2"/>
+
+    {# Current remaining annotation #}
+
+    <text
+        x="{{ width - right }}"
+        y="{{ top - 12 }}"
+        text-anchor="end"
+        font-size="12">
+        {{ remaining }} {{ units }} remaining
+    </text>
+
+</svg>
+
+{% endif %}
+{% endmacro %}

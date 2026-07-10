@@ -2,6 +2,7 @@
 
 ## NEXT
 
+- Add "burndown" macro for showing the pace a text was read
 - Add minutes section
 
 ## 1.6.2 (2026-06-29)
