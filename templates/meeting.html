@@ -3,7 +3,16 @@
 {% extends "base.html" %}
 
 {% block setup %}
-
+{% set section = get_section(path="minutes/_index.md") %}
+{% for p in section.pages %}
+  {% if p.date == page.date %}
+  {% set_global next = loop.index0 - 1 %}
+  {% set_global next = section.pages[next] | default(value=false) %}
+  {% set_global prev = loop.index0 + 1 %}
+  {% set_global prev = section.pages[prev] | default(value=false) %}
+  {% break %}
+  {% endif %}
+{% endfor %}
 {% endblock setup %}
 
 {% block title %}
@@ -24,6 +33,14 @@
 <article class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg
   prose-headings:font-fira-sans prose-pwbc">
   <h1>{{ page.date |date(format="%A, %d %B %Y") }}</h1>
+  <hr class="not-prose">
+  <div class="not-prose text-center">
+    <span class="[font-variant:small-caps] text-sm font-fira-sans font-light p-1 text-gray-500">
+      {% if prev %}<a class="hover:underline" href="{{ prev.permalink }}">prev</a>{% endif %}
+      {%- if prev and next %}-{% endif -%}
+      {% if next %}<a class="hover:underline" href="{{ next.permalink }}">next</a>{% endif %}
+    </span>
+  </div>
   {{ page.content | safe }}
 </article>
 {% endblock main %}
