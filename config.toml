@@ -62,6 +62,11 @@ feed = false
 name = "languages"
 feed = false
 
+# indicates references to people, places, terms, etc... (from primary or secondary sources)
+[[taxonomies]]
+name = "index"
+feed = false
+
 ###############################
 #### End taxonomy of texts ####
 ###############################
@@ -74,11 +79,7 @@ feed = false
 [[taxonomies]]
 name = "references"
 feed = false
-
-# indicates references to people, places, terms, etc... (from primary or secondary sources)
-[[taxonomies]]
-name = "index"
-feed = false
+render = false
 
 # arbitrary, more editorialized tags e.g. "how to build a raft" for Homer's "Odyssey"
 [[taxonomies]]
