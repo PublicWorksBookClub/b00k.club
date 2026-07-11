@@ -68,7 +68,17 @@
 {% set right = 20 %}
 {% set top = 40 %}
 {% set bottom = 80 %}
+{% set full_plot_width = width - left - right %}
+{% set start_pad = full_plot_width / n %}
+{% set plot_width = full_plot_width - start_pad %}
+{% set date_origin = left + start_pad %}
 {% set start_pad = 50 %}
+{% if n > 1 %}
+  {% set avg_gap_px = plot_width / (n - 1) %}
+{% else %}
+  {% set avg_gap_px = plot_width / 2 %}
+{% endif %}
+{% set start_pad = avg_gap_px %}
 {% set plot_width = width - left - right - start_pad %}
 {% set plot_height = height - top - bottom %}
 
