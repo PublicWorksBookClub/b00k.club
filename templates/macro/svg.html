@@ -47,191 +47,296 @@
 {% endfor %}
 {% endmacro  %}
 
-{% macro burndown(work, date, units, total) %}
+{% macro burndown(work, date, units) %}
 {% set minutes = get_section(path="minutes/_index.md") %}
 
-{# Meetings that contain burndown data for this work #}
 {% set data_points = minutes.pages
     | filter(attribute="extra.burndown." ~ work)
     | sort(attribute="date")
 %}
 
+{% if data_points | length == 0 %}
+    <p>No burndown data.</p>
+{% else %}
+
+{% set slug = work | slugify %}
+{% set n = data_points | length %}
+
 {% set width = 700 %}
 {% set height = 450 %}
-
 {% set left = 70 %}
 {% set right = 20 %}
-{% set top = 20 %}
+{% set top = 40 %}
 {% set bottom = 80 %}
-
-{% set plot_width = width - left - right %}
+{% set start_pad = 50 %}
+{% set plot_width = width - left - right - start_pad %}
 {% set plot_height = height - top - bottom %}
 
-{# Current page timestamp #}
-{% set end_ts = date | date(format="%s") %}
-{% set end_ts = load_data(literal=end_ts, format="json") %}
+{% set total = data_points[0].extra.burndown[work].starting %}
 
-{# Find first visible meeting #}
-{% set_global first_ts = 0 %}
-{% set_global visible = 0 %}
+{% set cur_ts = date | date(format="%s") %}
+{% set cur_ts = load_data(literal=cur_ts, format="json") %}
+
+{% set first_ts = data_points[0].date | date(format="%s") %}
+{% set first_ts = load_data(literal=first_ts, format="json") %}
+{% set last_ts = data_points | nth(n=n - 1) | get(key="date") | date(format="%s") %}
+{% set last_ts = load_data(literal=last_ts, format="json") %}
+{% set span = last_ts - first_ts %}
+
+{# x origin for dates — Start dot lives at left, first session at left + start_pad #}
+{% set date_origin = left + start_pad %}
+
+{# Precompute positions #}
+{% set_global xs = [] %}
+{% set_global ys = [] %}
+{% set_global remainders = [] %}
 
 {% for dp in data_points %}
   {% set ts = dp.date | date(format="%s") %}
   {% set ts = load_data(literal=ts, format="json") %}
-  {% if ts <= end_ts %}
-    {% if visible == 0 %}
-      {% set_global first_ts = ts %}
-    {% endif %}
-    {% set_global visible = visible + 1 %}
+
+  {% if span > 0 %}
+    {% set px = date_origin + (ts - first_ts) * plot_width / span %}
+  {% else %}
+    {% set px = date_origin %}
+  {% endif %}
+
+  {% set ending = dp.extra.burndown[work].ending %}
+  {% set py = top + (total - ending) * plot_height / total %}
+
+  {% set_global xs = xs | concat(with=px) %}
+  {% set_global ys = ys | concat(with=py) %}
+  {% set_global remainders = remainders | concat(with=ending) %}
+{% endfor %}
+
+{# Count past sessions #}
+{% set_global past_count = 0 %}
+{% for dp in data_points %}
+  {% set ts = dp.date | date(format="%s") %}
+  {% set ts = load_data(literal=ts, format="json") %}
+  {% if ts <= cur_ts %}
+    {% set_global past_count = past_count + 1 %}
   {% endif %}
 {% endfor %}
 
-{% if visible == 0 %}
-    <p>No burndown data.</p>
-{% else %}
+{# Start anchor: always at (left, top) #}
+{% set start_x = left %}
+{% set start_y = top %}
 
-{% set span = end_ts - first_ts %}
+{# Extrapolation: extend the line from (start_x, start_y) through current point #}
+{% set_global show_extrap = false %}
+{% set_global extrap_x2 = 0 %}
+{% set_global extrap_y2 = 0 %}
+{% set_global velocity = 0 %}
+{% set_global sessions_remaining = 0 %}
 
-{% set_global remaining = total %}
-{% set_global points = "" %}
+{% if past_count > 0 %}
+  {% set cur_x = xs | nth(n=past_count - 1) %}
+  {% set cur_y = ys | nth(n=past_count - 1) %}
+  {% set cur_rem = remainders | nth(n=past_count - 1) %}
 
+  {# Direction vector from start anchor through current point #}
+  {% set dx = cur_x - start_x %}
+  {% set dy = cur_y - start_y %}
+
+  {# Velocity: units consumed per session #}
+  {% set consumed = total - cur_rem %}
+  {% if consumed > 0 %}
+    {% set_global velocity = consumed / past_count %}
+    {% set raw_sessions = cur_rem / velocity %}
+    {% set floored = raw_sessions | round(method="floor") %}
+    {% if floored < raw_sessions %}
+      {% set_global sessions_remaining = floored + 1 %}
+    {% else %}
+      {% set_global sessions_remaining = floored %}
+    {% endif %}
+
+    {# Parametric: find t where line hits bottom (remaining=0) or right edge #}
+    {# bottom: start_y + t*dy = height - bottom  =>  t = (height-bottom - start_y) / dy #}
+    {# right:  start_x + t*dx = width - right    =>  t = (width-right - start_x) / dx #}
+
+    {% set t_bottom = 0 %}
+    {% set t_right = 0 %}
+
+    {% if dy != 0 %}
+      {% set t_bottom = (height - bottom - start_y) / dy %}
+    {% endif %}
+    {% if dx != 0 %}
+      {% set t_right = (width - right - start_x) / dx %}
+    {% endif %}
+
+    {# Use the smaller positive t so we stop at whichever edge comes first #}
+    {% set_global best_t = 0 %}
+    {% if t_bottom > 0 and t_right > 0 %}
+      {% if t_bottom < t_right %}
+        {% set_global best_t = t_bottom %}
+      {% else %}
+        {% set_global best_t = t_right %}
+      {% endif %}
+    {% elif t_bottom > 0 %}
+      {% set_global best_t = t_bottom %}
+    {% elif t_right > 0 %}
+      {% set_global best_t = t_right %}
+    {% endif %}
+
+    {% if best_t > 0 %}
+      {% set_global extrap_x2 = start_x + best_t * dx %}
+      {% set_global extrap_y2 = start_y + best_t * dy %}
+      {% set_global show_extrap = true %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+{# Build polyline point strings #}
+{% set_global past_pts = start_x ~ "," ~ start_y %}
+{% set_global future_pts = "" %}
+{% set_global future_started = false %}
+
+{% for i in range(end=n) %}
+  {% set dp = data_points[i] %}
+  {% set ts = dp.date | date(format="%s") %}
+  {% set ts = load_data(literal=ts, format="json") %}
+
+  {% if ts <= cur_ts %}
+    {% set_global past_pts = past_pts ~ " " ~ xs[i] ~ "," ~ ys[i] %}
+  {% else %}
+    {% if future_started == false %}
+      {% set xs_past_count = xs | nth(n=past_count - 1) %}
+      {% set ys_past_count = ys | nth(n=past_count - 1) %}
+      {% set_global future_pts = xs_past_count ~ "," ~ ys_past_count %}
+      {% set_global future_started = true %}
+    {% endif %}
+    {% set_global future_pts = future_pts ~ " " ~ xs[i] ~ "," ~ ys[i] %}
+  {% endif %}
+{% endfor %}
+
+<div class="burndown" id="burndown-{{ slug }}">
 <svg
     viewBox="0 0 {{ width }} {{ height }}"
     xmlns="http://www.w3.org/2000/svg">
 
-    {# --- Horizontal grid & Y axis labels --- #}
-
+    {# Horizontal grid & Y axis labels #}
     {% set ticks = 5 %}
-
     {% for i in range(end=ticks + 1) %}
         {% set value = total - (i * total / ticks) %}
         {% set y = top + (i * plot_height / ticks) %}
-
-        <line
-            x1="{{ left }}"
-            y1="{{ y }}"
-            x2="{{ width - right }}"
-            y2="{{ y }}"
-            stroke="#ddd"/>
-
-        <line
-            x1="{{ left - 5 }}"
-            y1="{{ y }}"
-            x2="{{ left }}"
-            y2="{{ y }}"
-            stroke="black"/>
-
-        <text
-            x="{{ left - 10 }}"
-            y="{{ y + 4 }}"
-            font-size="11"
-            text-anchor="end">
+        <line x1="{{ left }}" y1="{{ y }}" x2="{{ width - right }}" y2="{{ y }}" stroke="#ddd"/>
+        <line x1="{{ left - 5 }}" y1="{{ y }}" x2="{{ left }}" y2="{{ y }}" stroke="black"/>
+        <text x="{{ left - 10 }}" y="{{ y + 4 }}" font-size="11" text-anchor="end">
             {{ value | round(method="floor") }}
         </text>
-
     {% endfor %}
 
     {# Axes #}
+    <line x1="{{ left }}" y1="{{ top }}" x2="{{ left }}" y2="{{ height - bottom }}" stroke="black"/>
+    <line x1="{{ left }}" y1="{{ height - bottom }}" x2="{{ width - right }}" y2="{{ height - bottom }}" stroke="black"/>
 
-    <line
-        x1="{{ left }}"
-        y1="{{ top }}"
-        x2="{{ left }}"
-        y2="{{ height - bottom }}"
-        stroke="black"/>
-
-    <line
-        x1="{{ left }}"
-        y1="{{ height - bottom }}"
-        x2="{{ width - right }}"
-        y2="{{ height - bottom }}"
-        stroke="black"/>
-
-    {# Axis title #}
-
-    <text
-        x="18"
-        y="{{ height / 2 }}"
-        text-anchor="middle"
-        transform="rotate(-90 18 {{ height / 2 }})">
+    {# Y axis title #}
+    <text x="18" y="{{ height / 2 }}" text-anchor="middle"
+          transform="rotate(-90 18 {{ height / 2 }})">
         {{ units }} remaining
     </text>
 
-    {# TODO: Ideal burndown line #}
-    {# {% set ideal_start_x = left %}
-    {% set ideal_start_y = top %}
-    {% set ideal_end_x = width - right %}
-    {% set ideal_end_y = height - bottom %} #}
-    {# <line
-        x1="{{ ideal_start_x }}"
-        y1="{{ ideal_start_y }}"
-        x2="{{ ideal_end_x }}"
-        y2="{{ ideal_end_y }}"
-        stroke="green"
-        stroke-width="2"
-        stroke-dasharray="6,4"/> #}
+    {# Extrapolation line — drawn first, behind everything #}
+    {% if show_extrap %}
+    <line
+        x1="{{ xs | nth(n=past_count - 1) }}"
+        y1="{{ ys | nth(n=past_count - 1) }}"
+        x2="{{ extrap_x2 }}"
+        y2="{{ extrap_y2 }}"
+        stroke="#aaa"
+        stroke-width="1.5"
+        stroke-dasharray="5,4"/>
+    {% endif %}
 
-    {# Data points #}
-
-    {% for dp in data_points %}
-
-        {% set ts = dp.date | date(format="%s") %}
-        {% set ts = load_data(literal=ts, format="json") %}
-
-        {% if ts > end_ts %}
-            {% break %}
-        {% endif %}
-
-        {% set_global remaining = dp.extra.burndown[work] %}
-
-        {% if span > 0 %}
-            {% set x = left + ((ts - first_ts) * plot_width / span) %}
-        {% else %}
-            {% set x = left %}
-        {% endif %}
-
-        {# {% set y = top + (remaining * plot_height / total) %} #}
-        {% set y = top + ((total - remaining) * plot_height / total) %}
-
-        {% set_global points = points ~ x ~ "," ~ y ~ " " %}
-
-        <circle
-            class="hover:cursor-pointer fill-red-500"
-            title="Bob"
-            cx="{{ x }}"
-            cy="{{ y }}"
-            r="5">
-          <title>{{ dp.date }}, {{ remaining }} {{ units }} remaining</title>
-        </circle>
-
-        <text
-            x="{{ x }}"
-            y="{{ height - bottom + 22 }}"
-            font-size="10"
-            text-anchor="end"
-            transform="rotate(-45 {{ x }} {{ height - bottom + 22 }})">
-            {{ dp.date | date(format="%Y-%m-%d") }}
-        </text>
-
-    {% endfor %}
-
+    {# Future polyline #}
+    {% if future_pts != "" %}
     <polyline
-        points="{{ points }}"
+        points="{{ future_pts }}"
+        fill="none"
+        stroke="steelblue"
+        stroke-width="2"
+        stroke-dasharray="6,4"
+        opacity="0.5"/>
+    {% endif %}
+
+    {# Past polyline #}
+    <polyline
+        points="{{ past_pts }}"
         fill="none"
         stroke="steelblue"
         stroke-width="2"/>
 
-    {# Current remaining annotation #}
-
+    {# Start dot #}
+    <circle cx="{{ start_x }}" cy="{{ start_y }}" r="5" fill="#e53e3e">
+        <title>Start — {{ total }} {{ units }} remaining</title>
+    </circle>
     <text
-        x="{{ width - right }}"
-        y="{{ top - 12 }}"
+        x="{{ start_x }}"
+        y="{{ height - bottom + 22 }}"
+        font-size="10"
         text-anchor="end"
-        font-size="12">
-        {{ remaining }} {{ units }} remaining
+        transform="rotate(-45 {{ start_x }} {{ height - bottom + 22 }})">
+        Start
     </text>
 
+    {# Data points #}
+    {% for i in range(end=n) %}
+      {% set dp = data_points[i] %}
+      {% set ts = dp.date | date(format="%s") %}
+      {% set ts = load_data(literal=ts, format="json") %}
+      {% set rem = remainders[i] %}
+      {% set label = dp.date | date(format="%Y-%m-%d") %}
+
+      {% if ts == cur_ts %}
+        <circle cx="{{ xs[i] }}" cy="{{ ys[i] }}" r="6" fill="#d97706">
+            <title>{{ label }} (today) — {{ rem }} {{ units }} remaining</title>
+        </circle>
+      {% elif ts < cur_ts %}
+        <circle cx="{{ xs[i] }}" cy="{{ ys[i] }}" r="5" fill="#e53e3e">
+            <title>{{ label }} — {{ rem }} {{ units }} remaining</title>
+        </circle>
+      {% else %}
+        <circle cx="{{ xs[i] }}" cy="{{ ys[i] }}" r="5" fill="white" stroke="#93c5fd" stroke-width="2" opacity="0.7">
+            <title>{{ label }} — {{ rem }} {{ units }} remaining</title>
+        </circle>
+      {% endif %}
+
+      <text
+          x="{{ xs[i] }}"
+          y="{{ height - bottom + 22 }}"
+          font-size="10"
+          text-anchor="end"
+          {% if ts > cur_ts %}opacity="0.5"{% endif %}
+          transform="rotate(-45 {{ xs[i] }} {{ height - bottom + 22 }})">
+          {{ label }}
+      </text>
+    {% endfor %}
+
+    {# Annotations #}
+    {% if past_count > 0 %}
+    <text
+        x="{{ width - right }}"
+        y="{{ top - 18 }}"
+        text-anchor="end"
+        font-size="12"
+        font-weight="bold">
+        {{ remainders | nth(n=past_count - 1) }} {{ units }} remaining
+    </text>
+    {% if show_extrap %}
+    <text
+        x="{{ width - right }}"
+        y="{{ top - 4 }}"
+        text-anchor="end"
+        font-size="11"
+        fill="#888">
+        est. {{ sessions_remaining }} sessions until completion at a rate of {{ velocity | round(precision=1) }} {{ units }}/session
+    </text>
+    {% endif %}
+    {% endif %}
+
 </svg>
+</div>
 
 {% endif %}
 {% endmacro %}

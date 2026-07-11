@@ -45,9 +45,17 @@
   {{ page.content | safe }}
   {% if page.extra.burndown %}
   {% for k, v in page.extra.burndown %}
-  <div>
-    <h2>{{ k }}</h2>
-    {{ svg::burndown(work=k, date=page.date, units="pages", total=68) }}
+  <div id="burndown-{{ k }}">
+    {% set works = get_section(path="works/_index.md") %}
+    <h2><a href="/works/{{ k }}">{{ works.pages | filter(attribute="slug", value=k) | first | get(key="taxonomies") | get(key="titles") | first }}</a></h2>
+    {{ svg::burndown(work=k, date=page.date, units=v.units, total=v.total) }}
+    <div class="not-prose text-center">
+      <span class="[font-variant:small-caps] text-sm font-fira-sans font-light p-1 text-gray-500">
+        {% if prev %}<a class="hover:underline" href="{{ prev.permalink }}#burndown-{{ k }}">prev</a>{% endif %}
+        {%- if prev and next %}-{% endif -%}
+        {% if next %}<a class="hover:underline" href="{{ next.permalink }}#burndown-{{ k }}">next</a>{% endif %}
+      </span>
+    </div>
   </div>
   {% endfor %}
   {% endif %}
