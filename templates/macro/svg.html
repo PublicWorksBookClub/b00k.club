@@ -331,7 +331,8 @@
         text-anchor="end"
         font-size="12"
         font-weight="bold">
-        {{ remainders | nth(n=past_count - 1) }} {{ units }} remaining
+        {% set percent_remaining = remainders | nth(n=past_count - 1) * 100 / total %}
+        {{ remainders | nth(n=past_count - 1) }} {{ units }} remaining, i.e. {{ percent_remaining | as_str | truncate(length=2, end="") }}%
     </text>
     {% if show_extrap %}
     <text

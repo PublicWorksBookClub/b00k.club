@@ -15,7 +15,7 @@
   {{ section.content | safe }}
   {% for page in section.pages %}
   <section id="{{ page.date }}" >
-    <h2 class="oldstyle-nums! font-serif!">
+    <h2 class="oldstyle-nums! font-serif! text-right">
       <a href="#{{ page.date }}" class="no-underline font-thin hover:underline text-rose-300">#</a>
       <time datetime="{{ page.date }}">
         <a href="{{ page.permalink }}" class="no-underline hover:underline">
