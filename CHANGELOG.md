@@ -2,6 +2,11 @@
 
 ## NEXT
 
+## 1.7.0 (2026-07-12)
+
+- Add "burndown" macro for showing the pace a text was read
+- Add minutes section and backfill part of 2026
+
 ## 1.6.2 (2026-06-29)
 
 - Migrate comments to a submodule and separate github repo

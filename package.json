@@ -1,6 +1,6 @@
 {
   "name": "b00k.club",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "private": true,
   "description": "The website for the Public Works Book Club: we only read works in the public domain",
   "scripts": {

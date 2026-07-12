@@ -1,0 +1,47 @@
+{% import "macro/util.html" as util %}
+{% extends "base.html" %}
+
+{% block body_styles %}{{ section.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
+
+{% block banner %}
+{{ util::back(text="Home") }}
+{{ util::nav(href="/works/", text="Readings") }}
+{{ util::nav(href="/resources/", text="Resources") }}
+{% endblock banner %}
+
+{% block main %}
+<article class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg
+  prose-headings:font-fira-sans prose-pwbc">
+  {{ section.content | safe }}
+  {% for page in section.pages %}
+  <section id="{{ page.date }}" >
+    <h2 class="oldstyle-nums! font-serif! flex flex-col items-end">
+      <span>
+        <a href="#{{ page.date }}" class="no-underline font-thin hover:underline text-rose-300">#</a>
+        <time datetime="{{ page.date }}">
+          <a href="{{ page.permalink }}" class="no-underline hover:underline">
+            {{ page.date }}
+          </a>
+        </time>
+      </span>
+      <span class="mt-1 not-prose [font-variant:small-caps] text-sm font-fira-sans font-light flex divide-x divide-gray-800">
+        {% if not loop.first %}{% set prev = section.pages | nth(n=loop.index0 - 1) %}{% endif %}
+        {% if not loop.last %}{% set next = section.pages | nth(n=loop.index0 + 1) %}{% endif %}
+        {% if prev %}
+        <a class="pr-2" href="#{{ prev.date }}">prev</a>
+        {% else %}
+        <span class="pr-2 cursor-not-allowed text-gray-200">prev</span>
+        {% endif %}
+        {% if next %}
+        <a class="ml-2" href="#{{ next.date }}">next</a>
+        {% else %}
+        <span class="ml-2 cursor-not-allowed text-gray-200">next</span>
+        {% endif %}
+      </span>
+    </h2>
+    {{ page.content | safe }}
+    <hr>
+  </section>
+  {% endfor %}
+</article>
+{% endblock main %}
