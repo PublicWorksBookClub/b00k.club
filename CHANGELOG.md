@@ -2,6 +2,10 @@
 
 ## NEXT
 
+## 1.7.1 (2026-07-12)
+
+- Update minutes with today's meeting
+
 ## 1.7.0 (2026-07-12)
 
 - Add "burndown" macro for showing the pace a text was read
