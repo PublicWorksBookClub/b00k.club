@@ -44,10 +44,11 @@
   </div>
   {{ page.content | safe }}
   {% if page.extra.burndown %}
+  <hr>
   {% for k, v in page.extra.burndown %}
   <div id="burndown-{{ k }}">
     {% set works = get_section(path="works/_index.md") %}
-    <h2><a href="/works/{{ k }}">{{ works.pages | filter(attribute="slug", value=k) | first | get(key="taxonomies") | get(key="titles") | first }}</a></h2>
+    <h3 class="font-light! font-serif!">Progress: <a class="italic" href="/works/{{ k }}">{{ works.pages | filter(attribute="slug", value=k) | first | get(key="taxonomies") | get(key="titles") | first }}</a></h3>
     {{ svg::burndown(work=k, date=page.date, units=v.units, total=v.total) }}
     <div class="not-prose text-center">
       <span class="[font-variant:small-caps] text-sm font-fira-sans font-light p-1 text-gray-500">
