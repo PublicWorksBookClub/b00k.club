@@ -2,6 +2,13 @@
 
 ## NEXT
 
+# 1.7.2 (2026-07-13)
+
+- Set underline offset for footer links
+- Improve headers for burndown charts
+- Add Cratylus minutes
+- Add Arrian minutes going back to Cratylus
+
 ## 1.7.1 (2026-07-12)
 
 - Update minutes with today's meeting
