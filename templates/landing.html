@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% import "macro/works.html" as works %}
 
+{% block bg_linear_gradient %}from-teal-50  to-indigo-950{% endblock bg_linear_gradient %}
 {% block body_styles %}{{ section.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
 {% block main %}
 <section>

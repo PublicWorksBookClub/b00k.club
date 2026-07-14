@@ -21,7 +21,8 @@
 {% endblock setup %}
 <!DOCTYPE html>
 {% block html %}
-<html lang="{{ lang }}" class="scroll-smooth">
+{# The linear gradient is for iphones which have safe areas above and below the page that are hard to style when those two parts have different bg colors #}
+<html lang="{{ lang }}" class="scroll-smooth bg-linear-to-t {% block bg_linear_gradient %}from-orange-50 to-indigo-950{% endblock bg_linear_gradient %}">
 {% block head %}
 <head>
   {% block preamble %}

@@ -3,6 +3,7 @@ template = "page.html"
 title = "Resources"
 
 [extra]
+bg_gradient="from-rose-50 to-indigo-950"
 bg_color = "bg-rose-50"
 +++
 

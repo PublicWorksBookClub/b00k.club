@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% import "macro/util.html" as util %}
 
+{% block bg_linear_gradient %}{% if page.extra.bg_gradient %}
+{{ page.extra.bg_gradient }}
+{% else %}
+from-orange-50  to-indigo-950
+{% endif %}{% endblock bg_linear_gradient %}
 {% block body_styles %}{{ page.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
 {% block banner %}
 {{ util::back(text="Home") }}

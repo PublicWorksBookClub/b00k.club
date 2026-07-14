@@ -2,6 +2,9 @@
 
 ## NEXT
 
+# 1.8.0 (2026-07-14)
+
+- Add a background gradient for iphone top/bottom insets
 - Add search
 - Remove updates as that's basically what minutes has replaced
 - Add more headings to home page, so one doesn't have to scroll to the footer to navigate
