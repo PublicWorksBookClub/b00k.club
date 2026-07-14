@@ -2,6 +2,7 @@
 
 ## NEXT
 
+- Add search
 - Remove updates as that's basically what minutes has replaced
 - Add more headings to home page, so one doesn't have to scroll to the footer to navigate
 
