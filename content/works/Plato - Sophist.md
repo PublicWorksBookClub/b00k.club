@@ -30,6 +30,9 @@ languages = ["Ancient Greek", "Attic Greek"]
 tags = ["Theaetetus returns"]
 years = ["2026"]
 arcs = ["Memorabilia 3"]
-contributors = ["Spencer Scorcelletti"]
 index = []
+contributors = ["Spencer Scorcelletti"]
 +++
+
+<!-- Used to add metadata for indexing, but it's not used for rendering. TODO: add pagefind instead of fuse to fix this. -->
+{{ index_metadata() }}

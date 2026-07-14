@@ -8,6 +8,13 @@
   {% endfor %}
 {% endmacro %}
 
+{# This is for simple listing the text for the purpose of indexing #}
+{% macro list_taxonomy_terms_shortcode_safe(terms, taxonomy, sep=", ", add="", override=false) %}
+  {% for t in terms %}
+    <span>{{ t }}</span>{%- if not loop.last %}<span>{{ sep }}</span>{% endif %}
+  {% endfor %}
+{% endmacro %}
+
 {% macro tablular_listing_of_works(works, limit=false, reverse=false) %}
   {% if limit and reverse %}{{ throw(message="TODO: limit and reverse don't work together yet.") }}{% endif %}
   {% set works = works | sort(attribute="extra.order") %}
