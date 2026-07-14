@@ -12,12 +12,20 @@ We read texts from the [public domain](https://en.wikipedia.org/wiki/Public_doma
 
 readings = """
 ## Readings {#timeline-of-readings}
+
+See a summary of our readings in chronological order below, or head to the [readings section](/works/) of the site to view them all.
 """
 
 links_to_resources = """
 ## Links to Resources
 
 A collection of useful [resources](/resources) for digital reading material, classic artwork in the public domain, virtual tours of ancient Mediterranean pottery, and more.
+"""
+
+minutes = """
+## Minutes
+
+Basic notes from [our past meetings](/minutes/).
 """
 
 contact = """

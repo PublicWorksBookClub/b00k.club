@@ -1,0 +1,106 @@
+{% import "macro/works.html" as works %}
+
+{# This shortcode is just for the purpose of indexing the metadata of the page. It is rendered by a template but since it's not part of the literal context it needs to be injected using this shortcode. TODO: longterm fix is to migrate to using a search index that actually crawls the page, like pagefind. #}
+<div class="hidden">
+<!-- Try to index stuff for search that's rendered after page-->
+  {# Abstract #}
+  <section class="mt-12 text-justify">
+    <h2 class="mb-4">Abstract</h2>
+    {{ page.extra.abstract | markdown | safe }}
+  </section>
+  {# Quoted Works #}
+  {% if page.extra.quoted_works %}
+  {% set authors_vocab = load_data(path="data/vocab/authors.toml") %}
+  <section class="mt-12 text-justify">
+    <h2 class="mb-4">Quoted Works</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Author</th>
+          <th>Location</th>
+        </tr>
+      </thead>
+      <tbody class="prose prose-td:first-of-type:font-serif prose-td:first-of-type:font-normal prose-td:first-of-type:italic">
+        {% for qw in page.extra.quoted_works %}
+        <tr>
+          <td>{{ qw.description }}</td>
+          <td>{{ works::list_taxonomy_terms_shortcode_safe(terms=qw.authors, taxonomy="authors", add="italic") }}</td>
+          <td>{{ qw.loc }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  {% endif %}
+  {# Bibliographic Data #}
+  <section class="mt-8">
+    <h2>Bibliographic Data</h2>
+    <table>
+      <caption class="caption-bottom mt-2 text-sm italic font-serif"><a href="https://en.wikipedia.org/wiki/Linked_data">Linked data</a> embedded within this page (<a href="">JSON-LD</a>)</caption>
+      <thead>
+        <tr>
+          <th><a class="no-underline hover:underline" href="/taxonomy/">Kind</a></th>
+          <th>Term</th>
+        </tr>
+      </thead>
+      <tbody class="prose-td:first-of-type:prose-a:font-serif prose-td:first-of-type:prose-a:font-normal prose-td:first-of-type:prose-a:italic">
+        <tr>
+          <td><span>authors</span></td>
+          <td>{{ works::list_taxonomy_terms_shortcode_safe(terms=page.taxonomies["authors"], taxonomy="authors", add="italic") }}</td>
+        </tr>
+        <tr>
+          <td><span>literary form</span></td>
+          <td>{{ works::list_taxonomy_terms_shortcode_safe(terms=page.taxonomies["forms"], taxonomy="forms", add="italic") }}</td>
+        </tr>
+        <tr>
+          <td><span>genres</span></td>
+          <td>{{ works::list_taxonomy_terms_shortcode_safe(terms=page.taxonomies["genres"], taxonomy="genres", add="italic") }}</td>
+        </tr>
+        <tr>
+          <td><span>subjects</span></td>
+          <td>{{ works::list_taxonomy_terms_shortcode_safe(terms=page.taxonomies["subjects"], taxonomy="subjects", add="italic") }}</td>
+        </tr>
+        <tr>
+          <td><span>period</span></td>
+          <td>{{ works::list_taxonomy_terms_shortcode_safe(terms=page.taxonomies["periods"], taxonomy="periods", add="italic") }}</td>
+        </tr>
+        <tr>
+          <td><span>language</span></td>
+          <td>{{ works::list_taxonomy_terms_shortcode_safe(terms=page.taxonomies["languages"], taxonomy="languages", add="italic") }}</td>
+        </tr>
+        <tr>
+          <td>same as</td>
+          <td>
+            {% set same_as = [] %}
+            {% if page.extra.wikidata %}
+            {% set same_as = same_as | concat(with='<a href="' ~ page.extra.wikidata ~ '">wikidata</a>') %}
+            {% endif %}
+            {% if page.extra.wikipedia %}
+            {% set same_as = same_as | concat(with='<a href="' ~ page.extra.wikipedia ~ '">wikipedia</a>') %}
+            {% endif %}
+            {{ same_as | join(sep=" | ") | safe }}
+          </td>
+        </tr>
+        <tr>
+          <td class="w-36"><span>keywords & tags</span></td>
+          <td>
+            {% if page.taxonomies.tags %}
+              {{ works::list_taxonomy_terms_shortcode_safe(terms=page.taxonomies["tags"], taxonomy="tags", add="italic") }}
+            {% else %}
+              <span class="italic">none</span>
+            {% endif %}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  {# Contextual Relations #}
+  <section class="mt-8">
+    <h2>Contextual Relations</h2>
+    <h3>Refers To</h3>
+    <ul>
+      <li>r</li>
+    </ul>
+  </section>
+</div>

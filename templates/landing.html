@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% import "macro/works.html" as works %}
 
+{% block bg_linear_gradient %}from-teal-50  to-indigo-950{% endblock bg_linear_gradient %}
 {% block body_styles %}{{ section.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
 {% block main %}
 <section>
@@ -27,6 +28,7 @@
     <p class="font-fira-sans -mb-6 text-right text-xs italic">(scroll →)</p>
     {{ works::tablular_listing_of_works(works=works_section.pages, limit=8) }}
     {{ section.extra.sections.links_to_resources | markdown | safe }}
+    {{ section.extra.sections.minutes | markdown | safe }}
     {{ section.extra.sections.contact | markdown | safe }}
   </div>
 </section>

@@ -31,9 +31,12 @@ languages = ["Ancient Greek", "Attic Greek"]
 tags = ["how to know nothing", "wind-egg", "true judgement", "Theaetetus begins", "a new hope", "possessing vs having", "knowing that you know", "knowing that you don't know", "not knowing that you know", "not knowing that you don't know", "knowledge vs true judgement", "little wax facsimiles", "hunters and atriums", "motion and being", "skepticism of perception", "dreams and insanity", "being and becoming", "what is a man", "true philosopher"]
 years = ["2026"]
 arcs = ["Memorabilia 3"]
-contributors = ["Spencer Scorcelletti"]
 index = ["Euclides", "Terpsion", "Corinth", "Megara", "Athens", "Socrates", "Cyrene", "Theodorus", "Euphronius of Sunium", "Sunium", "Phaenarete", "Artemis", "Aristides", "Lysimachus", "Prodicus", "Theaetetus", "Protagoras","Heraclitus"]
+contributors = ["Spencer Scorcelletti"]
 +++
+
+<!-- Used to add metadata for indexing, but it's not used for rendering. TODO: add pagefind instead of fuse to fix this. -->
+{{ index_metadata() }}
 
 <!-- TODO
 

@@ -28,7 +28,6 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2025"]
 arcs = ["Memorabilia 2"]
-contributors = ["Spencer Scorcelletti"]
 references = ["plato-apology"]
 tags = [
   "social contract",
@@ -59,7 +58,11 @@ index = [
   "Delos",
   "Sunium",
 ]
+contributors = ["Spencer Scorcelletti"]
 +++
+
+<!-- Used to add metadata for indexing, but it's not used for rendering. TODO: add pagefind instead of fuse to fix this. -->
+{{ index_metadata() }}
 
 @Plato-LCL36
 
