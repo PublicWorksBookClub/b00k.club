@@ -60,6 +60,7 @@
   <meta name="twitter:image:alt" content="Bust of Sophocles" />
   {% endblock share_img %}
   {% block extra_head %}{% endblock extra_head %}
+  {% include "includes/search.html" %}
 </head>
 {% endblock head %}
 {% block body %}
@@ -103,6 +104,13 @@
               <li class="{{ sub_menu_items }}"><a href="https://github.com/PublicWorksBookClub/b00k.club/">GitHub</a></li>
               <li class="{{ sub_menu_items }}"><a href="/taxonomy/">Taxonomy</a></li>
               <li class="{{ sub_menu_items }}"><a href="/comments/">Comments</a></li>
+              <li class="{{ sub_menu_items }} no-underline! mt-2">
+                <button id="footer-search-trigger" aria-label="Search" aria-keyshortcuts="Meta+K Control+K">
+                  <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <span>Search</span>
+                  <span class="kbd">⌘K</span>
+                </button>
+              </li>
             </ul>
           </li>
           <li class="w-32 md:w-auto text-right md:text-left">
