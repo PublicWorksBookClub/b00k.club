@@ -27,6 +27,7 @@
     <p class="font-fira-sans -mb-6 text-right text-xs italic">(scroll →)</p>
     {{ works::tablular_listing_of_works(works=works_section.pages, limit=8) }}
     {{ section.extra.sections.links_to_resources | markdown | safe }}
+    {{ section.extra.sections.minutes | markdown | safe }}
     {{ section.extra.sections.contact | markdown | safe }}
   </div>
 </section>
