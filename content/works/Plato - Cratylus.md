@@ -32,9 +32,6 @@ index = ["Hermogenes", "Socrates", "Cratylus", "Hipponicus", '“fine things are
 contributors = ["Spencer Scorcelletti"]
 +++
 
-<!-- Used to add metadata for indexing, but it's not used for rendering. TODO: add pagefind instead of fuse to fix this. -->
-{{ index_metadata() }}
-
 ## Notes
 
 **383–384a** A simple framing—told by Hermogenes—from where we begin: He and Cratylus have been having a discussion on the meaning of names, and the latter contends that a name belongs to each thing by nature.

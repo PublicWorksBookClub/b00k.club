@@ -33,14 +33,15 @@
 <article class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg
   prose-headings:font-fira-sans prose-pwbc">
   <header class="not-prose text-gray-700">
-    <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
+    <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700"
+        data-pagefind-meta="title:{{ page.taxonomies.titles[0] }} | PWBC Readings">
       <a class="hover:underline" href="{{ page.permalink }}">{{ page.taxonomies.titles[0] }}</a>
     </h1>
-    <p class="mt-6 text-xl font-fira-sans font-extralight">
+    <p class="mt-6 text-xl font-fira-sans font-extralight" data-pagefind-weight="6.0">
       <span>by</span>
       {% for a in page.taxonomies.authors %}
       <em class="font-light">
-        <a class="hover:underline" href='{{ get_taxonomy_url(kind="authors", name=a, lang=page.lang) }}'>{{ a }}</a>
+        <a class="hover:underline" href='{{ get_taxonomy_url(kind="authors", name=a, lang=page.lang) }}' data-pagefind-filter="author">{{ a }}</a>
       </em>
       {% if not loop.last %}<span>&</span>{% endif %}
       {% endfor %}
@@ -141,9 +142,9 @@
         </tr>
         <tr>
           <td class="w-36"><a href="{{ get_taxonomy(kind='tags') | get(key='permalink') }}">keywords & tags</a></td>
-          <td>
+          <td class="prose-a:font-light prose-a:hover:underline prose-a:no-underline prose-a:not-italic">
             {% if page.taxonomies.tags %}
-              {{ works::list_taxonomy_terms(terms=page.taxonomies["tags"], taxonomy="tags", add="italic") }}
+              {{ works::list_tags(terms=page.taxonomies["tags"], add="italic") }}
             {% else %}
               <span class="italic">none</span>
             {% endif %}

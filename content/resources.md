@@ -1,6 +1,6 @@
 +++
-template = "page.html"
-title = "Resources"
+template = "resources.html"
+title = "All Resources | PWBC Resources"
 
 [extra]
 bg_gradient="from-rose-50 to-indigo-950"

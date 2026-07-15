@@ -20,7 +20,7 @@
 <section class="prose prose-lg prose-pwbc mx-auto my-18 px-4 md:px-0">
   <header class="not-prose text-left">
     {% block header %}
-    <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
+    <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700" data-pagefind-meta="title:{{ taxonomy.name | title }} | PWBC Taxonomy">
       <a class="hover:underline" href="{{ current_url }}">{{ taxonomy.name | capitalize }}</a>
     </h1>
     {% if toml and toml["description"] %}

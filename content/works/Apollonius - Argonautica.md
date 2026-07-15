@@ -32,9 +32,6 @@ arcs = ["Metamorphoses 2"]
 contributors = ["Spencer Scorcelletti"]
 +++
 
-<!-- Used to add metadata for indexing, but it's not used for rendering. TODO: add pagefind instead of fuse to fix this. -->
-{{ index_metadata() }}
-
 ## Catalogue of Names
 
 The names of the heroes, in order, along with: their parentage, any other relations they may have, where they're from, ability/class/profession, things they may be known for, as well as additional notes.

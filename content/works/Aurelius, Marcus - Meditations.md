@@ -30,6 +30,3 @@ years = ["2022"]
 arcs = ["Theogony 1"]
 contributors = ["Spencer Scorcelletti"]
 +++
-
-<!-- Used to add metadata for indexing, but it's not used for rendering. TODO: add pagefind instead of fuse to fix this. -->
-{{ index_metadata() }}

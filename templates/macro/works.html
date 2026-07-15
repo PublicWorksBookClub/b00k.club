@@ -8,10 +8,13 @@
   {% endfor %}
 {% endmacro %}
 
-{# This is for simple listing the text for the purpose of indexing #}
-{% macro list_taxonomy_terms_shortcode_safe(terms, taxonomy, sep=", ", add="", override=false) %}
+{% macro list_tags(terms, sep=", ", add="", override=false) %}
   {% for t in terms %}
-    <span>{{ t }}</span>{%- if not loop.last %}<span>{{ sep }}</span>{% endif %}
+    <a
+      class="{% if override %}{{ override }}{% else %}{% endif %} {{ add }}"
+      href="{{ get_taxonomy_url(kind='tags', name=t, lang=page.lang) }}"
+      >#{{ t | split(pat=" ") | join(sep="-") | regex_replace(pattern="[^a-zA-Z0-9\-]", rep="") | lower }}</a
+    >{%- if not loop.last %}<span>{{ sep }}</span>{% endif %}
   {% endfor %}
 {% endmacro %}
 

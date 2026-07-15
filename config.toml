@@ -8,16 +8,7 @@ description = "A book club dedicated to works in the public domain."
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
 
-# Whether to build a search index to be used later on by a JavaScript library
-build_search_index = true
-
 theme = "r3ply"
-
-[search]
-include_title = true
-include_description = true
-include_content = true
-index_format = "fuse_json"
 
 ###############################
 ### Begin taxonomy of texts ###
@@ -182,10 +173,6 @@ insert_anchor_links = "none"
 paths = "on"
 taxonomies = "off"
 anchors = "on"
-
-[extra]
-# See includes/{begin,end}_search_exclude.html
-exclude_from_search = "EXCLUDE_FROM_SEARCH"
 
 # You can override these in your top-level zola config file
 [extra.r3ply]
