@@ -2,6 +2,8 @@
 
 ## NEXT
 
+- Replace fuse search for pagefind
+
 # 1.8.0 (2026-07-14)
 
 - Add a background gradient for iphone top/bottom insets

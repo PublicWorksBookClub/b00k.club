@@ -25,10 +25,12 @@ pnpm initialize
 
 # builds once, output will be in the `public` directory
 # Use BUILD_OPTS to pass options to the zola build command
+# Note: the search index is built from crawling the output of the zola build
 pnpm build
 
 # starts a local server that binds to `localhost:2665`, and watches the respective directories and rebuilds upon every change
 # Use SERVE_OPTS to pass options to the zola serve command
+# Note: the search index is only built once
 pnpm serve
 ```
 
@@ -84,6 +86,10 @@ This website uses [tailwindcss](https://tailwindcss.com/) for most of its stylin
 
 The tailwind [typography plugin](https://tailwindcss.com/docs/typography-plugin) is used to style content that is generated from markdown. Any child elements that are nested within an element that has the class `prose` will receive the styling. The default styling can further be customized in the `@theme` directive located within `css/input.css`.
 
+## Search
+
+The search works as a separate build process. After the site is built with Zola, it's crawled by pagefind which generates a search index and injects a custom UI. The UI has been adapted for the site in the [`input.css`](/css/input.css) file. The main thing to be aware of is that this is that the crawling is done in a separate step from the building. In the case of `pnpm serve` the site is built and crawled once, then the output of that is copied over to the static directory. This more or less allows one to iterate on the website and still see the search index, however if you need live updates of the search related stuff, you will have to re-run the command each time.
+
 ## Dependencies and Tools
 
 - [zola](https://getzola.com)@0.20.0
@@ -91,6 +97,7 @@ The tailwind [typography plugin](https://tailwindcss.com/docs/typography-plugin)
 - [tailwindcss](https://tailwindcss.com/)@v4
 - [tailwind typography plugin](https://tailwindcss.com/docs/typography-plugin)
 - [prettier](https://prettier.io)
+- [pagefind](https://pagefind.app)
 
 ## Deployments
 
@@ -105,6 +112,6 @@ Here are some additional things to know about deployments
 ## Notes:
 
 - This site was initially generated using a [GitHub template](https://github.com/asimpletune/zola-tailwindcss) for making zola static sites that work well with tailwindcss.
-- The `npm run serve` script runs two long-running tasks in parallel and allows both to write simultaneously to STDOUT by using [a mixture of `wait` and sending jobs to the background](https://www.cyberciti.biz/faq/how-to-run-command-or-code-in-parallel-in-bash-shell-under-linux-or-unix/)
+- The `pnpm serve` script runs two long-running tasks in parallel and allows both to write simultaneously to STDOUT by using [a mixture of `wait` and sending jobs to the background](https://www.cyberciti.biz/faq/how-to-run-command-or-code-in-parallel-in-bash-shell-under-linux-or-unix/)
 - Sometimes important changes for styling need to be made in the `@theme` directive
 - Builds can break when deployed, and a common place to look is needing to add or update an environment variable for Cloudflare's "pages" product

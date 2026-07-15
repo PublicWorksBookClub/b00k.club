@@ -46,8 +46,10 @@
     <meta name="twitter:description" content="{{ description }}" />
   {% endblock description %}
   {% block styling %}
-    <link rel="stylesheet" href="/style.css">
     <meta name="color-scheme" content="{# todo: dark #} light">
+    <link href="/pagefind/pagefind-component-ui.css" rel="stylesheet">
+    <script src="/pagefind/pagefind-component-ui.js" type="module"></script>
+    <link rel="stylesheet" href="/style.css">
   {% endblock styling %}
   {% block favicon %}
     {% include "includes/favicon.html" %}
@@ -61,7 +63,6 @@
   <meta name="twitter:image:alt" content="Bust of Sophocles" />
   {% endblock share_img %}
   {% block extra_head %}{% endblock extra_head %}
-  {% include "includes/search.html" %}
 </head>
 {% endblock head %}
 {% block body %}
@@ -72,6 +73,19 @@
     {% block banner %}{% endblock banner %}
     </header>
     <main>
+      <pagefind-modal>
+        <pagefind-modal-header>
+          <pagefind-input></pagefind-input>
+        </pagefind-modal-header>
+        <pagefind-modal-body>
+          <pagefind-summary default-message="Type to search across conspectuses, meetings, comments, and the whole site.">
+          </pagefind-summary>
+          <pagefind-results></pagefind-results>
+        </pagefind-modal-body>
+        <pagefind-modal-footer>
+          <pagefind-keyboard-hints></pagefind-keyboard-hints>
+        </pagefind-modal-footer>
+      </pagefind-modal>
       {% block main %}{% endblock main %}
     </main>
     {% block comments %}
@@ -106,11 +120,7 @@
               <li class="{{ sub_menu_items }}"><a href="/taxonomy/">Taxonomy</a></li>
               <li class="{{ sub_menu_items }}"><a href="/comments/">Comments</a></li>
               <li class="{{ sub_menu_items }} no-underline! mt-2">
-                <button id="footer-search-trigger" aria-label="Search" aria-keyshortcuts="Meta+K Control+K">
-                  <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                  <span>Search</span>
-                  <span class="kbd">⌘K</span>
-                </button>
+                <pagefind-modal-trigger class="footer-search-trigger" placeholder="Search"></pagefind-modal-trigger>
               </li>
             </ul>
           </li>

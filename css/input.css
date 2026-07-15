@@ -567,3 +567,159 @@
   --tw-prose-invert-td-borders: var(--color-pink-700);
    */
 }
+
+/***************************
+  ***** BEGIN pagefind *****
+  ************************** */
+:root {
+  /* Colors */
+  --pf-text: var(--color-attic-gray-100);
+  --pf-text-secondary: var(--color-slate-400);
+  --pf-text-muted: var(--color-slate-500);
+  --pf-background: var(--color-attic-black-800);
+  --pf-border: rgba(255,255,255,0.07);
+  --pf-border-focus: rgba(255,255,255,0.15);
+  --pf-skeleton: rgba(255,255,255,0.04);
+  --pf-skeleton-shine: rgba(255,255,255,0.08);
+  --pf-hover: rgba(99,102,241,0.08);
+  --pf-mark: var(--color-indigo-300);
+  --pf-scroll-shadow: rgba(0,0,0,0.4);
+
+  /* Shadows */
+  --pf-shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+  --pf-shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --pf-shadow-lg: 0 16px 48px rgba(0,0,0,0.5);
+
+  /* Error states */
+  --pf-error-bg: #2a1a1a;
+  --pf-error-border: #5c2828;
+  --pf-error-text: #f87171;
+  --pf-error-text-secondary: #ef4444;
+
+  /* Focus ring */
+  --pf-outline-focus: var(--color-indigo-400);
+  --pf-outline-width: 2px;
+  --pf-outline-offset: 2px;
+
+  /* Typography — match your #search-input-row sizing */
+  --pf-input-font-size: 1rem;
+  --pf-input-height: 52px;
+  --pf-result-title-font-size: 0.875rem;
+  --pf-result-excerpt-font-size: 0.75rem;
+  --pf-summary-font-size: 0.7rem;
+
+  /* Modal */
+  --pf-modal-backdrop: color-mix(in srgb, var(--color-black) 60%, transparent);
+  --pf-modal-max-width: 640px;
+  --pf-modal-max-height: 70vh;
+  --pf-modal-top: 10vh;
+
+  /* Shape */
+  --pf-border-radius: 12px;
+
+  pagefind-keyboard-hints {
+    --pf-text-muted: var(--color-gray-100);
+    kbd {
+      color: var(--color-cyan-200) !important;
+      border-color: rgba(255, 255, 255, 0.06) !important;
+      background: rgba(255, 255, 255, 0.05) !important;
+      padding: 1em 0.5em !important;
+    }
+  }
+  .pf-summary {
+    text-align: center !important;
+    padding: 3em 0 2em 0 !important;
+  }
+
+  pagefind-modal-body:has(pagefind-results li) .pf-summary {
+    text-align: left !important;
+    padding: 0 !important;
+  }
+
+  dialog::backdrop {
+    backdrop-filter: blur(4px) !important;
+  }
+
+  pagefind-modal-trigger.footer-search-trigger  button.pf-trigger-btn {
+    display: flex !important;
+    height: 2.5em !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    padding: 0.15rem 0.75rem !important;
+    .pf-trigger-text {
+      color: var(--color-red-300) !important;
+    }
+    .pf-trigger-shortcut {
+      .pf-trigger-key {
+        color: color-mix(in srgb, var(--color-blue-400) 50%, transparent) !important;
+        border: 1px solid currentColor;
+        border-radius: 3px;
+      }
+    }
+
+    border-radius: 6px !important;
+    border: 1px solid color-mix(in srgb, var(--color-gray-300) 50%, transparent) !important;
+    background: rgba(255,255,255,0.04) !important;
+    font-size: 0.8rem !important;
+    cursor: pointer !important;
+    transition: border-color 0.15s, background 0.15s !important;
+  }
+
+  pagefind-modal-trigger.nav-search-trigger {
+    display: inline-flex !important;
+    vertical-align: bottom !important;
+  }
+  pagefind-modal-trigger.nav-search-trigger button.pf-trigger-btn {
+    display: inline-flex !important;
+    height: 2.5rem !important;
+    min-width: 5rem !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    padding: 0 1rem !important;
+    margin-top: 0.25rem !important;
+    margin-left: 0.25rem !important;
+    border: 2px solid var(--color-gray-700) !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    font-size: 0.8rem !important;
+    cursor: pointer !important;
+    vertical-align: bottom !important;
+    transition: background 0.15s !important;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05) !important;
+    }
+
+    .pf-trigger-icon svg {
+      color: var(--color-gray-900) !important;
+    }
+
+    .pf-trigger-text {
+      color: var(--color-gray-600) !important;
+      display: none !important;
+    }
+
+    .pf-trigger-shortcut {
+      display: none !important;
+      .pf-trigger-key {
+        color: var(--color-gray-600) !important;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .pf-trigger-icon svg {
+        color: var(--color-gray-700) !important;
+      }
+      .pf-trigger-text {
+        display: inline !important;
+      }
+      .pf-trigger-shortcut {
+        display: inline-flex !important;
+      }
+    }
+  }
+}
+/***************************
+  ****** END pagefind ******
+  ************************** */
