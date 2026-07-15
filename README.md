@@ -90,6 +90,8 @@ The tailwind [typography plugin](https://tailwindcss.com/docs/typography-plugin)
 
 The search works as a separate build process. After the site is built with Zola, it's crawled by pagefind which generates a search index and injects a custom UI. The UI has been adapted for the site in the [`input.css`](/css/input.css) file. The main thing to be aware of is that this is that the crawling is done in a separate step from the building. In the case of `pnpm serve` the site is built and crawled once, then the output of that is copied over to the static directory. This more or less allows one to iterate on the website and still see the search index, however if you need live updates of the search related stuff, you will have to re-run the command each time.
 
+While serving you can navigate to `/pagefind/playground/` to introspect the search results.
+
 ## Dependencies and Tools
 
 - [zola](https://getzola.com)@0.20.0
