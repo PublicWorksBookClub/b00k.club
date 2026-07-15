@@ -25,12 +25,12 @@
 {% block main %}
 <article class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg
   prose-headings:font-fira-sans prose-pwbc">
-  <h1>All Comment Threads</h1>
+  <h1 data-pagefind-meta="title:By Thread | PWBC Comments">All Comment Threads</h1>
 </article>
 {% endblock main %}
 
 {% block comments %}
-<section id="comments" class="max-w-full py-8 px-2 prose prose-lg prose-pwbc">
+<section id="comments" class="max-w-full py-8 px-2 prose prose-lg prose-pwbc" data-pagefind-body>
   <div class="max-w-prose mx-auto">
   {{ r3ply::render_comments_sorted_by_activity(comments=comments, write_subject=true, aliases=aliases) }}
   </div>

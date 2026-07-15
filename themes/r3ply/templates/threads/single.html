@@ -11,7 +11,7 @@
 {% endblock setup %}
 
 {% block title %}
-<title>#{{ term.name }} Thread | PWBC</title>
+<title>#{{ term.name }} Thread | PWBC Comments</title>
 {% endblock title %}
 
 {% block body_styles %}
@@ -28,7 +28,7 @@
 {% block main %}
 <article class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg
   prose-headings:font-fira-sans prose-pwbc">
-  <h1>
+  <h1 data-pagefind-meta="title:Thread #{{ term.name }} | PWBC Comments">
     <span>Thread </span>
     <span>
       <span class="text-gray-400">#</span><span class="text-blue-400 font-mono">{{ term.name }}</span>
@@ -37,7 +37,7 @@
 </article>
 {% endblock main %}
 {% block comments %}
-<section id="comments" class="max-w-full py-8 px-2 prose prose-lg prose-pwbc">
+<section id="comments" class="max-w-full py-8 px-2 prose prose-lg prose-pwbc" data-pagefind-body>
   <div class="max-w-prose mx-auto">
   {{ r3ply::render_comments_sorted_by_activity(comments=comments, aliases=aliases) }}
   </div>

@@ -37,7 +37,7 @@
 </article>
 {% endblock main %}
 {% block comments %}
-<section id="comments" class="max-w-full py-8 px-2 prose prose-lg prose-pwbc">
+<section id="comments" class="max-w-full py-8 px-2 prose prose-lg prose-pwbc" data-pagefind-body>
   <div class="max-w-prose mx-auto">
   {{ r3ply::render_comments_sorted_by_activity(comments=comments, aliases=aliases) }}
   </div>

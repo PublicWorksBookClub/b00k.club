@@ -6,10 +6,11 @@
   "scripts": {
     "initialize": "git submodule update --init --remote --recursive",
     "fmt": "npx prettier . --write",
+    "clean": "rm -rf public/ && rm -rf static/pagefind/",
     "build": "pnpm initialize && zola build $BUILD_OPTS && npx @tailwindcss/cli -i ./css/input.css -o ./public/style.css -m && npx pagefind --site public",
     "build:cf": "if [ \"$CF_PAGES_BRANCH\" = \"main\" ]; then pnpm build; else BUILD_OPTS=\"--base-url $CF_PAGES_URL\" pnpm build; fi",
 
-    "serve": "zola build && npx pagefind --site public && cp -r public/pagefind static/pagefind && zola serve --port 2665 $SERVE_OPTS & npx @tailwindcss/cli -i ./css/input.css -o ./public/style.css --watch && wait",
+    "serve": "pnpm clean && zola build && npx pagefind --site public && cp -r public/pagefind static/pagefind && zola serve --port 2665 $SERVE_OPTS & npx @tailwindcss/cli -i ./css/input.css -o ./public/style.css --watch && wait",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -72,20 +72,24 @@
     <header>
     {% block banner %}{% endblock banner %}
     </header>
-    <main>
-      <pagefind-modal>
-        <pagefind-modal-header>
-          <pagefind-input></pagefind-input>
-        </pagefind-modal-header>
-        <pagefind-modal-body>
-          <pagefind-summary default-message="Type to search across conspectuses, meetings, comments, and the whole site.">
-          </pagefind-summary>
-          <pagefind-results></pagefind-results>
-        </pagefind-modal-body>
-        <pagefind-modal-footer>
-          <pagefind-keyboard-hints></pagefind-keyboard-hints>
-        </pagefind-modal-footer>
-      </pagefind-modal>
+    {% block pagefind %}
+    {# The search modal #}
+    <pagefind-modal>
+      <pagefind-modal-header>
+        <pagefind-input></pagefind-input>
+      </pagefind-modal-header>
+      <pagefind-modal-body>
+        <pagefind-summary default-message="Type to search across conspectuses, meetings, comments, and the whole site.">
+        </pagefind-summary>
+        <pagefind-results></pagefind-results>
+      </pagefind-modal-body>
+      <pagefind-modal-footer>
+        <pagefind-keyboard-hints></pagefind-keyboard-hints>
+      </pagefind-modal-footer>
+    </pagefind-modal>
+    {% endblock pagefind %}
+    <main {% block include_in_search %}data-pagefind-body{% endblock include_in_search %}>
+      {# Main content #}
       {% block main %}{% endblock main %}
     </main>
     {% block comments %}

@@ -35,9 +35,6 @@ index = ["Euclides", "Terpsion", "Corinth", "Megara", "Athens", "Socrates", "Cyr
 contributors = ["Spencer Scorcelletti"]
 +++
 
-<!-- Used to add metadata for indexing, but it's not used for rendering. TODO: add pagefind instead of fuse to fix this. -->
-{{ index_metadata() }}
-
 <!-- TODO
 
 ## Outline (142a–210d)
