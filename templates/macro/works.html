@@ -8,6 +8,16 @@
   {% endfor %}
 {% endmacro %}
 
+{% macro list_tags(terms, sep=", ", add="", override=false) %}
+  {% for t in terms %}
+    <a
+      class="{% if override %}{{ override }}{% else %}{% endif %} {{ add }}"
+      href="{{ get_taxonomy_url(kind='tags', name=t, lang=page.lang) }}"
+      >#{{ t | split(pat=" ") | join(sep="-") | regex_replace(pattern="[^a-zA-Z0-9\-]", rep="") | lower }}</a
+    >{%- if not loop.last %}<span>{{ sep }}</span>{% endif %}
+  {% endfor %}
+{% endmacro %}
+
 {% macro tablular_listing_of_works(works, limit=false, reverse=false) %}
   {% if limit and reverse %}{{ throw(message="TODO: limit and reverse don't work together yet.") }}{% endif %}
   {% set works = works | sort(attribute="extra.order") %}

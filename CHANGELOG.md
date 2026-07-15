@@ -4,6 +4,7 @@
 
 # 1.8.1 (2026-07-15)
 
+- Make tags in conspectus template look more like hashtags
 - Replace fuse search for pagefind
 
 # 1.8.0 (2026-07-14)

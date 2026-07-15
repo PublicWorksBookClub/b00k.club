@@ -142,9 +142,9 @@
         </tr>
         <tr>
           <td class="w-36"><a href="{{ get_taxonomy(kind='tags') | get(key='permalink') }}">keywords & tags</a></td>
-          <td>
+          <td class="prose-a:font-light prose-a:hover:underline prose-a:no-underline prose-a:not-italic">
             {% if page.taxonomies.tags %}
-              {{ works::list_taxonomy_terms(terms=page.taxonomies["tags"], taxonomy="tags", add="italic") }}
+              {{ works::list_tags(terms=page.taxonomies["tags"], add="italic") }}
             {% else %}
               <span class="italic">none</span>
             {% endif %}
