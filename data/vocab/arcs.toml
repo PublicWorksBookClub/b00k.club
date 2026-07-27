@@ -182,7 +182,22 @@ years = "2026"
 predecessor = "Metamorphoses 1"
 coinciding = ["Memorabilia 3"]
 prosa = """
-The group was joined by a new member. TODO the rest.
+Armed with a more complete understanding of the transition that occurred under Alexander from the classical era, we began to immerse ourselves in this new hellenistic world to better understand what thoughts they had, how they saw themselves, and, overall, who they were—and where we come from.
+"""
+metrum = """
+TODO
+"""
+
+[["arcs"]]
+label = "Metamorphoses 3"
+sort = "Metamorphoses 3"
+series.name = "Metamorphoses"
+series.number = 3
+years = "2026"
+predecessor = "Metamorphoses 2"
+coinciding = ["Memorabilia 3"]
+prosa = """
+TODO
 """
 metrum = """
 TODO

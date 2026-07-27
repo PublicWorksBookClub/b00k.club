@@ -2,6 +2,9 @@
 
 ## NEXT
 
+- Add Theocritus' Idylls to readings
+- Add Metamorphoses 3 arc
+- Add [justif](https://github.com/lyallcooper/justif) to display justified text in a way that's closer to actual typesetting
 - Scale burndown svg with whichever is bigger of estimated vs actual
 
 # 1.8.3 (2026-07-26)

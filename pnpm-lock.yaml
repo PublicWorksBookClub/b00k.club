@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      justif:
+        specifier: ^0.6.4
+        version: 0.6.4
     devDependencies:
       '@r3ply/cli':
         specifier: ^0.0.2
@@ -930,6 +934,9 @@ packages:
   jsonld@8.3.3:
     resolution: {integrity: sha512-9YcilrF+dLfg9NTEof/mJLMtbdX1RJ8dbWtJgE00cMOIohb1lIyJl710vFiTaiHTl6ZYODJuBd32xFvUhmv3kg==}
     engines: {node: '>=14'}
+
+  justif@0.6.4:
+    resolution: {integrity: sha512-f/xhucqzDw0QruxkOVQBin+6Wc3c3YbtUHOezddTEynb1R2ZfBYj6tH2jIKw0mV/EEJNODmHbnl30eQ6okmBqw==}
 
   kleur@3.0.3:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
@@ -2107,6 +2114,8 @@ snapshots:
       rdf-canonize: 3.4.0
     transitivePeerDependencies:
       - web-streams-polyfill
+
+  justif@0.6.4: {}
 
   kleur@3.0.3: {}
 
