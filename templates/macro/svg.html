@@ -371,15 +371,17 @@
         </circle>
       {% endif %}
 
-      <text
-          x="{{ xs[i] }}"
-          y="{{ height - bottom + 22 }}"
-          font-size="10"
-          text-anchor="end"
-          {% if ts > cur_ts %}opacity="0.5"{% endif %}
-          transform="rotate(-45 {{ xs[i] }} {{ height - bottom + 22 }})">
-          {{ label }}
-      </text>
+      <a href="/minutes/{{ label }}/">
+        <text
+            x="{{ xs[i] }}"
+            y="{{ height - bottom + 22 }}"
+            font-size="10"
+            text-anchor="end"
+            {% if ts > cur_ts %}opacity="0.5"{% endif %}
+            transform="rotate(-45 {{ xs[i] }} {{ height - bottom + 22 }})">
+            {{ label }}
+        </text>
+      </a>
     {% endfor %}
 
     {# Annotations #}
