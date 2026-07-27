@@ -2,6 +2,8 @@
 
 ## NEXT
 
+- Scale burndown svg with whichever is bigger of estimated vs actual
+
 # 1.8.3 (2026-07-26)
 
 - Update with minutes from today's meeting where we discussed Nolan's *The Odyssey* and finished Lucretius
