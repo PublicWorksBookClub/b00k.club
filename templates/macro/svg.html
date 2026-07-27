@@ -151,15 +151,29 @@
   {% endif %}
 {% endif %}
 
-{# x domain ends at whichever comes later: the last session on record or the
-   estimated finish, so the extrapolation always fits on the plot #}
-{% if span > 0 %}
+{# Determine if book is complete (no pages remaining) #}
+{% set_global is_complete = false %}
+{% if n > 0 %}
+  {% set last_rem = remainders | nth(n=n - 1) %}
+  {% if last_rem == 0 %}
+    {% set_global is_complete = true %}
+  {% endif %}
+{% endif %}
+
+{# x domain: if complete, always use the actual completion date to prevent
+   rescaling when viewing the same completed book across different weeks.
+   Otherwise, extend to fit the extrapolation line. #}
+{% if is_complete %}
   {% set_global domain_end_ts = last_ts %}
 {% else %}
-  {% set_global domain_end_ts = first_ts + start_pad_ts %}
-{% endif %}
-{% if show_extrap and est_finish_ts > domain_end_ts %}
-  {% set_global domain_end_ts = est_finish_ts %}
+  {% if span > 0 %}
+    {% set_global domain_end_ts = last_ts %}
+  {% else %}
+    {% set_global domain_end_ts = first_ts + start_pad_ts %}
+  {% endif %}
+  {% if show_extrap and est_finish_ts > domain_end_ts %}
+    {% set_global domain_end_ts = est_finish_ts %}
+  {% endif %}
 {% endif %}
 {% set domain_span = domain_end_ts - origin_ts %}
 
@@ -228,30 +242,80 @@
 
     {# Extrapolation line — drawn first, behind everything #}
     {% if show_extrap %}
+    {% set extrap_x1 = xs | nth(n=past_count - 1) %}
+    {% set extrap_y1 = ys | nth(n=past_count - 1) %}
+    {# For completed books, clip the line to the right edge of the chart #}
+    {% if is_complete and extrap_x2 > width - right %}
+      {% if extrap_x2 != extrap_x1 %}
+        {% set frac = (width - right - extrap_x1) / (extrap_x2 - extrap_x1) %}
+        {% set clipped_y2 = extrap_y1 + frac * (extrap_y2 - extrap_y1) %}
+      {% else %}
+        {% set clipped_y2 = height - bottom %}
+      {% endif %}
+      {% set line_x2 = width - right %}
+      {% set line_y2 = clipped_y2 %}
+    {% else %}
+      {% set line_x2 = extrap_x2 %}
+      {% set line_y2 = extrap_y2 %}
+    {% endif %}
     <line
-        x1="{{ xs | nth(n=past_count - 1) }}"
-        y1="{{ ys | nth(n=past_count - 1) }}"
-        x2="{{ extrap_x2 }}"
-        y2="{{ extrap_y2 }}"
+        x1="{{ extrap_x1 }}"
+        y1="{{ extrap_y1 }}"
+        x2="{{ line_x2 }}"
+        y2="{{ line_y2 }}"
         stroke="#aaa"
         stroke-width="1.5"
         stroke-dasharray="5,4"/>
 
     {# Estimated finish marker — only worth labelling when it lands past the
-       last session on record, otherwise it collides with that session's label #}
-    {% if est_finish_ts > last_ts %}
-    <circle cx="{{ extrap_x2 }}" cy="{{ extrap_y2 }}" r="4" fill="white" stroke="#aaa" stroke-width="2">
-        <title>Est. finish — {{ est_finish_label }}</title>
-    </circle>
-    <text
-        x="{{ extrap_x2 }}"
-        y="{{ height - bottom + 22 }}"
-        font-size="10"
-        text-anchor="end"
-        fill="#888"
-        transform="rotate(-45 {{ extrap_x2 }} {{ height - bottom + 22 }})">
-        est. {{ est_finish_label }}
-    </text>
+       last session on record, otherwise it collides with that session's label.
+       For completed books, show at the top right corner with a connector line,
+       but only if the extrapolation line actually extends beyond the chart boundary. #}
+    {% if est_finish_ts > last_ts and (not is_complete or extrap_x2 > width - right) %}
+      {% if is_complete %}
+        {# Book complete: show estimated finish label in top right corner with
+           a line and circle marker where the extrapolation line intersects the right edge #}
+        {% set extrap_x1 = xs | nth(n=past_count - 1) %}
+        {% set extrap_y1 = ys | nth(n=past_count - 1) %}
+        {% if extrap_x2 != extrap_x1 %}
+          {% set frac = (width - right - extrap_x1) / (extrap_x2 - extrap_x1) %}
+          {% set intersect_y = extrap_y1 + frac * (extrap_y2 - extrap_y1) %}
+        {% else %}
+          {% set intersect_y = height - bottom %}
+        {% endif %}
+        {% set label_x = width - right - 8 %}
+        {% set label_y = top + 25 %}
+        {% set marker_x = width - right - 4 %}
+        {% set marker_y = intersect_y %}
+        {# Circle marker at the right edge of the canvas where the extrapolation line intersects #}
+        <circle cx="{{ marker_x }}" cy="{{ marker_y }}" r="4" fill="white" stroke="#aaa" stroke-width="2">
+            <title>Est. finish — {{ est_finish_label }}</title>
+        </circle>
+        {# Connector line from middle of label text to center of circle #}
+        <line x1="{{ label_x - 35 }}" y1="{{ label_y }}" x2="{{ marker_x }}" y2="{{ marker_y }}" stroke="#ccc" stroke-width="1" stroke-dasharray="2,2"/>
+        <text
+            x="{{ label_x }}"
+            y="{{ label_y }}"
+            font-size="10"
+            text-anchor="end"
+            fill="#888">
+            est. {{ est_finish_label }}
+        </text>
+      {% else %}
+        {# Book in progress: show at calculated position #}
+        <circle cx="{{ extrap_x2 }}" cy="{{ extrap_y2 }}" r="4" fill="white" stroke="#aaa" stroke-width="2">
+            <title>Est. finish — {{ est_finish_label }}</title>
+        </circle>
+        <text
+            x="{{ extrap_x2 }}"
+            y="{{ height - bottom + 22 }}"
+            font-size="10"
+            text-anchor="end"
+            fill="#888"
+            transform="rotate(-45 {{ extrap_x2 }} {{ height - bottom + 22 }})">
+            est. {{ est_finish_label }}
+        </text>
+      {% endif %}
     {% endif %}
     {% endif %}
 
