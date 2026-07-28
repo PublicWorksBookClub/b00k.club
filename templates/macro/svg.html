@@ -47,7 +47,7 @@
 {% endfor %}
 {% endmacro  %}
 
-{% macro burndown(work, date, units) %}
+{% macro burndown(work, date, units, doc_fragment) %}
 {% set minutes = get_section(path="minutes/_index.md") %}
 
 {% set data_points = minutes.pages
@@ -68,18 +68,7 @@
 {% set right = 20 %}
 {% set top = 40 %}
 {% set bottom = 80 %}
-{% set full_plot_width = width - left - right %}
-{% set start_pad = full_plot_width / n %}
-{% set plot_width = full_plot_width - start_pad %}
-{% set date_origin = left + start_pad %}
-{% set start_pad = 50 %}
-{% if n > 1 %}
-  {% set avg_gap_px = plot_width / (n - 1) %}
-{% else %}
-  {% set avg_gap_px = plot_width / 2 %}
-{% endif %}
-{% set start_pad = avg_gap_px %}
-{% set plot_width = width - left - right - start_pad %}
+{% set plot_width = width - left - right %}
 {% set plot_height = height - top - bottom %}
 
 {% set total = data_points[0].extra.burndown[work].starting %}
@@ -93,11 +82,18 @@
 {% set last_ts = load_data(literal=last_ts, format="json") %}
 {% set span = last_ts - first_ts %}
 
-{# x origin for dates — Start dot lives at left, first session at left + start_pad #}
-{% set date_origin = left + start_pad %}
+{# The Start anchor sits one average session gap before the first session, so
+   the whole x axis is a time axis: everything below maps a timestamp to a pixel. #}
+{% if n > 1 and span > 0 %}
+  {% set start_pad_ts = span / (n - 1) %}
+{% else %}
+  {# Single session: assume the club's weekly cadence so the axis has a span #}
+  {% set start_pad_ts = 604800 %}
+{% endif %}
+{% set origin_ts = first_ts - start_pad_ts %}
 
-{# Precompute positions #}
-{% set_global xs = [] %}
+{# Precompute y positions (independent of the x scale) #}
+{% set_global tss = [] %}
 {% set_global ys = [] %}
 {% set_global remainders = [] %}
 
@@ -105,25 +101,17 @@
   {% set ts = dp.date | date(format="%s") %}
   {% set ts = load_data(literal=ts, format="json") %}
 
-  {% if span > 0 %}
-    {% set px = date_origin + (ts - first_ts) * plot_width / span %}
-  {% else %}
-    {% set px = date_origin %}
-  {% endif %}
-
   {% set ending = dp.extra.burndown[work].ending %}
   {% set py = top + (total - ending) * plot_height / total %}
 
-  {% set_global xs = xs | concat(with=px) %}
+  {% set_global tss = tss | concat(with=ts) %}
   {% set_global ys = ys | concat(with=py) %}
   {% set_global remainders = remainders | concat(with=ending) %}
 {% endfor %}
 
 {# Count past sessions #}
 {% set_global past_count = 0 %}
-{% for dp in data_points %}
-  {% set ts = dp.date | date(format="%s") %}
-  {% set ts = load_data(literal=ts, format="json") %}
+{% for ts in tss %}
   {% if ts <= cur_ts %}
     {% set_global past_count = past_count + 1 %}
   {% endif %}
@@ -133,21 +121,18 @@
 {% set start_x = left %}
 {% set start_y = top %}
 
-{# Extrapolation: extend the line from (start_x, start_y) through current point #}
+{# Extrapolation: extend the line from the Start anchor through the current point
+   down to zero remaining. Because that line is linear in time, its landing point
+   can be computed as a timestamp, before the x scale is fixed:
+     est_finish_ts = origin_ts + (cur_ts - origin_ts) * total / consumed #}
 {% set_global show_extrap = false %}
-{% set_global extrap_x2 = 0 %}
-{% set_global extrap_y2 = 0 %}
+{% set_global est_finish_ts = 0 %}
 {% set_global velocity = 0 %}
 {% set_global sessions_remaining = 0 %}
 
 {% if past_count > 0 %}
-  {% set cur_x = xs | nth(n=past_count - 1) %}
-  {% set cur_y = ys | nth(n=past_count - 1) %}
+  {% set cur_pt_ts = tss | nth(n=past_count - 1) %}
   {% set cur_rem = remainders | nth(n=past_count - 1) %}
-
-  {# Direction vector from start anchor through current point #}
-  {% set dx = cur_x - start_x %}
-  {% set dy = cur_y - start_y %}
 
   {# Velocity: units consumed per session #}
   {% set consumed = total - cur_rem %}
@@ -161,40 +146,50 @@
       {% set_global sessions_remaining = floored %}
     {% endif %}
 
-    {# Parametric: find t where line hits bottom (remaining=0) or right edge #}
-    {# bottom: start_y + t*dy = height - bottom  =>  t = (height-bottom - start_y) / dy #}
-    {# right:  start_x + t*dx = width - right    =>  t = (width-right - start_x) / dx #}
-
-    {% set t_bottom = 0 %}
-    {% set t_right = 0 %}
-
-    {% if dy != 0 %}
-      {% set t_bottom = (height - bottom - start_y) / dy %}
-    {% endif %}
-    {% if dx != 0 %}
-      {% set t_right = (width - right - start_x) / dx %}
-    {% endif %}
-
-    {# Use the smaller positive t so we stop at whichever edge comes first #}
-    {% set_global best_t = 0 %}
-    {% if t_bottom > 0 and t_right > 0 %}
-      {% if t_bottom < t_right %}
-        {% set_global best_t = t_bottom %}
-      {% else %}
-        {% set_global best_t = t_right %}
-      {% endif %}
-    {% elif t_bottom > 0 %}
-      {% set_global best_t = t_bottom %}
-    {% elif t_right > 0 %}
-      {% set_global best_t = t_right %}
-    {% endif %}
-
-    {% if best_t > 0 %}
-      {% set_global extrap_x2 = start_x + best_t * dx %}
-      {% set_global extrap_y2 = start_y + best_t * dy %}
-      {% set_global show_extrap = true %}
-    {% endif %}
+    {% set_global est_finish_ts = origin_ts + (cur_pt_ts - origin_ts) * total / consumed %}
+    {% set_global show_extrap = true %}
   {% endif %}
+{% endif %}
+
+{# Determine if book is complete (no pages remaining) #}
+{% set_global is_complete = false %}
+{% if n > 0 %}
+  {% set last_rem = remainders | nth(n=n - 1) %}
+  {% if last_rem == 0 %}
+    {% set_global is_complete = true %}
+  {% endif %}
+{% endif %}
+
+{# x domain: if complete, always use the actual completion date to prevent
+   rescaling when viewing the same completed book across different weeks.
+   Otherwise, extend to fit the extrapolation line. #}
+{% if is_complete %}
+  {% set_global domain_end_ts = last_ts %}
+{% else %}
+  {% if span > 0 %}
+    {% set_global domain_end_ts = last_ts %}
+  {% else %}
+    {% set_global domain_end_ts = first_ts + start_pad_ts %}
+  {% endif %}
+  {% if show_extrap and est_finish_ts > domain_end_ts %}
+    {% set_global domain_end_ts = est_finish_ts %}
+  {% endif %}
+{% endif %}
+{% set domain_span = domain_end_ts - origin_ts %}
+
+{# Now place the points on the x axis #}
+{% set_global xs = [] %}
+{% for ts in tss %}
+  {% set px = left + (ts - origin_ts) * plot_width / domain_span %}
+  {% set_global xs = xs | concat(with=px) %}
+{% endfor %}
+
+{% set_global extrap_x2 = 0 %}
+{% set_global extrap_y2 = height - bottom %}
+{% set_global est_finish_label = "" %}
+{% if show_extrap %}
+  {% set_global extrap_x2 = left + (est_finish_ts - origin_ts) * plot_width / domain_span %}
+  {% set_global est_finish_label = est_finish_ts | round | int | date(format="%Y-%m-%d") %}
 {% endif %}
 
 {# Build polyline point strings #}
@@ -203,9 +198,7 @@
 {% set_global future_started = false %}
 
 {% for i in range(end=n) %}
-  {% set dp = data_points[i] %}
-  {% set ts = dp.date | date(format="%s") %}
-  {% set ts = load_data(literal=ts, format="json") %}
+  {% set ts = tss[i] %}
 
   {% if ts <= cur_ts %}
     {% set_global past_pts = past_pts ~ " " ~ xs[i] ~ "," ~ ys[i] %}
@@ -249,14 +242,81 @@
 
     {# Extrapolation line — drawn first, behind everything #}
     {% if show_extrap %}
+    {% set extrap_x1 = xs | nth(n=past_count - 1) %}
+    {% set extrap_y1 = ys | nth(n=past_count - 1) %}
+    {# For completed books, clip the line to the right edge of the chart #}
+    {% if is_complete and extrap_x2 > width - right %}
+      {% if extrap_x2 != extrap_x1 %}
+        {% set frac = (width - right - extrap_x1) / (extrap_x2 - extrap_x1) %}
+        {% set clipped_y2 = extrap_y1 + frac * (extrap_y2 - extrap_y1) %}
+      {% else %}
+        {% set clipped_y2 = height - bottom %}
+      {% endif %}
+      {% set line_x2 = width - right %}
+      {% set line_y2 = clipped_y2 %}
+    {% else %}
+      {% set line_x2 = extrap_x2 %}
+      {% set line_y2 = extrap_y2 %}
+    {% endif %}
     <line
-        x1="{{ xs | nth(n=past_count - 1) }}"
-        y1="{{ ys | nth(n=past_count - 1) }}"
-        x2="{{ extrap_x2 }}"
-        y2="{{ extrap_y2 }}"
+        x1="{{ extrap_x1 }}"
+        y1="{{ extrap_y1 }}"
+        x2="{{ line_x2 }}"
+        y2="{{ line_y2 }}"
         stroke="#aaa"
         stroke-width="1.5"
         stroke-dasharray="5,4"/>
+
+    {# Estimated finish marker — only worth labelling when it lands past the
+       last session on record, otherwise it collides with that session's label.
+       For completed books, show at the top right corner with a connector line,
+       but only if the extrapolation line actually extends beyond the chart boundary. #}
+    {% if est_finish_ts > last_ts and (not is_complete or extrap_x2 > width - right) %}
+      {% if is_complete %}
+        {# Book complete: show estimated finish label in top right corner with
+           a line and circle marker where the extrapolation line intersects the right edge #}
+        {% set extrap_x1 = xs | nth(n=past_count - 1) %}
+        {% set extrap_y1 = ys | nth(n=past_count - 1) %}
+        {% if extrap_x2 != extrap_x1 %}
+          {% set frac = (width - right - extrap_x1) / (extrap_x2 - extrap_x1) %}
+          {% set intersect_y = extrap_y1 + frac * (extrap_y2 - extrap_y1) %}
+        {% else %}
+          {% set intersect_y = height - bottom %}
+        {% endif %}
+        {% set label_x = width - right - 8 %}
+        {% set label_y = top + 25 %}
+        {% set marker_x = width - right - 4 %}
+        {% set marker_y = intersect_y %}
+        {# Circle marker at the right edge of the canvas where the extrapolation line intersects #}
+        <circle cx="{{ marker_x }}" cy="{{ marker_y }}" r="4" fill="white" stroke="#aaa" stroke-width="2">
+            <title>Est. finish — {{ est_finish_label }}</title>
+        </circle>
+        {# Connector line from middle of label text to center of circle #}
+        <line x1="{{ label_x - 35 }}" y1="{{ label_y }}" x2="{{ marker_x }}" y2="{{ marker_y }}" stroke="#ccc" stroke-width="1" stroke-dasharray="2,2"/>
+        <text
+            x="{{ label_x }}"
+            y="{{ label_y }}"
+            font-size="10"
+            text-anchor="end"
+            fill="#888">
+            est. {{ est_finish_label }}
+        </text>
+      {% else %}
+        {# Book in progress: show at calculated position #}
+        <circle cx="{{ extrap_x2 }}" cy="{{ extrap_y2 }}" r="4" fill="white" stroke="#aaa" stroke-width="2">
+            <title>Est. finish — {{ est_finish_label }}</title>
+        </circle>
+        <text
+            x="{{ extrap_x2 }}"
+            y="{{ height - bottom + 22 }}"
+            font-size="10"
+            text-anchor="end"
+            fill="#888"
+            transform="rotate(-45 {{ extrap_x2 }} {{ height - bottom + 22 }})">
+            est. {{ est_finish_label }}
+        </text>
+      {% endif %}
+    {% endif %}
     {% endif %}
 
     {# Future polyline #}
@@ -267,7 +327,7 @@
         stroke="steelblue"
         stroke-width="2"
         stroke-dasharray="6,4"
-        opacity="0.5"/>
+        opacity="0.8"/>
     {% endif %}
 
     {# Past polyline #}
@@ -293,8 +353,7 @@
     {# Data points #}
     {% for i in range(end=n) %}
       {% set dp = data_points[i] %}
-      {% set ts = dp.date | date(format="%s") %}
-      {% set ts = load_data(literal=ts, format="json") %}
+      {% set ts = tss[i] %}
       {% set rem = remainders[i] %}
       {% set label = dp.date | date(format="%Y-%m-%d") %}
 
@@ -312,15 +371,17 @@
         </circle>
       {% endif %}
 
-      <text
-          x="{{ xs[i] }}"
-          y="{{ height - bottom + 22 }}"
-          font-size="10"
-          text-anchor="end"
-          {% if ts > cur_ts %}opacity="0.5"{% endif %}
-          transform="rotate(-45 {{ xs[i] }} {{ height - bottom + 22 }})">
-          {{ label }}
-      </text>
+      <a href="/minutes/{{ label }}/#{{ doc_fragment }}">
+        <text
+            x="{{ xs[i] }}"
+            y="{{ height - bottom + 22 }}"
+            font-size="10"
+            text-anchor="end"
+            {% if ts > cur_ts %}opacity="0.5"{% endif %}
+            transform="rotate(-45 {{ xs[i] }} {{ height - bottom + 22 }})">
+            {{ label }}
+        </text>
+      </a>
     {% endfor %}
 
     {# Annotations #}
@@ -341,7 +402,7 @@
         text-anchor="end"
         font-size="11"
         fill="#888">
-        est. {{ sessions_remaining }} sessions until completion at a rate of {{ velocity | round(precision=1) }} {{ units }}/session
+        est. {{ sessions_remaining }} sessions until completion{% if sessions_remaining > 0 %} ({{ est_finish_label }}){% endif %} at a rate of {{ velocity | round(precision=1) }} {{ units }}/session
     </text>
     {% endif %}
     {% endif %}
