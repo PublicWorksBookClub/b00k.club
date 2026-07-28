@@ -1,33 +1,35 @@
 # Changelog
 
-## NEXT
+## Next
+
+## 1.8.4 (2026-07-28)
 
 - Add Theocritus' Idylls to readings
 - Add Metamorphoses 3 arc
 - Add [justif](https://github.com/lyallcooper/justif) to display justified text in a way that's closer to actual typesetting
 - Scale burndown svg with whichever is bigger of estimated vs actual (but when the book is completed always scale to the completion date)
 
-# 1.8.3 (2026-07-26)
+## 1.8.3 (2026-07-26)
 
 - Update with minutes from today's meeting where we discussed Nolan's *The Odyssey* and finished Lucretius
 
-# 1.8.2 (2026-07-19)
+## 1.8.2 (2026-07-19)
 
 - Update with minutes from today's meeting regarding Plato's Sophist and Lucretius
 
-# 1.8.1 (2026-07-15)
+## 1.8.1 (2026-07-15)
 
 - Make tags in conspectus template look more like hashtags
 - Replace fuse search for pagefind
 
-# 1.8.0 (2026-07-14)
+## 1.8.0 (2026-07-14)
 
 - Add a background gradient for iphone top/bottom insets
 - Add search
 - Remove updates as that's basically what minutes has replaced
 - Add more headings to home page, so one doesn't have to scroll to the footer to navigate
 
-# 1.7.2 (2026-07-13)
+## 1.7.2 (2026-07-13)
 
 - Set underline offset for footer links
 - Improve headers for burndown charts
