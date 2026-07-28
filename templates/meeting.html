@@ -50,7 +50,7 @@
   <div id="burndown-{{ k }}">
     {% set works = get_section(path="works/_index.md") %}
     <h3 class="font-light! font-serif!">Progress: <a class="italic" href="/works/{{ k }}">{{ works.pages | filter(attribute="slug", value=k) | first | get(key="taxonomies") | get(key="titles") | first }}</a></h3>
-    {{ svg::burndown(work=k, date=page.date, units=v.units, total=v.total) }}
+    {{ svg::burndown(work=k, date=page.date, units=v.units, total=v.total, doc_fragment="burndown-" ~ k) }}
     <div class="not-prose text-center">
       <span class="[font-variant:small-caps] text-sm font-fira-sans font-light p-1 text-gray-500">
         {% if prev.extra.burndown[k] %}<a class="hover:underline" href="{{ prev.permalink }}#burndown-{{ k }}">prev</a>{% endif %}

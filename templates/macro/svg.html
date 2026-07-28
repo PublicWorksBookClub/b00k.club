@@ -47,7 +47,7 @@
 {% endfor %}
 {% endmacro  %}
 
-{% macro burndown(work, date, units) %}
+{% macro burndown(work, date, units, doc_fragment) %}
 {% set minutes = get_section(path="minutes/_index.md") %}
 
 {% set data_points = minutes.pages
@@ -371,7 +371,7 @@
         </circle>
       {% endif %}
 
-      <a href="/minutes/{{ label }}/">
+      <a href="/minutes/{{ label }}/#{{ doc_fragment }}">
         <text
             x="{{ xs[i] }}"
             y="{{ height - bottom + 22 }}"
