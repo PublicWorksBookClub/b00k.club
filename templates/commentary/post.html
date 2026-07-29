@@ -4,6 +4,8 @@
 {% import "r3ply.html" as r3ply %}
 
 {% block body_styles %}bg-slate-50{% endblock body_styles %}
+{# this template ignores extra.bg_color, so pin the iphone strips to match it #}
+{% block edge_color %}bg-slate-50{% endblock edge_color %}
 
 {% block banner %}
 {{ util::nav(href="/", text="Home") }}

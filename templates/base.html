@@ -21,8 +21,7 @@
 {% endblock setup %}
 <!DOCTYPE html>
 {% block html %}
-{# The linear gradient is for iphones which have safe areas above and below the page that are hard to style when those two parts have different bg colors #}
-<html lang="{{ lang }}" class="scroll-smooth bg-linear-to-t {% block bg_linear_gradient %}from-orange-50 to-indigo-950{% endblock bg_linear_gradient %}">
+<html lang="{{ lang }}" class="scroll-smooth">
 {% block head %}
 <head>
   {% block preamble %}
@@ -67,8 +66,26 @@
 </head>
 {% endblock head %}
 {% block body %}
-<body class="{% block body_styles %}{% endblock body_styles %}">
-  <div class=" min-h-screen flex flex-col">
+{#-
+  On an iphone, safari leaves two strips of screen outside the page: one behind the
+  status bar / notch and one behind the floating toolbar. It fills both from <body>'s
+  background-color (composited over <html>'s) — background images, gradients and
+  <meta name="theme-color"> are all ignored, and both strips always get the SAME
+  colour, because safari only keeps one value for the pair. There is no way to give
+  them different colours.
+
+  So <body> carries that one colour and nothing else, and the div below it carries the
+  page's own background. To colour the strips independently of the page, set
+  extra.edge_color in a page's front matter or override the edge_color block. By
+  default they follow the page background, which is what they did before.
+-#}
+{%- set edge_color = page.extra.edge_color
+  | default(value=section.extra.edge_color
+  | default(value=page.extra.bg_color
+  | default(value=section.extra.bg_color
+  | default(value="bg-orange-50")))) -%}
+<body class="{% block edge_color %}{{ edge_color }}{% endblock edge_color %}">
+  <div class="{% block body_styles %}{% endblock body_styles %} min-h-screen flex flex-col">
     {# i.e. "page header", for logo and primary nav. See mdn <header> usage notes for more. #}
     <header>
     {% block banner %}{% endblock banner %}
