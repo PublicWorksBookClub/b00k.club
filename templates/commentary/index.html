@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% import "macro/util.html" as util %}
+
+{% block body_styles %}bg-orange-50{% endblock body_styles %}
+
+{% block banner %}
+{{ util::nav(href="/", text="Home") }}
+{{ util::search() }}
+{% endblock banner %}
+
+{% block main %}
+<article class="mx-auto my-16 max-w-prose px-4 md:px-0 prose prose-pwbc prose-lg prose-headings:font-fira-sans">
+  <header class="not-prose text-gray-700">
+    <h1 class="font-playfair-display text-5xl font-medium text-gray-700">
+      <a class="hover:underline" href="{{ section.permalink }}">Commentary</a>
+    </h1>
+  </header>
+  <section class="mt-8">
+    {% set posts = section.pages | sort(attribute="date") | reverse %}
+    {% if posts | length > 0 %}
+    <ul class="space-y-8 not-prose">
+      {% for post in posts %}
+      <li class="border-b border-gray-200 pb-6 last:border-b-0">
+        <h2 class="text-2xl font-fira-sans mb-2">
+          <a class="no-underline hover:underline text-gray-700" href="{{ post.permalink }}">
+            {{ post.title }}
+          </a>
+        </h2>
+        <p class="text-sm text-gray-500 mb-3">
+          {{ post.date | date(format="%d %B, %Y") }}
+        </p>
+        {% if post.summary %}
+        <p class="text-gray-700 prose prose-pwbc">{{ post.summary }}</p>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-gray-500 italic">No posts yet.</p>
+    {% endif %}
+  </section>
+</article>
+{% endblock main %}

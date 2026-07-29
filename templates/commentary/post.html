@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% import "macro/util.html" as util %}
+{% import "macro/works.html" as works %}
+{% import "r3ply.html" as r3ply %}
+
+{% block body_styles %}bg-slate-50{% endblock body_styles %}
+
+{% block banner %}
+{{ util::nav(href="/", text="Home") }}
+{{ util::nav(href="../", text="Commentary") }}
+{{ util::search() }}
+{% endblock banner %}
+
+{% block main %}
+<article class="mx-auto my-16 max-w-prose px-4 md:px-0 prose prose-pwbc prose-lg prose-headings:font-fira-sans">
+  <header class="not-prose text-gray-700">
+    <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
+      {{ page.title }}
+    </h1>
+    {% if page.taxonomies.contributors %}
+    <p class="mt-6 text-xl font-fira-sans font-extralight">
+      <span>by</span>
+      {% for c in page.taxonomies.contributors %}
+      <em class="font-light">
+        <a class="hover:underline" href='{{ get_taxonomy_url(kind="contributors", name=c, lang=page.lang) }}'>{{ c }}</a>
+      </em>
+      {% if not loop.last %}<span>&</span>{% endif %}
+      {% endfor %}
+    </p>
+    {% endif %}
+    <p class="mt-4 text-gray-500 text-sm">
+      {{ page.date | date(format="%B %d, %Y") }}
+    </p>
+  </header>
+  <hr class="not-prose">
+  <div class="not-prose text-center">
+    {# sort_by = "date" orders newest-first, so `higher` is the older post #}
+    {% set prev = page.higher | default(value=false) %}
+    {% set next = page.lower | default(value=false) %}
+    <span class="[font-variant:small-caps] text-sm font-fira-sans font-light p-1 text-gray-500">
+      {% if prev %}<a class="hover:underline" href="{{ prev.permalink }}">prev</a>{% endif %}
+      {%- if prev and next %}-{% endif -%}
+      {% if next %}<a class="hover:underline" href="{{ next.permalink }}">next</a>{% endif %}
+    </span>
+  </div>
+  <section class="prose prose-pwbc prose-lg prose-li:text-left prose-headings:text-left text-justify">
+    {{ page.content | safe }}
+  </section>
+</article>
+{% endblock main %}
+
+{% block comments %}
+<section id="comments" class="max-w-full py-8 px-2 prose prose-lg prose-pwbc border-t-4 border-dashed">
+  {% set comments = get_taxonomy_term(kind="comment-subjects", term=page.path | split(pat="") | slice(start=2, end=-2) | join(sep=""), required=false) %}
+  {% if comments is object %}{% set comments = comments.pages %}{% else %}{% set comments = [] %}{% endif %}
+  <div class="max-w-prose mx-auto">
+    <h2>Comments <a class="no-underline hover:underline" href="#comments">#</a><span class="font-medium"> ({{ comments | length }})</span></h2>
+    <a
+      href="{{ r3ply::mailto(
+        to=config.extra.r3ply.to_email,
+        body=config.extra.r3ply.email_body,
+        subject=current_path) }}"
+      class="inline-flex h-10 min-w-20 px-4 mb-6 items-center justify-center mt-1 ml-1 border-2 border-gray-700 hover:bg-black/5 no-underline hover:underline"
+    >
+      Comment
+    </a>
+  {{ r3ply::render_comments_sorted_by_activity(comments=comments, aliases=aliases) }}
+  </div>
+</section>
+{% endblock comments %}
