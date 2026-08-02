@@ -7,11 +7,13 @@
  * ~15 MB of coastline and relief geometry that the tiles absorb.
  */
 
-import { getGroup, pathMidpoint, setGroupAttributes } from './svg-utils.js'
-import { STYLESHEET_ATTRIBUTES } from './base-svg.js'
+import { getGroup, pathMidpoint, removeGroups } from './svg-utils.js'
+import { applyLayerStyles } from './base-svg.js'
 
 /** Group ids that are real layers; any other `<g id>` gets demoted to a data attribute. */
 const LAYER_IDS = new Set([
+  'coordinates',
+  'coordinateLabels',
   'routes',
   'roads',
   'trails',
@@ -29,8 +31,16 @@ const LAYER_IDS = new Set([
   'markers',
 ])
 
-/** Layers copied into the overlay, in paint order. */
-const OVERLAY_GROUPS = ['routes', 'icons', 'labels', 'markers']
+/**
+ * Layers copied into the overlay, in paint order.
+ *
+ * `coordinates` carries the font size and stroke that its degree markings
+ * inherit, so the wrapper comes across and the graticule lines inside it are
+ * dropped — those stay in the raster, under the rivers and coastline where the
+ * generator draws them.
+ */
+const OVERLAY_GROUPS = ['coordinates', 'routes', 'icons', 'labels', 'markers']
+const OVERLAY_EXCLUDES = { coordinates: ['coordinateGrid'] }
 
 /**
  * Reader-facing names for the label layers. FMG's own ids ("addedLabels") are
@@ -45,24 +55,26 @@ const LAYER_LABELS = {
   todo: 'unplaced',
 }
 
-export function buildOverlay(map, { symbols }) {
+export function buildOverlay(map, { symbols, layerStyles }) {
   const groups = OVERLAY_GROUPS.map((id) => {
-    // These layers are lifted straight out of the saved document, so they need
-    // the same stylesheet repair the base SVG gets — without `#routes
-    // {fill: none}` the Argo's voyage renders as a filled black wedge.
-    const markup = setGroupAttributes(getGroup(map.svg, id), id, STYLESHEET_ATTRIBUTES[id] ?? {})
+    const markup = removeGroups(getGroup(map.svg, id), OVERLAY_EXCLUDES[id] ?? []).svg
     return deduplicateIds(markup)
   }).filter(Boolean)
 
   const usedSymbols = collectSymbols(groups.join(''), symbols)
 
-  return [
+  const svg = [
     `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"`,
     ` viewBox="0 0 ${map.width} ${map.height}" preserveAspectRatio="none">`,
     `<defs>${getGroup(map.svg, 'filters')}${getGroup(map.svg, 'textPaths')}${usedSymbols}</defs>`,
     ...groups,
     `</svg>`,
   ].join('')
+
+  // These layers are lifted straight out of the saved document, so they need
+  // the same stylesheet repair the base SVG gets. Without it the Argo's voyage
+  // fills as a black wedge and every marker's emoji sits off-centre.
+  return applyLayerStyles(svg, layerStyles)
 }
 
 /**

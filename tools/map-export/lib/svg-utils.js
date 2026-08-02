@@ -45,6 +45,15 @@ export function getGroup(svg, id) {
   return span ? svg.slice(span[0], span[1]) : ''
 }
 
+/** Whether a group actually contains any elements, as opposed to being an empty shell. */
+export function groupHasContent(svg, id) {
+  const markup = getGroup(svg, id)
+  if (!markup) return false
+
+  const body = markup.slice(markup.indexOf('>') + 1, markup.lastIndexOf('</g>'))
+  return body.includes('<')
+}
+
 /**
  * Remove a list of groups. Returns the new markup plus the byte count removed
  * per id, which the CLI reports so it stays obvious what an export threw away.

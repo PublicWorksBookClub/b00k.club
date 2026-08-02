@@ -5,6 +5,7 @@
 - Add `/maps/viewer/`, a fast reader for the Argonautica map: it loads in under half a second instead of pulling down a 20 MB project file and a 46 MB editor
 - Add `pnpm map:export`, which renders a `.map` project into raster tiles plus a vector overlay (see `tools/map-export/README.md`) — the generator at `/maps/interactive/` stays the way the map is edited
 - Point the Argonautica's "Interactive Map" link at the new viewer, and add a separate "Edit the map" link to the generator
+- Centre the emoji inside map markers again, and restore the coordinate labels, both lost when the map was lifted out of the generator
 
 ## 1.8.4 (2026-07-28)
 

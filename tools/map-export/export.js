@@ -21,10 +21,11 @@ import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { readMapFile } from './lib/mapfile.js'
-import { buildBaseSvg, STYLESHEET_ATTRIBUTES } from './lib/base-svg.js'
-import { verifyStylesheet } from './lib/verify-stylesheet.js'
+import { buildBaseSvg, descendantGroupIds, groupIds, WITHHELD_LAYERS } from './lib/base-svg.js'
+import { readLayerStyles, findUnappliedRules } from './lib/stylesheet.js'
 import { renderTiles } from './lib/tiles.js'
 import { buildOverlay, buildFeatures, buildRoutes, buildLegend } from './lib/overlay.js'
+import { groupHasContent } from './lib/svg-utils.js'
 import { readSymbols, buildFontFaces } from './lib/fmg-assets.js'
 
 const here = dirname(fileURLToPath(import.meta.url))
@@ -58,15 +59,10 @@ async function exportMap(name, config, overrides) {
   const map = readMapFile(sourcePath)
   console.log(`  project  "${map.mapName}" · FMG ${map.version} · saved ${map.savedOn} · ${map.width}x${map.height}`)
 
-  const { svg: baseSvg, dropped } = buildBaseSvg(map, fmgDir)
+  const layerStyles = readLayerStyles(join(fmgDir, 'index.css'))
+  const { svg: baseSvg, dropped, visible } = buildBaseSvg(map, fmgDir, layerStyles)
   reportDropped(dropped)
   console.log(`  base     ${mb(map.svg.length)} of SVG reduced to ${mb(baseSvg.length)}`)
-
-  const drift = verifyStylesheet(join(fmgDir, 'index.css'), STYLESHEET_ATTRIBUTES, groupIds(baseSvg))
-  if (drift.length) {
-    console.warn(`  WARNING  the generator's stylesheet has changed; tiles may not match the editor:`)
-    for (const problem of drift) console.warn(`             ${problem}`)
-  }
 
   mkdirSync(outDir, { recursive: true })
 
@@ -94,8 +90,10 @@ async function exportMap(name, config, overrides) {
     console.warn(`  WARNING  could not download ${fonts.failed.join(', ')}; the map will request them from Google Fonts`)
   }
 
-  const overlay = buildOverlay(map, { symbols: readSymbols(join(fmgDir, 'index.html')) })
+  const overlay = buildOverlay(map, { symbols: readSymbols(join(fmgDir, 'index.html')), layerStyles })
   writeFileSync(join(outDir, 'overlay.svg'), overlay)
+
+  reportCoverage(map, visible, baseSvg, overlay, join(fmgDir, 'index.css'))
 
   const { features, orphaned } = buildFeatures(map)
   const routes = buildRoutes(map)
@@ -138,8 +136,30 @@ async function exportMap(name, config, overrides) {
   console.log(`  TOTAL    ${mb(total)} published, from a ${mb(statSync(sourcePath).size)} project`)
 }
 
-function groupIds(svg) {
-  return [...new Set([...svg.matchAll(/<g id="([^"]+)"/g)].map((match) => match[1]))]
+/**
+ * Every layer the author left switched on should end up in the tiles, in the
+ * overlay, or on the deliberate withheld list. Anything else is content quietly
+ * missing from the published map — which is exactly how `#coordinateLabels`
+ * went astray once.
+ */
+function reportCoverage(map, visible, baseSvg, overlay, cssPath) {
+  const published = [...groupIds(baseSvg), ...groupIds(overlay)]
+  const accounted = new Set([...published, 'textPaths', ...WITHHELD_LAYERS, ...descendantGroupIds(map.svg, WITHHELD_LAYERS)])
+
+  const missing = visible.filter((id) => !accounted.has(id))
+  if (missing.length) {
+    console.warn(`  WARNING  visible in the editor but not published: ${missing.join(', ')}`)
+  }
+
+  // Declarations too specific to become an attribute on the group itself. Only
+  // layers that actually carry shapes matter; a rule on an empty group cannot
+  // change anything.
+  const drawn = published.filter((id) => groupHasContent(overlay, id) || groupHasContent(baseSvg, id))
+  const unapplied = findUnappliedRules(cssPath, drawn)
+  if (unapplied.length) {
+    console.warn(`  WARNING  stylesheet rules that cannot be flattened onto a published layer:`)
+    for (const rule of unapplied) console.warn(`             ${rule}`)
+  }
 }
 
 function reportDropped(dropped) {

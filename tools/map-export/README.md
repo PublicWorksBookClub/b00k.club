@@ -73,13 +73,31 @@ Maps are registered in the `MAPS` table at the top of `export.js`.
 ## Notes on fidelity
 
 The generator serialises `#map` straight out of the live DOM, so every
-declaration that came from its stylesheet is missing from the saved file. Several
-of those are load-bearing: without `#routes {fill: none}` the Argo's voyage
-renders as a filled black wedge across the Black Sea, and without the mask on
-`#rivers` the rivers run out over open water. `lib/base-svg.js` flattens those
-declarations back onto the elements, and `lib/verify-stylesheet.js` re-reads
-`index.css` on every run and reports any drift, so upgrading the bundled
-generator cannot silently change how the tiles look.
+declaration that came from its stylesheet is missing from the saved file. A lot
+of those are load-bearing:
+
+| rule                                               | without it                                  |
+| -------------------------------------------------- | ------------------------------------------- |
+| `#routes { fill: none }`                           | the voyage fills as a black wedge           |
+| `#rivers { mask: url(#land) }`                     | rivers run out over open water              |
+| `#markers { text-anchor; dominant-baseline }`      | every marker's emoji sits off-centre        |
+| `#labels`, `#burgLabels` `{ text-anchor: middle }` | place names hang to the right of their spot |
+
+`lib/stylesheet.js` reads these out of `index.css` and writes them onto the
+elements as presentation attributes. It is deliberately derived rather than
+transcribed: an earlier version kept the list by hand, and the marker rule was
+missed for a while because nobody thought to look for it. Anything the author
+set inline in the generator still wins.
+
+Two things are reported on every run rather than assumed:
+
+- **Coverage.** Every layer left switched on has to end up in the tiles, in the
+  overlay, or on the `WITHHELD_LAYERS` list. Anything falling between is content
+  missing from the published map — which is how `#coordinateLabels` went astray
+  once.
+- **Unflattenable rules.** Declarations too specific to become an attribute on
+  the group itself (`#armies text { … }`). None apply to the layers published
+  today; the check is there so a future generator that adds one is noticed.
 
 Layers switched off in the generator are dropped rather than rendered, so what
 you toggle on before saving is what gets published.

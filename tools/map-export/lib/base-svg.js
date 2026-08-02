@@ -4,62 +4,52 @@
  * Two things have to be repaired before the saved document can be rendered
  * outside the generator:
  *
- *  1. FMG serialises `#map` straight out of the live DOM, so every declaration
- *     that came from `interactive/index.css` is missing. Some of those are load
- *     bearing — without `#routes {fill: none}` the Argo's voyage renders as a
- *     filled black wedge across the Black Sea, and without the `mask` on
- *     `#rivers` the rivers run out over open water.
+ *  1. Every declaration that came from `interactive/index.css` is missing,
+ *     because FMG serialises `#map` out of the live DOM. `lib/stylesheet.js`
+ *     recovers them.
  *  2. The ocean pattern points at a relative `./images/pattern1.png`.
  */
 
 import { readFileSync } from 'node:fs'
-import { findGroup, removeGroups, setGroupAttributes } from './svg-utils.js'
-
-/**
- * Declarations that only ever lived in the stylesheet, flattened onto the
- * groups they apply to. `verifyStylesheet` re-reads index.css on every export
- * and reports drift, so upgrading the bundled generator cannot silently change
- * how the tiles render.
- */
-export const STYLESHEET_ATTRIBUTES = {
-  biomes: { 'stroke-linejoin': 'round', 'fill-rule': 'evenodd' },
-  borders: { 'stroke-linejoin': 'round', fill: 'none' },
-  cells: { fill: 'none' },
-  coastline: { fill: 'none', 'stroke-linejoin': 'round' },
-  compass: { fill: 'none' },
-  cults: { 'stroke-linejoin': 'round', 'fill-rule': 'evenodd', mask: 'url(#land)' },
-  gridOverlay: { fill: 'none' },
-  landmass: { 'fill-rule': 'evenodd', mask: 'url(#land)' },
-  oceanLayers: { 'fill-rule': 'evenodd' },
-  population: { fill: 'none' },
-  provincesBody: { 'stroke-linejoin': 'round', 'fill-rule': 'evenodd', mask: 'url(#land)' },
-  relig: { 'stroke-linejoin': 'round', 'fill-rule': 'evenodd', mask: 'url(#land)' },
-  rivers: { stroke: 'none', mask: 'url(#land)', 'fill-rule': 'nonzero' },
-  routes: { fill: 'none' },
-  statesBody: { 'stroke-linejoin': 'round', 'fill-rule': 'evenodd', mask: 'url(#land)' },
-  statesHalo: { fill: 'none', 'stroke-linejoin': 'round' },
-  temperature: { 'fill-rule': 'evenodd' },
-  terrs: { 'fill-rule': 'evenodd' },
-}
+import { findGroup, getGroup, removeGroups, setGroupAttributes } from './svg-utils.js'
 
 /**
  * Layers that move to the interactive vector overlay instead of being baked
  * into the tiles, so their text stays crisp and their shapes stay clickable.
+ *
+ * `coordinateLabels` is nested inside `#coordinates` alongside the graticule
+ * itself. The lines stay in the raster, where their paint order below the
+ * rivers and coastline is preserved; only the degree markings are lifted out.
  */
 export const OVERLAY_LAYERS = [
   'labels',
   'icons',
   'markers',
   'routes',
+  'coordinateLabels',
   'legend',
   'scaleBar',
-  'coordinateLabels',
   'emblems',
   'armies',
   'ruler',
   'provinceLabels',
   'fogging-cont',
 ]
+
+/**
+ * Lifted out of the tiles and then deliberately not redrawn on the map.
+ *
+ * The legend and scale bar are rebuilt as page furniture from `map.json`, so
+ * they hold still while the reader pans instead of drifting off with the
+ * terrain. The rest are editing aids — measuring rulers, army counters, the
+ * fog-of-war cover — that have no business in a published map.
+ */
+export const WITHHELD_LAYERS = ['legend', 'scaleBar', 'emblems', 'armies', 'ruler', 'provinceLabels', 'fogging-cont']
+
+/** Group ids inside the given groups, so a caller can account for their children too. */
+export function descendantGroupIds(svg, ids) {
+  return new Set(ids.flatMap((id) => groupIds(getGroup(svg, id))))
+}
 
 /**
  * Strip every group the author has switched off in the generator. This is what
@@ -87,30 +77,47 @@ export function removeHiddenGroups(svg) {
   return { svg, removed }
 }
 
+/** Every `<g id>` still present, so callers can report on what they are shipping. */
+export function groupIds(svg) {
+  return [...new Set([...svg.matchAll(/<g id="([^"]+)"/g)].map((match) => match[1]))]
+}
+
 /**
  * @param {object} map parsed `.map` file
  * @param {string} fmgDir path to the FMG install, for resolving relative assets
+ * @param {Record<string, Record<string, string>>} layerStyles from `readLayerStyles`
  */
-export function buildBaseSvg(map, fmgDir) {
+export function buildBaseSvg(map, fmgDir, layerStyles) {
   const dropped = {}
   let svg = map.svg
 
   const hidden = removeHiddenGroups(svg)
   svg = hidden.svg
   Object.assign(dropped, hidden.removed)
+  const visible = groupIds(svg)
 
   // `#textPaths` only exists to carry the label arcs, which live in the overlay.
   const overlay = removeGroups(svg, [...OVERLAY_LAYERS, 'textPaths'])
   svg = overlay.svg
   Object.assign(dropped, overlay.removed)
 
-  for (const [id, attributes] of Object.entries(STYLESHEET_ATTRIBUTES)) {
-    svg = setGroupAttributes(svg, id, attributes)
-  }
-
+  svg = applyLayerStyles(svg, layerStyles)
   svg = inlineOceanPattern(svg, fmgDir)
 
-  return { svg, dropped }
+  return { svg, dropped, visible }
+}
+
+/**
+ * Write the stylesheet's declarations onto the groups they apply to, as
+ * presentation attributes. Anything already set inline in the saved document
+ * wins, since that is the author's own choice rather than a default.
+ */
+export function applyLayerStyles(svg, layerStyles) {
+  for (const [id, attributes] of Object.entries(layerStyles)) {
+    if (!svg.includes(`<g id="${id}"`)) continue
+    svg = setGroupAttributes(svg, id, attributes)
+  }
+  return svg
 }
 
 function inlineOceanPattern(svg, fmgDir) {
