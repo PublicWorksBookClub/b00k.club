@@ -4,6 +4,10 @@
 
 /* large files w/ no class names = bad */
 @source not "../**/*.map";
+/* /maps/viewer/ ships its own stylesheet, and everything under a map's export
+   directory is generated data (tile pyramid, overlay SVG, feature index) */
+@source not "../static/maps/viewer/**";
+@source not "../static/maps/argonautica/**";
 
 @plugin "@tailwindcss/typography";
 
@@ -503,12 +507,17 @@
   ***** End Resources ******
   ************************** */
 .prose.prose-pwbc {
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply lining-nums;
   }
   h1 {
     @apply font-playfair-display;
-    color: var(--color-gray-700)
+    color: var(--color-gray-700);
   }
   h2,
   h3,
@@ -577,18 +586,18 @@
   --pf-text-secondary: var(--color-slate-400);
   --pf-text-muted: var(--color-slate-500);
   --pf-background: var(--color-attic-black-800);
-  --pf-border: rgba(255,255,255,0.07);
-  --pf-border-focus: rgba(255,255,255,0.15);
-  --pf-skeleton: rgba(255,255,255,0.04);
-  --pf-skeleton-shine: rgba(255,255,255,0.08);
-  --pf-hover: rgba(99,102,241,0.08);
+  --pf-border: rgba(255, 255, 255, 0.07);
+  --pf-border-focus: rgba(255, 255, 255, 0.15);
+  --pf-skeleton: rgba(255, 255, 255, 0.04);
+  --pf-skeleton-shine: rgba(255, 255, 255, 0.08);
+  --pf-hover: rgba(99, 102, 241, 0.08);
   --pf-mark: var(--color-indigo-300);
-  --pf-scroll-shadow: rgba(0,0,0,0.4);
+  --pf-scroll-shadow: rgba(0, 0, 0, 0.4);
 
   /* Shadows */
-  --pf-shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
-  --pf-shadow-md: 0 4px 12px rgba(0,0,0,0.4);
-  --pf-shadow-lg: 0 16px 48px rgba(0,0,0,0.5);
+  --pf-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --pf-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --pf-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
 
   /* Error states */
   --pf-error-bg: #2a1a1a;
@@ -640,7 +649,7 @@
     backdrop-filter: blur(4px) !important;
   }
 
-  pagefind-modal-trigger.footer-search-trigger  button.pf-trigger-btn {
+  pagefind-modal-trigger.footer-search-trigger button.pf-trigger-btn {
     display: flex !important;
     height: 2.5em !important;
     align-items: center !important;
@@ -659,10 +668,12 @@
 
     border-radius: 6px !important;
     border: 1px solid color-mix(in srgb, var(--color-gray-300) 50%, transparent) !important;
-    background: rgba(255,255,255,0.04) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
     font-size: 0.8rem !important;
     cursor: pointer !important;
-    transition: border-color 0.15s, background 0.15s !important;
+    transition:
+      border-color 0.15s,
+      background 0.15s !important;
   }
 
   pagefind-modal-trigger.nav-search-trigger {
