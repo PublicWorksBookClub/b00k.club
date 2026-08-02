@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light" />
+    <title>Euclid&rsquo;s Elements: a straightedge and compass | Public Works Book Club</title>
+    <meta
+      name="description"
+      content="Draw with nothing but Euclid's first three postulates, and keep every proposition you construct as a tool you may use forever after."
+    />
+    <meta property="og:title" content="Euclid's Elements: a straightedge and compass" />
+    <meta
+      property="og:description"
+      content="Draw with nothing but Euclid's first three postulates, and keep every proposition you construct as a tool you may use forever after."
+    />
+    <meta property="og:url" content="https://b00k.club/euclid/" />
+    <link rel="icon" href="/favicon.ico" />
+    <style>
+      :root {
+        --paper: #faf5ea;
+        --ink: #2f2929;
+        --muted: #7a6f64;
+        --rule: #ded2c0;
+        --accent: #b8622a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: 'Fira Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+      }
+      header {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        flex-wrap: wrap;
+        padding: 10px 16px;
+        border-bottom: 1px solid var(--rule);
+      }
+      header h1 {
+        margin: 0;
+        font-family: 'Junicode', 'New CM10', Georgia, serif;
+        font-size: 19px;
+        font-weight: 600;
+      }
+      header p {
+        margin: 0;
+        flex: 1 1 260px;
+        font-family: 'Junicode', 'New CM10', Georgia, serif;
+        font-style: italic;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      header a {
+        color: var(--accent);
+        font-size: 13px;
+      }
+      main {
+        flex: 1 1 auto;
+        min-height: 0;
+        padding: 0;
+      }
+      euclid-sketch {
+        display: block;
+        height: 100%;
+      }
+      euclid-sketch::part(frame) {
+        border: 0;
+      }
+      footer {
+        padding: 7px 16px;
+        border-top: 1px solid var(--rule);
+        font-size: 12px;
+        color: var(--muted);
+      }
+      footer a {
+        color: var(--accent);
+      }
+      @media (max-width: 620px) {
+        header p {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Straightedge and compass</h1>
+      <p>
+        A point, a straight line from point to point, a circle about a centre. Everything else has to be earned — and once earned, it goes in
+        the toolbox.
+      </p>
+      <a href="/works/euclid-elements/">Euclid&rsquo;s <em>Elements</em> &rarr;</a>
+      <a href="/">b00k.club</a>
+    </header>
+    <main>
+      <euclid-sketch height="100%" tools="I.1,I.2,I.3" remember use-hash></euclid-sketch>
+    </main>
+    <footer>
+      Drag any point you placed by hand to see whether the construction holds. Everything stays in this browser; use
+      <em>Copy a link to this figure</em> to hand one to somebody else.
+    </footer>
+    <script type="module" src="/euclid/euclid-sketch.js"></script>
+  </body>
+</html>

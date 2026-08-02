@@ -1,0 +1,535 @@
+/**
+ * The chrome: toolbar, step list, toolbox, scrubber, and the dialog for
+ * turning a finished construction into a new tool.
+ *
+ * The canvas is drawn on every change; the surrounding DOM is rebuilt only when
+ * something structural moves, so dragging a point does not rebuild the panel
+ * sixty times a second.
+ */
+
+import { PRIMITIVES } from './app.js'
+import { PROPOSITIONS } from './propositions.js'
+import { STYLES } from './styles.js'
+import * as storage from './storage.js'
+
+const ICONS = {
+  arrow: '<path d="M5.6 3.2l12 7.5-5.5 1.2-2.2 5.4z" fill="currentColor" stroke="none"/>',
+  point: '<circle cx="12" cy="12" r="3.4" fill="currentColor" stroke="none"/>',
+  segment:
+    '<path d="M6 17.5L18 6.5"/><circle cx="6" cy="17.5" r="2.1" fill="currentColor" stroke="none"/><circle cx="18" cy="6.5" r="2.1" fill="currentColor" stroke="none"/>',
+  ray: '<path d="M6 18L20.5 3.5"/><circle cx="6" cy="18" r="2.1" fill="currentColor" stroke="none"/><circle cx="13" cy="11" r="2.1" fill="currentColor" stroke="none"/>',
+  line: '<path d="M3.5 20.5L20.5 3.5"/><circle cx="9" cy="15" r="2.1" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="2.1" fill="currentColor" stroke="none"/>',
+  circle: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/>',
+  undo: '<path d="M4.5 9.5h9a4.75 4.75 0 010 9.5H8"/><path d="M8.2 5.2L3.9 9.5l4.3 4.3"/>',
+  redo: '<path d="M19.5 9.5h-9a4.75 4.75 0 000 9.5H16"/><path d="M15.8 5.2l4.3 4.3-4.3 4.3"/>',
+  fit: '<path d="M4 9.5V4h5.5M20 9.5V4h-5.5M4 14.5V20h5.5M20 14.5V20h-5.5"/>',
+  book: '<path d="M12 6.2C10.6 5 8.8 4.4 6 4.4v13c2.8 0 4.6.6 6 1.8 1.4-1.2 3.2-1.8 6-1.8v-13c-2.8 0-4.6.6-6 1.8z"/><path d="M12 6.2V19"/>',
+  more: '<circle cx="5.5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="18.5" cy="12" r="1.5" fill="currentColor" stroke="none"/>',
+}
+
+function el(tag, className, props = {}) {
+  const node = document.createElement(tag)
+  if (className) node.className = className
+  Object.assign(node, props)
+  return node
+}
+
+function icon(name) {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+  svg.setAttribute('viewBox', '0 0 24 24')
+  svg.setAttribute('fill', 'none')
+  svg.setAttribute('stroke', 'currentColor')
+  svg.setAttribute('stroke-width', '1.6')
+  svg.setAttribute('stroke-linecap', 'round')
+  svg.setAttribute('stroke-linejoin', 'round')
+  svg.setAttribute('aria-hidden', 'true')
+  svg.innerHTML = ICONS[name] || ''
+  return svg
+}
+
+function button(spec) {
+  const node = el('button', `btn ${spec.class || ''}`.trim(), { type: 'button' })
+  if (spec.title) node.title = spec.title
+  if (spec.icon) node.append(icon(spec.icon))
+  if (spec.abbr) node.append(el('span', 'abbr', { textContent: spec.abbr }))
+  if (spec.ref) node.append(el('span', 'ref', { textContent: spec.ref }))
+  if (spec.text) node.append(el('span', 'label', { textContent: spec.text }))
+  if (spec.pressed !== undefined) node.setAttribute('aria-pressed', String(!!spec.pressed))
+  if (spec.disabled) node.disabled = true
+  node.setAttribute('aria-label', spec.title || spec.text || spec.abbr || '')
+  if (spec.onClick) node.addEventListener('click', spec.onClick)
+  return node
+}
+
+export function createUI(root, app, options = {}) {
+  const ui = { tab: 'steps', menu: false, draft: { name: '', ref: '', abbr: '', summary: '' } }
+  let signature = null
+
+  root.replaceChildren(el('style', null, { textContent: STYLES }))
+
+  const frame = el('div', 'frame')
+  const bar = el('div', 'bar')
+  const body = el('div', 'body')
+  const stage = el('div', 'stage')
+  const canvas = el('canvas')
+  const hint = el('div', 'hint')
+  const panel = el('aside', 'panel')
+  const foot = el('div', 'foot')
+  const floating = el('div', 'floating')
+
+  stage.append(canvas, hint)
+  body.append(stage, panel)
+  frame.append(bar, body, foot, floating)
+  root.append(frame)
+
+  const size = () => ({ w: canvas.clientWidth || 1, h: canvas.clientHeight || 1 })
+
+  /* ---------------------------------------------------------------- */
+
+  function currentSignature() {
+    const s = app.state
+    const def = s.definition
+    return JSON.stringify([
+      app.doc.steps.length,
+      app.tools.map((t) => t.id),
+      s.mode,
+      s.activeTool,
+      s.picked,
+      [...s.selection],
+      s.upTo === Infinity ? -1 : s.upTo,
+      def ? [def.stage, def.inputs, def.outputs, def.error, def.missing] : null,
+      s.notice,
+      app.canUndo,
+      app.canRedo,
+      ui.tab,
+      ui.menu,
+      app.doc.steps.map((step) => (step.op === 'macro' ? !!step.expanded : 0)),
+    ])
+  }
+
+  function render(force = false) {
+    const next = currentSignature()
+    if (force || next !== signature) {
+      signature = next
+      renderBar()
+      renderPanel()
+      renderFoot()
+      renderFloating()
+    }
+    renderHint()
+    stage.dataset.mode = app.state.mode
+  }
+
+  function renderHint() {
+    const text = app.hint()
+    hint.textContent = text || ''
+    const isTrouble = (!!app.state.notice && app.state.noticeKind !== 'info') || !!(app.state.definition && app.state.definition.error)
+    hint.classList.toggle('trouble', isTrouble)
+  }
+
+  /* ---------------------------------------------------------------- bar */
+
+  function renderBar() {
+    const s = app.state
+    const children = []
+
+    for (const primitive of PRIMITIVES) {
+      children.push(
+        button({
+          icon: primitive.glyph,
+          title: `${primitive.label} — ${primitive.hint}`,
+          pressed: s.mode === primitive.id && !s.activeTool,
+          onClick: () => app.setMode(primitive.id),
+        }),
+      )
+    }
+    children.push(el('span', 'rule'))
+
+    for (const tool of app.tools) {
+      children.push(
+        button({
+          class: 'wide',
+          abbr: tool.abbr || '?',
+          ref: tool.ref && tool.ref !== tool.abbr ? tool.ref : '',
+          title: `${tool.name}${tool.summary ? ' — ' + tool.summary : ''}`,
+          pressed: s.activeTool === tool.id,
+          onClick: () => app.setMode('tool', tool.id),
+        }),
+      )
+    }
+    children.push(
+      button({
+        class: 'add',
+        text: '+',
+        title: 'Make a new tool out of what has been constructed',
+        pressed: s.mode === 'define',
+        onClick: () => (s.mode === 'define' ? app.setMode('select') : app.startDefinition()),
+      }),
+    )
+
+    children.push(el('span', 'spacer'))
+    children.push(button({ icon: 'undo', title: 'Undo', disabled: !app.canUndo, onClick: () => app.undo() }))
+    children.push(button({ icon: 'redo', title: 'Redo', disabled: !app.canRedo, onClick: () => app.redo() }))
+    children.push(button({ icon: 'fit', title: 'Fit the figure to the view', onClick: () => options.onFit && options.onFit() }))
+    children.push(
+      button({
+        icon: 'book',
+        title: 'The toolbox and the propositions of Book I',
+        pressed: ui.tab === 'tools',
+        onClick: () => {
+          ui.tab = ui.tab === 'tools' ? 'steps' : 'tools'
+          render(true)
+        },
+      }),
+    )
+    children.push(
+      button({
+        icon: 'more',
+        title: 'Save, open, share',
+        pressed: ui.menu,
+        onClick: () => {
+          ui.menu = !ui.menu
+          render(true)
+        },
+      }),
+    )
+    bar.replaceChildren(...children)
+  }
+
+  /* ---------------------------------------------------------------- panel */
+
+  function renderPanel() {
+    if (app.state.definition) {
+      panel.replaceChildren(renderDefinition())
+      return
+    }
+    const tabs = el('div', 'tabs')
+    for (const [id, label] of [
+      ['steps', 'Construction'],
+      ['tools', 'Toolbox'],
+    ]) {
+      const tab = el('button', null, { type: 'button', textContent: label })
+      tab.setAttribute('role', 'tab')
+      tab.setAttribute('aria-selected', String(ui.tab === id))
+      tab.addEventListener('click', () => {
+        ui.tab = id
+        render(true)
+      })
+      tabs.append(tab)
+    }
+    const pane = el('div', 'tabpanel')
+    pane.append(ui.tab === 'steps' ? renderSteps() : renderToolbox())
+    panel.replaceChildren(tabs, pane)
+  }
+
+  function renderSteps() {
+    const steps = app.scene.steps
+    if (!steps.length) {
+      return el('p', 'empty', {
+        textContent: 'Nothing has been constructed yet. Set down a point, or join two of them.',
+      })
+    }
+    const list = el('ol', 'steps')
+    steps.forEach((info) => {
+      const item = el('li')
+      item.classList.toggle('beyond', info.beyond)
+      item.classList.toggle('trouble', !info.ok)
+      const isCurrent = app.state.upTo !== Infinity && info.index === app.state.upTo - 1
+      if (isCurrent) item.setAttribute('aria-current', 'true')
+      item.append(el('span', 'n', { textContent: String(info.index + 1) }))
+      const what = el('span', 'what')
+      what.append(document.createTextNode(info.text))
+      if (!info.ok && info.error) {
+        what.append(el('br'))
+        what.append(el('small', null, { textContent: info.error }))
+      }
+      item.append(what)
+
+      const acts = el('span', 'acts')
+      if (info.step.op === 'macro') {
+        acts.append(
+          el('button', null, {
+            type: 'button',
+            textContent: info.step.expanded ? 'hide' : 'working',
+            title: 'Show the construction this tool carries out',
+            onclick: (event) => {
+              event.stopPropagation()
+              app.toggleStepWorking(info.step.id)
+            },
+          }),
+        )
+        acts.append(
+          el('button', null, {
+            type: 'button',
+            textContent: 'unfold',
+            title: 'Write this out as ordinary steps',
+            onclick: (event) => {
+              event.stopPropagation()
+              app.unfoldStep(info.step.id)
+            },
+          }),
+        )
+      }
+      if (!app.state.readonly) {
+        acts.append(
+          el('button', null, {
+            type: 'button',
+            textContent: '×',
+            title: 'Remove this step and everything that leans on it',
+            onclick: (event) => {
+              event.stopPropagation()
+              app.deleteStep(info.step.id)
+            },
+          }),
+        )
+      }
+      item.append(acts)
+
+      item.addEventListener('click', () => app.setUpTo(info.index + 1))
+      item.addEventListener('mouseenter', () => app.setHover(info.produced[0] || null))
+      item.addEventListener('mouseleave', () => app.setHover(null))
+      list.append(item)
+    })
+    return list
+  }
+
+  function renderToolbox() {
+    const wrap = el('div')
+    const have = new Set(app.tools.map((t) => t.id))
+    for (const tool of app.tools) {
+      const card = el('div', 'tool-card')
+      const title = el('h4')
+      title.append(document.createTextNode(tool.name))
+      if (tool.ref) title.append(el('span', 'ref', { textContent: tool.ref }))
+      card.append(title)
+      if (tool.summary) card.append(el('p', null, { textContent: tool.summary }))
+      if (tool.note) card.append(el('p', null, { textContent: tool.note }))
+      const acts = el('div', 'acts')
+      acts.append(el('button', null, { type: 'button', textContent: 'Use', onclick: () => app.setMode('tool', tool.id) }))
+      if (PROPOSITIONS.some((p) => p.id === tool.id)) {
+        acts.append(
+          el('button', null, {
+            type: 'button',
+            textContent: 'Read the construction',
+            title: 'Set it out step by step in a fresh figure',
+            onclick: () => {
+              app.walkProposition(tool.id)
+              ui.tab = 'steps'
+              options.onFit && options.onFit()
+              render(true)
+            },
+          }),
+        )
+      }
+      acts.append(el('button', null, { type: 'button', textContent: 'Remove', onclick: () => app.removeTool(tool.id) }))
+      card.append(acts)
+      wrap.append(card)
+    }
+
+    const rest = PROPOSITIONS.filter((p) => !have.has(p.id))
+    if (rest.length) {
+      wrap.append(el('p', 'empty', { textContent: 'Others from Book I:' }))
+      for (const prop of rest) {
+        const card = el('div', 'tool-card')
+        const title = el('h4')
+        title.append(document.createTextNode(prop.name))
+        title.append(el('span', 'ref', { textContent: prop.ref }))
+        card.append(title)
+        card.append(el('p', null, { textContent: prop.summary }))
+        const acts = el('div', 'acts')
+        acts.append(el('button', null, { type: 'button', textContent: 'Add to toolbox', onclick: () => app.addTool(prop) }))
+        acts.append(
+          el('button', null, {
+            type: 'button',
+            textContent: 'Read the construction',
+            onclick: () => {
+              app.walkProposition(prop.id)
+              ui.tab = 'steps'
+              options.onFit && options.onFit()
+              render(true)
+            },
+          }),
+        )
+        card.append(acts)
+        wrap.append(card)
+      }
+    }
+    return wrap
+  }
+
+  /* ---------------------------------------------------------------- new tool */
+
+  function renderDefinition() {
+    const def = app.state.definition
+    const card = el('div', 'tool-card')
+    card.append(el('h4', null, { textContent: 'A new tool' }))
+
+    const chips = (ids, none) => {
+      const box = el('div', 'chips')
+      if (!ids.length) box.append(el('span', 'none', { textContent: none }))
+      for (const id of ids) box.append(el('span', 'chip', { textContent: app.scene.name(id) }))
+      return box
+    }
+
+    if (def.stage === 'inputs') {
+      card.append(el('p', null, { textContent: 'Click the givens in the figure, in the order they should be supplied.' }))
+      card.append(chips(def.inputs, 'nothing chosen yet'))
+    } else if (def.stage === 'outputs') {
+      card.append(el('p', null, { textContent: 'Now click what the tool should hand back. Everything else becomes hidden working.' }))
+      card.append(chips(def.inputs, '—'))
+      card.append(el('p', null, { textContent: 'Results:' }))
+      card.append(chips(def.outputs, 'nothing chosen yet'))
+    } else {
+      card.append(chips(def.inputs, '—'))
+      card.append(chips(def.outputs, '—'))
+      for (const [key, label, placeholder] of [
+        ['name', 'Name', 'Carry a length to a point'],
+        ['ref', 'Proposition', 'I.2'],
+        ['abbr', 'Button', 'I.2'],
+      ]) {
+        card.append(el('label', null, { textContent: label }))
+        const input = el('input', null, { type: 'text', value: ui.draft[key], placeholder })
+        input.addEventListener('input', () => (ui.draft[key] = input.value))
+        card.append(input)
+      }
+    }
+
+    if (def.error) {
+      const problem = el('div', 'problem')
+      problem.append(document.createTextNode(def.error))
+      if (def.missing && def.missing.length) {
+        problem.append(
+          el('button', null, {
+            type: 'button',
+            textContent: 'Add them to the givens',
+            onclick: () => app.definitionAcceptMissing(),
+          }),
+        )
+      }
+      card.append(problem)
+    }
+
+    const acts = el('div', 'acts')
+    acts.append(el('button', null, { type: 'button', textContent: 'Cancel', onclick: () => app.setMode('select') }))
+    if (def.stage !== 'inputs') {
+      acts.append(
+        el('button', null, {
+          type: 'button',
+          textContent: 'Back',
+          onclick: () => app.definitionStage(def.stage === 'outputs' ? 'inputs' : 'outputs'),
+        }),
+      )
+    }
+    if (def.stage === 'details') {
+      acts.append(
+        el('button', 'primary', {
+          type: 'button',
+          textContent: 'Add to toolbox',
+          onclick: () => {
+            const made = app.createTool(ui.draft)
+            if (made) ui.draft = { name: '', ref: '', abbr: '', summary: '' }
+          },
+        }),
+      )
+    } else {
+      acts.append(
+        el('button', 'primary', {
+          type: 'button',
+          textContent: 'Next',
+          onclick: () => app.definitionStage(def.stage === 'inputs' ? 'outputs' : 'details'),
+        }),
+      )
+    }
+    card.append(acts)
+    return card
+  }
+
+  /* ---------------------------------------------------------------- foot */
+
+  function renderFoot() {
+    const total = app.doc.steps.length
+    if (!total) {
+      foot.replaceChildren()
+      return
+    }
+    const at = app.state.upTo === Infinity ? total : app.state.upTo
+    const row = el('div', 'scrub')
+    row.append(
+      button({ text: '‹', title: 'One step back', disabled: at <= 0, onClick: () => app.setUpTo(at - 1) }),
+      (() => {
+        const range = el('input', null, { type: 'range', min: '0', max: String(total), value: String(at) })
+        range.setAttribute('aria-label', 'Step through the construction')
+        range.addEventListener('input', () => app.setUpTo(Number(range.value)))
+        return range
+      })(),
+      button({ text: '›', title: 'One step on', disabled: at >= total, onClick: () => app.setUpTo(at + 1) }),
+      el('span', 'count', { textContent: `${at} / ${total}` }),
+    )
+    foot.replaceChildren(row)
+  }
+
+  /* ---------------------------------------------------------------- menu */
+
+  function renderFloating() {
+    if (!ui.menu) {
+      floating.replaceChildren()
+      return
+    }
+    const menu = el('div', 'menu')
+    const item = (label, onClick) =>
+      el('button', null, {
+        type: 'button',
+        textContent: label,
+        onclick: () => {
+          ui.menu = false
+          onClick()
+          render(true)
+        },
+      })
+    menu.append(
+      item('Save to a file…', () => storage.downloadSketch(app.serialize(), 'construction.euclid.json')),
+      item('Open a file…', async () => {
+        const text = await storage.pickSketchFile()
+        if (!text) return
+        try {
+          app.load(text)
+          options.onFit && options.onFit()
+        } catch (error) {
+          app.state.notice = `That file could not be read: ${error.message}`
+          app.changed()
+        }
+      }),
+      item('Copy a link to this figure', async () => {
+        const link = `${location.origin}${location.pathname}#s=${storage.encodeSketch(app.serialize())}`
+        const done = await storage.copyText(link)
+        app.state.notice = done ? 'A link to this figure is on the clipboard.' : 'The clipboard could not be reached.'
+        app.changed()
+      }),
+      item('Start a fresh figure', () => app.clear()),
+    )
+    floating.replaceChildren(menu)
+  }
+
+  const dismiss = (event) => {
+    if (!ui.menu) return
+    if (event.composedPath().includes(floating)) return
+    ui.menu = false
+    render(true)
+  }
+  root.addEventListener('pointerdown', dismiss, true)
+
+  return {
+    canvas,
+    stage,
+    size,
+    render,
+    setTab(tab) {
+      ui.tab = tab
+      render(true)
+    },
+    destroy() {
+      root.removeEventListener('pointerdown', dismiss, true)
+      root.replaceChildren()
+    },
+  }
+}

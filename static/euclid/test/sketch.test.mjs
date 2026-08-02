@@ -1,0 +1,287 @@
+/**
+ * The controller. app.js touches no DOM, so the commands the interface issues
+ * can be exercised here rather than only through a browser.
+ */
+
+import test from 'node:test'
+import assert from 'node:assert/strict'
+
+import { createSketch } from '../src/app.js'
+import { hitTest } from '../src/interactions.js'
+import * as G from '../src/geometry.js'
+
+const at = (app, world) => hitTest(app.scene, world, app.camera)
+const labelled = (app, label) => [...app.scene.objects.values()].find((o) => o.label === label)
+
+function twoPoints() {
+  const app = createSketch()
+  app.startingPoints([
+    { x: 0, y: 0 },
+    { x: 100, y: 0 },
+  ])
+  return app
+}
+
+test('a fresh sketch has the first three propositions to hand', () => {
+  const app = createSketch()
+  assert.deepEqual(
+    app.tools.map((t) => t.ref),
+    ['I.1', 'I.2', 'I.3'],
+  )
+})
+
+test('only the propositions asked for are given, with whatever they stand on', () => {
+  const app = createSketch({ toolIds: ['euclid.I.3'] })
+  // I.3 needs I.2, which needs I.1 — they come along or it could not be replayed.
+  assert.deepEqual(
+    app.tools.map((t) => t.ref),
+    ['I.1', 'I.2', 'I.3'],
+  )
+})
+
+test('drawing a straight line between two new points is one gesture, and one undo', () => {
+  const app = createSketch()
+  app.setMode('segment')
+  app.click({ x: 0, y: 0 }, null)
+  assert.equal(app.doc.steps.length, 1, 'the first point appears at once')
+  assert.ok(app.state.pending, 'and the line is waiting for its second point')
+  app.click({ x: 120, y: 40 }, null)
+  assert.equal(app.doc.steps.length, 3)
+  assert.equal(app.state.pending, null)
+
+  app.undo()
+  assert.equal(app.doc.steps.length, 0, 'both points and the line go back together')
+  app.redo()
+  assert.equal(app.doc.steps.length, 3)
+})
+
+test('abandoning a half-drawn line takes back the point it set down', () => {
+  const app = twoPoints()
+  app.setMode('circle')
+  app.click({ x: 40, y: 90 }, null)
+  assert.equal(app.doc.steps.length, 3)
+  app.setMode('select')
+  assert.equal(app.doc.steps.length, 2, 'the stray centre does not linger')
+})
+
+test('a click on a line puts the point on that line, and it stays there when dragged', () => {
+  const app = twoPoints()
+  app.setMode('segment')
+  app.click({ x: 0, y: 0 }, at(app, { x: 0, y: 0 }))
+  app.click({ x: 100, y: 0 }, at(app, { x: 100, y: 0 }))
+
+  app.setMode('point')
+  app.click({ x: 50, y: 3 }, at(app, { x: 50, y: 3 }))
+  const step = app.doc.steps[app.doc.steps.length - 1]
+  assert.equal(step.op, 'onCurve', 'taken on the line, not loose beside it')
+
+  const drag = app.beginDrag(step.id)
+  app.updateDrag(drag, { x: 90, y: 60 })
+  const moved = app.scene.get(step.id).pos
+  assert.ok(Math.abs(moved.y) < 1e-9, 'it slid along AB instead of leaving it')
+  assert.ok(moved.x > 50)
+
+  app.updateDrag(drag, { x: 400, y: 0 })
+  assert.ok(app.scene.get(step.id).pos.x <= 100 + 1e-9, 'and it cannot slide off the end')
+})
+
+test('a tool may be defined, used, and refused a hand-placed point', () => {
+  const app = twoPoints()
+  const [a, b] = app.doc.steps.map((s) => s.id)
+
+  app.setMode('circle')
+  app.click({ x: 0, y: 0 }, at(app, { x: 0, y: 0 }))
+  app.click({ x: 100, y: 0 }, at(app, { x: 100, y: 0 }))
+  app.setMode('circle')
+  app.click({ x: 100, y: 0 }, at(app, { x: 100, y: 0 }))
+  app.click({ x: 0, y: 0 }, at(app, { x: 0, y: 0 }))
+  const apex = [...app.scene.objects.values()].find((o) => o.auto && o.pos.y > 0)
+  assert.ok(apex, 'the circles cut, with nothing asked for')
+
+  app.startDefinition()
+  app.definitionPick({ point: app.scene.get(a) })
+  app.definitionPick({ point: app.scene.get(b) })
+  app.definitionStage('outputs')
+  app.definitionPick({ point: apex })
+  app.definitionStage('details')
+  const tool = app.createTool({ name: 'Equilateral apex', abbr: '△' })
+  assert.ok(tool, app.state.definition && app.state.definition.error)
+  assert.equal(app.state.noticeKind, 'info')
+  assert.equal(app.tools.length, 4)
+
+  // Use it on fresh ground: the givens may be clicked out of thin air.
+  app.setMode('tool', tool.id)
+  app.pickForTool({ x: -200, y: 200 }, null)
+  app.pickForTool({ x: -80, y: 260 }, null)
+  const applied = app.doc.steps[app.doc.steps.length - 1]
+  assert.equal(applied.op, 'macro')
+  assert.ok(app.scene.steps.every((s) => s.ok))
+
+  const P = app.scene.get(applied.args[0]).pos
+  const Q = app.scene.get(applied.args[1]).pos
+  const R = app.scene.get(applied.out[0]).pos
+  const side = G.dist(P, Q)
+  assert.ok(Math.abs(G.dist(P, R) - side) < 1e-6 && Math.abs(G.dist(Q, R) - side) < 1e-6)
+
+  // One undo takes back the whole application, points and all.
+  const before = app.doc.steps.length
+  app.undo()
+  assert.equal(app.doc.steps.length, before - 3)
+})
+
+test('undo takes back what was drawn, not what was proved', () => {
+  const app = twoPoints()
+  app.setMode('segment')
+  app.click({ x: 0, y: 0 }, at(app, { x: 0, y: 0 }))
+  app.click({ x: 100, y: 0 }, at(app, { x: 100, y: 0 }))
+
+  const seg = app.doc.steps[app.doc.steps.length - 1]
+  app.startDefinition()
+  app.definitionPick({ point: app.scene.get(app.doc.steps[0].id) })
+  app.definitionPick({ point: app.scene.get(app.doc.steps[1].id) })
+  app.definitionStage('outputs')
+  app.definitionPick({ curve: app.scene.get(seg.id) })
+  app.definitionStage('details')
+  assert.ok(app.createTool({ name: 'Join two points', abbr: 'J' }))
+  assert.equal(app.tools.length, 4)
+
+  app.undo()
+  assert.equal(app.doc.steps.length, 2, 'the line and nothing else went back')
+  assert.equal(app.tools.length, 4, 'and the toolbox stayed put')
+  // The two points a sketch opens with are setting-up, not a move, so there is
+  // nothing further to undo.
+  assert.equal(app.canUndo, false)
+})
+
+test('a tool cannot be thrown away while something leans on it', () => {
+  const app = createSketch()
+  app.startingPoints([
+    { x: 0, y: 0 },
+    { x: 200, y: 0 },
+    { x: 0, y: 80 },
+    { x: 60, y: 80 },
+  ])
+  const givens = app.doc.steps.map((s) => s.id)
+
+  // Nothing is built on I.3, but the figure uses it.
+  app.applyTool(
+    app.tools.find((t) => t.ref === 'I.3'),
+    givens,
+  )
+  assert.ok(app.scene.steps.every((s) => s.ok))
+  app.removeTool('euclid.I.3')
+  assert.equal(app.tools.length, 3, 'refused: it has been used in the figure')
+  assert.match(app.state.notice, /used in the figure/)
+
+  // Nothing in the figure uses I.1, but I.2 and I.3 are built on it.
+  app.removeTool('euclid.I.1')
+  assert.equal(app.tools.length, 3, 'refused: other tools stand on it')
+  assert.match(app.state.notice, /stands on this one/)
+
+  app.undo()
+  app.removeTool('euclid.I.3')
+  app.removeTool('euclid.I.2')
+  app.removeTool('euclid.I.1')
+  assert.deepEqual(
+    app.tools.map((t) => t.ref),
+    [],
+    'and in the right order they all go',
+  )
+})
+
+test('reading a proposition through starts a fresh figure but keeps the toolbox', () => {
+  const app = twoPoints()
+  app.walkProposition('euclid.I.10')
+  assert.ok(app.doc.steps.length > 2)
+  assert.ok(app.scene.steps.every((s) => s.ok))
+  assert.equal(app.state.noticeKind, 'info')
+  for (const ref of ['I.1', 'I.2', 'I.3']) {
+    assert.ok(
+      app.tools.some((t) => t.ref === ref),
+      `${ref} is still to hand`,
+    )
+  }
+  // Reading a proof does not hand you the proposition — that is what the
+  // library's "add to toolbox" is for.
+  assert.ok(!app.tools.some((t) => t.ref === 'I.10'))
+  // The midpoint really is the midpoint.
+  const last = app.doc.steps[app.doc.steps.length - 1]
+  const M = app.scene.get(last.id).pos
+  const [A, B] = app.doc.steps.filter((s) => s.op === 'point').map((s) => ({ x: s.x, y: s.y }))
+  assert.ok(G.dist(M, G.lerp(A, B, 0.5)) < 1e-6)
+})
+
+test('a read-only figure may be dragged and scrubbed, but not drawn on', () => {
+  const app = createSketch({ readonly: true })
+  app.startingPoints([
+    { x: 0, y: 0 },
+    { x: 100, y: 0 },
+  ])
+  const i1 = app.tools.find((t) => t.ref === 'I.1')
+  app.applyTool(
+    i1,
+    app.doc.steps.slice(0, 2).map((s) => s.id),
+  )
+  const drawn = app.doc.steps.length
+
+  app.setMode('segment')
+  app.click({ x: 40, y: 40 }, null)
+  assert.equal(app.doc.steps.length, drawn, 'clicking draws nothing')
+
+  const drag = app.beginDrag(app.doc.steps[0].id)
+  assert.ok(drag, 'but a given may still be pulled about')
+  app.updateDrag(drag, { x: -60, y: 70 })
+  assert.equal(app.doc.steps.length, drawn)
+  assert.ok(
+    app.scene.steps.every((s) => s.ok),
+    'and the construction holds',
+  )
+  const C = app.scene.get(app.doc.steps[drawn - 1].out[0]).pos
+  const A = app.scene.get(app.doc.steps[0].id).pos
+  const B = app.scene.get(app.doc.steps[1].id).pos
+  assert.ok(Math.abs(G.dist(A, C) - G.dist(A, B)) < 1e-6, 'still equilateral after the drag')
+
+  app.deleteStep(app.doc.steps[0].id)
+  assert.equal(app.doc.steps.length, drawn, 'and nothing can be deleted')
+})
+
+test('scrubbing hides the later steps without losing them', () => {
+  const app = twoPoints()
+  const i1 = app.tools.find((t) => t.ref === 'I.1')
+  app.applyTool(
+    i1,
+    app.doc.steps.slice(0, 2).map((s) => s.id),
+  )
+  app.unfoldStep(app.doc.steps[2].id)
+  const total = app.doc.steps.length
+  assert.ok(total > 3, 'the appeal to I.1 was written out')
+
+  app.setUpTo(3)
+  assert.equal(app.scene.steps.length, total)
+  assert.equal(app.scene.steps.filter((s) => !s.beyond).length, 3)
+  assert.ok(labelled(app, 'A'), 'what has been drawn keeps its lettering')
+
+  app.setUpTo(total)
+  assert.equal(app.state.upTo, Infinity)
+  assert.ok(app.scene.steps.every((s) => !s.beyond))
+})
+
+test('deleting a step takes down what stood on it', () => {
+  const app = twoPoints()
+  app.setMode('circle')
+  app.click({ x: 0, y: 0 }, at(app, { x: 0, y: 0 }))
+  app.click({ x: 100, y: 0 }, at(app, { x: 100, y: 0 }))
+  const circle = app.doc.steps[app.doc.steps.length - 1]
+
+  app.setMode('point')
+  app.click({ x: 0, y: 100 }, at(app, { x: 0, y: 100 }))
+  const onCircle = app.doc.steps[app.doc.steps.length - 1]
+  assert.equal(onCircle.op, 'onCurve')
+
+  app.deleteStep(circle.id)
+  assert.equal(
+    app.doc.steps.find((s) => s.id === onCircle.id),
+    undefined,
+  )
+  assert.ok(app.scene.steps.every((s) => s.ok))
+})

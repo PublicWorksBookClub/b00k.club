@@ -1,0 +1,38 @@
+{# Embeds the straightedge-and-compass sketchpad in a page.
+
+   The app lives in `static/euclid/` and is a self-contained custom element, so
+   there is no iframe involved — which matters, since the site's CSP sets
+   `frame-src 'none'`. See static/euclid/README.md for the whole story.
+
+   Parameters (all optional):
+     height       figure height in pixels (default 520)
+     panel        "steps" (default) or "none" to hide the side panel
+     tools        which propositions start in the toolbox, e.g. "I.1,I.2,I.3"
+     proposition  open with a proposition set out step by step, e.g. "I.2"
+     src          site-relative path to a saved sketch, e.g. "/euclid/sketches/x.json"
+     readonly     true to let the figure be read and dragged but not drawn on
+     empty        true to start with a blank page rather than two points
+     remember     true to keep the reader's toolbox in their browser
+     caption      a line of markdown printed beneath the figure
+
+   Examples:
+     {{ euclid() }}
+     {{ euclid(height=560, tools="I.1,I.2,I.3") }}
+     {{ euclid(proposition="I.2", readonly=true, caption="Euclid I.2, one step at a time") }}
+#}
+<div class="not-prose my-8">
+  <euclid-sketch
+    height="{{ height | default(value=520) }}px"
+    panel="{{ panel | default(value='steps') }}"
+    {%- if tools %} tools="{{ tools }}"{% endif %}
+    {%- if proposition %} proposition="{{ proposition }}"{% endif %}
+    {%- if src %} src="{{ get_url(path=src) }}"{% endif %}
+    {%- if readonly %} readonly{% endif %}
+    {%- if empty %} empty{% endif %}
+    {%- if remember %} remember{% endif %}
+  ></euclid-sketch>
+  {%- if caption %}
+  <p class="font-fira-sans mt-2 text-sm font-light text-gray-500">{{ caption | markdown(inline=true) | safe }}</p>
+  {%- endif %}
+</div>
+<script type="module" src="{{ get_url(path='/euclid/euclid-sketch.js') }}"></script>

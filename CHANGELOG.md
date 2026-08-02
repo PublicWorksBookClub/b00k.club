@@ -2,6 +2,17 @@
 
 ## Next
 
+## 1.9.0 (2026-08-02)
+
+- Add a straightedge-and-compass sketchpad for following Euclid's constructions, at [/euclid/](https://b00k.club/euclid/)
+  - Only Euclid's first three postulates are given: set down a point, join two points (and produce the line), describe a circle about a centre. Where things cut one another, the points are simply there to be used
+  - A construction that has been carried out can be kept as a tool with the **+** button, and used ever after as a single move — tools can be built on tools, and their working stays hidden until asked for
+  - Book I propositions 1, 2, 3, 9 and 10 are in the box, and any of them can be set out step by step and walked through with a slider
+  - Figures can be dragged to see whether they hold, saved to a file, or shared as a link that carries the whole construction
+- Add a `euclid` shortcode so the sketchpad can be embedded in any page (it's a custom element rather than an iframe, so the site's CSP is untouched)
+- Embed it in the [Euclid conspectus](https://b00k.club/works/euclid-elements/), with I.2 set out step by step
+- Add `pnpm test`, which runs the sketchpad's construction tests under `node --test`
+
 ## 1.8.4 (2026-07-28)
 
 - Add Theocritus' Idylls to readings

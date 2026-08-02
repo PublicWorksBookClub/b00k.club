@@ -5,6 +5,10 @@
 /* large files w/ no class names = bad */
 @source not "../**/*.map";
 
+/* The Euclid sketchpad styles itself inside a shadow root and uses no tailwind.
+   Scanning it would only mint utilities from strings in its source. */
+@source not "../static/euclid/**";
+
 @plugin "@tailwindcss/typography";
 
 @theme {
