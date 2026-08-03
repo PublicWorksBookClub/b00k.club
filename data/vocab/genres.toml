@@ -130,12 +130,18 @@ description = "story that is set in the past during real, historical events"
 wikidata = "https://www.wikidata.org/wiki/Q1196408"
 wikipedia = "https://en.wikipedia.org/wiki/Historical_fiction"
 
-["historiography"]
+[historiography]
 label = "historiography"
 synonyms = ["history"]
 description = "a body of historical work on a subject"
 wikidata = "https://www.wikidata.org/wiki/Q30277550"
 wikipedia = "https://en.wikipedia.org/wiki/Historiography"
+
+[idyll]
+label = "idyll"
+description = "short rustic poem"
+wikidata = "https://www.wikidata.org/wiki/Q742530"
+wikipedia = "https://en.wikipedia.org/wiki/Idyll"
 
 [myth]
 description = "traditional narrative that plays a fundamental role in society"
@@ -148,7 +154,7 @@ description = "short didactic story which illustrates in metaphor a moral lesson
 wikidata = "https://www.wikidata.org/wiki/Q208555"
 wikipedia = "https://en.wikipedia.org/wiki/Parable"
 
-["philippic"]
+[philippic]
 label = "philippic"
 description = "a fiery, damning speech condemning a political opponent"
 wikidata = "https://www.wikidata.org/wiki/Q110629616"
