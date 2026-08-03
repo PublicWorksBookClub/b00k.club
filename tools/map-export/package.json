@@ -1,0 +1,17 @@
+{
+  "name": "@b00k.club/map-export",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Exports Azgaar Fantasy Map Generator projects into raster tiles plus a vector overlay for /maps/viewer/",
+  "scripts": {
+    "export": "node export.js"
+  },
+  "dependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "sharp": "^0.35.3"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}
