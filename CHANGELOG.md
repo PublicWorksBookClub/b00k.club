@@ -2,6 +2,11 @@
 
 ## Next
 
+## 1.8.5 (2026-08-03)
+- Add minutes from 2026-08-02 meeting
+- Update Theocritus' Idylls' abstract + metadata
+-
+
 ## 1.8.4 (2026-07-28)
 
 - Add Theocritus' Idylls to readings
