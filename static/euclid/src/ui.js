@@ -111,7 +111,18 @@ export function createUI(root, app, options = {}) {
   const foot = el('div', 'foot')
   const floating = el('div', 'floating')
 
-  stage.append(canvas, hint)
+  const helpButton = el('button', 'ask', {
+    type: 'button',
+    textContent: 'i',
+    title: 'How this works',
+    onclick: () => {
+      ui.help = !ui.help
+      ui.panel = true
+      render(true)
+    },
+  })
+  helpButton.setAttribute('aria-label', 'How this works')
+  stage.append(canvas, hint, helpButton)
   body.append(sidebar, stage, panel)
   frame.append(bar, body, foot, floating)
   root.append(frame)
@@ -419,8 +430,10 @@ export function createUI(root, app, options = {}) {
       box.append(
         button({
           class: 'wide',
-          abbr: tool.abbr || '?',
-          ref: tool.ref && tool.ref !== tool.abbr ? tool.ref : '',
+          // A proposition is known by its number. Half of Book I has no glyph
+          // that would mean anything, and a toolbar where some have one and
+          // some do not reads as though the ones with a picture were special.
+          abbr: tool.ref || tool.abbr || '?',
           title: `${tool.name}${tool.summary ? ' — ' + tool.summary : ''}`,
           pressed: s.activeTool === tool.id,
           onClick: () => app.setMode('tool', tool.id),
@@ -1369,10 +1382,6 @@ export function createUI(root, app, options = {}) {
       item('Walk through the first proposition', () => {
         ui.tutorial = beginTutorial(app)
         ui.help = false
-      }),
-      item('How this works', () => {
-        ui.help = true
-        ui.tutorial = null
       }),
       el('span', 'menu-rule'),
       item('Save to a file…', () => storage.downloadSketch(app.serialize(), 'construction.euclid.json')),

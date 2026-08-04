@@ -152,7 +152,7 @@ canvas {
   position: absolute;
   left: 10px;
   bottom: 10px;
-  right: 10px;
+  right: 42px;
   pointer-events: none;
   font-family: var(--eu-serif);
   font-size: 14px;
@@ -161,6 +161,28 @@ canvas {
   text-shadow: 0 0 4px var(--eu-paper), 0 0 8px var(--eu-paper);
 }
 .hint.trouble { color: var(--eu-trouble); font-style: normal; }
+
+/* Always to hand, never in the way: the corner of the paper furthest from
+   everything else the reader is doing. */
+.ask {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--eu-rule);
+  background: var(--eu-chrome);
+  color: var(--eu-muted);
+  font-family: var(--eu-serif);
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1;
+  opacity: 0.6;
+  transition: opacity 0.12s ease;
+}
+.ask:hover { opacity: 1; color: var(--eu-accent); border-color: var(--eu-accent); background: var(--eu-paper); }
+:host([readonly]) .ask { display: none; }
 
 /* ------------------------------------------------------------ panel */
 
