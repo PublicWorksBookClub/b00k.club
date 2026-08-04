@@ -406,6 +406,9 @@ ol.steps li.asserted .what { font-style: italic; }
 ol.steps li.asserted .n { color: transparent; }
 ol.steps li.asserted .n::before { content: '∴'; color: var(--eu-muted); font-style: normal; }
 ol.steps li.asserted.shaken { box-shadow: inset 2px 0 0 var(--eu-accent); }
+/* The thing the proposition set out to show, which the rest leads up to. */
+ol.steps li.qed .what::after { content: ' Q.E.D.'; font-style: normal; font-size: 10px; letter-spacing: 0.06em; color: var(--eu-accent); }
+ol.steps li.qed { background: var(--eu-accent-soft); }
 ol.steps li.asserted.broken { box-shadow: inset 2px 0 0 var(--eu-trouble); }
 /* Choosing what allows a claim, from the book. */
 .why { display: flex; gap: 4px; margin-top: 5px; flex-wrap: wrap; }
@@ -493,7 +496,20 @@ ol.steps .acts button {
   font-size: 12.5px;
   color: var(--eu-muted);
 }
-.tool-card .acts { margin-top: 5px; display: flex; gap: 4px; flex-wrap: wrap; }
+.tool-card .acts { margin-top: 5px; display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
+.tool-card.fact { border-left: 2px solid var(--eu-accent); }
+.tool-card .evidence { color: var(--eu-muted); font-size: 11px; }
+.tool-card .trouble { color: var(--eu-trouble); }
+.tool-card .acts input {
+  font: inherit;
+  font-size: 11px;
+  width: 4.5em;
+  padding: 2px 5px;
+  border: 1px solid var(--eu-rule);
+  border-radius: 4px;
+  background: var(--eu-paper);
+  color: var(--eu-ink);
+}
 .tool-card .acts button { font-size: 11px; padding: 2px 7px; border-color: var(--eu-rule); }
 
 /* ------------------------------------------------------------ scrubber */

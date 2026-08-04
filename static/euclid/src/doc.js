@@ -30,7 +30,10 @@
 export const DOC_VERSION = 1
 
 export function createDoc(init = {}) {
-  return { v: DOC_VERSION, seq: 0, steps: [], tools: [], meta: {}, ...init }
+  // `tools` are constructions you may carry out; `facts` are theorems you have
+  // proved and may cite. Both are things you have earned and keep, but they are
+  // used in different ways, so they are kept apart.
+  return { v: DOC_VERSION, seq: 0, steps: [], tools: [], facts: [], meta: {}, ...init }
 }
 
 export function newId(doc, prefix = 's') {
@@ -183,13 +186,23 @@ export function cloneDoc(doc) {
 }
 
 export function serializeDoc(doc) {
-  return JSON.stringify({ v: DOC_VERSION, seq: doc.seq, steps: doc.steps, tools: doc.tools, meta: doc.meta }, null, 2)
+  return JSON.stringify(
+    { v: DOC_VERSION, seq: doc.seq, steps: doc.steps, tools: doc.tools, facts: doc.facts, meta: doc.meta },
+    null,
+    2,
+  )
 }
 
 export function deserializeDoc(text) {
   const raw = typeof text === 'string' ? JSON.parse(text) : text
   if (!raw || !Array.isArray(raw.steps)) throw new Error('Not a sketch file: no steps found.')
-  const doc = createDoc({ seq: raw.seq || 0, steps: raw.steps, tools: raw.tools || [], meta: raw.meta || {} })
+  const doc = createDoc({
+    seq: raw.seq || 0,
+    steps: raw.steps,
+    tools: raw.tools || [],
+    facts: raw.facts || [],
+    meta: raw.meta || {},
+  })
   // Old files, or hand-written ones, may not carry a sequence counter high
   // enough to avoid colliding with the ids already in use.
   let max = doc.seq

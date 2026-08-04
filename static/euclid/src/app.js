@@ -13,6 +13,7 @@ import * as M from './macros.js'
 import * as MAG from './magnitudes.js'
 import { solve } from './solve.js'
 import { PROPOSITIONS, PROPOSITION_BY_ID, DEFAULT_TOOL_IDS } from './propositions.js'
+import { BOOK_I } from './book1.js'
 
 export const PRIMITIVES = [
   { id: 'select', label: 'Move', glyph: 'arrow', hint: 'Drag a point to test the figure. Click anything to select it.' },
@@ -109,6 +110,10 @@ export function createSketch(options = {}) {
     const have = new Set(tools.map((t) => t.id))
     for (const tool of doc.tools || []) if (!have.has(tool.id)) tools.push(tool)
     restored.tools = tools
+    const facts = [...(restored.facts || [])]
+    const known = new Set(facts.map((f) => f.id))
+    for (const fact of doc.facts || []) if (!known.has(fact.id)) facts.push(fact)
+    restored.facts = facts
     return restored
   }
 
@@ -477,6 +482,102 @@ export function createSketch(options = {}) {
     },
 
     /**
+     * Mark a claim as the thing that was to be proved.
+     *
+     * Euclid ends a theorem by observing that what he set out to show is now
+     * shown. Saying which claim that is turns a list of true statements into a
+     * proof of something in particular, and it is what a fact is minted from.
+     * Only one claim can be the conclusion; marking another moves it.
+     */
+    markConclusion(stepId) {
+      const step = D.findStep(doc, stepId)
+      if (!step || step.op !== 'claim') return
+      snapshot()
+      const already = step.qed
+      for (const s of doc.steps) if (s.op === 'claim') delete s.qed
+      if (!already) step.qed = true
+      invalidate()
+    },
+
+    /** The claim marked as the conclusion, with how it stands. */
+    conclusion() {
+      const found = getScene().steps.find((info) => info.step.op === 'claim' && info.step.qed)
+      return found || null
+    },
+
+    /* -------------------------------------------------- what has been proved */
+
+    get facts() {
+      return doc.facts || []
+    },
+
+    /**
+     * Keep a proved theorem, so later proofs may cite it.
+     *
+     * A fact is not a tool: there is nothing to carry out. It is a statement
+     * you have earned the right to lean on, and the evidence it was earned by
+     * travels with it — how many configurations it survived — because that is
+     * the difference between a theorem and a lucky figure.
+     */
+    proveFact({ ref, name, statement } = {}) {
+      const conclusion = api.conclusion()
+      if (!conclusion) {
+        say('Mark the claim that is what was to be proved first.')
+        return null
+      }
+      if (!conclusion.ok) {
+        say('That claim does not hold, so there is nothing to keep.')
+        return null
+      }
+      const evidence = api.shake()
+      if (evidence.failed.length) {
+        say('Shaking the figure breaks that claim: it is true of your figure, not in general.')
+        invalidate()
+        return null
+      }
+      snapshot()
+      // A claim's prose says why *this* figure's claim holds — "(I.4)" — which
+      // is no part of the theorem. And when the reader says which proposition
+      // they have proved, the book's own words are better than the letters that
+      // happened to be on the paper.
+      const said = conclusion.text.replace(/\s*\([^()]*\)\.?$/, '').replace(/\.$/, '')
+      const entry = ref && BOOK_I.propositions.find((p) => `I.${p.n}` === ref)
+      const fact = {
+        id: ref ? `euclid.${ref}` : `fact.${D.newId(doc, 'f')}`,
+        ref: ref || null,
+        name: name || said,
+        statement: statement || (entry ? entry.text : said + '.'),
+        rounds: evidence.rounds,
+      }
+      doc.facts = [...(doc.facts || []).filter((f) => f.id !== fact.id), fact]
+      say(`${fact.ref ? fact.ref + ' is' : 'That is'} yours to cite now — it held in ${evidence.rounds} configurations.`, 'info')
+      invalidate()
+      return fact
+    },
+
+    forgetFact(id) {
+      snapshot()
+      doc.facts = (doc.facts || []).filter((f) => f.id !== id)
+      invalidate()
+    },
+
+    /**
+     * Which of Book I's propositions may honestly be cited.
+     *
+     * The ones in the toolbox are constructions you have; the ones in `facts`
+     * are theorems you have proved. Nothing stops a reader citing something
+     * they have not got — the app is not a proctor — but it says which is
+     * which, because the whole shape of the book is that each proposition
+     * stands on the ones before it.
+     */
+    proved() {
+      const have = new Set()
+      for (const tool of doc.tools || []) if (tool.ref) have.add(tool.ref)
+      for (const fact of doc.facts || []) if (fact.ref) have.add(fact.ref)
+      return have
+    },
+
+    /**
      * Shake the figure and see whether the claims survive.
      *
      * A claim that holds where it was written down may hold only there. Every
@@ -493,6 +594,16 @@ export function createSketch(options = {}) {
 
       const bounds = getScene().bounds()
       const reach = bounds ? Math.max(bounds.maxX - bounds.minX, bounds.maxY - bounds.minY) * spread : 100
+      // A parameter means something different on each kind of curve — an angle
+      // round a circle, a fraction along a segment — and the kind never changes
+      // however the figure is jogged, so it is read once and kept.
+      const along = new Map()
+      for (const s of free) {
+        if (s.op !== 'onCurve') continue
+        const curve = getScene().getCurve(s.curve)
+        along.set(s.id, curve && curve.geom.kind === 'circle' ? 'circle'
+          : curve && curve.def ? curve.def.op : 'segment')
+      }
       const failed = new Set()
       let broke = 0
       let ran = 0
@@ -502,7 +613,7 @@ export function createSketch(options = {}) {
             s.x += (Math.random() - 0.5) * reach
             s.y += (Math.random() - 0.5) * reach
           } else {
-            s.t = Math.random()
+            s.t = G.randomParam(along.get(s.id) || 'segment')
           }
         }
         scene = null
@@ -841,8 +952,8 @@ export function createSketch(options = {}) {
 
     clear() {
       snapshot()
-      const keep = doc.tools
-      doc = D.createDoc({ tools: keep })
+      // What you have proved stays proved; only the paper is cleared.
+      doc = D.createDoc({ tools: doc.tools, facts: doc.facts })
       state.selection.clear()
       state.pending = null
       state.upTo = Infinity
@@ -887,6 +998,8 @@ export function createSketch(options = {}) {
       if (keepTools) {
         const have = new Set((incoming.tools || []).map((t) => t.id))
         for (const t of doc.tools || []) if (!have.has(t.id)) incoming.tools.push(t)
+        const known = new Set((incoming.facts || []).map((f) => f.id))
+        for (const f of doc.facts || []) if (!known.has(f.id)) incoming.facts.push(f)
       }
       undoStack.length = 0
       redoStack.length = 0
@@ -910,7 +1023,7 @@ export function createSketch(options = {}) {
       const kept = [...(doc.tools || [])]
       const have = new Set(kept.map((t) => t.id))
       for (const dep of M.collectToolDeps(prop, registry())) if (!have.has(dep.id)) kept.push(dep)
-      doc = D.createDoc({ tools: kept })
+      doc = D.createDoc({ tools: kept, facts: doc.facts })
       const gesture = nextGesture()
       const givens = (prop.demo?.points || []).map((p) => {
         const id = D.newId(doc, 'p')

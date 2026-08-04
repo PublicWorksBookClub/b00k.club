@@ -89,6 +89,7 @@ export function createUI(root, app, options = {}) {
     shaken: null,
     reasoning: null,
     reading: null,
+    factRef: '',
   }
   let chromeSignature = null
   let sidebarSignature = null
@@ -163,7 +164,9 @@ export function createUI(root, app, options = {}) {
       // A claim's truth is not a matter of how many steps there are, so the
       // step list has to be rebuilt when one changes its mind.
       app.scene.steps.map((info) => (info.claim ? info.claim.verdict : null)),
-      app.doc.steps.map((step) => (step.op === 'claim' ? JSON.stringify(step.because || 0) : 0)),
+      app.doc.steps.map((step) => (step.op === 'claim' ? JSON.stringify([step.because || 0, !!step.qed]) : 0)),
+      app.facts.map((f) => f.id),
+      ui.factRef,
       // How the selection is drawn, so the palette shows the colour it now has.
       [...s.selection].map((id) => {
         const o = app.scene.get(id)
@@ -753,12 +756,18 @@ export function createUI(root, app, options = {}) {
     const which = el('select')
     const fill = () => {
       const [, , entries] = kinds.find(([id]) => id === kind.value)
+      // Definitions, postulates and axioms are granted; propositions have to be
+      // earned. Nothing stops a reader leaning on one they have not got — the
+      // app is not a proctor — but it says which are which, because the shape
+      // of the book is that each proposition stands on the ones before it.
+      const proved = kind.value === 'prop' ? app.proved() : null
       which.replaceChildren()
       for (const entry of entries) {
         const label = `${entry.n}. ${entry.text}`
+        const short = label.length > 60 ? label.slice(0, 59) + '…' : label
         which.append(el('option', null, {
           value: String(entry.n),
-          textContent: label.length > 64 ? label.slice(0, 63) + '…' : label,
+          textContent: proved && !proved.has(`I.${entry.n}`) ? `${short} (not yet yours)` : short,
         }))
       }
       which.value = String(current.kind === kind.value ? current.n : entries[0].n)
@@ -796,6 +805,7 @@ export function createUI(root, app, options = {}) {
       // A claim is a different kind of thing from a step that draws: it asserts
       // rather than builds, and the list says so.
       item.classList.toggle('asserted', info.step.op === 'claim')
+      item.classList.toggle('qed', !!info.step.qed)
       if (info.step.op === 'claim' && ui.shaken) {
         item.classList.toggle('shaken', !ui.shaken.failed.includes(info.step.id))
         item.classList.toggle('broken', ui.shaken.failed.includes(info.step.id))
@@ -822,6 +832,19 @@ export function createUI(root, app, options = {}) {
               event.stopPropagation()
               ui.reasoning = ui.reasoning === info.step.id ? null : info.step.id
               render(true)
+            },
+          }),
+        )
+        acts.append(
+          el('button', null, {
+            type: 'button',
+            textContent: info.step.qed ? 'not the conclusion' : 'to be proved',
+            title: info.step.qed
+              ? 'This is no longer marked as what the proposition set out to show'
+              : 'Mark this as what the proposition set out to show',
+            onclick: (event) => {
+              event.stopPropagation()
+              app.markConclusion(info.step.id)
             },
           }),
         )
@@ -878,8 +901,85 @@ export function createUI(root, app, options = {}) {
     return list
   }
 
+  /**
+   * Keeping a theorem you have proved.
+   *
+   * A fact is not a tool — there is nothing to carry out — but it is the other
+   * half of what the book gives you: a statement you have earned the right to
+   * lean on. It is offered only once a claim has been marked as the conclusion,
+   * and only if it survives being shaken.
+   */
+  function renderProved() {
+    const conclusion = app.conclusion()
+    if (!conclusion && !app.facts.length) return null
+    const wrap = el('div', 'proved')
+    if (conclusion) {
+      const card = el('div', 'tool-card')
+      card.append(el('h4', null, { textContent: 'What was to be proved' }))
+      card.append(el('p', null, { textContent: conclusion.text }))
+      if (!conclusion.ok) {
+        card.append(el('p', 'trouble', { textContent: conclusion.error || 'It does not hold.' }))
+      }
+      const acts = el('div', 'acts')
+      const ref = el('input', null, {
+        type: 'text',
+        placeholder: 'I.5',
+        value: ui.factRef,
+        oninput: (event) => {
+          ui.factRef = event.target.value
+        },
+      })
+      ref.size = 5
+      acts.append(ref)
+      acts.append(el('button', 'primary', {
+        type: 'button',
+        textContent: 'Keep it',
+        title: 'Shake the figure and, if it holds, keep this as something you may cite',
+        disabled: !conclusion.ok,
+        onclick: () => {
+          const kept = app.proveFact({ ref: ui.factRef.trim() || null })
+          if (kept) ui.factRef = ''
+          render(true)
+        },
+      }))
+      card.append(acts)
+      wrap.append(card)
+    }
+    for (const fact of app.facts) {
+      const card = el('div', 'tool-card fact')
+      const title = el('h4')
+      title.append(document.createTextNode(fact.name))
+      if (fact.ref) title.append(el('span', 'ref', { textContent: fact.ref }))
+      card.append(title)
+      if (fact.statement && fact.statement !== fact.name + '.') {
+        card.append(el('p', null, { textContent: fact.statement }))
+      }
+      card.append(el('p', 'evidence', {
+        textContent: `Held in ${fact.rounds} configuration${fact.rounds === 1 ? '' : 's'}.`,
+      }))
+      const acts = el('div', 'acts')
+      acts.append(el('button', null, {
+        type: 'button',
+        textContent: 'Forget',
+        onclick: () => {
+          app.forgetFact(fact.id)
+          render(true)
+        },
+      }))
+      card.append(acts)
+      wrap.append(card)
+    }
+    return wrap
+  }
+
   function renderToolbox() {
     const wrap = el('div')
+    const proved = renderProved()
+    if (proved) {
+      wrap.append(el('p', 'empty', { textContent: 'What you have proved:' }))
+      wrap.append(proved)
+      wrap.append(el('p', 'empty', { textContent: 'What you can carry out:' }))
+    }
     const have = new Set(app.tools.map((t) => t.id))
     for (const tool of app.tools) {
       const card = el('div', 'tool-card')

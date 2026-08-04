@@ -73,6 +73,23 @@ export function clampParam(curve, t) {
   return Math.min(curve.t1, Math.max(curve.t0, t))
 }
 
+/**
+ * A parameter drawn at random from the whole of a curve.
+ *
+ * The parameter means different things on different curves — an angle round a
+ * circle, a fraction along a segment, a distance along a ray — so a figure
+ * cannot be shaken properly without asking the curve what its own range is.
+ * A curve that runs off to infinity is sampled over a few times its own scale,
+ * which is as far as anything on the page will ever be.
+ */
+export function randomParam(kind, random = Math.random) {
+  if (kind === 'circle') return normalizeAngle(random() * Math.PI * 2)
+  const FAR = 3
+  const t0 = kind === 'line' ? -FAR : 0
+  const t1 = kind === 'segment' ? 1 : FAR
+  return t0 + random() * (t1 - t0)
+}
+
 export function normalizeAngle(a) {
   const tau = Math.PI * 2
   return a - tau * Math.floor((a + Math.PI) / tau)

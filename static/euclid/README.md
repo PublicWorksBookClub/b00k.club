@@ -223,6 +223,26 @@ its corners — and the figure cannot settle it, since Book I is largely about
 the angles of triangles. So every reading is offered by name and the reader
 says which.
 
+## What you keep
+
+The toolbox holds two kinds of thing, because the book gives you two kinds:
+
+- **what you can carry out** — a construction, replayed with new inputs;
+- **what you have proved** — a theorem, which has nothing to carry out but may
+  be cited by a later claim.
+
+A claim can be marked as *what was to be proved*. Once it is, and once it
+survives being shaken, it can be kept as a fact — with the number of
+configurations it survived travelling with it, since that is the difference
+between a theorem and a lucky figure. Both kinds outlive the paper: clearing
+the sheet, turning to the next proposition, and undo all leave them alone.
+Only removing one on purpose does.
+
+The reason-picker marks which propositions are actually yours. Nothing stops a
+reader leaning on one they have not got — the app is not a proctor — but it
+says which is which, because the shape of the book is that each proposition
+stands on the ones before it.
+
 ## Working the rest of Book I
 
 Three propositions are written out as tools, and the whole of Book I is in the
