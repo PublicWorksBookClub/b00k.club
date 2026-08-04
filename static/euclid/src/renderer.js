@@ -60,7 +60,7 @@ export function render(canvas, scene, view) {
   drawPending(ctx, scene, view, S, clip)
   for (const o of points) drawPoint(ctx, o, S, view)
   drawSnap(ctx, view, S)
-  drawLabels(ctx, points, S, view)
+  drawLabels(ctx, points, curves, S, view)
   drawPickBadges(ctx, scene, view, S)
   ctx.restore()
 }
@@ -149,42 +149,84 @@ function drawPoint(ctx, o, S, view) {
   }
 }
 
-function drawLabels(ctx, points, S, view) {
+/** Which way a curve runs at a point, in screen terms. */
+function screenTangentAt(geom, at, S) {
+  const t = G.paramAt(geom, at)
+  const step = geom.kind === 'circle' ? 0.01 : 0.01
+  const a = S(G.pointAt(geom, t - step))
+  const b = S(G.pointAt(geom, t + step))
+  const dx = b.x - a.x
+  const dy = b.y - a.y
+  const len = Math.hypot(dx, dy)
+  return len > 1e-9 ? { x: dx / len, y: dy / len } : null
+}
+
+const LABEL_DIRECTIONS = 24
+const LABEL_REACH = 14
+
+/**
+ * Letter the points.
+ *
+ * The letter is placed by trying directions around the point and keeping the
+ * one that lies furthest from every line through it — worked out in screen
+ * terms, so turning the paper moves the letters out of the way rather than
+ * carrying them round onto the lines they were avoiding. Ties are settled by
+ * leaning away from the middle of the figure and away from letters already
+ * placed.
+ */
+function drawLabels(ctx, points, curves, S, view) {
   const lettered = points.filter((o) => o.label && !o.ghost)
   if (!lettered.length) return
+
+  const at = new Map(lettered.map((o) => [o.id, S(o.pos)]))
   let cx = 0
   let cy = 0
-  for (const o of lettered) {
-    cx += o.pos.x
-    cy += o.pos.y
+  for (const p of at.values()) {
+    cx += p.x
+    cy += p.y
   }
-  const centroid = { x: cx / lettered.length, y: cy / lettered.length }
+  const centre = { x: cx / at.size, y: cy / at.size }
+  const onPoint = 1.5 / (view.cam ? view.cam.k : 1)
 
   ctx.save()
   ctx.font = THEME.labelFont
   ctx.textAlign = 'center'
   ctx.textBaseline = 'middle'
   ctx.lineJoin = 'round'
+
   const placed = []
   for (const o of lettered) {
-    const p = S(o.pos)
-    // Push the letter away from the middle of the figure, so it lands outside
-    // rather than on top of the lines that meet there.
-    let away = G.sub(o.pos, centroid)
-    if (G.len(away) < 1e-6) away = { x: 0.7, y: -0.7 }
-    else away = G.scale(away, 1 / G.len(away))
-    const at = { x: p.x + away.x * 14, y: p.y + away.y * 14 }
-    // Two points close together would otherwise letter on top of one another.
-    for (let push = 0; push < 5 && placed.some((q) => Math.hypot(q.x - at.x, q.y - at.y) < 15); push++) {
-      at.x += away.x * 10
-      at.y += away.y * 10
+    const p = at.get(o.id)
+    const through = []
+    for (const c of curves) {
+      if (c.ghost || G.distanceToCurve(c.geom, o.pos) > onPoint) continue
+      const tangent = screenTangentAt(c.geom, o.pos, S)
+      if (tangent) through.push(tangent)
     }
-    placed.push({ ...at })
+    let away = { x: p.x - centre.x, y: p.y - centre.y }
+    const span = Math.hypot(away.x, away.y)
+    away = span > 1e-6 ? { x: away.x / span, y: away.y / span } : { x: 0.7, y: -0.7 }
+
+    let best = null
+    for (let i = 0; i < LABEL_DIRECTIONS; i++) {
+      const angle = (i / LABEL_DIRECTIONS) * Math.PI * 2
+      const d = { x: Math.cos(angle), y: Math.sin(angle) }
+      // Lying along a line through the point is the thing to avoid.
+      let cost = 0
+      for (const t of through) cost += 2.2 * Math.abs(d.x * t.x + d.y * t.y)
+      cost -= 0.5 * (d.x * away.x + d.y * away.y)
+      const spot = { x: p.x + d.x * LABEL_REACH, y: p.y + d.y * LABEL_REACH }
+      for (const q of placed) if (Math.hypot(q.x - spot.x, q.y - spot.y) < 16) cost += 4
+      for (const [id, q] of at) if (id !== o.id && Math.hypot(q.x - spot.x, q.y - spot.y) < 12) cost += 3
+      if (!best || cost < best.cost) best = { cost, spot }
+    }
+
+    placed.push(best.spot)
     ctx.lineWidth = 3.5
     ctx.strokeStyle = THEME.paper
-    ctx.strokeText(o.label, at.x, at.y)
+    ctx.strokeText(o.label, best.spot.x, best.spot.y)
     ctx.fillStyle = stateOf(o.id, view) ? THEME.accent : THEME.ink
-    ctx.fillText(o.label, at.x, at.y)
+    ctx.fillText(o.label, best.spot.x, best.spot.y)
   }
   ctx.restore()
 }

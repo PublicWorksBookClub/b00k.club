@@ -76,7 +76,8 @@ export function createUI(root, app, options = {}) {
     open: { propositions: true, definitions: false, postulates: false, axioms: false, symbols: false },
     draft: { name: '', ref: '', abbr: '', summary: '' },
   }
-  let signature = null
+  let chromeSignature = null
+  let sidebarSignature = null
 
   root.replaceChildren(el('style', null, { textContent: STYLES }))
 
@@ -111,7 +112,16 @@ export function createUI(root, app, options = {}) {
 
   /* ---------------------------------------------------------------- */
 
-  function currentSignature() {
+  /**
+   * What the sidebar depends on. It is deliberately blind to the figure: the
+   * book does not change as a construction is scrubbed through, and rebuilding
+   * it would throw away wherever the reader had scrolled to.
+   */
+  function sidebarState() {
+    return JSON.stringify([ui.sidebar, ui.open, app.tools.map((t) => t.id), options.throughN || null])
+  }
+
+  function chromeState() {
     const s = app.state
     const def = s.definition
     return JSON.stringify([
@@ -130,20 +140,28 @@ export function createUI(root, app, options = {}) {
       ui.menu,
       ui.nav ? [ui.nav.x, ui.nav.y] : null,
       ui.sidebar,
-      JSON.stringify(ui.open),
+      // How the selection is drawn, so the palette shows the colour it now has.
+      [...s.selection].map((id) => {
+        const o = app.scene.get(id)
+        return o ? `${o.color || ''}${o.dash ? '-' : ''}` : ''
+      }),
       app.doc.steps.map((step) => (step.op === 'macro' ? !!step.expanded : 0)),
     ])
   }
 
   function render(force = false) {
-    const next = currentSignature()
-    if (force || next !== signature) {
-      signature = next
+    const chrome = chromeState()
+    if (force || chrome !== chromeSignature) {
+      chromeSignature = chrome
       renderBar()
-      renderSidebar()
       renderPanel()
       renderFoot()
       renderFloating()
+    }
+    const book = sidebarState()
+    if (book !== sidebarSignature) {
+      sidebarSignature = book
+      renderSidebar()
     }
     renderHint()
     stage.dataset.mode = app.state.mode
@@ -294,6 +312,7 @@ export function createUI(root, app, options = {}) {
   ]
 
   const constructible = new Map(PROPOSITIONS.map((p) => [p.ref, p]))
+  const KIND_PREFIX = { definitions: 'Def.', postulates: 'Post.', axioms: 'Ax.', symbols: '' }
 
   /**
    * The book, as one scrolling list of collapsible sections.
@@ -342,7 +361,11 @@ export function createUI(root, app, options = {}) {
     foot.append(el('a', null, { href: SOURCE.url, textContent: SOURCE.edition, target: '_blank', rel: 'noopener' }))
     foot.append(document.createTextNode(`, ${SOURCE.license}.`))
 
+    // Rebuilding drops the scroll position, so put it back.
+    const was = sidebar.querySelector('.side-list')
+    const scrolled = was ? was.scrollTop : 0
     sidebar.replaceChildren(head, list, foot)
+    if (scrolled) list.scrollTop = scrolled
   }
 
   function entryRow(sectionId, entry) {
@@ -353,10 +376,11 @@ export function createUI(root, app, options = {}) {
       return row
     }
     if (sectionId !== 'propositions') {
-      // Byrne numbers his definitions, postulates and axioms in arabic and only
-      // his propositions in roman.
+      // Cited the way they would be written down: I.Def.2, I.Post.2, I.Ax.2.
+      // The propositions keep the bare I.3, since that is how everyone cites
+      // them and they have the better claim to the unqualified form.
       const row = el('div', 'entry plain')
-      row.append(el('span', 'num', { textContent: String(entry.n) }))
+      row.append(el('span', 'num', { textContent: `I.${KIND_PREFIX[sectionId]}${entry.n}` }))
       row.append(el('span', 'said', { textContent: entry.text }))
       return row
     }
@@ -365,7 +389,7 @@ export function createUI(root, app, options = {}) {
     const row = el('button', `entry${available ? '' : ' unavailable'}`, { type: 'button' })
     row.title = available ? 'Set this out step by step' : 'This one is not in the sketchpad yet'
     const num = el('span', 'num')
-    num.append(document.createTextNode(entry.roman))
+    num.append(document.createTextNode(`I.${entry.n}`))
     num.append(el('em', null, { textContent: entry.kind === 'problem' ? 'Prob.' : 'Theor.' }))
     row.append(num)
     row.append(el('span', 'said', { textContent: entry.text }))
@@ -680,12 +704,17 @@ export function createUI(root, app, options = {}) {
   function runNavigation(id) {
     const cam = app.camera
     if (id === 'north') {
+      // Keep the angle, but call it upright from now on.
       C.setNorth(cam)
+      options.onFit && options.onFit()
+    } else if (id === 'centre') {
+      // Put everything back: upright, centred, and framed.
+      C.resetRotation(cam)
       options.onFit && options.onFit()
     } else if (id === 'reset') {
       C.resetRotation(cam)
       app.changed()
-    } else if (id === 'centre' || id === 'fit') {
+    } else if (id === 'fit') {
       options.onFit && options.onFit()
     } else {
       app.changed()

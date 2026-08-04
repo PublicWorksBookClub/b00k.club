@@ -63,8 +63,8 @@ const DOUBLE_CLICK_MS = 400
 export const NAVIGATION = [
   { id: 'pan', label: 'Pan', keys: 'right-drag' },
   { id: 'rotate', label: 'Turn the paper', keys: 'shift + right-drag' },
-  { id: 'centre', label: 'Centre the figure', keys: 'double right-click' },
-  { id: 'north', label: 'Centre, and call this upright', keys: 'shift + double right-click' },
+  { id: 'centre', label: 'Centre, fit and set upright', keys: 'double right-click' },
+  { id: 'north', label: 'Centre and fit, keeping this angle as upright', keys: 'shift + double right-click' },
   { id: 'reset', label: 'Turn back to upright', keys: null },
   { id: 'fit', label: 'Fit the figure to the view', keys: null },
 ]
@@ -77,6 +77,7 @@ export function attachInteractions(canvas, app, size, hooks = {}) {
   let pinch = null
   let downAt = null
   let pendingDrag = null
+  let drawing = false
   let moved = 0
   let lastRight = 0
 
@@ -129,7 +130,18 @@ export function attachInteractions(canvas, app, size, hooks = {}) {
       pendingDrag = hit.point.id
       return
     }
-    if (app.state.mode === 'select') pan = { last: here }
+    if (app.state.mode === 'select') {
+      pan = { last: here }
+      return
+    }
+
+    // In a drawing mode the first click lands on the press, not the release, so
+    // the rubber band follows the pointer whether it is dragged or let go. A
+    // press-drag-release then looks exactly like two separate clicks.
+    if (DRAW_MODES.has(app.state.mode) && !app.state.activeTool && !app.state.choice) {
+      drawing = true
+      app.click(world, hit)
+    }
   }
 
   function onPointerMove(event) {
@@ -182,8 +194,8 @@ export function attachInteractions(canvas, app, size, hooks = {}) {
 
     const hit = hitTest(app.scene, world, app.camera)
     app.setHover(hit ? (hit.point || hit.curve).id : null)
-    const drawing = app.state.mode !== 'select' && app.state.mode !== 'define' && !app.state.activeTool
-    app.setCursor(world, drawing ? snapAt(app.scene, world, app.camera) : null)
+    const willDraw = app.state.mode !== 'select' && app.state.mode !== 'define' && !app.state.activeTool
+    app.setCursor(world, willDraw ? snapAt(app.scene, world, app.camera) : null)
   }
 
   function onPointerUp(event) {
@@ -198,7 +210,10 @@ export function attachInteractions(canvas, app, size, hooks = {}) {
     pan = null
     rotate = null
     pendingDrag = null
-    if (!downAt) return
+    if (!downAt) {
+      drawing = false
+      return
+    }
     const { world, hit, button, shift } = downAt
     const dragged = moved > DRAG_THRESHOLD
     downAt = null
@@ -212,20 +227,17 @@ export function attachInteractions(canvas, app, size, hooks = {}) {
       return hooks.onMenu && hooks.onMenu(localPoint(event))
     }
 
-    if (wasDrag || wasRotate || (wasPan && dragged)) return
-
-    // A press, a drag and a release draws the same line two clicks would: the
-    // rubber band is already on screen, so letting go where it points is what
-    // the hand expects.
-    if (dragged) {
-      if (!DRAW_MODES.has(app.state.mode) || app.state.activeTool) return
-      const from = { world, hit }
+    if (drawing) {
+      // The press already placed the first point. Letting go somewhere else
+      // finishes the line; letting go where you pressed leaves it waiting for a
+      // second click, exactly as clicking once does.
+      drawing = false
+      if (!dragged) return
       const world2 = toWorld(event)
-      const hit2 = hitTest(app.scene, world2, app.camera)
-      app.click(from.world, from.hit)
-      app.click(world2, hit2)
+      app.click(world2, hitTest(app.scene, world2, app.camera))
       return
     }
+    if (wasDrag || wasRotate || (wasPan && dragged)) return
     app.click(world, hit)
   }
 

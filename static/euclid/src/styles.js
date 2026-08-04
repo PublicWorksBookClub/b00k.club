@@ -118,8 +118,8 @@ canvas {
 /* The tool you are holding, with the crosshair sitting on the hotspot. */
 .stage[data-mode='segment'] canvas,
 .stage[data-mode='ray'] canvas,
-.stage[data-mode='line'] canvas { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><g fill='none' stroke='%23faf5ea' stroke-width='3.4' stroke-linecap='round'><path d='M2 8h12M8 2v12'/><path d='M15 27L28 14'/><path d='M15 27l-1.5-4.5 4.5 1.5'/></g><g fill='none' stroke='%232f2929' stroke-width='1.5' stroke-linecap='round'><path d='M2 8h12M8 2v12'/><path d='M15 27L28 14'/><path d='M15 27l-1.5-4.5 4.5 1.5'/></g></svg>") 8 8, crosshair; }
-.stage[data-mode='circle'] canvas { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><g fill='none' stroke='%23faf5ea' stroke-width='3.4' stroke-linecap='round'><path d='M2 8h12M8 2v12'/><path d='M21 14l-5 13M21 14l5 13'/><circle cx='21' cy='14' r='1.8'/></g><g fill='none' stroke='%232f2929' stroke-width='1.5' stroke-linecap='round'><path d='M2 8h12M8 2v12'/><path d='M21 14l-5 13M21 14l5 13'/><circle cx='21' cy='14' r='1.8'/></g></svg>") 8 8, crosshair; }
+.stage[data-mode='line'] canvas { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><g fill='none' stroke='%23faf5ea' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'><path d='M2 8h12M8 2v12'/><g transform='rotate(-40 21 21)'><rect x='11' y='17.5' width='20' height='7' rx='1'/><path d='M15 17.5v3M19 17.5v4M23 17.5v3M27 17.5v4'/></g></g><g fill='none' stroke='%232f2929' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M2 8h12M8 2v12'/><g transform='rotate(-40 21 21)'><rect x='11' y='17.5' width='20' height='7' rx='1'/><path d='M15 17.5v3M19 17.5v4M23 17.5v3M27 17.5v4'/></g></g></svg>") 8 8, crosshair; }
+.stage[data-mode='circle'] canvas { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><g fill='none' stroke='%23faf5ea' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'><path d='M2 8h12M8 2v12'/><path d='M21 14l-5 13M21 14l5 13'/><circle cx='21' cy='14' r='1.8'/></g><g fill='none' stroke='%232f2929' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M2 8h12M8 2v12'/><path d='M21 14l-5 13M21 14l5 13'/><circle cx='21' cy='14' r='1.8'/></g></svg>") 8 8, crosshair; }
 
 .hint {
   position: absolute;
@@ -209,7 +209,9 @@ canvas {
   transition: transform 0.12s ease;
 }
 .side-section[open] > summary::before { transform: rotate(90deg); }
-.side-section > summary:hover { background: rgba(0, 0, 0, 0.04); }
+/* Opaque: a translucent hover would let the scrolling text show through the
+   heading that is sticking to the top. */
+.side-section > summary:hover { background: #e8dfcd; }
 .side-section[open] > summary { color: var(--eu-ink); border-bottom-color: var(--eu-rule); }
 .side-section > summary .name { flex: 1 1 auto; }
 .side-section > summary .count { font-variant-numeric: tabular-nums; opacity: 0.7; }
@@ -236,13 +238,13 @@ canvas {
 .side-section button.entry:not(:disabled):hover { background: var(--eu-accent-soft); }
 .side-section .entry.unavailable { opacity: 0.4; }
 .side-section .entry .num {
-  flex: 0 0 2.9em;
+  flex: 0 0 4.3em;
   font-family: var(--eu-serif);
   font-size: 12.5px;
   color: var(--eu-accent);
   line-height: 1.35;
 }
-.side-section .entry .num.glyph { font-size: 15px; text-align: center; color: var(--eu-ink); }
+.side-section .entry .num.glyph { font-size: 15px; text-align: left; color: var(--eu-ink); }
 .side-section .entry .num em {
   display: block;
   font-size: 9px;
