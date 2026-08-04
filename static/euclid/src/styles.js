@@ -455,8 +455,8 @@ ol.steps li.asserted .what { font-style: italic; }
 ol.steps li.asserted .n { color: transparent; }
 ol.steps li.asserted .n::before { content: '∴'; color: var(--eu-muted); font-style: normal; }
 ol.steps li.asserted.shaken { box-shadow: inset 2px 0 0 var(--eu-accent); }
-/* The thing the proposition set out to show, which the rest leads up to. */
-ol.steps li.qed .what::after { content: ' Q.E.D.'; font-style: normal; font-size: 10px; letter-spacing: 0.06em; color: var(--eu-accent); }
+/* The thing the proposition set out to show, which the rest leads up to. The
+   Q. E. D. itself belongs at the foot of the page, as Byrne sets it. */
 ol.steps li.qed { background: var(--eu-accent-soft); }
 ol.steps li.asserted.broken { box-shadow: inset 2px 0 0 var(--eu-trouble); }
 /* Choosing what allows a claim, from the book. */
@@ -497,6 +497,48 @@ ol.steps .acts button {
   color: var(--eu-muted);
   border-color: var(--eu-rule);
 }
+/* Byrne's page opens with the heading and the enunciation, and everything
+   under it is in service of that one sentence. */
+.enunciated {
+  padding: 9px 12px 10px;
+  border-bottom: 1px solid var(--eu-rule);
+  background: rgba(0, 0, 0, 0.016);
+}
+.enunciated .num {
+  display: block;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--eu-muted);
+  margin-bottom: 3px;
+}
+.enunciated .num em { font-style: italic; text-transform: none; letter-spacing: 0; margin-left: 4px; }
+.enunciated p { margin: 0; font-family: var(--eu-serif); font-size: 12.5px; line-height: 1.45; }
+.enunciated .named { font-weight: 600; }
+
+/* \hfill\qedstr — the foot of the page, once what was to be shown is shown. */
+.finis {
+  margin: 0;
+  padding: 9px 12px 12px;
+  border-top: 1px solid var(--eu-rule);
+  font-family: var(--eu-serif);
+  text-align: right;
+}
+.finis .qedstr {
+  display: block;
+  white-space: nowrap;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--eu-accent);
+}
+.finis .held { display: block; margin-top: 2px; font-size: 11px; font-style: italic; color: var(--eu-muted); }
+.finis.waiting {
+  text-align: left;
+  font-size: 11.5px;
+  font-style: italic;
+  color: var(--eu-muted);
+}
+
 .given-figure { border-bottom: 1px solid var(--eu-rule); }
 .given-figure > summary {
   display: flex;

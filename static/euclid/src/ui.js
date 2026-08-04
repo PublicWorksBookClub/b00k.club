@@ -157,6 +157,7 @@ export function createUI(root, app, options = {}) {
     return JSON.stringify([
       app.doc.steps.length,
       app.tools.map((t) => t.id),
+      app.proposition ? app.proposition.ref : null,
       s.mode,
       s.holdSelect,
       s.activeTool,
@@ -795,11 +796,17 @@ export function createUI(root, app, options = {}) {
   function renderSteps() {
     const steps = app.scene.steps
     if (!steps.length) {
-      return el('p', 'empty', {
+      const empty = el('div')
+      const said = propositionHead()
+      if (said) empty.append(said)
+      empty.append(el('p', 'empty', {
         textContent: 'Nothing has been constructed yet. Set down a point, or join two of them.',
-      })
+      }))
+      return empty
     }
     const wrap = el('div')
+    const said = propositionHead()
+    if (said) wrap.append(said)
     const givens = steps.filter((s) => s.setup)
     if (givens.length) {
       // The given figure is what the proposition starts from, so it is set
@@ -817,6 +824,68 @@ export function createUI(root, app, options = {}) {
       wrap.append(box)
     }
     wrap.append(stepList(steps.filter((s) => !s.setup)))
+    const end = finis()
+    if (end) wrap.append(end)
+    return wrap
+  }
+
+  /**
+   * What the paper is working on, printed the way Byrne prints it.
+   *
+   * A page of the Elements opens with the heading and the enunciation, and
+   * everything under it is in service of that one sentence. Without it the
+   * step list is a record of moves with nothing to be a proof *of*.
+   */
+  function propositionHead() {
+    const prop = app.proposition
+    if (!prop) return null
+    const box = el('div', 'enunciated')
+    const head = el('span', 'num')
+    head.append(document.createTextNode(prop.ref))
+    head.append(el('em', null, { textContent: prop.kind === 'problem' ? 'Prob.' : 'Theor.' }))
+    box.append(head)
+    const n = Number(String(prop.ref).replace('I.', ''))
+    const said = el('p')
+    said.append(enunciation(prop.text || '', PROPOSITION_LINES[n]))
+    box.append(said)
+    return box
+  }
+
+  /**
+   * Q. E. D., and what still stands between the paper and it.
+   *
+   * Byrne closes every proposition so — problems as well as theorems, since
+   * even I.1 has to argue that the triangle it built is equilateral. The app
+   * cannot read an argument, so this is not a verdict on the proof; it says
+   * the thing marked as what was to be shown is shown, and how hard the figure
+   * was shaken before it was believed.
+   */
+  function finis() {
+    const done = app.demonstrated(ui.shaken)
+    if (!done) {
+      // A blank foot is right for idle drawing, but a reader working a
+      // proposition should be told what closing it would take.
+      if (!app.proposition) return null
+      const claims = app.doc.steps.filter((s) => s.op === 'claim')
+      const marked = claims.find((s) => s.qed)
+      const wrap = el('p', 'finis waiting')
+      wrap.textContent = !claims.length
+        ? 'Hold a magnitude and compare it to state what follows; then mark what was to be proved.'
+        : marked ? 'What was to be proved does not hold of this figure.'
+          : 'Mark one of these as what was to be proved, and the proposition closes.'
+      return wrap
+    }
+    const wrap = el('p', 'finis')
+    wrap.append(el('span', 'qedstr', {
+      textContent: 'Q. E. D.',
+      title: 'Quod erat demonstrandum — which was to be demonstrated',
+    }))
+    const rounds = ui.shaken && !ui.shaken.failed.length ? ui.shaken.rounds : 0
+    wrap.append(el('span', 'held', {
+      textContent: rounds
+        ? `held in ${rounds} configuration${rounds === 1 ? '' : 's'}`
+        : 'shake the figure to see whether it holds in general',
+    }))
     return wrap
   }
 

@@ -585,6 +585,35 @@ export function createSketch(options = {}) {
       return found || null
     },
 
+    /**
+     * Which of Book I the paper is presently working on, if any.
+     *
+     * The figure would be the same whether it came from a proposition or from
+     * idle drawing, but what it means is not: a proposition has a thing it set
+     * out to show, and can therefore be finished. Kept on the document, so it
+     * is cleared with the paper and travels with a shared figure.
+     */
+    get proposition() {
+      return doc.meta?.proposition || null
+    },
+
+    /**
+     * Q. E. D. — quod erat demonstrandum.
+     *
+     * Byrne ends every proposition so, problems and theorems alike: the
+     * construction of I.1 is followed by the short argument that its triangle
+     * really is equilateral, and then Q. E. D. This says whether the paper has
+     * got that far — a conclusion marked, holding, and not broken by the last
+     * shaking. It is deliberately not a verdict on the whole proof; the app
+     * cannot read an argument. It says the thing to be shown is shown.
+     */
+    demonstrated(shaken) {
+      const conclusion = api.conclusion()
+      if (!conclusion || !conclusion.ok) return null
+      if (shaken && shaken.failed && shaken.failed.includes(conclusion.step.id)) return null
+      return { conclusion, proposition: api.proposition }
+    },
+
     /* -------------------------------------------------- what has been proved */
 
     get facts() {
@@ -1181,7 +1210,19 @@ export function createSketch(options = {}) {
       const kept = [...(doc.tools || [])]
       const have = new Set(kept.map((t) => t.id))
       for (const dep of M.collectToolDeps(prop, registry())) if (!have.has(dep.id)) kept.push(dep)
-      doc = D.createDoc({ tools: kept, facts: doc.facts })
+      const entry = BOOK_I.propositions.find((p) => `I.${p.n}` === prop.ref)
+      doc = D.createDoc({
+        tools: kept,
+        facts: doc.facts,
+        meta: {
+          proposition: {
+            id: prop.id,
+            ref: prop.ref,
+            kind: prop.theorem ? 'theorem' : 'problem',
+            text: entry ? entry.text : prop.summary,
+          },
+        },
+      })
       // The old scene describes a figure that no longer exists, and ids are
       // handed out afresh — so anything asked of it now would be answered about
       // the wrong document.
@@ -1208,7 +1249,6 @@ export function createSketch(options = {}) {
       state.mode = 'select'
       // A theorem's figure is only the supposition; what it asserts is still
       // the reader's to state, and to shake until they believe it.
-      const entry = BOOK_I.propositions.find((p) => `I.${p.n}` === prop.ref)
       say(prop.theorem && entry
         ? `${prop.ref}. ${entry.text} The figure supposes it; now say what follows, and shake it.`
         : `${prop.ref}. ${prop.summary}`, 'info')
@@ -1230,6 +1270,12 @@ export function createSketch(options = {}) {
       const prop = PROPOSITIONS.find((p) => p.ref === `I.${n}`)
       if (prop) return api.walkProposition(prop.id)
       api.clear()
+      doc.meta.proposition = {
+        id: null,
+        ref: `I.${n}`,
+        kind: (entry && entry.kind) || 'problem',
+        text: (entry && entry.text) || '',
+      }
       state.mode = 'select'
       const task = entry && entry.text ? ` ${entry.text}` : ''
       say(

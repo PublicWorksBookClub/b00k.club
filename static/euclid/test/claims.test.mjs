@@ -533,3 +533,59 @@ test('I.47 sets out a right angle and three squares, and the theorem holds on it
   assert.deepEqual(report.failed, [], 'and it holds however the figure is shaken')
   assert.ok(report.rounds > 3, `only ${report.rounds} configurations stood up`)
 })
+
+/* --------------------------------------------------------- Q. E. D. */
+
+test('the paper knows which proposition it is working on', () => {
+  const app = createSketch()
+  assert.equal(app.proposition, null, 'idle drawing is not a proposition')
+
+  app.walkProposition('euclid.I.1')
+  assert.equal(app.proposition.ref, 'I.1')
+  assert.equal(app.proposition.kind, 'problem')
+  assert.match(app.proposition.text, /equilateral triangle/)
+
+  // One the app has not written out still says what is being worked.
+  app.openProposition(13, { n: 13, kind: 'theorem', text: 'When a straight line…' })
+  assert.equal(app.proposition.ref, 'I.13')
+  assert.equal(app.proposition.kind, 'theorem')
+
+  // It travels with a shared figure, and goes when the paper is cleared.
+  const shared = createSketch()
+  shared.load(app.serialize())
+  assert.equal(shared.proposition.ref, 'I.13')
+  app.clear()
+  assert.equal(app.proposition, null)
+})
+
+test('a proposition closes with Q. E. D. only once what was to be shown is shown', () => {
+  const app = proofOfI5()
+  assert.equal(app.demonstrated(), null, 'nothing is marked yet')
+
+  const claim = app.doc.steps.at(-1)
+  app.markConclusion(claim.id)
+  const done = app.demonstrated()
+  assert.ok(done, 'the conclusion is marked and holds')
+  assert.equal(done.conclusion.step.id, claim.id)
+
+  // A shaking that broke the conclusion takes it back again.
+  assert.equal(app.demonstrated({ failed: [claim.id] }), null)
+  assert.ok(app.demonstrated({ failed: [] }))
+})
+
+test('a conclusion that does not hold does not close anything', () => {
+  const app = isosceles()
+  pick(app, 'A', 'B')
+  app.holdMagnitude()
+  pick(app, 'B', 'C')
+  app.claim('gt')
+  app.markConclusion(app.doc.steps.at(-1).id)
+  assert.ok(app.demonstrated(), 'as the figure stands, AB is the greater')
+  // But C only sits where it was put. Slide it round to the far side of the
+  // circle and BC becomes the greater, so there is nothing to close.
+  const c = labelled(app, 'C')
+  const drag = app.beginDrag(c.id)
+  app.updateDrag(drag, { x: 90, y: 340 })
+  assert.equal(app.conclusion().ok, false)
+  assert.equal(app.demonstrated(), null)
+})
