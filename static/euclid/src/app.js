@@ -523,6 +523,13 @@ export function createSketch(options = {}) {
         D.addStep(doc, { op: 'point', id, x: p.x, y: p.y, g: gesture })
         return id
       })
+      // The givens are part of the figure. "From a given point, to draw a
+      // straight line equal to a given straight line (BC)" needs BC on the page
+      // before the construction starts, or there is nothing to copy.
+      const bind = new Map((prop.inputs || []).map((inp, i) => [inp.id, givens[i]]))
+      for (const [from, to] of prop.demo?.join || []) {
+        D.addStep(doc, { op: 'segment', id: D.newId(doc, 'c'), a: bind.get(from), b: bind.get(to), g: gesture, given: true })
+      }
       M.inlineTool(doc, prop, givens, gesture)
       state.upTo = Infinity
       state.mode = 'select'

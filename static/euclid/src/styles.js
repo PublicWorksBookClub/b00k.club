@@ -147,6 +147,113 @@ canvas {
 :host([readonly]) .bar { display: none; }
 :host([readonly]) canvas { cursor: default; }
 
+/* ------------------------------------------------------------ sidebar */
+
+.sidebar {
+  width: 290px;
+  flex: 0 0 290px;
+  border-right: 1px solid var(--eu-rule);
+  background: var(--eu-chrome);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+.sidebar[hidden] { display: none; }
+
+.side-head { padding: 9px 11px 7px; border-bottom: 1px solid var(--eu-rule); }
+.side-head h3 {
+  margin: 0;
+  font-family: var(--eu-serif);
+  font-size: 17px;
+  font-weight: 600;
+}
+.side-head p {
+  margin: 1px 0 6px;
+  font-family: var(--eu-serif);
+  font-style: italic;
+  font-size: 12px;
+  color: var(--eu-muted);
+}
+.side-head select.books {
+  width: 100%;
+  font: inherit;
+  font-size: 12px;
+  padding: 3px 5px;
+  color: inherit;
+  background: var(--eu-paper);
+  border: 1px solid var(--eu-rule);
+  border-radius: 3px;
+}
+
+.side-tabs { display: flex; border-bottom: 1px solid var(--eu-rule); }
+.side-tabs button {
+  flex: 1;
+  padding: 6px 2px;
+  font-size: 10.5px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--eu-muted);
+  border-radius: 0;
+}
+.side-tabs button[aria-selected='true'] { color: var(--eu-ink); box-shadow: inset 0 -2px 0 var(--eu-accent); }
+
+.side-list { overflow: auto; flex: 1 1 auto; padding-bottom: 6px; }
+.side-list .gloss {
+  margin: 0;
+  padding: 7px 11px 8px;
+  font-family: var(--eu-serif);
+  font-size: 12.5px;
+  font-style: italic;
+  color: var(--eu-muted);
+  border-bottom: 1px solid var(--eu-rule);
+}
+.side-list .entry {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  padding: 6px 11px;
+  border-radius: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--eu-rule) 45%, transparent);
+  font: inherit;
+}
+.side-list .entry.plain { cursor: default; }
+.side-list button.entry:not(:disabled):hover { background: var(--eu-accent-soft); }
+.side-list .entry.unavailable { opacity: 0.45; }
+.side-list .entry .num {
+  flex: 0 0 3.1em;
+  font-family: var(--eu-serif);
+  font-size: 12.5px;
+  color: var(--eu-accent);
+  line-height: 1.35;
+}
+.side-list .entry .num em {
+  display: block;
+  font-size: 9.5px;
+  font-style: normal;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--eu-muted);
+}
+.side-list .entry .said {
+  flex: 1 1 auto;
+  font-family: var(--eu-serif);
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+.side-list .entry.unavailable .said,
+.side-list .entry.plain .said { color: var(--eu-ink); }
+
+.side-foot {
+  margin: 0;
+  padding: 6px 11px;
+  border-top: 1px solid var(--eu-rule);
+  font-size: 10.5px;
+  color: var(--eu-muted);
+}
+.side-foot a { color: var(--eu-accent); }
+
 .tabs { display: flex; border-bottom: 1px solid var(--eu-rule); }
 .tabs button {
   flex: 1;
@@ -357,6 +464,16 @@ ol.steps .acts button {
 /* ------------------------------------------------------------ narrow */
 
 @container (max-width: 660px) {
+  /* Too narrow to give the book a column of its own, so it slides over the
+     figure instead of squeezing it. */
+  .sidebar {
+    position: absolute;
+    inset: 0 auto 0 0;
+    z-index: 4;
+    width: 86%;
+    max-width: 300px;
+    box-shadow: 6px 0 24px rgba(47, 41, 41, 0.18);
+  }
   .body { flex-direction: column; }
   .panel {
     width: auto;

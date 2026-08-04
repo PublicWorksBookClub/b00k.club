@@ -340,7 +340,7 @@ function describeStep(objects, tools, step) {
     case 'inter':
       return `Let ${n(step.id)} be the point in which ${n(step.c1)} and ${n(step.c2)} cut one another.`
     case 'segment':
-      return `Let ${n(step.a)}${n(step.b)} be joined.`
+      return step.given ? `Let ${n(step.a)}${n(step.b)} be the given straight line.` : `Let ${n(step.a)}${n(step.b)} be joined.`
     case 'ray':
       return `Let ${n(step.a)}${n(step.b)} be produced beyond ${n(step.b)}.`
     case 'line':

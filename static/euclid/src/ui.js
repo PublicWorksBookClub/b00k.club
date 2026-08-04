@@ -9,6 +9,7 @@
 
 import { PRIMITIVES } from './app.js'
 import { PROPOSITIONS } from './propositions.js'
+import { BOOK_I, SOURCE } from './book1.js'
 import { STYLES } from './styles.js'
 import * as storage from './storage.js'
 
@@ -25,6 +26,8 @@ const ICONS = {
   fit: '<path d="M4 9.5V4h5.5M20 9.5V4h-5.5M4 14.5V20h5.5M20 14.5V20h-5.5"/>',
   book: '<path d="M12 6.2C10.6 5 8.8 4.4 6 4.4v13c2.8 0 4.6.6 6 1.8 1.4-1.2 3.2-1.8 6-1.8v-13c-2.8 0-4.6.6-6 1.8z"/><path d="M12 6.2V19"/>',
   more: '<circle cx="5.5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="18.5" cy="12" r="1.5" fill="currentColor" stroke="none"/>',
+  open: '<path d="M14 4h6v6"/><path d="M20 4l-8.5 8.5"/><path d="M18 14v5a1.5 1.5 0 01-1.5 1.5H5A1.5 1.5 0 013.5 19V7.5A1.5 1.5 0 015 6h5"/>',
+  sidebar: '<rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><path d="M9.5 4.5v15"/>',
 }
 
 function el(tag, className, props = {}) {
@@ -62,7 +65,13 @@ function button(spec) {
 }
 
 export function createUI(root, app, options = {}) {
-  const ui = { tab: 'steps', menu: false, draft: { name: '', ref: '', abbr: '', summary: '' } }
+  const ui = {
+    tab: 'steps',
+    menu: false,
+    sidebar: !!options.sidebarOpen,
+    section: 'propositions',
+    draft: { name: '', ref: '', abbr: '', summary: '' },
+  }
   let signature = null
 
   root.replaceChildren(el('style', null, { textContent: STYLES }))
@@ -70,6 +79,7 @@ export function createUI(root, app, options = {}) {
   const frame = el('div', 'frame')
   const bar = el('div', 'bar')
   const body = el('div', 'body')
+  const sidebar = el('nav', 'sidebar')
   const stage = el('div', 'stage')
   const canvas = el('canvas')
   const hint = el('div', 'hint')
@@ -78,11 +88,22 @@ export function createUI(root, app, options = {}) {
   const floating = el('div', 'floating')
 
   stage.append(canvas, hint)
-  body.append(stage, panel)
+  body.append(sidebar, stage, panel)
   frame.append(bar, body, foot, floating)
   root.append(frame)
 
   const size = () => ({ w: canvas.clientWidth || 1, h: canvas.clientHeight || 1 })
+
+  /**
+   * A link always points at the sketchpad's own page, never at the page the
+   * figure happens to be embedded in — an article does not read the fragment,
+   * so a link to it would drop the construction on the floor.
+   */
+  const shareUrl = () => {
+    const base = new URL(options.appUrl || '/euclid/', location.href)
+    base.hash = `s=${storage.encodeSketch(app.serialize())}`
+    return base.href
+  }
 
   /* ---------------------------------------------------------------- */
 
@@ -103,6 +124,8 @@ export function createUI(root, app, options = {}) {
       app.canRedo,
       ui.tab,
       ui.menu,
+      ui.sidebar,
+      ui.section,
       app.doc.steps.map((step) => (step.op === 'macro' ? !!step.expanded : 0)),
     ])
   }
@@ -112,6 +135,7 @@ export function createUI(root, app, options = {}) {
     if (force || next !== signature) {
       signature = next
       renderBar()
+      renderSidebar()
       renderPanel()
       renderFoot()
       renderFloating()
@@ -132,6 +156,19 @@ export function createUI(root, app, options = {}) {
   function renderBar() {
     const s = app.state
     const children = []
+
+    children.push(
+      button({
+        icon: 'sidebar',
+        title: 'Show the book: definitions, postulates, axioms and propositions',
+        pressed: ui.sidebar,
+        onClick: () => {
+          ui.sidebar = !ui.sidebar
+          render(true)
+        },
+      }),
+    )
+    children.push(el('span', 'rule'))
 
     for (const primitive of PRIMITIVES) {
       children.push(
@@ -182,6 +219,15 @@ export function createUI(root, app, options = {}) {
         },
       }),
     )
+    if (options.embedded) {
+      children.push(
+        button({
+          icon: 'open',
+          title: 'Open this figure in the full sketchpad',
+          onClick: () => window.open(shareUrl(), '_blank', 'noopener'),
+        }),
+      )
+    }
     children.push(
       button({
         icon: 'more',
@@ -194,6 +240,100 @@ export function createUI(root, app, options = {}) {
       }),
     )
     bar.replaceChildren(...children)
+  }
+
+  /* ---------------------------------------------------------------- sidebar */
+
+  // Euclid's three kinds of first principle, glossed in a line each. Definitions
+  // say what a thing is, postulates grant what may be done, axioms are the
+  // truths about magnitudes that everything else leans on.
+  const SECTIONS = [
+    { id: 'definitions', label: 'Definitions', gloss: 'What each thing is. They assert nothing; they only fix the words.' },
+    { id: 'postulates', label: 'Postulates', gloss: 'What may be granted as done. These three are the only moves the pencil has.' },
+    {
+      id: 'axioms',
+      label: 'Axioms',
+      gloss: 'Truths about magnitudes, taken as granted and nowhere proved. Byrne’s word for the common notions.',
+    },
+    {
+      id: 'propositions',
+      label: 'Propositions',
+      gloss: 'Problems construct something; theorems assert something. Each may be used once proved.',
+    },
+  ]
+
+  const constructible = new Map(PROPOSITIONS.map((p) => [p.ref, p]))
+
+  function renderSidebar() {
+    if (!ui.sidebar) {
+      sidebar.replaceChildren()
+      sidebar.hidden = true
+      return
+    }
+    sidebar.hidden = false
+    const head = el('div', 'side-head')
+    head.append(el('h3', null, { textContent: 'Book I' }))
+    head.append(el('p', null, { textContent: `${SOURCE.title}, ${SOURCE.editor}` }))
+    const books = el('select', 'books')
+    books.append(el('option', null, { textContent: 'Book I', value: 'I' }))
+    for (const n of ['II', 'III', 'IV', 'V', 'VI']) {
+      books.append(el('option', null, { textContent: `Book ${n} — not yet`, value: n, disabled: true }))
+    }
+    books.setAttribute('aria-label', 'Which book')
+    head.append(books)
+
+    const tabs = el('div', 'side-tabs')
+    for (const section of SECTIONS) {
+      const tab = el('button', null, { type: 'button', textContent: section.label, title: section.gloss })
+      tab.setAttribute('aria-selected', String(ui.section === section.id))
+      tab.addEventListener('click', () => {
+        ui.section = section.id
+        render(true)
+      })
+      tabs.append(tab)
+    }
+
+    const section = SECTIONS.find((x) => x.id === ui.section)
+    const list = el('div', 'side-list')
+    list.append(el('p', 'gloss', { textContent: section.gloss }))
+
+    for (const entry of BOOK_I[ui.section]) {
+      if (ui.section !== 'propositions') {
+        const row = el('div', 'entry plain')
+        row.append(el('span', 'num', { textContent: entry.roman }))
+        row.append(el('span', 'said', { textContent: entry.text }))
+        list.append(row)
+        continue
+      }
+      const tool = constructible.get(`I.${entry.n}`)
+      const available = !!tool && (!options.throughN || entry.n <= options.throughN)
+      const row = el('button', `entry${available ? '' : ' unavailable'}`, { type: 'button' })
+      row.title = available ? 'Set this out step by step' : 'This one is not in the sketchpad yet'
+      const num = el('span', 'num')
+      num.append(document.createTextNode(entry.roman))
+      num.append(el('em', null, { textContent: entry.kind === 'problem' ? 'Prob.' : 'Theor.' }))
+      row.append(num)
+      row.append(el('span', 'said', { textContent: entry.text }))
+      if (available) {
+        row.addEventListener('click', () => {
+          app.walkProposition(tool.id)
+          ui.tab = 'steps'
+          options.onFit && options.onFit()
+          render(true)
+        })
+      } else {
+        row.disabled = true
+      }
+      list.append(row)
+    }
+
+    const foot = el('p', 'side-foot')
+    foot.append(document.createTextNode('Text from '))
+    const link = el('a', null, { href: SOURCE.url, textContent: SOURCE.edition, target: '_blank', rel: 'noopener' })
+    foot.append(link)
+    foot.append(document.createTextNode(`, ${SOURCE.license}.`))
+
+    sidebar.replaceChildren(head, tabs, list, foot)
   }
 
   /* ---------------------------------------------------------------- panel */
@@ -446,26 +586,46 @@ export function createUI(root, app, options = {}) {
 
   /* ---------------------------------------------------------------- foot */
 
+  /**
+   * The scrubber is built once and thereafter only updated.
+   *
+   * Rebuilding it would replace the slider under the reader's finger on the
+   * first `input` event, which ends the drag — so it could only ever be moved
+   * one step at a time.
+   */
+  let scrubber = null
+
+  function buildScrubber() {
+    const range = el('input', null, { type: 'range', min: '0', step: '1' })
+    range.setAttribute('aria-label', 'Step through the construction')
+    range.addEventListener('input', () => app.setUpTo(Number(range.value)))
+    const back = el('button', 'btn', { type: 'button', textContent: '‹', title: 'One step back' })
+    const forward = el('button', 'btn', { type: 'button', textContent: '›', title: 'One step on' })
+    back.addEventListener('click', () => app.setUpTo(Number(range.value) - 1))
+    forward.addEventListener('click', () => app.setUpTo(Number(range.value) + 1))
+    const count = el('span', 'count')
+    const row = el('div', 'scrub')
+    row.append(back, range, forward, count)
+    return { row, range, back, forward, count }
+  }
+
   function renderFoot() {
     const total = app.doc.steps.length
     if (!total) {
       foot.replaceChildren()
+      scrubber = null
       return
     }
+    if (!scrubber) {
+      scrubber = buildScrubber()
+      foot.replaceChildren(scrubber.row)
+    }
     const at = app.state.upTo === Infinity ? total : app.state.upTo
-    const row = el('div', 'scrub')
-    row.append(
-      button({ text: '‹', title: 'One step back', disabled: at <= 0, onClick: () => app.setUpTo(at - 1) }),
-      (() => {
-        const range = el('input', null, { type: 'range', min: '0', max: String(total), value: String(at) })
-        range.setAttribute('aria-label', 'Step through the construction')
-        range.addEventListener('input', () => app.setUpTo(Number(range.value)))
-        return range
-      })(),
-      button({ text: '›', title: 'One step on', disabled: at >= total, onClick: () => app.setUpTo(at + 1) }),
-      el('span', 'count', { textContent: `${at} / ${total}` }),
-    )
-    foot.replaceChildren(row)
+    scrubber.range.max = String(total)
+    if (scrubber.range.value !== String(at)) scrubber.range.value = String(at)
+    scrubber.count.textContent = `${at} / ${total}`
+    scrubber.back.disabled = at <= 0
+    scrubber.forward.disabled = at >= total
   }
 
   /* ---------------------------------------------------------------- menu */
@@ -500,11 +660,12 @@ export function createUI(root, app, options = {}) {
         }
       }),
       item('Copy a link to this figure', async () => {
-        const link = `${location.origin}${location.pathname}#s=${storage.encodeSketch(app.serialize())}`
-        const done = await storage.copyText(link)
+        const done = await storage.copyText(shareUrl())
         app.state.notice = done ? 'A link to this figure is on the clipboard.' : 'The clipboard could not be reached.'
+        app.state.noticeKind = done ? 'info' : 'problem'
         app.changed()
       }),
+      item('Open in the full sketchpad ↗', () => window.open(shareUrl(), '_blank', 'noopener')),
       item('Start a fresh figure', () => app.clear()),
     )
     floating.replaceChildren(menu)

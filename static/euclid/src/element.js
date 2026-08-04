@@ -29,6 +29,16 @@ import * as storage from './storage.js'
 
 const DEFAULT_HEIGHT = '460px'
 
+const ROMAN = { I: 1, II: 2, III: 3, IV: 4, V: 5, VI: 6, VII: 7, VIII: 8, IX: 9, X: 10 }
+
+/** `through="I.3"` (or `through="3"`) — how far into the book the reader has got. */
+function throughNumber(value) {
+  if (!value) return null
+  const tail = String(value).replace(/^I\./i, '').trim()
+  if (/^\d+$/.test(tail)) return Number(tail)
+  return ROMAN[tail.toUpperCase()] || null
+}
+
 function resolveToolIds(attribute) {
   if (!attribute) return null
   const wanted = attribute
@@ -53,13 +63,29 @@ export class EuclidSketchElement extends HTMLElement {
     this.style.height = this.style.height || this.getAttribute('height') || DEFAULT_HEIGHT
     if (!this.hasAttribute('tabindex')) this.setAttribute('tabindex', '0')
 
+    const through = throughNumber(this.getAttribute('through'))
     const app = createSketch({
       readonly: this.hasAttribute('readonly'),
-      toolIds: resolveToolIds(this.getAttribute('tools')),
+      // Reading along in the text, you only have what has been proved so far.
+      toolIds: through
+        ? PROPOSITIONS.filter((p) => ROMAN[p.ref.replace('I.', '')] <= through || Number(p.ref.replace('I.', '')) <= through).map(
+            (p) => p.id,
+          )
+        : resolveToolIds(this.getAttribute('tools')),
     })
     this.sketch = app
 
-    const ui = createUI(shadow, app, { onFit: () => this.fit() })
+    const ui = createUI(shadow, app, {
+      onFit: () => this.fit(),
+      appUrl: this.getAttribute('app-url') || '/euclid/',
+      // The book is open by default where there is room for it, shut where the
+      // figure is a figure in someone's article.
+      sidebarOpen: this.getAttribute('sidebar') === 'open' || (this.hasAttribute('use-hash') && this.getAttribute('sidebar') !== 'closed'),
+      throughN: throughNumber(this.getAttribute('through')),
+      // The standalone page owns the fragment; anything else is an embed and
+      // gets a way out to the full sketchpad.
+      embedded: !this.hasAttribute('use-hash'),
+    })
     this._ui = ui
     const interactions = attachInteractions(ui.canvas, app, ui.size)
     this._interactions = interactions

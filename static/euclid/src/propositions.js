@@ -38,6 +38,7 @@ export const PROPOSITIONS = [
         { x: -110, y: 60 },
         { x: 60, y: 60 },
       ],
+      join: [['i0', 'i1']],
     },
   },
 
@@ -68,10 +69,11 @@ export const PROPOSITIONS = [
     uses: ['euclid.I.1'],
     demo: {
       points: [
-        { x: -140, y: -50 },
-        { x: 20, y: 70 },
-        { x: 130, y: 30 },
+        { x: 0, y: 0 },
+        { x: -60, y: 60 },
+        { x: -200, y: 33 },
       ],
+      join: [['i1', 'i2']],
     },
   },
 
@@ -104,6 +106,7 @@ export const PROPOSITIONS = [
         { x: -80, y: -80 },
         { x: 30, y: -80 },
       ],
+      join: [['i2', 'i3']],
     },
   },
 
