@@ -100,6 +100,8 @@ src/
   macros.js        extracting a tool from a construction, and unfolding one
   propositions.js  Book I.1, I.2, I.3, I.9, I.10, I.11, I.12, I.31 as tools
   camera.js        pan and zoom
+  help.js          what the sketchpad does, as data
+  tutorial.js      the walk through the first proposition
   magnitudes.js    lengths, angles and triangles: what a claim is about
   renderer.js      drawing the figure
   figures.js       drawing Byrne's marginal illustrations, which are not constructions
@@ -253,6 +255,20 @@ as a tool with **+**.
 
 A theorem says so when it opens: the sketchpad checks that a construction
 stands up under dragging, and has no way to check that an argument does.
+
+## Finding your way in
+
+The ⋯ menu has two ways in. **How this works** puts the whole vocabulary in the
+panel — the rules, drawing, choosing, the gestures, the step list, tools, and
+proving — kept in `help.js` as data rather than markup, so adding a gesture
+means adding a line rather than hunting for the paragraph that describes it.
+
+**Walk through the first proposition** is the other. It builds I.1 by hand, one
+instruction at a time, and by the end the reader has met every idea the app has
+except claims. It never draws anything: a stage is a question asked of the
+document, not a command issued to it, and it moves on when the reader has done
+the thing. Each stage measures against how things stood when it began, so the
+walk can be picked up on a figure already under way.
 
 ## Byrne's own figures
 

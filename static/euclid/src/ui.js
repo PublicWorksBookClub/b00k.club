@@ -19,6 +19,8 @@ import * as storage from './storage.js'
 import * as C from './camera.js'
 import { NAVIGATION } from './interactions.js'
 import { citation as solveCitation } from './solve.js'
+import { HELP } from './help.js'
+import { TUTORIAL, beginTutorial, advanceTutorial } from './tutorial.js'
 
 const ICONS = {
   arrow: '<path d="M5.6 3.2l12 7.5-5.5 1.2-2.2 5.4z" fill="currentColor" stroke="none"/>',
@@ -90,6 +92,8 @@ export function createUI(root, app, options = {}) {
     reasoning: null,
     reading: null,
     factRef: '',
+    help: false,
+    tutorial: null,
   }
   let chromeSignature = null
   let sidebarSignature = null
@@ -167,6 +171,8 @@ export function createUI(root, app, options = {}) {
       app.doc.steps.map((step) => (step.op === 'claim' ? JSON.stringify([step.because || 0, !!step.qed]) : 0)),
       app.facts.map((f) => f.id),
       ui.factRef,
+      ui.help,
+      ui.tutorial ? ui.tutorial.at : -1,
       // How the selection is drawn, so the palette shows the colour it now has.
       [...s.selection].map((id) => {
         const o = app.scene.get(id)
@@ -180,6 +186,9 @@ export function createUI(root, app, options = {}) {
     // A verdict is about the document it was taken on; adding or removing a
     // step makes it stale, and a stale verdict is worse than none.
     if (ui.shaken && ui.shaken.at !== app.doc.steps.length) ui.shaken = null
+    // The walkthrough moves itself on when the reader has done the thing; it
+    // never does the thing for them.
+    if (ui.tutorial) ui.tutorial = advanceTutorial(app, ui.tutorial)
     const chrome = chromeState()
     if (force || chrome !== chromeSignature) {
       chromeSignature = chrome
@@ -219,7 +228,10 @@ export function createUI(root, app, options = {}) {
 
   function renderHint() {
     const shaken = ui.shaken && !app.state.notice ? shakeReport(ui.shaken) : null
-    const text = shaken || app.hint()
+    // While the walkthrough is up it is the instruction, and its card sits
+    // where the hint does. Only something going wrong gets through.
+    const quiet = ui.tutorial && app.state.noticeKind === 'info'
+    const text = quiet ? '' : shaken || app.hint()
     hint.textContent = text || ''
     const isTrouble = (!!app.state.notice && app.state.noticeKind !== 'info')
       || !!(app.state.definition && app.state.definition.error)
@@ -636,6 +648,79 @@ export function createUI(root, app, options = {}) {
 
   /* ---------------------------------------------------------------- panel */
 
+  /** Everything the sketchpad does, in the panel, where the steps usually are. */
+  function renderHelp() {
+    const wrap = el('div', 'help')
+    const head = el('div', 'help-head')
+    head.append(el('h3', null, { textContent: 'How this works' }))
+    head.append(el('button', null, {
+      type: 'button',
+      textContent: 'Close',
+      onclick: () => {
+        ui.help = false
+        render(true)
+      },
+    }))
+    wrap.append(head)
+    const sheet = el('div', 'help-sheet')
+    for (const section of HELP) {
+      const box = el('section')
+      box.append(el('h4', null, { textContent: section.title }))
+      if (section.body) box.append(el('p', null, { textContent: section.body }))
+      if (section.rows.length) {
+        const list = el('dl')
+        for (const [what, means] of section.rows) {
+          list.append(el('dt', null, { textContent: what }))
+          list.append(el('dd', null, { textContent: means }))
+        }
+        box.append(list)
+      }
+      sheet.append(box)
+    }
+    sheet.append(el('p', 'help-foot', {
+      textContent: 'The whole of Book I is in the sidebar. Open a proposition to have it set out '
+        + 'step by step, or to be given a clean sheet and its statement to work from.',
+    }))
+    wrap.append(sheet)
+    return wrap
+  }
+
+  /**
+   * The walk through the first proposition, one instruction at a time.
+   *
+   * Shown over the figure rather than in the panel, because the reader's eyes
+   * are on the paper and the whole point is that they are the ones drawing.
+   */
+  function renderTutorial() {
+    if (!ui.tutorial) return null
+    const stage = TUTORIAL[ui.tutorial.at]
+    if (!stage) return null
+    const card = el('div', 'walkthrough')
+    card.append(el('p', 'count', {
+      textContent: `${ui.tutorial.at + 1} of ${TUTORIAL.length}`,
+    }))
+    card.append(el('p', 'say', { textContent: stage.say }))
+    const acts = el('div', 'acts')
+    acts.append(el('button', null, {
+      type: 'button',
+      textContent: 'Skip this',
+      onclick: () => {
+        ui.tutorial = beginTutorial(app, ui.tutorial.at + 1)
+        render(true)
+      },
+    }))
+    acts.append(el('button', null, {
+      type: 'button',
+      textContent: 'Stop',
+      onclick: () => {
+        ui.tutorial = null
+        render(true)
+      },
+    }))
+    card.append(acts)
+    return card
+  }
+
   function renderPanel() {
     panel.hidden = !ui.panel
     if (!ui.panel) {
@@ -644,6 +729,10 @@ export function createUI(root, app, options = {}) {
     }
     if (app.state.definition) {
       panel.replaceChildren(renderDefinition())
+      return
+    }
+    if (ui.help) {
+      panel.replaceChildren(renderHelp())
       return
     }
     const tabs = el('div', 'tabs')
@@ -1236,10 +1325,11 @@ export function createUI(root, app, options = {}) {
       return
     }
     if (!ui.menu) {
-      floating.replaceChildren()
+      floating.replaceChildren(...[renderTutorial()].filter(Boolean))
       return
     }
     const menu = el('div', 'menu')
+    const walkthrough = renderTutorial()
     const item = (label, onClick) =>
       el('button', null, {
         type: 'button',
@@ -1251,6 +1341,15 @@ export function createUI(root, app, options = {}) {
         },
       })
     menu.append(
+      item('Walk through the first proposition', () => {
+        ui.tutorial = beginTutorial(app)
+        ui.help = false
+      }),
+      item('How this works', () => {
+        ui.help = true
+        ui.tutorial = null
+      }),
+      el('span', 'menu-rule'),
       item('Save to a file…', () => storage.downloadSketch(app.serialize(), 'construction.euclid.json')),
       item('Open a file…', async () => {
         const text = await storage.pickSketchFile()
@@ -1275,7 +1374,7 @@ export function createUI(root, app, options = {}) {
         : item('Treat what is drawn as the given figure', () => app.markSetup()),
       item('Start a fresh figure', () => app.clear()),
     )
-    floating.replaceChildren(menu)
+    floating.replaceChildren(...[walkthrough, menu].filter(Boolean))
   }
 
   const dismiss = (event) => {

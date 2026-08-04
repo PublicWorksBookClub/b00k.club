@@ -530,6 +530,49 @@ ol.steps .acts button {
    the first thing is drawn. */
 .scrub.idle { opacity: 0.4; }
 
+/* ------------------------------------------------------------ help */
+
+.help { display: flex; flex-direction: column; min-height: 0; height: 100%; }
+.help-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--eu-rule);
+}
+.help-head h3 { margin: 0; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--eu-muted); font-weight: 500; }
+.help-head button { font-size: 11px; padding: 2px 7px; border-color: var(--eu-rule); color: var(--eu-muted); }
+.help-sheet { overflow: auto; padding: 4px 12px 14px; }
+.help-sheet section { padding: 10px 0; border-bottom: 1px solid var(--eu-rule); }
+.help-sheet section:last-of-type { border-bottom: 0; }
+.help-sheet h4 { margin: 0 0 5px; font-family: var(--eu-serif); font-size: 14px; font-weight: 600; }
+.help-sheet p { margin: 0 0 6px; font-family: var(--eu-serif); font-size: 12.5px; line-height: 1.45; }
+.help-sheet dl { margin: 4px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; align-items: baseline; }
+.help-sheet dt { font-size: 10.5px; color: var(--eu-accent); white-space: nowrap; }
+.help-sheet dd { margin: 0; font-family: var(--eu-serif); font-size: 12px; line-height: 1.35; color: var(--eu-muted); }
+.help-foot { color: var(--eu-muted); font-style: italic; padding-top: 10px; }
+
+/* The walkthrough, over the paper: the reader's eyes are on the figure. */
+.walkthrough {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  width: min(430px, calc(100% - 36px));
+  padding: 11px 14px 10px;
+  background: var(--eu-chrome);
+  border: 1px solid var(--eu-rule);
+  border-radius: 7px;
+  box-shadow: 0 6px 18px rgba(47, 41, 41, 0.14);
+  pointer-events: auto;
+}
+.walkthrough .count { margin: 0 0 4px; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--eu-accent); }
+.walkthrough .say { margin: 0; font-family: var(--eu-serif); font-size: 13.5px; line-height: 1.45; }
+.walkthrough .acts { display: flex; gap: 6px; justify-content: flex-end; margin-top: 8px; }
+.walkthrough .acts button { font-size: 11px; padding: 2px 8px; border-color: var(--eu-rule); color: var(--eu-muted); }
+.menu-rule { display: block; height: 1px; margin: 4px 0; background: var(--eu-rule); }
+
 /* ------------------------------------------------------------ dialogs */
 
 .veil {
