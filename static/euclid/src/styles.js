@@ -398,6 +398,46 @@ ol.steps .what { padding-right: 22px; }
 .drawn.circle .mark { margin-right: 0.5px; }
 /* The arrow belongs to the letters, not beside them. */
 .drawn.ray .mark, .drawn.line .mark { font-size: 0.8em; margin: 0 0 0 -1px; vertical-align: 0.06em; }
+
+/* A claim asserts rather than builds, so it is set apart from the steps that
+   draw: indented under them, with a rule down its left. */
+ol.steps li.asserted { background: rgba(0, 0, 0, 0.018); }
+ol.steps li.asserted .what { font-style: italic; }
+ol.steps li.asserted .n { color: transparent; }
+ol.steps li.asserted .n::before { content: '∴'; color: var(--eu-muted); font-style: normal; }
+ol.steps li.asserted.shaken { box-shadow: inset 2px 0 0 var(--eu-accent); }
+ol.steps li.asserted.broken { box-shadow: inset 2px 0 0 var(--eu-trouble); }
+/* Choosing what allows a claim, from the book. */
+.why { display: flex; gap: 4px; margin-top: 5px; flex-wrap: wrap; }
+.why select {
+  font-family: var(--eu-sans);
+  font-size: 10.5px;
+  max-width: 168px;
+  border: 1px solid var(--eu-rule);
+  border-radius: 4px;
+  background: var(--eu-paper);
+  color: var(--eu-ink);
+  padding: 1px 3px;
+}
+.why button { font-family: var(--eu-sans); font-size: 10px; padding: 1px 5px; border-color: var(--eu-rule); }
+/* Saying how two magnitudes stand to one another. */
+.relations { display: flex; gap: 4px; align-items: center; }
+.relations .readings { display: flex; gap: 2px; align-items: center; }
+.relations .readings .relation { font-size: 11.5px; padding: 0 5px; min-width: 0; }
+.relations .readings .relation[aria-pressed='true'] { background: var(--eu-accent-soft); border-color: var(--eu-accent); }
+.relations .relation {
+  font-family: var(--eu-serif);
+  font-size: 14px;
+  min-width: 22px;
+  height: 26px;
+  border: 1px solid var(--eu-rule);
+  border-radius: 5px;
+  background: var(--eu-paper);
+  color: var(--eu-ink);
+}
+.relations .relation:not(:disabled):hover { background: var(--eu-accent-soft); }
+.relations .relation:disabled { opacity: 0.35; }
+.relations .relation.drop { font-size: 12px; color: var(--eu-muted); }
 ol.steps .acts button {
   font-family: var(--eu-sans);
   font-size: 10px;

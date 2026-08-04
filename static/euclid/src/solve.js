@@ -13,6 +13,7 @@
 
 import * as G from './geometry.js'
 import * as D from './doc.js'
+import * as MAG from './magnitudes.js'
 
 const MAX_TOOL_DEPTH = 24
 
@@ -206,6 +207,7 @@ export function solve(doc, opts = {}) {
   // Scrubbing back through a proof hides the later steps rather than skipping
   // them, so the step list stays whole and every step keeps its prose.
   let moveNumber = 0
+  const claims = []
   for (let i = 0; i < doc.steps.length; i++) {
     const step = doc.steps[i]
     const beyond = i >= upTo
@@ -214,7 +216,12 @@ export function solve(doc, opts = {}) {
     const setup = !!step.setup
     if (!setup) moveNumber += 1
     const info = { index: i, step, setup, number: setup ? null : moveNumber, ok: true, error: null, produced: [], beyond }
-    if (step.op === 'macro') {
+    if (step.op === 'claim') {
+      // A claim draws nothing, so there is nothing to build. Whether it is true
+      // as the figure now stands is worked out below, once every point is
+      // placed — a claim may be about points a later step has still to move.
+      claims.push(info)
+    } else if (step.op === 'macro') {
       const outIds = step.out || []
       const res = runMacro(
         {
@@ -252,6 +259,22 @@ export function solve(doc, opts = {}) {
   }
 
   letterThePoints(objects, order, doc)
+
+  // Claims are settled last, against the finished figure: a claim is about how
+  // the figure stands, not about the moment it was written down.
+  const reading = { get, objects }
+  for (const info of claims) {
+    const step = info.step
+    const verdict = MAG.holds(step, reading)
+    info.claim = { verdict }
+    if (verdict === null) {
+      info.ok = false
+      info.error = 'This cannot be read off the figure as it stands.'
+    } else if (!verdict) {
+      info.ok = false
+      info.error = 'This does not hold.'
+    }
+  }
 
   const scene = {
     objects,
@@ -463,10 +486,61 @@ function closedFigure(objects, step, upToIndex) {
   return { text: `△${walk.map(letter).join('')}`, kind: 'figure' }
 }
 
+/**
+ * How a proof cites its authority, written the way the book cites it.
+ *
+ * Byrne prints the reason in the margin beside the line it justifies —
+ * (def. 15), (ax. 1), (I. 4) — and a proof that does not say why is not a
+ * proof, so a claim carries its reason with it.
+ */
+export function citation(because) {
+  if (!because || because.n == null) return null
+  const kind = { def: 'def.', post: 'post.', ax: 'ax.', prop: null }[because.kind]
+  return kind ? `${kind} ${because.n}` : `I.${because.n}`
+}
+
+function describeClaim(objects, step) {
+  const letter = (id) => {
+    const o = objects.get(id)
+    return (o && o.label) || '•'
+  }
+  const parts = []
+  const magnitude = (mag) => {
+    // A magnitude reads off the figure, so it is coloured like the figure: a
+    // length takes the colour of the line drawn along it when there is one.
+    const drawn = mag.kind === 'length' ? drawnBetween(objects, mag.pts[0], mag.pts[1]) : null
+    parts.push({
+      text: MAG.nameOf(mag, letter),
+      letters: MAG.nameOf(mag, letter),
+      kind: drawn ? 'segment' : 'magnitude',
+      color: drawn ? drawn.color : null,
+    })
+  }
+  magnitude(step.of[0])
+  parts.push(` ${MAG.RELATIONS[step.rel] ? MAG.RELATIONS[step.rel].symbol : '?'} `)
+  magnitude(step.of[1])
+  const why = citation(step.because)
+  parts.push(why ? ` (${why}).` : '.')
+  return parts
+}
+
+/** The straight line already drawn between two points, if there is one. */
+function drawnBetween(objects, a, b) {
+  for (const o of objects.values()) {
+    if (o.type !== 'curve' || o.hidden || o.ghost) continue
+    const d = o.def || {}
+    if (d.op !== 'segment') continue
+    if ((d.a === a && d.b === b) || (d.a === b && d.b === a)) return o
+  }
+  return null
+}
+
 function describeStep(objects, tools, step, index) {
   const n = (id) => shortName(objects, id)
   const name = (id) => nameOf(objects, id)
   switch (step.op) {
+    case 'claim':
+      return describeClaim(objects, step)
     case 'point':
       return ['Let the point ', name(step.id), ' be placed.']
     case 'onCurve':

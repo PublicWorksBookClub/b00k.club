@@ -511,7 +511,7 @@ test('a proposition the sketchpad has not worked opens a clean sheet and says wh
   assert.equal(doc.steps.length, 0, 'a clean sheet')
   assert.deepEqual(app.tools.map((t) => t.id), toolbox, 'what was proved stays proved')
   assert.match(app.state.notice, /^I\.5\. In any isosceles triangle…/)
-  assert.match(app.state.notice, /checks constructions, not arguments/)
+  assert.match(app.state.notice, /the hypothesis is constructed/)
 
   // A problem is not warned about proving, since there is nothing to prove.
   app.openProposition(11, { n: 11, kind: 'problem', text: 'To draw a perpendicular…' })

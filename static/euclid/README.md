@@ -100,6 +100,7 @@ src/
   macros.js        extracting a tool from a construction, and unfolding one
   propositions.js  Book I.1, I.2, I.3, I.9, I.10 written out as tools
   camera.js        pan and zoom
+  magnitudes.js    lengths, angles and triangles: what a claim is about
   renderer.js      drawing the figure
   figures.js       drawing Byrne's marginal illustrations, which are not constructions
   book1.js         Book I's text, generated from Byrne's LaTeX
@@ -187,6 +188,40 @@ a circle can be caught by crossing its rim without enclosing the whole of it.
 The lasso rebuilds the selection from the rectangle on every move rather than
 adding to it, so pulling the rectangle back off something releases it. A lasso
 begun with the adding key held keeps what was already selected as its floor.
+
+## Claims, and what the sketchpad can honestly say about a proof
+
+Book I from I.4 onwards is mostly *theorems*, and a theorem asserts something —
+this angle equals that one — which points and lines alone cannot say. So there
+are **magnitudes**: a length read from two points, an angle from three, a
+triangle compared by congruence. A magnitude is not an object in the figure but
+a way of reading it, so it is stored as its kind and the points it is read from
+and evaluated afresh whenever anything moves.
+
+A **claim** step says two magnitudes stand in some relation. It draws nothing.
+It is checked as the figure stands, and can be checked again by **shaking** —
+every hand-placed point is jogged about at random, a couple of hundred times
+over, and any claim that fails somewhere is reported. Configurations the
+construction itself cannot survive are passed over rather than counted against
+the claims.
+
+That is the whole of what the app can honestly do: a claim that survives two
+hundred figures is strong evidence, not a proof. Nothing checks that a claim's
+reason entails it — that would be a proof checker. But a claim carries its
+reason all the same, chosen from the book in the sidebar, because a proof that
+does not say why is not a proof, and writing the reason down is what makes the
+step list read as an argument rather than a list of measurements.
+
+**The hypothesis is constructed, not asserted.** "Let ABC be isosceles" is not
+two free points and a promise; it is A, B, and then C taken on the circle
+centred A through B. AC = AB by Def. 15 and stays so however the figure is
+dragged. That is why no constraint solver is needed, and it is what a reader
+opening I.5 is expected to build.
+
+Three points are genuinely ambiguous — a triangle, or the angle at any one of
+its corners — and the figure cannot settle it, since Book I is largely about
+the angles of triangles. So every reading is offered by name and the reader
+says which.
 
 ## Working the rest of Book I
 

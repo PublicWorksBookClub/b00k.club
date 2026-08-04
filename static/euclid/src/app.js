@@ -10,6 +10,7 @@ import * as D from './doc.js'
 import * as G from './geometry.js'
 import * as C from './camera.js'
 import * as M from './macros.js'
+import * as MAG from './magnitudes.js'
 import { solve } from './solve.js'
 import { PROPOSITIONS, PROPOSITION_BY_ID, DEFAULT_TOOL_IDS } from './propositions.js'
 
@@ -44,6 +45,7 @@ export function createSketch(options = {}) {
     definition: null,
     choice: null,
     lasso: null,
+    heldMagnitude: null,
     holdSelect: false,
     upTo: Infinity,
     notice: null,
@@ -366,6 +368,160 @@ export function createSketch(options = {}) {
         if (curve) step.t = G.clampParam(curve.geom, G.paramAt(curve.geom, world))
       }
       invalidate()
+    },
+
+    /* -------------------------------------------------- claiming */
+
+    /**
+     * What a claim would be made about, given what is selected.
+     *
+     * Two points is a length; three is a triangle if all three sides are drawn,
+     * an angle otherwise, at whichever vertex the drawn lines meet. Reported
+     * rather than acted on so the interface can say what it is about to claim
+     * before the reader commits to it.
+     */
+    magnitudeFromSelection() {
+      return api.readings()[0] || null
+    },
+
+    /**
+     * Every way the selection could be read, likeliest first.
+     *
+     * Three points are a triangle or one of three angles, and which is meant
+     * cannot be guessed from the figure — Book I is largely about the angles of
+     * triangles, so both are always live. The interface offers them all.
+     */
+    readings() {
+      const points = [...state.selection].filter((id) => {
+        const o = getScene().get(id)
+        return o && o.type === 'point'
+      })
+      if (points.length < 2 || points.length > 3) return []
+      return MAG.readingsOf(points, (a, b) => !!joinedAlready(a, b))
+    },
+
+    /**
+     * Set down one of the two magnitudes a claim compares.
+     *
+     * A claim needs two, and they are chosen one after another because a
+     * selection can only hold one figure at a time. The first is held until the
+     * second arrives.
+     */
+    holdMagnitude(which = null) {
+      const mag = which || api.magnitudeFromSelection()
+      if (!mag) {
+        say('Select two points for a length, or three for an angle or a triangle.')
+        return null
+      }
+      state.heldMagnitude = mag
+      state.selection.clear()
+      say(`${MAG.nameOf(mag, (id) => (getScene().get(id) || {}).label || '•')} — now choose what it is to be compared with.`, 'info')
+      invalidate()
+      return mag
+    },
+
+    dropMagnitude() {
+      state.heldMagnitude = null
+      say(null)
+      invalidate()
+    },
+
+    /**
+     * Assert that the held magnitude and the selected one stand in some
+     * relation, and write it down as a step.
+     *
+     * The claim draws nothing. What it does is make a statement the figure can
+     * be held to: it is checked as the figure now stands, and can be checked
+     * again over hundreds of random configurations by shaking.
+     */
+    claim(rel = 'eq', because = null, which = null) {
+      const first = state.heldMagnitude
+      // Of the ways the selection could be read, take the one that matches what
+      // is being held: comparing an angle, you mean the angle.
+      const second = which
+        || api.readings().find((m) => m.kind === (first || {}).kind)
+        || api.magnitudeFromSelection()
+      if (!first || !second) {
+        say('A claim compares two things: choose one, then the other.')
+        return null
+      }
+      if (first.kind !== second.kind) {
+        say('Euclid compares like with like — a length with a length, an angle with an angle.')
+        return null
+      }
+      if (MAG.sameMagnitude(first, second)) {
+        say('That is the same thing twice; a claim wants two.')
+        return null
+      }
+      snapshot()
+      truncateFuture()
+      const step = { op: 'claim', id: D.newId(doc, 'q'), rel, of: [first, second], because, g: nextGesture() }
+      D.addStep(doc, step)
+      state.heldMagnitude = null
+      state.selection.clear()
+      state.upTo = Infinity
+      const info = rebuiltScene().steps[doc.steps.length - 1]
+      say(info && info.ok ? null : (info && info.error) || 'That does not hold.', info && info.ok ? 'info' : 'problem')
+      invalidate()
+      return step
+    },
+
+    /** Say why a claim is allowed: a definition, an axiom, or something proved. */
+    setClaimReason(stepId, because) {
+      const step = D.findStep(doc, stepId)
+      if (!step || step.op !== 'claim') return
+      snapshot()
+      if (because) step.because = because
+      else delete step.because
+      invalidate()
+    },
+
+    /**
+     * Shake the figure and see whether the claims survive.
+     *
+     * A claim that holds where it was written down may hold only there. Every
+     * point set down by hand is jogged about at random, the whole document is
+     * run again, and any claim that fails is reported — the same defence the
+     * constructions have, turned on the assertions. The figure is left as it
+     * was found.
+     */
+    shake(rounds = 200, spread = 0.35) {
+      const free = doc.steps.filter((s) => s.op === 'point' || s.op === 'onCurve')
+      const was = free.map((s) => (s.op === 'point' ? { x: s.x, y: s.y } : { t: s.t }))
+      const claims = doc.steps.filter((s) => s.op === 'claim')
+      if (!claims.length) return { rounds: 0, claims: 0, failed: [], broke: 0, at: doc.steps.length }
+
+      const bounds = getScene().bounds()
+      const reach = bounds ? Math.max(bounds.maxX - bounds.minX, bounds.maxY - bounds.minY) * spread : 100
+      const failed = new Set()
+      let broke = 0
+      let ran = 0
+      for (let i = 0; i < rounds; i++) {
+        for (const s of free) {
+          if (s.op === 'point') {
+            s.x += (Math.random() - 0.5) * reach
+            s.y += (Math.random() - 0.5) * reach
+          } else {
+            s.t = Math.random()
+          }
+        }
+        scene = null
+        const shaken = getScene()
+        // A configuration the construction cannot survive says nothing about
+        // the claims, so it is passed over rather than counted against them.
+        if (shaken.steps.some((info) => info.step.op !== 'claim' && !info.ok)) {
+          broke += 1
+        } else {
+          ran += 1
+          for (const info of shaken.steps) {
+            if (info.step.op === 'claim' && !info.ok) failed.add(info.step.id)
+          }
+        }
+        free.forEach((s, k) => Object.assign(s, was[k]))
+      }
+      scene = null
+      invalidate()
+      return { rounds: ran, claims: claims.length, failed: [...failed], broke, at: doc.steps.length }
     },
 
     /* -------------------------------------------------- tools */
@@ -800,8 +956,8 @@ export function createSketch(options = {}) {
       const task = entry && entry.text ? ` ${entry.text}` : ''
       say(
         entry && entry.kind === 'theorem'
-          ? `I.${n}.${task} This one is a theorem: set the figure out and satisfy yourself, but the`
-            + ' sketchpad checks constructions, not arguments.'
+          ? `I.${n}.${task} A theorem: build the figure it supposes — the hypothesis is constructed,`
+            + ' not assumed — then state what follows, and shake it to see whether it holds in general.'
           : `I.${n}.${task} Set out the given figure, then construct it with the tools you have.`,
         'info',
       )

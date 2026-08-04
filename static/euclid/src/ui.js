@@ -12,11 +12,13 @@ import { PROPOSITIONS } from './propositions.js'
 import { BOOK_I, SOURCE } from './book1.js'
 import { DEFINITION_FIGURES, PROPOSITION_LINES } from './book1-figures.js'
 import { figureCanvas } from './figures.js'
+import * as MAG from './magnitudes.js'
 import { PALETTE } from './renderer.js'
 import { STYLES } from './styles.js'
 import * as storage from './storage.js'
 import * as C from './camera.js'
 import { NAVIGATION } from './interactions.js'
+import { citation as solveCitation } from './solve.js'
 
 const ICONS = {
   arrow: '<path d="M5.6 3.2l12 7.5-5.5 1.2-2.2 5.4z" fill="currentColor" stroke="none"/>',
@@ -35,6 +37,10 @@ const ICONS = {
   sidebar: '<rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><path d="M9.5 4.5v15"/>',
   panel: '<rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><path d="M14.5 4.5v15"/>',
   trash: '<path d="M4.5 6.5h15"/><path d="M9 6.5V4.5h6v2"/><path d="M6.5 6.5l1 13.5h9l1-13.5"/><path d="M10 10v6.5M14 10v6.5"/>',
+  // Two magnitudes set equal: the sign Euclid's whole book turns on.
+  claim: '<path d="M4.5 9.5h15M4.5 14.5h15"/>',
+  // Shaking the figure to see whether a claim survives it.
+  shake: '<path d="M12 4.5v15"/><path d="M8 8l-3.5 4L8 16"/><path d="M16 8l3.5 4L16 16"/>',
 }
 
 function el(tag, className, props = {}) {
@@ -80,6 +86,9 @@ export function createUI(root, app, options = {}) {
     panel: true,
     open: { propositions: true, definitions: false, postulates: false, axioms: false, symbols: false },
     draft: { name: '', ref: '', abbr: '', summary: '' },
+    shaken: null,
+    reasoning: null,
+    reading: null,
   }
   let chromeSignature = null
   let sidebarSignature = null
@@ -147,6 +156,14 @@ export function createUI(root, app, options = {}) {
       ui.nav ? [ui.nav.x, ui.nav.y] : null,
       ui.sidebar,
       ui.panel,
+      s.heldMagnitude,
+      ui.shaken,
+      ui.reasoning,
+      ui.reading,
+      // A claim's truth is not a matter of how many steps there are, so the
+      // step list has to be rebuilt when one changes its mind.
+      app.scene.steps.map((info) => (info.claim ? info.claim.verdict : null)),
+      app.doc.steps.map((step) => (step.op === 'claim' ? JSON.stringify(step.because || 0) : 0)),
       // How the selection is drawn, so the palette shows the colour it now has.
       [...s.selection].map((id) => {
         const o = app.scene.get(id)
@@ -157,6 +174,9 @@ export function createUI(root, app, options = {}) {
   }
 
   function render(force = false) {
+    // A verdict is about the document it was taken on; adding or removing a
+    // step makes it stale, and a stale verdict is worse than none.
+    if (ui.shaken && ui.shaken.at !== app.doc.steps.length) ui.shaken = null
     const chrome = chromeState()
     if (force || chrome !== chromeSignature) {
       chromeSignature = chrome
@@ -176,10 +196,31 @@ export function createUI(root, app, options = {}) {
     stage.dataset.mode = app.workingMode
   }
 
+  /**
+   * What shaking the figure found, in a sentence.
+   *
+   * The number of configurations matters as much as the verdict: a claim that
+   * survived two hundred figures is a different thing from one that survived
+   * three, and a reader deciding how much to trust it should be told which.
+   */
+  function shakeReport(report) {
+    if (!report) return null
+    if (!report.rounds) return 'The figure would not stand up in any of the configurations tried.'
+    const many = `${report.rounds} configuration${report.rounds === 1 ? '' : 's'}`
+    if (!report.failed.length) {
+      return `Every claim held in ${many}${report.broke ? `; ${report.broke} more would not stand up at all` : ''}.`
+    }
+    const n = report.failed.length
+    return `${n} claim${n === 1 ? '' : 's'} failed somewhere in ${many}: true where you drew it, not true in general.`
+  }
+
   function renderHint() {
-    const text = app.hint()
+    const shaken = ui.shaken && !app.state.notice ? shakeReport(ui.shaken) : null
+    const text = shaken || app.hint()
     hint.textContent = text || ''
-    const isTrouble = (!!app.state.notice && app.state.noticeKind !== 'info') || !!(app.state.definition && app.state.definition.error)
+    const isTrouble = (!!app.state.notice && app.state.noticeKind !== 'info')
+      || !!(app.state.definition && app.state.definition.error)
+      || !!(ui.shaken && (ui.shaken.failed.length || !ui.shaken.rounds))
     hint.classList.toggle('trouble', isTrouble)
   }
 
@@ -229,6 +270,88 @@ export function createUI(root, app, options = {}) {
           onClick: () => app.deleteSelection(),
         }),
       )
+      // Saying two things are equal is what the second half of Book I is made
+      // of, so it sits with the pointer that chooses them: pick one magnitude,
+      // hold it, pick the other, say how they stand.
+      // Three points are a triangle or the angle at any one of its corners, and
+      // the figure cannot say which is meant — Book I is largely about the
+      // angles of triangles, so both readings are always live. They are offered
+      // by name, and the one chosen is what the claim is about.
+      const held = s.heldMagnitude
+      const offered = held ? app.readings().filter((m) => m.kind === held.kind) : app.readings()
+      const current = offered.find((m) => magnitudeName(m) === ui.reading) || offered[0]
+      children.push(
+        button({
+          icon: 'claim',
+          title: held
+            ? `Holding ${magnitudeName(held)} — click again to let it go`
+            : 'State how two things stand: select two points for a length, three for an angle or a triangle',
+          pressed: !!held,
+          disabled: !held && !offered.length,
+          onClick: () => {
+            if (held) app.dropMagnitude()
+            else app.holdMagnitude(current)
+            ui.reading = null
+            render(true)
+          },
+        }),
+      )
+      if (offered.length) {
+        const row = el('div', 'relations')
+        if (offered.length > 1) {
+          const which = el('div', 'readings')
+          for (const mag of offered) {
+            const name = magnitudeName(mag)
+            const pick = el('button', 'relation', {
+              type: 'button',
+              textContent: name,
+              title: held ? `Compare ${magnitudeName(held)} with ${name}` : `Take this as ${name}`,
+              onclick: () => {
+                ui.reading = name
+                if (!held) app.holdMagnitude(mag)
+                render(true)
+              },
+            })
+            pick.setAttribute('aria-pressed', String(mag === current))
+            which.append(pick)
+          }
+          row.append(which)
+        }
+        if (held) {
+          for (const [rel, symbol] of [['eq', '='], ['gt', '>'], ['lt', '<']]) {
+            row.append(
+              el('button', 'relation', {
+                type: 'button',
+                textContent: symbol,
+                disabled: !current,
+                title: current
+                  ? `${magnitudeName(held)} ${symbol} ${magnitudeName(current)}`
+                  : `Select ${held.kind === 'length' ? 'two points' : 'three points'} to compare with ${magnitudeName(held)}`,
+                onclick: () => {
+                  app.claim(rel, null, current)
+                  ui.reading = null
+                  render(true)
+                },
+              }),
+            )
+          }
+        }
+        if (row.childElementCount) children.push(row)
+      }
+      if (app.doc.steps.some((step) => step.op === 'claim')) {
+        children.push(
+          button({
+            icon: 'shake',
+            title: 'Shake the figure: drag every hand-placed point about at random, many times over,'
+              + ' and see whether the claims survive it',
+            onClick: () => {
+              const report = app.shake()
+              ui.shaken = report
+              render(true)
+            },
+          }),
+        )
+      }
     }
     const coloured = [...s.selection].map((id) => app.scene.get(id)).filter((o) => o && o.type === 'curve')
     if (coloured.length) {
@@ -409,6 +532,9 @@ export function createUI(root, app, options = {}) {
     sidebar.replaceChildren(head, list, foot)
     if (scrolled) list.scrollTop = scrolled
   }
+
+  const magnitudeName = (mag) =>
+    (mag ? MAG.nameOf(mag, (id) => (app.scene.get(id) || {}).label || '•') : '')
 
   /**
    * A figure never changes, so it is drawn once and thereafter moved about.
@@ -600,12 +726,80 @@ export function createUI(root, app, options = {}) {
     return out
   }
 
+  /**
+   * Where a claim gets its authority.
+   *
+   * The whole book is already in the sidebar, so the reason is chosen from it
+   * rather than typed: a definition, a postulate, an axiom, or a proposition
+   * already proved. Nothing checks that the reason really entails the claim —
+   * that would be a proof checker, and this is a sketchpad — but a proof that
+   * does not say why is not a proof, and writing the reason down is what makes
+   * the step list read as an argument rather than a list of measurements.
+   */
+  function reasonPicker(step) {
+    const wrap = el('div', 'why')
+    const kinds = [
+      ['def', 'Definition', BOOK_I.definitions],
+      ['post', 'Postulate', BOOK_I.postulates],
+      ['ax', 'Axiom', BOOK_I.axioms],
+      ['prop', 'Proposition', BOOK_I.propositions],
+    ]
+    const kind = el('select')
+    for (const [id, label] of kinds) {
+      kind.append(el('option', null, { value: id, textContent: label }))
+    }
+    const current = step.because || { kind: 'def', n: 1 }
+    kind.value = current.kind
+    const which = el('select')
+    const fill = () => {
+      const [, , entries] = kinds.find(([id]) => id === kind.value)
+      which.replaceChildren()
+      for (const entry of entries) {
+        const label = `${entry.n}. ${entry.text}`
+        which.append(el('option', null, {
+          value: String(entry.n),
+          textContent: label.length > 64 ? label.slice(0, 63) + '…' : label,
+        }))
+      }
+      which.value = String(current.kind === kind.value ? current.n : entries[0].n)
+    }
+    fill()
+    kind.addEventListener('change', () => fill())
+    const settle = () => {
+      app.setClaimReason(step.id, { kind: kind.value, n: Number(which.value) })
+      ui.reasoning = null
+      render(true)
+    }
+    which.addEventListener('change', settle)
+    wrap.append(kind, which)
+    wrap.append(el('button', null, {
+      type: 'button',
+      textContent: 'none',
+      title: 'Leave the reason unsaid for now',
+      onclick: (event) => {
+        event.stopPropagation()
+        app.setClaimReason(step.id, null)
+        ui.reasoning = null
+        render(true)
+      },
+    }))
+    wrap.addEventListener('click', (event) => event.stopPropagation())
+    return wrap
+  }
+
   function stepList(steps) {
     const list = el('ol', 'steps')
     steps.forEach((info) => {
       const item = el('li')
       item.classList.toggle('beyond', info.beyond)
       item.classList.toggle('trouble', !info.ok)
+      // A claim is a different kind of thing from a step that draws: it asserts
+      // rather than builds, and the list says so.
+      item.classList.toggle('asserted', info.step.op === 'claim')
+      if (info.step.op === 'claim' && ui.shaken) {
+        item.classList.toggle('shaken', !ui.shaken.failed.includes(info.step.id))
+        item.classList.toggle('broken', ui.shaken.failed.includes(info.step.id))
+      }
       const isCurrent = app.state.upTo !== Infinity && info.index === app.state.upTo - 1
       if (isCurrent) item.setAttribute('aria-current', 'true')
       item.append(el('span', 'n', { textContent: info.setup ? '·' : String(info.number) }))
@@ -616,6 +810,22 @@ export function createUI(root, app, options = {}) {
         what.append(el('small', null, { textContent: info.error }))
       }
       const acts = el('span', 'acts')
+      if (info.step.op === 'claim') {
+        // A proof that does not say why is not a proof, so a claim can be
+        // sent to the book for its reason.
+        acts.append(
+          el('button', null, {
+            type: 'button',
+            textContent: info.step.because ? 'why: ' + solveCitation(info.step.because) : 'why?',
+            title: 'Say what allows this — a definition, an axiom, or something already proved',
+            onclick: (event) => {
+              event.stopPropagation()
+              ui.reasoning = ui.reasoning === info.step.id ? null : info.step.id
+              render(true)
+            },
+          }),
+        )
+      }
       if (info.step.op === 'macro') {
         acts.append(
           el('button', null, {
@@ -657,6 +867,7 @@ export function createUI(root, app, options = {}) {
         )
       }
       if (acts.childElementCount) what.append(acts)
+      if (ui.reasoning === info.step.id) what.append(reasonPicker(info.step))
       item.append(what)
 
       item.addEventListener('click', () => app.setUpTo(info.index + 1))

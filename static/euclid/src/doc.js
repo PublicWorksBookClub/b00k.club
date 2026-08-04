@@ -53,6 +53,10 @@ export function refsOf(step) {
       return [step.o, step.r]
     case 'macro':
       return [...(step.args || [])]
+    case 'claim':
+      // A claim leans on every point it reads its magnitudes from, so deleting
+      // one of them takes the claim down with it.
+      return (step.of || []).flatMap((m) => m.pts || [])
     default:
       return []
   }
@@ -60,7 +64,11 @@ export function refsOf(step) {
 
 /** Ids of the objects this step produces and exposes to later steps. */
 export function producesOf(step) {
-  return step.op === 'macro' ? [...(step.out || [])] : [step.id]
+  if (step.op === 'macro') return [...(step.out || [])]
+  // A claim draws nothing. It asserts something about what is already there,
+  // so nothing later can be built on top of it.
+  if (step.op === 'claim') return []
+  return [step.id]
 }
 
 /** Rewrite a step's argument ids through `fn`, leaving everything else alone. */
@@ -78,6 +86,8 @@ export function remapRefs(step, fn) {
       return { ...step, o: fn(step.o), r: fn(step.r) }
     case 'macro':
       return { ...step, args: (step.args || []).map(fn) }
+    case 'claim':
+      return { ...step, of: (step.of || []).map((m) => ({ ...m, pts: (m.pts || []).map(fn) })) }
     default:
       return { ...step }
   }
