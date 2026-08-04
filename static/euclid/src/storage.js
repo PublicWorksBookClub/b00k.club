@@ -7,20 +7,40 @@
 
 const TOOLBOX_KEY = 'b00k.euclid.toolbox.v1'
 
-export function loadToolbox(key = TOOLBOX_KEY) {
+/**
+ * What the reader has earned: the constructions they can carry out and the
+ * theorems they have proved.
+ *
+ * The book's whole shape is that this accumulates, so it has to outlive the
+ * tab. The first version of this stored a bare array of tools; that is still
+ * read, so nobody's toolbox disappears because the format grew a second half.
+ */
+export function loadProgress(key = TOOLBOX_KEY) {
   try {
     const raw = localStorage.getItem(key)
     if (!raw) return null
     const parsed = JSON.parse(raw)
-    return Array.isArray(parsed) ? parsed : null
+    if (Array.isArray(parsed)) return { tools: parsed, facts: [] }
+    if (!parsed || typeof parsed !== 'object') return null
+    return { tools: parsed.tools || [], facts: parsed.facts || [] }
   } catch {
     return null
   }
 }
 
-export function saveToolbox(tools, key = TOOLBOX_KEY) {
+export function saveProgress({ tools = [], facts = [] } = {}, key = TOOLBOX_KEY) {
   try {
-    localStorage.setItem(key, JSON.stringify(tools))
+    localStorage.setItem(key, JSON.stringify({ v: 2, tools, facts }))
+    return true
+  } catch {
+    return false
+  }
+}
+
+/** Give up everything kept in this browser. */
+export function forgetProgress(key = TOOLBOX_KEY) {
+  try {
+    localStorage.removeItem(key)
     return true
   } catch {
     return false

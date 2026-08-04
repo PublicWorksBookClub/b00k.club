@@ -555,6 +555,57 @@ export function createSketch(options = {}) {
       return fact
     },
 
+    /**
+     * Go back to the beginning of the book: the first three propositions and
+     * nothing else. The figure on the paper is not touched.
+     */
+    forgetProgress() {
+      snapshot()
+      const start = new Set(DEFAULT_TOOL_IDS)
+      doc.tools = (doc.tools || []).filter((t) => start.has(t.id))
+      for (const id of DEFAULT_TOOL_IDS) {
+        if (doc.tools.some((t) => t.id === id)) continue
+        const found = PROPOSITION_BY_ID.get(id)
+        if (found) doc.tools.push(found)
+      }
+      doc.facts = []
+      say('Back to the first three propositions.', 'info')
+      invalidate()
+    },
+
+    /**
+     * What has been earned, in a form fit to be kept between visits.
+     *
+     * One of Book I's propositions is written down as its number and nothing
+     * else. Keeping the whole body would be wasteful, and worse: a reader who
+     * came back would be handed the copy that was current when they first
+     * visited, bugs and all, rather than the one in the app. Tools the reader
+     * built themselves have no such home to be read back from, so those are
+     * kept whole.
+     */
+    get progress() {
+      return {
+        tools: (doc.tools || []).map((t) => (PROPOSITION_BY_ID.has(t.id) ? { id: t.id } : t)),
+        facts: doc.facts || [],
+      }
+    },
+
+    restoreProgress(saved) {
+      if (!saved) return
+      for (const kept of saved.tools || []) {
+        const tool = kept && kept.body ? kept : PROPOSITION_BY_ID.get(kept && kept.id)
+        if (tool) api.addTool(tool)
+      }
+      api.restoreFacts(saved.facts)
+    },
+
+    /** Put back facts kept from a previous visit, without disturbing this one's. */
+    restoreFacts(facts) {
+      const known = new Set((doc.facts || []).map((f) => f.id))
+      for (const fact of facts || []) if (fact && fact.id && !known.has(fact.id)) doc.facts.push(fact)
+      invalidate()
+    },
+
     forgetFact(id) {
       snapshot()
       doc.facts = (doc.facts || []).filter((f) => f.id !== id)

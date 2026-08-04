@@ -60,7 +60,7 @@ policy sets `frame-src 'none'`, and it means the page's styles and the app's can
 | `src`         | URL of a saved sketch to open                                  |
 | `readonly`    | the figure may be read and dragged, but not drawn on           |
 | `empty`       | start with a blank page rather than two points                 |
-| `remember`    | keep the reader's toolbox in their browser                     |
+| `remember`    | keep what the reader has proved in their browser               |
 | `use-hash`    | read and write the sketch in the page's URL fragment           |
 | `sidebar`     | `open` or `closed`; open by default only on its own page       |
 | `through`     | how far the reader has got, e.g. `I.3` — limits the toolbox    |
@@ -244,6 +244,21 @@ The reason-picker marks which propositions are actually yours. Nothing stops a
 reader leaning on one they have not got — the app is not a proctor — but it
 says which is which, because the shape of the book is that each proposition
 stands on the ones before it.
+
+## Between visits
+
+With `remember`, what has been earned outlives the tab — the constructions and
+the theorems both. A proposition of Book I is written down as its number and
+nothing else: keeping the body would be wasteful, and would hand a returning
+reader the copy that was current when they first visited rather than the one in
+the app. A tool the reader built themselves has no such home, so it is kept
+whole.
+
+Opening somebody else's figure does not empty your own toolbox. A figure
+carries the tools it needs to replay itself, and merging them in is right;
+throwing yours away to make room is not. Giving up what you have proved is a
+separate thing from clearing the paper, it asks first, and it says how much
+will go.
 
 ## Working the rest of Book I
 

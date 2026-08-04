@@ -1373,6 +1373,20 @@ export function createUI(root, app, options = {}) {
         ? item('Let the whole figure be construction', () => app.clearSetup())
         : item('Treat what is drawn as the given figure', () => app.markSetup()),
       item('Start a fresh figure', () => app.clear()),
+      ...(options.remember
+        ? [item('Give up everything you have proved…', () => {
+          // Clearing the paper is one thing; giving up the toolbox is another,
+          // so it asks, and it says exactly what will go.
+          const kept = app.tools.length + app.facts.length
+          if (!window.confirm(
+            `This will give up all ${kept} of the propositions kept in this browser, `
+            + 'and start again from the first three. The figure on the paper is not touched.',
+          )) return
+          storage.forgetProgress()
+          app.forgetProgress()
+          options.onFit && options.onFit()
+        })]
+        : []),
     )
     floating.replaceChildren(...[walkthrough, menu].filter(Boolean))
   }

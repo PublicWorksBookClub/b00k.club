@@ -15,7 +15,7 @@
  *   tools      which propositions start in the toolbox, e.g. "I.1,I.2,I.3"
  *   src        URL of a saved sketch to open
  *   readonly   no drawing; the figure can still be dragged through and read
- *   remember   keep the toolbox in this browser between visits
+ *   remember   keep what has been proved in this browser between visits
  *   use-hash   read and write the sketch in the page's URL fragment
  */
 
@@ -85,6 +85,7 @@ export class EuclidSketchElement extends HTMLElement {
       // The standalone page owns the fragment; anything else is an embed and
       // gets a way out to the full sketchpad.
       embedded: !this.hasAttribute('use-hash'),
+      remember: this.hasAttribute('remember'),
     })
     this._ui = ui
     const interactions = attachInteractions(ui.canvas, app, ui.size, {
@@ -137,23 +138,30 @@ export class EuclidSketchElement extends HTMLElement {
   /** Load whichever source the element was given, in order of specificity. */
   async _restore() {
     const app = this.sketch
+    // A figure carries the tools it needs to replay itself. Where the reader
+    // has a toolbox of their own, opening someone else's figure must not empty
+    // it — what they have proved is theirs, not the file's.
+    const keep = { keepTools: this.hasAttribute('remember') }
     if (this.hasAttribute('remember')) {
-      const saved = storage.loadToolbox()
-      if (saved) for (const tool of saved) app.addTool(tool)
-      // Only when the toolbox itself changes — this fires on every frame of a drag.
-      let known = app.tools.map((t) => t.id).join()
+      // What the reader has earned outlives the tab: the constructions they can
+      // carry out and the theorems they have proved, which is the whole shape
+      // of the book.
+      app.restoreProgress(storage.loadProgress())
+      // Only when one of them changes — this fires on every frame of a drag.
+      const earned = () => app.tools.map((t) => t.id).join() + '|' + app.facts.map((f) => f.id).join()
+      let known = earned()
       app.subscribe(() => {
-        const now = app.tools.map((t) => t.id).join()
+        const now = earned()
         if (now === known) return
         known = now
-        storage.saveToolbox(app.tools)
+        storage.saveProgress(app.progress)
       })
     }
     if (this.hasAttribute('use-hash')) {
       const match = /(?:^|[#&])s=([^&]+)/.exec(location.hash)
       if (match) {
         try {
-          app.load(storage.decodeSketch(match[1]))
+          app.load(storage.decodeSketch(match[1]), keep)
           return
         } catch {
           /* fall through to the other sources */
@@ -163,7 +171,7 @@ export class EuclidSketchElement extends HTMLElement {
     const inline = this.querySelector('script[type="application/json"]')
     if (inline && inline.textContent.trim()) {
       try {
-        app.load(inline.textContent)
+        app.load(inline.textContent, keep)
         return
       } catch (error) {
         app.state.notice = `The figure in this page could not be read: ${error.message}`
@@ -174,7 +182,7 @@ export class EuclidSketchElement extends HTMLElement {
       try {
         const response = await fetch(src)
         if (!response.ok) throw new Error(`${response.status}`)
-        app.load(await response.text())
+        app.load(await response.text(), keep)
         return
       } catch (error) {
         app.state.notice = `That figure could not be fetched: ${error.message}`
