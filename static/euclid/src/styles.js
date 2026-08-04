@@ -88,6 +88,8 @@ export const STYLES = `
 /* A hint that there is more to the right, when there is. */
 .bar .tools { scroll-padding: 0 4px; }
 .bar .tools .btn { flex: 0 0 auto; }
+/* Nothing proved yet: no scroller, and no gap where one would be. */
+.bar .tools:empty { display: none; }
 
 button {
   font: inherit;
