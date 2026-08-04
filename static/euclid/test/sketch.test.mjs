@@ -129,6 +129,63 @@ test('a tool may be defined, used, and refused a hand-placed point', () => {
   assert.equal(app.doc.steps.length, before - 3)
 })
 
+test('a construction that can go either way waits for the reader to say which', () => {
+  const app = createSketch()
+  app.startingPoints([
+    { x: 0, y: 0 },
+    { x: 120, y: 0 },
+  ])
+  const givens = app.doc.steps.map((s) => s.id)
+  app.applyTool(
+    app.tools.find((t) => t.ref === 'I.1'),
+    givens,
+  )
+
+  // Blocked: the step is there but has not been carried out.
+  assert.ok(app.state.choice, 'a choice is pending')
+  assert.equal(app.state.choice.key, 'apex')
+  assert.equal(app.scene.steps.at(-1).ok, false)
+  assert.match(app.hint(), /which way/i)
+
+  // Both ways are worked out so both can be shown at once.
+  const options = app.choiceOptions()
+  assert.equal(options.length, 2)
+  assert.ok(options.every((o) => o.objects.length > 0 && o.point))
+  assert.ok(options[0].point.y * options[1].point.y < 0, 'the two candidates fall on opposite sides')
+
+  // Clicking near one of them settles it.
+  app.pickChoice(options[1].point, 20)
+  assert.equal(app.state.choice, null)
+  assert.ok(app.scene.steps.every((s) => s.ok))
+  const apex = app.scene.get(app.doc.steps[2].out[0]).pos
+  assert.ok(G.dist(apex, options[1].point) < 1e-9, 'and the one that was clicked is the one that was built')
+
+  // The decision is part of the document, so it survives being written out.
+  const step = app.doc.steps[2]
+  assert.deepEqual(step.picks, { apex: 1 })
+  const reopened = createSketch()
+  reopened.load(app.serialize())
+  assert.ok(reopened.scene.steps.every((s) => s.ok))
+  assert.ok(G.dist(reopened.scene.get(step.out[0]).pos, apex) < 1e-9)
+})
+
+test('a proposition settles the choices of the propositions it stands on', () => {
+  const app = createSketch()
+  app.startingPoints([
+    { x: 0, y: 0 },
+    { x: 120, y: 30 },
+    { x: 40, y: 140 },
+  ])
+  // I.2 leans on I.1, whose apex could go either way — but I.2 says which, so
+  // the reader is not asked about scaffolding they never see.
+  app.applyTool(
+    app.tools.find((t) => t.ref === 'I.2'),
+    app.doc.steps.map((s) => s.id),
+  )
+  assert.equal(app.state.choice, null)
+  assert.ok(app.scene.steps.every((s) => s.ok))
+})
+
 test('undo takes back what was drawn, not what was proved', () => {
   const app = twoPoints()
   app.setMode('segment')
@@ -222,6 +279,7 @@ test('a read-only figure may be dragged and scrubbed, but not drawn on', () => {
     i1,
     app.doc.steps.slice(0, 2).map((s) => s.id),
   )
+  app.chooseBranch(0)
   const drawn = app.doc.steps.length
 
   app.setMode('segment')
@@ -252,6 +310,7 @@ test('scrubbing hides the later steps without losing them', () => {
     i1,
     app.doc.steps.slice(0, 2).map((s) => s.id),
   )
+  app.chooseBranch(0)
   app.unfoldStep(app.doc.steps[2].id)
   const total = app.doc.steps.length
   assert.ok(total > 3, 'the appeal to I.1 was written out')

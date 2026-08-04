@@ -10,6 +10,7 @@
 import { PRIMITIVES } from './app.js'
 import { PROPOSITIONS } from './propositions.js'
 import { BOOK_I, SOURCE } from './book1.js'
+import { PALETTE } from './renderer.js'
 import { STYLES } from './styles.js'
 import * as storage from './storage.js'
 
@@ -69,7 +70,7 @@ export function createUI(root, app, options = {}) {
     tab: 'steps',
     menu: false,
     sidebar: !!options.sidebarOpen,
-    section: 'propositions',
+    open: { propositions: true, definitions: false, postulates: false, axioms: false, symbols: false },
     draft: { name: '', ref: '', abbr: '', summary: '' },
   }
   let signature = null
@@ -125,7 +126,7 @@ export function createUI(root, app, options = {}) {
       ui.tab,
       ui.menu,
       ui.sidebar,
-      ui.section,
+      JSON.stringify(ui.open),
       app.doc.steps.map((step) => (step.op === 'macro' ? !!step.expanded : 0)),
     ])
   }
@@ -204,6 +205,22 @@ export function createUI(root, app, options = {}) {
       }),
     )
 
+    const coloured = [...s.selection].map((id) => app.scene.get(id)).filter((o) => o && o.type === 'curve')
+    if (coloured.length) {
+      children.push(el('span', 'rule'))
+      const swatches = el('div', 'swatches')
+      for (const name of Object.keys(PALETTE)) {
+        const swatch = el('button', 'swatch', { type: 'button', title: `Colour it ${name}` })
+        swatch.style.background = PALETTE[name]
+        if (coloured.every((o) => o.color === name)) swatch.setAttribute('aria-pressed', 'true')
+        swatch.addEventListener('click', () => {
+          for (const o of coloured) app.setColor(o.id, name)
+        })
+        swatches.append(swatch)
+      }
+      children.push(swatches)
+    }
+
     children.push(el('span', 'spacer'))
     children.push(button({ icon: 'undo', title: 'Undo', disabled: !app.canUndo, onClick: () => app.undo() }))
     children.push(button({ icon: 'redo', title: 'Redo', disabled: !app.canRedo, onClick: () => app.redo() }))
@@ -244,10 +261,15 @@ export function createUI(root, app, options = {}) {
 
   /* ---------------------------------------------------------------- sidebar */
 
-  // Euclid's three kinds of first principle, glossed in a line each. Definitions
-  // say what a thing is, postulates grant what may be done, axioms are the
-  // truths about magnitudes that everything else leans on.
+  // Euclid's kinds of first principle, glossed in a line each. Definitions say
+  // what a thing is, postulates grant what may be done, axioms are the truths
+  // about magnitudes that everything else leans on.
   const SECTIONS = [
+    {
+      id: 'propositions',
+      label: 'Propositions',
+      gloss: 'Problems construct something, theorems assert something. Each may be used once it is proved.',
+    },
     { id: 'definitions', label: 'Definitions', gloss: 'What each thing is. They assert nothing; they only fix the words.' },
     { id: 'postulates', label: 'Postulates', gloss: 'What may be granted as done. These three are the only moves the pencil has.' },
     {
@@ -255,15 +277,18 @@ export function createUI(root, app, options = {}) {
       label: 'Axioms',
       gloss: 'Truths about magnitudes, taken as granted and nowhere proved. Byrne’s word for the common notions.',
     },
-    {
-      id: 'propositions',
-      label: 'Propositions',
-      gloss: 'Problems construct something; theorems assert something. Each may be used once proved.',
-    },
+    { id: 'symbols', label: 'Symbols & abbreviations', gloss: 'The shorthand Byrne writes his proofs in.' },
   ]
 
   const constructible = new Map(PROPOSITIONS.map((p) => [p.ref, p]))
 
+  /**
+   * The book, as one scrolling list of collapsible sections.
+   *
+   * A row of tabs across 290px could not hold five names without shouting, and
+   * a reader wants the propositions open and the rest within reach, not four
+   * lists competing for the same space.
+   */
   function renderSidebar() {
     if (!ui.sidebar) {
       sidebar.replaceChildren()
@@ -271,9 +296,8 @@ export function createUI(root, app, options = {}) {
       return
     }
     sidebar.hidden = false
+
     const head = el('div', 'side-head')
-    head.append(el('h3', null, { textContent: 'Book I' }))
-    head.append(el('p', null, { textContent: `${SOURCE.title}, ${SOURCE.editor}` }))
     const books = el('select', 'books')
     books.append(el('option', null, { textContent: 'Book I', value: 'I' }))
     for (const n of ['II', 'III', 'IV', 'V', 'VI']) {
@@ -282,58 +306,65 @@ export function createUI(root, app, options = {}) {
     books.setAttribute('aria-label', 'Which book')
     head.append(books)
 
-    const tabs = el('div', 'side-tabs')
-    for (const section of SECTIONS) {
-      const tab = el('button', null, { type: 'button', textContent: section.label, title: section.gloss })
-      tab.setAttribute('aria-selected', String(ui.section === section.id))
-      tab.addEventListener('click', () => {
-        ui.section = section.id
-        render(true)
-      })
-      tabs.append(tab)
-    }
-
-    const section = SECTIONS.find((x) => x.id === ui.section)
     const list = el('div', 'side-list')
-    list.append(el('p', 'gloss', { textContent: section.gloss }))
-
-    for (const entry of BOOK_I[ui.section]) {
-      if (ui.section !== 'propositions') {
-        const row = el('div', 'entry plain')
-        row.append(el('span', 'num', { textContent: entry.roman }))
-        row.append(el('span', 'said', { textContent: entry.text }))
-        list.append(row)
-        continue
-      }
-      const tool = constructible.get(`I.${entry.n}`)
-      const available = !!tool && (!options.throughN || entry.n <= options.throughN)
-      const row = el('button', `entry${available ? '' : ' unavailable'}`, { type: 'button' })
-      row.title = available ? 'Set this out step by step' : 'This one is not in the sketchpad yet'
-      const num = el('span', 'num')
-      num.append(document.createTextNode(entry.roman))
-      num.append(el('em', null, { textContent: entry.kind === 'problem' ? 'Prob.' : 'Theor.' }))
-      row.append(num)
-      row.append(el('span', 'said', { textContent: entry.text }))
-      if (available) {
-        row.addEventListener('click', () => {
-          app.walkProposition(tool.id)
-          ui.tab = 'steps'
-          options.onFit && options.onFit()
-          render(true)
-        })
-      } else {
-        row.disabled = true
-      }
-      list.append(row)
+    for (const section of SECTIONS) {
+      const rows = BOOK_I[section.id]
+      const box = el('details', 'side-section')
+      box.open = ui.open[section.id] !== false
+      box.addEventListener('toggle', () => {
+        ui.open[section.id] = box.open
+      })
+      const summary = el('summary')
+      summary.append(el('span', 'name', { textContent: section.label }))
+      summary.append(el('span', 'count', { textContent: String(rows.length) }))
+      summary.title = section.gloss
+      box.append(summary)
+      box.append(el('p', 'gloss', { textContent: section.gloss }))
+      for (const entry of rows) box.append(entryRow(section.id, entry))
+      list.append(box)
     }
 
     const foot = el('p', 'side-foot')
-    foot.append(document.createTextNode('Text from '))
-    const link = el('a', null, { href: SOURCE.url, textContent: SOURCE.edition, target: '_blank', rel: 'noopener' })
-    foot.append(link)
+    foot.append(document.createTextNode(`${SOURCE.title}, ${SOURCE.editor}. Text from `))
+    foot.append(el('a', null, { href: SOURCE.url, textContent: SOURCE.edition, target: '_blank', rel: 'noopener' }))
     foot.append(document.createTextNode(`, ${SOURCE.license}.`))
 
-    sidebar.replaceChildren(head, tabs, list, foot)
+    sidebar.replaceChildren(head, list, foot)
+  }
+
+  function entryRow(sectionId, entry) {
+    if (sectionId === 'symbols') {
+      const row = el('div', 'entry plain')
+      row.append(el('span', 'num glyph', { textContent: entry.symbol }))
+      row.append(el('span', 'said', { textContent: entry.text }))
+      return row
+    }
+    if (sectionId !== 'propositions') {
+      const row = el('div', 'entry plain')
+      row.append(el('span', 'num', { textContent: entry.roman }))
+      row.append(el('span', 'said', { textContent: entry.text }))
+      return row
+    }
+    const tool = constructible.get(`I.${entry.n}`)
+    const available = !!tool && (!options.throughN || entry.n <= options.throughN)
+    const row = el('button', `entry${available ? '' : ' unavailable'}`, { type: 'button' })
+    row.title = available ? 'Set this out step by step' : 'This one is not in the sketchpad yet'
+    const num = el('span', 'num')
+    num.append(document.createTextNode(entry.roman))
+    num.append(el('em', null, { textContent: entry.kind === 'problem' ? 'Prob.' : 'Theor.' }))
+    row.append(num)
+    row.append(el('span', 'said', { textContent: entry.text }))
+    if (available) {
+      row.addEventListener('click', () => {
+        app.walkProposition(tool.id)
+        ui.tab = 'steps'
+        options.onFit && options.onFit()
+        render(true)
+      })
+    } else {
+      row.disabled = true
+    }
+    return row
   }
 
   /* ---------------------------------------------------------------- panel */

@@ -9,6 +9,26 @@
 
 import * as G from './geometry.js'
 import * as C from './camera.js'
+import { BYRNE_COLORS } from './book1.js'
+
+/**
+ * Byrne's four colours, straight from his class file. In the book the colour is
+ * not decoration — a line's colour is how the proof refers to it.
+ */
+export const PALETTE = {
+  black: '#2f2929',
+  red: BYRNE_COLORS.red,
+  blue: BYRNE_COLORS.blue,
+  yellow: BYRNE_COLORS.yellow,
+}
+
+/**
+ * Byrne's yellow is too pale to read as a hairline on cream, and darkening it
+ * far enough slides its hue into his red. So it keeps his colour and is printed
+ * the way gold is printed: a darker line laid down first, the yellow over it.
+ */
+const OUTLINED = { yellow: '#8A6410' }
+const WEIGHT = { yellow: 0.5 }
 
 export const THEME = {
   paper: '#faf5ea',
@@ -42,6 +62,7 @@ export function render(canvas, scene, view) {
     else points.push(o)
   }
 
+  drawChoice(ctx, view, S, clip)
   for (const o of curves) if (o.ghost) strokeCurve(ctx, o, S, clip, ghostStyle())
   for (const o of curves) if (!o.ghost) strokeCurve(ctx, o, S, clip, curveStyle(o, view))
   drawPending(ctx, scene, view, S, clip)
@@ -59,7 +80,13 @@ export function render(canvas, scene, view) {
 function curveStyle(o, view) {
   const state = stateOf(o.id, view)
   const solidLine = o.def && o.def.op === 'segment'
-  const base = { color: solidLine ? THEME.ink : THEME.construction, width: solidLine ? 1.6 : 1.1, dash: null }
+  const named = o.color && PALETTE[o.color]
+  const base = {
+    color: named || (solidLine ? THEME.ink : THEME.construction),
+    width: (solidLine ? 1.6 : 1.2) + (named ? WEIGHT[o.color] || 0.2 : 0),
+    outline: named ? OUTLINED[o.color] : null,
+    dash: null,
+  }
   if (state === 'selected') return { ...base, color: THEME.accent, width: base.width + 1.1 }
   if (state === 'picked') return { ...base, color: THEME.accent, width: base.width + 1.1 }
   if (state === 'hover') return { ...base, color: THEME.accent, width: base.width + 0.9 }
@@ -70,12 +97,18 @@ const ghostStyle = () => ({ color: THEME.ghost, width: 1, dash: [3, 4] })
 
 function strokeCurve(ctx, o, S, clip, style) {
   ctx.save()
-  ctx.strokeStyle = style.color
-  ctx.lineWidth = style.width
   ctx.lineCap = 'round'
   if (style.dash) ctx.setLineDash(style.dash)
   ctx.beginPath()
   pathOfCurve(ctx, o.geom, S, clip)
+  const outline = style.outline
+  if (outline) {
+    ctx.strokeStyle = outline
+    ctx.lineWidth = style.width + 1.3
+    ctx.stroke()
+  }
+  ctx.strokeStyle = style.color
+  ctx.lineWidth = style.width
   ctx.stroke()
   ctx.restore()
 }
@@ -224,6 +257,39 @@ function drawPending(ctx, scene, view, S, clip) {
   ctx.stroke()
   ctx.restore()
   ring(ctx, S(pending.anchor), 6, THEME.accent, 1.4)
+}
+
+/**
+ * A construction that can go either way, drawn both ways at once.
+ *
+ * Each outcome is laid down faintly and the two candidate points are left
+ * solid, so what is being asked is visible rather than described: everything
+ * that is common to both ways sits still, and only the choice stands out.
+ */
+function drawChoice(ctx, view, S, clip) {
+  if (!view.choice || !view.choice.length) return
+  ctx.save()
+  for (const option of view.choice) {
+    for (const o of option.objects) {
+      if (o.type === 'curve') {
+        strokeCurve(ctx, o, S, clip, { color: choiceTint(o), width: 1.1, dash: [3, 4] })
+      } else if (o.pos) {
+        dot(ctx, S(o.pos), 1.8, THEME.ghost)
+      }
+    }
+  }
+  for (const option of view.choice) {
+    const p = S(option.point)
+    dot(ctx, p, 9, THEME.paper)
+    ring(ctx, p, 8.5, THEME.accent, 1.6)
+    dot(ctx, p, 4, THEME.accent)
+  }
+  ctx.restore()
+}
+
+function choiceTint(o) {
+  const base = (o.color && PALETTE[o.color]) || THEME.construction
+  return `color-mix(in srgb, ${base} 42%, ${THEME.paper})`
 }
 
 /** Where a click would put a point: on an object, or loose on the page. */

@@ -42,6 +42,7 @@ export function createSketch(options = {}) {
     picked: [],
     pickGesture: null,
     definition: null,
+    choice: null,
     upTo: Infinity,
     notice: null,
     noticeKind: 'problem',
@@ -69,12 +70,21 @@ export function createSketch(options = {}) {
     if (!scene) scene = solve(doc, { tools: [...registry().values()], upTo: state.upTo })
     return scene
   }
+  /** Read the scene after editing the document, rather than the stale one. */
+  const rebuiltScene = () => {
+    scene = null
+    return getScene()
+  }
   const snapshot = () => {
     undoStack.push(D.cloneDoc(doc))
     if (undoStack.length > 200) undoStack.shift()
     redoStack.length = 0
   }
   const nextGesture = () => `g${++gestureCounter}`
+  const promptFor = (tool, key) => {
+    const found = (tool && tool.choices ? tool.choices : []).find((c) => key.endsWith(c.key))
+    return found ? found.prompt : 'This construction can go either way. Click the point you want.'
+  }
   const say = (text, kind = 'problem') => {
     state.notice = text
     state.noticeKind = kind
@@ -163,6 +173,7 @@ export function createSketch(options = {}) {
     /* -------------------------------------------------- modes */
 
     setMode(mode, toolId = null) {
+      if (state.choice) api.cancelChoice()
       api.cancelPending()
       state.mode = mode
       state.activeTool = toolId
@@ -209,6 +220,7 @@ export function createSketch(options = {}) {
 
     click(world, hit) {
       if (state.readonly) return
+      if (state.choice) return api.pickChoice(world, 18 / state.camera.k)
       if (state.mode === 'define') return api.definitionPick(hit)
       if (state.mode === 'select') return api.select(hit ? (hit.point || hit.curve).id : null)
       if (state.activeTool) return api.pickForTool(world, hit)
@@ -306,12 +318,105 @@ export function createSketch(options = {}) {
 
     applyTool(tool, argIds) {
       const gesture = beginPickGesture()
-      D.addStep(doc, M.makeToolStep(doc, tool, argIds, gesture))
+      const step = M.makeToolStep(doc, tool, argIds, gesture)
+      D.addStep(doc, step)
       state.pickGesture = null
       state.picked = []
       state.upTo = Infinity
-      const info = getScene().steps[doc.steps.length - 1]
-      state.notice = info && !info.ok ? info.error : null
+      const info = rebuiltScene().steps[doc.steps.length - 1]
+      if (info && info.needsChoice) {
+        state.choice = { stepId: step.id, tool: tool.id, ...info.needsChoice }
+        say(promptFor(tool, info.needsChoice.key), 'info')
+      } else {
+        say(info && !info.ok ? info.error : null)
+      }
+      invalidate()
+    },
+
+    /* -------------------------------------------------- choices */
+
+    /**
+     * The construction, worked out both ways.
+     *
+     * Each option carries everything the step would draw, so the reader can see
+     * both figures ghosted at once and click the point that decides between
+     * them — which is the only piece of information the construction is short of.
+     */
+    choiceOptions() {
+      const choice = state.choice
+      if (!choice) return []
+      const stepIndex = doc.steps.findIndex((s) => s.id === choice.stepId)
+      if (stepIndex < 0) return []
+      const tools = [...registry().values()]
+      return (choice.options || [0, 1])
+        .map((value) => {
+          const trial = D.cloneDoc(doc)
+          const step = trial.steps[stepIndex]
+          step.picks = { ...(step.picks || {}), [choice.key]: value }
+          const scene = solve(trial, { tools })
+          const objects = []
+          for (const id of scene.order) {
+            const o = scene.objects.get(id)
+            if (o && o.stepIndex === stepIndex && !o.auto) objects.push(o)
+          }
+          const at = scene.get(choice.at)
+          return at ? { value, objects, point: at.pos } : null
+        })
+        .filter(Boolean)
+    },
+
+    chooseBranch(value) {
+      const choice = state.choice
+      if (!choice) return
+      const step = D.findStep(doc, choice.stepId)
+      if (!step) return
+      step.picks = { ...(step.picks || {}), [choice.key]: value }
+      state.choice = null
+      // Settling one choice may uncover the next.
+      const info = rebuiltScene().steps.find((s) => s.step.id === choice.stepId)
+      if (info && info.needsChoice) {
+        const tool = registry().get(step.tool)
+        state.choice = { stepId: step.id, tool: step.tool, ...info.needsChoice }
+        say(promptFor(tool, info.needsChoice.key), 'info')
+      } else {
+        say(info && !info.ok ? info.error : null)
+      }
+      invalidate()
+    },
+
+    /** Click near one of the candidates to settle the choice. */
+    pickChoice(world, reach) {
+      const options = api.choiceOptions()
+      let best = null
+      for (const option of options) {
+        const d = G.dist(option.point, world)
+        if (d <= reach && (!best || d < best.d)) best = { d, value: option.value }
+      }
+      if (best) api.chooseBranch(best.value)
+      else say('Click one of the two points to say which way it should go.', 'info')
+      invalidate()
+    },
+
+    /** Abandon the step that is waiting on a choice. */
+    cancelChoice() {
+      if (!state.choice) return
+      state.choice = null
+      api.undo()
+    },
+
+    /* -------------------------------------------------- colour */
+
+    setColor(objId, color) {
+      const step = D.stepProducing(doc, objId)
+      if (!step) return
+      snapshot()
+      if (step.op === 'macro') {
+        // A tool's results are coloured where they are made; recolour the
+        // objects it exposed rather than the call.
+        step.colors = { ...(step.colors || {}), [objId]: color }
+      } else {
+        step.color = color
+      }
       invalidate()
     },
 
@@ -549,6 +654,7 @@ export function createSketch(options = {}) {
     /* -------------------------------------------------- prose */
 
     hint() {
+      if (state.choice) return state.notice || 'Two ways are open. Click the point you want.'
       if (state.notice) return state.notice
       const def = state.definition
       if (def) {

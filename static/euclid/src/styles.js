@@ -161,98 +161,112 @@ canvas {
 }
 .sidebar[hidden] { display: none; }
 
-.side-head { padding: 9px 11px 7px; border-bottom: 1px solid var(--eu-rule); }
-.side-head h3 {
-  margin: 0;
-  font-family: var(--eu-serif);
-  font-size: 17px;
-  font-weight: 600;
-}
-.side-head p {
-  margin: 1px 0 6px;
-  font-family: var(--eu-serif);
-  font-style: italic;
-  font-size: 12px;
-  color: var(--eu-muted);
-}
+.side-head { padding: 7px 10px; border-bottom: 1px solid var(--eu-rule); }
 .side-head select.books {
   width: 100%;
   font: inherit;
-  font-size: 12px;
-  padding: 3px 5px;
+  font-family: var(--eu-serif);
+  font-size: 14px;
+  padding: 3px 6px;
   color: inherit;
   background: var(--eu-paper);
   border: 1px solid var(--eu-rule);
   border-radius: 3px;
 }
 
-.side-tabs { display: flex; border-bottom: 1px solid var(--eu-rule); }
-.side-tabs button {
-  flex: 1;
-  padding: 6px 2px;
-  font-size: 10.5px;
-  letter-spacing: 0.03em;
+.side-list { overflow: auto; flex: 1 1 auto; }
+.side-section { border-bottom: 1px solid var(--eu-rule); }
+.side-section > summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 11px;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--eu-muted);
-  border-radius: 0;
+  user-select: none;
 }
-.side-tabs button[aria-selected='true'] { color: var(--eu-ink); box-shadow: inset 0 -2px 0 var(--eu-accent); }
+.side-section > summary::-webkit-details-marker { display: none; }
+.side-section > summary::before {
+  content: '›';
+  display: inline-block;
+  font-size: 13px;
+  transition: transform 0.12s ease;
+}
+.side-section[open] > summary::before { transform: rotate(90deg); }
+.side-section > summary:hover { background: rgba(0, 0, 0, 0.04); }
+.side-section[open] > summary { color: var(--eu-ink); }
+.side-section > summary .name { flex: 1 1 auto; }
+.side-section > summary .count { font-variant-numeric: tabular-nums; opacity: 0.7; }
 
-.side-list { overflow: auto; flex: 1 1 auto; padding-bottom: 6px; }
-.side-list .gloss {
+.side-section .gloss {
   margin: 0;
-  padding: 7px 11px 8px;
+  padding: 0 10px 8px 24px;
   font-family: var(--eu-serif);
   font-size: 12.5px;
   font-style: italic;
+  line-height: 1.4;
   color: var(--eu-muted);
-  border-bottom: 1px solid var(--eu-rule);
 }
-.side-list .entry {
+.side-section .entry {
   display: flex;
-  gap: 8px;
+  gap: 9px;
   width: 100%;
   text-align: left;
-  padding: 6px 11px;
+  padding: 5px 10px 5px 24px;
   border-radius: 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--eu-rule) 45%, transparent);
   font: inherit;
 }
-.side-list .entry.plain { cursor: default; }
-.side-list button.entry:not(:disabled):hover { background: var(--eu-accent-soft); }
-.side-list .entry.unavailable { opacity: 0.45; }
-.side-list .entry .num {
-  flex: 0 0 3.1em;
+.side-section .entry.plain { cursor: default; }
+.side-section button.entry:not(:disabled):hover { background: var(--eu-accent-soft); }
+.side-section .entry.unavailable { opacity: 0.4; }
+.side-section .entry .num {
+  flex: 0 0 2.9em;
   font-family: var(--eu-serif);
   font-size: 12.5px;
   color: var(--eu-accent);
   line-height: 1.35;
 }
-.side-list .entry .num em {
+.side-section .entry .num.glyph { font-size: 15px; text-align: center; color: var(--eu-ink); }
+.side-section .entry .num em {
   display: block;
-  font-size: 9.5px;
+  font-size: 9px;
   font-style: normal;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--eu-muted);
 }
-.side-list .entry .said {
+.side-section .entry .said {
   flex: 1 1 auto;
   font-family: var(--eu-serif);
   font-size: 12.5px;
   line-height: 1.4;
 }
-.side-list .entry.unavailable .said,
-.side-list .entry.plain .said { color: var(--eu-ink); }
 
 .side-foot {
   margin: 0;
-  padding: 6px 11px;
+  padding: 6px 10px;
   border-top: 1px solid var(--eu-rule);
-  font-size: 10.5px;
+  font-size: 10px;
+  line-height: 1.45;
   color: var(--eu-muted);
 }
 .side-foot a { color: var(--eu-accent); }
+
+/* ------------------------------------------------------------ colour */
+
+.swatches { display: inline-flex; gap: 3px; align-items: center; }
+.swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  padding: 0;
+}
+.swatch[aria-pressed='true'] { box-shadow: 0 0 0 2px var(--eu-paper), 0 0 0 3.5px var(--eu-accent); }
 
 .tabs { display: flex; border-bottom: 1px solid var(--eu-rule); }
 .tabs button {

@@ -207,6 +207,7 @@ export class EuclidSketchElement extends HTMLElement {
       pending: s.pending,
       cursor: s.cursor,
       snap: s.snap,
+      choice: s.choice ? this.sketch.choiceOptions() : null,
     })
   }
 

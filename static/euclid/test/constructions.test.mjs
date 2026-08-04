@@ -29,8 +29,10 @@ function docWithPoints(points) {
   return { doc, ids }
 }
 
-function apply(doc, toolId, argIds) {
+function apply(doc, toolId, argIds, picks = { apex: 0 }) {
   const step = makeToolStep(doc, tool(toolId), argIds, 'g')
+  // I.1 leaves the side the triangle falls on to the reader; the tests say.
+  if (picks) step.picks = picks
   D.addStep(doc, step)
   return step
 }

@@ -196,7 +196,9 @@ export function inlineTool(doc, tool, argIds, gesture, outIds = null) {
     let step
     if (body.op === 'macro') {
       const out = (body.out || []).map((o) => claim(o, 'o'))
+      // Choices the tool settles for itself have to travel with it.
       step = { op: 'macro', id: D.newId(doc, 'm'), tool: body.tool, args: (body.args || []).map(ref), out, g: gesture }
+      if (body.picks) step.picks = { ...body.picks }
     } else {
       step = { ...D.remapRefs(body, ref), id: claim(body.id, 'p'), g: gesture }
     }

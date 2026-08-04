@@ -109,7 +109,49 @@ chapters = [m.start() for m in re.finditer(r'\\chapter\*\{', text)]
 prop_chapter = text.index('\\chapter*{Propositions}')
 end_of_book_one = next((c for c in chapters if c > prop_chapter), len(text))
 
+# Byrne's own colours, from byrnebook.cls.
+data_colors = {}
+for m in re.finditer(r'\\definecolor\{by(\w+)\}\{rgb\}\{([^}]*)\}', open('byrne/byrnebook.cls', encoding='utf-8').read()):
+    r, g, b = (float(x) for x in m.group(2).split(','))
+    data_colors[m.group(1)] = '#%02X%02X%02X' % (round(r * 255), round(g * 255), round(b * 255))
+
+MATH = {
+    r'\\therefore': '∴', r'\\because': '∵', r'\\neq': '≠', r'\\ngtr': '≯', r'\\nless': '≮',
+    r'\\times': '×', r'\\parallel': '∥', r'\\perp': '⊥', r'\\pm': '±',
+}
+
+
+def symbol_of(raw):
+    out = raw.strip()
+    for pattern, glyph in MATH.items():
+        out = re.sub(pattern, glyph, out)
+    out = out.replace('\\drawTwoRightAngles', '⌐⌐').replace('$', '').strip()
+    out = re.sub(r'\\drawAngle\s*\{([^{}]*)\}', r'∠\1', out)
+    out = re.sub(r'\\indefstr', 'def.', out)
+    out = re.sub(r'\\inpoststr', 'post.', out)
+    out = re.sub(r'\\inaxstr', 'ax.', out)
+    out = re.sub(r'\\conststr', 'const.', out)
+    out = re.sub(r'\\qedstr', 'Q.E.D.', out)
+    out = re.sub(r'\\[a-zA-Z]+', '', out)
+    return re.sub(r'\s+', ' ', out).strip()
+
+
+symbols = []
+sym_start = text.index('\\chapter*{Symbols and abbreviations}')
+sym_end = text.index('\\chapter*{Definitions}')
+for m in re.finditer(r'\\symb\s*\{', text[sym_start:sym_end]):
+    at = sym_start + m.end() - 1
+    raw, after = braced(text, at)
+    nxt = re.search(r'\\(symb|chapter)\b', text[after:sym_end])
+    body = text[after:after + (nxt.start() if nxt else sym_end - after)]
+    glyph = symbol_of(raw)
+    meaning = clean(body)
+    if glyph and meaning:
+        symbols.append({'symbol': glyph, 'text': meaning})
+
 data = {
+    'symbols': symbols,
+    'colors': data_colors,
     'definitions': collect('definition', 'def', prop_chapter),
     'postulates': collect('postulate', 'post', prop_chapter),
     'axioms': collect('axiom', 'ax', prop_chapter),
@@ -141,6 +183,8 @@ for m in prop_re.finditer(text):
     })
 
 json.dump(data, open('book1.json', 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
+print('symbols   ', len(data['symbols']), [x['symbol'] for x in data['symbols']][:8])
+print('colors    ', data['colors'])
 print('definitions', len(data['definitions']))
 print('postulates ', len(data['postulates']))
 print('axioms     ', len(data['axioms']))

@@ -16,6 +16,9 @@ import * as D from './doc.js'
 
 const MAX_TOOL_DEPTH = 24
 
+/** The order fresh lines take their colour in, when nothing says otherwise. */
+export const COLOR_ORDER = ['black', 'red', 'blue', 'yellow']
+
 export function solve(doc, opts = {}) {
   const upTo = opts.upTo ?? Infinity
   const tools = new Map()
@@ -46,10 +49,16 @@ export function solve(doc, opts = {}) {
     return obj
   }
 
+  // Byrne colours a figure so the colours carry the argument. A step may name
+  // its own; anything else takes the next colour in the book's order.
+  let colorTurn = 0
+
   function build(id, def, meta) {
     const made = evaluate(def, getPoint, getCurve)
     if (!made) return null
-    return put({ id, def, hidden: false, ghost: false, auto: false, ...made, ...meta })
+    const obj = put({ id, def, hidden: false, ghost: false, auto: false, ...made, ...meta })
+    if (obj.type === 'curve') obj.color = def.color || COLOR_ORDER[colorTurn++ % COLOR_ORDER.length]
+    return obj
   }
 
   /** Every pair of drawn curves that meets yields points, with no step needed. */
@@ -116,12 +125,20 @@ export function solve(doc, opts = {}) {
 
     let ok = true
     let error = null
+    let needsChoice = null
     const produced = []
     const visibleCurves = []
+    const path = call.path || ''
+    const keyFor = (key) => (path ? `${path}.${key}` : key)
 
     for (const body of tool.body || []) {
       if (body.op === 'macro') {
         const outIds = (body.out || []).map(idFor)
+        // A tool may settle its own nested choices; whatever it leaves open
+        // bubbles up to the reader under a path-qualified name.
+        const nestedPath = path ? `${path}.${body.id}` : body.id
+        const picks = { ...call.picks }
+        for (const [k, v] of Object.entries(body.picks || {})) picks[`${nestedPath}.${k}`] = v
         const res = runMacro(
           {
             toolId: body.tool,
@@ -131,6 +148,9 @@ export function solve(doc, opts = {}) {
             visible: new Set(outIds.filter((id) => call.visible.has(id))),
             expanded: call.expanded,
             beyond: call.beyond,
+            picks,
+            colors: call.colors,
+            path: nestedPath,
           },
           stepIndex,
           depth + 1,
@@ -139,13 +159,27 @@ export function solve(doc, opts = {}) {
           ok = false
           error = error || res.error
         }
+        needsChoice = needsChoice || res.needsChoice
         produced.push(...res.produced)
         visibleCurves.push(...res.visibleCurves)
         continue
       }
       const id = idFor(body.id)
       const shown = call.visible.has(id)
-      const obj = build(id, D.remapRefs(body, ref), {
+      let def = D.remapRefs(body, ref)
+      if (body.choose) {
+        // Two circles cut in two places, and only the reader can say which one
+        // is wanted. Until they do, the step simply has not been carried out.
+        const picked = call.picks ? call.picks[keyFor(body.choose)] : undefined
+        if (picked === undefined) {
+          ok = false
+          error = error || 'This construction offers a choice; it is waiting on you.'
+          needsChoice = needsChoice || { key: keyFor(body.choose), at: id, options: body.options || [0, 1] }
+          continue
+        }
+        def = { ...def, branch: picked }
+      }
+      const obj = build(id, def, {
         stepIndex,
         hidden: call.beyond || (!shown && !call.expanded),
         ghost: !shown,
@@ -157,10 +191,11 @@ export function solve(doc, opts = {}) {
         error = error || 'Part of this construction could not be carried out here.'
         continue
       }
+      if (call.colors && call.colors[id]) obj.color = call.colors[id]
       produced.push(id)
       if (shown && obj.type === 'curve') visibleCurves.push(id)
     }
-    return { ok, error, produced, visibleCurves }
+    return { ok, error, needsChoice, produced, visibleCurves }
   }
 
   // Scrubbing back through a proof hides the later steps rather than skipping
@@ -180,12 +215,16 @@ export function solve(doc, opts = {}) {
           visible: new Set(outIds),
           expanded: !!step.expanded,
           beyond,
+          picks: step.picks || {},
+          colors: step.colors || null,
+          path: '',
         },
         i,
         0,
       )
       info.ok = res.ok
       info.error = res.error
+      info.needsChoice = res.needsChoice
       info.produced = res.produced
       if (!beyond) generateAutos(res.visibleCurves, i)
     } else {
