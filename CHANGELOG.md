@@ -25,7 +25,18 @@
 - Keep the construction lines of a supposition off the page. They are still there — points are taken on them,
   and *working* shows the lot — but I.4 now opens as two triangles and I.5 as Byrne's isosceles with its equal
   sides produced, which its enunciation is half about and the figure did not have
-- Mark the proposition on the paper in the book, and turn the book to it
+- Mark the proposition on the paper in the book, and turn the book to it. The book also marks what has been got
+  through — a tick beside the proposition, right-click to give it up — which is where a reader would look, so the
+  ledger that said it a second time is gone
+- Keep Book I's propositions one to a file in `propositions/`, and let the sketchpad write one back out: correct
+  a figure on the paper, save it, drop the file in, and that is what everybody opens. The round trip is exact
+- Draw the angle, as Byrne fills it in: select three points and press ∠. It is a mark, not a magnitude — nothing
+  can be built on it — and in the prose it reads ∠BAC with the sign in the colour of the wedge
+- Draw a line heavy, which is how Byrne tells two lines of one colour apart, and thicken the bar over its name
+  to match
+- Write a remark against any step. The second pane gathers them in step order
+- Turn I.1's triangle the way up Byrne draws it, and redraw I.3 as his page has it: the part cut off solid, the
+  remainder dashed, the carried length red, the lesser line blue
 - Cite the way Byrne cites: **const.** and **hyp.** join the definitions, postulates and axioms in the reason
   picker. They are the commonest reasons in the book, and the commonest here, since the figure *is* the
   construction and a theorem's hypothesis was built rather than promised

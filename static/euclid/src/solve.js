@@ -414,6 +414,16 @@ function evaluate(def, getPoint, getCurve) {
       const geom = G.circleThrough(o.pos, r.pos)
       return geom ? { type: 'curve', geom } : null
     }
+    case 'angle': {
+      // A mark, not a magnitude and not a figure: it draws the wedge Byrne
+      // fills in, and nothing else in the scene may cut it or stand on it.
+      const v = getPoint(def.v)
+      const a = getPoint(def.a)
+      const b = getPoint(def.b)
+      if (!v || !a || !b) return null
+      if (G.dist(v.pos, a.pos) < 1e-9 || G.dist(v.pos, b.pos) < 1e-9) return null
+      return { type: 'mark', at: v.pos, from: a.pos, to: b.pos }
+    }
     default:
       return null
   }
@@ -421,6 +431,8 @@ function evaluate(def, getPoint, getCurve) {
 
 function failureText(step) {
   switch (step.op) {
+    case 'angle':
+      return 'The angle has no arms: two of these points fall together.'
     case 'inter':
       return 'These no longer cut one another.'
     case 'onCurve':
@@ -753,6 +765,8 @@ function sceneBounds(objects, order) {
     const o = objects.get(id)
     if (!o || o.hidden) continue
     if (o.type === 'point') pts.push(o.pos)
+    // A mark sits inside the figure it marks and can never enlarge it.
+    else if (o.type === 'mark') continue
     else if (o.geom.kind === 'circle') {
       pts.push({ x: o.geom.c.x - o.geom.r, y: o.geom.c.y - o.geom.r })
       pts.push({ x: o.geom.c.x + o.geom.r, y: o.geom.c.y + o.geom.r })

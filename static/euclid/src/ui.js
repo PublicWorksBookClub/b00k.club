@@ -959,10 +959,16 @@ export function createUI(root, app, options = {}) {
       const claims = app.doc.steps.filter((s) => s.op === 'claim')
       const marked = claims.find((s) => s.qed)
       const wrap = el('p', 'finis waiting')
+      // A page that ends "hold a magnitude and compare it" tells a reader who
+      // already knows how nothing, and a reader who does not, less. Say which
+      // buttons, in the order they are pressed.
       wrap.textContent = !claims.length
-        ? 'Hold a magnitude and compare it to state what follows; then mark what was to be proved.'
+        ? 'Nothing asserted yet. Select two points on the figure for a length — or three for an angle — press ='
+          + ' to hold it, select what it is to be compared with, and say how the two stand. Then mark one claim as'
+          + ' what was to be proved, and the page closes with Q. E. D.'
         : marked ? 'What was to be proved does not hold of this figure.'
-          : 'Mark one of these as what was to be proved, and the proposition closes.'
+          : 'Mark one of these as what was to be proved — the button under it says so — and the page closes'
+            + ' with Q. E. D.'
       return wrap
     }
     const wrap = el('p', 'finis')
@@ -1593,6 +1599,20 @@ export function createUI(root, app, options = {}) {
         ui.help = false
       }),
       el('span', 'menu-rule'),
+      // A proposition is data in a file, so a figure corrected on the paper can
+      // go back to being that file. Drop it into `propositions/` and it is what
+      // everybody opens from then on — not a sketch kept in one browser.
+      ...(app.proposition && app.proposition.id
+        ? [item(`Save ${app.proposition.ref} as its source file…`, () => {
+          const out = app.propositionSourceText()
+          if (!out) return
+          storage.downloadSketch(out.text, out.file, 'text/javascript')
+          app.state.notice = `${out.ref} written out. Put ${out.file} in static/euclid/propositions/ and it is`
+            + ' what the app opens with.'
+          app.state.noticeKind = 'info'
+          app.changed()
+        })]
+        : []),
       item('Save to a file…', () => storage.downloadSketch(app.serialize(), 'construction.euclid.json')),
       item('Open a file…', async () => {
         const text = await storage.pickSketchFile()

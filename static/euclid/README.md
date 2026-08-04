@@ -20,6 +20,27 @@ Where the lines and circles cut one another, the points are simply there. They s
 some later step uses one, at which point it gets a letter — which is how a figure in the text acquires its
 lettering.
 
+## Correcting a proposition
+
+Book I's propositions live one to a file in `propositions/`, beside `src/`
+rather than inside it, because they are the part a reader may reasonably want to
+correct: a figure that opens the wrong way up, a colour that does not match the
+book, a line that should be drawn heavier, a remark worth making against a step.
+They are plain data, and editing one changes what everybody opens.
+
+You need not edit them by hand. Open the proposition, correct it on the paper —
+drag the givens, click the other intersection, recolour a line, mark an angle,
+write a note against a step — then ⋯ → **Save I.1 as its source file…**. Drop
+the file back into `propositions/`, reload, and that is the app's own starting
+condition. Everything the document has an opinion about is rebuilt from the
+paper: where the givens start, which way an intersection falls, colour, dash,
+weight, what is working and what is drawn, and every remark. What it has no
+opinion about — the name, the note, which results the tool hands back — is
+carried over unchanged.
+
+The round trip is exact, and a test says so for every proposition: save one
+without touching it and you get the file you started with, byte for byte.
+
 ## Making a tool
 
 Carry out a construction, press **+**, then
@@ -93,12 +114,14 @@ and can be scrubbed through, a tool is literally a slice of the list replayed wi
 just "edit one step's numbers and run it again".
 
 ```
+propositions/      Book I, one file per proposition — the part worth correcting
 src/
   geometry.js      vectors, curves, intersections, clipping
   doc.js           the step list: ids, references, cascading deletion, serialisation
   solve.js         run a document into a scene; automatic intersections; lettering; prose
   macros.js        extracting a tool from a construction, and unfolding one
-  propositions.js  Book I.1–I.5, I.9–I.13, I.15, I.16, I.20, I.23, I.31, I.37, I.46, I.47
+  propositions.js  the index of `propositions/`, in the order they were written
+  source.js        writing a proposition back out as its own file
   camera.js        pan and zoom
   help.js          what the sketchpad does, as data
   tutorial.js      the walk through the first proposition
@@ -182,7 +205,8 @@ about to make.
 
 A step's sentence is built as a list of pieces rather than a string, so a name
 can be printed as a name: a bar over a straight line in the colour it is drawn
-in, an arrow if it runs on, a ring for a circle. Finding the thing on the paper
+in, thicker if the line is heavy, an arrow if it runs on, a ring for a circle,
+∠ for an angle. Finding the thing on the paper
 then takes no translation. `info.text` is the same sentence flattened, for
 anything that only wants a string.
 
@@ -298,6 +322,25 @@ drawn figure cannot settle it. So every reading is offered by name and the
 reader says which. Four points are a quadrilateral; of the three ways they can
 be joined up exactly one does not cross itself, so the order round the figure is
 found rather than asked for.
+
+## Marks, weight, and commentary
+
+Three things a figure has to be able to say that a line and a point cannot.
+
+An **angle** step draws the coloured wedge Byrne fills in. It is a mark, not a
+magnitude and not a figure: no point to build on, no curve for anything to cut,
+nothing for the lasso to catch. Its whole purpose is that ∠BAC in the prose and
+the yellow wedge on the paper are plainly the same thing. Select three points
+and press ∠.
+
+A line may be drawn **heavy**, which is how Byrne tells two lines of one colour
+apart — AB from DE on the page of I.4. It sits beside the dash toggle, and the
+bar over the name in the prose thickens with it.
+
+Any step may carry a **remark**. Byrne's own pages have them; a step list that
+cannot hold one is a poorer record of a proof than the book it is following. The
+second pane gathers them in step order, with a way back to the step each belongs
+to.
 
 ## Q. E. D.
 

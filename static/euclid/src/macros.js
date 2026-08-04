@@ -245,6 +245,8 @@ export function inlineTool(doc, tool, argIds, gesture, outIds = null, givens = n
       const out = (body.out || []).map((o) => claim(o, 'o'))
       // Choices the tool settles for itself have to travel with it.
       step = { op: 'macro', id: D.newId(doc, 'm'), tool: body.tool, args: (body.args || []).map(ref), out, g: gesture }
+      step.outLocals = [...(body.out || [])]
+      if (body.remark) step.remark = body.remark
       if (body.picks) step.picks = { ...body.picks }
       // Some of what a tool hands back is wanted only as scaffolding. I.2 gives
       // a point and the line to it; a construction that only wants the length
@@ -262,6 +264,9 @@ export function inlineTool(doc, tool, argIds, gesture, outIds = null, givens = n
       const role = roleFor(body.id)
       if (role) step.role = role
     }
+    // Which line of the tool's own body this step came from, so a proposition
+    // corrected on the paper can be written back out as the file it came from.
+    step.local = body.id
     D.addStep(doc, step)
     added.push(step)
   }

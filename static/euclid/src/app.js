@@ -14,6 +14,7 @@ import * as MAG from './magnitudes.js'
 import { solve } from './solve.js'
 import { PROPOSITIONS, PROPOSITION_BY_ID, DEFAULT_TOOL_IDS } from './propositions.js'
 import { BOOK_I } from './book1.js'
+import { propositionSource } from './source.js'
 
 export const PRIMITIVES = [
   { id: 'select', label: 'Move', glyph: 'arrow', hint: 'Drag a point to test the figure. Click anything to select it.' },
@@ -148,7 +149,9 @@ export function createSketch(options = {}) {
       }
       const id = D.newId(doc, 'c')
       const { from, to, id: _local, ...style } = want
-      D.addStep(doc, { op: 'segment', id, a, b, g: gesture, given: true, setup: setup || undefined, ...style })
+      D.addStep(doc, {
+        op: 'segment', id, a, b, g: gesture, given: true, setup: setup || undefined, local: want.id || null, ...style,
+      })
       if (want.id) givens[want.id] = id
       scene = null
     }
@@ -353,6 +356,7 @@ export function createSketch(options = {}) {
       for (const id of scene.order) {
         const o = scene.objects.get(id)
         if (!o || o.hidden || o.ghost) continue
+        if (o.type === 'mark') continue
         if (o.type === 'point' ? inside(o.pos) : G.meetsRect(o.geom, rect)) state.selection.add(id)
       }
       emit()
@@ -1307,9 +1311,91 @@ export function createSketch(options = {}) {
 
     serialize: () => D.serializeDoc(doc),
 
+    /**
+     * The proposition on the paper, written back out as its own source file.
+     *
+     * Everything a reader would want to correct in a figure is in the document
+     * already — where the given points start, which way an intersection falls,
+     * what colour a line is, whether it is dashed or heavy, what is working and
+     * what is drawn, and any remark written against a step. So the file can be
+     * rebuilt from the paper: correct the figure, save, drop the file in, and
+     * that is what the app opens with from then on.
+     *
+     * What is *not* rebuilt is what the document has no opinion about — the
+     * name, the note, which results the tool hands back, what its choices are
+     * called. Those are carried over from the proposition as it stands.
+     */
+    propositionSourceText() {
+      const open = doc.meta?.proposition
+      const prop = open && open.id ? PROPOSITION_BY_ID.get(open.id) : null
+      if (!prop) return null
+      // Local names, from the proposition outwards: the givens first, then the
+      // lines it is handed, then its body. Anything the reader has added since
+      // is numbered on after the last of them.
+      const locals = new Map()
+      const inputs = prop.inputs || []
+      const points = doc.steps.filter((s) => s.op === 'point')
+      inputs.forEach((inp, i) => points[i] && locals.set(points[i].id, inp.id))
+      let next = 0
+      for (const step of doc.steps) {
+        if (typeof step.local === 'string') {
+          locals.set(step.id, step.local)
+          const m = /^l(\d+)$/.exec(step.local)
+          if (m) next = Math.max(next, Number(m[1]) + 1)
+        }
+        if (step.op === 'macro' && step.outLocals) {
+          ;(step.out || []).forEach((id, i) => {
+            const l = step.outLocals[i]
+            if (!l) return
+            locals.set(id, l)
+            const m = /^l(\d+)$/.exec(l)
+            if (m) next = Math.max(next, Number(m[1]) + 1)
+          })
+        }
+      }
+      const name = (id) => {
+        if (!locals.has(id)) locals.set(id, 'l' + next++)
+        return locals.get(id)
+      }
+      // Given points and the lines declared as givens are the proposition's
+      // preamble, not its body.
+      const preamble = new Set(points.slice(0, inputs.length).map((s) => s.id))
+      const body = []
+      for (const step of doc.steps) {
+        if (preamble.has(step.id) || step.given) continue
+        if (step.op === 'claim') continue
+        const out = { op: step.op, id: name(step.id) }
+        if (step.op === 'macro') {
+          out.tool = step.tool
+          out.args = (step.args || []).map((id) => locals.get(id) || id)
+          out.out = (step.out || []).map(name)
+          if (step.working) out.working = step.working.map((id) => locals.get(id) || id)
+          if (step.picks) out.picks = { ...step.picks }
+        } else {
+          for (const [k, v] of Object.entries(D.remapRefs(step, (id) => locals.get(id) || id))) {
+            if (['op', 'id', 'g', 'setup', 'local', 'expanded', 'role', 'given'].includes(k)) continue
+            out[k] = v
+          }
+          if (step.working) out.working = true
+        }
+        if (step.remark) out.remark = step.remark
+        body.push(out)
+      }
+      const kept = new Set(locals.values())
+      const source = {
+        ...prop,
+        body,
+        outputs: (prop.outputs || []).filter((o) => kept.has(o)),
+        demo: { points: points.slice(0, inputs.length).map((s) => ({ x: s.x, y: s.y })) },
+      }
+      return { text: propositionSource(source), file: prop.ref.replace(/\./g, '-') + '.js', ref: prop.ref }
+    },
+
     /** Set out a proposition's construction as steps, ready to be read through. */
     walkProposition(propId) {
-      const prop = PROPOSITION_BY_ID.get(propId)
+      // A copy carried by the document wins over the one that ships: a
+      // proposition is data, and a figure may travel with a corrected one.
+      const prop = registry().get(propId) || PROPOSITION_BY_ID.get(propId)
       if (!prop) return
       snapshot()
       // Reading a proposition through starts a fresh figure but keeps the

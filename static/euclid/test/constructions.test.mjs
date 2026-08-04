@@ -920,3 +920,67 @@ test('I.5 produces the equal sides its enunciation talks about', () => {
     jog(app, random)
   }
 })
+
+/* ------------------------------------------------------------------ *
+ * A proposition is a file
+ * ------------------------------------------------------------------ */
+
+test('every proposition writes back out as the file it came from', async () => {
+  // The whole point of keeping propositions as data in files of their own is
+  // that a figure corrected on the paper can go back to being that file. If the
+  // round trip ever stopped being exact, a save would quietly lose something.
+  const { mkdtempSync, writeFileSync } = await import('node:fs')
+  const { tmpdir } = await import('node:os')
+  const dir = mkdtempSync(tmpdir() + '/euclid-props-')
+  for (const prop of PROPOSITIONS) {
+    const app = createSketch()
+    app.walkProposition(prop.id)
+    const out = app.propositionSourceText()
+    assert.ok(out, `${prop.ref} produced no source`)
+    assert.equal(out.file, prop.ref.replace(/\./g, '-') + '.js')
+    const path = `${dir}/${out.file}`
+    writeFileSync(path, out.text)
+    const again = (await import(path)).default
+    assert.deepEqual(again, prop, `${prop.ref} did not come back the same`)
+  }
+})
+
+test('what the reader changes on the paper is what the file says', async () => {
+  const { mkdtempSync, writeFileSync } = await import('node:fs')
+  const { tmpdir } = await import('node:os')
+  const app = createSketch()
+  app.walkProposition('euclid.I.1')
+
+  // Everything a reader would want to correct: where the givens start, which
+  // way the triangle falls, what colour a line is, how it is drawn, and what is
+  // written against a step.
+  const points = app.doc.steps.filter((s) => s.op === 'point')
+  points[0].x = -90
+  points[0].y = -40
+  const apex = app.doc.steps.find((s) => s.op === 'inter')
+  apex.branch = 1
+  app.changed()
+  const side = app.doc.steps.filter((s) => s.op === 'segment' && !s.given)[0]
+  app.setColor(side.id, 'blue')
+  app.setThick(side.id, true)
+  app.setRemark(side.id, 'Drawn heavier, to tell it from the other blue.')
+
+  const out = app.propositionSourceText()
+  const dir = mkdtempSync(tmpdir() + '/euclid-edit-')
+  writeFileSync(`${dir}/${out.file}`, out.text)
+  const saved = (await import(`${dir}/${out.file}`)).default
+  assert.deepEqual(saved.demo.points[0], { x: -90, y: -40 })
+  assert.equal(saved.body.find((s) => s.op === 'inter').branch, 1)
+  const edited = saved.body.find((s) => /heavier/.test(s.remark || ''))
+  assert.equal(edited.color, 'blue')
+  assert.equal(edited.thick, true)
+  assert.match(edited.remark, /heavier/)
+
+  // And the file really is the proposition: opened as one, it is the figure
+  // that was saved.
+  const reader = createSketch({ toolIds: [] })
+  reader.addTool(saved)
+  reader.walkProposition(saved.id)
+  assert.ok(reader.scene.steps.every((s) => s.ok))
+  assert.equal(reader.doc.steps.filter((s) => s.op === 'point')[0].x, -90)
+})

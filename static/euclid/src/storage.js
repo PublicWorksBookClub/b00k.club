@@ -61,8 +61,8 @@ export function decodeSketch(encoded) {
   return new TextDecoder().decode(bytes)
 }
 
-export function downloadSketch(text, filename = 'sketch.euclid.json') {
-  const blob = new Blob([text], { type: 'application/json' })
+export function downloadSketch(text, filename = 'sketch.euclid.json', type = 'application/json') {
+  const blob = new Blob([text], { type })
   const url = URL.createObjectURL(blob)
   const link = document.createElement('a')
   link.href = url

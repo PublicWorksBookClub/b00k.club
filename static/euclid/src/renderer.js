@@ -139,7 +139,7 @@ function drawAngleMark(ctx, o, S, view) {
   const b = S(o.to)
   const arm = Math.min(Math.hypot(a.x - v.x, a.y - v.y), Math.hypot(b.x - v.x, b.y - v.y))
   if (!(arm > 4)) return
-  const r = Math.min(arm * 0.42, 46)
+  const r = Math.min(arm * 0.3, 34)
   let from = Math.atan2(a.y - v.y, a.x - v.x)
   let to = Math.atan2(b.y - v.y, b.x - v.x)
   // Whichever way round is the shorter is the angle that was meant.

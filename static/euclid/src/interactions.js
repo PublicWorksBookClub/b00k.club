@@ -31,13 +31,16 @@ export function hitTest(scene, world, cam, tolerance = HIT_TOLERANCE) {
         best = d
         point = o
       }
-    } else {
+    } else if (o.type === 'curve') {
       const d = G.distanceToCurve(o.geom, world)
       if (d <= reach && d < bestCurve) {
         bestCurve = d
         curve = o
       }
     }
+    // A mark is not clicked on the paper — it is a wedge filled in behind the
+    // lines, and clicking it would mean clicking the figure it lies inside.
+    // It is removed from the step list, like any other step.
   }
   return point || curve ? { point, curve } : null
 }
