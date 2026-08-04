@@ -337,6 +337,12 @@ export function solve(doc, opts = {}) {
     stepInfos.push(info)
   }
 
+  // An intersection is knowable before anything names it, so the circles of I.1
+  // put a point at each crossing the moment they are drawn — and then the step
+  // that names one puts a second object in the same place. One of them is
+  // invisible, catches clicks, and can be rubbed out on its own. Take it away:
+  // where a step has named a point, that named point is the point.
+  pruneShadowedAutos(objects, order, doc)
   letterThePoints(objects, order, doc)
 
   // Claims are settled last, against the finished figure: a claim is about how
@@ -466,6 +472,30 @@ function* letters() {
  * which is how a figure in the text gets lettered, and keeps a page of circles
  * from turning into alphabet soup.
  */
+/**
+ * Drop an anonymous intersection that a named point has landed on top of.
+ *
+ * Only the anonymous one goes, and only if nothing refers to it: a step that
+ * leans on an intersection has earned it, whatever else happens to be there.
+ */
+function pruneShadowedAutos(objects, order, doc) {
+  const named = []
+  for (const id of order) {
+    const o = objects.get(id)
+    if (o && o.type === 'point' && !o.auto && !o.hidden && !o.ghost) named.push(o.pos)
+  }
+  if (!named.length) return
+  const referred = new Set()
+  for (const step of doc.steps) for (const ref of D.refsOf(step)) referred.add(ref)
+  for (const id of [...order]) {
+    const o = objects.get(id)
+    if (!o || !o.auto || referred.has(id)) continue
+    if (!named.some((p) => G.dist(p, o.pos) < G.MERGE_TOLERANCE)) continue
+    objects.delete(id)
+    order.splice(order.indexOf(id), 1)
+  }
+}
+
 function letterThePoints(objects, order, doc) {
   const next = letters()
   const give = (id) => {

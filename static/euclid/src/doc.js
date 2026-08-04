@@ -182,6 +182,47 @@ export function removeStep(doc, stepId) {
 }
 
 /** Remove the whole gesture that produced `stepId` (see the `g` field). */
+/**
+ * Take away points that were only ever set down to support something now gone.
+ *
+ * Drawing a line from two fresh spots is one gesture: two points and the line.
+ * Rub out the line and the points were only ever there for it, so they go as
+ * well. A point placed on its own, in a gesture of its own, stays — you meant
+ * that one.
+ *
+ * Run after a removal, never before: a point is orphaned only relative to what
+ * is left.
+ */
+export function gestureCensus(doc) {
+  const sizes = new Map()
+  for (const step of doc.steps) {
+    if (!step.g) continue
+    sizes.set(step.g, (sizes.get(step.g) || 0) + 1)
+  }
+  return sizes
+}
+
+export function sweepOrphanedPoints(doc, sizes = gestureCensus(doc)) {
+  let changed = true
+  while (changed) {
+    changed = false
+    const used = new Set()
+    for (const step of doc.steps) for (const ref of refsOf(step)) for (const r of rootsOf(ref)) used.add(r)
+    for (const step of doc.steps) {
+      if (step.op !== 'point' && step.op !== 'onCurve') continue
+      if (used.has(step.id)) continue
+      // Alone in its gesture means it was placed for its own sake. The census
+      // is taken before the removal: what matters is what the point was set
+      // down alongside, not what happens to be left standing beside it now.
+      if ((sizes.get(step.g) || 0) < 2) continue
+      doc.steps = doc.steps.filter((s) => s.id !== step.id)
+      changed = true
+      break
+    }
+  }
+  return doc
+}
+
 export function removeGestureOf(doc, stepId) {
   const step = findStep(doc, stepId)
   if (!step) return doc

@@ -632,6 +632,35 @@ ol.steps .acts button {
 .given-figure > summary .working:hover { color: var(--eu-accent); border-color: var(--eu-rule); }
 .given-figure > summary .count { font-variant-numeric: tabular-nums; opacity: 0.7; }
 .given-figure ol.steps li .n { color: var(--eu-muted); opacity: 0.6; }
+/* The construction is the main event, so its own fold is not dimmed the way
+   the preamble's is, and its numbers keep their weight. */
+.given-figure.steps { border-bottom: none; }
+.given-figure.steps ol.steps li .n { color: inherit; opacity: 1; }
+.given-figure.steps > summary .name { color: var(--eu-ink); }
+
+/* What a reader is handed before anything has been built. */
+.welcome { padding: 12px; border-bottom: 1px solid var(--eu-rule); }
+.welcome h4 { margin: 0 0 6px; font-size: 13px; font-weight: 600; }
+.welcome p {
+  margin: 0 0 8px;
+  font-family: var(--eu-serif);
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--eu-muted);
+}
+.welcome .acts { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* Somewhere to begin, at the head of the book. */
+.side-section .entry.starter { align-items: baseline; }
+.side-section .entry.starter .num { flex: 0 0 1em; font-size: 15px; }
+.side-section .entry.starter b { display: block; font-weight: 600; font-family: var(--eu-sans); font-size: 12.5px; }
+.side-section .entry.starter .why {
+  display: block;
+  font-family: var(--eu-serif);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--eu-muted);
+}
 
 .empty {
   padding: 14px 12px;
@@ -685,6 +714,16 @@ ol.steps .acts button {
   color: var(--eu-ink);
 }
 .tool-card .acts button { font-size: 11px; padding: 2px 7px; border-color: var(--eu-rule); }
+.welcome .acts button {
+  font-family: var(--eu-sans);
+  font-size: 11px;
+  padding: 3px 9px;
+  border: 1px solid var(--eu-rule);
+  border-radius: 4px;
+  background: var(--eu-paper);
+  color: var(--eu-ink);
+}
+.welcome .acts button.primary { border-color: var(--eu-accent); color: var(--eu-accent); }
 
 /* ------------------------------------------------------------ scrubber */
 

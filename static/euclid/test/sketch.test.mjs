@@ -624,3 +624,59 @@ test('a given line the body works on is the very one that was drawn', () => {
   assert.ok([midpoint.c1, midpoint.c2].includes(given.id), 'and it is what gets cut')
   assert.equal(app.doc.steps.filter((s) => s.op === 'segment').length, 1, 'drawn once')
 })
+
+test('rubbing out one step of a proposition leaves the rest of it standing', () => {
+  // A gesture is the unit of undo, not of deletion, and a proposition set out
+  // step by step is one gesture from beginning to end. Deleting by gesture rubbed
+  // out the whole figure when the reader asked for one line of it.
+  const app = createSketch()
+  app.walkProposition('euclid.I.1')
+  const before = app.doc.steps.length
+  const joined = app.doc.steps.filter((s) => s.op === 'segment' && !s.given)
+  assert.equal(joined.length, 2)
+  app.select(joined[1].id)
+  app.deleteSelection()
+  assert.equal(app.doc.steps.length, before - 1)
+  assert.ok(app.scene.steps.every((s) => s.ok))
+  assert.ok(labelled(app, 'C'), 'and the apex the other line still leans on stayed')
+})
+
+test('a line drawn from two fresh points takes them with it', () => {
+  // The other half of the same rule: those points were only ever set down for
+  // the line, so rubbing out the line rubs them out too.
+  const app = createSketch()
+  app.setMode('segment')
+  app.click({ x: 0, y: 0 }, null)
+  app.click({ x: 120, y: 40 }, null)
+  assert.equal(app.doc.steps.length, 3)
+  app.select(app.doc.steps.at(-1).id)
+  app.deleteSelection()
+  assert.equal(app.doc.steps.length, 0)
+
+  // But a point placed on its own was meant, and stays.
+  const kept = createSketch()
+  kept.setMode('point')
+  kept.click({ x: 0, y: 0 }, null)
+  kept.click({ x: 120, y: 0 }, null)
+  const [a, b] = kept.doc.steps.map((s) => s.id)
+  kept.setMode('segment')
+  kept.click({ x: 0, y: 0 }, at(kept, { x: 0, y: 0 }))
+  kept.click({ x: 120, y: 0 }, at(kept, { x: 120, y: 0 }))
+  kept.select(kept.doc.steps.at(-1).id)
+  kept.deleteSelection()
+  assert.deepEqual(kept.doc.steps.map((s) => s.id), [a, b])
+})
+
+test('a named intersection has no anonymous twin hiding under it', () => {
+  // The circles of I.1 put a point at each crossing the moment they are drawn,
+  // and then the step that names one puts a second object in the same place.
+  // One of them is invisible, catches clicks, and can be rubbed out on its own.
+  const app = createSketch()
+  app.walkProposition('euclid.I.1')
+  const points = [...app.scene.objects.values()].filter((o) => o.type === 'point')
+  const apex = points.find((o) => o.label === 'C')
+  assert.ok(apex)
+  assert.equal(points.filter((o) => G.dist(o.pos, apex.pos) < 1e-6).length, 1)
+  // The crossing nothing has named is still there to be used, as it should be.
+  assert.equal(points.filter((o) => o.auto).length, 1)
+})

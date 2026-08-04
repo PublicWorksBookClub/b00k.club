@@ -156,6 +156,22 @@ moved. So intersections are numbered by a rule that varies continuously with the
 An intersection that stops existing does not delete what leant on it. The step stays, is marked as not currently
 possible, and comes back when the figure is dragged back.
 
+A crossing is knowable before anything names it, so the circles put a point there the moment they are drawn — and
+then the step that names one would put a second object in the same place. The anonymous one is dropped once
+something has named that point, unless a step already leans on it. Otherwise every named intersection carries an
+invisible twin that catches clicks and can be rubbed out on its own.
+
+### Gestures, and what deletion means
+
+Steps made by one gesture share a `g` and are undone together: clicking two fresh points and joining them is one
+action, and taking it back should take back all three. That is the unit of *undo*, and it is not the unit of
+deletion — a proposition set out step by step is one gesture from beginning to end, so deleting by gesture would
+rub out the whole figure when the reader asked for one line of it.
+
+Deleting removes the step and everything standing on it, and then sweeps away any point of the same gesture now
+holding nothing up. That is what takes the two fresh points along with the line they were set down for, while a
+point placed deliberately, alone in its own gesture, stays.
+
 ## Tests
 
 ```sh

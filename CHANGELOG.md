@@ -40,6 +40,14 @@
   A proposition may also give its enunciation in the letters the sketchpad actually uses, since a figure is
   lettered in the order it is built and Byrne's letters need not agree
 - Say what to do next in terms of the buttons that do it, rather than "hold a magnitude and compare it"
+- Open on something rather than on two lettered points and no explanation: **Start here** at the head of the
+  book, and a word in the panel about what the paper is and what to do with it
+- Give the construction a fold of its own, beside the given figure's
+- **Fix**: rubbing out one step of a proposition rubbed out the whole figure. A gesture is the unit of undo, not
+  of deletion; the step goes now, with whatever leans on it, and any point set down only to hold that up
+- **Fix**: every named intersection had an invisible twin sitting exactly under it — the anonymous point the
+  circles made before anything named it — which caught clicks and could be rubbed out on its own
+- **Fix**: the heavy-line button did not come back pressed until you clicked away and selected the line again
 - Cite the way Byrne cites: **const.** and **hyp.** join the definitions, postulates and axioms in the reason
   picker. They are the commonest reasons in the book, and the commonest here, since the figure *is* the
   construction and a theorem's hypothesis was built rather than promised

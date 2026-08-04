@@ -86,7 +86,7 @@ export function createUI(root, app, options = {}) {
     sidebar: !!options.sidebarOpen,
     nav: null,
     panel: true,
-    open: { propositions: true, definitions: false, postulates: false, axioms: false, symbols: false },
+    open: { start: true, propositions: true, definitions: false, postulates: false, axioms: false, symbols: false, steps: true },
     draft: { name: '', ref: '', abbr: '', summary: '' },
     shaken: null,
     reasoning: null,
@@ -191,10 +191,12 @@ export function createUI(root, app, options = {}) {
       ui.factRef,
       ui.help,
       ui.tutorial ? ui.tutorial.at : -1,
-      // How the selection is drawn, so the palette shows the colour it now has.
+      // How the selection is drawn, so the palette shows what it now is: press
+      // heavy and the button has to come back pressed, without waiting for the
+      // reader to click away and select the line again.
       [...s.selection].map((id) => {
         const o = app.scene.get(id)
-        return o ? `${o.color || ''}${o.dash ? '-' : ''}` : ''
+        return o ? `${o.color || ''}${o.dash ? '-' : ''}${o.thick ? '=' : ''}` : ''
       }),
       app.doc.steps.map((step) => (step.op === 'macro' || step.working ? !!step.expanded : 0)),
     ])
@@ -542,6 +544,11 @@ export function createUI(root, app, options = {}) {
   // The book's own order: the shorthand, then what things are, then what may
   // be done, then what is granted, then what is proved.
   const SECTIONS = [
+    {
+      id: 'start',
+      label: 'Start here',
+      gloss: 'Euclid grants three moves and nothing else. Everything below is what he builds out of them.',
+    },
     { id: 'symbols', label: 'Symbols & abbreviations', gloss: 'The shorthand Byrne writes his proofs in.' },
     { id: 'definitions', label: 'Definitions', gloss: 'What each thing is. They assert nothing; they only fix the words.' },
     { id: 'postulates', label: 'Postulates', gloss: 'What may be granted as done. These three are the only moves the pencil has.' },
@@ -592,7 +599,7 @@ export function createUI(root, app, options = {}) {
 
     const list = el('div', 'side-list')
     for (const section of SECTIONS) {
-      const rows = BOOK_I[section.id]
+      const rows = section.id === 'start' ? STARTERS : BOOK_I[section.id]
       const box = el('details', 'side-section')
       box.open = ui.open[section.id] !== false
       box.addEventListener('toggle', () => {
@@ -600,7 +607,7 @@ export function createUI(root, app, options = {}) {
       })
       const summary = el('summary')
       summary.append(el('span', 'name', { textContent: section.label }))
-      summary.append(el('span', 'count', { textContent: String(rows.length) }))
+      if (section.id !== 'start') summary.append(el('span', 'count', { textContent: String(rows.length) }))
       summary.title = section.gloss
       box.append(summary)
       box.append(el('p', 'gloss', { textContent: section.gloss }))
@@ -671,7 +678,58 @@ export function createUI(root, app, options = {}) {
     return said
   }
 
+  /**
+   * Where to begin, for a reader who has just arrived.
+   *
+   * The sketchpad used to open on two lettered points and no explanation, which
+   * is a strange thing to be handed. These are grounded in the book, above the
+   * symbols, so they can be found again later rather than only at the start.
+   */
+  const STARTERS = [
+    {
+      id: 'walk',
+      what: 'Walk through Proposition I',
+      why: 'Seven steps, guided, drawing nothing for you. The shortest way to see what the app is.',
+    },
+    {
+      id: 'read',
+      what: 'Set out I.1 step by step',
+      why: 'Watch the equilateral triangle built out of the three postulates, and keep it when it is done.',
+    },
+    { id: 'help', what: 'How this works', why: 'Everything the sketchpad does, said once: the gestures, the marks, the proving.' },
+    { id: 'draw', what: 'Just draw', why: 'A point, a line, a circle. Two points are already on the paper to start you off.' },
+  ]
+
+  function starterRow(entry) {
+    const row = el('button', 'entry starter', { type: 'button' })
+    row.title = entry.why
+    row.append(el('span', 'num', { textContent: '›' }))
+    const said = el('span', 'said')
+    said.append(el('b', null, { textContent: entry.what }))
+    said.append(el('span', 'why', { textContent: entry.why }))
+    row.append(said)
+    row.addEventListener('click', () => {
+      if (entry.id === 'walk') {
+        ui.tutorial = beginTutorial(app)
+        ui.help = false
+      } else if (entry.id === 'read') {
+        app.walkProposition('euclid.I.1')
+        ui.tab = 'steps'
+        options.onFit && options.onFit()
+      } else if (entry.id === 'help') {
+        ui.help = true
+        ui.panel = true
+      } else {
+        ui.open.start = false
+        ui.open.postulates = true
+      }
+      render(true)
+    })
+    return row
+  }
+
   function entryRow(sectionId, entry) {
+    if (sectionId === 'start') return starterRow(entry)
     if (sectionId === 'symbols') {
       const row = el('div', 'entry plain')
       row.append(el('span', 'num glyph', { textContent: entry.symbol }))
@@ -863,13 +921,46 @@ export function createUI(root, app, options = {}) {
 
   function renderSteps() {
     const steps = app.scene.steps
-    if (!steps.length) {
+    const untouched = steps.length <= 2 && steps.every((s) => s.step.op === 'point') && !app.proposition
+    if (!steps.length || untouched) {
+      // A blank sheet with two lettered points on it and nothing said is a
+      // strange thing to be handed. Say what the paper is, and what to do.
       const empty = el('div')
       const said = propositionHead()
       if (said) empty.append(said)
-      empty.append(el('p', 'empty', {
-        textContent: 'Nothing has been constructed yet. Set down a point, or join two of them.',
+      empty.append(el('div', 'welcome', {}))
+      const box = empty.querySelector('.welcome')
+      box.append(el('h4', null, { textContent: 'A straightedge and a collapsing compass' }))
+      box.append(el('p', null, {
+        textContent: 'Euclid grants three moves and nothing else: join two points, produce a straight line,'
+          + ' describe a circle about a centre. Everything in Book I is built out of those, and so is'
+          + ' everything you can do here. Where lines and circles cut, the points are simply there.',
       }))
+      box.append(el('p', null, {
+        textContent: steps.length
+          ? 'Two points are on the paper to start you off. Join them, or take up a proposition from the book.'
+          : 'Set down a point, or take up a proposition from the book.',
+      }))
+      const acts = el('div', 'acts')
+      acts.append(el('button', 'primary', {
+        type: 'button',
+        textContent: 'Walk through Prop. I',
+        onclick: () => {
+          ui.tutorial = beginTutorial(app)
+          ui.help = false
+          render(true)
+        },
+      }))
+      acts.append(el('button', null, {
+        type: 'button',
+        textContent: 'How this works',
+        onclick: () => {
+          ui.help = true
+          render(true)
+        },
+      }))
+      box.append(acts)
+      if (steps.length) empty.append(stepList(steps))
       return empty
     }
     const wrap = el('div')
@@ -911,7 +1002,23 @@ export function createUI(root, app, options = {}) {
       box.append(stepList(givens))
       wrap.append(box)
     }
-    wrap.append(stepList(steps.filter((s) => !s.setup)))
+    const moves = steps.filter((s) => !s.setup)
+    if (moves.length) {
+      // The given figure has a heading and a fold; the construction had
+      // neither, so on a proposition with a long preamble it was not obvious
+      // where the one ended and the other began.
+      const box = el('details', 'given-figure steps')
+      box.open = ui.open.steps !== false
+      box.addEventListener('toggle', () => {
+        ui.open.steps = box.open
+      })
+      const summary = el('summary')
+      summary.append(el('span', 'name', { textContent: app.proposition ? 'The construction' : 'Steps' }))
+      summary.append(el('span', 'count', { textContent: String(moves.length) }))
+      box.append(summary)
+      box.append(stepList(moves))
+      wrap.append(box)
+    }
     const card = conclusionCard()
     if (card) wrap.append(card)
     const end = finis()

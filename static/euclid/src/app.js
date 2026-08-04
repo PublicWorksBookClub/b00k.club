@@ -1209,13 +1209,28 @@ export function createSketch(options = {}) {
 
     /* -------------------------------------------------- editing */
 
+    /**
+     * Rub out what is selected, and whatever leans on it.
+     *
+     * A gesture is the unit of *undo* — clicking two fresh points and joining
+     * them is one action, and taking it back should take back all three. It is
+     * not the unit of deletion. A proposition set out step by step is one
+     * gesture from beginning to end, so deleting by gesture rubbed out the
+     * whole figure when the reader asked for one line of it.
+     *
+     * So: the step goes, and everything standing on it. Then any point of the
+     * same gesture that is now holding nothing up goes too, which is what
+     * takes the two fresh points along with the line they were set down for.
+     */
     deleteSelection() {
       if (state.readonly || !state.selection.size) return
       snapshot()
+      const census = D.gestureCensus(doc)
       for (const id of [...state.selection]) {
         const step = D.stepProducing(doc, id)
-        if (step) D.removeGestureOf(doc, step.id)
+        if (step) D.removeStep(doc, step.id)
       }
+      D.sweepOrphanedPoints(doc, census)
       state.selection.clear()
       invalidate()
     },
@@ -1223,7 +1238,9 @@ export function createSketch(options = {}) {
     deleteStep(stepId) {
       if (state.readonly) return
       snapshot()
+      const census = D.gestureCensus(doc)
       D.removeStep(doc, stepId)
+      D.sweepOrphanedPoints(doc, census)
       invalidate()
     },
 
