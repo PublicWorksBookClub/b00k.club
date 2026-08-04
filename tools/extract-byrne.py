@@ -86,6 +86,11 @@ def clean(s):
     s = re.sub(r'\(\s*\)', '', s)
     s = re.sub(r'\s+', ' ', s)
     s = re.sub(r'\s+([,.;:)])', r'\1', s)
+    # Collapsing the whitespace can reopen a gap after a bracket that a picture
+    # used to fill, so tidy that last of all.
+    s = re.sub(r'\(\s+', '(', s)
+    # A run of side names reads better spaced: "ABC,ACD" -> "ABC, ACD".
+    s = re.sub(r'\b([A-Z]{2,4}),(?=[A-Z]{2,4}\b)', r'\1, ', s)
     return s.strip()
 
 

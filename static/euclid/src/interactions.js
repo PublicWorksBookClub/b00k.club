@@ -75,9 +75,27 @@ export function attachInteractions(canvas, app, size, hooks = {}) {
   let pinch = null
   let downAt = null
   let pendingDrag = null
+  let pendingLasso = null
+  let lasso = null
   let drawing = false
   let moved = 0
   let lastRight = 0
+
+  /**
+   * Is this gesture adding to the selection rather than replacing it?
+   *
+   * Shift is what every drawing program uses; command is what the Mac uses for
+   * a discontiguous selection. Both are accepted rather than made to mean
+   * different things, because here they would mean the same thing anyway.
+   */
+  const adding = (event) => event.shiftKey || event.metaKey || event.ctrlKey
+
+  const rectOf = ({ from, to }) => ({
+    x0: Math.min(from.x, to.x),
+    y0: Math.min(from.y, to.y),
+    x1: Math.max(from.x, to.x),
+    y1: Math.max(from.y, to.y),
+  })
 
   const toWorld = (event) => {
     const rect = canvas.getBoundingClientRect()
@@ -125,12 +143,16 @@ export function attachInteractions(canvas, app, size, hooks = {}) {
     // Starting it eagerly would swallow the click and bank an undo entry for a
     // drag that never happened.
     const mode = app.workingMode
-    if (mode === 'select' && hit && hit.point) {
+    if (mode === 'select' && hit && hit.point && !adding(event)) {
       pendingDrag = hit.point.id
       return
     }
     if (mode === 'select') {
-      pan = { last: here }
+      // Pressing on nothing might be a pan or might be the start of a lasso;
+      // which it is only shows once the pointer moves, so both wait. Holding
+      // the adding key commits to the lasso, since a pan cannot select.
+      pendingLasso = { from: world, additive: adding(event), only: adding(event) }
+      if (!pendingLasso.only) pan = { last: here }
       return
     }
 
@@ -168,8 +190,18 @@ export function attachInteractions(canvas, app, size, hooks = {}) {
       drag = app.beginDrag(pendingDrag)
       pendingDrag = null
     }
+    if (!lasso && pendingLasso && moved > DRAG_THRESHOLD) {
+      lasso = { ...pendingLasso, to: world }
+      pendingLasso = null
+      pan = null
+    }
     if (drag) {
       app.updateDrag(drag, world)
+      return
+    }
+    if (lasso) {
+      lasso.to = world
+      app.setLasso(rectOf(lasso), lasso.additive)
       return
     }
     if (pan) {
@@ -206,10 +238,14 @@ export function attachInteractions(canvas, app, size, hooks = {}) {
     const wasDrag = drag
     const wasPan = pan
     const wasRotate = rotate
+    const wasLasso = lasso
     drag = null
     pan = null
     rotate = null
+    lasso = null
     pendingDrag = null
+    pendingLasso = null
+    if (wasLasso) app.setLasso(null)
     if (!downAt) {
       drawing = false
       return
@@ -237,8 +273,8 @@ export function attachInteractions(canvas, app, size, hooks = {}) {
       app.click(world2, hitTest(app.scene, world2, app.camera))
       return
     }
-    if (wasDrag || wasRotate || (wasPan && dragged)) return
-    app.click(world, hit)
+    if (wasDrag || wasRotate || wasLasso || (wasPan && dragged)) return
+    app.click(world, hit, { additive: adding(event) })
   }
 
   function onWheel(event) {

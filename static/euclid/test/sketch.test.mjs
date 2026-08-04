@@ -429,3 +429,95 @@ test('drawing while scrubbed back replaces what came after', () => {
   assert.equal(app.doc.steps[2].op, 'circle')
   assert.equal(app.state.upTo, Infinity)
 })
+
+/* ------------------------------------------------------------------ *
+ * Selecting more than one thing
+ * ------------------------------------------------------------------ */
+
+test('holding the adding key keeps what was already selected', () => {
+  const app = twoPoints()
+  const a = labelled(app, 'A')
+  const b = labelled(app, 'B')
+  app.setMode('select')
+  app.click(a.pos, at(app, a.pos))
+  assert.deepEqual([...app.state.selection], [a.id])
+  app.click(b.pos, at(app, b.pos), { additive: true })
+  assert.deepEqual([...app.state.selection].sort(), [a.id, b.id].sort())
+  // Clicking one of them again with the key down lets that one go.
+  app.click(a.pos, at(app, a.pos), { additive: true })
+  assert.deepEqual([...app.state.selection], [b.id])
+  // Without the key, a click starts over.
+  app.click(a.pos, at(app, a.pos))
+  assert.deepEqual([...app.state.selection], [a.id])
+})
+
+test('the lasso catches what it covers, and lets go of what it leaves', () => {
+  const app = twoPoints()
+  app.setMode('circle')
+  app.click({ x: 0, y: 0 }, at(app, { x: 0, y: 0 }))
+  app.click({ x: 100, y: 0 }, at(app, { x: 100, y: 0 }))
+  const a = labelled(app, 'A')
+  const b = labelled(app, 'B')
+  const circle = [...app.scene.objects.values()].find((o) => o.type === 'curve')
+
+  // A rectangle round the centre catches the point but not the circle: it is
+  // inside the ring, and being inside a circle is not touching it.
+  app.setLasso({ x0: -20, y0: -20, x1: 20, y1: 20 })
+  assert.deepEqual([...app.state.selection], [a.id])
+
+  // Widen it to reach B, which is on the rim: now the circle is caught too,
+  // without the rectangle having to enclose the whole of it.
+  app.setLasso({ x0: -20, y0: -20, x1: 120, y1: 20 })
+  assert.ok(app.state.selection.has(b.id))
+  assert.ok(app.state.selection.has(circle.id), 'the circle is caught by its rim')
+
+  // Pull it back off B: B and the circle are released rather than kept.
+  app.setLasso({ x0: -20, y0: -20, x1: 20, y1: 20 })
+  assert.deepEqual([...app.state.selection], [a.id], 'the selection is what the rectangle covers now')
+
+  app.setLasso(null)
+  assert.equal(app.state.lasso, null)
+})
+
+test('a lasso that adds keeps the selection it started with', () => {
+  const app = twoPoints()
+  const a = labelled(app, 'A')
+  const b = labelled(app, 'B')
+  app.setMode('select')
+  app.click(a.pos, at(app, a.pos))
+  app.setLasso({ x0: 80, y0: -20, x1: 120, y1: 20 }, true)
+  assert.deepEqual([...app.state.selection].sort(), [a.id, b.id].sort())
+  // Sliding off B again leaves what the lasso started with, and no more.
+  app.setLasso({ x0: 200, y0: -20, x1: 240, y1: 20 }, true)
+  assert.deepEqual([...app.state.selection], [a.id])
+})
+
+test('a lasso can catch a line without covering either end', () => {
+  const app = twoPoints()
+  app.setMode('segment')
+  app.click({ x: 0, y: 0 }, at(app, { x: 0, y: 0 }))
+  app.click({ x: 100, y: 0 }, at(app, { x: 100, y: 0 }))
+  const seg = [...app.scene.objects.values()].find((o) => o.type === 'curve')
+  app.setLasso({ x0: 40, y0: -10, x1: 60, y1: 10 })
+  assert.deepEqual([...app.state.selection], [seg.id])
+})
+
+test('a proposition the sketchpad has not worked opens a clean sheet and says what to do', () => {
+  const app = twoPoints()
+  app.addTool({ ...app.tools[0] })
+  const toolbox = app.tools.map((t) => t.id)
+
+  const doc = app.openProposition(5, { n: 5, kind: 'theorem', text: 'In any isosceles triangle…' })
+  assert.equal(doc.steps.length, 0, 'a clean sheet')
+  assert.deepEqual(app.tools.map((t) => t.id), toolbox, 'what was proved stays proved')
+  assert.match(app.state.notice, /^I\.5\. In any isosceles triangle…/)
+  assert.match(app.state.notice, /checks constructions, not arguments/)
+
+  // A problem is not warned about proving, since there is nothing to prove.
+  app.openProposition(11, { n: 11, kind: 'problem', text: 'To draw a perpendicular…' })
+  assert.match(app.state.notice, /Set out the given figure/)
+
+  // One the sketchpad does know still sets out its construction.
+  app.openProposition(1, { n: 1, kind: 'problem', text: 'On a given finite straight line…' })
+  assert.ok(app.doc.steps.length > 0, 'I.1 is written out')
+})

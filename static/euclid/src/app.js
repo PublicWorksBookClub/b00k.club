@@ -43,6 +43,7 @@ export function createSketch(options = {}) {
     pickGesture: null,
     definition: null,
     choice: null,
+    lasso: null,
     holdSelect: false,
     upTo: Infinity,
     notice: null,
@@ -52,6 +53,9 @@ export function createSketch(options = {}) {
 
   const undoStack = []
   const redoStack = []
+  // What was already selected when the lasso started, so a lasso that is drawn
+  // back off something releases it rather than keeping it for good.
+  let lassoBase = null
 
   /* ---------------------------------------------------------------- */
 
@@ -255,14 +259,54 @@ export function createSketch(options = {}) {
       emit()
     },
 
+    /**
+     * Sweep a rectangle over the figure, selecting as it goes.
+     *
+     * The selection is recomputed from scratch on every move rather than added
+     * to, so shrinking the rectangle lets things go again — the selection is
+     * what the rectangle covers now, not everything it has ever covered.
+     */
+    setLasso(rect, additive = false) {
+      if (!rect) {
+        state.lasso = null
+        lassoBase = null
+        return emit()
+      }
+      if (!lassoBase) lassoBase = additive ? new Set(state.selection) : new Set()
+      state.lasso = rect
+      api.selectWithin(rect, lassoBase)
+    },
+
+    /**
+     * Everything the lasso caught, on top of whatever it started with.
+     *
+     * A point counts if it is inside; a curve counts if any of it is, so a
+     * circle can be caught by sweeping across its rim without enclosing the
+     * whole of it. Hidden and ghosted things are not there to be caught.
+     *
+     * The selection is rebuilt from the rectangle each time rather than added
+     * to, so pulling the rectangle back off something lets it go again.
+     */
+    selectWithin(rect, base = new Set()) {
+      state.selection = new Set(base)
+      const inside = (p) => p.x >= rect.x0 && p.x <= rect.x1 && p.y >= rect.y0 && p.y <= rect.y1
+      const scene = getScene()
+      for (const id of scene.order) {
+        const o = scene.objects.get(id)
+        if (!o || o.hidden || o.ghost) continue
+        if (o.type === 'point' ? inside(o.pos) : G.meetsRect(o.geom, rect)) state.selection.add(id)
+      }
+      emit()
+    },
+
     /* -------------------------------------------------- drawing */
 
-    click(world, hit) {
+    click(world, hit, { additive = false } = {}) {
       if (state.readonly) return
       if (state.choice) return api.pickChoice(world, 18 / state.camera.k)
-      if (state.holdSelect) return api.select(hit ? (hit.point || hit.curve).id : null)
+      if (state.holdSelect) return api.select(hit ? (hit.point || hit.curve).id : null, additive)
       if (state.mode === 'define') return api.definitionPick(hit)
-      if (state.mode === 'select') return api.select(hit ? (hit.point || hit.curve).id : null)
+      if (state.mode === 'select') return api.select(hit ? (hit.point || hit.curve).id : null, additive)
       if (state.activeTool) return api.pickForTool(world, hit)
 
       if (state.mode === 'point') {
@@ -366,11 +410,11 @@ export function createSketch(options = {}) {
       // points there is no such line, so it is drawn, and the triangle has a
       // base rather than hanging in the air.
       const inputIndex = new Map((tool.inputs || []).map((inp, i) => [inp.id, i]))
-      for (const [from, to] of tool.given || []) {
+      for (const [from, to, style] of tool.given || []) {
         const a = argIds[inputIndex.get(from)]
         const b = argIds[inputIndex.get(to)]
         if (!a || !b || joinedAlready(a, b)) continue
-        D.addStep(doc, { op: 'segment', id: D.newId(doc, 'c'), a, b, g: gesture, given: true })
+        D.addStep(doc, { op: 'segment', id: D.newId(doc, 'c'), a, b, g: gesture, given: true, ...style })
       }
       const step = M.makeToolStep(doc, tool, argIds, gesture)
       D.addStep(doc, step)
@@ -721,8 +765,11 @@ export function createSketch(options = {}) {
       // straight line equal to a given straight line (BC)" needs BC on the page
       // before the construction starts, or there is nothing to copy.
       const bind = new Map((prop.inputs || []).map((inp, i) => [inp.id, givens[i]]))
-      for (const [from, to] of prop.given || []) {
-        D.addStep(doc, { op: 'segment', id: D.newId(doc, 'c'), a: bind.get(from), b: bind.get(to), g: gesture, given: true })
+      for (const [from, to, style] of prop.given || []) {
+        D.addStep(doc, {
+          op: 'segment', id: D.newId(doc, 'c'), a: bind.get(from), b: bind.get(to),
+          g: gesture, given: true, ...style,
+        })
       }
       // Everything so far is what the proposition is given; its construction is
       // numbered from one.
@@ -731,6 +778,33 @@ export function createSketch(options = {}) {
       state.upTo = Infinity
       state.mode = 'select'
       say(`${prop.ref}. ${prop.summary}`, 'info')
+      invalidate()
+      return doc
+    },
+
+    /**
+     * Take up a proposition, whether or not the sketchpad knows how it goes.
+     *
+     * Three of Book I are written out; the rest are the reader's to work. For
+     * those, a clean sheet and the statement is the whole of what the app can
+     * honestly offer — with the toolbox kept, since the point of the book is
+     * that what you have proved stays proved and is there to be used. A theorem
+     * gets a further warning: the app checks that a construction stands up, and
+     * has no way to check that an argument does.
+     */
+    openProposition(n, entry) {
+      const prop = PROPOSITIONS.find((p) => p.ref === `I.${n}`)
+      if (prop) return api.walkProposition(prop.id)
+      api.clear()
+      state.mode = 'select'
+      const task = entry && entry.text ? ` ${entry.text}` : ''
+      say(
+        entry && entry.kind === 'theorem'
+          ? `I.${n}.${task} This one is a theorem: set the figure out and satisfy yourself, but the`
+            + ' sketchpad checks constructions, not arguments.'
+          : `I.${n}.${task} Set out the given figure, then construct it with the tools you have.`,
+        'info',
+      )
       invalidate()
       return doc
     },

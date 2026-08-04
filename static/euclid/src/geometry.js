@@ -167,6 +167,31 @@ export function boundsOf(points, pad = 0) {
 }
 
 /**
+ * Does any part of a curve lie inside a rectangle?
+ *
+ * What a lasso ought to catch: sweeping across a circle's rim catches the
+ * circle, without having to enclose the whole of it.
+ */
+export function meetsRect(curve, rect) {
+  const box = { minX: rect.x0, minY: rect.y0, maxX: rect.x1, maxY: rect.y1 }
+  if (curve.kind === 'line') return !!clipLineToRect(curve, box)
+  // A circle meets the rectangle unless it is wholly outside or wholly inside
+  // the empty middle — so compare the nearest and furthest corners to the ring.
+  const near = {
+    x: Math.max(box.minX, Math.min(curve.c.x, box.maxX)),
+    y: Math.max(box.minY, Math.min(curve.c.y, box.maxY)),
+  }
+  if (dist(curve.c, near) > curve.r) return false
+  const far = Math.max(
+    dist(curve.c, { x: box.minX, y: box.minY }),
+    dist(curve.c, { x: box.maxX, y: box.minY }),
+    dist(curve.c, { x: box.minX, y: box.maxY }),
+    dist(curve.c, { x: box.maxX, y: box.maxY }),
+  )
+  return far >= curve.r
+}
+
+/**
  * Clip an infinite/semi-infinite line to a rectangle, returning the drawable
  * end points, or null when the line misses the rectangle entirely.
  */

@@ -475,10 +475,16 @@ export function createUI(root, app, options = {}) {
       row.append(said)
       return row
     }
+    // Three of Book I are written out; the rest open on a clean sheet with the
+    // statement, which is what the reader is there to work. Beyond `throughN`
+    // — an embedded figure saying how far the article has got — nothing opens,
+    // since the point of that is not to give the game away.
     const tool = constructible.get(`I.${entry.n}`)
-    const available = !!tool && (!options.throughN || entry.n <= options.throughN)
-    const row = el('button', `entry${available ? '' : ' unavailable'}`, { type: 'button' })
-    row.title = available ? 'Set this out step by step' : 'This one is not in the sketchpad yet'
+    const beyond = options.throughN && entry.n > options.throughN
+    const row = el('button', `entry${tool ? '' : ' unworked'}${beyond ? ' unavailable' : ''}`, { type: 'button' })
+    row.title = beyond ? 'Later in the book than this figure has reached'
+      : tool ? 'Set this out step by step'
+        : 'Open a clean sheet and work it yourself'
     const num = el('span', 'num')
     num.append(document.createTextNode(`I.${entry.n}`))
     num.append(el('em', null, { textContent: entry.kind === 'problem' ? 'Prob.' : 'Theor.' }))
@@ -486,15 +492,15 @@ export function createUI(root, app, options = {}) {
     const said = el('span', 'said')
     said.append(enunciation(entry.text, PROPOSITION_LINES[entry.n]))
     row.append(said)
-    if (available) {
+    if (beyond) {
+      row.disabled = true
+    } else {
       row.addEventListener('click', () => {
-        app.walkProposition(tool.id)
+        app.openProposition(entry.n, entry)
         ui.tab = 'steps'
         options.onFit && options.onFit()
         render(true)
       })
-    } else {
-      row.disabled = true
     }
     return row
   }
@@ -635,8 +641,11 @@ export function createUI(root, app, options = {}) {
         )
       }
       if (!app.state.readonly) {
-        acts.append(
-          el('button', null, {
+        // Every step can be struck out, so the × keeps a fixed place in the
+        // corner rather than shuffling along behind whatever else the step
+        // offers. Only the buttons peculiar to a step go underneath.
+        item.append(
+          el('button', 'kill', {
             type: 'button',
             textContent: '×',
             title: 'Remove this step and everything that leans on it',
@@ -647,7 +656,7 @@ export function createUI(root, app, options = {}) {
           }),
         )
       }
-      what.append(acts)
+      if (acts.childElementCount) what.append(acts)
       item.append(what)
 
       item.addEventListener('click', () => app.setUpTo(info.index + 1))
@@ -836,15 +845,24 @@ export function createUI(root, app, options = {}) {
 
   function renderFoot() {
     const total = app.doc.steps.length
-    if (!total) {
-      foot.replaceChildren()
-      scrubber = null
-      return
-    }
     if (!scrubber) {
       scrubber = buildScrubber()
       foot.replaceChildren(scrubber.row)
     }
+    // The scrubber keeps its place on an empty sheet rather than being taken
+    // away and put back: it would otherwise appear the moment the first thing
+    // is drawn, and the paper would jump out from under the pointer.
+    scrubber.row.classList.toggle('idle', !total)
+    if (!total) {
+      scrubber.range.min = '0'
+      scrubber.range.max = '0'
+      scrubber.count.textContent = '0 / 0'
+      scrubber.back.disabled = true
+      scrubber.forward.disabled = true
+      scrubber.range.disabled = true
+      return
+    }
+    scrubber.range.disabled = false
     // The givens are always drawn; the slider steps through the construction.
     const floor = app.scene.setupCount
     const at = app.state.upTo === Infinity ? total : app.state.upTo

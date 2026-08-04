@@ -257,6 +257,10 @@ canvas {
 .side-section .entry.plain { cursor: default; }
 .side-section button.entry:not(:disabled):hover { background: var(--eu-accent-soft); }
 .side-section .entry.unavailable { opacity: 0.4; }
+/* Not written out in the sketchpad, but still yours to work: dimmed enough to
+   tell the two apart, not so much that it reads as out of reach. */
+.side-section .entry.unworked .said { color: var(--eu-muted); }
+.side-section .entry.unworked .num { opacity: 0.75; }
 .side-section .entry .num {
   flex: 0 0 4.3em;
   font-family: var(--eu-serif);
@@ -355,13 +359,33 @@ ol.steps .n {
 }
 ol.steps .what { flex: 1 1 auto; min-width: 0; }
 /* Under the step, not over it: the buttons used to cover the words they belong
-   to, and a step you cannot read is worse than one you have to reach under. */
+   to, and a step you cannot read is worse than one you have to reach under.
+   The × is the exception — every step has one, so it keeps a fixed place in
+   the corner instead of shuffling along behind whatever else is offered. */
 ol.steps .acts {
   display: none;
   gap: 4px;
   margin-top: 4px;
 }
 ol.steps li:hover .acts, ol.steps li:focus-within .acts { display: flex; }
+ol.steps .kill {
+  position: absolute;
+  top: 3px;
+  right: 6px;
+  font-family: var(--eu-sans);
+  font-size: 10px;
+  padding: 1px 5px;
+  color: var(--eu-muted);
+  border-color: var(--eu-rule);
+  background: var(--eu-chrome);
+  opacity: 0;
+  pointer-events: none;
+}
+ol.steps li:hover .kill, ol.steps li:focus-within .kill { opacity: 1; pointer-events: auto; }
+ol.steps li[aria-current='true'] .kill { background: #f4e6d8; }
+/* The corner is kept clear whether or not the × is showing, so that hovering a
+   step does not reflow the words underneath the pointer. */
+ol.steps .what { padding-right: 22px; }
 /* A name in the prose wears the mark of the thing it names: a bar over a
    straight line, an arrow if it runs on, a ring for a circle — in the colour
    the thing is drawn in, so the words and the paper agree. */
@@ -446,6 +470,9 @@ ol.steps .acts button {
 }
 .scrub input[type='range'] { flex: 1 1 auto; accent-color: var(--eu-accent); min-width: 60px; }
 .scrub .count { font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* Nothing to scrub through yet — still there, so the paper does not move when
+   the first thing is drawn. */
+.scrub.idle { opacity: 0.4; }
 
 /* ------------------------------------------------------------ dialogs */
 

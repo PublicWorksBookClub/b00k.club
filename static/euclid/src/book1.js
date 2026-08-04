@@ -247,7 +247,7 @@ export const PROPOSITIONS_TEXT = [
     roman: 'XI',
     kind: 'problem',
     heading: 'Prop XI. Prob.',
-    text: 'From a given point ( D), in a given straight line (BD, DC), to draw a perpendicular.',
+    text: 'From a given point (D), in a given straight line (BD, DC), to draw a perpendicular.',
   },
   {
     n: 12,
@@ -317,7 +317,7 @@ export const PROPOSITIONS_TEXT = [
     roman: 'XXI',
     kind: 'theorem',
     heading: 'Prop XXI. Theor.',
-    text: 'If from any point ( D) within a triangle CA, EC, BE, AB straight lines be drawn to the extremities of one side (AB), these lines must be together less than the other two sides, but must contain a greater angle.',
+    text: 'If from any point (D) within a triangle CA, EC, BE, AB straight lines be drawn to the extremities of one side (AB), these lines must be together less than the other two sides, but must contain a greater angle.',
   },
   {
     n: 22,
@@ -422,7 +422,7 @@ export const PROPOSITIONS_TEXT = [
     roman: 'XXXVI',
     kind: 'theorem',
     heading: 'Prop XXXVI. Theor.',
-    text: 'Parallelograms ( ABIC, CDI ~and~ EFJ, JFHG) on equal bases, and between the same parallels, are equal.',
+    text: 'Parallelograms (ABIC, CDI ~and~ EFJ, JFHG) on equal bases, and between the same parallels, are equal.',
   },
   {
     n: 37,
@@ -436,7 +436,7 @@ export const PROPOSITIONS_TEXT = [
     roman: 'XXXVIII',
     kind: 'theorem',
     heading: 'Prop XXXVIII. Theor.',
-    text: 'Triangles ( BCD and EGH) on equal bases and between the same parallels are equal.',
+    text: 'Triangles (BCD and EGH) on equal bases and between the same parallels are equal.',
   },
   {
     n: 39,
@@ -457,14 +457,14 @@ export const PROPOSITIONS_TEXT = [
     roman: 'XLI',
     kind: 'theorem',
     heading: 'Prop XLI. Theor.',
-    text: 'If a parallelogram ABFG,GFE,AGD,DEG and a triangle GFE,DEG,CFE are upon the same base DE and between the same parallels AC and DE, the parallelogram is double the triangle.',
+    text: 'If a parallelogram ABFG, GFE, AGD, DEG and a triangle GFE, DEG, CFE are upon the same base DE and between the same parallels AC and DE, the parallelogram is double the triangle.',
   },
   {
     n: 42,
     roman: 'XLII',
     kind: 'problem',
     heading: 'Prop XLII. Prob.',
-    text: 'To construct a parallelogram equal to a given triangle DEF,CFE,ECG and having an angle equal to a given rectilinear angle \u2220I.',
+    text: 'To construct a parallelogram equal to a given triangle DEF, CFE, ECG and having an angle equal to a given rectilinear angle \u2220I.',
   },
   {
     n: 43,
@@ -478,14 +478,14 @@ export const PROPOSITIONS_TEXT = [
     roman: 'XLIV',
     kind: 'problem',
     heading: 'Prop XLIV. Prob.',
-    text: 'To a given straight line (EG) to apply a parallelogram equal to a given triangle ( JKL), and having an angle equal to a given rectilinear angle (\u2220N).',
+    text: 'To a given straight line (EG) to apply a parallelogram equal to a given triangle (JKL), and having an angle equal to a given rectilinear angle (\u2220N).',
   },
   {
     n: 45,
     roman: 'XLV',
     kind: 'problem',
     heading: 'Prop XLV. Prob.',
-    text: 'To construct a parallelogram equal to a given rectilinear figure ( ABC,ACD,ADE) and having an angle equal to a given rectilinear angle (\u2220O).',
+    text: 'To construct a parallelogram equal to a given rectilinear figure (ABC, ACD, ADE) and having an angle equal to a given rectilinear angle (\u2220O).',
   },
   { n: 46, roman: 'XLVI', kind: 'problem', heading: 'Prop XLVI. Prob.', text: 'Upon a given straight line (DC) to construct a square.' },
   {

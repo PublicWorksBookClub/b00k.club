@@ -36,7 +36,9 @@ export const PROPOSITIONS = [
     outputs: ['l2', 'l3', 'l4'],
     // "On a given finite straight line" — so AB is part of what the
     // proposition is handed, and is drawn if it is not already there.
-    given: [['i0', 'i1']],
+    // Byrne draws the given line solid black; the colour of a given is part of
+    // the figure, so it travels with the proposition.
+    given: [['i0', 'i1', { color: 'black' }]],
     choices: [{ key: 'apex', prompt: 'Choose which way the triangle is to fall.' }],
     uses: [],
     demo: {
@@ -72,7 +74,7 @@ export const PROPOSITIONS = [
       { op: 'segment', id: 'l11', a: 'i0', b: 'l10', color: 'blue' },
     ],
     outputs: ['l10', 'l11'],
-    given: [['i1', 'i2']],
+    given: [['i1', 'i2', { color: 'black' }]],
     uses: ['euclid.I.1'],
     demo: {
       points: [
@@ -106,7 +108,7 @@ export const PROPOSITIONS = [
     ],
     outputs: ['l5', 'l6'],
     // The greater line AB is drawn by the construction itself; the lesser is given.
-    given: [['i2', 'i3']],
+    given: [['i2', 'i3', { color: 'black' }]],
     uses: ['euclid.I.2'],
     demo: {
       points: [

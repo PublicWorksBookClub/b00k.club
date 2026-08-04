@@ -177,6 +177,28 @@ so the step says `△ABD` rather than reciting the parts. Only segments drawn by
 that step or before it count towards closing the figure, so a later step cannot
 retrospectively finish one off for an earlier step.
 
+## Selecting
+
+Clicking picks one thing. Holding shift or command adds to the selection, and
+clicking something already in it lets that one go. Dragging from empty paper
+sweeps a lasso: a point is caught if it is inside, a curve if any of it is, so
+a circle can be caught by crossing its rim without enclosing the whole of it.
+
+The lasso rebuilds the selection from the rectangle on every move rather than
+adding to it, so pulling the rectangle back off something releases it. A lasso
+begun with the adding key held keeps what was already selected as its floor.
+
+## Working the rest of Book I
+
+Three propositions are written out as tools, and the whole of Book I is in the
+sidebar. Opening one of the three sets out its construction step by step;
+opening any of the others gives a clean sheet, the statement, and the toolbox
+you have built so far — the reader works it themselves and can save the result
+as a tool with **+**.
+
+A theorem says so when it opens: the sketchpad checks that a construction
+stands up under dragging, and has no way to check that an argument does.
+
 ## Byrne's own figures
 
 Beside most of his definitions Byrne prints a small coloured figure, and in the

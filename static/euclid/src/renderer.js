@@ -64,6 +64,35 @@ export function render(canvas, scene, view) {
   drawSnap(ctx, view, S)
   drawLabels(ctx, points, curves, S, view)
   drawPickBadges(ctx, scene, view, S)
+  drawLasso(ctx, view, S)
+  ctx.restore()
+}
+
+/**
+ * The rectangle being swept over the figure.
+ *
+ * Drawn from its four corners rather than as a screen-aligned box, because the
+ * paper can be turned: the lasso is a rectangle on the paper, and it should
+ * look like one however the paper is lying.
+ */
+function drawLasso(ctx, view, S) {
+  const r = view.lasso
+  if (!r) return
+  const corners = [
+    S({ x: r.x0, y: r.y0 }), S({ x: r.x1, y: r.y0 }),
+    S({ x: r.x1, y: r.y1 }), S({ x: r.x0, y: r.y1 }),
+  ]
+  ctx.save()
+  ctx.beginPath()
+  ctx.moveTo(corners[0].x, corners[0].y)
+  for (const c of corners.slice(1)) ctx.lineTo(c.x, c.y)
+  ctx.closePath()
+  ctx.fillStyle = THEME.accentFaint
+  ctx.fill()
+  ctx.strokeStyle = THEME.accentSoft
+  ctx.lineWidth = 1
+  ctx.setLineDash([4, 3])
+  ctx.stroke()
   ctx.restore()
 }
 
