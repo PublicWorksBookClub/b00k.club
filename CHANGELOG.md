@@ -2,6 +2,27 @@
 
 ## Next
 
+- Teach the Euclid sketchpad to prove things, not just construct them
+  - **Magnitudes**: a length read from two points, an angle from three, the content of a figure from three or
+    four, and a triangle compared by congruence rather than content — Book I turns on that difference, so a
+    congruence is written `≡` and content `=`
+  - **Claims**: say that two magnitudes are equal, or that one is greater. A claim draws nothing; it is checked
+    where it stands, and again by **shaking** the figure — every hand-placed point jogged at random a couple of
+    hundred times over, which is what catches a claim true of your figure and of no other
+  - Magnitudes of one kind can be taken together, so "the square on the hypotenuse is equal to the squares on
+    the sides" can be said at all
+  - Each claim carries its reason, chosen from the book in the sidebar, and one can be marked as what was to be
+    proved. A theorem that survives shaking is **kept**, with the evidence it survived, and may be cited ever
+    after — the toolbox now holds what you can carry out and what you have proved, and both outlive the tab
+- Add I.11, I.12, I.31, I.46 and I.47 to the sketchpad, and the figures I.5 and I.47 suppose — the right angle
+  constructed rather than assumed, so it stays a right angle however hard the figure is shaken
+- Read Byrne's marginal figures out of his own MetaPost and print them beside the definitions, and print each
+  proposition's enunciation with its lines in the colours he drew them
+- Add multi-select: shift or command to add, and a lasso swept from empty paper
+- Add a help sheet and a walk through the first proposition, both from the ⋯ menu
+- Name things the way the figure does: a bar over a straight line in the colour it is drawn in, a ring for a
+  circle, `△ABD` where a tool has closed a triangle, and "the parallel through C" where no two letters will do
+
 ## 1.9.0 (2026-08-02)
 
 - Add a straightedge-and-compass sketchpad for following Euclid's constructions, at [/euclid/](https://b00k.club/euclid/)

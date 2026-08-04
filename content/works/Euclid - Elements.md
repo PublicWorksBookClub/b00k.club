@@ -57,6 +57,37 @@ fresh figure one step at a time, so a proof can be walked forwards and backwards
 ### I.2 { #i-2 }
 
 _To place at a given point (as an extremity) a straight line equal to a given straight line._ The one below is
-already carried out; drag A, B or C and watch AL stay equal to BC.
+already carried out; drag A, B or C and watch AF stay equal to BC.
 
-{{ euclid(proposition="I.2", height=520, caption="Euclid I.2. Step 5 leans on I.1; hover it and press *working* to see what it hides.") }}
+{{ euclid(proposition="I.2", height=520, caption="Euclid I.2. Step 2 leans on I.1; hover it and press *working* to see what it hides.") }}
+
+## Constructing and proving
+
+The first three propositions are problems: they build something, and what they build can be kept. From I.4
+onwards Book I is mostly theorems, which build nothing and instead assert — this angle equals that one, these
+triangles are equal in every respect, the square on the hypotenuse is the other two taken together. Asserting is
+a different act from drawing, so the sketchpad treats it as one.
+
+Select two points for a length, or three for an angle or a figure, hold it, select what it is to be compared
+with, and say how the two stand. The claim is checked where it stands, and can be checked again by **shaking**
+the figure: every point set down by hand is jogged about at random, a couple of hundred times over, and any
+claim that fails somewhere is reported. That is what catches a claim which is true of the figure in front of you
+and of no other. Each claim carries its reason, chosen from the book in the sidebar. Nothing checks that the
+reason entails the claim — that would be a proof checker, and this is a sketchpad — but a proof that does not
+say why is not a proof.
+
+### The supposition is built, not assumed { #supposing }
+
+"Let ABC be an isosceles triangle" is not two free points and a promise. It is A, B, and then C taken _on the
+circle about A through B_ — so AC equals AB by [Definition 15](/euclid/), and goes on equalling it however hard
+the figure is shaken. There is no constraint solver here and none is wanted: Euclid's suppositions are
+constructions, and constructing them is the whole of what it takes.
+
+### I.47 { #i-47 }
+
+_In a right angled triangle the square on the hypotenuse is equal to the sum of the squares of the sides._ The
+last proposition of Book I, and the one everything before it is for. The right angle below is constructed rather
+than assumed, and each of the three squares is put there by [I.46](/euclid/), which stands on I.31, which stands
+on I.12 and I.11, which stand on I.10, which stands on I.1. Drag any of the points and the whole tower follows.
+
+{{ euclid(proposition="I.47", height=620, caption="Euclid I.47. Select the four corners of a square to take its content; hold it, add the second square, and say the third is equal to both.") }}
