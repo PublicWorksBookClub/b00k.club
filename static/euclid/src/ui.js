@@ -10,6 +10,8 @@
 import { PRIMITIVES } from './app.js'
 import { PROPOSITIONS } from './propositions.js'
 import { BOOK_I, SOURCE } from './book1.js'
+import { DEFINITION_FIGURES, PROPOSITION_LINES } from './book1-figures.js'
+import { figureCanvas } from './figures.js'
 import { PALETTE } from './renderer.js'
 import { STYLES } from './styles.js'
 import * as storage from './storage.js'
@@ -89,7 +91,7 @@ export function createUI(root, app, options = {}) {
   const body = el('div', 'body')
   const sidebar = el('nav', 'sidebar')
   const stage = el('div', 'stage')
-  const canvas = el('canvas')
+  const canvas = el('canvas', 'sheet')
   const hint = el('div', 'hint')
   const panel = el('aside', 'panel')
   const foot = el('div', 'foot')
@@ -401,6 +403,45 @@ export function createUI(root, app, options = {}) {
     if (scrolled) list.scrollTop = scrolled
   }
 
+  /**
+   * A figure never changes, so it is drawn once and thereafter moved about.
+   * The sidebar is rebuilt whenever the book's shape changes, and redrawing a
+   * score of canvases each time would be work for nothing.
+   */
+  const drawnFigures = new Map()
+  function marginFigure(n, items) {
+    if (!drawnFigures.has(n)) drawnFigures.set(n, figureCanvas(document, items, 74))
+    return drawnFigures.get(n)
+  }
+
+  /**
+   * An enunciation, with the lines named in the colours Byrne drew them.
+   *
+   * In the book a line is not called AB, it is printed as a short red stroke,
+   * and "AB equals DE" is read off the page as two reds rather than spelled
+   * out. Until the proposition figures can be drawn, colouring the letters
+   * carries as much of that as letters can carry.
+   */
+  function enunciation(text, lines) {
+    const said = document.createDocumentFragment()
+    if (!lines) {
+      said.append(document.createTextNode(text))
+      return said
+    }
+    let at = 0
+    for (const m of text.matchAll(/[A-Z]+/g)) {
+      const colour = m[0].length === 2 && (lines[m[0]] || lines[m[0][1] + m[0][0]])
+      if (!colour) continue
+      said.append(document.createTextNode(text.slice(at, m.index)))
+      const name = el('b', 'named', { textContent: m[0] })
+      name.style.color = PALETTE[colour]
+      said.append(name)
+      at = m.index + m[0].length
+    }
+    said.append(document.createTextNode(text.slice(at)))
+    return said
+  }
+
   function entryRow(sectionId, entry) {
     if (sectionId === 'symbols') {
       const row = el('div', 'entry plain')
@@ -414,7 +455,17 @@ export function createUI(root, app, options = {}) {
       // them and they have the better claim to the unqualified form.
       const row = el('div', 'entry plain')
       row.append(el('span', 'num', { textContent: `I.${KIND_PREFIX[sectionId]}${entry.n}` }))
-      row.append(el('span', 'said', { textContent: entry.text }))
+      const said = el('span', 'said')
+      // Byrne prints a small figure in the margin beside a definition that has
+      // one, and the text runs around it. Float it into the same corner.
+      const figure = sectionId === 'definitions' && DEFINITION_FIGURES[entry.n]
+      if (figure) {
+        const cut = el('span', 'cut')
+        cut.append(marginFigure(entry.n, figure))
+        said.append(cut)
+      }
+      said.append(document.createTextNode(entry.text))
+      row.append(said)
       return row
     }
     const tool = constructible.get(`I.${entry.n}`)
@@ -425,7 +476,9 @@ export function createUI(root, app, options = {}) {
     num.append(document.createTextNode(`I.${entry.n}`))
     num.append(el('em', null, { textContent: entry.kind === 'problem' ? 'Prob.' : 'Theor.' }))
     row.append(num)
-    row.append(el('span', 'said', { textContent: entry.text }))
+    const said = el('span', 'said')
+    said.append(enunciation(entry.text, PROPOSITION_LINES[entry.n]))
+    row.append(said)
     if (available) {
       row.addEventListener('click', () => {
         app.walkProposition(tool.id)

@@ -101,6 +101,9 @@ src/
   propositions.js  Book I.1, I.2, I.3, I.9, I.10 written out as tools
   camera.js        pan and zoom
   renderer.js      drawing the figure
+  figures.js       drawing Byrne's marginal illustrations, which are not constructions
+  book1.js         Book I's text, generated from Byrne's LaTeX
+  book1-figures.js what his drawings say, generated from their MetaPost
   interactions.js  pointer and keyboard handling, hit testing
   app.js           the controller: all state and every command
   ui.js            toolbar, step list, toolbox, scrubber, the new-tool dialog
@@ -160,6 +163,29 @@ as "the given figure", the construction proper is numbered from 1, and the
 slider cannot rub the givens out. Reading a proposition through marks its givens
 automatically; a figure drawn by hand can be declared the givens after the fact
 from the ⋯ menu, using the ordinary tools, colours and dashes to lay it out.
+
+## Byrne's own figures
+
+Beside most of his definitions Byrne prints a small coloured figure, and in the
+book those are not decoration: a line's colour is how the proof refers to it, so
+"AB equals DE" is read off the page as two reds rather than spelled out.
+
+Those figures are declared in MetaPost in `jemmybutton/byrne-euclid`, in a small
+enough dialect that `tools/extract-byrne.py` can read them rather than guess:
+named points, coloured lines, a circle, an arc, an angle. It writes them into
+`src/book1-figures.js` as a flat list of things to draw — coordinates in figure
+units, y running up the page as MetaPost has it — and `figures.js` fits one into
+a box. They are illustrations, not constructions, which is why they get their
+own format: the construction model has no word for a wedge marking an angle.
+
+The proposition figures are far past that reader — they intersect paths, loop,
+and define their own macros — so for now only their **colours** are taken, which
+is enough to print each proposition's enunciation with its lines in the colours
+Byrne drew them.
+
+To regenerate, clone `jemmybutton/byrne-euclid` into a `byrne/` directory beside
+where you run the script; it writes `book1.json` and `book1-figures.js`, and
+`book1.js` is assembled from the JSON.
 
 ## Moving about the paper
 

@@ -279,6 +279,16 @@ canvas {
   font-size: 12.5px;
   line-height: 1.4;
 }
+/* Byrne sets his figures in the margin and lets the definition run round them. */
+.side-section .entry .said .cut {
+  float: left;
+  shape-outside: margin-box;
+  margin: 2px 9px 2px 0;
+  line-height: 0;
+}
+.side-section .entry .said .cut canvas { display: block; }
+/* A line's colour is how Byrne refers to it; the letters borrow it. */
+.side-section .entry .said .named { font-weight: 600; }
 
 .side-foot {
   margin: 0;
