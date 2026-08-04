@@ -568,6 +568,17 @@ ol.steps .acts button {
   font-style: italic;
 }
 
+/* What the run of cards beneath it is a list of. */
+.section-note {
+  margin: 0;
+  padding: 9px 12px 6px;
+  font-family: var(--eu-serif);
+  font-style: italic;
+  font-size: 11.5px;
+  color: var(--eu-muted);
+}
+.section-note + .proved, .section-note + .tool-card { border-top: 1px solid var(--eu-rule); }
+
 .tool-card {
   padding: 8px 10px;
   border-bottom: 1px solid var(--eu-rule);

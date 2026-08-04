@@ -59,14 +59,14 @@ test('opening somebody else\'s figure does not empty your own toolbox', () => {
   assert.equal(mine.tools.some((t) => t.id === 'mine'), false)
 })
 
-test('giving up progress goes back to the first three propositions', () => {
-  const app = createSketch()
+test('giving up progress goes back to the beginning of the book', () => {
+  const app = createSketch({ toolIds: ['euclid.I.1', 'euclid.I.2', 'euclid.I.3'] })
   app.addTool({ ...app.tools[0], id: 'mine', ref: 'M', name: 'Mine' })
   app.restoreFacts([{ id: 'euclid.I.5', ref: 'I.5', name: '…', rounds: 200 }])
   const steps = app.doc.steps.length
 
   app.forgetProgress()
-  assert.deepEqual(app.tools.map((t) => t.ref), ['I.1', 'I.2', 'I.3'])
+  assert.deepEqual(app.tools, [], 'the three postulates, and nothing proved')
   assert.deepEqual(app.facts, [])
   assert.equal(app.doc.steps.length, steps, 'the figure on the paper is not touched')
 })
@@ -74,7 +74,7 @@ test('giving up progress goes back to the first three propositions', () => {
 test('a proposition is kept by its number, not by its body', () => {
   // Keeping the body would hand a returning reader the copy that was current
   // when they first visited, rather than the one in the app.
-  const app = createSketch()
+  const app = createSketch({ toolIds: ['euclid.I.1', 'euclid.I.2', 'euclid.I.3'] })
   app.addTool({ ...app.tools[0], id: 'mine', ref: 'M', name: 'Mine', body: [] })
   const kept = app.progress
   assert.deepEqual(

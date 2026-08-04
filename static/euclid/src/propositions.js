@@ -1,10 +1,11 @@
 /**
  * Book I, propositions 1, 2, 3, 9 and 10, written out as tools.
  *
- * These ship in the toolbox so there is something to use on day one, and so the
- * shape of a tool definition is visible to anyone who wants to add more. Every
- * one of them could equally well have been built in the app and saved with the
- * + button — that is the point.
+ * These are written out so a reader can watch a proposition being carried out
+ * rather than only read about it, and so the shape of a tool definition is
+ * visible to anyone who wants to add more. Every one of them could equally
+ * well have been built in the app and saved with the + button — that is the
+ * point. None of them is given away: reading one through is what earns it.
  *
  * Local ids: `i0, i1, …` are the givens, `l0, l1, …` are the steps of the
  * construction, and `outputs` names which of those the tool hands back. A body
@@ -415,5 +416,13 @@ export const PROPOSITIONS = [
 
 export const PROPOSITION_BY_ID = new Map(PROPOSITIONS.map((p) => [p.id, p]))
 
-/** The tools a fresh toolbox starts with. Postulates 1–3 are not tools; they are the pencil. */
-export const DEFAULT_TOOL_IDS = ['euclid.I.1', 'euclid.I.2', 'euclid.I.3']
+/**
+ * What a fresh toolbox starts with: nothing.
+ *
+ * Postulates 1–3 are not tools, they are the pencil. Everything else in Book I
+ * has to be got through before it can be used — a toolbar handed I.1, I.2 and
+ * I.3 on arrival says the opposite of what the book says, which is that each
+ * proposition is earned by the ones before it. Reading one through is what
+ * earns it.
+ */
+export const DEFAULT_TOOL_IDS = []

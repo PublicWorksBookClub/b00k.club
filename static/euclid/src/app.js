@@ -665,8 +665,8 @@ export function createSketch(options = {}) {
     },
 
     /**
-     * Go back to the beginning of the book: the first three propositions and
-     * nothing else. The figure on the paper is not touched.
+     * Go back to the beginning of the book: three postulates and nothing else.
+     * The figure on the paper is not touched.
      */
     forgetProgress() {
       snapshot()
@@ -678,7 +678,7 @@ export function createSketch(options = {}) {
         if (found) doc.tools.push(found)
       }
       doc.facts = []
-      say('Back to the first three propositions.', 'info')
+      say('Back to the beginning: the three postulates, and nothing proved.', 'info')
       invalidate()
     },
 
@@ -1210,6 +1210,12 @@ export function createSketch(options = {}) {
       const kept = [...(doc.tools || [])]
       const have = new Set(kept.map((t) => t.id))
       for (const dep of M.collectToolDeps(prop, registry())) if (!have.has(dep.id)) kept.push(dep)
+      // And the proposition itself is now the reader's to use. A problem is
+      // solved by being carried out; having watched it done, step by step, on
+      // your own figure, you have it. A theorem constructs nothing — its body
+      // only builds the figure its statement supposes — so there is no tool to
+      // hand over; what it yields is a fact, and that has to be proved.
+      if (!prop.theorem && prop.body && !have.has(prop.id)) kept.push(prop)
       const entry = BOOK_I.propositions.find((p) => `I.${p.n}` === prop.ref)
       doc = D.createDoc({
         tools: kept,

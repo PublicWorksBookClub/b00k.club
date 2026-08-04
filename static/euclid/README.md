@@ -55,7 +55,7 @@ policy sets `frame-src 'none'`, and it means the page's styles and the app's can
 | ------------- | -------------------------------------------------------------- |
 | `height`      | CSS height of the figure (default `460px`)                     |
 | `panel`       | `steps` (default) or `none` to hide the side panel             |
-| `tools`       | which propositions start in the toolbox, e.g. `I.1,I.2,I.3`    |
+| `tools`       | which propositions start to hand, e.g. `I.1,I.2,I.3`; none by default |
 | `proposition` | open with a proposition set out step by step, e.g. `I.2`       |
 | `src`         | URL of a saved sketch to open                                  |
 | `readonly`    | the figure may be read and dragged, but not drawn on           |
@@ -63,7 +63,7 @@ policy sets `frame-src 'none'`, and it means the page's styles and the app's can
 | `remember`    | keep what the reader has proved in their browser               |
 | `use-hash`    | read and write the sketch in the page's URL fragment           |
 | `sidebar`     | `open` or `closed`; open by default only on its own page       |
-| `through`     | how far the reader has got, e.g. `I.3` — limits the toolbox    |
+| `through`     | how far the reader has got, e.g. `I.3` — limits what is to hand |
 | `app-url`     | where "open in the full sketchpad" points (default `/euclid/`) |
 
 A sketch may also be supplied inline:
@@ -109,7 +109,7 @@ src/
   book1-figures.js what his drawings say, generated from their MetaPost
   interactions.js  pointer and keyboard handling, hit testing
   app.js           the controller: all state and every command
-  ui.js            toolbar, step list, toolbox, scrubber, the new-tool dialog
+  ui.js            toolbar, step list, proved pane, scrubber, the new-tool dialog
   styles.js        the shadow root's stylesheet
   element.js       <euclid-sketch>
   storage.js       local storage, files, shareable links
@@ -260,13 +260,44 @@ reader says which. Four points are a quadrilateral; of the three ways they can
 be joined up exactly one does not cross itself, so the order round the figure is
 found rather than asked for.
 
+## Q. E. D.
+
+The document remembers which of Book I it is working on — `doc.meta.proposition`
+— so the step list can open the way Byrne's page opens, with the heading and the
+enunciation, and close the way his page closes. Without it the list is a record
+of moves with nothing to be a proof *of*.
+
+Byrne ends every proposition with Q. E. D., problems as well as theorems: I.1
+builds its triangle and then has to argue that the triangle really is
+equilateral. So the foot of the list is the same for both. It appears once a
+claim is marked as what was to be proved, holds of the figure, and was not
+broken by the last shaking, and it carries how many configurations it held in,
+because that is the difference between a theorem and a lucky figure. Until then
+the foot says what closing it would take.
+
+It is deliberately not a verdict on the proof. The app cannot read an argument.
+It says the thing marked as what was to be shown is shown.
+
 ## What you keep
 
-The toolbox holds two kinds of thing, because the book gives you two kinds:
+The toolbar starts empty. Everything in Book I but the three postulates has to
+be got through before it can be used: a toolbar handed I.1, I.2 and I.3 on
+arrival says the opposite of what the book says, which is that each proposition
+is earned by the ones before it. Reading a problem through — watching it carried
+out, step by step, on your own figure — is what earns it.
 
-- **what you can carry out** — a construction, replayed with new inputs;
+The **Proved** pane is the account of what that has come to. It holds two kinds
+of thing, because the book gives you two kinds:
+
+- **what you can carry out** — a construction, replayed with new inputs. Read a
+  problem through and it goes here, and into the toolbar, and stays.
 - **what you have proved** — a theorem, which has nothing to carry out but may
-  be cited by a later claim.
+  be cited by a later claim. A theorem's body only builds the figure its
+  statement supposes, so there is no tool to hand over; what it yields has to be
+  claimed and shaken.
+
+What is *not* in that pane is a catalogue of Book I. The book is in the sidebar,
+all forty-eight of it, and that is where a proposition is taken up.
 
 A claim can be marked as *what was to be proved*. Once it is, and once it
 survives being shaken, it can be kept as a fact — with the number of
@@ -282,7 +313,7 @@ stands on the ones before it.
 
 ## The toolbar
 
-One row, always. The toolbox only ever grows — that is the point of the book —
+One row, always. It only ever grows — that is the point of the book —
 and a bar that wraps shoves the figure down the page every time a proposition is
 proved. So the tools give way first, scrolling sideways between the postulates
 and the **+**; if even that is not enough the whole bar scrolls, and the height
@@ -297,7 +328,7 @@ reader the copy that was current when they first visited rather than the one in
 the app. A tool the reader built themselves has no such home, so it is kept
 whole.
 
-Opening somebody else's figure does not empty your own toolbox. A figure
+Opening somebody else's figure does not empty your own toolbar. A figure
 carries the tools it needs to replay itself, and merging them in is right;
 throwing yours away to make room is not. Giving up what you have proved is a
 separate thing from clearing the paper, it asks first, and it says how much
@@ -307,10 +338,10 @@ will go.
 
 Eleven propositions are written out — I.1, I.2, I.3, I.9, I.10, I.11, I.12,
 I.31 and I.46 as constructions, I.5 and I.47 as the figures their statements
-suppose — and the whole of Book I is in the sidebar. Opening one of the three sets out its construction step by step;
-opening any of the others gives a clean sheet, the statement, and the toolbox
-you have built so far — the reader works it themselves and can save the result
-as a tool with **+**.
+suppose — and the whole of Book I is in the sidebar. Opening one of those sets
+it out step by step; opening any of the others gives a clean sheet, the
+statement, and whatever you have got through so far — the reader works it
+themselves and can save the result as a tool with **+**.
 
 A theorem says so when it opens: the sketchpad checks that a construction
 stands up under dragging, and has no way to check that an argument does.

@@ -44,15 +44,18 @@ The sketchpad below works under exactly those rules. Where the lines and circles
 points are there to be used without being asked for. Nothing else is given: a compass that carries a length
 across the page is not one of the postulates, which is what [I.2](#i-2) is for.
 
-{{ euclid(height=560, tools="I.1,I.2,I.3", caption="Postulates 1–3, plus whatever you have proved. Open it on its own at [/euclid/](/euclid/).") }}
+{{ euclid(height=560, caption="Postulates 1–3, and nothing else until you have got it. Take up a proposition from the book on the left; what it gives you is kept under **Proved**. Open it on its own at [/euclid/](/euclid/).") }}
 
 When you have carried out a construction, press **+** to keep it: choose which parts of the figure are the
 givens, choose what the construction produces, and it becomes a button in the toolbar. Everything in between
 turns into hidden working, exactly as an appeal to an earlier proposition hides its own construction. Tools may
 be built on tools — I.3 as it ships here is built on I.2, which is built on I.1.
 
-The toolbox tab also holds the propositions themselves, and **Read the construction** sets any of them out in a
-fresh figure one step at a time, so a proof can be walked forwards and backwards with the slider.
+The toolbar starts empty, and stays that way until you have earned something to put in it. Click a proposition
+in the book on the left and it is set out in a fresh figure one step at a time, so the construction can be
+walked forwards and backwards with the slider — and having watched it done on your own figure, you have it: it
+becomes a button in the toolbar and an entry under **Proved**, which is the account of what the book has given
+you so far. Constructions on one side, theorems you have proved on the other.
 
 ### I.2 { #i-2 }
 

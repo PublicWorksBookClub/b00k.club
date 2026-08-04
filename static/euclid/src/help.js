@@ -91,7 +91,7 @@ export const HELP = [
       + 'toolbar, and everything in between becomes hidden working. Tools may be built on tools.',
     rows: [
       ['+', 'Make a new tool out of what has been constructed'],
-      ['Toolbox', 'What you can carry out, and what you have proved'],
+      ['Proved', 'The account of what you have got through, and what it entitles you to'],
     ],
   },
   {

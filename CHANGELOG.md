@@ -13,7 +13,12 @@
     the sides" can be said at all
   - Each claim carries its reason, chosen from the book in the sidebar, and one can be marked as what was to be
     proved. A theorem that survives shaking is **kept**, with the evidence it survived, and may be cited ever
-    after — the toolbox now holds what you can carry out and what you have proved, and both outlive the tab
+    after — the **Proved** pane now holds what you can carry out and what you have proved, and both outlive the tab
+- Open each proposition with its heading and enunciation, as Byrne's page opens, and close it with **Q. E. D.**
+  once what was to be proved is marked, holds, and has been shaken — with the number of configurations it held
+  in, since that is the difference between a theorem and a lucky figure
+- Start the toolbar empty. Everything in Book I but the three postulates has to be got through before it can be
+  used; reading a problem through — watching it carried out on your own figure — is what earns it
 - Add I.11, I.12, I.31, I.46 and I.47 to the sketchpad, and the figures I.5 and I.47 suppose — the right angle
   constructed rather than assumed, so it stays a right angle however hard the figure is shaken
 - Read Byrne's marginal figures out of his own MetaPost and print them beside the definitions, and print each

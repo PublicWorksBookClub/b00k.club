@@ -14,8 +14,12 @@ import * as G from '../src/geometry.js'
 const at = (app, world) => hitTest(app.scene, world, app.camera)
 const labelled = (app, label) => [...app.scene.objects.values()].find((o) => o.label === label)
 
+// Most of what follows is about what tools do, so these start with the first
+// three to hand. A reader does not: see below.
+const FIRST_THREE = ['euclid.I.1', 'euclid.I.2', 'euclid.I.3']
+
 function twoPoints() {
-  const app = createSketch()
+  const app = createSketch({ toolIds: FIRST_THREE })
   app.startingPoints([
     { x: 0, y: 0 },
     { x: 100, y: 0 },
@@ -23,12 +27,26 @@ function twoPoints() {
   return app
 }
 
-test('a fresh sketch has the first three propositions to hand', () => {
+test('a fresh sketch has nothing but the postulates', () => {
+  // Everything in Book I but the three postulates has to be got through before
+  // it can be used, so a toolbar handed I.1, I.2 and I.3 on arrival would say
+  // the opposite of what the book says.
+  assert.deepEqual(createSketch().tools, [])
+})
+
+test('reading a problem through is what puts it in the toolbar', () => {
   const app = createSketch()
+  app.walkProposition('euclid.I.3')
   assert.deepEqual(
     app.tools.map((t) => t.ref),
+    // I.3 stands on I.2, which stands on I.1: they come along or it could not
+    // be replayed.
     ['I.1', 'I.2', 'I.3'],
   )
+  // A theorem constructs nothing, so it hands over no tool; what it yields is
+  // a fact, and that has to be claimed and shaken.
+  app.walkProposition('euclid.I.5')
+  assert.equal(app.tools.some((t) => t.ref === 'I.5'), false)
 })
 
 test('only the propositions asked for are given, with whatever they stand on', () => {
@@ -131,7 +149,7 @@ test('a tool may be defined, used, and refused a hand-placed point', () => {
 })
 
 test('a construction that can go either way waits for the reader to say which', () => {
-  const app = createSketch()
+  const app = createSketch({ toolIds: FIRST_THREE })
   app.startingPoints([
     { x: 0, y: 0 },
     { x: 120, y: 0 },
@@ -172,7 +190,7 @@ test('a construction that can go either way waits for the reader to say which', 
 })
 
 test('a proposition settles the choices of the propositions it stands on', () => {
-  const app = createSketch()
+  const app = createSketch({ toolIds: FIRST_THREE })
   app.startingPoints([
     { x: 0, y: 0 },
     { x: 120, y: 30 },
@@ -213,7 +231,7 @@ test('undo takes back what was drawn, not what was proved', () => {
 })
 
 test('a tool cannot be thrown away while something leans on it', () => {
-  const app = createSketch()
+  const app = createSketch({ toolIds: FIRST_THREE })
   app.startingPoints([
     { x: 0, y: 0 },
     { x: 200, y: 0 },
@@ -260,9 +278,8 @@ test('reading a proposition through starts a fresh figure but keeps the toolbox'
       `${ref} is still to hand`,
     )
   }
-  // Reading a proof does not hand you the proposition — that is what the
-  // library's "add to toolbox" is for.
-  assert.ok(!app.tools.some((t) => t.ref === 'I.10'))
+  // And having read it through, the reader has it.
+  assert.ok(app.tools.some((t) => t.ref === 'I.10'))
   // The midpoint really is the midpoint.
   const last = app.doc.steps[app.doc.steps.length - 1]
   const M = app.scene.get(last.id).pos
@@ -271,7 +288,7 @@ test('reading a proposition through starts a fresh figure but keeps the toolbox'
 })
 
 test('a read-only figure may be dragged and scrubbed, but not drawn on', () => {
-  const app = createSketch({ readonly: true })
+  const app = createSketch({ readonly: true, toolIds: FIRST_THREE })
   app.startingPoints([
     { x: 0, y: 0 },
     { x: 100, y: 0 },

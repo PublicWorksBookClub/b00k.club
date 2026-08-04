@@ -459,7 +459,7 @@ export function createUI(root, app, options = {}) {
     children.push(
       button({
         icon: 'book',
-        title: 'The toolbox and the propositions of Book I',
+        title: 'What you have proved',
         pressed: ui.tab === 'tools',
         onClick: () => {
           ui.tab = ui.tab === 'tools' ? 'steps' : 'tools'
@@ -777,7 +777,10 @@ export function createUI(root, app, options = {}) {
     const tabs = el('div', 'tabs')
     for (const [id, label] of [
       ['steps', 'Construction'],
-      ['tools', 'Toolbox'],
+      // Not "toolbox": the toolbar is where a tool is picked up. This is the
+      // account of what the reader has got through, which is a different thing
+      // and the only thing the second pane is for.
+      ['tools', 'Proved'],
     ]) {
       const tab = el('button', null, { type: 'button', textContent: label })
       tab.setAttribute('role', 'tab')
@@ -1168,16 +1171,42 @@ export function createUI(root, app, options = {}) {
     return wrap
   }
 
+  /**
+   * What the reader has got through, and what it entitles them to.
+   *
+   * Book I gives back two different things and this pane is the account of
+   * both. A problem read through leaves a construction you can carry out: it
+   * goes in the toolbar, and stays there. A theorem leaves nothing to carry
+   * out — only a statement you have earned the right to cite, which is what a
+   * fact is, and which has to be claimed and shaken before it is yours.
+   *
+   * What is *not* here is a catalogue of Book I. The book is in the sidebar,
+   * all forty-eight of it, and that is where a proposition is taken up.
+   */
   function renderToolbox() {
     const wrap = el('div')
     const proved = renderProved()
-    if (proved) {
-      wrap.append(el('p', 'empty', { textContent: 'What you have proved:' }))
-      wrap.append(proved)
-      wrap.append(el('p', 'empty', { textContent: 'What you can carry out:' }))
+    const tools = app.tools
+    if (!proved && !tools.length) {
+      return el('p', 'empty', {
+        textContent:
+          'Nothing yet. Everything in Book I but the three postulates has to be got through before'
+          + ' it can be used — take up a proposition from the book on the left, and what it gives you'
+          + ' will be kept here.',
+      })
     }
-    const have = new Set(app.tools.map((t) => t.id))
-    for (const tool of app.tools) {
+    if (proved) {
+      wrap.append(el('p', 'section-note', { textContent: 'Theorems you have proved, and may cite:' }))
+      wrap.append(proved)
+    }
+    if (tools.length) {
+      wrap.append(el('p', 'section-note', {
+        textContent: proved
+          ? 'Constructions you have read through, and may carry out:'
+          : 'Constructions you have read through. Each is a button in the toolbar above:',
+      }))
+    }
+    for (const tool of tools) {
       const card = el('div', 'tool-card')
       const title = el('h4')
       title.append(document.createTextNode(tool.name))
@@ -1186,12 +1215,11 @@ export function createUI(root, app, options = {}) {
       if (tool.summary) card.append(el('p', null, { textContent: tool.summary }))
       if (tool.note) card.append(el('p', null, { textContent: tool.note }))
       const acts = el('div', 'acts')
-      acts.append(el('button', null, { type: 'button', textContent: 'Use', onclick: () => app.setMode('tool', tool.id) }))
       if (PROPOSITIONS.some((p) => p.id === tool.id)) {
         acts.append(
           el('button', null, {
             type: 'button',
-            textContent: 'Read the construction',
+            textContent: 'Read it again',
             title: 'Set it out step by step in a fresh figure',
             onclick: () => {
               app.walkProposition(tool.id)
@@ -1202,38 +1230,14 @@ export function createUI(root, app, options = {}) {
           }),
         )
       }
-      acts.append(el('button', null, { type: 'button', textContent: 'Remove', onclick: () => app.removeTool(tool.id) }))
+      acts.append(el('button', null, {
+        type: 'button',
+        textContent: 'Give it up',
+        title: 'Take it out of the toolbar again',
+        onclick: () => app.removeTool(tool.id),
+      }))
       card.append(acts)
       wrap.append(card)
-    }
-
-    const rest = PROPOSITIONS.filter((p) => !have.has(p.id))
-    if (rest.length) {
-      wrap.append(el('p', 'empty', { textContent: 'Others from Book I:' }))
-      for (const prop of rest) {
-        const card = el('div', 'tool-card')
-        const title = el('h4')
-        title.append(document.createTextNode(prop.name))
-        title.append(el('span', 'ref', { textContent: prop.ref }))
-        card.append(title)
-        card.append(el('p', null, { textContent: prop.summary }))
-        const acts = el('div', 'acts')
-        acts.append(el('button', null, { type: 'button', textContent: 'Add to toolbox', onclick: () => app.addTool(prop) }))
-        acts.append(
-          el('button', null, {
-            type: 'button',
-            textContent: 'Read the construction',
-            onclick: () => {
-              app.walkProposition(prop.id)
-              ui.tab = 'steps'
-              options.onFit && options.onFit()
-              render(true)
-            },
-          }),
-        )
-        card.append(acts)
-        wrap.append(card)
-      }
     }
     return wrap
   }
@@ -1305,7 +1309,7 @@ export function createUI(root, app, options = {}) {
       acts.append(
         el('button', 'primary', {
           type: 'button',
-          textContent: 'Add to toolbox',
+          textContent: 'Add to the toolbar',
           onclick: () => {
             const made = app.createTool(ui.draft)
             if (made) ui.draft = { name: '', ref: '', abbr: '', summary: '' }
