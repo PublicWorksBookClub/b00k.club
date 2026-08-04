@@ -39,13 +39,16 @@ export const HELP = [
   {
     title: 'Choosing',
     body: 'Clicking picks one thing. What can be done to a selection sits beside the pointer that '
-      + 'made it: the colours, whether it is dashed, and the rubbish bin.',
+      + 'made it: the colours, how the line is drawn, the angle mark, and the rubbish bin.',
     rows: [
       ['Click', 'Select one thing'],
       ['⇧-click, ⌘-click', 'Add to the selection; click again to let one go'],
       ['Drag from empty paper', 'Sweep a lasso. A curve is caught if any of it is inside'],
       ['Hold ⌥', 'Borrow the pointer without putting the drawing tool down'],
       ['Delete', 'Remove what is selected, and whatever stands on it'],
+      ['∠', 'Fill in the angle at three selected points, as Byrne fills one in'],
+      ['heavy', 'Draw a line thicker, which is how Byrne tells two lines of one colour apart'],
+      ['note', 'Write a remark against a step. The Commentary pane gathers them'],
     ],
   },
   {
@@ -91,7 +94,8 @@ export const HELP = [
       + 'toolbar, and everything in between becomes hidden working. Tools may be built on tools.',
     rows: [
       ['+', 'Make a new tool out of what has been constructed'],
-      ['Proved', 'The account of what you have got through, and what it entitles you to'],
+      ['✓ in the book', 'What you have got through. Right-click it, or its button in the toolbar, to give it up'],
+      ['Commentary', 'Every remark you have written, in the order the steps come'],
     ],
   },
   {

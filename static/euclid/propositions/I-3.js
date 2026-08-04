@@ -14,11 +14,13 @@ export default {
   name: 'Cut off a lesser length',
   abbr: 'I.3',
   summary: 'Given two unequal straight lines, to cut off from the greater a straight line equal to the less.',
-  note: 'Given the two ends A, B of the greater line and the two ends C, D of the less. The length is carried to A '
-    + 'by I.2 and swept round by a circle, and where the circle cuts the greater line is the cut. Byrne draws the '
-    + 'part cut off solid and the remainder dashed, so the figure says which piece the proposition is about; the '
-    + 'greater line itself is drawn once underneath, as working. The lesser line must not begin at A — Euclid '
-    + 'passes over the same case in silence.',
+  enunciation: 'From the greater (AB) of two given straight lines, to cut off a part equal to the less (CD).',
+  lines: { AB: 'black', AF: 'black', FB: 'black', CD: 'blue', AE: 'red' },
+  note: 'Given the two ends A, B of the greater line and the two ends C, D of the less. The length is carried to A by '
+    + 'I.2 and swept round by a circle, and where the circle cuts the greater line is the cut. Byrne draws the part '
+    + 'cut off solid and the remainder dashed, so the figure says which piece the proposition is about; the greater '
+    + 'line itself is drawn once underneath, as working. The lesser line must not begin at A — Euclid passes over '
+    + 'the same case in silence.',
   inputs: [
     { id: 'i0', kind: 'point', label: 'A' },
     { id: 'i1', kind: 'point', label: 'B' },

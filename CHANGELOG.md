@@ -35,8 +35,11 @@
 - Draw a line heavy, which is how Byrne tells two lines of one colour apart, and thicken the bar over its name
   to match
 - Write a remark against any step. The second pane gathers them in step order
-- Turn I.1's triangle the way up Byrne draws it, and redraw I.3 as his page has it: the part cut off solid, the
-  remainder dashed, the carried length red, the lesser line blue
+- Turn I.1's triangle the way up Byrne draws it, and redraw I.2 and I.3 in his colours: the equilateral
+  triangle's sides red, the production yellow, the answer blue, the part cut off solid and the remainder dashed.
+  A proposition may also give its enunciation in the letters the sketchpad actually uses, since a figure is
+  lettered in the order it is built and Byrne's letters need not agree
+- Say what to do next in terms of the buttons that do it, rather than "hold a magnitude and compare it"
 - Cite the way Byrne cites: **const.** and **hyp.** join the definitions, postulates and axioms in the reason
   picker. They are the commonest reasons in the book, and the commonest here, since the figure *is* the
   construction and a theorem's hypothesis was built rather than promised

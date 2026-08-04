@@ -14,7 +14,7 @@
 
 /** The order a proposition's fields are written in, which is the order they are read in. */
 const FIELDS = [
-  'id', 'ref', 'name', 'abbr', 'theorem', 'summary', 'note',
+  'id', 'ref', 'name', 'abbr', 'theorem', 'summary', 'enunciation', 'lines', 'note',
   'inputs', 'body', 'outputs', 'names', 'given', 'choices', 'requires', 'uses', 'demo',
 ]
 
@@ -103,7 +103,10 @@ function field(key, v, indent) {
     const rows = (v.points || []).map((p) => `${at}  { x: ${num(p.x)}, y: ${num(p.y)} },`)
     return `${indent}demo: {\n${at}points: [\n${rows.join('\n')}\n${at}],\n${indent}},`
   }
-  if ((key === 'note' || key === 'summary') && String(v).length > 100) {
+  if (key === 'lines') {
+    return `${indent}lines: ${object(v, indent)},`
+  }
+  if ((key === 'note' || key === 'summary' || key === 'enunciation') && String(v).length > 100) {
     return `${indent}${key}: ${prose(v, indent)},`
   }
   return `${indent}${key}: ${value(v, indent)},`

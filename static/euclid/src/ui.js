@@ -8,7 +8,7 @@
  */
 
 import { PRIMITIVES } from './app.js'
-import { PROPOSITIONS } from './propositions.js'
+import { PROPOSITIONS, PROPOSITION_BY_ID } from './propositions.js'
 import { BOOK_I, SOURCE } from './book1.js'
 import { DEFINITION_FIGURES, PROPOSITION_LINES } from './book1-figures.js'
 import { figureCanvas } from './figures.js'
@@ -935,8 +935,16 @@ export function createUI(root, app, options = {}) {
     head.append(el('em', null, { textContent: prop.kind === 'problem' ? 'Prob.' : 'Theor.' }))
     box.append(head)
     const n = Number(String(prop.ref).replace('I.', ''))
+    // Byrne's enunciation is written in Byrne's letters, and the sketchpad
+    // letters a figure in the order it is built, so the two need not agree. A
+    // proposition may say the sentence in its own letters, with the colours it
+    // actually draws them in, and then the words and the paper match.
+    const written = PROPOSITION_BY_ID.get(prop.id)
     const said = el('p')
-    said.append(enunciation(prop.text || '', PROPOSITION_LINES[n]))
+    said.append(enunciation(
+      (written && written.enunciation) || prop.text || '',
+      (written && written.lines) || PROPOSITION_LINES[n],
+    ))
     box.append(said)
     return box
   }

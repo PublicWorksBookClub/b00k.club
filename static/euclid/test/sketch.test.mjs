@@ -372,7 +372,7 @@ test('the given figure is set aside, and the construction numbers from one', () 
   assert.ok(scene.steps.slice(0, 4).every((s) => s.setup && s.number === null))
   assert.deepEqual(
     scene.steps.filter((s) => !s.setup).map((s) => s.number),
-    [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
   )
   assert.match(scene.steps[4].text, /Let AB be joined/)
 

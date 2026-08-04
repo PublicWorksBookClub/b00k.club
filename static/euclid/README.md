@@ -132,7 +132,7 @@ src/
   book1-figures.js what his drawings say, generated from their MetaPost
   interactions.js  pointer and keyboard handling, hit testing
   app.js           the controller: all state and every command
-  ui.js            toolbar, step list, proved pane, scrubber, the new-tool dialog
+  ui.js            toolbar, step list, commentary, scrubber, the new-tool dialog
   styles.js        the shadow root's stylesheet
   element.js       <euclid-sketch>
   storage.js       local storage, files, shareable links
