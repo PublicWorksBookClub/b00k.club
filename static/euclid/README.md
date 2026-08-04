@@ -164,6 +164,19 @@ slider cannot rub the givens out. Reading a proposition through marks its givens
 automatically; a figure drawn by hand can be declared the givens after the fact
 from the ⋯ menu, using the ordinary tools, colours and dashes to lay it out.
 
+## Reading the steps
+
+A step's sentence is built as a list of pieces rather than a string, so a name
+can be printed as a name: a bar over a straight line in the colour it is drawn
+in, an arrow if it runs on, a ring for a circle. Finding the thing on the paper
+then takes no translation. `info.text` is the same sentence flattened, for
+anything that only wants a string.
+
+A tool that hands back a point and the lines reaching it has drawn a triangle,
+so the step says `△ABD` rather than reciting the parts. Only segments drawn by
+that step or before it count towards closing the figure, so a later step cannot
+retrospectively finish one off for an earlier step.
+
 ## Byrne's own figures
 
 Beside most of his definitions Byrne prints a small coloured figure, and in the

@@ -353,22 +353,27 @@ ol.steps .n {
   font-size: 11px;
   padding-top: 2px;
 }
-ol.steps .what { flex: 1 1 auto; }
-/* Floated over the step rather than beside it, so the prose keeps the full
-   column width when the buttons are not showing. */
+ol.steps .what { flex: 1 1 auto; min-width: 0; }
+/* Under the step, not over it: the buttons used to cover the words they belong
+   to, and a step you cannot read is worse than one you have to reach under. */
 ol.steps .acts {
-  position: absolute;
-  right: 6px;
-  top: 3px;
-  display: flex;
-  gap: 2px;
-  opacity: 0;
-  pointer-events: none;
-  background: var(--eu-chrome);
-  box-shadow: -6px 0 6px -2px var(--eu-chrome);
+  display: none;
+  gap: 4px;
+  margin-top: 4px;
 }
-ol.steps li:hover .acts, ol.steps li:focus-within .acts { opacity: 1; pointer-events: auto; }
-ol.steps li[aria-current='true'] .acts { background: #f4e6d8; box-shadow: -6px 0 6px -2px #f4e6d8; }
+ol.steps li:hover .acts, ol.steps li:focus-within .acts { display: flex; }
+/* A name in the prose wears the mark of the thing it names: a bar over a
+   straight line, an arrow if it runs on, a ring for a circle — in the colour
+   the thing is drawn in, so the words and the paper agree. */
+.drawn { white-space: nowrap; }
+.drawn.segment .letters, .drawn.ray .letters, .drawn.line .letters {
+  text-decoration: overline;
+  text-decoration-thickness: 1.5px;
+}
+.drawn .mark { font-style: normal; }
+.drawn.circle .mark { margin-right: 0.5px; }
+/* The arrow belongs to the letters, not beside them. */
+.drawn.ray .mark, .drawn.line .mark { font-size: 0.8em; margin: 0 0 0 -1px; vertical-align: 0.06em; }
 ol.steps .acts button {
   font-family: var(--eu-sans);
   font-size: 10px;

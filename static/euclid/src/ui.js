@@ -212,6 +212,45 @@ export function createUI(root, app, options = {}) {
         }),
       )
     }
+
+    // What can be done to a selection belongs beside the pointer that made it,
+    // not out by the propositions, where a rubbish bin next to the button for
+    // adding a tool reads as a button for throwing one away. The bin keeps its
+    // place whether or not anything is selected, so the toolbar does not shift
+    // about underneath the pointer.
+    if (!app.state.readonly) {
+      children.push(
+        button({
+          icon: 'trash',
+          title: s.selection.size
+            ? 'Remove what is selected, and whatever stands on it (Delete)'
+            : 'Select something to remove it',
+          disabled: !s.selection.size,
+          onClick: () => app.deleteSelection(),
+        }),
+      )
+    }
+    const coloured = [...s.selection].map((id) => app.scene.get(id)).filter((o) => o && o.type === 'curve')
+    if (coloured.length) {
+      const swatches = el('div', 'swatches')
+      for (const name of Object.keys(PALETTE)) {
+        const swatch = el('button', 'swatch', { type: 'button', title: `Colour it ${name}` })
+        swatch.style.background = PALETTE[name]
+        if (coloured.every((o) => o.color === name)) swatch.setAttribute('aria-pressed', 'true')
+        swatch.addEventListener('click', () => {
+          for (const o of coloured) app.setColor(o.id, name)
+        })
+        swatches.append(swatch)
+      }
+      const dashed = coloured.every((o) => o.dash)
+      const dash = el('button', 'swatch dash', { type: 'button', title: dashed ? 'Draw it solid' : 'Draw it dashed' })
+      dash.setAttribute('aria-pressed', String(dashed))
+      dash.addEventListener('click', () => {
+        for (const o of coloured) app.setDash(o.id, !dashed)
+      })
+      swatches.append(dash)
+      children.push(swatches)
+    }
     children.push(el('span', 'rule'))
 
     for (const tool of app.tools) {
@@ -235,38 +274,6 @@ export function createUI(root, app, options = {}) {
         onClick: () => (s.mode === 'define' ? app.setMode('select') : app.startDefinition()),
       }),
     )
-
-    const coloured = [...s.selection].map((id) => app.scene.get(id)).filter((o) => o && o.type === 'curve')
-    if (coloured.length) {
-      children.push(el('span', 'rule'))
-      const swatches = el('div', 'swatches')
-      for (const name of Object.keys(PALETTE)) {
-        const swatch = el('button', 'swatch', { type: 'button', title: `Colour it ${name}` })
-        swatch.style.background = PALETTE[name]
-        if (coloured.every((o) => o.color === name)) swatch.setAttribute('aria-pressed', 'true')
-        swatch.addEventListener('click', () => {
-          for (const o of coloured) app.setColor(o.id, name)
-        })
-        swatches.append(swatch)
-      }
-      const dashed = coloured.every((o) => o.dash)
-      const dash = el('button', 'swatch dash', { type: 'button', title: dashed ? 'Draw it solid' : 'Draw it dashed' })
-      dash.setAttribute('aria-pressed', String(dashed))
-      dash.addEventListener('click', () => {
-        for (const o of coloured) app.setDash(o.id, !dashed)
-      })
-      swatches.append(dash)
-      children.push(swatches)
-    }
-    if (s.selection.size) {
-      children.push(
-        button({
-          icon: 'trash',
-          title: 'Remove what is selected, and whatever stands on it (Delete)',
-          onClick: () => app.deleteSelection(),
-        }),
-      )
-    }
 
     children.push(el('span', 'spacer'))
     children.push(button({ icon: 'undo', title: 'Undo', disabled: !app.canUndo, onClick: () => app.undo() }))
@@ -551,6 +558,42 @@ export function createUI(root, app, options = {}) {
     return wrap
   }
 
+  /**
+   * A step's sentence, with the names printed as names.
+   *
+   * A line called AB is a coloured stroke on the paper, so in the prose it gets
+   * a stroke of its own — a bar over the letters in the colour it is drawn in,
+   * an arrow if it runs on, a ring if it is a circle. Reading the step and
+   * finding the thing on the paper then takes no translation.
+   */
+  function prose(parts) {
+    const out = document.createDocumentFragment()
+    for (const part of parts) {
+      if (typeof part === 'string') {
+        out.append(document.createTextNode(part))
+        continue
+      }
+      if (!part.kind || part.kind === 'point') {
+        out.append(document.createTextNode(part.text))
+        continue
+      }
+      const span = el('span', `drawn ${part.kind}`)
+      if (part.kind === 'circle') {
+        const ring = el('i', 'mark', { textContent: '⊙' })
+        if (part.color) ring.style.color = PALETTE[part.color]
+        span.append(ring)
+      }
+      const letters = el('span', 'letters', { textContent: part.letters || part.text })
+      if (part.color && part.kind !== 'circle') letters.style.textDecorationColor = PALETTE[part.color]
+      span.append(letters)
+      if (part.kind === 'ray' || part.kind === 'line') {
+        span.append(el('i', 'mark', { textContent: part.kind === 'ray' ? '→' : '↔' }))
+      }
+      out.append(span)
+    }
+    return out
+  }
+
   function stepList(steps) {
     const list = el('ol', 'steps')
     steps.forEach((info) => {
@@ -561,13 +604,11 @@ export function createUI(root, app, options = {}) {
       if (isCurrent) item.setAttribute('aria-current', 'true')
       item.append(el('span', 'n', { textContent: info.setup ? '·' : String(info.number) }))
       const what = el('span', 'what')
-      what.append(document.createTextNode(info.text))
+      what.append(prose(info.parts || [info.text]))
       if (!info.ok && info.error) {
         what.append(el('br'))
         what.append(el('small', null, { textContent: info.error }))
       }
-      item.append(what)
-
       const acts = el('span', 'acts')
       if (info.step.op === 'macro') {
         acts.append(
@@ -606,7 +647,8 @@ export function createUI(root, app, options = {}) {
           }),
         )
       }
-      item.append(acts)
+      what.append(acts)
+      item.append(what)
 
       item.addEventListener('click', () => app.setUpTo(info.index + 1))
       item.addEventListener('mouseenter', () => app.setHover(info.produced[0] || null))

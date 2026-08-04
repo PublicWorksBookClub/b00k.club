@@ -504,8 +504,53 @@ test('steps read as prose', () => {
   D.addStep(doc, { op: 'circle', id: c1, o: ids[0], r: ids[1] })
   apply(doc, 'euclid.I.1', ids)
   const scene = run(doc)
-  assert.equal(scene.steps[2].text, 'With centre A and distance AB let a circle be described.')
-  assert.match(scene.steps[3].text, /^By I\.1, applied to A, B, giving /)
+  // The sentence names the circle as well as describing it, which is what
+  // teaches the reader that ⊙AB means "centre A, distance AB" — and gives the
+  // step list something to print in the colour the circle is drawn in.
+  assert.equal(scene.steps[2].text, 'With centre A and distance AB let ⊙AB be described.')
+  assert.equal(scene.steps[3].text, 'By I.1, applied to A, B, giving C and AC and BC.')
+})
+
+test('a tool that closes a figure says so', () => {
+  // I.1 on a line already drawn hands back a triangle, and the step says
+  // △ABC rather than reciting the point and the two sides.
+  const { doc, ids } = docWithPoints([
+    { x: 0, y: 0 },
+    { x: 100, y: 0 },
+  ])
+  D.addStep(doc, { op: 'segment', id: D.newId(doc, 's'), a: ids[0], b: ids[1] })
+  apply(doc, 'euclid.I.1', ids)
+  assert.equal(run(doc).steps[3].text, 'By I.1, applied to A, B, giving △ABC.')
+})
+
+test('a name carries the colour and kind of the thing it names', () => {
+  const { doc, ids } = docWithPoints([
+    { x: 0, y: 0 },
+    { x: 100, y: 0 },
+  ])
+  const seg = D.newId(doc, 's')
+  D.addStep(doc, { op: 'segment', id: seg, a: ids[0], b: ids[1], color: 'red' })
+  const scene = run(doc)
+  const named = scene.steps[2].parts.find((p) => typeof p !== 'string' && p.kind)
+  assert.deepEqual(
+    { letters: named.letters, kind: named.kind, color: named.color },
+    { letters: 'AB', kind: 'segment', color: 'red' },
+  )
+  assert.equal(scene.steps[2].text, 'Let AB be joined.')
+})
+
+test('a figure is only named when this step closed it', () => {
+  // The same three points, but the base drawn afterwards: the tool did not
+  // hand back a triangle, so it must not claim to have.
+  const { doc, ids } = docWithPoints([
+    { x: 0, y: 0 },
+    { x: 100, y: 0 },
+  ])
+  apply(doc, 'euclid.I.1', ids)
+  const before = run(doc).steps[2].text
+  D.addStep(doc, { op: 'segment', id: D.newId(doc, 's'), a: ids[0], b: ids[1] })
+  assert.equal(run(doc).steps[2].text, before)
+  assert.match(before, /giving C and AC and BC\.$/)
 })
 
 /* ------------------------------------------------------------------ *

@@ -267,7 +267,13 @@ export function solve(doc, opts = {}) {
     name: (id) => shortName(objects, id),
     bounds: () => sceneBounds(objects, order),
   }
-  for (const info of stepInfos) info.text = describeStep(objects, tools, info.step)
+  for (const info of stepInfos) {
+    // `parts` keeps the names as names so they can be printed in the colours
+    // they are drawn in; `text` is the same sentence flattened, for anything
+    // that only wants a string.
+    info.parts = describeStep(objects, tools, info.step, info.index)
+    info.text = info.parts.map((part) => (typeof part === 'string' ? part : part.text)).join('')
+  }
   return scene
 }
 
@@ -370,56 +376,131 @@ function letterThePoints(objects, order, doc) {
   }
 }
 
-function shortName(objects, id) {
+/**
+ * What a thing is called, and how it is drawn.
+ *
+ * A name is not plain text: on the page a line called AB is a coloured stroke,
+ * and the prose is easier to read against the figure if the name carries the
+ * colour with it. So a name is returned as a piece the printer can decorate —
+ * the letters, what kind of thing it is, and its colour — and `text` is the
+ * same thing flattened for anything that only wants a string.
+ */
+function nameOf(objects, id) {
   const o = objects.get(id)
-  if (!o) return '?'
-  if (o.type === 'point') return o.label || '•'
+  if (!o) return { text: '?' }
+  if (o.type === 'point') return { text: o.label || '•', letters: o.label || '•', kind: 'point' }
   const d = o.def || {}
   const p = (x) => {
     const q = objects.get(x)
     return (q && q.label) || '•'
   }
+  const named = (letters, kind, mark = '') =>
+    ({ text: kind === 'circle' ? mark + letters : letters + mark, letters, kind, color: o.color })
   switch (d.op) {
     case 'segment':
-      return `${p(d.a)}${p(d.b)}`
+      return named(`${p(d.a)}${p(d.b)}`, 'segment')
     case 'ray':
-      return `${p(d.a)}${p(d.b)}→`
+      return named(`${p(d.a)}${p(d.b)}`, 'ray', '→')
     case 'line':
-      return `${p(d.a)}${p(d.b)}↔`
+      return named(`${p(d.a)}${p(d.b)}`, 'line', '↔')
     case 'circle':
-      return `⊙${p(d.o)}${p(d.r)}`
+      return named(`${p(d.o)}${p(d.r)}`, 'circle', '⊙')
     default:
-      return 'the figure'
+      return { text: 'the figure' }
   }
 }
 
-function describeStep(objects, tools, step) {
+function shortName(objects, id) {
+  return nameOf(objects, id).text
+}
+
+/**
+ * The closed figure a step completes, if it completes one.
+ *
+ * A tool that hands back a point and the two lines to it has drawn a triangle,
+ * and saying so — △ABD — is how the book would put it, rather than reciting
+ * the parts. Only segments already drawn by this step or before it count, so a
+ * later step cannot retrospectively close a figure for an earlier one.
+ */
+function closedFigure(objects, step, upToIndex) {
+  const corners = new Set()
+  const sides = []
+  for (const id of [...(step.args || []), ...(step.out || [])]) {
+    const o = objects.get(id)
+    if (o && o.type === 'point') corners.add(id)
+  }
+  for (const o of objects.values()) {
+    if (o.type !== 'curve' || (o.def || {}).op !== 'segment' || o.hidden || o.ghost) continue
+    if (o.stepIndex > upToIndex) continue
+    if (!corners.has(o.def.a) || !corners.has(o.def.b)) continue
+    sides.push([o.def.a, o.def.b])
+  }
+  if (corners.size < 3 || sides.length !== corners.size) return null
+
+  const next = new Map([...corners].map((id) => [id, []]))
+  for (const [a, b] of sides) {
+    next.get(a).push(b)
+    next.get(b).push(a)
+  }
+  if ([...next.values()].some((ends) => ends.length !== 2)) return null
+
+  // Walk the cycle from the earliest letter, towards its earlier neighbour, so
+  // the same figure is always named the same way.
+  const letter = (id) => (objects.get(id) || {}).label || ''
+  const start = [...corners].sort((a, b) => letter(a).localeCompare(letter(b)))[0]
+  const walk = [start]
+  let from = start
+  let here = next.get(start).slice().sort((a, b) => letter(a).localeCompare(letter(b)))[0]
+  while (here !== start) {
+    walk.push(here)
+    const [x, y] = next.get(here)
+    const onward = x === from ? y : x
+    from = here
+    here = onward
+    if (walk.length > corners.size) return null
+  }
+  if (walk.length !== corners.size || walk.length !== 3) return null
+  return { text: `△${walk.map(letter).join('')}`, kind: 'figure' }
+}
+
+function describeStep(objects, tools, step, index) {
   const n = (id) => shortName(objects, id)
+  const name = (id) => nameOf(objects, id)
   switch (step.op) {
     case 'point':
-      return `Let the point ${n(step.id)} be placed.`
+      return ['Let the point ', name(step.id), ' be placed.']
     case 'onCurve':
-      return `Let a point ${n(step.id)} be taken at random on ${n(step.curve)}.`
+      return ['Let a point ', name(step.id), ' be taken at random on ', name(step.curve), '.']
     case 'inter':
-      return `Let ${n(step.id)} be the point in which ${n(step.c1)} and ${n(step.c2)} cut one another.`
+      return ['Let ', name(step.id), ' be the point in which ', name(step.c1), ' and ',
+        name(step.c2), ' cut one another.']
     case 'segment':
-      return step.given ? `Let ${n(step.a)}${n(step.b)} be the given straight line.` : `Let ${n(step.a)}${n(step.b)} be joined.`
+      return step.given
+        ? ['Let ', name(step.id), ' be the given straight line.']
+        : ['Let ', name(step.id), ' be joined.']
     case 'ray':
-      return `Let ${n(step.a)}${n(step.b)} be produced beyond ${n(step.b)}.`
+      return ['Let ', name(step.id), ' be produced beyond ', name(step.b), '.']
     case 'line':
-      return `Let the straight line through ${n(step.a)} and ${n(step.b)} be drawn.`
+      return ['Let the straight line through ', n(step.a), ' and ', n(step.b), ' be drawn.']
     case 'circle':
-      return `With centre ${n(step.o)} and distance ${n(step.o)}${n(step.r)} let a circle be described.`
+      return ['With centre ', n(step.o), ' and distance ', n(step.o), n(step.r),
+        ' let ', name(step.id), ' be described.']
     case 'macro': {
       const tool = tools.get(step.tool)
       const called = tool ? tool.ref || tool.name : step.tool
       const args = (step.args || []).map(n).join(', ')
-      const outs = (step.out || []).map(n).filter((s) => s && s !== '?' && s !== '•')
-      const gives = outs.length ? `, giving ${outs.join(' and ')}` : ''
-      return `By ${called}, applied to ${args}${gives}.`
+      const figure = closedFigure(objects, step, index)
+      const outs = figure ? [figure]
+        : (step.out || []).map(name).filter((o) => o.text && o.text !== '?' && o.text !== '•')
+      const gives = []
+      outs.forEach((out, i) => {
+        gives.push(i === 0 ? ', giving ' : ' and ')
+        gives.push(out)
+      })
+      return [`By ${called}, applied to ${args}`, ...gives, '.']
     }
     default:
-      return step.op
+      return [step.op]
   }
 }
 
