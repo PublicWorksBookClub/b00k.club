@@ -599,8 +599,20 @@ function closedFigure(objects, step, upToIndex) {
  * (def. 15), (ax. 1), (I. 4) — and a proof that does not say why is not a
  * proof, so a claim carries its reason with it.
  */
+/**
+ * How the book would write down what allows a claim.
+ *
+ * Byrne's `const.` and `hyp.` cite nothing numbered: the construction is what
+ * is on the paper, and the hypothesis is what the proposition supposed. In a
+ * sketchpad they are the commonest reasons of all, since the figure *is* the
+ * construction and its supposition was built rather than promised.
+ */
+export const BARE_REASONS = { const: 'const.', hyp: 'hyp.' }
+
 export function citation(because) {
-  if (!because || because.n == null) return null
+  if (!because) return null
+  if (BARE_REASONS[because.kind]) return BARE_REASONS[because.kind]
+  if (because.n == null) return null
   const kind = { def: 'def.', post: 'post.', ax: 'ax.', prop: null }[because.kind]
   return kind ? `${kind} ${because.n}` : `I.${because.n}`
 }

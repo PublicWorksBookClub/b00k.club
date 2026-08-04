@@ -105,8 +105,11 @@ export const HELP = [
       + 'entails the claim; that would be a proof checker, and this is a sketchpad.',
     rows: [
       ['=  >  <', 'How the two magnitudes stand to one another'],
-      ['why?', 'The definition, axiom or proposition that allows it'],
-      ['to be proved', 'Mark the claim the proposition set out to show'],
+      ['≡', 'Equal in every respect, as I.4 has it, rather than equal in content'],
+      ['why?', 'What allows it: a definition, an axiom, a proposition — or the figure itself'],
+      ['const.', 'By construction. Make an angle equal to a given angle and the two are equal by construction — and here the figure is always to hand'],
+      ['hyp.', 'By the hypothesis, which in this sketchpad was built rather than promised'],
+      ['to be proved', 'Mark the claim the proposition set out to show; the page then closes with Q. E. D.'],
       ['Shake', 'Jog every hand-placed point at random, many times over'],
       ['Keep it', 'Hold the theorem, with the evidence it survived, and cite it ever after'],
     ],

@@ -22,7 +22,11 @@
 - Set out the figures I.13, I.15, I.16, I.20 and I.37 suppose as well, so a theorem opens on something to look
   at rather than a blank sheet. I.37's second apex is taken on a parallel drawn by I.31, so "between the same
   parallels" holds however the figure is pulled about
-- Fix the ties left in Byrne's text by the LaTeX reader, which printed as "Triangles BCG, CDG and~ DGE"
+- Cite the way Byrne cites: **const.** and **hyp.** join the definitions, postulates and axioms in the reason
+  picker. They are the commonest reasons in the book, and the commonest here, since the figure *is* the
+  construction and a theorem's hypothesis was built rather than promised
+- Fix the ties left in Byrne's text by the LaTeX reader, which printed as "Triangles BCG, CDG and~ DGE", and
+  drop the "symbol" that was a picture and printed as raw MetaPost
 - Start the toolbar empty. Everything in Book I but the three postulates has to be got through before it can be
   used; reading a problem through — watching it carried out on your own figure — is what earns it
 - Add I.11, I.12, I.31, I.46 and I.47 to the sketchpad, and the figures I.5 and I.47 suppose — the right angle

@@ -425,7 +425,8 @@ test('two triangles compared in every respect are congruent, not merely equal', 
       MAG.magnitude('triangle', [id('B'), id('C'), id('A')])],
   })
   app.changed()
-  assert.match(app.scene.steps.at(-1).text, /^≡△\w+ ≡ ≡△\w+\.$/)
+  // A congruence is written ≡ and a content =, so the two never read alike.
+  assert.match(app.scene.steps.at(-1).text, /^△\w+ ≡ △\w+\.$/)
 })
 
 test('the square on the hypotenuse — I.47, checked by shaking', () => {

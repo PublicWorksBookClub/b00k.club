@@ -198,7 +198,20 @@ export function nameOf(mag, letter) {
   if (mag.kind === 'length') return p.join('')
   if (mag.kind === 'angle') return `∠${p[0]}${p[1]}${p[2]}`
   if (mag.kind === 'area') return `${FIGURE[p.length] || ''}${p.join('')}`
-  return `≡△${p.join('')}`
+  return `△${p.join('')}`
+}
+
+/**
+ * The same, for the list of readings a selection could be taken as.
+ *
+ * Three points joined are both a triangle with a content and a shape that may
+ * be matched in every respect, and the two are written alike — I.37 says
+ * triangles are equal, I.4 that they are equal in every respect. In the prose
+ * the sign carries the difference (`=` against `≡`); in a list of things to
+ * choose between there is no sign yet, so it is said in Byrne's words.
+ */
+export function readingName(mag, letter) {
+  return mag.kind === 'triangle' ? `${nameOf(mag, letter)} in every respect` : nameOf(mag, letter)
 }
 
 /**

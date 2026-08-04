@@ -255,6 +255,14 @@ reason all the same, chosen from the book in the sidebar, because a proof that
 does not say why is not a proof, and writing the reason down is what makes the
 step list read as an argument rather than a list of measurements.
 
+Two of Byrne's citations name nothing numbered, and they are the ones a reader
+reaches for first here. `const.` is the figure itself — "if we make an angle
+equal to a given angle, these two angles are equal by construction" — and in a
+sketchpad the construction is always on the paper. `hyp.` is what the
+proposition supposed, which here was built rather than promised. Both are in
+the picker above the numbered kinds, and both settle the moment they are
+chosen, since there is nothing further to say.
+
 **The hypothesis is constructed, not asserted.** "Let ABC be isosceles" is not
 two free points and a promise; it is A, B, and then C taken on the circle
 centred A through B. AC = AB by Def. 15 and stays so however the figure is

@@ -74,6 +74,8 @@ def clean(s):
     s = s.replace('\\&', '&').replace('\\%', '%').replace('\\,', ' ')
     # A tie is a space that TeX will not break at; the reader wants the space.
     s = s.replace('~', ' ')
+    # \  is an interword space held open after an abbreviation's full stop.
+    s = s.replace('\\ ', ' ')
     s = re.sub(r'\\\\', ' ', s)
     s = s.replace('$', '')
     # Anything left that looks like a bare macro goes.
@@ -389,6 +391,11 @@ MATH = {
 
 def symbol_of(raw):
     out = raw.strip()
+    # One of Byrne's "symbols" is a picture: two little figures showing that a
+    # point may be designated by the lines that meet at it. There is no sign to
+    # print, and printing its MetaPost is worse than printing nothing.
+    if 'drawFromCurrentPicture' in out or 'byNamedLine' in out:
+        return ''
     for pattern, glyph in MATH.items():
         out = re.sub(pattern, glyph, out)
     out = out.replace('\\drawTwoRightAngles', '⌐⌐').replace('$', '').strip()
@@ -399,6 +406,7 @@ def symbol_of(raw):
     out = re.sub(r'\\conststr', 'const.', out)
     out = re.sub(r'\\qedstr', 'Q.E.D.', out)
     out = re.sub(r'\\[a-zA-Z]+', '', out)
+    out = out.replace('\\ ', ' ')
     return re.sub(r'\s+', ' ', out).strip()
 
 

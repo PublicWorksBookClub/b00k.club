@@ -588,7 +588,7 @@ export function createUI(root, app, options = {}) {
   }
 
   const magnitudeName = (mag) =>
-    (mag ? MAG.nameOf(mag, (id) => (app.scene.get(id) || {}).label || '•') : '')
+    (mag ? MAG.readingName(mag, (id) => (app.scene.get(id) || {}).label || '•') : '')
 
   /**
    * A figure never changes, so it is drawn once and thereafter moved about.
@@ -941,6 +941,14 @@ export function createUI(root, app, options = {}) {
   function reasonPicker(step) {
     const wrap = el('div', 'why')
     const kinds = [
+      // Byrne's two commonest citations name nothing numbered. `const.` is the
+      // figure itself — if we make an angle equal to a given angle, these two
+      // angles are equal by construction — and in a sketchpad the figure is
+      // always to hand, so it is the reason a reader reaches for first. `hyp.`
+      // is what the proposition supposed, which here was built rather than
+      // promised.
+      ['const', 'By construction', null],
+      ['hyp', 'By the hypothesis', null],
       ['def', 'Definition', BOOK_I.definitions],
       ['post', 'Postulate', BOOK_I.postulates],
       ['ax', 'Axiom', BOOK_I.axioms],
@@ -950,11 +958,13 @@ export function createUI(root, app, options = {}) {
     for (const [id, label] of kinds) {
       kind.append(el('option', null, { value: id, textContent: label }))
     }
-    const current = step.because || { kind: 'def', n: 1 }
+    const current = step.because || { kind: 'const' }
     kind.value = current.kind
     const which = el('select')
     const fill = () => {
       const [, , entries] = kinds.find(([id]) => id === kind.value)
+      which.hidden = !entries
+      if (!entries) return
       // Definitions, postulates and axioms are granted; propositions have to be
       // earned. Nothing stops a reader leaning on one they have not got — the
       // app is not a proctor — but it says which are which, because the shape
@@ -972,7 +982,16 @@ export function createUI(root, app, options = {}) {
       which.value = String(current.kind === kind.value ? current.n : entries[0].n)
     }
     fill()
-    kind.addEventListener('change', () => fill())
+    kind.addEventListener('change', () => {
+      fill()
+      // `const.` and `hyp.` name nothing further, so choosing one settles it;
+      // the rest still need the reader to say which definition, or which axiom.
+      if (which.hidden) {
+        app.setClaimReason(step.id, { kind: kind.value })
+        ui.reasoning = null
+        render(true)
+      }
+    })
     const settle = () => {
       app.setClaimReason(step.id, { kind: kind.value, n: Number(which.value) })
       ui.reasoning = null

@@ -136,39 +136,38 @@ export const AXIOMS = [
 ]
 
 export const SYMBOLS = [
-  { symbol: '\u2234', text: 'expresses the word therefore.' },
-  { symbol: '\u2235', text: 'expresses the word because.' },
+  { symbol: '∴', text: 'expresses the word therefore.' },
+  { symbol: '∵', text: 'expresses the word because.' },
   {
     symbol: '=',
-    text: 'expresses the word equal. This sign of equality may be read equal to, or is equal to, or are equal to; but the discrepancy in regard to the introduction of the auxiliary verbs is, are, &c.\\ cannot affect the geometrical rigour.',
+    text: 'expresses the word equal. This sign of equality may be read equal to, or is equal to, or are equal to; but the discrepancy in regard to the introduction of the auxiliary verbs is, are, &c. cannot affect the geometrical rigour.',
   },
-  { symbol: '\u2260', text: 'means the same as if the words \u2018not equal\u2019 were written.' },
+  { symbol: '≠', text: 'means the same as if the words ‘not equal’ were written.' },
   { symbol: '>', text: 'signifies greater than.' },
   { symbol: '<', text: 'signifies less than.' },
-  { symbol: '\u226f', text: 'signifies not greater than.' },
-  { symbol: '\u226e', text: 'signifies not less than.' },
-  { symbol: '+', text: 'is read plus (more), the sign of addition; when interposed between two or more magnitudes, signifies their sum.' },
+  { symbol: '≯', text: 'signifies not greater than.' },
+  { symbol: '≮', text: 'signifies not less than.' },
+  {
+    symbol: '+',
+    text: 'is read plus (more), the sign of addition; when interposed between two or more magnitudes, signifies their sum.',
+  },
   {
     symbol: '-',
     text: 'is read minus (less), signifies subtraction; and when placed between two quantities denotes that the latter is taken from the former.',
   },
   {
-    symbol: '\u00d7',
+    symbol: '×',
     text: 'this sign expresses the product of two or more numbers when placed between them in arithmetic and algebra; but in geometry it is generally used to express a rectangle, when placed between two straight lines which contain one of its right angles. A rectangle may also be represented by placing a point between two of its conterminous sides.',
   },
   {
-    symbol: ':\\ ::\\ :',
+    symbol: ': :: :',
     text: 'expresses an analogy or proportion; thus if A, B, C and D represent four magnitudes, and A has to B the same ratio that C has to D, the proportion is thus briefly written A: B:: C: D, A: B = C: D, or A B = C D. This equality or sameness of ratio is read, as A is to B, so is C to D; or A is to B, as C is to D.',
   },
-  { symbol: '\u2225', text: 'signifies parallel to.' },
-  { symbol: '\u22a5', text: 'signifies perpendicular to.' },
-  { symbol: '\u2220BAC', text: 'signifies angle.' },
-  { symbol: '\u2220BAD', text: 'signifies right angle.' },
-  { symbol: '\u2310\u2310', text: 'signifies two right angles.' },
-  {
-    symbol: '{ draw byNamedLine(AD); draw byNamedLineSeq(0)(BD,CD); } or { draw byNamedLineSeq(0)(AD,BD); }',
-    text: 'briefly designates a point. The square described on a line is concisely written thus, AD^2. In the same manner twice the square of, is expressed by 2 AD^2.',
-  },
+  { symbol: '∥', text: 'signifies parallel to.' },
+  { symbol: '⊥', text: 'signifies perpendicular to.' },
+  { symbol: '∠BAC', text: 'signifies angle.' },
+  { symbol: '∠BAD', text: 'signifies right angle.' },
+  { symbol: '⌐⌐', text: 'signifies two right angles.' },
   { symbol: 'def.', text: 'signifies definition.' },
   { symbol: 'post.', text: 'signifies postulate.' },
   { symbol: 'ax.', text: 'signifies axiom.' },
@@ -178,9 +177,9 @@ export const SYMBOLS = [
   },
   {
     symbol: 'const.',
-    text: 'signifies construction. The construction is the change made in the original figure, by drawing lines, making angles, describing circles, &c.\\ in order to adapt it to the argument of the demonstration or the solution of the problem. The conditions under which these changes are made, are as indisputable as those contained in the hypothesis. For instance, if we make an angle equal to a given angle, these two angles are equal by construction.',
+    text: 'signifies construction. The construction is the change made in the original figure, by drawing lines, making angles, describing circles, &c. in order to adapt it to the argument of the demonstration or the solution of the problem. The conditions under which these changes are made, are as indisputable as those contained in the hypothesis. For instance, if we make an angle equal to a given angle, these two angles are equal by construction.',
   },
-  { symbol: 'Q.E.D.', text: 'signifies Quod erat demonstrandum. Which was to be demonstrated. Book I' },
+  { symbol: 'Q.E.D.', text: 'signifies Quod erat demonstrandum. Which was to be demonstrated.' },
 ]
 
 export const PROPOSITIONS_TEXT = [
