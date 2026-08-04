@@ -102,7 +102,7 @@ src/
   camera.js        pan and zoom
   help.js          what the sketchpad does, as data
   tutorial.js      the walk through the first proposition
-  magnitudes.js    lengths, angles and triangles: what a claim is about
+  magnitudes.js    lengths, angles, areas and congruences: what a claim is about
   renderer.js      drawing the figure
   figures.js       drawing Byrne's marginal illustrations, which are not constructions
   book1.js         Book I's text, generated from Byrne's LaTeX
@@ -202,8 +202,17 @@ begun with the adding key held keeps what was already selected as its floor.
 
 Book I from I.4 onwards is mostly *theorems*, and a theorem asserts something —
 this angle equals that one — which points and lines alone cannot say. So there
-are **magnitudes**: a length read from two points, an angle from three, a
-triangle compared by congruence. A magnitude is not an object in the figure but
+are **magnitudes**: a length read from two points, an angle from three, the
+content of a figure read from three or four, and a triangle compared by
+congruence rather than by content. Book I turns on that last distinction: I.4
+says two triangles are equal *in every respect*, while I.37 says triangles on
+the same base between the same parallels are equal — in content, and in nothing
+else. A congruence is written `≡` and content `=`, so the two never read alike.
+
+Magnitudes of one kind may be taken together. "The square on the hypotenuse is
+equal to the squares on the sides" cannot be said otherwise, and neither can
+most of I.35 onwards. Euclid never adds an angle to a line, and a congruence is
+not a magnitude at all, so neither can be summed. A magnitude is not an object in the figure but
 a way of reading it, so it is stored as its kind and the points it is read from
 and evaluated afresh whenever anything moves.
 
@@ -227,10 +236,12 @@ centred A through B. AC = AB by Def. 15 and stays so however the figure is
 dragged. That is why no constraint solver is needed, and it is what a reader
 opening I.5 is expected to build.
 
-Three points are genuinely ambiguous — a triangle, or the angle at any one of
-its corners — and the figure cannot settle it, since Book I is largely about
-the angles of triangles. So every reading is offered by name and the reader
-says which.
+Three points are genuinely ambiguous — a figure with a content, a shape to be
+matched in every respect, or the angle at any one of three corners — and the
+drawn figure cannot settle it. So every reading is offered by name and the
+reader says which. Four points are a quadrilateral; of the three ways they can
+be joined up exactly one does not cross itself, so the order round the figure is
+found rather than asked for.
 
 ## What you keep
 

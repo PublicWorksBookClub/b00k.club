@@ -23,15 +23,41 @@
 
 import * as G from './geometry.js'
 
-export const KINDS = ['length', 'angle', 'triangle']
+export const KINDS = ['length', 'angle', 'triangle', 'area']
 
 /** How many points each kind is read from. */
 export const ARITY = { length: 2, angle: 3, triangle: 3 }
 
 export const magnitude = (kind, pts) => ({ kind, pts })
 
+/**
+ * Two magnitudes taken together.
+ *
+ * "The square on the hypotenuse is equal to the sum of the squares on the
+ * sides" cannot be said without this, and neither can most of I.35 onwards.
+ * Only things of one kind may be added — Euclid never adds an angle to a line —
+ * and a congruence is not a magnitude at all, so it cannot be summed.
+ */
+export const sum = (parts) => ({ kind: 'sum', of: parts })
+
+/** What kind of thing a magnitude is, seeing through a sum to its parts. */
+export function kindOf(mag) {
+  if (!mag) return null
+  if (mag.kind !== 'sum') return mag.kind
+  const kinds = new Set(mag.of.map(kindOf))
+  return kinds.size === 1 ? [...kinds][0] : null
+}
+
+export const SUMMABLE = new Set(['length', 'angle', 'area'])
+
 /** The same magnitude written the same way, so two of them can be compared. */
 export function canonical(mag) {
+  if (mag.kind === 'sum') {
+    const parts = mag.of.map(canonical).map((m) => JSON.stringify(m)).sort()
+    return { kind: 'sum', of: parts.map((s) => JSON.parse(s)) }
+  }
+  // A figure is the same figure however you set off round it, and whichever way.
+  if (mag.kind === 'area') return { kind: 'area', pts: sameWayRound(mag.pts) }
   if (mag.kind === 'length') return { kind: 'length', pts: [...mag.pts].sort() }
   // An angle is named by its vertex and its two arms; the arms may be given
   // either way round.
@@ -42,11 +68,18 @@ export function canonical(mag) {
   return { kind: mag.kind, pts: [...mag.pts].sort() }
 }
 
-export const sameMagnitude = (x, y) => {
-  const a = canonical(x)
-  const b = canonical(y)
-  return a.kind === b.kind && a.pts.length === b.pts.length && a.pts.every((p, i) => p === b.pts[i])
+/** A cycle written from its earliest corner, going the way that keeps it least. */
+function sameWayRound(pts) {
+  const best = (list) => {
+    const at = list.indexOf([...list].sort()[0])
+    return [...list.slice(at), ...list.slice(0, at)]
+  }
+  const forward = best(pts)
+  const backward = best([...pts].reverse())
+  return forward.join() <= backward.join() ? forward : backward
 }
+
+export const sameMagnitude = (x, y) => JSON.stringify(canonical(x)) === JSON.stringify(canonical(y))
 
 /**
  * Read a magnitude off a scene.
@@ -56,6 +89,15 @@ export const sameMagnitude = (x, y) => {
  * claim about it can say it cannot be read rather than quietly reporting zero.
  */
 export function measure(mag, scene) {
+  if (mag.kind === 'sum') {
+    let total = 0
+    for (const part of mag.of) {
+      const value = measure(part, scene)
+      if (value == null || Array.isArray(value)) return null
+      total += value
+    }
+    return total
+  }
   const pts = mag.pts.map((id) => {
     const o = scene.get ? scene.get(id) : scene.objects.get(id)
     return o && o.type === 'point' ? o.pos : null
@@ -78,6 +120,18 @@ export function measure(mag, scene) {
     const sides = [G.dist(a, b), G.dist(b, c), G.dist(c, a)].sort((x, y) => x - y)
     if (sides[0] < G.EPS) return null
     return sides
+  }
+  if (mag.kind === 'area') {
+    // The shoelace, taken as a magnitude and so without a sign: a figure has
+    // the same content whichever way you go round it.
+    let twice = 0
+    for (let i = 0; i < pts.length; i++) {
+      const p = pts[i]
+      const q = pts[(i + 1) % pts.length]
+      twice += p.x * q.y - q.x * p.y
+    }
+    const area = Math.abs(twice) / 2
+    return area < G.EPS ? null : area
   }
   return null
 }
@@ -116,17 +170,35 @@ export function holds(claim, scene, tolerance) {
   if (!relation) return null
   const c = compare(claim.of[0], claim.of[1], scene, tolerance)
   if (c == null) return null
-  // Triangles are equal or not; there is no greater.
+  // Congruent or not; there is no being more congruent than.
   if (claim.of.some((m) => m.kind === 'triangle') && claim.rel !== 'eq') return null
   return relation.holds(c)
 }
 
+/**
+ * The sign a claim is written with.
+ *
+ * Two triangles compared in every respect are congruent, not merely equal, and
+ * Book I turns on the difference: I.4 says triangles are equal in every
+ * respect, while I.37 says triangles on the same base between the same
+ * parallels are equal — in content, and in nothing else.
+ */
+export function signOf(claim) {
+  if (claim.rel === 'eq' && claim.of.some((m) => m.kind === 'triangle')) return '≡'
+  return RELATIONS[claim.rel] ? RELATIONS[claim.rel].symbol : '?'
+}
+
+/** The glyph a figure of so many corners is written with. */
+const FIGURE = { 3: '△', 4: '▭' }
+
 /** What a magnitude is called, given a way of lettering points. */
 export function nameOf(mag, letter) {
+  if (mag.kind === 'sum') return mag.of.map((m) => nameOf(m, letter)).join(' + ')
   const p = mag.pts.map(letter)
   if (mag.kind === 'length') return p.join('')
   if (mag.kind === 'angle') return `∠${p[0]}${p[1]}${p[2]}`
-  return `△${p.join('')}`
+  if (mag.kind === 'area') return `${FIGURE[p.length] || ''}${p.join('')}`
+  return `≡△${p.join('')}`
 }
 
 /**
@@ -141,8 +213,14 @@ export function nameOf(mag, letter) {
  * drawn, the angle where they meet comes first, because that is the figure in
  * front of you. With all three drawn, the triangle leads.
  */
-export function readingsOf(ids, joined = () => false) {
+export function readingsOf(ids, joined = () => false, order = null) {
   if (ids.length === 2) return [magnitude('length', ids)]
+  if (ids.length === 4) {
+    // A quadrilateral: the corners have to be taken round the figure, and only
+    // the caller knows where they are, so it says.
+    const round = order ? order(ids) : ids
+    return round ? [magnitude('area', round)] : []
+  }
   if (ids.length !== 3) return []
   const [a, b, c] = ids
   const sides = [[a, b], [b, c], [c, a]].filter(([x, y]) => joined(x, y))
@@ -151,7 +229,11 @@ export function readingsOf(ids, joined = () => false) {
     magnitude('angle', [a, b, c]),
     magnitude('angle', [a, c, b]),
   ]
-  if (sides.length >= 3) return [magnitude('triangle', ids), ...angles]
+  // A triangle can be meant two ways: as a figure with a content, or as a shape
+  // to be matched against another in every respect. Book I turns on the
+  // difference, so both are offered.
+  const asFigure = [magnitude('area', ids), magnitude('triangle', ids)]
+  if (sides.length >= 3) return [...asFigure, ...angles]
   if (sides.length === 2) {
     // Two sides drawn: the angle between them is what is being looked at.
     const counts = new Map()
@@ -162,10 +244,10 @@ export function readingsOf(ids, joined = () => false) {
     const found = [...counts].find(([, n]) => n === 2)
     if (found) {
       const here = angles.find((m) => m.pts[1] === found[0])
-      return [here, ...angles.filter((m) => m !== here)]
+      return [here, ...angles.filter((m) => m !== here), ...asFigure]
     }
   }
-  return angles
+  return [...angles, ...asFigure]
 }
 
 /** The likeliest reading of a selection, or null if it is not a magnitude. */

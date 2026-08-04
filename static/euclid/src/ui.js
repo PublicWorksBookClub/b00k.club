@@ -293,7 +293,7 @@ export function createUI(root, app, options = {}) {
       // angles of triangles, so both readings are always live. They are offered
       // by name, and the one chosen is what the claim is about.
       const held = s.heldMagnitude
-      const offered = held ? app.readings().filter((m) => m.kind === held.kind) : app.readings()
+      const offered = held ? app.readings().filter((m) => MAG.kindOf(m) === MAG.kindOf(held)) : app.readings()
       const current = offered.find((m) => magnitudeName(m) === ui.reading) || offered[0]
       children.push(
         button({
@@ -333,6 +333,25 @@ export function createUI(root, app, options = {}) {
           row.append(which)
         }
         if (held) {
+          // "The square on the hypotenuse is equal to the squares on the sides"
+          // needs two figures taken together before anything is compared.
+          if (MAG.SUMMABLE.has(MAG.kindOf(held))) {
+            row.append(
+              el('button', 'relation', {
+                type: 'button',
+                textContent: '+',
+                disabled: !current || MAG.kindOf(current) !== MAG.kindOf(held),
+                title: current
+                  ? `Take ${magnitudeName(held)} and ${magnitudeName(current)} together`
+                  : 'Choose something of the same kind to add',
+                onclick: () => {
+                  app.addToMagnitude(current)
+                  ui.reading = null
+                  render(true)
+                },
+              }),
+            )
+          }
           for (const [rel, symbol] of [['eq', '='], ['gt', '>'], ['lt', '<']]) {
             row.append(
               el('button', 'relation', {
@@ -341,7 +360,8 @@ export function createUI(root, app, options = {}) {
                 disabled: !current,
                 title: current
                   ? `${magnitudeName(held)} ${symbol} ${magnitudeName(current)}`
-                  : `Select ${held.kind === 'length' ? 'two points' : 'three points'} to compare with ${magnitudeName(held)}`,
+                  : `Select ${MAG.kindOf(held) === 'length' ? 'two points' : 'three or four points'}`
+                    + ` to compare with ${magnitudeName(held)}`,
                 onclick: () => {
                   app.claim(rel, null, current)
                   ui.reading = null

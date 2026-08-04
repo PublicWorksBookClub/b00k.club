@@ -128,6 +128,30 @@ export function createSketch(options = {}) {
   }
 
   /**
+   * Four corners put in the order they come round the figure.
+   *
+   * Selecting them is unordered, and a quadrilateral taken in the wrong order
+   * is a bowtie with no content worth speaking of. Of the three ways four
+   * points can be joined up, exactly one does not cross itself, so it can be
+   * found rather than asked for.
+   */
+  const roundTheFigure = (ids) => {
+    const at = (id) => (getScene().get(id) || {}).pos
+    const pts = ids.map(at)
+    if (pts.some((p) => !p)) return null
+    const crosses = (a, b, c, d) => {
+      const side = (p, q, r) => G.cross(G.sub(q, p), G.sub(r, p))
+      return side(a, b, c) * side(a, b, d) < 0 && side(c, d, a) * side(c, d, b) < 0
+    }
+    for (const [w, x, y, z] of [[0, 1, 2, 3], [0, 2, 1, 3], [0, 1, 3, 2]]) {
+      if (crosses(pts[w], pts[x], pts[y], pts[z])) continue
+      if (crosses(pts[x], pts[y], pts[z], pts[w])) continue
+      return [ids[w], ids[x], ids[y], ids[z]]
+    }
+    return null
+  }
+
+  /**
    * Drawing while scrubbed back rubs out what came after.
    *
    * Going back to step four and drawing something means "from here, this
@@ -401,8 +425,8 @@ export function createSketch(options = {}) {
         const o = getScene().get(id)
         return o && o.type === 'point'
       })
-      if (points.length < 2 || points.length > 3) return []
-      return MAG.readingsOf(points, (a, b) => !!joinedAlready(a, b))
+      if (points.length < 2 || points.length > 4) return []
+      return MAG.readingsOf(points, (a, b) => !!joinedAlready(a, b), roundTheFigure)
     },
 
     /**
@@ -432,6 +456,34 @@ export function createSketch(options = {}) {
     },
 
     /**
+     * Add what is selected to what is held, so the two can be compared with
+     * something together.
+     *
+     * "The square on the hypotenuse is equal to the squares on the sides"
+     * cannot be said otherwise. Only like may be added to like — Euclid never
+     * adds an angle to a line — and a congruence is not a magnitude at all.
+     */
+    addToMagnitude(which = null) {
+      const held = state.heldMagnitude
+      const more = which || api.readings().find((m) => m.kind === MAG.kindOf(held))
+      if (!held || !more) {
+        say('Choose something of the same kind to add.')
+        return null
+      }
+      if (!MAG.SUMMABLE.has(MAG.kindOf(held)) || MAG.kindOf(more) !== MAG.kindOf(held)) {
+        say('Euclid adds like to like — a figure to a figure, a line to a line.')
+        return null
+      }
+      const parts = held.kind === 'sum' ? [...held.of, more] : [held, more]
+      state.heldMagnitude = MAG.sum(parts)
+      state.selection.clear()
+      say(`${MAG.nameOf(state.heldMagnitude, (id) => (getScene().get(id) || {}).label || '•')}`
+        + ' — now choose what it is to be compared with.', 'info')
+      invalidate()
+      return state.heldMagnitude
+    },
+
+    /**
      * Assert that the held magnitude and the selected one stand in some
      * relation, and write it down as a step.
      *
@@ -444,13 +496,13 @@ export function createSketch(options = {}) {
       // Of the ways the selection could be read, take the one that matches what
       // is being held: comparing an angle, you mean the angle.
       const second = which
-        || api.readings().find((m) => m.kind === (first || {}).kind)
+        || api.readings().find((m) => MAG.kindOf(m) === MAG.kindOf(first))
         || api.magnitudeFromSelection()
       if (!first || !second) {
         say('A claim compares two things: choose one, then the other.')
         return null
       }
-      if (first.kind !== second.kind) {
+      if (MAG.kindOf(first) !== MAG.kindOf(second)) {
         say('Euclid compares like with like — a length with a length, an angle with an angle.')
         return null
       }

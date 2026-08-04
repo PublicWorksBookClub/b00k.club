@@ -574,6 +574,15 @@ function describeClaim(objects, step) {
   }
   const parts = []
   const magnitude = (mag) => {
+    // A sum is written out with its parts named one by one, so each keeps its
+    // own colour.
+    if (mag.kind === 'sum') {
+      mag.of.forEach((part, i) => {
+        if (i) parts.push(' + ')
+        magnitude(part)
+      })
+      return
+    }
     // A magnitude reads off the figure, so it is coloured like the figure: a
     // length takes the colour of the line drawn along it when there is one.
     const drawn = mag.kind === 'length' ? drawnBetween(objects, mag.pts[0], mag.pts[1]) : null
@@ -585,7 +594,7 @@ function describeClaim(objects, step) {
     })
   }
   magnitude(step.of[0])
-  parts.push(` ${MAG.RELATIONS[step.rel] ? MAG.RELATIONS[step.rel].symbol : '?'} `)
+  parts.push(` ${MAG.signOf(step)} `)
   magnitude(step.of[1])
   const why = citation(step.because)
   parts.push(why ? ` (${why}).` : '.')
