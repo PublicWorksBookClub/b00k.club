@@ -470,3 +470,66 @@ test('the square on the hypotenuse — I.47, checked by shaking', () => {
   assert.deepEqual(report.failed, [], 'and it holds however the figure is shaken')
   assert.ok(report.rounds > 5, `only ${report.rounds} configurations stood up`)
 })
+
+test('a theorem sets out the figure it supposes, and says what is left to do', () => {
+  const app = createSketch()
+  app.walkProposition('euclid.I.5')
+  assert.ok(app.scene.steps.every((s) => s.ok), 'the figure stands')
+  assert.match(app.state.notice, /^I\.5\./)
+  assert.match(app.state.notice, /now say what follows, and shake it/)
+
+  // The supposition is built, not assumed: AB equals AC in every configuration.
+  const id = (l) => labelled(app, l).id
+  app.doc.steps.push({
+    op: 'claim',
+    id: 'q',
+    rel: 'eq',
+    of: [MAG.magnitude('length', [id('A'), id('B')]), MAG.magnitude('length', [id('A'), id('C')])],
+    because: { kind: 'def', n: 15 },
+  })
+  app.changed()
+  assert.equal(app.scene.steps.at(-1).ok, true)
+  assert.deepEqual(app.shake(60).failed, [], 'and it stays equal however the figure is shaken')
+})
+
+test('I.47 sets out a right angle and three squares, and the theorem holds on it', () => {
+  const app = createSketch()
+  app.walkProposition('euclid.I.47')
+  assert.ok(app.scene.steps.every((s) => s.ok), 'the figure stands')
+
+  const letters = [...app.scene.objects.values()]
+    .filter((o) => o.type === 'point' && o.label && !o.hidden)
+    .map((o) => o.label)
+    .sort()
+  assert.deepEqual(letters, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'])
+
+  // Each square is where I.46 put it: the two points it stood on, and the two
+  // corners it handed back. Reading them off the steps rather than off the
+  // lettering means the test does not care which letters fell where.
+  const squares = app.doc.steps
+    .filter((s) => s.op === 'macro' && s.tool === 'euclid.I.46')
+    .map((s) => MAG.magnitude('area', [s.args[0], s.args[1], s.out[1], s.out[0]]))
+  assert.equal(squares.length, 3)
+  const value = (m) => MAG.measure(m, app.scene)
+  for (const s of squares) assert.ok(value(s) > 0, 'each square has a content')
+  const hypotenuse = [...squares].sort((x, y) => value(y) - value(x))[0]
+  const others = squares.filter((s) => s !== hypotenuse)
+  assert.ok(
+    Math.abs(value(hypotenuse) - (value(others[0]) + value(others[1]))) < 1e-6,
+    'the largest square is the other two taken together',
+  )
+
+  app.doc.steps.push({
+    op: 'claim',
+    id: 'qed',
+    rel: 'eq',
+    of: [hypotenuse, MAG.sum(others)],
+    because: { kind: 'prop', n: 47 },
+    qed: true,
+  })
+  app.changed()
+  assert.equal(app.scene.steps.at(-1).ok, true)
+  const report = app.shake(40)
+  assert.deepEqual(report.failed, [], 'and it holds however the figure is shaken')
+  assert.ok(report.rounds > 3, `only ${report.rounds} configurations stood up`)
+})

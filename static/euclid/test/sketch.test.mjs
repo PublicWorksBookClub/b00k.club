@@ -507,10 +507,11 @@ test('a proposition the sketchpad has not worked opens a clean sheet and says wh
   app.addTool({ ...app.tools[0] })
   const toolbox = app.tools.map((t) => t.id)
 
-  const doc = app.openProposition(5, { n: 5, kind: 'theorem', text: 'In any isosceles triangle…' })
+  // I.6, which the sketchpad has not worked out.
+  const doc = app.openProposition(6, { n: 6, kind: 'theorem', text: 'In any triangle…' })
   assert.equal(doc.steps.length, 0, 'a clean sheet')
   assert.deepEqual(app.tools.map((t) => t.id), toolbox, 'what was proved stays proved')
-  assert.match(app.state.notice, /^I\.5\. In any isosceles triangle…/)
+  assert.match(app.state.notice, /^I\.6\. In any triangle…/)
   assert.match(app.state.notice, /the hypothesis is constructed/)
 
   // A problem is not warned about proving, since there is nothing to prove.

@@ -332,6 +332,84 @@ export const PROPOSITIONS = [
       join: [['i0', 'i1']],
     },
   },
+  /*
+   * The theorems below build no more than the figure their statement supposes.
+   * A theorem asserts rather than constructs, so there is nothing for it to
+   * hand back that Euclid would call a result — but the supposition itself has
+   * to be built rather than assumed, and building it correctly is the whole
+   * difficulty of getting started. So these set out the figure and leave the
+   * asserting to the reader.
+   */
+
+  {
+    id: 'euclid.I.5',
+    ref: 'I.5',
+    name: 'Isosceles triangle',
+    abbr: '△=',
+    theorem: true,
+    summary: 'The figure I.5 supposes: a triangle with two of its sides equal.',
+    note: '"Let ABC be isosceles" is not two free points and a promise. C is taken on the circle about A through B, so AC equals AB by Definition 15 and goes on equalling it however hard the figure is shaken. That is what the sketchpad means by a supposition, and what Euclid means too.',
+    inputs: [
+      { id: 'i0', kind: 'point', label: 'A' },
+      { id: 'i1', kind: 'point', label: 'B' },
+    ],
+    body: [
+      { op: 'circle', id: 'l0', o: 'i0', r: 'i1', color: 'yellow' },
+      { op: 'onCurve', id: 'l1', curve: 'l0', t: -1.15 },
+      { op: 'segment', id: 'l2', a: 'i0', b: 'i1', color: 'red' },
+      { op: 'segment', id: 'l3', a: 'i0', b: 'l1', color: 'red' },
+      { op: 'segment', id: 'l4', a: 'i1', b: 'l1', color: 'black' },
+    ],
+    outputs: ['l1', 'l2', 'l3', 'l4'],
+    names: { l1: 'the third corner' },
+    uses: [],
+    demo: {
+      points: [
+        { x: 0, y: 120 },
+        { x: -110, y: -70 },
+      ],
+    },
+  },
+
+  {
+    id: 'euclid.I.47',
+    ref: 'I.47',
+    name: 'Squares on a right-angled triangle',
+    abbr: '△⊥',
+    theorem: true,
+    summary: 'The figure I.47 supposes: a right-angled triangle with a square on each of its sides.',
+    note: 'The right angle is constructed, not assumed — B is taken on the perpendicular raised at A — so it stays a right angle however the figure is shaken. Then a square on each side by I.46. What remains is to say that the square on the hypotenuse is the other two taken together, and to shake the figure until you believe it.',
+    inputs: [
+      { id: 'i0', kind: 'point', label: 'A' },
+      { id: 'i1', kind: 'point', label: 'C' },
+    ],
+    body: [
+      { op: 'macro', id: 'l0', tool: 'euclid.I.11', args: ['i0', 'i1'], out: ['l1'] },
+      { op: 'onCurve', id: 'l2', curve: 'l1', t: 1.5708 },
+      { op: 'segment', id: 'l3', a: 'i0', b: 'l2', color: 'red' },
+      { op: 'segment', id: 'l4', a: 'l2', b: 'i1', color: 'blue' },
+      // Round the triangle the same way each time, so one and the same choice
+      // puts all three squares outside it, as Euclid draws them.
+      { op: 'macro', id: 'l5', tool: 'euclid.I.46', args: ['i0', 'l2'], out: ['l6', 'l7', 'l8', 'l9', 'l10'], picks: { side: 1 } },
+      { op: 'macro', id: 'l11', tool: 'euclid.I.46', args: ['l2', 'i1'], out: ['l12', 'l13', 'l14', 'l15', 'l16'], picks: { side: 1 } },
+      { op: 'macro', id: 'l17', tool: 'euclid.I.46', args: ['i1', 'i0'], out: ['l18', 'l19', 'l20', 'l21', 'l22'], picks: { side: 1 } },
+    ],
+    outputs: [
+      'l2', 'l3', 'l4',
+      'l6', 'l7', 'l8', 'l9', 'l10',
+      'l12', 'l13', 'l14', 'l15', 'l16',
+      'l18', 'l19', 'l20', 'l21', 'l22',
+    ],
+    given: [['i0', 'i1', { color: 'black' }]],
+    uses: ['euclid.I.11', 'euclid.I.46'],
+    demo: {
+      points: [
+        { x: -60, y: -30 },
+        { x: 60, y: -30 },
+      ],
+      join: [['i0', 'i1']],
+    },
+  },
 ]
 
 export const PROPOSITION_BY_ID = new Map(PROPOSITIONS.map((p) => [p.id, p]))

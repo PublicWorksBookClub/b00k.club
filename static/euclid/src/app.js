@@ -1180,7 +1180,12 @@ export function createSketch(options = {}) {
       M.inlineTool(doc, prop, givens, gesture)
       state.upTo = Infinity
       state.mode = 'select'
-      say(`${prop.ref}. ${prop.summary}`, 'info')
+      // A theorem's figure is only the supposition; what it asserts is still
+      // the reader's to state, and to shake until they believe it.
+      const entry = BOOK_I.propositions.find((p) => `I.${p.n}` === prop.ref)
+      say(prop.theorem && entry
+        ? `${prop.ref}. ${entry.text} The figure supposes it; now say what follows, and shake it.`
+        : `${prop.ref}. ${prop.summary}`, 'info')
       invalidate()
       return doc
     },

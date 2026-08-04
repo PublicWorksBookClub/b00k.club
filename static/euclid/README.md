@@ -98,7 +98,7 @@ src/
   doc.js           the step list: ids, references, cascading deletion, serialisation
   solve.js         run a document into a scene; automatic intersections; lettering; prose
   macros.js        extracting a tool from a construction, and unfolding one
-  propositions.js  Book I.1, I.2, I.3, I.9–I.12, I.31 and I.46 as tools
+  propositions.js  Book I.1–I.3, I.5, I.9–I.12, I.31, I.46, I.47 as tools
   camera.js        pan and zoom
   help.js          what the sketchpad does, as data
   tutorial.js      the walk through the first proposition
@@ -233,8 +233,14 @@ step list read as an argument rather than a list of measurements.
 **The hypothesis is constructed, not asserted.** "Let ABC be isosceles" is not
 two free points and a promise; it is A, B, and then C taken on the circle
 centred A through B. AC = AB by Def. 15 and stays so however the figure is
-dragged. That is why no constraint solver is needed, and it is what a reader
-opening I.5 is expected to build.
+dragged. That is why no constraint solver is needed.
+
+Building the supposition correctly is the whole difficulty of getting started,
+so a theorem may carry the figure it supposes and nothing else: opening I.5
+gives an isosceles triangle that stays isosceles, and opening I.47 gives a
+right-angled triangle with a square on each of its sides — the right angle
+constructed, not assumed. What it asserts is still the reader's to state, and
+to shake until they believe it.
 
 Three points are genuinely ambiguous — a figure with a content, a shape to be
 matched in every respect, or the angle at any one of three corners — and the
@@ -280,8 +286,9 @@ will go.
 
 ## Working the rest of Book I
 
-Nine propositions are written out as tools — I.1, I.2, I.3, I.9, I.10, I.11,
-I.12, I.31 and I.46 — and the whole of Book I is in the sidebar. Opening one of the three sets out its construction step by step;
+Eleven propositions are written out — I.1, I.2, I.3, I.9, I.10, I.11, I.12,
+I.31 and I.46 as constructions, I.5 and I.47 as the figures their statements
+suppose — and the whole of Book I is in the sidebar. Opening one of the three sets out its construction step by step;
 opening any of the others gives a clean sheet, the statement, and the toolbox
 you have built so far — the reader works it themselves and can save the result
 as a tool with **+**.
