@@ -49,11 +49,21 @@ export const STYLES = `
   display: flex;
   align-items: center;
   gap: 2px;
-  flex-wrap: wrap;
+  /* One row, always: a bar that wraps shoves the figure down the page, and the
+     toolbox only ever grows. The tools give way first, and if even that is not
+     enough the whole bar scrolls. */
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* A scroll container's automatic minimum size is nothing, so without this the
+     bar collapses to half its own buttons inside the column. */
+  flex: 0 0 auto;
   padding: 5px 6px;
   background: var(--eu-chrome);
   border-bottom: 1px solid var(--eu-rule);
 }
+.bar::-webkit-scrollbar { display: none; }
+.bar > .btn, .bar > .rule, .bar > .swatches, .bar > .relations { flex: 0 0 auto; }
 .bar .rule {
   width: 1px;
   align-self: stretch;
@@ -61,6 +71,23 @@ export const STYLES = `
   background: var(--eu-rule);
 }
 .bar .spacer { flex: 1 1 auto; }
+/* What has been proved only accumulates, so the tools scroll rather than
+   wrapping the bar onto a second row and shoving the figure down the page. */
+.bar .tools {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 0 1 auto;
+  /* Room for two or three, at least; below that the bar itself scrolls. */
+  min-width: 5.5rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.bar .tools::-webkit-scrollbar { height: 3px; }
+.bar .tools::-webkit-scrollbar-thumb { background: var(--eu-rule); border-radius: 2px; }
+/* A hint that there is more to the right, when there is. */
+.bar .tools { scroll-padding: 0 4px; }
+.bar .tools .btn { flex: 0 0 auto; }
 
 button {
   font: inherit;

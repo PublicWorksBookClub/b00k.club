@@ -269,6 +269,14 @@ reader leaning on one they have not got — the app is not a proctor — but it
 says which is which, because the shape of the book is that each proposition
 stands on the ones before it.
 
+## The toolbar
+
+One row, always. The toolbox only ever grows — that is the point of the book —
+and a bar that wraps shoves the figure down the page every time a proposition is
+proved. So the tools give way first, scrolling sideways between the postulates
+and the **+**; if even that is not enough the whole bar scrolls, and the height
+never changes.
+
 ## Between visits
 
 With `remember`, what has been earned outlives the tab — the constructions and

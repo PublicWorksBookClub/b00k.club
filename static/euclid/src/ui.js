@@ -411,8 +411,12 @@ export function createUI(root, app, options = {}) {
     }
     children.push(el('span', 'rule'))
 
+    // The toolbox only ever grows — that is the point of the book — so the
+    // tools scroll sideways rather than wrapping the whole bar onto a second
+    // row and pushing the figure down the page.
+    const box = el('div', 'tools')
     for (const tool of app.tools) {
-      children.push(
+      box.append(
         button({
           class: 'wide',
           abbr: tool.abbr || '?',
@@ -423,6 +427,7 @@ export function createUI(root, app, options = {}) {
         }),
       )
     }
+    children.push(box)
     children.push(
       button({
         class: 'add',
