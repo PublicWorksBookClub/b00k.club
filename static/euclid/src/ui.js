@@ -90,6 +90,7 @@ export function createUI(root, app, options = {}) {
     draft: { name: '', ref: '', abbr: '', summary: '' },
     shaken: null,
     reasoning: null,
+    noting: null,
     reading: null,
     factRef: '',
     help: false,
@@ -151,7 +152,7 @@ export function createUI(root, app, options = {}) {
    */
   function sidebarState() {
     return JSON.stringify([ui.sidebar, ui.open, app.tools.map((t) => t.id), options.throughN || null,
-      app.proposition ? app.proposition.ref : null])
+      app.proposition ? app.proposition.ref : null, app.facts.map((f) => f.id)])
   }
 
   function chromeState() {
@@ -179,11 +180,13 @@ export function createUI(root, app, options = {}) {
       s.heldMagnitude,
       ui.shaken,
       ui.reasoning,
+      ui.noting,
       ui.reading,
       // A claim's truth is not a matter of how many steps there are, so the
       // step list has to be rebuilt when one changes its mind.
       app.scene.steps.map((info) => (info.claim ? info.claim.verdict : null)),
       app.doc.steps.map((step) => (step.op === 'claim' ? JSON.stringify([step.because || 0, !!step.qed]) : 0)),
+      app.doc.steps.map((step) => step.remark || 0),
       app.facts.map((f) => f.id),
       ui.factRef,
       ui.help,
@@ -422,7 +425,31 @@ export function createUI(root, app, options = {}) {
         for (const o of coloured) app.setDash(o.id, !dashed)
       })
       swatches.append(dash)
+      // Byrne draws one of two lines of the same colour heavier, so the eye can
+      // tell AB from DE without reading the letters.
+      const heavy = coloured.every((o) => o.thick)
+      const thick = el('button', 'swatch thick', { type: 'button', title: heavy ? 'Draw it fine' : 'Draw it heavy' })
+      thick.setAttribute('aria-pressed', String(heavy))
+      thick.addEventListener('click', () => {
+        for (const o of coloured) app.setThick(o.id, !heavy)
+      })
+      swatches.append(thick)
       children.push(swatches)
+    }
+    // Three points are an angle, and Byrne fills the angle in. The mark draws
+    // nothing geometrical; it says which angle the letters mean.
+    if (!s.readonly && [...s.selection].filter((id) => (app.scene.get(id) || {}).type === 'point').length === 3) {
+      children.push(
+        button({
+          class: 'wide',
+          abbr: '∠',
+          title: 'Mark this angle on the figure, as Byrne fills one in',
+          onClick: () => {
+            app.markAngle()
+            render(true)
+          },
+        }),
+      )
     }
     children.push(el('span', 'rule'))
 
@@ -431,18 +458,21 @@ export function createUI(root, app, options = {}) {
     // row and pushing the figure down the page.
     const box = el('div', 'tools')
     for (const tool of app.tools) {
-      box.append(
-        button({
-          class: 'wide',
-          // A proposition is known by its number. Half of Book I has no glyph
-          // that would mean anything, and a toolbar where some have one and
-          // some do not reads as though the ones with a picture were special.
-          abbr: tool.ref || tool.abbr || '?',
-          title: `${tool.name}${tool.summary ? ' — ' + tool.summary : ''}`,
-          pressed: s.activeTool === tool.id,
-          onClick: () => app.setMode('tool', tool.id),
-        }),
-      )
+      const node = button({
+        class: 'wide',
+        // A proposition is known by its number. Half of Book I has no glyph
+        // that would mean anything, and a toolbar where some have one and
+        // some do not reads as though the ones with a picture were special.
+        abbr: tool.ref || tool.abbr || '?',
+        title: `${tool.name}${tool.summary ? ' — ' + tool.summary : ''} (right-click to give it up)`,
+        pressed: s.activeTool === tool.id,
+        onClick: () => app.setMode('tool', tool.id),
+      })
+      node.addEventListener('contextmenu', (event) => {
+        event.preventDefault()
+        app.removeTool(tool.id)
+      })
+      box.append(node)
     }
     children.push(box)
     children.push(
@@ -462,7 +492,7 @@ export function createUI(root, app, options = {}) {
     children.push(
       button({
         icon: 'book',
-        title: 'What you have proved',
+        title: 'Your remarks on this proof',
         pressed: ui.tab === 'tools',
         onClick: () => {
           ui.tab = ui.tab === 'tools' ? 'steps' : 'tools'
@@ -677,17 +707,33 @@ export function createUI(root, app, options = {}) {
     // come back to the list should not have to work out which one is on the
     // paper in front of them.
     const here = app.proposition && app.proposition.ref === `I.${entry.n}`
-    const row = el('button', `entry${tool ? '' : ' unworked'}${beyond ? ' unavailable' : ''}${here ? ' here' : ''}`,
+    // And what is yours. The book is the natural place to say which
+    // propositions have been got through: a separate ledger of them said the
+    // same thing twice, and further from where a reader would look.
+    const got = app.got(`I.${entry.n}`)
+    const row = el('button',
+      `entry${tool ? '' : ' unworked'}${beyond ? ' unavailable' : ''}${here ? ' here' : ''}${got ? ' got' : ''}`,
       { type: 'button' })
     if (here) row.setAttribute('aria-current', 'true')
     row.title = here ? 'This is the proposition on the paper'
       : beyond ? 'Later in the book than this figure has reached'
-        : tool ? 'Set this out step by step'
-          : 'Open a clean sheet and work it yourself'
+        : got ? `${got.how} — open it again, or right-click to give it up`
+          : tool ? 'Set this out step by step'
+            : 'Open a clean sheet and work it yourself'
     const num = el('span', 'num')
     num.append(document.createTextNode(`I.${entry.n}`))
     num.append(el('em', null, { textContent: entry.kind === 'problem' ? 'Prob.' : 'Theor.' }))
+    if (got) num.append(el('i', 'got', { textContent: '✓', title: got.how }))
     row.append(num)
+    if (got) {
+      // Giving one up is a rare and deliberate thing, so it hides behind the
+      // second button rather than sitting on the row waiting to be misclicked.
+      row.addEventListener('contextmenu', (event) => {
+        event.preventDefault()
+        app.giveUp(`I.${entry.n}`)
+        render(true)
+      })
+    }
     const said = el('span', 'said')
     said.append(enunciation(entry.text, PROPOSITION_LINES[entry.n]))
     row.append(said)
@@ -796,10 +842,10 @@ export function createUI(root, app, options = {}) {
     const tabs = el('div', 'tabs')
     for (const [id, label] of [
       ['steps', 'Construction'],
-      // Not "toolbox": the toolbar is where a tool is picked up. This is the
-      // account of what the reader has got through, which is a different thing
-      // and the only thing the second pane is for.
-      ['tools', 'Proved'],
+      // The book is the catalogue of what has been proved, and the toolbar is
+      // where a tool is picked up; neither needed a pane. What did is the
+      // reader's own remarks, which have nowhere else to live.
+      ['tools', 'Commentary'],
     ]) {
       const tab = el('button', null, { type: 'button', textContent: label })
       tab.setAttribute('role', 'tab')
@@ -811,7 +857,7 @@ export function createUI(root, app, options = {}) {
       tabs.append(tab)
     }
     const pane = el('div', 'tabpanel')
-    pane.append(ui.tab === 'steps' ? renderSteps() : renderToolbox())
+    pane.append(ui.tab === 'steps' ? renderSteps() : renderCommentary())
     panel.replaceChildren(tabs, pane)
   }
 
@@ -866,6 +912,8 @@ export function createUI(root, app, options = {}) {
       wrap.append(box)
     }
     wrap.append(stepList(steps.filter((s) => !s.setup)))
+    const card = conclusionCard()
+    if (card) wrap.append(card)
     const end = finis()
     if (end) wrap.append(end)
     return wrap
@@ -950,14 +998,16 @@ export function createUI(root, app, options = {}) {
         out.append(document.createTextNode(part.text))
         continue
       }
-      const span = el('span', `drawn ${part.kind}`)
-      if (part.kind === 'circle') {
-        const ring = el('i', 'mark', { textContent: '⊙' })
-        if (part.color) ring.style.color = PALETTE[part.color]
-        span.append(ring)
+      const span = el('span', `drawn ${part.kind}${part.thick ? ' thick' : ''}`)
+      if (part.kind === 'circle' || part.kind === 'angle') {
+        const sign = el('i', 'mark', { textContent: part.kind === 'circle' ? '⊙' : '∠' })
+        if (part.color) sign.style.color = PALETTE[part.color]
+        span.append(sign)
       }
       const letters = el('span', 'letters', { textContent: part.letters || part.text })
-      if (part.color && part.kind !== 'circle') letters.style.textDecorationColor = PALETTE[part.color]
+      if (part.color && part.kind !== 'circle' && part.kind !== 'angle') {
+        letters.style.textDecorationColor = PALETTE[part.color]
+      }
       span.append(letters)
       if (part.kind === 'ray' || part.kind === 'line') {
         span.append(el('i', 'mark', { textContent: part.kind === 'ray' ? '→' : '↔' }))
@@ -1053,6 +1103,45 @@ export function createUI(root, app, options = {}) {
     return wrap
   }
 
+  /** Writing a line of commentary against a step. */
+  function remarkEditor(step) {
+    const wrap = el('div', 'noting')
+    const box = el('textarea', null, {
+      value: step.remark || '',
+      placeholder: 'A remark on this step — why it is drawn, what it settles, what it passes over.',
+      rows: 3,
+    })
+    const acts = el('div', 'acts')
+    acts.append(el('button', 'primary', {
+      type: 'button',
+      textContent: 'Write it',
+      onclick: (event) => {
+        event.stopPropagation()
+        app.setRemark(step.id, box.value)
+        ui.noting = null
+        render(true)
+      },
+    }))
+    if (step.remark) {
+      acts.append(el('button', null, {
+        type: 'button',
+        textContent: 'Rub it out',
+        onclick: (event) => {
+          event.stopPropagation()
+          app.setRemark(step.id, '')
+          ui.noting = null
+          render(true)
+        },
+      }))
+    }
+    wrap.append(box, acts)
+    wrap.addEventListener('click', (event) => event.stopPropagation())
+    // The list scrubs to a step when it is clicked; typing in the box must not.
+    wrap.addEventListener('keydown', (event) => event.stopPropagation())
+    setTimeout(() => box.focus(), 0)
+    return wrap
+  }
+
   function stepList(steps) {
     const list = el('ol', 'steps')
     steps.forEach((info) => {
@@ -1135,6 +1224,21 @@ export function createUI(root, app, options = {}) {
         )
       }
       if (!app.state.readonly) {
+        // A step may carry a line of commentary. Byrne's own pages have them —
+        // why this line is drawn, which case he is passing over — and a step
+        // list that cannot hold one is a poorer record than the book it follows.
+        acts.append(
+          el('button', null, {
+            type: 'button',
+            textContent: info.step.remark ? 'note…' : 'note',
+            title: info.step.remark ? 'Change what is written against this step' : 'Write a remark against this step',
+            onclick: (event) => {
+              event.stopPropagation()
+              ui.noting = ui.noting === info.step.id ? null : info.step.id
+              render(true)
+            },
+          }),
+        )
         // Every step can be struck out, so the × keeps a fixed place in the
         // corner rather than shuffling along behind whatever else the step
         // offers. Only the buttons peculiar to a step go underneath.
@@ -1150,8 +1254,13 @@ export function createUI(root, app, options = {}) {
           }),
         )
       }
+      if (info.step.remark) {
+        what.append(el('span', 'remark', { textContent: info.step.remark }))
+        item.classList.add('remarked')
+      }
       if (acts.childElementCount) what.append(acts)
       if (ui.reasoning === info.step.id) what.append(reasonPicker(info.step))
+      if (ui.noting === info.step.id) what.append(remarkEditor(info.step))
       item.append(what)
 
       item.addEventListener('click', () => app.setUpTo(info.index + 1))
@@ -1167,21 +1276,30 @@ export function createUI(root, app, options = {}) {
    *
    * A fact is not a tool — there is nothing to carry out — but it is the other
    * half of what the book gives you: a statement you have earned the right to
-   * lean on. It is offered only once a claim has been marked as the conclusion,
-   * and only if it survives being shaken.
+   * lean on. The card sits at the foot of the construction, between the last
+   * claim and the Q. E. D. it is asking for, because that is where the reader
+   * is looking when they have finished.
    */
-  function renderProved() {
+  function conclusionCard() {
     const conclusion = app.conclusion()
-    if (!conclusion && !app.facts.length) return null
-    const wrap = el('div', 'proved')
-    if (conclusion) {
-      const card = el('div', 'tool-card')
-      card.append(el('h4', null, { textContent: 'What was to be proved' }))
-      card.append(el('p', null, { textContent: conclusion.text }))
-      if (!conclusion.ok) {
-        card.append(el('p', 'trouble', { textContent: conclusion.error || 'It does not hold.' }))
-      }
-      const acts = el('div', 'acts')
+    if (!conclusion) return null
+    const card = el('div', 'tool-card conclusion')
+    card.append(el('h4', null, { textContent: 'What was to be proved' }))
+    const said = el('p')
+    said.append(prose(conclusion.parts || [conclusion.text]))
+    card.append(said)
+    if (!conclusion.ok) {
+      card.append(el('p', 'trouble', { textContent: conclusion.error || 'It does not hold.' }))
+    }
+    const kept = app.proposition && app.facts.some((f) => f.ref === app.proposition.ref)
+    if (kept) {
+      card.append(el('p', 'evidence', { textContent: 'Kept. You may cite it from here on.' }))
+      return card
+    }
+    const acts = el('div', 'acts')
+    // Working a proposition, the app knows which it is; anywhere else the
+    // reader says what to call it.
+    if (!app.proposition) {
       const ref = el('input', null, {
         type: 'text',
         placeholder: 'I.5',
@@ -1192,111 +1310,67 @@ export function createUI(root, app, options = {}) {
       })
       ref.size = 5
       acts.append(ref)
-      acts.append(el('button', 'primary', {
-        type: 'button',
-        textContent: 'Keep it',
-        title: 'Shake the figure and, if it holds, keep this as something you may cite',
-        disabled: !conclusion.ok,
-        onclick: () => {
-          const kept = app.proveFact({ ref: ui.factRef.trim() || null })
-          if (kept) ui.factRef = ''
-          render(true)
-        },
-      }))
-      card.append(acts)
-      wrap.append(card)
     }
-    for (const fact of app.facts) {
-      const card = el('div', 'tool-card fact')
-      const title = el('h4')
-      title.append(document.createTextNode(fact.name))
-      if (fact.ref) title.append(el('span', 'ref', { textContent: fact.ref }))
-      card.append(title)
-      if (fact.statement && fact.statement !== fact.name + '.') {
-        card.append(el('p', null, { textContent: fact.statement }))
-      }
-      card.append(el('p', 'evidence', {
-        textContent: `Held in ${fact.rounds} configuration${fact.rounds === 1 ? '' : 's'}.`,
-      }))
-      const acts = el('div', 'acts')
-      acts.append(el('button', null, {
-        type: 'button',
-        textContent: 'Forget',
-        onclick: () => {
-          app.forgetFact(fact.id)
-          render(true)
-        },
-      }))
-      card.append(acts)
-      wrap.append(card)
-    }
-    return wrap
+    acts.append(el('button', 'primary', {
+      type: 'button',
+      textContent: 'Keep it',
+      title: 'Shake the figure and, if it holds, keep this as something you may cite',
+      disabled: !conclusion.ok,
+      onclick: () => {
+        const ref = app.proposition ? app.proposition.ref : ui.factRef.trim() || null
+        const got = app.proveFact({ ref })
+        if (got) ui.factRef = ''
+        render(true)
+      },
+    }))
+    card.append(acts)
+    return card
   }
 
   /**
-   * What the reader has got through, and what it entitles them to.
+   * The commentary: every remark the reader has written, in the order the
+   * steps come.
    *
-   * Book I gives back two different things and this pane is the account of
-   * both. A problem read through leaves a construction you can carry out: it
-   * goes in the toolbar, and stays there. A theorem leaves nothing to carry
-   * out — only a statement you have earned the right to cite, which is what a
-   * fact is, and which has to be claimed and shaken before it is yours.
-   *
-   * What is *not* here is a catalogue of Book I. The book is in the sidebar,
-   * all forty-eight of it, and that is where a proposition is taken up.
+   * The step list is the argument; this is what somebody thought about it.
+   * Byrne's own pages carry remarks — why a line is drawn, which case he is
+   * passing over — and keeping them beside the proof rather than in it is the
+   * difference between a proof and a marked-up copy of one.
    */
-  function renderToolbox() {
-    const wrap = el('div')
-    const proved = renderProved()
-    const tools = app.tools
-    if (!proved && !tools.length) {
+  function renderCommentary() {
+    const noted = app.scene.steps.filter((info) => info.step.remark)
+    if (!noted.length) {
       return el('p', 'empty', {
-        textContent:
-          'Nothing yet. Everything in Book I but the three postulates has to be got through before'
-          + ' it can be used — take up a proposition from the book on the left, and what it gives you'
-          + ' will be kept here.',
+        textContent: 'Nothing written yet. Press note against any step — in the construction or in the given'
+          + ' figure — and what you write will be gathered here.',
       })
     }
-    if (proved) {
-      wrap.append(el('p', 'section-note', { textContent: 'Theorems you have proved, and may cite:' }))
-      wrap.append(proved)
-    }
-    if (tools.length) {
-      wrap.append(el('p', 'section-note', {
-        textContent: proved
-          ? 'Constructions you have read through, and may carry out:'
-          : 'Constructions you have read through. Each is a button in the toolbar above:',
-      }))
-    }
-    for (const tool of tools) {
-      const card = el('div', 'tool-card')
-      const title = el('h4')
-      title.append(document.createTextNode(tool.name))
-      if (tool.ref) title.append(el('span', 'ref', { textContent: tool.ref }))
-      card.append(title)
-      if (tool.summary) card.append(el('p', null, { textContent: tool.summary }))
-      if (tool.note) card.append(el('p', null, { textContent: tool.note }))
+    const wrap = el('div', 'commentary')
+    for (const info of noted) {
+      const card = el('div', 'tool-card note')
+      const head = el('h4')
+      head.append(document.createTextNode(info.setup ? 'The given figure' : `Step ${info.number}`))
+      card.append(head)
+      const said = el('p', 'said')
+      said.append(prose(info.parts || [info.text]))
+      card.append(said)
+      card.append(el('p', 'remark', { textContent: info.step.remark }))
       const acts = el('div', 'acts')
-      if (PROPOSITIONS.some((p) => p.id === tool.id)) {
-        acts.append(
-          el('button', null, {
-            type: 'button',
-            textContent: 'Read it again',
-            title: 'Set it out step by step in a fresh figure',
-            onclick: () => {
-              app.walkProposition(tool.id)
-              ui.tab = 'steps'
-              options.onFit && options.onFit()
-              render(true)
-            },
-          }),
-        )
-      }
       acts.append(el('button', null, {
         type: 'button',
-        textContent: 'Give it up',
-        title: 'Take it out of the toolbar again',
-        onclick: () => app.removeTool(tool.id),
+        textContent: 'Go to it',
+        onclick: () => {
+          app.setUpTo(info.index + 1)
+          ui.tab = 'steps'
+          render(true)
+        },
+      }))
+      acts.append(el('button', null, {
+        type: 'button',
+        textContent: 'Rub it out',
+        onclick: () => {
+          app.setRemark(info.step.id, '')
+          render(true)
+        },
       }))
       card.append(acts)
       wrap.append(card)

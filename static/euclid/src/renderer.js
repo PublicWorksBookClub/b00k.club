@@ -49,14 +49,19 @@ export function render(canvas, scene, view) {
 
   const curves = []
   const points = []
+  const marks = []
   for (const id of scene.order) {
     const o = scene.objects.get(id)
     if (!o || o.hidden) continue
     if (o.type === 'curve') curves.push(o)
+    else if (o.type === 'mark') marks.push(o)
     else points.push(o)
   }
 
   drawChoice(ctx, view, S, clip)
+  // Byrne fills the angle in behind the lines that contain it, so the wedge
+  // reads as the angle rather than as a shape lying on top of the figure.
+  for (const o of marks) drawAngleMark(ctx, o, S, view)
   for (const o of curves) if (o.ghost) strokeCurve(ctx, o, S, clip, ghostStyle())
   for (const o of curves) if (!o.ghost) strokeCurve(ctx, o, S, clip, curveStyle(o, view))
   drawPending(ctx, scene, view, S, clip)
@@ -105,8 +110,10 @@ function curveStyle(o, view) {
   const solidLine = o.def && o.def.op === 'segment'
   const named = o.color && PALETTE[o.color]
   const base = {
+    // Two lines of one colour are told apart by weight, as Byrne tells AB from
+    // DE on the page of I.4.
     color: named || (solidLine ? THEME.ink : THEME.construction),
-    width: solidLine ? 1.7 : 1.4,
+    width: (solidLine ? 1.7 : 1.4) * (o.thick ? 2.3 : 1),
     dash: o.dash ? [6, 5] : null,
   }
   // Selection is shown with a halo behind the line rather than by recolouring
@@ -118,6 +125,43 @@ function curveStyle(o, view) {
 }
 
 const ghostStyle = () => ({ color: THEME.ghost, width: 1, dash: [3, 4] })
+
+/**
+ * The coloured wedge Byrne fills in at a vertex.
+ *
+ * It is swept the short way round, so the angle drawn is the one the letters
+ * name, and sized from the shorter arm so it never runs past the figure that
+ * contains it.
+ */
+function drawAngleMark(ctx, o, S, view) {
+  const v = S(o.at)
+  const a = S(o.from)
+  const b = S(o.to)
+  const arm = Math.min(Math.hypot(a.x - v.x, a.y - v.y), Math.hypot(b.x - v.x, b.y - v.y))
+  if (!(arm > 4)) return
+  const r = Math.min(arm * 0.42, 46)
+  let from = Math.atan2(a.y - v.y, a.x - v.x)
+  let to = Math.atan2(b.y - v.y, b.x - v.x)
+  // Whichever way round is the shorter is the angle that was meant.
+  let sweep = to - from
+  while (sweep <= -Math.PI) sweep += Math.PI * 2
+  while (sweep > Math.PI) sweep -= Math.PI * 2
+  ctx.save()
+  ctx.beginPath()
+  ctx.moveTo(v.x, v.y)
+  ctx.arc(v.x, v.y, r, from, from + sweep, sweep < 0)
+  ctx.closePath()
+  ctx.fillStyle = PALETTE[o.color] || PALETTE.yellow
+  const state = stateOf(o.id, view)
+  ctx.globalAlpha = state === 'selected' || state === 'picked' ? 1 : 0.92
+  ctx.fill()
+  if (state === 'selected' || state === 'picked' || state === 'hover') {
+    ctx.lineWidth = 3
+    ctx.strokeStyle = THEME.accentSoft
+    ctx.stroke()
+  }
+  ctx.restore()
+}
 
 function strokeCurve(ctx, o, S, clip, style) {
   ctx.save()

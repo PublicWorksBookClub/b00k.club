@@ -730,6 +730,31 @@ export function createSketch(options = {}) {
      * which, because the whole shape of the book is that each proposition
      * stands on the ones before it.
      */
+    /**
+     * What a proposition has come to for this reader, if anything.
+     *
+     * A construction read through is in the toolbar; a theorem proved is a
+     * fact. Both are "got", and the book says so beside the proposition rather
+     * than in a ledger of its own.
+     */
+    got(ref) {
+      const fact = (doc.facts || []).find((f) => f.ref === ref)
+      if (fact) {
+        return { kind: 'fact', how: `Proved, and held in ${fact.rounds} configuration${fact.rounds === 1 ? '' : 's'}` }
+      }
+      const tool = (doc.tools || []).find((t) => t.ref === ref)
+      if (tool) return { kind: 'tool', how: 'Read through, and yours to carry out' }
+      return null
+    },
+
+    /** Give a proposition back: out of the toolbar, or out of the facts. */
+    giveUp(ref) {
+      const fact = (doc.facts || []).find((f) => f.ref === ref)
+      if (fact) return api.forgetFact(fact.id)
+      const tool = (doc.tools || []).find((t) => t.ref === ref)
+      if (tool) return api.removeTool(tool.id)
+    },
+
     proved() {
       const have = new Set()
       for (const tool of doc.tools || []) if (tool.ref) have.add(tool.ref)
@@ -977,6 +1002,64 @@ export function createSketch(options = {}) {
       } else {
         step.color = color
       }
+      invalidate()
+    },
+
+    /** Draw it heavier, which is how Byrne tells two lines of one colour apart. */
+    setThick(objId, on) {
+      const step = D.stepProducing(doc, objId)
+      if (!step) return
+      snapshot()
+      if (step.op === 'macro') step.thicks = { ...(step.thicks || {}), [objId]: !!on }
+      else step.thick = !!on
+      invalidate()
+    },
+
+    /**
+     * Mark the angle at a vertex, as Byrne fills one in.
+     *
+     * It draws nothing geometrical — no point for anything to be built on, no
+     * curve for anything to cut. It is a mark, and its whole purpose is that
+     * "∠BAC" in the prose and the yellow wedge on the paper are plainly the
+     * same thing.
+     */
+    markAngle(ids, color = 'yellow') {
+      const three = ids && ids.length === 3 ? ids : [...state.selection]
+      if (three.length !== 3) {
+        say('Select the three points of an angle: the vertex, and a point on each arm.')
+        return null
+      }
+      const scene = getScene()
+      const pts = three.map((id) => scene.get(id)).filter((o) => o && o.type === 'point')
+      if (pts.length !== 3) return null
+      // Which of the three is the vertex is not a matter of taste: it is the one
+      // the drawn lines meet at, and failing that the middle one selected.
+      const at = MAG.readingsOf(three, (a, b) => !!joinedAlready(a, b), scene.order)
+        .find((m) => m.kind === 'angle')
+      const [a, v, b] = at ? at.pts : three
+      truncateFuture()
+      snapshot()
+      const id = D.newId(doc, 'k')
+      D.addStep(doc, { op: 'angle', id, a, v, b, color, g: nextGesture() })
+      state.selection.clear()
+      invalidate()
+      return id
+    },
+
+    /**
+     * A line of commentary belonging to a step.
+     *
+     * Byrne's own pages carry remarks — why this line is drawn, which case is
+     * being passed over — and a step list that cannot hold one is a poorer
+     * record of a proof than the book it is following.
+     */
+    setRemark(stepId, text) {
+      const step = D.findStep(doc, stepId)
+      if (!step) return
+      snapshot()
+      const said = (text || '').trim()
+      if (said) step.remark = said
+      else delete step.remark
       invalidate()
     },
 

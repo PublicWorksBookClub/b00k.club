@@ -316,6 +316,51 @@ canvas {
 }
 .side-section .entry.here .num { font-weight: 600; }
 .side-section .entry.here .said { color: var(--eu-ink); }
+/* What you have got through. The tick is small: the book is a book, not a
+   scoreboard, and the point is that the propositions you may lean on are
+   visible where you would look for them. */
+.side-section .entry.got .num i.got {
+  font-style: normal;
+  margin-left: 4px;
+  color: var(--eu-accent);
+  font-size: 11px;
+}
+.side-section .entry.got .said { color: var(--eu-ink); }
+
+/* A line of commentary written against a step. */
+ol.steps li .remark {
+  display: block;
+  margin-top: 4px;
+  padding-left: 8px;
+  border-left: 2px solid var(--eu-rule);
+  font-family: var(--eu-sans);
+  font-size: 11.5px;
+  font-style: normal;
+  color: var(--eu-muted);
+}
+ol.steps li.remarked { background: rgba(0, 0, 0, 0.02); }
+.noting { margin-top: 6px; }
+.noting textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 12px;
+  padding: 5px 6px;
+  border: 1px solid var(--eu-rule);
+  border-radius: 3px;
+  background: var(--eu-paper);
+  color: var(--eu-ink);
+  resize: vertical;
+}
+.noting .acts { display: flex; gap: 5px; margin-top: 4px; }
+.commentary .tool-card.note .said { font-family: var(--eu-serif); font-size: 12.5px; }
+.commentary .tool-card.note .remark {
+  margin: 4px 0 0;
+  padding-left: 8px;
+  border-left: 2px solid var(--eu-accent);
+  font-size: 12px;
+}
+/* The card that asks for Q. E. D., at the foot of the argument it closes. */
+.tool-card.conclusion { border-top: 1px solid var(--eu-rule); background: var(--eu-accent-soft); }
 .side-section .entry.unavailable { opacity: 0.4; }
 /* Not written out in the sketchpad, but still yours to work: dimmed enough to
    tell the two apart, not so much that it reads as out of reach. */
@@ -456,6 +501,12 @@ ol.steps .what { padding-right: 22px; }
 }
 .drawn .mark { font-style: normal; }
 .drawn.circle .mark { margin-right: 0.5px; }
+/* Two lines of one colour are told apart by weight on the paper, so the bars
+   over their names are told apart the same way. */
+.drawn.thick .letters { text-decoration-thickness: 3.5px; }
+/* An angle is a wedge, not a line: the sign and the letters, no bar. */
+.drawn.angle .letters { text-decoration: none; }
+.drawn.angle .mark { margin-right: 0.5px; }
 /* The arrow belongs to the letters, not beside them. */
 .drawn.ray .mark, .drawn.line .mark { font-size: 0.8em; margin: 0 0 0 -1px; vertical-align: 0.06em; }
 
@@ -824,6 +875,17 @@ ol.steps .acts button {
   position: absolute;
   inset: 8px 3px;
   border-top: 2px dashed var(--eu-ink);
+}
+.swatch.thick {
+  background: none !important;
+  border-color: var(--eu-rule);
+  position: relative;
+}
+.swatch.thick::after {
+  content: '';
+  position: absolute;
+  inset: 7px 3px;
+  border-top: 4px solid var(--eu-ink);
 }
 
 /* ------------------------------------------------------------ narrow */

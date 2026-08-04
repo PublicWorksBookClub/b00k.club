@@ -62,7 +62,10 @@ export function solve(doc, opts = {}) {
     if (obj.type === 'curve') {
       obj.color = def.color || COLOR_ORDER[colorTurn++ % COLOR_ORDER.length]
       obj.dash = !!def.dash
+      // Byrne tells two lines of one colour apart by drawing one heavier.
+      obj.thick = !!def.thick
     }
+    if (obj.type === 'mark') obj.color = def.color || 'yellow'
     return obj
   }
 
@@ -197,6 +200,7 @@ export function solve(doc, opts = {}) {
             picks,
             colors: call.colors,
             dashes: call.dashes,
+            thicks: call.thicks,
             path: nestedPath,
           },
           stepIndex,
@@ -245,6 +249,7 @@ export function solve(doc, opts = {}) {
       }
       if (call.colors && call.colors[id]) obj.color = call.colors[id]
       if (call.dashes && id in call.dashes) obj.dash = call.dashes[id]
+      if (call.thicks && id in call.thicks) obj.thick = call.thicks[id]
       nameTheOutput(tool, body.id, id, call.argIds, ref)
       produced.push(id)
       if (shown && obj.type === 'curve') visibleCurves.push(id)
@@ -288,6 +293,7 @@ export function solve(doc, opts = {}) {
           picks: step.picks || {},
           colors: step.colors || null,
           dashes: step.dashes || null,
+          thicks: step.thicks || null,
           path: '',
         },
         i,
@@ -516,6 +522,12 @@ function nameOf(objects, id, avoid) {
   if (!o) return { text: '?' }
   if (o.type === 'point') return { text: o.label || '•', letters: o.label || '•', kind: 'point' }
   const d = o.def || {}
+  // A mark is not a line, so it takes no bar: the angle sign and the three
+  // letters, in the colour the wedge is filled.
+  if (o.type === 'mark') {
+    const letters = [d.a, d.v, d.b].map((x) => (objects.get(x) || {}).label || '•').join('')
+    return { text: `∠${letters}`, letters, kind: 'angle', color: o.color }
+  }
   const p = (x) => {
     const q = objects.get(x)
     return (q && q.label) || '•'
@@ -530,7 +542,7 @@ function nameOf(objects, id, avoid) {
       if (found) return { text: found + mark, letters: found, kind, color: o.color }
       return { text: roleOf(objects, o) || DESCRIPTION[kind] || 'the figure' }
     }
-    return { text: kind === 'circle' ? mark + letters : letters + mark, letters, kind, color: o.color }
+    return { text: kind === 'circle' ? mark + letters : letters + mark, letters, kind, color: o.color, thick: !!o.thick }
   }
   switch (d.op) {
     case 'segment':
@@ -692,6 +704,8 @@ function describeStep(objects, tools, step, index) {
       return ['Let ', name(step.id), ' be the point in which ', nameOf(objects, step.c1, notYet),
         ' and ', nameOf(objects, step.c2, notYet), ' cut one another.']
     }
+    case 'angle':
+      return ['Let ', name(step.id), ' be marked.']
     case 'segment':
       return step.given
         ? ['Let ', name(step.id), ' be the given straight line.']

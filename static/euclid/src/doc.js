@@ -18,7 +18,18 @@
  *   { op: 'ray',      id, a, b }                 postulate 2 (produced one way)
  *   { op: 'line',     id, a, b }                 postulate 2 (produced both ways)
  *   { op: 'circle',   id, o, r }                 postulate 3 (centre o, through r)
+ *   { op: 'angle',    id, a, v, b }              a mark: the angle at v, from a to b
  *   { op: 'macro',    id, tool, args, out }      a previously proved construction
+ *
+ * An `angle` draws nothing geometrical — no point, no curve, nothing for
+ * anything else to cut. It is a mark on the figure, the coloured wedge Byrne
+ * fills in so that "∠BAC" on the page and the yellow wedge in the margin are
+ * plainly the same thing.
+ *
+ * Any drawn step may also carry `color`, `dash` and `thick` (Byrne tells two
+ * lines of one colour apart by weight), and any step at all may carry a
+ * `remark`: a line of commentary that belongs to the step rather than to the
+ * figure.
  *
  * A macro step produces one object per output of the tool it invokes; `out`
  * holds those objects' ids, so later steps can refer to them directly.
@@ -54,6 +65,8 @@ export function refsOf(step) {
       return [step.a, step.b]
     case 'circle':
       return [step.o, step.r]
+    case 'angle':
+      return [step.a, step.v, step.b]
     case 'macro':
       return [...(step.args || [])]
     case 'claim':
@@ -87,6 +100,8 @@ export function remapRefs(step, fn) {
       return { ...step, a: fn(step.a), b: fn(step.b) }
     case 'circle':
       return { ...step, o: fn(step.o), r: fn(step.r) }
+    case 'angle':
+      return { ...step, a: fn(step.a), v: fn(step.v), b: fn(step.b) }
     case 'macro':
       return { ...step, args: (step.args || []).map(fn) }
     case 'claim':
