@@ -406,6 +406,15 @@ export function createSketch(options = {}) {
 
     /* -------------------------------------------------- colour */
 
+    setDash(objId, on) {
+      const step = D.stepProducing(doc, objId)
+      if (!step) return
+      snapshot()
+      if (step.op === 'macro') step.dashes = { ...(step.dashes || {}), [objId]: !!on }
+      else step.dash = !!on
+      invalidate()
+    },
+
     setColor(objId, color) {
       const step = D.stepProducing(doc, objId)
       if (!step) return

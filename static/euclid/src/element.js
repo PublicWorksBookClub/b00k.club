@@ -87,7 +87,10 @@ export class EuclidSketchElement extends HTMLElement {
       embedded: !this.hasAttribute('use-hash'),
     })
     this._ui = ui
-    const interactions = attachInteractions(ui.canvas, app, ui.size)
+    const interactions = attachInteractions(ui.canvas, app, ui.size, {
+      onMenu: (at) => ui.openNavMenu(at),
+      onNavigate: (id) => ui.navigate(id),
+    })
     this._interactions = interactions
     this.addEventListener('keydown', interactions.onKeyDown)
 

@@ -58,7 +58,7 @@ export const PROPOSITIONS = [
       { id: 'i2', kind: 'point', label: 'C' },
     ],
     body: [
-      { op: 'segment', id: 'l0', a: 'i0', b: 'i1', color: 'black' },
+      { op: 'segment', id: 'l0', a: 'i0', b: 'i1', color: 'black', dash: true },
       { op: 'macro', id: 'l1', tool: 'euclid.I.1', args: ['i0', 'i1'], out: ['l2', 'l3', 'l4'], picks: { apex: 0 } },
       { op: 'ray', id: 'l5', a: 'l2', b: 'i0', color: 'red' },
       { op: 'ray', id: 'l6', a: 'l2', b: 'i1', color: 'red' },

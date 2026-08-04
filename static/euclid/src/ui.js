@@ -13,6 +13,8 @@ import { BOOK_I, SOURCE } from './book1.js'
 import { PALETTE } from './renderer.js'
 import { STYLES } from './styles.js'
 import * as storage from './storage.js'
+import * as C from './camera.js'
+import { NAVIGATION } from './interactions.js'
 
 const ICONS = {
   arrow: '<path d="M5.6 3.2l12 7.5-5.5 1.2-2.2 5.4z" fill="currentColor" stroke="none"/>',
@@ -70,6 +72,7 @@ export function createUI(root, app, options = {}) {
     tab: 'steps',
     menu: false,
     sidebar: !!options.sidebarOpen,
+    nav: null,
     open: { propositions: true, definitions: false, postulates: false, axioms: false, symbols: false },
     draft: { name: '', ref: '', abbr: '', summary: '' },
   }
@@ -125,6 +128,7 @@ export function createUI(root, app, options = {}) {
       app.canRedo,
       ui.tab,
       ui.menu,
+      ui.nav ? [ui.nav.x, ui.nav.y] : null,
       ui.sidebar,
       JSON.stringify(ui.open),
       app.doc.steps.map((step) => (step.op === 'macro' ? !!step.expanded : 0)),
@@ -218,6 +222,13 @@ export function createUI(root, app, options = {}) {
         })
         swatches.append(swatch)
       }
+      const dashed = coloured.every((o) => o.dash)
+      const dash = el('button', 'swatch dash', { type: 'button', title: dashed ? 'Draw it solid' : 'Draw it dashed' })
+      dash.setAttribute('aria-pressed', String(dashed))
+      dash.addEventListener('click', () => {
+        for (const o of coloured) app.setDash(o.id, !dashed)
+      })
+      swatches.append(dash)
       children.push(swatches)
     }
 
@@ -264,12 +275,10 @@ export function createUI(root, app, options = {}) {
   // Euclid's kinds of first principle, glossed in a line each. Definitions say
   // what a thing is, postulates grant what may be done, axioms are the truths
   // about magnitudes that everything else leans on.
+  // The book's own order: the shorthand, then what things are, then what may
+  // be done, then what is granted, then what is proved.
   const SECTIONS = [
-    {
-      id: 'propositions',
-      label: 'Propositions',
-      gloss: 'Problems construct something, theorems assert something. Each may be used once it is proved.',
-    },
+    { id: 'symbols', label: 'Symbols & abbreviations', gloss: 'The shorthand Byrne writes his proofs in.' },
     { id: 'definitions', label: 'Definitions', gloss: 'What each thing is. They assert nothing; they only fix the words.' },
     { id: 'postulates', label: 'Postulates', gloss: 'What may be granted as done. These three are the only moves the pencil has.' },
     {
@@ -277,7 +286,11 @@ export function createUI(root, app, options = {}) {
       label: 'Axioms',
       gloss: 'Truths about magnitudes, taken as granted and nowhere proved. Byrne’s word for the common notions.',
     },
-    { id: 'symbols', label: 'Symbols & abbreviations', gloss: 'The shorthand Byrne writes his proofs in.' },
+    {
+      id: 'propositions',
+      label: 'Propositions',
+      gloss: 'Problems construct something, theorems assert something. Each may be used once it is proved.',
+    },
   ]
 
   const constructible = new Map(PROPOSITIONS.map((p) => [p.ref, p]))
@@ -340,8 +353,10 @@ export function createUI(root, app, options = {}) {
       return row
     }
     if (sectionId !== 'propositions') {
+      // Byrne numbers his definitions, postulates and axioms in arabic and only
+      // his propositions in roman.
       const row = el('div', 'entry plain')
-      row.append(el('span', 'num', { textContent: entry.roman }))
+      row.append(el('span', 'num', { textContent: String(entry.n) }))
       row.append(el('span', 'said', { textContent: entry.text }))
       return row
     }
@@ -661,7 +676,49 @@ export function createUI(root, app, options = {}) {
 
   /* ---------------------------------------------------------------- menu */
 
+  /** Carry out one of the navigation moves the right-button menu lists. */
+  function runNavigation(id) {
+    const cam = app.camera
+    if (id === 'north') {
+      C.setNorth(cam)
+      options.onFit && options.onFit()
+    } else if (id === 'reset') {
+      C.resetRotation(cam)
+      app.changed()
+    } else if (id === 'centre' || id === 'fit') {
+      options.onFit && options.onFit()
+    } else {
+      app.changed()
+    }
+  }
+
+  function renderNavMenu() {
+    const at = ui.nav
+    const menu = el('div', 'menu nav-menu')
+    menu.style.left = `${Math.round(at.x)}px`
+    menu.style.top = `${Math.round(at.y)}px`
+    menu.append(el('p', 'menu-head', { textContent: 'Moving about the paper' }))
+    for (const move of NAVIGATION) {
+      const row = el('button', 'nav-row', {
+        type: 'button',
+        onclick: () => {
+          ui.nav = null
+          runNavigation(move.id)
+          render(true)
+        },
+      })
+      row.append(el('span', 'what', { textContent: move.label }))
+      if (move.keys) row.append(el('kbd', null, { textContent: move.keys }))
+      menu.append(row)
+    }
+    return menu
+  }
+
   function renderFloating() {
+    if (ui.nav) {
+      floating.replaceChildren(renderNavMenu())
+      return
+    }
     if (!ui.menu) {
       floating.replaceChildren()
       return
@@ -703,9 +760,10 @@ export function createUI(root, app, options = {}) {
   }
 
   const dismiss = (event) => {
-    if (!ui.menu) return
+    if (!ui.menu && !ui.nav) return
     if (event.composedPath().includes(floating)) return
     ui.menu = false
+    ui.nav = null
     render(true)
   }
   root.addEventListener('pointerdown', dismiss, true)
@@ -717,6 +775,19 @@ export function createUI(root, app, options = {}) {
     render,
     setTab(tab) {
       ui.tab = tab
+      render(true)
+    },
+    /** Right-clicking the paper opens the navigation menu where the cursor is. */
+    openNavMenu(at) {
+      const box = stage.getBoundingClientRect()
+      const frameBox = frame.getBoundingClientRect()
+      ui.nav = { x: at.x + (box.left - frameBox.left), y: at.y + (box.top - frameBox.top) }
+      ui.menu = false
+      render(true)
+    },
+    navigate(id) {
+      ui.nav = null
+      runNavigation(id)
       render(true)
     },
     destroy() {

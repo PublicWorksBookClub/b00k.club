@@ -51,17 +51,20 @@ policy sets `frame-src 'none'`, and it means the page's styles and the app's can
 <script type="module" src="/euclid/euclid-sketch.js"></script>
 ```
 
-| Attribute     | Meaning                                                     |
-| ------------- | ----------------------------------------------------------- |
-| `height`      | CSS height of the figure (default `460px`)                  |
-| `panel`       | `steps` (default) or `none` to hide the side panel          |
-| `tools`       | which propositions start in the toolbox, e.g. `I.1,I.2,I.3` |
-| `proposition` | open with a proposition set out step by step, e.g. `I.2`    |
-| `src`         | URL of a saved sketch to open                               |
-| `readonly`    | the figure may be read and dragged, but not drawn on        |
-| `empty`       | start with a blank page rather than two points              |
-| `remember`    | keep the reader's toolbox in their browser                  |
-| `use-hash`    | read and write the sketch in the page's URL fragment        |
+| Attribute     | Meaning                                                        |
+| ------------- | -------------------------------------------------------------- |
+| `height`      | CSS height of the figure (default `460px`)                     |
+| `panel`       | `steps` (default) or `none` to hide the side panel             |
+| `tools`       | which propositions start in the toolbox, e.g. `I.1,I.2,I.3`    |
+| `proposition` | open with a proposition set out step by step, e.g. `I.2`       |
+| `src`         | URL of a saved sketch to open                                  |
+| `readonly`    | the figure may be read and dragged, but not drawn on           |
+| `empty`       | start with a blank page rather than two points                 |
+| `remember`    | keep the reader's toolbox in their browser                     |
+| `use-hash`    | read and write the sketch in the page's URL fragment           |
+| `sidebar`     | `open` or `closed`; open by default only on its own page       |
+| `through`     | how far the reader has got, e.g. `I.3` — limits the toolbox    |
+| `app-url`     | where "open in the full sketchpad" points (default `/euclid/`) |
 
 A sketch may also be supplied inline:
 
@@ -148,6 +151,16 @@ the directory works as a package as it stands:
 
 Importing the entry registers `<euclid-sketch>`; `defineEuclidSketch(tag)` is exported for anyone who wants a
 different tag name, and the model layer is exported for anyone who wants the geometry without the interface.
+
+## Moving about the paper
+
+The right button navigates, which leaves the left button entirely to geometry.
+Right-clicking opens a menu naming the gestures, so they can be found rather
+than memorised: right-drag pans, shift + right-drag turns the paper, double
+right-click centres, and shift + double right-click centres and declares the
+current turn upright. Two fingers pinch and twist. The camera's `north` is
+whatever was last declared upright, and "turn back to upright" returns to it —
+nothing in the document moves.
 
 ## Things not done yet
 

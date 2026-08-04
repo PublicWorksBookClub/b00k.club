@@ -57,7 +57,10 @@ export function solve(doc, opts = {}) {
     const made = evaluate(def, getPoint, getCurve)
     if (!made) return null
     const obj = put({ id, def, hidden: false, ghost: false, auto: false, ...made, ...meta })
-    if (obj.type === 'curve') obj.color = def.color || COLOR_ORDER[colorTurn++ % COLOR_ORDER.length]
+    if (obj.type === 'curve') {
+      obj.color = def.color || COLOR_ORDER[colorTurn++ % COLOR_ORDER.length]
+      obj.dash = !!def.dash
+    }
     return obj
   }
 
@@ -150,6 +153,7 @@ export function solve(doc, opts = {}) {
             beyond: call.beyond,
             picks,
             colors: call.colors,
+            dashes: call.dashes,
             path: nestedPath,
           },
           stepIndex,
@@ -192,6 +196,7 @@ export function solve(doc, opts = {}) {
         continue
       }
       if (call.colors && call.colors[id]) obj.color = call.colors[id]
+      if (call.dashes && id in call.dashes) obj.dash = call.dashes[id]
       produced.push(id)
       if (shown && obj.type === 'curve') visibleCurves.push(id)
     }
@@ -217,6 +222,7 @@ export function solve(doc, opts = {}) {
           beyond,
           picks: step.picks || {},
           colors: step.colors || null,
+          dashes: step.dashes || null,
           path: '',
         },
         i,

@@ -22,14 +22,6 @@ export const PALETTE = {
   yellow: BYRNE_COLORS.yellow,
 }
 
-/**
- * Byrne's yellow is too pale to read as a hairline on cream, and darkening it
- * far enough slides its hue into his red. So it keeps his colour and is printed
- * the way gold is printed: a darker line laid down first, the yellow over it.
- */
-const OUTLINED = { yellow: '#8A6410' }
-const WEIGHT = { yellow: 0.5 }
-
 export const THEME = {
   paper: '#faf5ea',
   ink: '#2f2929',
@@ -83,9 +75,8 @@ function curveStyle(o, view) {
   const named = o.color && PALETTE[o.color]
   const base = {
     color: named || (solidLine ? THEME.ink : THEME.construction),
-    width: (solidLine ? 1.6 : 1.2) + (named ? WEIGHT[o.color] || 0.2 : 0),
-    outline: named ? OUTLINED[o.color] : null,
-    dash: null,
+    width: solidLine ? 1.7 : 1.4,
+    dash: o.dash ? [6, 5] : null,
   }
   if (state === 'selected') return { ...base, color: THEME.accent, width: base.width + 1.1 }
   if (state === 'picked') return { ...base, color: THEME.accent, width: base.width + 1.1 }
@@ -101,12 +92,6 @@ function strokeCurve(ctx, o, S, clip, style) {
   if (style.dash) ctx.setLineDash(style.dash)
   ctx.beginPath()
   pathOfCurve(ctx, o.geom, S, clip)
-  const outline = style.outline
-  if (outline) {
-    ctx.strokeStyle = outline
-    ctx.lineWidth = style.width + 1.3
-    ctx.stroke()
-  }
   ctx.strokeStyle = style.color
   ctx.lineWidth = style.width
   ctx.stroke()
@@ -117,7 +102,7 @@ function pathOfCurve(ctx, geom, S, clip) {
   if (geom.kind === 'circle') {
     const centre = S(geom.c)
     const edge = S(G.add(geom.c, { x: geom.r, y: 0 }))
-    const r = Math.abs(edge.x - centre.x)
+    const r = Math.hypot(edge.x - centre.x, edge.y - centre.y)
     // A circle zoomed to absurdity is a straight line as far as the screen is
     // concerned, and asking the canvas to draw it is a good way to hang a tab.
     if (r > 1e6) return
@@ -272,7 +257,7 @@ function drawChoice(ctx, view, S, clip) {
   for (const option of view.choice) {
     for (const o of option.objects) {
       if (o.type === 'curve') {
-        strokeCurve(ctx, o, S, clip, { color: choiceTint(o), width: 1.1, dash: [3, 4] })
+        strokeCurve(ctx, o, S, clip, { color: choiceTint(o), width: 1.2, dash: [3, 4] })
       } else if (o.pos) {
         dot(ctx, S(o.pos), 1.8, THEME.ghost)
       }

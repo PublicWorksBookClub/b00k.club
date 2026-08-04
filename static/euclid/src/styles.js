@@ -115,6 +115,11 @@ canvas {
   cursor: crosshair;
 }
 .stage[data-mode='select'] canvas { cursor: default; }
+/* The tool you are holding, with the crosshair sitting on the hotspot. */
+.stage[data-mode='segment'] canvas,
+.stage[data-mode='ray'] canvas,
+.stage[data-mode='line'] canvas { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><g fill='none' stroke='%23faf5ea' stroke-width='3.4' stroke-linecap='round'><path d='M2 8h12M8 2v12'/><path d='M15 27L28 14'/><path d='M15 27l-1.5-4.5 4.5 1.5'/></g><g fill='none' stroke='%232f2929' stroke-width='1.5' stroke-linecap='round'><path d='M2 8h12M8 2v12'/><path d='M15 27L28 14'/><path d='M15 27l-1.5-4.5 4.5 1.5'/></g></svg>") 8 8, crosshair; }
+.stage[data-mode='circle'] canvas { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><g fill='none' stroke='%23faf5ea' stroke-width='3.4' stroke-linecap='round'><path d='M2 8h12M8 2v12'/><path d='M21 14l-5 13M21 14l5 13'/><circle cx='21' cy='14' r='1.8'/></g><g fill='none' stroke='%232f2929' stroke-width='1.5' stroke-linecap='round'><path d='M2 8h12M8 2v12'/><path d='M21 14l-5 13M21 14l5 13'/><circle cx='21' cy='14' r='1.8'/></g></svg>") 8 8, crosshair; }
 
 .hint {
   position: absolute;
@@ -177,6 +182,13 @@ canvas {
 .side-list { overflow: auto; flex: 1 1 auto; }
 .side-section { border-bottom: 1px solid var(--eu-rule); }
 .side-section > summary {
+  /* Stays put while a long section scrolls, so the next one is always a click
+     away rather than a scroll away. */
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--eu-chrome);
+  border-bottom: 1px solid transparent;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -198,7 +210,7 @@ canvas {
 }
 .side-section[open] > summary::before { transform: rotate(90deg); }
 .side-section > summary:hover { background: rgba(0, 0, 0, 0.04); }
-.side-section[open] > summary { color: var(--eu-ink); }
+.side-section[open] > summary { color: var(--eu-ink); border-bottom-color: var(--eu-rule); }
 .side-section > summary .name { flex: 1 1 auto; }
 .side-section > summary .count { font-variant-numeric: tabular-nums; opacity: 0.7; }
 
@@ -474,6 +486,37 @@ ol.steps .acts button {
   min-width: 170px;
 }
 .menu button { display: block; width: 100%; text-align: left; padding: 5px 9px; font-size: 13px; }
+.nav-menu { right: auto; top: auto; min-width: 230px; }
+.menu-head {
+  margin: 2px 0 4px;
+  padding: 2px 9px;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--eu-muted);
+}
+.nav-row { display: flex !important; align-items: baseline; gap: 10px; }
+.nav-row .what { flex: 1 1 auto; }
+.nav-row kbd {
+  font-family: var(--eu-sans);
+  font-size: 10px;
+  color: var(--eu-muted);
+  border: 1px solid var(--eu-rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  white-space: nowrap;
+}
+.swatch.dash {
+  background: none !important;
+  border-color: var(--eu-rule);
+  position: relative;
+}
+.swatch.dash::after {
+  content: '';
+  position: absolute;
+  inset: 8px 3px;
+  border-top: 2px dashed var(--eu-ink);
+}
 
 /* ------------------------------------------------------------ narrow */
 

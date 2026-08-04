@@ -11,6 +11,7 @@ import * as C from './camera.js'
 
 export const HIT_TOLERANCE = 12
 const DRAG_THRESHOLD = 4
+const DRAW_MODES = new Set(['segment', 'ray', 'line', 'circle'])
 
 export function hitTest(scene, world, cam, tolerance = HIT_TOLERANCE) {
   const reach = tolerance / cam.k
@@ -49,13 +50,35 @@ export function snapAt(scene, world, cam) {
   return { kind: 'free', pos: world }
 }
 
-export function attachInteractions(canvas, app, size) {
+const DOUBLE_CLICK_MS = 400
+
+/**
+ * The right button navigates.
+ *
+ * There is no context menu to lose — the canvas has none — so the right button
+ * is free, and giving it navigation keeps the left button purely for geometry.
+ * Right-click on its own opens a menu that names the gestures, so they can be
+ * found rather than memorised.
+ */
+export const NAVIGATION = [
+  { id: 'pan', label: 'Pan', keys: 'right-drag' },
+  { id: 'rotate', label: 'Turn the paper', keys: 'shift + right-drag' },
+  { id: 'centre', label: 'Centre the figure', keys: 'double right-click' },
+  { id: 'north', label: 'Centre, and call this upright', keys: 'shift + double right-click' },
+  { id: 'reset', label: 'Turn back to upright', keys: null },
+  { id: 'fit', label: 'Fit the figure to the view', keys: null },
+]
+
+export function attachInteractions(canvas, app, size, hooks = {}) {
   const pointers = new Map()
   let drag = null
   let pan = null
+  let rotate = null
   let pinch = null
   let downAt = null
+  let pendingDrag = null
   let moved = 0
+  let lastRight = 0
 
   const toWorld = (event) => {
     const rect = canvas.getBoundingClientRect()
@@ -75,7 +98,11 @@ export function attachInteractions(canvas, app, size) {
     pointers.set(event.pointerId, localPoint(event))
     if (pointers.size === 2) {
       const [a, b] = [...pointers.values()]
-      pinch = { distance: Math.hypot(a.x - b.x, a.y - b.y), centre: { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 } }
+      pinch = {
+        distance: Math.hypot(a.x - b.x, a.y - b.y),
+        centre: { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 },
+        angle: Math.atan2(b.y - a.y, b.x - a.x),
+      }
       drag = null
       pan = null
       return
@@ -84,17 +111,25 @@ export function attachInteractions(canvas, app, size) {
 
     const world = toWorld(event)
     const hit = hitTest(app.scene, world, app.camera)
-    downAt = { world, hit, screen: localPoint(event) }
+    const here = localPoint(event)
+    downAt = { world, hit, screen: here, button: event.button, shift: event.shiftKey }
     moved = 0
 
-    if (app.state.mode === 'select' && hit && hit.point) {
-      const started = app.beginDrag(hit.point.id)
-      if (started) {
-        drag = started
-        return
-      }
+    if (event.button === 2) {
+      if (event.shiftKey) rotate = { last: here }
+      else pan = { last: here }
+      return
     }
-    if (!hit || app.state.mode === 'select') pan = { last: localPoint(event) }
+
+    // A press on a point might be a drag or might be a selection; which it is
+    // only becomes clear once the pointer moves, so the drag waits until then.
+    // Starting it eagerly would swallow the click and bank an undo entry for a
+    // drag that never happened.
+    if (app.state.mode === 'select' && hit && hit.point) {
+      pendingDrag = hit.point.id
+      return
+    }
+    if (app.state.mode === 'select') pan = { last: here }
   }
 
   function onPointerMove(event) {
@@ -105,9 +140,12 @@ export function attachInteractions(canvas, app, size) {
       const distance = Math.hypot(a.x - b.x, a.y - b.y)
       const centre = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }
       const { w, h } = size()
+      const angle = Math.atan2(b.y - a.y, b.x - a.x)
       if (pinch.distance > 0) C.zoomAt(app.camera, centre, distance / pinch.distance, w, h)
+      // Twisting two fingers turns the paper, as it does everywhere else.
+      C.rotateAt(app.camera, centre, angle - pinch.angle, w, h)
       C.panBy(app.camera, centre.x - pinch.centre.x, centre.y - pinch.centre.y)
-      pinch = { distance, centre }
+      pinch = { distance, centre, angle }
       app.changed()
       return
     }
@@ -115,6 +153,10 @@ export function attachInteractions(canvas, app, size) {
     const world = toWorld(event)
     if (downAt) moved = Math.max(moved, Math.hypot(localPoint(event).x - downAt.screen.x, localPoint(event).y - downAt.screen.y))
 
+    if (!drag && pendingDrag && moved > DRAG_THRESHOLD) {
+      drag = app.beginDrag(pendingDrag)
+      pendingDrag = null
+    }
     if (drag) {
       app.updateDrag(drag, world)
       return
@@ -123,6 +165,17 @@ export function attachInteractions(canvas, app, size) {
       const here = localPoint(event)
       C.panBy(app.camera, here.x - pan.last.x, here.y - pan.last.y)
       pan.last = here
+      app.changed()
+      return
+    }
+    if (rotate) {
+      const here = localPoint(event)
+      const { w, h } = size()
+      const pivot = { x: w / 2, y: h / 2 }
+      const was = Math.atan2(rotate.last.y - pivot.y, rotate.last.x - pivot.x)
+      const now = Math.atan2(here.y - pivot.y, here.x - pivot.x)
+      C.rotateAt(app.camera, pivot, now - was, w, h)
+      rotate.last = here
       app.changed()
       return
     }
@@ -140,13 +193,39 @@ export function attachInteractions(canvas, app, size) {
 
     const wasDrag = drag
     const wasPan = pan
+    const wasRotate = rotate
     drag = null
     pan = null
+    rotate = null
+    pendingDrag = null
     if (!downAt) return
-    const { world, hit } = downAt
+    const { world, hit, button, shift } = downAt
+    const dragged = moved > DRAG_THRESHOLD
     downAt = null
-    if (wasDrag || (wasPan && moved > DRAG_THRESHOLD)) return
-    if (moved > DRAG_THRESHOLD) return
+
+    if (button === 2) {
+      if (dragged) return
+      const now = performance.now()
+      const doubled = now - lastRight < DOUBLE_CLICK_MS
+      lastRight = doubled ? 0 : now
+      if (doubled) return hooks.onNavigate && hooks.onNavigate(shift ? 'north' : 'centre')
+      return hooks.onMenu && hooks.onMenu(localPoint(event))
+    }
+
+    if (wasDrag || wasRotate || (wasPan && dragged)) return
+
+    // A press, a drag and a release draws the same line two clicks would: the
+    // rubber band is already on screen, so letting go where it points is what
+    // the hand expects.
+    if (dragged) {
+      if (!DRAW_MODES.has(app.state.mode) || app.state.activeTool) return
+      const from = { world, hit }
+      const world2 = toWorld(event)
+      const hit2 = hitTest(app.scene, world2, app.camera)
+      app.click(from.world, from.hit)
+      app.click(world2, hit2)
+      return
+    }
     app.click(world, hit)
   }
 
@@ -164,11 +243,8 @@ export function attachInteractions(canvas, app, size) {
   }
 
   function onContextMenu(event) {
+    // The right button belongs to navigation; the browser's menu would swallow it.
     event.preventDefault()
-    if (app.state.pending) {
-      app.cancelPending()
-      app.changed()
-    }
   }
 
   function onKeyDown(event) {
