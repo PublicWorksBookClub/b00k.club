@@ -347,16 +347,26 @@ function* letters() {
  * from turning into alphabet soup.
  */
 function letterThePoints(objects, order, doc) {
-  const referenced = new Set()
-  for (const step of doc.steps) for (const r of D.refsOf(step)) referenced.add(r)
   const next = letters()
-  for (const id of order) {
+  const give = (id) => {
     const o = objects.get(id)
-    if (!o || o.type !== 'point' || o.ghost) continue
-    // Steps scrubbed past keep their letters, so the prose stays readable.
-    if (o.hidden && !o.beyond) continue
-    if (o.auto && !referenced.has(id)) continue
+    if (!o || o.type !== 'point' || o.label || o.ghost) return
+    if (o.hidden && !o.beyond) return
     o.label = next.next().value
+  }
+
+  // Walk the steps in order. Each step first letters any anonymous
+  // intersection it uses — an intersection earns its letter at the moment
+  // something refers to it — and then whatever it produces.
+  //
+  // Doing it this way rather than by position in the scene is what keeps
+  // letters still. A point that has been called C stays C: a later step that
+  // finally names an intersection drawn long ago appends a letter rather than
+  // inserting one and pushing every letter after it along by one.
+  for (const step of doc.steps) {
+    for (const ref of D.refsOf(step)) give(ref)
+    give(step.id)
+    for (const out of step.out || []) give(out)
   }
 }
 

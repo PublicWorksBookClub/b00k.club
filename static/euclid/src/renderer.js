@@ -314,12 +314,27 @@ function drawChoice(ctx, view, S, clip) {
       }
     }
   }
-  for (const option of view.choice) {
+  // Both candidates carry the letter the point is about to take, told apart by
+  // a tick, so the question reads as "which of these is to be C?"
+  const marks = ['′', '″']
+  ctx.font = THEME.labelFont
+  ctx.textAlign = 'center'
+  ctx.textBaseline = 'middle'
+  ctx.lineJoin = 'round'
+  view.choice.forEach((option, i) => {
     const p = S(option.point)
     dot(ctx, p, 9, THEME.paper)
     ring(ctx, p, 8.5, THEME.accent, 1.6)
     dot(ctx, p, 4, THEME.accent)
-  }
+    if (!option.label) return
+    const text = option.label + (marks[i] || '')
+    const at = { x: p.x + 17, y: p.y - 13 }
+    ctx.lineWidth = 3.5
+    ctx.strokeStyle = THEME.paper
+    ctx.strokeText(text, at.x, at.y)
+    ctx.fillStyle = THEME.accent
+    ctx.fillText(text, at.x, at.y)
+  })
   ctx.restore()
 }
 

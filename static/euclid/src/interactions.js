@@ -65,8 +65,6 @@ export const NAVIGATION = [
   { id: 'rotate', label: 'Turn the paper', keys: 'shift + right-drag' },
   { id: 'centre', label: 'Centre, fit and set upright', keys: 'double right-click' },
   { id: 'north', label: 'Centre and fit, keeping this angle as upright', keys: 'shift + double right-click' },
-  { id: 'reset', label: 'Turn back to upright', keys: null },
-  { id: 'fit', label: 'Fit the figure to the view', keys: null },
 ]
 
 export function attachInteractions(canvas, app, size, hooks = {}) {

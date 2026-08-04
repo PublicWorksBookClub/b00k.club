@@ -106,6 +106,30 @@ export function createSketch(options = {}) {
     return restored
   }
 
+  /** Is there already a straight line drawn between these two points? */
+  const joinedAlready = (a, b) => {
+    for (const o of getScene().objects.values()) {
+      if (o.type !== 'curve' || o.hidden || !o.def) continue
+      if (o.def.op !== 'segment') continue
+      if ((o.def.a === a && o.def.b === b) || (o.def.a === b && o.def.b === a)) return true
+    }
+    return false
+  }
+
+  /**
+   * Drawing while scrubbed back rubs out what came after.
+   *
+   * Going back to step four and drawing something means "from here, this
+   * instead" — appending to the end of a proof the reader is not looking at
+   * would be a surprise.
+   */
+  const truncateFuture = () => {
+    if (state.upTo === Infinity || state.upTo >= doc.steps.length) return
+    doc.steps = doc.steps.slice(0, state.upTo)
+    state.upTo = Infinity
+    scene = null
+  }
+
   /** One undo entry per tool application, however many points it sets down. */
   const beginPickGesture = () => {
     if (!state.pickGesture) {
@@ -243,6 +267,7 @@ export function createSketch(options = {}) {
 
       if (state.mode === 'point') {
         snapshot()
+        truncateFuture()
         const g = nextGesture()
         resolvePoint(world, hit, g)
         return invalidate()
@@ -251,6 +276,7 @@ export function createSketch(options = {}) {
 
       if (!state.pending) {
         snapshot()
+        truncateFuture()
         const gesture = nextGesture()
         const anchorId = resolvePoint(world, hit, gesture)
         state.pending = { op: state.mode, gesture, anchorId, anchor: { ...world } }
@@ -334,6 +360,18 @@ export function createSketch(options = {}) {
 
     applyTool(tool, argIds) {
       const gesture = beginPickGesture()
+      truncateFuture()
+      // "On a given finite straight line to describe an equilateral triangle" —
+      // the line is part of what the proposition is handed. Applied to two bare
+      // points there is no such line, so it is drawn, and the triangle has a
+      // base rather than hanging in the air.
+      const inputIndex = new Map((tool.inputs || []).map((inp, i) => [inp.id, i]))
+      for (const [from, to] of tool.given || []) {
+        const a = argIds[inputIndex.get(from)]
+        const b = argIds[inputIndex.get(to)]
+        if (!a || !b || joinedAlready(a, b)) continue
+        D.addStep(doc, { op: 'segment', id: D.newId(doc, 'c'), a, b, g: gesture, given: true })
+      }
       const step = M.makeToolStep(doc, tool, argIds, gesture)
       D.addStep(doc, step)
       state.pickGesture = null
@@ -376,7 +414,7 @@ export function createSketch(options = {}) {
             if (o && o.stepIndex === stepIndex && !o.auto) objects.push(o)
           }
           const at = scene.get(choice.at)
-          return at ? { value, objects, point: at.pos } : null
+          return at ? { value, objects, point: at.pos, label: at.label || null } : null
         })
         .filter(Boolean)
     },
@@ -683,7 +721,7 @@ export function createSketch(options = {}) {
       // straight line equal to a given straight line (BC)" needs BC on the page
       // before the construction starts, or there is nothing to copy.
       const bind = new Map((prop.inputs || []).map((inp, i) => [inp.id, givens[i]]))
-      for (const [from, to] of prop.demo?.join || []) {
+      for (const [from, to] of prop.given || []) {
         D.addStep(doc, { op: 'segment', id: D.newId(doc, 'c'), a: bind.get(from), b: bind.get(to), g: gesture, given: true })
       }
       // Everything so far is what the proposition is given; its construction is

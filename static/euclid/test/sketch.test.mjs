@@ -157,12 +157,13 @@ test('a construction that can go either way waits for the reader to say which', 
   app.pickChoice(options[1].point, 20)
   assert.equal(app.state.choice, null)
   assert.ok(app.scene.steps.every((s) => s.ok))
-  const apex = app.scene.get(app.doc.steps[2].out[0]).pos
+  const applied = app.doc.steps.find((s) => s.op === 'macro')
+  const apex = app.scene.get(applied.out[0]).pos
   assert.ok(G.dist(apex, options[1].point) < 1e-9, 'and the one that was clicked is the one that was built')
 
   // The decision is part of the document, so it survives being written out.
-  const step = app.doc.steps[2]
-  assert.deepEqual(step.picks, { apex: 1 })
+  assert.deepEqual(applied.picks, { apex: 1 })
+  const step = applied
   const reopened = createSketch()
   reopened.load(app.serialize())
   assert.ok(reopened.scene.steps.every((s) => s.ok))
@@ -378,4 +379,53 @@ test('the given figure is set aside, and the construction numbers from one', () 
   own.clearSetup()
   assert.equal(own.scene.setupCount, 0)
   assert.equal(own.scene.moves, 3)
+})
+
+test('a proposition draws the straight lines it is given', () => {
+  // I.1 is "on a given finite straight line": applied to two bare points there
+  // is no such line, so it is drawn and the triangle has a base.
+  const app = twoPoints()
+  const givens = app.doc.steps.map((s) => s.id)
+  app.applyTool(
+    app.tools.find((t) => t.ref === 'I.1'),
+    givens,
+  )
+  app.chooseBranch(0)
+  const base = app.doc.steps.find((s) => s.op === 'segment' && s.given)
+  assert.ok(base, 'the given line was drawn')
+  assert.deepEqual([base.a, base.b], givens)
+
+  const sides = [...app.scene.objects.values()].filter((o) => o.type === 'curve' && !o.hidden && o.def.op === 'segment')
+  assert.equal(sides.length, 3, 'a triangle with all three sides')
+
+  // Applied again to the same two points, the base is not drawn twice.
+  app.applyTool(
+    app.tools.find((t) => t.ref === 'I.1'),
+    givens,
+  )
+  app.chooseBranch(1)
+  assert.equal(app.doc.steps.filter((s) => s.op === 'segment' && s.given).length, 1)
+  // And the first apex keeps its letter.
+  assert.equal(labelled(app, 'C').pos.y > 0, true)
+  assert.ok(labelled(app, 'D'), 'the second apex is lettered next, not first')
+})
+
+test('drawing while scrubbed back replaces what came after', () => {
+  const app = twoPoints()
+  app.setMode('segment')
+  app.click({ x: 0, y: 0 }, at(app, { x: 0, y: 0 }))
+  app.click({ x: 100, y: 0 }, at(app, { x: 100, y: 0 }))
+  app.setMode('circle')
+  app.click({ x: 0, y: 0 }, at(app, { x: 0, y: 0 }))
+  app.click({ x: 100, y: 0 }, at(app, { x: 100, y: 0 }))
+  assert.equal(app.doc.steps.length, 4)
+
+  // Go back to just after the two points and draw something else.
+  app.setUpTo(2)
+  app.setMode('circle')
+  app.click({ x: 100, y: 0 }, at(app, { x: 100, y: 0 }))
+  app.click({ x: 0, y: 0 }, at(app, { x: 0, y: 0 }))
+  assert.equal(app.doc.steps.length, 3, 'the segment and circle that followed are gone')
+  assert.equal(app.doc.steps[2].op, 'circle')
+  assert.equal(app.state.upTo, Infinity)
 })

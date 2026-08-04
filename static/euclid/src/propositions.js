@@ -34,6 +34,9 @@ export const PROPOSITIONS = [
       { op: 'segment', id: 'l4', a: 'i1', b: 'l2', color: 'red' },
     ],
     outputs: ['l2', 'l3', 'l4'],
+    // "On a given finite straight line" — so AB is part of what the
+    // proposition is handed, and is drawn if it is not already there.
+    given: [['i0', 'i1']],
     choices: [{ key: 'apex', prompt: 'Choose which way the triangle is to fall.' }],
     uses: [],
     demo: {
@@ -69,6 +72,7 @@ export const PROPOSITIONS = [
       { op: 'segment', id: 'l11', a: 'i0', b: 'l10', color: 'blue' },
     ],
     outputs: ['l10', 'l11'],
+    given: [['i1', 'i2']],
     uses: ['euclid.I.1'],
     demo: {
       points: [
@@ -101,6 +105,8 @@ export const PROPOSITIONS = [
       { op: 'segment', id: 'l6', a: 'i0', b: 'l5', color: 'red' },
     ],
     outputs: ['l5', 'l6'],
+    // The greater line AB is drawn by the construction itself; the lesser is given.
+    given: [['i2', 'i3']],
     uses: ['euclid.I.2'],
     demo: {
       points: [

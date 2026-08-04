@@ -108,8 +108,11 @@ export class EuclidSketchElement extends HTMLElement {
     this._unsubscribe = app.subscribe(schedule)
     this._schedule = schedule
 
+    // Watch the stage, not just the host: hiding the panel changes the drawing
+    // surface without changing the element, and the canvas would stretch.
     this._observer = new ResizeObserver(schedule)
     this._observer.observe(this)
+    this._observer.observe(ui.stage)
 
     this._restore().then(() => {
       ui.render(true)
