@@ -98,7 +98,7 @@ src/
   doc.js           the step list: ids, references, cascading deletion, serialisation
   solve.js         run a document into a scene; automatic intersections; lettering; prose
   macros.js        extracting a tool from a construction, and unfolding one
-  propositions.js  Book I.1, I.2, I.3, I.9, I.10, I.11, I.12, I.31 as tools
+  propositions.js  Book I.1, I.2, I.3, I.9–I.12, I.31 and I.46 as tools
   camera.js        pan and zoom
   help.js          what the sketchpad does, as data
   tutorial.js      the walk through the first proposition
@@ -174,6 +174,13 @@ can be printed as a name: a bar over a straight line in the colour it is drawn
 in, an arrow if it runs on, a ring for a circle. Finding the thing on the paper
 then takes no translation. `info.text` is the same sentence flattened, for
 anything that only wants a string.
+
+A line drawn inside a tool runs between one lettered point and a hidden one, so
+it cannot be called AE. Two lettered points that happen to lie on it will do
+instead — which is exactly how Euclid names such a line — and failing that, what
+the tool calls it: "the parallel through C". A tool says what it hands back in
+its `names`, and the tool doing the calling has the last word, since I.31 hands
+back a parallel however it happened to draw it.
 
 A tool that hands back a point and the lines reaching it has drawn a triangle,
 so the step says `△ABD` rather than reciting the parts. Only segments drawn by
@@ -262,8 +269,8 @@ will go.
 
 ## Working the rest of Book I
 
-Eight propositions are written out as tools — I.1, I.2, I.3, I.9, I.10, I.11,
-I.12 and I.31 — and the whole of Book I is in the sidebar. Opening one of the three sets out its construction step by step;
+Nine propositions are written out as tools — I.1, I.2, I.3, I.9, I.10, I.11,
+I.12, I.31 and I.46 — and the whole of Book I is in the sidebar. Opening one of the three sets out its construction step by step;
 opening any of the others gives a clean sheet, the statement, and the toolbox
 you have built so far — the reader works it themselves and can save the result
 as a tool with **+**.

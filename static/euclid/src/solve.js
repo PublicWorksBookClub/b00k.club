@@ -111,6 +111,21 @@ export function solve(doc, opts = {}) {
    * down, so a nested tool's outputs stay hidden unless the outermost caller
    * asked for them.
    */
+  /**
+   * What a tool calls the thing it hands back — "the perpendicular at A" — for
+   * when the points it is drawn between cannot name it.
+   *
+   * The template is kept rather than filled in, because the points it names
+   * have not earned their letters yet: lettering waits until every step has
+   * run. It is filled in when the prose is written.
+   */
+  function nameTheOutput(tool, localId, objId, argIds) {
+    const template = (tool.names || {})[localId]
+    const obj = objects.get(objId)
+    if (!template || !obj) return
+    obj.role = { template, args: argIds }
+  }
+
   function runMacro(call, stepIndex, depth) {
     const fail = (error) => ({ ok: false, error, produced: [], visibleCurves: [] })
     const tool = tools.get(call.toolId)
@@ -167,6 +182,11 @@ export function solve(doc, opts = {}) {
         needsChoice = needsChoice || res.needsChoice
         produced.push(...res.produced)
         visibleCurves.push(...res.visibleCurves)
+        // The tool doing the calling has the last word on what the thing is
+        // called: I.31 hands back a parallel, however it happened to draw it.
+        // A name is keyed by the object, not the step, so a macro's outputs are
+        // named one by one.
+        ;(body.out || []).forEach((local, i) => nameTheOutput(tool, local, outIds[i], call.argIds))
         continue
       }
       const id = idFor(body.id)
@@ -198,6 +218,7 @@ export function solve(doc, opts = {}) {
       }
       if (call.colors && call.colors[id]) obj.color = call.colors[id]
       if (call.dashes && id in call.dashes) obj.dash = call.dashes[id]
+      nameTheOutput(tool, body.id, id, call.argIds)
       produced.push(id)
       if (shown && obj.type === 'curve') visibleCurves.push(id)
     }
@@ -408,7 +429,37 @@ function letterThePoints(objects, order, doc) {
  * the letters, what kind of thing it is, and its colour — and `text` is the
  * same thing flattened for anything that only wants a string.
  */
-function nameOf(objects, id) {
+/**
+ * Two lettered points that lie on a curve, in letter order.
+ *
+ * A line raised inside a tool is drawn between one lettered point and a hidden
+ * one, so it cannot be called AE — but by the time the figure is finished there
+ * are usually two lettered points sitting on it, and naming it by those is
+ * exactly what Euclid does. `avoid` keeps a step from naming a line after the
+ * very point it is in the middle of defining.
+ */
+function letteredOn(objects, curve, avoid) {
+  const found = []
+  for (const o of objects.values()) {
+    if (o.type !== 'point' || !o.label || o.ghost) continue
+    if (avoid && avoid.has(o.id)) continue
+    if (G.distanceToCurve(curve.geom, o.pos) > 1e-6) continue
+    found.push(o.label)
+    if (found.length === 2) break
+  }
+  return found.length === 2 ? found.join('') : null
+}
+
+/** A tool's name for what it produced, with the letters filled in. */
+function roleOf(objects, o) {
+  if (!o.role) return null
+  return o.role.template.replace(/\{(\d+)\}/g, (_, n) => {
+    const arg = objects.get(o.role.args[Number(n)])
+    return (arg && arg.label) || '•'
+  })
+}
+
+function nameOf(objects, id, avoid) {
   const o = objects.get(id)
   if (!o) return { text: '?' }
   if (o.type === 'point') return { text: o.label || '•', letters: o.label || '•', kind: 'point' }
@@ -419,9 +470,14 @@ function nameOf(objects, id) {
   }
   const named = (letters, kind, mark = '') => {
     // A line drawn to a point that never earned a letter — the far end of a
-    // perpendicular raised inside a tool, say — cannot be called AE. Naming it
-    // by what it is beats naming it after a point that is not there.
-    if (letters.includes('•')) return { text: DESCRIPTION[kind] || 'the figure' }
+    // perpendicular raised inside a tool, say — cannot be called AE. Two
+    // lettered points that happen to lie on it will do instead; failing that,
+    // what the tool calls it; failing that, what kind of thing it is.
+    if (letters.includes('•')) {
+      const found = kind === 'circle' ? null : letteredOn(objects, o, avoid)
+      if (found) return { text: found + mark, letters: found, kind, color: o.color }
+      return { text: roleOf(objects, o) || DESCRIPTION[kind] || 'the figure' }
+    }
     return { text: kind === 'circle' ? mark + letters : letters + mark, letters, kind, color: o.color }
   }
   switch (d.op) {
@@ -557,9 +613,12 @@ function describeStep(objects, tools, step, index) {
       return ['Let the point ', name(step.id), ' be placed.']
     case 'onCurve':
       return ['Let a point ', name(step.id), ' be taken at random on ', name(step.curve), '.']
-    case 'inter':
-      return ['Let ', name(step.id), ' be the point in which ', name(step.c1), ' and ',
-        name(step.c2), ' cut one another.']
+    case 'inter': {
+      // A line must not be named after the point this very step is defining.
+      const notYet = new Set([step.id])
+      return ['Let ', name(step.id), ' be the point in which ', nameOf(objects, step.c1, notYet),
+        ' and ', nameOf(objects, step.c2, notYet), ' cut one another.']
+    }
     case 'segment':
       return step.given
         ? ['Let ', name(step.id), ' be the given straight line.']

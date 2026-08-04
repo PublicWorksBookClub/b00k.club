@@ -674,3 +674,52 @@ test('I.31 draws a line through the point that never meets the given one', () =>
   }
   assert.ok(checked > 40, `only ${checked} configurations were exercised`)
 })
+
+test('I.46 builds a square on the given line', () => {
+  const random = rng(83)
+  let checked = 0
+  for (let i = 0; i < 60; i++) {
+    const A = { x: random() * 300 - 150, y: random() * 300 - 150 }
+    const B = { x: random() * 300 - 150, y: random() * 300 - 150 }
+    if (G.dist(A, B) < 30) continue
+    const { doc, ids } = docWithPoints([A, B])
+    const step = apply(doc, 'euclid.I.46', ids, { side: 0 })
+    const scene = run(doc)
+    assert.ok(scene.steps.every((s) => s.ok), 'I.46 carried out')
+
+    const D = at(scene, step.out[0])
+    const E = at(scene, step.out[1])
+    const side = G.dist(A, B)
+    // ABED, going round: AB, BE, ED, DA.
+    close(G.dist(A, D), side, side * 1e-7, 'AD')
+    close(G.dist(D, E), side, side * 1e-7, 'DE')
+    close(G.dist(E, B), side, side * 1e-7, 'EB')
+    // Four right angles: each corner's two sides are perpendicular.
+    const square = [A, B, E, D]
+    for (let k = 0; k < 4; k++) {
+      const here = square[k]
+      const before = square[(k + 3) % 4]
+      const after = square[(k + 1) % 4]
+      const u = G.scale(G.sub(before, here), 1 / G.dist(before, here))
+      const w = G.scale(G.sub(after, here), 1 / G.dist(after, here))
+      close(G.dot(u, w), 0, 1e-7, `the angle at corner ${k}`)
+    }
+    // And the diagonals are equal, which is the whole of what I.47 needs of it.
+    close(G.dist(A, E), G.dist(B, D), side * 1e-7, 'the diagonals')
+    checked++
+  }
+  assert.ok(checked > 40, `only ${checked} configurations were exercised`)
+})
+
+test('the square can be made to fall on either side of the line', () => {
+  const A = { x: -80, y: 0 }
+  const B = { x: 80, y: 0 }
+  const sides = [0, 1].map((side) => {
+    const { doc, ids } = docWithPoints([A, B])
+    const step = apply(doc, 'euclid.I.46', ids, { side })
+    const scene = run(doc)
+    assert.ok(scene.steps.every((s) => s.ok), `side ${side} carried out`)
+    return at(scene, step.out[0]).y
+  })
+  assert.ok(sides[0] * sides[1] < 0, 'the two choices fall on opposite sides')
+})
