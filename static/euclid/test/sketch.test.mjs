@@ -7,6 +7,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 
 import { createSketch } from '../src/app.js'
+import { PROPOSITIONS } from '../src/propositions.js'
 import { hitTest } from '../src/interactions.js'
 import * as G from '../src/geometry.js'
 
@@ -560,4 +561,49 @@ test('the points clicked for a refused tool do not linger', () => {
   app.pickForTool({ x: 400, y: 200 }, null)
   assert.match(app.state.notice, /must be the shorter/)
   assert.equal(app.doc.steps.length, 2, 'the paper is as it was')
+})
+
+test('every proposition sets out the figure it is given', () => {
+  for (const prop of PROPOSITIONS) {
+    const app = createSketch()
+    app.walkProposition(prop.id)
+    const given = app.scene.steps.filter((s) => s.setup)
+    assert.ok(given.length, `${prop.ref} sets out nothing`)
+    assert.ok(app.scene.steps.every((s) => s.ok), `${prop.ref} does not stand`)
+    // A proposition is given something to work on, not just loose points — and
+    // a theorem is given the whole of the figure its statement supposes.
+    const drawn = given.filter((s) => s.step.op !== 'point')
+    assert.ok(drawn.length, `${prop.ref} is given no figure, only points`)
+    if (prop.theorem) {
+      assert.equal(app.scene.steps.length, given.length,
+        `${prop.ref} is a theorem, so it constructs nothing`)
+    }
+  }
+})
+
+test('turning from one proposition to the next does not read the old figure', () => {
+  // The given lines are only drawn when they are not there already, and the
+  // scene that answers "already?" has to be the new document's. Reading the old
+  // one would skip a given whose two points happened to be joined before.
+  const app = createSketch()
+  app.walkProposition('euclid.I.9')
+  const angle = app.scene.steps.filter((s) => s.setup && s.step.op === 'segment').length
+  assert.equal(angle, 2, 'I.9 is given both arms of its angle')
+
+  app.walkProposition('euclid.I.11')
+  const line = app.scene.steps.filter((s) => s.setup && s.step.op === 'segment')
+  assert.equal(line.length, 1, 'and I.11 is still given its line afterwards')
+  assert.ok(app.scene.steps.every((s) => s.ok))
+})
+
+test('a given line the body works on is the very one that was drawn', () => {
+  const app = createSketch()
+  app.walkProposition('euclid.I.10')
+  const given = app.doc.steps.find((s) => s.op === 'segment' && s.given)
+  assert.ok(given, 'AB is drawn as the given')
+  // The midpoint is where the bisector cuts that segment, not a second copy.
+  const midpoint = app.doc.steps.at(-1)
+  assert.equal(midpoint.op, 'inter')
+  assert.ok([midpoint.c1, midpoint.c2].includes(given.id), 'and it is what gets cut')
+  assert.equal(app.doc.steps.filter((s) => s.op === 'segment').length, 1, 'drawn once')
 })

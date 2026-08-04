@@ -160,12 +160,23 @@ different tag name, and the model layer is exported for anyone who wants the geo
 
 ## The given figure
 
-A proposition starts from something — two points, a line, an angle — and that is
-not part of what it proves. Steps marked `setup` are set aside in the step list
+Every proposition sets one out. A proposition starts from something — two
+points, a line, an angle — and that is not part of what it proves. Steps marked `setup` are set aside in the step list
 as "the given figure", the construction proper is numbered from 1, and the
 slider cannot rub the givens out. Reading a proposition through marks its givens
 automatically; a figure drawn by hand can be declared the givens after the fact
 from the ⋯ menu, using the ordinary tools, colours and dashes to lay it out.
+
+A given may carry an id, and then the body works on that very object rather than
+drawing a second one over it: "let AB be the given straight line" and "let a
+point be taken at random on AB" mean the same AB. A given the caller has not
+supplied is drawn by the tool as working — which is what keeps tools composable,
+since I.12 calling I.10 has no such line to hand and should not be asked for
+one.
+
+A theorem is given the whole of the figure its statement supposes, and
+constructs nothing: what is numbered from one is the argument the reader is
+about to make.
 
 ## Reading the steps
 

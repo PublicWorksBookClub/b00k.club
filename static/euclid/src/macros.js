@@ -158,8 +158,8 @@ export function collectToolDeps(tool, registry, seen = new Set()) {
 }
 
 /** Build the document step that applies `tool` to the given objects. */
-export function makeToolStep(doc, tool, argIds, gesture) {
-  return {
+export function makeToolStep(doc, tool, argIds, gesture, givens = null) {
+  const step = {
     op: 'macro',
     id: D.newId(doc, 'm'),
     tool: tool.id,
@@ -167,6 +167,23 @@ export function makeToolStep(doc, tool, argIds, gesture) {
     out: (tool.outputs || []).map(() => D.newId(doc, 'o')),
     g: gesture,
   }
+  // Which object is standing in for each line the proposition is handed, so
+  // that "let a point be taken at random on AB" means the AB that was given
+  // rather than a second one drawn on top of it.
+  if (givens && Object.keys(givens).length) step.givens = { ...givens }
+  return step
+}
+
+/**
+ * What a tool is given, as a list of {from, to, id, …}.
+ *
+ * The older, shorter form — a pair of input ids and an optional style — is
+ * still read, since most propositions have nothing to say about their givens
+ * beyond which two points they run between.
+ */
+export function givensOf(tool) {
+  return (tool.given || []).map((g) =>
+    (Array.isArray(g) ? { from: g[0], to: g[1], ...(g[2] || {}) } : { ...g }))
 }
 
 /**
@@ -181,9 +198,10 @@ export function makeToolStep(doc, tool, argIds, gesture) {
  * applied tool can be unfolded in place and everything drawn from its results
  * carries on pointing at the same objects.
  */
-export function inlineTool(doc, tool, argIds, gesture, outIds = null) {
+export function inlineTool(doc, tool, argIds, gesture, outIds = null, givens = null) {
   const map = new Map()
   ;(tool.inputs || []).forEach((inp, i) => map.set(inp.id, argIds[i]))
+  for (const [local, id] of Object.entries(givens || {})) map.set(local, id)
   if (outIds) (tool.outputs || []).forEach((local, i) => outIds[i] && map.set(local, outIds[i]))
   const ref = (r) => map.get(r) || r
   const claim = (local, prefix) => {

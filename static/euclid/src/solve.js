@@ -14,6 +14,7 @@
 import * as G from './geometry.js'
 import * as D from './doc.js'
 import * as MAG from './magnitudes.js'
+import * as M from './macros.js'
 
 const MAX_TOOL_DEPTH = 24
 
@@ -135,6 +136,9 @@ export function solve(doc, opts = {}) {
     const bind = new Map()
     const inputs = tool.inputs || []
     for (let i = 0; i < inputs.length; i++) bind.set(inputs[i].id, call.argIds[i])
+    // A line the proposition is handed is drawn once, outside the tool, and the
+    // body refers to that one rather than drawing a second on top of it.
+    for (const [local, id] of Object.entries(call.givens || {})) bind.set(local, id)
     const alias = new Map()
     const outputs = tool.outputs || []
     for (let i = 0; i < outputs.length; i++) if (call.outIds[i]) alias.set(outputs[i], call.outIds[i])
@@ -149,6 +153,27 @@ export function solve(doc, opts = {}) {
     const visibleCurves = []
     const path = call.path || ''
     const keyFor = (key) => (path ? `${path}.${key}` : key)
+
+    // A line the proposition is handed that the caller has not supplied is
+    // drawn here instead, as working. That is what keeps tools composable: a
+    // reader applying I.9 is shown the angle it is given, while I.12 calling
+    // I.10 has no such line to hand and does not need to be asked for one.
+    for (const want of M.givensOf(tool)) {
+      if (!want.id || bind.has(want.id)) continue
+      const id = idFor(want.id)
+      const made = build(id, { op: 'segment', a: ref(want.from), b: ref(want.to), color: want.color, dash: want.dash }, {
+        stepIndex,
+        hidden: true,
+        ghost: true,
+        beyond: call.beyond,
+        fromTool: call.toolId,
+      })
+      if (!made) {
+        ok = false
+        error = error || 'Part of this construction could not be carried out here.'
+      }
+      bind.set(want.id, id)
+    }
 
     for (const body of tool.body || []) {
       if (body.op === 'macro') {
@@ -248,6 +273,7 @@ export function solve(doc, opts = {}) {
         {
           toolId: step.tool,
           argIds: step.args || [],
+          givens: step.givens || null,
           outIds,
           prefix: step.id + '/',
           visible: new Set(outIds),

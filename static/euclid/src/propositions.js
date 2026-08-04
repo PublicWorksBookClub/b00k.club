@@ -46,7 +46,6 @@ export const PROPOSITIONS = [
         { x: -110, y: 60 },
         { x: 60, y: 60 },
       ],
-      join: [['i0', 'i1']],
     },
   },
 
@@ -82,7 +81,6 @@ export const PROPOSITIONS = [
         { x: -60, y: 60 },
         { x: -200, y: 33 },
       ],
-      join: [['i1', 'i2']],
     },
   },
 
@@ -129,7 +127,6 @@ export const PROPOSITIONS = [
         { x: -80, y: -80 },
         { x: 30, y: -80 },
       ],
-      join: [['i2', 'i3']],
     },
   },
 
@@ -146,8 +143,10 @@ export const PROPOSITIONS = [
       { id: 'i2', kind: 'point', label: 'C' },
     ],
     body: [
-      { op: 'segment', id: 'l0', a: 'i0', b: 'i1' },
-      { op: 'onCurve', id: 'l1', curve: 'l0', t: 0.55 },
+      { op: 'onCurve', id: 'l1', curve: 'g0', t: 0.55 },
+      // The cut may fall beyond the arm as it was drawn — Euclid takes D at
+      // random on AB and cuts AE equal to it from AC without saying that AC
+      // must be long enough. Postulate 2 produces the arm as far as is wanted.
       { op: 'ray', id: 'l2', a: 'i0', b: 'i2' },
       { op: 'circle', id: 'l3', o: 'i0', r: 'l1' },
       { op: 'inter', id: 'l4', c1: 'l2', c2: 'l3', branch: 1 },
@@ -159,6 +158,12 @@ export const PROPOSITIONS = [
     ],
     outputs: ['l9'],
     names: { l9: 'the bisector of the angle at {0}' },
+    // The angle is what is given, and an angle is its two arms. The body works
+    // on those very lines rather than drawing a second pair over them.
+    given: [
+      { from: 'i0', to: 'i1', id: 'g0', color: 'black' },
+      { from: 'i0', to: 'i2', id: 'g1', color: 'black' },
+    ],
     uses: [],
     demo: {
       points: [
@@ -186,10 +191,11 @@ export const PROPOSITIONS = [
       { op: 'inter', id: 'l2', c1: 'l0', c2: 'l1', branch: 0 },
       { op: 'inter', id: 'l3', c1: 'l0', c2: 'l1', branch: 1 },
       { op: 'line', id: 'l4', a: 'l2', b: 'l3', color: 'blue' },
-      { op: 'segment', id: 'l5', a: 'i0', b: 'i1' },
-      { op: 'inter', id: 'l6', c1: 'l5', c2: 'l4', branch: 0 },
+      { op: 'inter', id: 'l6', c1: 'g0', c2: 'l4', branch: 0 },
     ],
     outputs: ['l6'],
+    names: { l6: 'the middle of {0}{1}' },
+    given: [{ from: 'i0', to: 'i1', id: 'g0', color: 'black' }],
     uses: [],
     demo: {
       points: [
@@ -228,7 +234,6 @@ export const PROPOSITIONS = [
         { x: 0, y: -40 },
         { x: 150, y: -40 },
       ],
-      join: [['i0', 'i1']],
     },
   },
 
@@ -262,7 +267,6 @@ export const PROPOSITIONS = [
         { x: -140, y: -60 },
         { x: 150, y: -60 },
       ],
-      join: [['i1', 'i2']],
     },
   },
 
@@ -292,7 +296,6 @@ export const PROPOSITIONS = [
         { x: -150, y: -60 },
         { x: 150, y: -60 },
       ],
-      join: [['i1', 'i2']],
     },
   },
   {
@@ -329,7 +332,6 @@ export const PROPOSITIONS = [
         { x: -80, y: -70 },
         { x: 80, y: -70 },
       ],
-      join: [['i0', 'i1']],
     },
   },
   /*
@@ -407,7 +409,6 @@ export const PROPOSITIONS = [
         { x: -60, y: -30 },
         { x: 60, y: -30 },
       ],
-      join: [['i0', 'i1']],
     },
   },
 ]

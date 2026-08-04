@@ -117,14 +117,42 @@ export function createSketch(options = {}) {
     return restored
   }
 
-  /** Is there already a straight line drawn between these two points? */
+  /** The straight line already drawn between two points, if there is one. */
   const joinedAlready = (a, b) => {
     for (const o of getScene().objects.values()) {
       if (o.type !== 'curve' || o.hidden || !o.def) continue
       if (o.def.op !== 'segment') continue
-      if ((o.def.a === a && o.def.b === b) || (o.def.a === b && o.def.b === a)) return true
+      if ((o.def.a === a && o.def.b === b) || (o.def.a === b && o.def.b === a)) return o
     }
-    return false
+    return null
+  }
+
+  /**
+   * Draw the lines a proposition is handed, and say which object each one is.
+   *
+   * "Let AB be the given straight line" and "let a point be taken at random on
+   * AB" must mean the same AB, so the body is told which object stands for its
+   * given rather than drawing a second one on top. A line already on the paper
+   * is the given; only a missing one is drawn.
+   */
+  const drawGivens = (tool, bind, gesture, { setup = false } = {}) => {
+    const givens = {}
+    for (const want of M.givensOf(tool)) {
+      const a = bind(want.from)
+      const b = bind(want.to)
+      if (!a || !b) continue
+      const already = joinedAlready(a, b)
+      if (already) {
+        if (want.id) givens[want.id] = already.id
+        continue
+      }
+      const id = D.newId(doc, 'c')
+      const { from, to, id: _local, ...style } = want
+      D.addStep(doc, { op: 'segment', id, a, b, g: gesture, given: true, setup: setup || undefined, ...style })
+      if (want.id) givens[want.id] = id
+      scene = null
+    }
+    return givens
   }
 
   /**
@@ -811,13 +839,8 @@ export function createSketch(options = {}) {
       // points there is no such line, so it is drawn, and the triangle has a
       // base rather than hanging in the air.
       const inputIndex = new Map((tool.inputs || []).map((inp, i) => [inp.id, i]))
-      for (const [from, to, style] of tool.given || []) {
-        const a = argIds[inputIndex.get(from)]
-        const b = argIds[inputIndex.get(to)]
-        if (!a || !b || joinedAlready(a, b)) continue
-        D.addStep(doc, { op: 'segment', id: D.newId(doc, 'c'), a, b, g: gesture, given: true, ...style })
-      }
-      const step = M.makeToolStep(doc, tool, argIds, gesture)
+      const givens = drawGivens(tool, (local) => argIds[inputIndex.get(local)], gesture)
+      const step = M.makeToolStep(doc, tool, argIds, gesture, givens)
       D.addStep(doc, step)
       state.pickGesture = null
       state.picked = []
@@ -1088,6 +1111,7 @@ export function createSketch(options = {}) {
       snapshot()
       // What you have proved stays proved; only the paper is cleared.
       doc = D.createDoc({ tools: doc.tools, facts: doc.facts })
+      scene = null
       state.selection.clear()
       state.pending = null
       state.upTo = Infinity
@@ -1158,6 +1182,10 @@ export function createSketch(options = {}) {
       const have = new Set(kept.map((t) => t.id))
       for (const dep of M.collectToolDeps(prop, registry())) if (!have.has(dep.id)) kept.push(dep)
       doc = D.createDoc({ tools: kept, facts: doc.facts })
+      // The old scene describes a figure that no longer exists, and ids are
+      // handed out afresh — so anything asked of it now would be answered about
+      // the wrong document.
+      scene = null
       const gesture = nextGesture()
       const givens = (prop.demo?.points || []).map((p) => {
         const id = D.newId(doc, 'p')
@@ -1168,16 +1196,14 @@ export function createSketch(options = {}) {
       // straight line equal to a given straight line (BC)" needs BC on the page
       // before the construction starts, or there is nothing to copy.
       const bind = new Map((prop.inputs || []).map((inp, i) => [inp.id, givens[i]]))
-      for (const [from, to, style] of prop.given || []) {
-        D.addStep(doc, {
-          op: 'segment', id: D.newId(doc, 'c'), a: bind.get(from), b: bind.get(to),
-          g: gesture, given: true, ...style,
-        })
-      }
+      const handed = drawGivens(prop, (local) => bind.get(local), gesture)
       // Everything so far is what the proposition is given; its construction is
       // numbered from one.
       for (const step of doc.steps) step.setup = true
-      M.inlineTool(doc, prop, givens, gesture)
+      const written = M.inlineTool(doc, prop, givens, gesture, null, handed)
+      // A theorem builds nothing: the whole figure is the supposition, and what
+      // is numbered from one is the argument the reader is about to make.
+      if (prop.theorem) for (const step of written) step.setup = true
       state.upTo = Infinity
       state.mode = 'select'
       // A theorem's figure is only the supposition; what it asserts is still
