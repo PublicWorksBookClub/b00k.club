@@ -152,6 +152,15 @@ the directory works as a package as it stands:
 Importing the entry registers `<euclid-sketch>`; `defineEuclidSketch(tag)` is exported for anyone who wants a
 different tag name, and the model layer is exported for anyone who wants the geometry without the interface.
 
+## The given figure
+
+A proposition starts from something — two points, a line, an angle — and that is
+not part of what it proves. Steps marked `setup` are set aside in the step list
+as "the given figure", the construction proper is numbered from 1, and the
+slider cannot rub the givens out. Reading a proposition through marks its givens
+automatically; a figure drawn by hand can be declared the givens after the fact
+from the ⋯ menu, using the ordinary tools, colours and dashes to lay it out.
+
 ## Moving about the paper
 
 The right button navigates, which leaves the left button entirely to geometry.

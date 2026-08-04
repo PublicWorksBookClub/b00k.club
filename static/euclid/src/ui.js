@@ -31,6 +31,8 @@ const ICONS = {
   more: '<circle cx="5.5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="18.5" cy="12" r="1.5" fill="currentColor" stroke="none"/>',
   open: '<path d="M14 4h6v6"/><path d="M20 4l-8.5 8.5"/><path d="M18 14v5a1.5 1.5 0 01-1.5 1.5H5A1.5 1.5 0 013.5 19V7.5A1.5 1.5 0 015 6h5"/>',
   sidebar: '<rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><path d="M9.5 4.5v15"/>',
+  panel: '<rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><path d="M14.5 4.5v15"/>',
+  trash: '<path d="M4.5 6.5h15"/><path d="M9 6.5V4.5h6v2"/><path d="M6.5 6.5l1 13.5h9l1-13.5"/><path d="M10 10v6.5M14 10v6.5"/>',
 }
 
 function el(tag, className, props = {}) {
@@ -73,6 +75,7 @@ export function createUI(root, app, options = {}) {
     menu: false,
     sidebar: !!options.sidebarOpen,
     nav: null,
+    panel: true,
     open: { propositions: true, definitions: false, postulates: false, axioms: false, symbols: false },
     draft: { name: '', ref: '', abbr: '', summary: '' },
   }
@@ -128,6 +131,7 @@ export function createUI(root, app, options = {}) {
       app.doc.steps.length,
       app.tools.map((t) => t.id),
       s.mode,
+      s.holdSelect,
       s.activeTool,
       s.picked,
       [...s.selection],
@@ -140,6 +144,7 @@ export function createUI(root, app, options = {}) {
       ui.menu,
       ui.nav ? [ui.nav.x, ui.nav.y] : null,
       ui.sidebar,
+      ui.panel,
       // How the selection is drawn, so the palette shows the colour it now has.
       [...s.selection].map((id) => {
         const o = app.scene.get(id)
@@ -164,7 +169,9 @@ export function createUI(root, app, options = {}) {
       renderSidebar()
     }
     renderHint()
-    stage.dataset.mode = app.state.mode
+    // The cursor follows the mode the pointer is actually in, so holding
+    // option shows the arrow.
+    stage.dataset.mode = app.workingMode
   }
 
   function renderHint() {
@@ -249,6 +256,15 @@ export function createUI(root, app, options = {}) {
       swatches.append(dash)
       children.push(swatches)
     }
+    if (s.selection.size) {
+      children.push(
+        button({
+          icon: 'trash',
+          title: 'Remove what is selected, and whatever stands on it (Delete)',
+          onClick: () => app.deleteSelection(),
+        }),
+      )
+    }
 
     children.push(el('span', 'spacer'))
     children.push(button({ icon: 'undo', title: 'Undo', disabled: !app.canUndo, onClick: () => app.undo() }))
@@ -261,6 +277,17 @@ export function createUI(root, app, options = {}) {
         pressed: ui.tab === 'tools',
         onClick: () => {
           ui.tab = ui.tab === 'tools' ? 'steps' : 'tools'
+          render(true)
+        },
+      }),
+    )
+    children.push(
+      button({
+        icon: 'panel',
+        title: ui.panel ? 'Hide the construction' : 'Show the construction',
+        pressed: ui.panel,
+        onClick: () => {
+          ui.panel = !ui.panel
           render(true)
         },
       }),
@@ -330,13 +357,19 @@ export function createUI(root, app, options = {}) {
     sidebar.hidden = false
 
     const head = el('div', 'side-head')
+    const collapse = el('button', 'side-collapse', { type: 'button', title: 'Hide the book' })
+    collapse.append(icon('sidebar'))
+    collapse.addEventListener('click', () => {
+      ui.sidebar = false
+      render(true)
+    })
     const books = el('select', 'books')
     books.append(el('option', null, { textContent: 'Book I', value: 'I' }))
     for (const n of ['II', 'III', 'IV', 'V', 'VI']) {
       books.append(el('option', null, { textContent: `Book ${n} — not yet`, value: n, disabled: true }))
     }
     books.setAttribute('aria-label', 'Which book')
-    head.append(books)
+    head.append(books, collapse)
 
     const list = el('div', 'side-list')
     for (const section of SECTIONS) {
@@ -409,6 +442,11 @@ export function createUI(root, app, options = {}) {
   /* ---------------------------------------------------------------- panel */
 
   function renderPanel() {
+    panel.hidden = !ui.panel
+    if (!ui.panel) {
+      panel.replaceChildren()
+      return
+    }
     if (app.state.definition) {
       panel.replaceChildren(renderDefinition())
       return
@@ -439,6 +477,28 @@ export function createUI(root, app, options = {}) {
         textContent: 'Nothing has been constructed yet. Set down a point, or join two of them.',
       })
     }
+    const wrap = el('div')
+    const givens = steps.filter((s) => s.setup)
+    if (givens.length) {
+      // The given figure is what the proposition starts from, so it is set
+      // aside rather than numbered among the moves that follow.
+      const box = el('details', 'given-figure')
+      box.open = ui.open.given === true
+      box.addEventListener('toggle', () => {
+        ui.open.given = box.open
+      })
+      const summary = el('summary')
+      summary.append(el('span', 'name', { textContent: 'The given figure' }))
+      summary.append(el('span', 'count', { textContent: String(givens.length) }))
+      box.append(summary)
+      box.append(stepList(givens))
+      wrap.append(box)
+    }
+    wrap.append(stepList(steps.filter((s) => !s.setup)))
+    return wrap
+  }
+
+  function stepList(steps) {
     const list = el('ol', 'steps')
     steps.forEach((info) => {
       const item = el('li')
@@ -446,7 +506,7 @@ export function createUI(root, app, options = {}) {
       item.classList.toggle('trouble', !info.ok)
       const isCurrent = app.state.upTo !== Infinity && info.index === app.state.upTo - 1
       if (isCurrent) item.setAttribute('aria-current', 'true')
-      item.append(el('span', 'n', { textContent: String(info.index + 1) }))
+      item.append(el('span', 'n', { textContent: info.setup ? '·' : String(info.number) }))
       const what = el('span', 'what')
       what.append(document.createTextNode(info.text))
       if (!info.ok && info.error) {
@@ -690,11 +750,14 @@ export function createUI(root, app, options = {}) {
       scrubber = buildScrubber()
       foot.replaceChildren(scrubber.row)
     }
+    // The givens are always drawn; the slider steps through the construction.
+    const floor = app.scene.setupCount
     const at = app.state.upTo === Infinity ? total : app.state.upTo
+    scrubber.range.min = String(floor)
     scrubber.range.max = String(total)
     if (scrubber.range.value !== String(at)) scrubber.range.value = String(at)
-    scrubber.count.textContent = `${at} / ${total}`
-    scrubber.back.disabled = at <= 0
+    scrubber.count.textContent = `${at - floor} / ${total - floor}`
+    scrubber.back.disabled = at <= floor
     scrubber.forward.disabled = at >= total
   }
 
@@ -783,6 +846,9 @@ export function createUI(root, app, options = {}) {
         app.changed()
       }),
       item('Open in the full sketchpad ↗', () => window.open(shareUrl(), '_blank', 'noopener')),
+      app.scene.setupCount
+        ? item('Let the whole figure be construction', () => app.clearSetup())
+        : item('Treat what is drawn as the given figure', () => app.markSetup()),
       item('Start a fresh figure', () => app.clear()),
     )
     floating.replaceChildren(menu)

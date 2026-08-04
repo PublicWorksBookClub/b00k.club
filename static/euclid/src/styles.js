@@ -147,6 +147,7 @@ canvas {
   min-height: 0;
 }
 :host([panel='none']) .panel { display: none; }
+.panel[hidden] { display: none; }
 
 /* A read-only figure keeps the scrubber — it is there to be read through, not drawn on. */
 :host([readonly]) .bar { display: none; }
@@ -166,7 +167,26 @@ canvas {
 }
 .sidebar[hidden] { display: none; }
 
-.side-head { padding: 7px 10px; border-bottom: 1px solid var(--eu-rule); }
+.side-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--eu-rule);
+}
+.side-head select.books { flex: 1 1 auto; }
+.side-collapse {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  color: var(--eu-muted);
+  border-color: transparent;
+}
+.side-collapse svg { width: 16px; height: 16px; }
+.side-collapse:hover { color: var(--eu-ink); }
 .side-head select.books {
   width: 100%;
   font: inherit;
@@ -346,6 +366,28 @@ ol.steps .acts button {
   color: var(--eu-muted);
   border-color: var(--eu-rule);
 }
+.given-figure { border-bottom: 1px solid var(--eu-rule); }
+.given-figure > summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--eu-muted);
+  user-select: none;
+}
+.given-figure > summary::-webkit-details-marker { display: none; }
+.given-figure > summary::before { content: '›'; font-size: 13px; transition: transform 0.12s ease; }
+.given-figure[open] > summary::before { transform: rotate(90deg); }
+.given-figure > summary:hover { background: #e8dfcd; }
+.given-figure > summary .name { flex: 1 1 auto; }
+.given-figure > summary .count { font-variant-numeric: tabular-nums; opacity: 0.7; }
+.given-figure ol.steps li .n { color: var(--eu-muted); opacity: 0.6; }
+
 .empty {
   padding: 14px 12px;
   color: var(--eu-muted);

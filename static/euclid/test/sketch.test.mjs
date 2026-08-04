@@ -344,3 +344,38 @@ test('deleting a step takes down what stood on it', () => {
   )
   assert.ok(app.scene.steps.every((s) => s.ok))
 })
+
+test('the given figure is set aside, and the construction numbers from one', () => {
+  const app = createSketch()
+  app.walkProposition('euclid.I.2')
+  const scene = app.scene
+  assert.equal(scene.setupCount, 4, 'three points and the given line BC')
+  assert.ok(scene.steps.slice(0, 4).every((s) => s.setup && s.number === null))
+  assert.deepEqual(
+    scene.steps.filter((s) => !s.setup).map((s) => s.number),
+    [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  )
+  assert.match(scene.steps[4].text, /Let AB be joined/)
+
+  // Scrubbing cannot rub out what the proposition was given.
+  app.setUpTo(0)
+  assert.equal(app.state.upTo, 4)
+  assert.ok(app.scene.steps.slice(0, 4).every((s) => !s.beyond))
+
+  // A figure drawn by hand can be declared the givens after the fact.
+  const own = createSketch()
+  own.startingPoints([
+    { x: 0, y: 0 },
+    { x: 100, y: 0 },
+  ])
+  own.setMode('segment')
+  own.click({ x: 0, y: 0 }, at(own, { x: 0, y: 0 }))
+  own.click({ x: 100, y: 0 }, at(own, { x: 100, y: 0 }))
+  assert.equal(own.scene.setupCount, 0)
+  own.markSetup()
+  assert.equal(own.scene.setupCount, 3)
+  assert.equal(own.scene.moves, 0)
+  own.clearSetup()
+  assert.equal(own.scene.setupCount, 0)
+  assert.equal(own.scene.moves, 3)
+})

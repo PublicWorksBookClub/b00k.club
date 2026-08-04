@@ -126,11 +126,12 @@ export function attachInteractions(canvas, app, size, hooks = {}) {
     // only becomes clear once the pointer moves, so the drag waits until then.
     // Starting it eagerly would swallow the click and bank an undo entry for a
     // drag that never happened.
-    if (app.state.mode === 'select' && hit && hit.point) {
+    const mode = app.workingMode
+    if (mode === 'select' && hit && hit.point) {
       pendingDrag = hit.point.id
       return
     }
-    if (app.state.mode === 'select') {
+    if (mode === 'select') {
       pan = { last: here }
       return
     }
@@ -138,7 +139,7 @@ export function attachInteractions(canvas, app, size, hooks = {}) {
     // In a drawing mode the first click lands on the press, not the release, so
     // the rubber band follows the pointer whether it is dragged or let go. A
     // press-drag-release then looks exactly like two separate clicks.
-    if (DRAW_MODES.has(app.state.mode) && !app.state.activeTool && !app.state.choice) {
+    if (DRAW_MODES.has(mode) && !app.state.activeTool && !app.state.choice) {
       drawing = true
       app.click(world, hit)
     }
@@ -192,9 +193,10 @@ export function attachInteractions(canvas, app, size, hooks = {}) {
       return
     }
 
+    app.setHoldSelect(event.altKey)
     const hit = hitTest(app.scene, world, app.camera)
     app.setHover(hit ? (hit.point || hit.curve).id : null)
-    const willDraw = app.state.mode !== 'select' && app.state.mode !== 'define' && !app.state.activeTool
+    const willDraw = app.workingMode !== 'select' && app.workingMode !== 'define' && !app.state.activeTool
     app.setCursor(world, willDraw ? snapAt(app.scene, world, app.camera) : null)
   }
 
@@ -259,7 +261,16 @@ export function attachInteractions(canvas, app, size, hooks = {}) {
     event.preventDefault()
   }
 
+  function onKeyUp(event) {
+    if (!event.altKey) app.setHoldSelect(false)
+  }
+
+  function onBlur() {
+    app.setHoldSelect(false)
+  }
+
   function onKeyDown(event) {
+    if (event.altKey) app.setHoldSelect(true)
     const meta = event.metaKey || event.ctrlKey
     if (meta && event.key.toLowerCase() === 'z') {
       event.preventDefault()
@@ -290,6 +301,8 @@ export function attachInteractions(canvas, app, size, hooks = {}) {
 
   return {
     onKeyDown,
+    onKeyUp,
+    onBlur,
     destroy() {
       canvas.removeEventListener('pointerdown', onPointerDown)
       canvas.removeEventListener('pointermove', onPointerMove)

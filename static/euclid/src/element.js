@@ -93,6 +93,8 @@ export class EuclidSketchElement extends HTMLElement {
     })
     this._interactions = interactions
     this.addEventListener('keydown', interactions.onKeyDown)
+    this.addEventListener('keyup', interactions.onKeyUp)
+    this.addEventListener('blur', interactions.onBlur)
 
     let frame = null
     const schedule = () => {

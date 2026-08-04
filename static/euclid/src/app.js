@@ -43,6 +43,7 @@ export function createSketch(options = {}) {
     pickGesture: null,
     definition: null,
     choice: null,
+    holdSelect: false,
     upTo: Infinity,
     notice: null,
     noticeKind: 'problem',
@@ -197,6 +198,20 @@ export function createSketch(options = {}) {
       scene = null
     },
 
+    /**
+     * Holding option borrows the pointer without giving up the tool in hand.
+     * Let go and you are back to drawing where you left off.
+     */
+    setHoldSelect(on) {
+      if (state.holdSelect === !!on) return
+      state.holdSelect = !!on
+      invalidate()
+    },
+    /** The mode the pointer is actually in, which option can borrow. */
+    get workingMode() {
+      return state.holdSelect ? 'select' : state.mode
+    },
+
     setHover(id) {
       if (state.hover === id) return
       state.hover = id
@@ -221,6 +236,7 @@ export function createSketch(options = {}) {
     click(world, hit) {
       if (state.readonly) return
       if (state.choice) return api.pickChoice(world, 18 / state.camera.k)
+      if (state.holdSelect) return api.select(hit ? (hit.point || hit.curve).id : null)
       if (state.mode === 'define') return api.definitionPick(hit)
       if (state.mode === 'select') return api.select(hit ? (hit.point || hit.curve).id : null)
       if (state.activeTool) return api.pickForTool(world, hit)
@@ -595,8 +611,34 @@ export function createSketch(options = {}) {
       invalidate()
     },
 
+    /**
+     * Declare everything drawn so far to be the given figure.
+     *
+     * A proposition starts from something — two points, a line, an angle — and
+     * that is not part of what it proves. Marking the setup lets the reader lay
+     * it out with the ordinary tools, colours and dashes and then say "this is
+     * what we are given", after which the construction is numbered from 1.
+     */
+    markSetup(upToIndex = doc.steps.length) {
+      snapshot()
+      doc.steps.forEach((step, i) => {
+        if (i < upToIndex) step.setup = true
+        else delete step.setup
+      })
+      say(`The first ${upToIndex} step${upToIndex === 1 ? '' : 's'} are now the given figure.`, 'info')
+      invalidate()
+    },
+
+    clearSetup() {
+      snapshot()
+      for (const step of doc.steps) delete step.setup
+      say(null)
+      invalidate()
+    },
+
     setUpTo(n) {
-      state.upTo = n >= doc.steps.length ? Infinity : Math.max(0, n)
+      const floor = getScene().setupCount
+      state.upTo = n >= doc.steps.length ? Infinity : Math.max(floor, n)
       invalidate()
     },
 
@@ -644,6 +686,9 @@ export function createSketch(options = {}) {
       for (const [from, to] of prop.demo?.join || []) {
         D.addStep(doc, { op: 'segment', id: D.newId(doc, 'c'), a: bind.get(from), b: bind.get(to), g: gesture, given: true })
       }
+      // Everything so far is what the proposition is given; its construction is
+      // numbered from one.
+      for (const step of doc.steps) step.setup = true
       M.inlineTool(doc, prop, givens, gesture)
       state.upTo = Infinity
       state.mode = 'select'
@@ -663,6 +708,7 @@ export function createSketch(options = {}) {
     /* -------------------------------------------------- prose */
 
     hint() {
+      if (state.holdSelect) return 'Holding option: drag a point, or click to select. Let go to go back to the tool.'
       if (state.choice) return state.notice || 'Two ways are open. Click the point you want.'
       if (state.notice) return state.notice
       const def = state.definition

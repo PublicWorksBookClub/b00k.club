@@ -205,10 +205,15 @@ export function solve(doc, opts = {}) {
 
   // Scrubbing back through a proof hides the later steps rather than skipping
   // them, so the step list stays whole and every step keeps its prose.
+  let moveNumber = 0
   for (let i = 0; i < doc.steps.length; i++) {
     const step = doc.steps[i]
     const beyond = i >= upTo
-    const info = { index: i, step, ok: true, error: null, produced: [], beyond }
+    // Setting out the given figure is not part of the construction, so those
+    // steps are not numbered and the construction proper begins at 1.
+    const setup = !!step.setup
+    if (!setup) moveNumber += 1
+    const info = { index: i, step, setup, number: setup ? null : moveNumber, ok: true, error: null, produced: [], beyond }
     if (step.op === 'macro') {
       const outIds = step.out || []
       const res = runMacro(
@@ -252,6 +257,9 @@ export function solve(doc, opts = {}) {
     objects,
     order,
     steps: stepInfos,
+    /** How many steps set out the givens before the construction begins. */
+    setupCount: stepInfos.filter((s) => s.setup).length,
+    moves: moveNumber,
     tools,
     get,
     getPoint,

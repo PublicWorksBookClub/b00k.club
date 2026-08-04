@@ -29,6 +29,8 @@ export const THEME = {
   ghost: '#d6cabb',
   faint: '#bdb1a3',
   accent: '#b8622a',
+  accentSoft: 'rgba(184, 98, 42, 0.34)',
+  accentFaint: 'rgba(184, 98, 42, 0.16)',
   labelFont: 'italic 15px "Junicode", "New CM10", "Source Serif", Georgia, "Times New Roman", serif',
   badgeFont: '600 10px ui-sans-serif, system-ui, sans-serif',
 }
@@ -78,9 +80,11 @@ function curveStyle(o, view) {
     width: solidLine ? 1.7 : 1.4,
     dash: o.dash ? [6, 5] : null,
   }
-  if (state === 'selected') return { ...base, color: THEME.accent, width: base.width + 1.1 }
-  if (state === 'picked') return { ...base, color: THEME.accent, width: base.width + 1.1 }
-  if (state === 'hover') return { ...base, color: THEME.accent, width: base.width + 0.9 }
+  // Selection is shown with a halo behind the line rather than by recolouring
+  // it. Painting a selected line accent-coloured hid the very thing you had
+  // selected it to change.
+  if (state === 'selected' || state === 'picked') return { ...base, halo: THEME.accentSoft, haloWidth: base.width + 7 }
+  if (state === 'hover') return { ...base, halo: THEME.accentFaint, haloWidth: base.width + 6 }
   return base
 }
 
@@ -89,9 +93,14 @@ const ghostStyle = () => ({ color: THEME.ghost, width: 1, dash: [3, 4] })
 function strokeCurve(ctx, o, S, clip, style) {
   ctx.save()
   ctx.lineCap = 'round'
-  if (style.dash) ctx.setLineDash(style.dash)
   ctx.beginPath()
   pathOfCurve(ctx, o.geom, S, clip)
+  if (style.halo) {
+    ctx.strokeStyle = style.halo
+    ctx.lineWidth = style.haloWidth
+    ctx.stroke()
+  }
+  if (style.dash) ctx.setLineDash(style.dash)
   ctx.strokeStyle = style.color
   ctx.lineWidth = style.width
   ctx.stroke()
@@ -142,7 +151,7 @@ function drawPoint(ctx, o, S, view) {
   }
   if (lettered) {
     dot(ctx, p, 4.6, THEME.paper)
-    dot(ctx, p, 3.4, state ? THEME.accent : THEME.ink)
+    dot(ctx, p, 3.4, THEME.ink)
   } else {
     dot(ctx, p, 3.4, THEME.paper)
     dot(ctx, p, 2.1, state ? THEME.accent : THEME.faint)
