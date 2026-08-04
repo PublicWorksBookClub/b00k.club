@@ -325,6 +325,8 @@ nothing in the document moves.
   proof checker.
 - No angles, no lengths, no measurement of any kind. Deliberate for Book I, but I.4 onwards will want a way to
   say two things are equal.
-- Tools are matched by position, not by role: applying I.3 with the lesser line where the greater should go
-  fails at solve time rather than being refused up front.
+- Tools are still matched by position rather than by role, but a tool may now declare what it needs of what
+  it is given — written in the same terms as a claim, so it is plain data and travels with a saved tool. I.3
+  says the line to be cut off must be the shorter, and is refused with that reason rather than failing
+  somewhere in the middle.
 - A tool's givens cannot yet be reordered after the fact, and a tool cannot be edited — only removed and rebuilt.

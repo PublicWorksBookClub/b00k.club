@@ -109,6 +109,18 @@ export const PROPOSITIONS = [
     outputs: ['l5', 'l6'],
     // The greater line AB is drawn by the construction itself; the lesser is given.
     given: [['i2', 'i3', { color: 'black' }]],
+    // Cutting a longer piece off a shorter one cannot be done, and saying so
+    // beats letting the construction fail somewhere in the middle.
+    requires: [
+      {
+        rel: 'lt',
+        of: [
+          { kind: 'length', pts: ['i2', 'i3'] },
+          { kind: 'length', pts: ['i0', 'i1'] },
+        ],
+        says: 'The line to be cut off must be the shorter of the two — click the greater first.',
+      },
+    ],
     uses: ['euclid.I.2'],
     demo: {
       points: [

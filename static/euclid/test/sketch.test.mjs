@@ -521,3 +521,42 @@ test('a proposition the sketchpad has not worked opens a clean sheet and says wh
   app.openProposition(1, { n: 1, kind: 'problem', text: 'On a given finite straight line…' })
   assert.ok(app.doc.steps.length > 0, 'I.1 is written out')
 })
+
+test('a tool says what it needs rather than failing halfway through', () => {
+  const app = createSketch()
+  // The lesser line where the greater belongs: I.3 cannot cut 200 off 40.
+  app.startingPoints([
+    { x: 0, y: 0 },
+    { x: 40, y: 0 },
+    { x: 0, y: 100 },
+    { x: 200, y: 100 },
+  ])
+  const ids = app.doc.steps.map((s) => s.id)
+  const before = app.doc.steps.length
+  app.applyTool(app.registry().get('euclid.I.3'), ids)
+  assert.equal(app.doc.steps.length, before, 'nothing was added')
+  assert.match(app.state.notice, /must be the shorter/)
+  assert.ok(app.scene.steps.every((s) => s.ok), 'and the figure is left standing')
+
+  // The right way round, it goes through.
+  app.applyTool(app.registry().get('euclid.I.3'), [ids[2], ids[3], ids[0], ids[1]])
+  assert.equal(app.doc.steps.at(-1).op, 'macro')
+  assert.ok(app.scene.steps.every((s) => s.ok))
+})
+
+test('the points clicked for a refused tool do not linger', () => {
+  const app = createSketch()
+  app.startingPoints([
+    { x: 0, y: 0 },
+    { x: 40, y: 0 },
+  ])
+  app.setMode('tool', 'euclid.I.3')
+  const [a, b] = app.doc.steps.map((s) => s.id)
+  app.pickForTool({ x: 0, y: 0 }, { point: app.scene.get(a) })
+  app.pickForTool({ x: 40, y: 0 }, { point: app.scene.get(b) })
+  // The last two are clicked into empty paper, and are much too far apart.
+  app.pickForTool({ x: 0, y: 200 }, null)
+  app.pickForTool({ x: 400, y: 200 }, null)
+  assert.match(app.state.notice, /must be the shorter/)
+  assert.equal(app.doc.steps.length, 2, 'the paper is as it was')
+})

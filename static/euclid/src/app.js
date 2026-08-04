@@ -720,7 +720,38 @@ export function createSketch(options = {}) {
       else invalidate()
     },
 
+    /**
+     * What a tool needs of the things it is given, if it needs anything.
+     *
+     * I.3 cuts the lesser line off the greater; handed them the other way about
+     * it cannot be done, and "part of this construction could not be carried
+     * out here" is a poor way to say so. A requirement is written in the same
+     * terms as a claim — two magnitudes and how they must stand — so it is
+     * plain data, travels with a saved tool, and is read by the same code.
+     */
+    unmetRequirement(tool, argIds) {
+      const bind = new Map((tool.inputs || []).map((inp, i) => [inp.id, argIds[i]]))
+      const scene = getScene()
+      for (const want of tool.requires || []) {
+        const asked = {
+          rel: want.rel,
+          of: want.of.map((m) => ({ ...m, pts: m.pts.map((p) => bind.get(p) || p) })),
+        }
+        if (MAG.holds(asked, scene) === false) return want
+      }
+      return null
+    },
+
     applyTool(tool, argIds) {
+      const unmet = api.unmetRequirement(tool, argIds)
+      if (unmet) {
+        // Put the paper back as it was — the points clicked into empty space go
+        // with the attempt — and say what was wrong with it.
+        api.cancelPending()
+        say(unmet.says)
+        invalidate()
+        return
+      }
       const gesture = beginPickGesture()
       truncateFuture()
       // "On a given finite straight line to describe an equilateral triangle" —
