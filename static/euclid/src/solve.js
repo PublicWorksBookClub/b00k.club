@@ -120,11 +120,11 @@ export function solve(doc, opts = {}) {
    * have not earned their letters yet: lettering waits until every step has
    * run. It is filled in when the prose is written.
    */
-  function nameTheOutput(tool, localId, objId, argIds) {
-    const template = (tool.names || {})[localId]
+  function nameTheOutput(tool, localId, objId, argIds, resolve) {
     const obj = objects.get(objId)
-    if (!template || !obj) return
-    obj.role = { template, args: argIds }
+    if (!obj) return
+    const role = M.fillRole((tool.names || {})[localId], resolve, argIds)
+    if (role) obj.role = role
   }
 
   function runMacro(call, stepIndex, depth) {
@@ -183,13 +183,15 @@ export function solve(doc, opts = {}) {
         const nestedPath = path ? `${path}.${body.id}` : body.id
         const picks = { ...call.picks }
         for (const [k, v] of Object.entries(body.picks || {})) picks[`${nestedPath}.${k}`] = v
+        // What the calling step asked for only as scaffolding stays scaffolding.
+        const working = new Set((body.working || []).map(idFor))
         const res = runMacro(
           {
             toolId: body.tool,
             argIds: (body.args || []).map(ref),
             outIds,
             prefix: call.prefix + body.id + '/',
-            visible: new Set(outIds.filter((id) => call.visible.has(id))),
+            visible: new Set(outIds.filter((id) => call.visible.has(id) && !working.has(id))),
             expanded: call.expanded,
             beyond: call.beyond,
             picks,
@@ -211,7 +213,7 @@ export function solve(doc, opts = {}) {
         // called: I.31 hands back a parallel, however it happened to draw it.
         // A name is keyed by the object, not the step, so a macro's outputs are
         // named one by one.
-        ;(body.out || []).forEach((local, i) => nameTheOutput(tool, local, outIds[i], call.argIds))
+        ;(body.out || []).forEach((local, i) => nameTheOutput(tool, local, outIds[i], call.argIds, ref))
         continue
       }
       const id = idFor(body.id)
@@ -243,7 +245,7 @@ export function solve(doc, opts = {}) {
       }
       if (call.colors && call.colors[id]) obj.color = call.colors[id]
       if (call.dashes && id in call.dashes) obj.dash = call.dashes[id]
-      nameTheOutput(tool, body.id, id, call.argIds)
+      nameTheOutput(tool, body.id, id, call.argIds, ref)
       produced.push(id)
       if (shown && obj.type === 'curve') visibleCurves.push(id)
     }
@@ -269,6 +271,10 @@ export function solve(doc, opts = {}) {
       claims.push(info)
     } else if (step.op === 'macro') {
       const outIds = step.out || []
+      // A construction may want part of what a tool hands back only as
+      // scaffolding — I.2 gives a point and the line to it, and a step that
+      // wanted the length alone should not spend a letter on the point.
+      const working = new Set(step.working || [])
       const res = runMacro(
         {
           toolId: step.tool,
@@ -276,7 +282,7 @@ export function solve(doc, opts = {}) {
           givens: step.givens || null,
           outIds,
           prefix: step.id + '/',
-          visible: new Set(outIds),
+          visible: new Set(outIds.filter((id) => !working.has(id))),
           expanded: !!step.expanded,
           beyond,
           picks: step.picks || {},
@@ -291,9 +297,15 @@ export function solve(doc, opts = {}) {
       info.error = res.error
       info.needsChoice = res.needsChoice
       info.produced = res.produced
+      // The step doing the calling has the last word on what a thing is called,
+      // so a written-out proposition's own names go on after the tool's.
+      for (const [id, role] of Object.entries(step.roles || {})) {
+        const made = objects.get(id)
+        if (made) made.role = role
+      }
       if (!beyond) generateAutos(res.visibleCurves, i)
     } else {
-      const obj = build(step.id, step, { stepIndex: i, hidden: beyond, beyond })
+      const obj = build(step.id, step, { stepIndex: i, hidden: beyond, beyond, role: step.role || undefined })
       if (!obj) {
         info.ok = false
         info.error = failureText(step)
@@ -662,16 +674,27 @@ function describeStep(objects, tools, step, index) {
       return ['Let ', name(step.id), ' be produced beyond ', name(step.b), '.']
     case 'line':
       return ['Let the straight line through ', n(step.a), ' and ', n(step.b), ' be drawn.']
-    case 'circle':
-      return ['With centre ', n(step.o), ' and distance ', n(step.o), n(step.r),
+    case 'circle': {
+      // "With centre A and distance AB let ⊙AB be described" needs the point
+      // the circumference passes through to have a letter. Where it has none —
+      // a length carried to A by I.2 and then swept round — saying it twice
+      // over would read "with distance A• let the circle about A…", so the
+      // circle's own name carries the whole of it.
+      const through = n(step.r)
+      if (through === '•') return ['Let ', name(step.id), ' be described.']
+      return ['With centre ', n(step.o), ' and distance ', n(step.o), through,
         ' let ', name(step.id), ' be described.']
+    }
     case 'macro': {
       const tool = tools.get(step.tool)
       const called = tool ? tool.ref || tool.name : step.tool
       const args = (step.args || []).map(n).join(', ')
       const figure = closedFigure(objects, step, index)
+      // What was wanted only as scaffolding is not a result to announce.
+      const working = new Set(step.working || [])
       const outs = figure ? [figure]
-        : (step.out || []).map(name).filter((o) => o.text && o.text !== '?' && o.text !== '•')
+        : (step.out || []).filter((id) => !working.has(id)).map(name)
+          .filter((o) => o.text && o.text !== '?' && o.text !== '•')
       const gives = []
       outs.forEach((out, i) => {
         gives.push(i === 0 ? ', giving ' : ' and ')

@@ -272,6 +272,63 @@ export const PROPOSITIONS = [
   },
 
   {
+    id: 'euclid.I.23',
+    ref: 'I.23',
+    name: 'Copy an angle',
+    abbr: '∠=',
+    summary: 'At a given point in a given straight line, to make an angle equal to a given rectilineal angle.',
+    note: 'Given the point A and a point B of the line through it, then a point C on one arm of the angle, its vertex D, and a point E on the other. Euclid cuts DC and DF off equal, joins CF, and builds on AB a triangle with sides equal to those three lines by I.22; the triangles are then equal in every respect by I.8, so the angles at A and D are equal. Here the same triangle is built in place — a circle about A of radius DC, and about the point that cuts off, a circle of radius CF — which saves setting out three separate lines only to copy them back.',
+    inputs: [
+      { id: 'i0', kind: 'point', label: 'A' },
+      { id: 'i1', kind: 'point', label: 'B' },
+      { id: 'i2', kind: 'point', label: 'C' },
+      { id: 'i3', kind: 'point', label: 'D' },
+      { id: 'i4', kind: 'point', label: 'E' },
+    ],
+    body: [
+      // ED and EG cut off equal, and DG joined: the triangle to be copied.
+      { op: 'ray', id: 'l0', a: 'i3', b: 'i4' },
+      { op: 'circle', id: 'l1', o: 'i3', r: 'i2', color: 'yellow' },
+      { op: 'inter', id: 'l2', c1: 'l0', c2: 'l1', branch: 1 },
+      { op: 'segment', id: 'l3', a: 'i2', b: 'l2', color: 'red' },
+      // The same triangle built on AB. AB is produced as far as is wanted:
+      // Euclid's line is "unlimited towards" its far end for this very reason.
+      { op: 'ray', id: 'l4', a: 'i0', b: 'i1' },
+      { op: 'macro', id: 'l5', tool: 'euclid.I.2', args: ['i0', 'i3', 'i2'], out: ['l6', 'l7'], working: ['l6', 'l7'] },
+      { op: 'circle', id: 'l8', o: 'i0', r: 'l6', color: 'yellow' },
+      { op: 'inter', id: 'l9', c1: 'l4', c2: 'l8', branch: 1 },
+      { op: 'macro', id: 'l10', tool: 'euclid.I.2', args: ['l9', 'i2', 'l2'], out: ['l11', 'l12'], working: ['l11', 'l12'] },
+      { op: 'circle', id: 'l13', o: 'l9', r: 'l11', color: 'red' },
+      { op: 'inter', id: 'l14', c1: 'l8', c2: 'l13', branch: 0, choose: 'side' },
+      { op: 'ray', id: 'l15', a: 'i0', b: 'l14', color: 'blue' },
+    ],
+    outputs: ['l14', 'l15'],
+    names: {
+      l1: 'the circle about {3} through {2}',
+      l8: 'the circle about {0} with radius {3}{2}',
+      l13: 'the circle about {l9} with radius {2}{l2}',
+      l15: 'the arm of the copied angle at {0}',
+      l14: 'a point on the copied arm at {0}',
+    },
+    given: [
+      { from: 'i0', to: 'i1', id: 'g0', color: 'black' },
+      { from: 'i3', to: 'i2', id: 'g1', color: 'blue' },
+      { from: 'i3', to: 'i4', id: 'g2', color: 'blue' },
+    ],
+    choices: [{ key: 'side', prompt: 'Choose which side of the line the angle is to fall.' }],
+    uses: ['euclid.I.2'],
+    demo: {
+      points: [
+        { x: -240, y: 60 },
+        { x: -160, y: 60 },
+        { x: 200, y: 90 },
+        { x: 60, y: 120 },
+        { x: 120, y: 10 },
+      ],
+    },
+  },
+
+  {
     id: 'euclid.I.31',
     ref: 'I.31',
     name: 'Parallel through a point',
@@ -343,6 +400,56 @@ export const PROPOSITIONS = [
    * difficulty of getting started. So these set out the figure and leave the
    * asserting to the reader.
    */
+
+  {
+    id: 'euclid.I.4',
+    ref: 'I.4',
+    theorem: true,
+    name: 'Two sides and the angle between',
+    abbr: '△≡',
+    summary: 'The figure I.4 supposes: two triangles with two sides and the angle between them equal.',
+    note: 'Byrne shows two triangles and asks you to see that they must be the same. But a second triangle drawn beside the first is only the same until you drag it. So DE is laid off equal to AB with a circle about D, the angle at D is copied from the angle at A by I.23, and DF is cut off equal to CA the same way. The hypothesis then holds however hard the figure is shaken, and what remains — that the bases are equal, and the triangles equal in every respect — is the reader\'s to say. E slides round its circle: dragging it turns the second triangle without disturbing anything the theorem supposes.',
+    inputs: [
+      { id: 'i0', kind: 'point', label: 'A' },
+      { id: 'i1', kind: 'point', label: 'B' },
+      { id: 'i2', kind: 'point', label: 'C' },
+      { id: 'i3', kind: 'point', label: 'D' },
+    ],
+    body: [
+      { op: 'segment', id: 'l0', a: 'i0', b: 'i1', color: 'red' },
+      { op: 'segment', id: 'l1', a: 'i1', b: 'i2', color: 'black' },
+      { op: 'segment', id: 'l2', a: 'i2', b: 'i0', color: 'blue' },
+      // DE equal to AB: the length is carried to D by I.2, and E is taken on
+      // the circle it describes, so DE goes on equalling AB however E slides.
+      { op: 'macro', id: 'l3', tool: 'euclid.I.2', args: ['i3', 'i0', 'i1'], out: ['l4', 'l5'], working: ['l4', 'l5'] },
+      { op: 'circle', id: 'l6', o: 'i3', r: 'l4', color: 'yellow' },
+      { op: 'onCurve', id: 'l7', curve: 'l6', t: -2.958 },
+      // The angle at D copied from the angle at A, and DF cut off equal to CA
+      // along the arm it makes.
+      { op: 'macro', id: 'l8', tool: 'euclid.I.23', args: ['i3', 'l7', 'i1', 'i0', 'i2'], out: ['l9', 'l10'], working: ['l9', 'l10'], picks: { side: 0 } },
+      { op: 'macro', id: 'l11', tool: 'euclid.I.2', args: ['i3', 'i2', 'i0'], out: ['l12', 'l13'], working: ['l12', 'l13'] },
+      { op: 'circle', id: 'l14', o: 'i3', r: 'l12', color: 'yellow' },
+      { op: 'inter', id: 'l15', c1: 'l10', c2: 'l14', branch: 1 },
+      { op: 'segment', id: 'l16', a: 'i3', b: 'l7', color: 'red' },
+      { op: 'segment', id: 'l17', a: 'l7', b: 'l15', color: 'black' },
+      { op: 'segment', id: 'l18', a: 'l15', b: 'i3', color: 'blue' },
+    ],
+    outputs: ['l0', 'l1', 'l2', 'l7', 'l15', 'l16', 'l17', 'l18'],
+    names: {
+      l6: 'the circle about {3} with radius {0}{1}',
+      l14: 'the circle about {3} with radius {2}{0}',
+      l10: 'the arm at {3} making an angle equal to the angle at {0}',
+    },
+    uses: ['euclid.I.2', 'euclid.I.23'],
+    demo: {
+      points: [
+        { x: -130, y: 70 },
+        { x: -210, y: -50 },
+        { x: -60, y: -10 },
+        { x: 150, y: 0 },
+      ],
+    },
+  },
 
   {
     id: 'euclid.I.5',

@@ -187,6 +187,29 @@ export function givensOf(tool) {
 }
 
 /**
+ * A tool's name for something it draws, with its references resolved.
+ *
+ * `{0}`, `{1}` … are the things the tool was applied to, in the order they were
+ * given. A template may also name a step of the construction — `{l4}` — for the
+ * cases where what a thing is depends on something the tool drew rather than on
+ * something it was handed: "the circle about A with radius {i1}{l2}". Both come
+ * out as positions into one list of object ids, because that is all the prose
+ * writer needs to know; it fills in the letters once every point has one.
+ */
+export function fillRole(template, resolve, argIds) {
+  if (!template) return null
+  const args = [...argIds]
+  const text = template.replace(/\{([^}]+)\}/g, (whole, key) => {
+    if (/^\d+$/.test(key)) return whole
+    const id = resolve(key)
+    if (!id) return whole
+    args.push(id)
+    return `{${args.length - 1}}`
+  })
+  return { template: text, args }
+}
+
+/**
  * Write a tool's construction out as ordinary steps, so it can be read and
  * scrubbed through one move at a time.
  *
@@ -209,6 +232,12 @@ export function inlineTool(doc, tool, argIds, gesture, outIds = null, givens = n
     map.set(local, id)
     return id
   }
+  // What the tool calls the things it draws — "the bisector of the angle at A".
+  // Applied as a single move these travel with the macro step; written out,
+  // they have to travel with the steps themselves or a walked proposition
+  // would talk about "a circle" where an applied one says what circle.
+  const names = tool.names || {}
+  const roleFor = (local) => fillRole(names[local], (key) => map.get(key), argIds)
   const added = []
   for (const body of tool.body || []) {
     let step
@@ -217,8 +246,21 @@ export function inlineTool(doc, tool, argIds, gesture, outIds = null, givens = n
       // Choices the tool settles for itself have to travel with it.
       step = { op: 'macro', id: D.newId(doc, 'm'), tool: body.tool, args: (body.args || []).map(ref), out, g: gesture }
       if (body.picks) step.picks = { ...body.picks }
+      // Some of what a tool hands back is wanted only as scaffolding. I.2 gives
+      // a point and the line to it; a construction that only wants the length
+      // says so, and the point stays working rather than taking a letter that
+      // belongs to a corner of the figure.
+      if (body.working) step.working = body.working.map((o) => map.get(o) || o)
+      const roles = {}
+      ;(body.out || []).forEach((local, i) => {
+        const role = roleFor(local)
+        if (role) roles[out[i]] = role
+      })
+      if (Object.keys(roles).length) step.roles = roles
     } else {
       step = { ...D.remapRefs(body, ref), id: claim(body.id, 'p'), g: gesture }
+      const role = roleFor(body.id)
+      if (role) step.role = role
     }
     D.addStep(doc, step)
     added.push(step)

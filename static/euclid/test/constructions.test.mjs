@@ -7,7 +7,17 @@ import { solve } from '../src/solve.js'
 import { extractTool, makeToolStep, inlineTool } from '../src/macros.js'
 import { PROPOSITIONS } from '../src/propositions.js'
 
+import { createSketch } from '../src/app.js'
+
 const TOOLS = PROPOSITIONS
+
+/** I.4's figure as the app sets it out, ready to be measured. */
+function freshI4() {
+  const app = createSketch()
+  app.walkProposition('euclid.I.4')
+  return app
+}
+const labelledIn = (app, label) => [...app.scene.objects.values()].find((o) => o.label === label).id
 const tool = (id) => TOOLS.find((t) => t.id === id)
 
 /* Deterministic pseudo-randomness, so a failure can actually be reproduced. */
@@ -722,4 +732,82 @@ test('the square can be made to fall on either side of the line', () => {
     return at(scene, step.out[0]).y
   })
   assert.ok(sides[0] * sides[1] < 0, 'the two choices fall on opposite sides')
+})
+
+/* ------------------------------------------------------------------ *
+ * Copying an angle, and the figure I.4 supposes
+ * ------------------------------------------------------------------ */
+
+/** The angle at `v` between `p` and `q`, however the figure has been jogged. */
+function angleAt(scene, v, p, q) {
+  const V = at(scene, v)
+  const u = G.sub(at(scene, p), V)
+  const w = G.sub(at(scene, q), V)
+  return Math.acos(G.dot(u, w) / (G.len(u) * G.len(w)))
+}
+
+test('I.23 makes an angle equal to the given one, and goes on doing so', () => {
+  const random = rng(4919)
+  let checked = 0
+  for (let round = 0; round < 60; round++) {
+    // A and B give the line the angle is to be made on; C, D, E the angle.
+    const pts = Array.from({ length: 5 }, () => ({ x: (random() - 0.5) * 400, y: (random() - 0.5) * 400 }))
+    const { doc, ids } = docWithPoints(pts)
+    const step = apply(doc, 'euclid.I.23', ids, { side: 0 })
+    const scene = run(doc)
+    if (!scene.steps.every((s) => s.ok)) continue
+    const [A, B, C, Dv, E] = ids
+    const made = angleAt(scene, A, B, step.out[0])
+    close(made, angleAt(scene, Dv, C, E), 1e-7, `round ${round}`)
+    checked++
+  }
+  assert.ok(checked > 40, `only ${checked} configurations were exercised`)
+})
+
+test('I.23 can put the angle on either side of the line', () => {
+  const pts = [
+    { x: -240, y: 60 }, { x: -160, y: 60 },
+    { x: 200, y: 90 }, { x: 60, y: 120 }, { x: 120, y: 10 },
+  ]
+  const sides = [0, 1].map((side) => {
+    const { doc, ids } = docWithPoints(pts)
+    const step = apply(doc, 'euclid.I.23', ids, { side })
+    const scene = run(doc)
+    assert.ok(scene.steps.every((s) => s.ok), `side ${side} carried out`)
+    // AB runs due east here, so the two answers must straddle it.
+    return at(scene, step.out[0]).y - 60
+  })
+  assert.ok(sides[0] * sides[1] < 0, 'the two choices fall on opposite sides')
+})
+
+test('what a tool is asked for only as working keeps its scaffolding unlettered', () => {
+  // I.4 uses I.2 twice for nothing but a length. If the points it hands back
+  // took letters, the second triangle's corners would be called G and I rather
+  // than E and F, and the figure would stop matching the enunciation.
+  const app = freshI4()
+  assert.ok(app.scene.steps.every((s) => s.ok), app.scene.steps.find((s) => !s.ok)?.error)
+  const lettered = [...app.scene.objects.values()].filter((o) => o.label).map((o) => o.label).sort()
+  assert.deepEqual(lettered, ['A', 'B', 'C', 'D', 'E', 'F'])
+})
+
+test('a written-out proposition keeps the names its tool gives things', () => {
+  // Applied as one move, I.4's circles are hidden and never named. Written out
+  // they are on the page, and "a circle" is no use to a reader — the name has
+  // to travel with the steps, not only with the macro.
+  const said = freshI4().scene.steps.map((s) => s.text).join('\n')
+  assert.match(said, /the circle about D with radius AB/)
+  assert.match(said, /the circle about D with radius CA/)
+  assert.match(said, /the arm at D making an angle equal to the angle at A/)
+})
+
+test('the figure I.4 supposes goes on supposing it however it is shaken', () => {
+  const app = freshI4()
+  const id = (l) => labelledIn(app, l)
+  const scene = app.scene
+  const len = (p, q) => G.dist(at(scene, id(p)), at(scene, id(q)))
+  close(len('A', 'B'), len('D', 'E'), 1e-6, 'AB and DE')
+  close(len('C', 'A'), len('F', 'D'), 1e-6, 'CA and FD')
+  close(angleAt(scene, id('A'), id('B'), id('C')), angleAt(scene, id('D'), id('E'), id('F')), 1e-9, 'the angles')
+  // And what I.4 asserts: the bases too.
+  close(len('B', 'C'), len('E', 'F'), 1e-6, 'BC and EF')
 })

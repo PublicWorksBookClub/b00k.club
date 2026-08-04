@@ -186,6 +186,20 @@ in, an arrow if it runs on, a ring for a circle. Finding the thing on the paper
 then takes no translation. `info.text` is the same sentence flattened, for
 anything that only wants a string.
 
+Part of what a tool hands back may be wanted only as scaffolding: I.2 gives a
+point and the line to it, and a construction that wants the length alone says
+`working: ['l4', 'l5']` on the step that calls it. The point then stays working
+rather than spending a letter that belongs to a corner of the figure — which is
+what lets I.4's second triangle be called DEF, as Byrne calls it, rather than
+DFH.
+
+A tool's `names` travel with the steps as well as with the macro. Applied as one
+move, I.4's circles are hidden and never named; written out they are on the
+page, and "let a point be taken at random on a circle" is no use to a reader.
+A template may name a step of the construction as well as a given — `{l9}` as
+well as `{2}` — for the cases where what a thing is depends on something the
+tool drew.
+
 A line drawn inside a tool runs between one lettered point and a hidden one, so
 it cannot be called AE. Two lettered points that happen to lie on it will do
 instead — which is exactly how Euclid names such a line — and failing that, what
@@ -336,9 +350,9 @@ will go.
 
 ## Working the rest of Book I
 
-Eleven propositions are written out — I.1, I.2, I.3, I.9, I.10, I.11, I.12,
-I.31 and I.46 as constructions, I.5 and I.47 as the figures their statements
-suppose — and the whole of Book I is in the sidebar. Opening one of those sets
+Thirteen propositions are written out — I.1, I.2, I.3, I.9, I.10, I.11, I.12,
+I.23, I.31 and I.46 as constructions, I.4, I.5 and I.47 as the figures their
+statements suppose — and the whole of Book I is in the sidebar. Opening one of those sets
 it out step by step; opening any of the others gives a clean sheet, the
 statement, and whatever you have got through so far — the reader works it
 themselves and can save the result as a tool with **+**.
