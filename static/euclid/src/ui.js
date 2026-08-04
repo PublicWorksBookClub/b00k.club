@@ -97,6 +97,8 @@ export function createUI(root, app, options = {}) {
   }
   let chromeSignature = null
   let sidebarSignature = null
+  // Which proposition the sidebar has already scrolled to.
+  let markedHere = null
 
   root.replaceChildren(el('style', null, { textContent: STYLES }))
 
@@ -148,7 +150,8 @@ export function createUI(root, app, options = {}) {
    * it would throw away wherever the reader had scrolled to.
    */
   function sidebarState() {
-    return JSON.stringify([ui.sidebar, ui.open, app.tools.map((t) => t.id), options.throughN || null])
+    return JSON.stringify([ui.sidebar, ui.open, app.tools.map((t) => t.id), options.throughN || null,
+      app.proposition ? app.proposition.ref : null])
   }
 
   function chromeState() {
@@ -190,7 +193,7 @@ export function createUI(root, app, options = {}) {
         const o = app.scene.get(id)
         return o ? `${o.color || ''}${o.dash ? '-' : ''}` : ''
       }),
-      app.doc.steps.map((step) => (step.op === 'macro' ? !!step.expanded : 0)),
+      app.doc.steps.map((step) => (step.op === 'macro' || step.working ? !!step.expanded : 0)),
     ])
   }
 
@@ -585,6 +588,15 @@ export function createUI(root, app, options = {}) {
     const scrolled = was ? was.scrollTop : 0
     sidebar.replaceChildren(head, list, foot)
     if (scrolled) list.scrollTop = scrolled
+    // Turning to a proposition should turn the book to it too. Only on the
+    // change, though: scrolling the list out from under a reader who is
+    // browsing would be worse than not marking the place at all.
+    const here = app.proposition ? app.proposition.ref : null
+    if (here !== markedHere) {
+      markedHere = here
+      const row = list.querySelector('.entry.here')
+      if (row) row.scrollIntoView({ block: 'nearest' })
+    }
   }
 
   const magnitudeName = (mag) =>
@@ -661,10 +673,17 @@ export function createUI(root, app, options = {}) {
     // since the point of that is not to give the game away.
     const tool = constructible.get(`I.${entry.n}`)
     const beyond = options.throughN && entry.n > options.throughN
-    const row = el('button', `entry${tool ? '' : ' unworked'}${beyond ? ' unavailable' : ''}`, { type: 'button' })
-    row.title = beyond ? 'Later in the book than this figure has reached'
-      : tool ? 'Set this out step by step'
-        : 'Open a clean sheet and work it yourself'
+    // Where you are in the book. A reader who has walked three propositions and
+    // come back to the list should not have to work out which one is on the
+    // paper in front of them.
+    const here = app.proposition && app.proposition.ref === `I.${entry.n}`
+    const row = el('button', `entry${tool ? '' : ' unworked'}${beyond ? ' unavailable' : ''}${here ? ' here' : ''}`,
+      { type: 'button' })
+    if (here) row.setAttribute('aria-current', 'true')
+    row.title = here ? 'This is the proposition on the paper'
+      : beyond ? 'Later in the book than this figure has reached'
+        : tool ? 'Set this out step by step'
+          : 'Open a clean sheet and work it yourself'
     const num = el('span', 'num')
     num.append(document.createTextNode(`I.${entry.n}`))
     num.append(el('em', null, { textContent: entry.kind === 'problem' ? 'Prob.' : 'Theor.' }))
@@ -821,6 +840,26 @@ export function createUI(root, app, options = {}) {
       })
       const summary = el('summary')
       summary.append(el('span', 'name', { textContent: 'The given figure' }))
+      // A supposition is constructed, and the construction leaves circles and
+      // produced lines that Byrne does not draw. They are on the paper all the
+      // same, and one press shows the lot — which is the difference between a
+      // figure that was built and a figure that was drawn.
+      const working = app.setupWorking
+      if (working.any) {
+        summary.append(el('button', 'working', {
+          type: 'button',
+          textContent: working.some ? 'hide' : 'working',
+          title: working.some
+            ? 'Put the construction lines away again'
+            : 'Show the lines the supposition was built with',
+          onclick: (event) => {
+            event.preventDefault()
+            event.stopPropagation()
+            app.toggleSetupWorking()
+            render(true)
+          },
+        }))
+      }
       summary.append(el('span', 'count', { textContent: String(givens.length) }))
       box.append(summary)
       box.append(stepList(givens))
@@ -1067,18 +1106,22 @@ export function createUI(root, app, options = {}) {
           }),
         )
       }
-      if (info.step.op === 'macro') {
+      if (info.step.op === 'macro' || info.step.working) {
         acts.append(
           el('button', null, {
             type: 'button',
             textContent: info.step.expanded ? 'hide' : 'working',
-            title: 'Show the construction this tool carries out',
+            title: info.step.op === 'macro'
+              ? 'Show the construction this tool carries out'
+              : 'Show the construction line this step drew',
             onclick: (event) => {
               event.stopPropagation()
               app.toggleStepWorking(info.step.id)
             },
           }),
         )
+      }
+      if (info.step.op === 'macro') {
         acts.append(
           el('button', null, {
             type: 'button',

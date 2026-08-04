@@ -307,6 +307,15 @@ canvas {
 }
 .side-section .entry.plain { cursor: default; }
 .side-section button.entry:not(:disabled):hover { background: var(--eu-accent-soft); }
+/* Where you are in the book: the entry the paper is presently working. The
+   rule down the left is the same mark the step list uses for the step the
+   scrubber is on, so the two read as one idea. */
+.side-section .entry.here {
+  background: var(--eu-accent-soft);
+  box-shadow: inset 3px 0 0 var(--eu-accent);
+}
+.side-section .entry.here .num { font-weight: 600; }
+.side-section .entry.here .said { color: var(--eu-ink); }
 .side-section .entry.unavailable { opacity: 0.4; }
 /* Not written out in the sketchpad, but still yours to work: dimmed enough to
    tell the two apart, not so much that it reads as out of reach. */
@@ -560,6 +569,16 @@ ol.steps .acts button {
 .given-figure[open] > summary::before { transform: rotate(90deg); }
 .given-figure > summary:hover { background: #e8dfcd; }
 .given-figure > summary .name { flex: 1 1 auto; }
+.given-figure > summary .working {
+  font: inherit;
+  text-transform: none;
+  letter-spacing: 0;
+  font-style: italic;
+  color: var(--eu-muted);
+  padding: 0 4px;
+  border-color: transparent;
+}
+.given-figure > summary .working:hover { color: var(--eu-accent); border-color: var(--eu-rule); }
 .given-figure > summary .count { font-variant-numeric: tabular-nums; opacity: 0.7; }
 .given-figure ol.steps li .n { color: var(--eu-muted); opacity: 0.6; }
 

@@ -1000,9 +1000,33 @@ export function createSketch(options = {}) {
 
     toggleStepWorking(stepId) {
       const step = D.findStep(doc, stepId)
-      if (!step || step.op !== 'macro') return
+      // A tool hides the construction it carries out; a step marked working
+      // hides itself. Both are shown by the same press.
+      if (!step || (step.op !== 'macro' && !step.working)) return
       step.expanded = !step.expanded
       invalidate()
+    },
+
+    /**
+     * Show, or hide again, everything the given figure did to build itself.
+     *
+     * A theorem's supposition is constructed, and the construction leaves
+     * circles and produced lines on the page that Byrne does not draw. They are
+     * marked working, so the figure looks like the figure — and this turns the
+     * whole lot on at once for a reader who wants to see why it holds.
+     */
+    toggleSetupWorking() {
+      const setup = doc.steps.filter((s) => s.setup && (s.working || s.op === 'macro'))
+      if (!setup.length) return
+      const showing = setup.some((s) => s.expanded)
+      for (const s of setup) s.expanded = !showing
+      invalidate()
+    },
+
+    /** Whether the given figure is presently showing its working. */
+    get setupWorking() {
+      const setup = doc.steps.filter((s) => s.setup && (s.working || s.op === 'macro'))
+      return setup.length ? { some: setup.some((s) => s.expanded), any: true } : { some: false, any: false }
     },
 
     addTool(tool) {

@@ -305,13 +305,27 @@ export function solve(doc, opts = {}) {
       }
       if (!beyond) generateAutos(res.visibleCurves, i)
     } else {
-      const obj = build(step.id, step, { stepIndex: i, hidden: beyond, beyond, role: step.role || undefined })
+      // A step may declare itself working: the circle that carries a length to
+      // where it is wanted, the line produced only so a point can be taken on
+      // it. Byrne draws none of that, and neither does the figure — but it is
+      // there, and one press shows it, which is the difference between a
+      // construction and a picture.
+      const scaffolding = !!step.working && !step.expanded
+      const obj = build(step.id, step, {
+        stepIndex: i,
+        hidden: beyond || scaffolding,
+        ghost: !!step.working,
+        beyond,
+        role: step.role || undefined,
+      })
       if (!obj) {
         info.ok = false
         info.error = failureText(step)
       } else {
         info.produced = [step.id]
-        if (obj.type === 'curve' && !beyond) generateAutos([step.id], i)
+        // A curve nobody can see should not litter the page with the points it
+        // happens to cut. Show the working and its intersections come back.
+        if (obj.type === 'curve' && !beyond && !obj.hidden) generateAutos([step.id], i)
       }
     }
     stepInfos.push(info)

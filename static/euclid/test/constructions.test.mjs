@@ -870,3 +870,53 @@ test('I.16 keeps the produced side straight, and D beyond C', () => {
     jog(app, random)
   }
 })
+
+test('a step marked working draws nothing until it is asked to', () => {
+  // I.4's two circles are how DE and DF are laid off equal, and Byrne draws
+  // neither. They are on the paper all the same: one press shows them.
+  const app = createSketch()
+  app.walkProposition('euclid.I.4')
+  const circles = app.doc.steps.filter((s) => s.op === 'circle')
+  assert.equal(circles.length, 2, 'both circles are steps of the figure')
+  assert.ok(circles.every((s) => s.working))
+  assert.ok(circles.every((s) => app.scene.get(s.id).hidden), 'and neither is drawn')
+
+  // Nor do they litter the page with the points they happen to cut.
+  const spots = [...app.scene.objects.values()].filter((o) => o.auto && !o.hidden).length
+  assert.equal(spots, 0)
+
+  // E still slides round the circle it cannot see: DE goes on equalling AB.
+  const id = (l) => labelledIn(app, l)
+  const len = (p, q) => G.dist(at(app.scene, id(p)), at(app.scene, id(q)))
+  const wanted = len('A', 'B')
+  const onCircle = app.doc.steps.find((s) => s.op === 'onCurve')
+  for (const t of [0.3, 2, 4, 5.9]) {
+    onCircle.t = t
+    app.changed()
+    close(len('D', 'E'), wanted, 1e-6, `E at ${t}`)
+  }
+
+  app.toggleSetupWorking()
+  assert.ok(app.doc.steps.filter((s) => s.op === 'circle').every((s) => !app.scene.get(s.id).hidden),
+    'and asking shows them')
+  assert.ok([...app.scene.objects.values()].some((o) => o.auto && !o.hidden), 'with what they cut')
+  app.toggleSetupWorking()
+  assert.ok(app.doc.steps.filter((s) => s.op === 'circle').every((s) => app.scene.get(s.id).hidden))
+})
+
+test('I.5 produces the equal sides its enunciation talks about', () => {
+  const random = rng(8821)
+  const app = createSketch()
+  app.walkProposition('euclid.I.5')
+  const id = (l) => labelledIn(app, l)
+  for (let round = 0; round < 40; round++) {
+    if (app.scene.steps.some((s) => !s.ok)) continue
+    const [A, B, C, Dv, E] = ['A', 'B', 'C', 'D', 'E'].map((l) => at(app.scene, id(l)))
+    close(G.dist(A, B), G.dist(A, C), 1e-6, `round ${round}: the sides stay equal`)
+    // D and E lie on those sides produced, beyond the base.
+    close(G.cross(G.sub(B, A), G.sub(Dv, A)), 0, 1e-6, 'D on AB produced')
+    close(G.cross(G.sub(C, A), G.sub(E, A)), 0, 1e-6, 'E on AC produced')
+    assert.ok(G.dist(A, Dv) > G.dist(A, B) && G.dist(A, E) > G.dist(A, C))
+    jog(app, random)
+  }
+})

@@ -275,6 +275,15 @@ right-angled triangle with a square on each of its sides — the right angle
 constructed, not assumed. What it asserts is still the reader's to state, and
 to shake until they believe it.
 
+**The working is on the paper, and out of the way.** A supposition is
+constructed, and the construction leaves circles and produced lines that Byrne
+does not draw. A body step may say `working: true`: the object is built, other
+steps may lean on it, points may be taken on it — but it is not drawn, and the
+points it happens to cut are not either. *working*, in the given figure's
+header or beside the step, shows the lot. So I.4 is two triangles and I.5 is
+Byrne's isosceles with its sides produced, while a reader who asks why DE
+equals AB gets the circle that made it so.
+
 Some suppositions are a line and a point on it (I.13, I.15) or three points
 joined (I.20); some need real work. I.4's two triangles are laid off with a
 circle and an angle copied by I.23, and I.37's second apex is taken on a
@@ -369,7 +378,7 @@ will go.
 Eighteen propositions are written out — I.1, I.2, I.3, I.9, I.10, I.11, I.12,
 I.23, I.31 and I.46 as constructions, and I.4, I.5, I.13, I.15, I.16, I.20,
 I.37 and I.47 as the figures their statements suppose — and the whole of Book I
-is in the sidebar. Opening one of those sets
+is in the sidebar, with the one on the paper marked. Opening one of those sets
 it out step by step; opening any of the others gives a clean sheet, the
 statement, and whatever you have got through so far — the reader works it
 themselves and can save the result as a tool with **+**.

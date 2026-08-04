@@ -407,7 +407,7 @@ export const PROPOSITIONS = [
     theorem: true,
     name: 'Two sides and the angle between',
     summary: 'The figure I.4 supposes: two triangles with two sides and the angle between them equal.',
-    note: 'Byrne shows two triangles and asks you to see that they must be the same. But a second triangle drawn beside the first is only the same until you drag it. So DE is laid off equal to AB with a circle about D, the angle at D is copied from the angle at A by I.23, and DF is cut off equal to CA the same way. The hypothesis then holds however hard the figure is shaken, and what remains — that the bases are equal, and the triangles equal in every respect — is the reader\'s to say. E slides round its circle: dragging it turns the second triangle without disturbing anything the theorem supposes.',
+    note: 'Byrne shows two triangles and asks you to see that they must be the same. But a second triangle drawn beside the first is only the same until you drag it. So DE is laid off equal to AB with a circle about D, the angle at D is copied from the angle at A by I.23, and DF is cut off equal to CA the same way. Byrne draws none of that and neither does this, so what you see is his figure; press *working* on the given figure to see the lines it was built with. The hypothesis then holds however hard the figure is shaken, and what remains — that the bases are equal, and the triangles equal in every respect — is the reader\'s to say. E slides round a circle you cannot see: dragging it turns the second triangle without disturbing anything the theorem supposes.',
     inputs: [
       { id: 'i0', kind: 'point', label: 'A' },
       { id: 'i1', kind: 'point', label: 'B' },
@@ -421,13 +421,13 @@ export const PROPOSITIONS = [
       // DE equal to AB: the length is carried to D by I.2, and E is taken on
       // the circle it describes, so DE goes on equalling AB however E slides.
       { op: 'macro', id: 'l3', tool: 'euclid.I.2', args: ['i3', 'i0', 'i1'], out: ['l4', 'l5'], working: ['l4', 'l5'] },
-      { op: 'circle', id: 'l6', o: 'i3', r: 'l4', color: 'yellow' },
+      { op: 'circle', id: 'l6', o: 'i3', r: 'l4', color: 'yellow', working: true },
       { op: 'onCurve', id: 'l7', curve: 'l6', t: -2.958 },
       // The angle at D copied from the angle at A, and DF cut off equal to CA
       // along the arm it makes.
       { op: 'macro', id: 'l8', tool: 'euclid.I.23', args: ['i3', 'l7', 'i1', 'i0', 'i2'], out: ['l9', 'l10'], working: ['l9', 'l10'], picks: { side: 0 } },
       { op: 'macro', id: 'l11', tool: 'euclid.I.2', args: ['i3', 'i2', 'i0'], out: ['l12', 'l13'], working: ['l12', 'l13'] },
-      { op: 'circle', id: 'l14', o: 'i3', r: 'l12', color: 'yellow' },
+      { op: 'circle', id: 'l14', o: 'i3', r: 'l12', color: 'yellow', working: true },
       { op: 'inter', id: 'l15', c1: 'l10', c2: 'l14', branch: 1 },
       { op: 'segment', id: 'l16', a: 'i3', b: 'l7', color: 'red' },
       { op: 'segment', id: 'l17', a: 'l7', b: 'l15', color: 'black' },
@@ -525,14 +525,16 @@ export const PROPOSITIONS = [
     body: [
       { op: 'segment', id: 'l0', a: 'i0', b: 'i1', color: 'black' },
       { op: 'segment', id: 'l1', a: 'i1', b: 'i2', color: 'red' },
-      // The third side is drawn as the produced line rather than as a segment
-      // with a ray laid over it: it is one straight line, and Postulate 2 is
-      // what carries it past C.
-      { op: 'ray', id: 'l2', a: 'i0', b: 'i2', color: 'yellow' },
-      { op: 'onCurve', id: 'l3', curve: 'l2', t: 1.4 },
+      { op: 'segment', id: 'l2', a: 'i2', b: 'i0', color: 'blue' },
+      // Postulate 2 carries AC past C so D can be taken on it. Byrne draws the
+      // side and its production as two lines in two colours, not as one line
+      // with a ray laid over it, so the ray itself is working.
+      { op: 'ray', id: 'l3', a: 'i0', b: 'i2', working: true },
+      { op: 'onCurve', id: 'l4', curve: 'l3', t: 1.4 },
+      { op: 'segment', id: 'l5', a: 'i2', b: 'l4', color: 'yellow' },
     ],
-    outputs: ['l0', 'l1', 'l2', 'l3'],
-    names: { l3: 'a point on {0}{2} produced' },
+    outputs: ['l0', 'l1', 'l2', 'l4', 'l5'],
+    names: { l3: '{0}{2} produced', l4: 'a point on {0}{2} produced' },
     uses: [],
     demo: {
       points: [
@@ -610,26 +612,40 @@ export const PROPOSITIONS = [
     name: 'Isosceles triangle',
     abbr: '△=',
     theorem: true,
-    summary: 'The figure I.5 supposes: a triangle with two of its sides equal.',
-    note: '"Let ABC be isosceles" is not two free points and a promise. C is taken on the circle about A through B, so AC equals AB by Definition 15 and goes on equalling it however hard the figure is shaken. That is what the sketchpad means by a supposition, and what Euclid means too.',
+    summary: 'The figure I.5 supposes: an isosceles triangle with the equal sides produced.',
+    note: '"Let ABC be isosceles" is not two free points and a promise. C is taken on the circle about A through B, so AC equals AB by Definition 15 and goes on equalling it however hard the figure is shaken. That is what the sketchpad means by a supposition, and what Euclid means too. The enunciation is about the external angles as well, so the equal sides are produced beyond the base and D and E taken on the productions — the theorem holds wherever they fall. The circle and the produced lines are working: Byrne draws neither, and one press shows both.',
     inputs: [
       { id: 'i0', kind: 'point', label: 'A' },
       { id: 'i1', kind: 'point', label: 'B' },
     ],
     body: [
-      { op: 'circle', id: 'l0', o: 'i0', r: 'i1', color: 'yellow' },
-      { op: 'onCurve', id: 'l1', curve: 'l0', t: -1.15 },
+      { op: 'circle', id: 'l0', o: 'i0', r: 'i1', color: 'yellow', working: true },
+      { op: 'onCurve', id: 'l1', curve: 'l0', t: -1.125 },
       { op: 'segment', id: 'l2', a: 'i0', b: 'i1', color: 'red' },
       { op: 'segment', id: 'l3', a: 'i0', b: 'l1', color: 'red' },
       { op: 'segment', id: 'l4', a: 'i1', b: 'l1', color: 'black' },
+      // "If the equal sides be produced" — so they are, and the part beyond the
+      // base is drawn as its own line in its own colour, as Byrne draws it. The
+      // production itself is working: it lies along AB and would only paint
+      // over it.
+      { op: 'ray', id: 'l5', a: 'i0', b: 'i1', working: true },
+      { op: 'onCurve', id: 'l6', curve: 'l5', t: 1.55 },
+      { op: 'ray', id: 'l7', a: 'i0', b: 'l1', working: true },
+      { op: 'onCurve', id: 'l8', curve: 'l7', t: 1.55 },
+      { op: 'segment', id: 'l9', a: 'i1', b: 'l6', color: 'yellow' },
+      { op: 'segment', id: 'l10', a: 'l1', b: 'l8', color: 'yellow' },
     ],
-    outputs: ['l1', 'l2', 'l3', 'l4'],
-    names: { l1: 'the third corner' },
+    outputs: ['l1', 'l2', 'l3', 'l4', 'l6', 'l8', 'l9', 'l10'],
+    names: {
+      l1: 'the third corner',
+      l5: '{0}{1} produced',
+      l6: 'a point on {0}{1} produced',
+    },
     uses: [],
     demo: {
       points: [
-        { x: 0, y: 120 },
-        { x: -110, y: -70 },
+        { x: 0, y: -130 },
+        { x: -120, y: 60 },
       ],
     },
   },

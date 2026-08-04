@@ -22,6 +22,10 @@
 - Set out the figures I.13, I.15, I.16, I.20 and I.37 suppose as well, so a theorem opens on something to look
   at rather than a blank sheet. I.37's second apex is taken on a parallel drawn by I.31, so "between the same
   parallels" holds however the figure is pulled about
+- Keep the construction lines of a supposition off the page. They are still there — points are taken on them,
+  and *working* shows the lot — but I.4 now opens as two triangles and I.5 as Byrne's isosceles with its equal
+  sides produced, which its enunciation is half about and the figure did not have
+- Mark the proposition on the paper in the book, and turn the book to it
 - Cite the way Byrne cites: **const.** and **hyp.** join the definitions, postulates and axioms in the reason
   picker. They are the commonest reasons in the book, and the commonest here, since the figure *is* the
   construction and a theorem's hypothesis was built rather than promised
