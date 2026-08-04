@@ -98,7 +98,7 @@ src/
   doc.js           the step list: ids, references, cascading deletion, serialisation
   solve.js         run a document into a scene; automatic intersections; lettering; prose
   macros.js        extracting a tool from a construction, and unfolding one
-  propositions.js  Book I.1–I.3, I.5, I.9–I.12, I.31, I.46, I.47 as tools
+  propositions.js  Book I.1–I.5, I.9–I.13, I.15, I.16, I.20, I.23, I.31, I.37, I.46, I.47
   camera.js        pan and zoom
   help.js          what the sketchpad does, as data
   tutorial.js      the walk through the first proposition
@@ -267,6 +267,14 @@ right-angled triangle with a square on each of its sides — the right angle
 constructed, not assumed. What it asserts is still the reader's to state, and
 to shake until they believe it.
 
+Some suppositions are a line and a point on it (I.13, I.15) or three points
+joined (I.20); some need real work. I.4's two triangles are laid off with a
+circle and an angle copied by I.23, and I.37's second apex is taken on a
+parallel drawn by I.31, so "between the same parallels" is true by construction
+rather than by eye. What a figure will not do is hand over the proof: I.13's
+supposition is a line standing on a line, and the right angle its statement
+turns on has to be erected by the reader, which is exactly Euclid's argument.
+
 Three points are genuinely ambiguous — a figure with a content, a shape to be
 matched in every respect, or the angle at any one of three corners — and the
 drawn figure cannot settle it. So every reading is offered by name and the
@@ -350,9 +358,10 @@ will go.
 
 ## Working the rest of Book I
 
-Thirteen propositions are written out — I.1, I.2, I.3, I.9, I.10, I.11, I.12,
-I.23, I.31 and I.46 as constructions, I.4, I.5 and I.47 as the figures their
-statements suppose — and the whole of Book I is in the sidebar. Opening one of those sets
+Eighteen propositions are written out — I.1, I.2, I.3, I.9, I.10, I.11, I.12,
+I.23, I.31 and I.46 as constructions, and I.4, I.5, I.13, I.15, I.16, I.20,
+I.37 and I.47 as the figures their statements suppose — and the whole of Book I
+is in the sidebar. Opening one of those sets
 it out step by step; opening any of the others gives a clean sheet, the
 statement, and whatever you have got through so far — the reader works it
 themselves and can save the result as a tool with **+**.

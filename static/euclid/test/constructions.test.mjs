@@ -811,3 +811,62 @@ test('the figure I.4 supposes goes on supposing it however it is shaken', () => 
   // And what I.4 asserts: the bases too.
   close(len('B', 'C'), len('E', 'F'), 1e-6, 'BC and EF')
 })
+
+/* ------------------------------------------------------------------ *
+ * The figures the theorems suppose
+ * ------------------------------------------------------------------ */
+
+/** Jog every point the figure was started from, and run it again. */
+function jog(app, random) {
+  for (const step of app.doc.steps) {
+    if (step.op !== 'point') continue
+    step.x += (random() - 0.5) * 160
+    step.y += (random() - 0.5) * 160
+  }
+  app.changed()
+}
+
+test('every written-out proposition opens with a figure that stands', () => {
+  for (const prop of PROPOSITIONS) {
+    const app = createSketch()
+    app.walkProposition(prop.id)
+    const broken = app.scene.steps.find((s) => !s.ok)
+    assert.equal(broken, undefined, `${prop.ref}: ${broken && broken.error}`)
+    assert.ok(app.scene.steps.length > 0, `${prop.ref} drew nothing`)
+    // Every input the proposition names should have found its way onto the
+    // paper as a lettered point: a figure nobody can refer to is no figure.
+    const letters = [...app.scene.objects.values()].filter((o) => o.label).length
+    assert.ok(letters >= (prop.inputs || []).length, `${prop.ref} lettered only ${letters} points`)
+  }
+})
+
+test('I.37 keeps its two triangles on one base and between one pair of parallels', () => {
+  const random = rng(7717)
+  const app = createSketch()
+  app.walkProposition('euclid.I.37')
+  const area = (p, q, r) => {
+    const [P, Q, R] = [p, q, r].map((l) => at(app.scene, labelledIn(app, l)))
+    return Math.abs((Q.x - P.x) * (R.y - P.y) - (Q.y - P.y) * (R.x - P.x)) / 2
+  }
+  for (let round = 0; round < 40; round++) {
+    if (app.scene.steps.some((s) => !s.ok)) continue
+    // C and D are on one parallel to AB, so the triangles on AB have the same
+    // height — which is the whole of what "between the same parallels" means,
+    // and it is true by construction rather than by eye.
+    close(area('A', 'B', 'C'), area('A', 'B', 'D'), 1e-6, `round ${round}`)
+    jog(app, random)
+  }
+})
+
+test('I.16 keeps the produced side straight, and D beyond C', () => {
+  const random = rng(3313)
+  const app = createSketch()
+  app.walkProposition('euclid.I.16')
+  for (let round = 0; round < 40; round++) {
+    if (app.scene.steps.some((s) => !s.ok)) continue
+    const [A, C, D] = ['A', 'C', 'D'].map((l) => at(app.scene, labelledIn(app, l)))
+    close(G.cross(G.sub(C, A), G.sub(D, A)), 0, 1e-6, `round ${round}: ACD collinear`)
+    assert.ok(G.dist(A, D) > G.dist(A, C), `round ${round}: D falls beyond C`)
+    jog(app, random)
+  }
+})

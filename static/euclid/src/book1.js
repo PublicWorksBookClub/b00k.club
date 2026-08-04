@@ -254,7 +254,7 @@ export const PROPOSITIONS_TEXT = [
     roman: 'XII',
     kind: 'problem',
     heading: 'Prop XII. Prob.',
-    text: 'To draw a straight line perpendicular to a given indefinite straight line (DB, CD) from a~given point (A) without.',
+    text: 'To draw a straight line perpendicular to a given indefinite straight line (DB, CD) from a given point (A) without.',
   },
   {
     n: 13,
@@ -422,14 +422,14 @@ export const PROPOSITIONS_TEXT = [
     roman: 'XXXVI',
     kind: 'theorem',
     heading: 'Prop XXXVI. Theor.',
-    text: 'Parallelograms (ABIC, CDI ~and~ EFJ, JFHG) on equal bases, and between the same parallels, are equal.',
+    text: 'Parallelograms (ABIC, CDI and EFJ, JFHG) on equal bases, and between the same parallels, are equal.',
   },
   {
     n: 37,
     roman: 'XXXVII',
     kind: 'theorem',
     heading: 'Prop XXXVII. Theor.',
-    text: 'Triangles BCG, CDG and~ DGE, CDG on the same base (CD) and between the same parallels are equal.',
+    text: 'Triangles BCG, CDG and DGE, CDG on the same base (CD) and between the same parallels are equal.',
   },
   {
     n: 38,
@@ -443,7 +443,7 @@ export const PROPOSITIONS_TEXT = [
     roman: 'XXXIX',
     kind: 'theorem',
     heading: 'Prop XXXIX. Theor.',
-    text: 'Equal triangles AEC, ECD and~ BED, ECD on the same base (CD) and on the same side of it, are between the same parallels.',
+    text: 'Equal triangles AEC, ECD and BED, ECD on the same base (CD) and on the same side of it, are between the same parallels.',
   },
   {
     n: 40,

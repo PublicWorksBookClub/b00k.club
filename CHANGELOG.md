@@ -19,6 +19,10 @@
   in, since that is the difference between a theorem and a lucky figure
 - Add I.23, copying an angle, and with it the figure I.4 supposes: two triangles with two sides and the angle
   between them equal — laid off with a circle and a copied angle, so the hypothesis survives being dragged
+- Set out the figures I.13, I.15, I.16, I.20 and I.37 suppose as well, so a theorem opens on something to look
+  at rather than a blank sheet. I.37's second apex is taken on a parallel drawn by I.31, so "between the same
+  parallels" holds however the figure is pulled about
+- Fix the ties left in Byrne's text by the LaTeX reader, which printed as "Triangles BCG, CDG and~ DGE"
 - Start the toolbar empty. Everything in Book I but the three postulates has to be got through before it can be
   used; reading a problem through — watching it carried out on your own figure — is what earns it
 - Add I.11, I.12, I.31, I.46 and I.47 to the sketchpad, and the figures I.5 and I.47 suppose — the right angle

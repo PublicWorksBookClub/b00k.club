@@ -72,6 +72,8 @@ def clean(s):
     s = re.sub(r'\\(begin|end)\{[a-zA-Z*]+\}', ' ', s)
     s = re.sub(r'\\(qed|constref|par)\b', ' ', s)
     s = s.replace('\\&', '&').replace('\\%', '%').replace('\\,', ' ')
+    # A tie is a space that TeX will not break at; the reader wants the space.
+    s = s.replace('~', ' ')
     s = re.sub(r'\\\\', ' ', s)
     s = s.replace('$', '')
     # Anything left that looks like a bare macro goes.

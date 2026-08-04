@@ -406,7 +406,6 @@ export const PROPOSITIONS = [
     ref: 'I.4',
     theorem: true,
     name: 'Two sides and the angle between',
-    abbr: '△≡',
     summary: 'The figure I.4 supposes: two triangles with two sides and the angle between them equal.',
     note: 'Byrne shows two triangles and asks you to see that they must be the same. But a second triangle drawn beside the first is only the same until you drag it. So DE is laid off equal to AB with a circle about D, the angle at D is copied from the angle at A by I.23, and DF is cut off equal to CA the same way. The hypothesis then holds however hard the figure is shaken, and what remains — that the bases are equal, and the triangles equal in every respect — is the reader\'s to say. E slides round its circle: dragging it turns the second triangle without disturbing anything the theorem supposes.',
     inputs: [
@@ -447,6 +446,160 @@ export const PROPOSITIONS = [
         { x: -210, y: -50 },
         { x: -60, y: -10 },
         { x: 150, y: 0 },
+      ],
+    },
+  },
+
+  {
+    id: 'euclid.I.13',
+    ref: 'I.13',
+    theorem: true,
+    name: 'A line standing on a line',
+    summary: 'The figure I.13 supposes: a straight line standing upon another.',
+    note: 'Nothing here is difficult to build: a straight line AB, a point D taken on it, and a line DC drawn from that point. What the proposition claims is that the two angles at D come to two right angles — which cannot be said until there is a right angle on the page to say it against. Erecting one at D by I.11 is no part of the supposition; it is the proof, and it is yours to make.',
+    inputs: [
+      { id: 'i0', kind: 'point', label: 'A' },
+      { id: 'i1', kind: 'point', label: 'B' },
+      { id: 'i2', kind: 'point', label: 'C' },
+    ],
+    body: [
+      { op: 'segment', id: 'l0', a: 'i0', b: 'i1', color: 'black' },
+      { op: 'onCurve', id: 'l1', curve: 'l0', t: 0.45 },
+      { op: 'segment', id: 'l2', a: 'l1', b: 'i2', color: 'red' },
+    ],
+    outputs: ['l0', 'l1', 'l2'],
+    names: { l1: 'the foot of the standing line on {0}{1}' },
+    uses: [],
+    demo: {
+      points: [
+        { x: -180, y: 40 },
+        { x: 180, y: 40 },
+        { x: -30, y: -130 },
+      ],
+    },
+  },
+
+  {
+    id: 'euclid.I.15',
+    ref: 'I.15',
+    theorem: true,
+    name: 'Two lines cutting one another',
+    summary: 'The figure I.15 supposes: two straight lines cutting one another.',
+    note: 'Two straight lines drawn across each other, and the point they cut in. The vertical angles are there to be read off as soon as the figure exists — this is the shortest supposition in Book I, and the claim is the whole of the work.',
+    inputs: [
+      { id: 'i0', kind: 'point', label: 'A' },
+      { id: 'i1', kind: 'point', label: 'B' },
+      { id: 'i2', kind: 'point', label: 'C' },
+      { id: 'i3', kind: 'point', label: 'D' },
+    ],
+    body: [
+      { op: 'segment', id: 'l0', a: 'i0', b: 'i1', color: 'black' },
+      { op: 'segment', id: 'l1', a: 'i2', b: 'i3', color: 'red' },
+      { op: 'inter', id: 'l2', c1: 'l0', c2: 'l1', branch: 0 },
+    ],
+    outputs: ['l0', 'l1', 'l2'],
+    names: { l2: 'the point in which {0}{1} and {2}{3} cut one another' },
+    uses: [],
+    demo: {
+      points: [
+        { x: -170, y: -70 },
+        { x: 170, y: 60 },
+        { x: -150, y: 90 },
+        { x: 160, y: -80 },
+      ],
+    },
+  },
+
+  {
+    id: 'euclid.I.16',
+    ref: 'I.16',
+    theorem: true,
+    name: 'A triangle with a side produced',
+    summary: 'The figure I.16 and I.32 suppose: a triangle with one of its sides produced.',
+    note: 'A triangle, and Postulate 2 applied to one side. I.16 asks how the external angle at C stands to either of the remote internal ones; I.32 asks what it comes to exactly, and Euclid answers by drawing through C a parallel to AB (I.31), which you have if you have got that far.',
+    inputs: [
+      { id: 'i0', kind: 'point', label: 'A' },
+      { id: 'i1', kind: 'point', label: 'B' },
+      { id: 'i2', kind: 'point', label: 'C' },
+    ],
+    body: [
+      { op: 'segment', id: 'l0', a: 'i0', b: 'i1', color: 'black' },
+      { op: 'segment', id: 'l1', a: 'i1', b: 'i2', color: 'red' },
+      // The third side is drawn as the produced line rather than as a segment
+      // with a ray laid over it: it is one straight line, and Postulate 2 is
+      // what carries it past C.
+      { op: 'ray', id: 'l2', a: 'i0', b: 'i2', color: 'yellow' },
+      { op: 'onCurve', id: 'l3', curve: 'l2', t: 1.4 },
+    ],
+    outputs: ['l0', 'l1', 'l2', 'l3'],
+    names: { l3: 'a point on {0}{2} produced' },
+    uses: [],
+    demo: {
+      points: [
+        { x: -150, y: -70 },
+        { x: -30, y: 80 },
+        { x: 80, y: -30 },
+      ],
+    },
+  },
+
+  {
+    id: 'euclid.I.20',
+    ref: 'I.20',
+    theorem: true,
+    name: 'A plain triangle',
+    summary: 'The figure I.20 supposes: a triangle, and nothing else.',
+    note: 'Three points joined. Some of Book I asks nothing more of the figure than that it be a triangle — that any two of its sides are together greater than the third, which the Epicureans said an ass knew, since an ass going for its fodder walks the third side and not the other two.',
+    inputs: [
+      { id: 'i0', kind: 'point', label: 'A' },
+      { id: 'i1', kind: 'point', label: 'B' },
+      { id: 'i2', kind: 'point', label: 'C' },
+    ],
+    body: [
+      { op: 'segment', id: 'l0', a: 'i0', b: 'i1', color: 'black' },
+      { op: 'segment', id: 'l1', a: 'i1', b: 'i2', color: 'red' },
+      { op: 'segment', id: 'l2', a: 'i2', b: 'i0', color: 'blue' },
+    ],
+    outputs: ['l0', 'l1', 'l2'],
+    uses: [],
+    demo: {
+      points: [
+        { x: -160, y: 60 },
+        { x: 40, y: 90 },
+        { x: -30, y: -100 },
+      ],
+    },
+  },
+
+  {
+    id: 'euclid.I.37',
+    ref: 'I.37',
+    theorem: true,
+    name: 'Two triangles on one base',
+    summary: 'The figure I.37 supposes: two triangles on the same base, their apexes on one parallel to it.',
+    note: 'The base AB, a parallel to it through C by I.31, and a second apex D taken on that parallel. "Between the same parallels" is then true by construction rather than by eye: D slides along the parallel and never leaves it, so the two triangles go on having the same base and the same height however the figure is pulled about. Their contents are what I.37 asks you to compare.',
+    inputs: [
+      { id: 'i0', kind: 'point', label: 'A' },
+      { id: 'i1', kind: 'point', label: 'B' },
+      { id: 'i2', kind: 'point', label: 'C' },
+    ],
+    body: [
+      { op: 'segment', id: 'l0', a: 'i0', b: 'i1', color: 'black' },
+      { op: 'macro', id: 'l1', tool: 'euclid.I.31', args: ['i2', 'i0', 'i1'], out: ['l2'] },
+      { op: 'onCurve', id: 'l3', curve: 'l2', t: -0.54 },
+      { op: 'segment', id: 'l4', a: 'i2', b: 'i0', color: 'red' },
+      { op: 'segment', id: 'l5', a: 'i2', b: 'i1', color: 'red' },
+      { op: 'segment', id: 'l6', a: 'l3', b: 'i0', color: 'blue' },
+      { op: 'segment', id: 'l7', a: 'l3', b: 'i1', color: 'blue' },
+    ],
+    outputs: ['l0', 'l2', 'l3', 'l4', 'l5', 'l6', 'l7'],
+    names: { l2: 'the parallel to {0}{1} through {2}', l3: 'the second apex, on the parallel through {2}' },
+    uses: ['euclid.I.31'],
+    demo: {
+      points: [
+        { x: -160, y: 80 },
+        { x: 120, y: 80 },
+        { x: -90, y: -80 },
       ],
     },
   },
