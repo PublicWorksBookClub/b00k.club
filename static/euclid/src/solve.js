@@ -417,8 +417,13 @@ function nameOf(objects, id) {
     const q = objects.get(x)
     return (q && q.label) || '•'
   }
-  const named = (letters, kind, mark = '') =>
-    ({ text: kind === 'circle' ? mark + letters : letters + mark, letters, kind, color: o.color })
+  const named = (letters, kind, mark = '') => {
+    // A line drawn to a point that never earned a letter — the far end of a
+    // perpendicular raised inside a tool, say — cannot be called AE. Naming it
+    // by what it is beats naming it after a point that is not there.
+    if (letters.includes('•')) return { text: DESCRIPTION[kind] || 'the figure' }
+    return { text: kind === 'circle' ? mark + letters : letters + mark, letters, kind, color: o.color }
+  }
   switch (d.op) {
     case 'segment':
       return named(`${p(d.a)}${p(d.b)}`, 'segment')
@@ -431,6 +436,13 @@ function nameOf(objects, id) {
     default:
       return { text: 'the figure' }
   }
+}
+
+const DESCRIPTION = {
+  segment: 'a straight line',
+  ray: 'a straight line produced',
+  line: 'a straight line drawn both ways',
+  circle: 'a circle',
 }
 
 function shortName(objects, id) {

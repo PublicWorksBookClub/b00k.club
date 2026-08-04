@@ -595,3 +595,82 @@ test('a document survives a round trip through JSON', () => {
   const after = solve(back, { tools: TOOLS })
   assert.deepEqual([...after.objects.keys()], [...before.objects.keys()])
 })
+
+test('I.11 raises a perpendicular at the given point of the line', () => {
+  const random = rng(59)
+  let checked = 0
+  for (let i = 0; i < 90; i++) {
+    const A = { x: random() * 300 - 150, y: random() * 300 - 150 }
+    const B = { x: random() * 300 - 150, y: random() * 300 - 150 }
+    if (G.dist(A, B) < 20) continue
+    const { doc, ids } = docWithPoints([A, B])
+    const step = apply(doc, 'euclid.I.11', ids)
+    const scene = run(doc)
+    assert.ok(scene.steps.every((s) => s.ok), 'I.11 carried out')
+    const perp = scene.get(step.out[0])
+    close(G.distanceToCurve(perp.geom, A), 0, 1e-6, 'it stands on the given point')
+    const along = G.scale(G.sub(B, A), 1 / G.dist(A, B))
+    const up = G.scale(perp.geom.d, 1 / G.len(perp.geom.d))
+    close(G.dot(along, up), 0, 1e-6, 'and at right angles to the line')
+    checked++
+  }
+  assert.ok(checked > 60, `only ${checked} configurations were exercised`)
+})
+
+test('I.12 drops a perpendicular from a point off the line', () => {
+  const random = rng(67)
+  let checked = 0
+  for (let i = 0; i < 90; i++) {
+    const C = { x: random() * 300 - 150, y: random() * 300 - 150 }
+    const A = { x: random() * 300 - 150, y: random() * 300 - 150 }
+    const B = { x: random() * 300 - 150, y: random() * 300 - 150 }
+    if (G.dist(A, B) < 30) continue
+    const line = G.fullLine(A, B)
+    const off = G.distanceToCurve(line, C)
+    // Off the line, and not so nearly perpendicular already that the circle
+    // about C through A only touches.
+    if (off < 15 || Math.abs(G.dist(C, A) - off) < 15) continue
+
+    const { doc, ids } = docWithPoints([C, A, B])
+    const step = apply(doc, 'euclid.I.12', ids)
+    const scene = run(doc)
+    assert.ok(scene.steps.every((s) => s.ok), 'I.12 carried out')
+    const foot = scene.get(step.out[0]).pos
+    close(G.distanceToCurve(line, foot), 0, 1e-6, 'the foot lands on the line')
+    const along = G.scale(G.sub(B, A), 1 / G.dist(A, B))
+    const drop = G.sub(foot, C)
+    close(G.dot(along, G.scale(drop, 1 / G.len(drop))), 0, 1e-6, 'and CF is at right angles to it')
+    close(G.len(drop), off, 1e-6, 'and is the shortest way to it')
+    checked++
+  }
+  assert.ok(checked > 40, `only ${checked} configurations were exercised`)
+})
+
+test('I.31 draws a line through the point that never meets the given one', () => {
+  const random = rng(71)
+  let checked = 0
+  for (let i = 0; i < 90; i++) {
+    const A = { x: random() * 300 - 150, y: random() * 300 - 150 }
+    const B = { x: random() * 300 - 150, y: random() * 300 - 150 }
+    const C = { x: random() * 300 - 150, y: random() * 300 - 150 }
+    if (G.dist(B, C) < 30) continue
+    const line = G.fullLine(B, C)
+    const off = G.distanceToCurve(line, A)
+    if (off < 15 || Math.abs(G.dist(A, B) - off) < 15) continue
+
+    const { doc, ids } = docWithPoints([A, B, C])
+    const step = apply(doc, 'euclid.I.31', ids)
+    const scene = run(doc)
+    assert.ok(scene.steps.every((s) => s.ok), 'I.31 carried out')
+    const parallel = scene.get(step.out[0])
+    close(G.distanceToCurve(parallel.geom, A), 0, 1e-6, 'it passes through the given point')
+    // Parallel: the same direction, and never meeting.
+    const u = G.scale(G.sub(C, B), 1 / G.dist(B, C))
+    const w = G.scale(parallel.geom.d, 1 / G.len(parallel.geom.d))
+    close(Math.abs(G.cross(u, w)), 0, 1e-6, 'and runs the same way as the given line')
+    // intersect always hands back two slots, with null where nothing exists.
+    assert.deepEqual(G.intersect(line, parallel.geom).filter(Boolean), [], 'so the two never meet')
+    checked++
+  }
+  assert.ok(checked > 40, `only ${checked} configurations were exercised`)
+})

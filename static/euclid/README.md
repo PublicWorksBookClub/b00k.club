@@ -98,7 +98,7 @@ src/
   doc.js           the step list: ids, references, cascading deletion, serialisation
   solve.js         run a document into a scene; automatic intersections; lettering; prose
   macros.js        extracting a tool from a construction, and unfolding one
-  propositions.js  Book I.1, I.2, I.3, I.9, I.10 written out as tools
+  propositions.js  Book I.1, I.2, I.3, I.9, I.10, I.11, I.12, I.31 as tools
   camera.js        pan and zoom
   magnitudes.js    lengths, angles and triangles: what a claim is about
   renderer.js      drawing the figure
@@ -245,8 +245,8 @@ stands on the ones before it.
 
 ## Working the rest of Book I
 
-Three propositions are written out as tools, and the whole of Book I is in the
-sidebar. Opening one of the three sets out its construction step by step;
+Eight propositions are written out as tools — I.1, I.2, I.3, I.9, I.10, I.11,
+I.12 and I.31 — and the whole of Book I is in the sidebar. Opening one of the three sets out its construction step by step;
 opening any of the others gives a clean sheet, the statement, and the toolbox
 you have built so far — the reader works it themselves and can save the result
 as a tool with **+**.

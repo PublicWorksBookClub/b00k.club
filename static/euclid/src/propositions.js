@@ -185,6 +185,100 @@ export const PROPOSITIONS = [
       ],
     },
   },
+  {
+    id: 'euclid.I.11',
+    ref: 'I.11',
+    name: 'Perpendicular at a point on a line',
+    abbr: '⊥',
+    summary: 'From a given point in a given straight line, to draw a straight line at right angles to it.',
+    note: 'Given the point A and any other point B of the line. The circle about A through B cuts the line on both sides at equal distances, so A is the midpoint of what it cuts off; the equilateral triangle on that piece has its apex on the perpendicular bisector, which is the line wanted.',
+    inputs: [
+      { id: 'i0', kind: 'point', label: 'A' },
+      { id: 'i1', kind: 'point', label: 'B' },
+    ],
+    body: [
+      { op: 'line', id: 'l0', a: 'i0', b: 'i1', color: 'black' },
+      { op: 'circle', id: 'l1', o: 'i0', r: 'i1', color: 'yellow' },
+      { op: 'inter', id: 'l2', c1: 'l0', c2: 'l1', branch: 0 },
+      { op: 'inter', id: 'l3', c1: 'l0', c2: 'l1', branch: 1 },
+      { op: 'circle', id: 'l4', o: 'l2', r: 'l3', color: 'red' },
+      { op: 'circle', id: 'l5', o: 'l3', r: 'l2', color: 'blue' },
+      { op: 'inter', id: 'l6', c1: 'l4', c2: 'l5', branch: 0 },
+      { op: 'line', id: 'l7', a: 'i0', b: 'l6', color: 'blue' },
+    ],
+    outputs: ['l7'],
+    given: [['i0', 'i1', { color: 'black' }]],
+    uses: [],
+    demo: {
+      points: [
+        { x: 0, y: -40 },
+        { x: 150, y: -40 },
+      ],
+      join: [['i0', 'i1']],
+    },
+  },
+
+  {
+    id: 'euclid.I.12',
+    ref: 'I.12',
+    name: 'Perpendicular from a point off a line',
+    abbr: '⊥̸',
+    summary: 'To draw a straight line perpendicular to a given straight line from a given point outside it.',
+    note: 'Given the point C and two points A, B of the line. The circle about C through A meets the line again at the reflection of A in the foot, so bisecting what it cuts off finds the foot. Euclid takes a point on the far side to be sure the circle reaches across; here the circle is drawn through a point of the line itself, which reaches across for the same reason and needs nothing chosen.',
+    inputs: [
+      { id: 'i0', kind: 'point', label: 'C' },
+      { id: 'i1', kind: 'point', label: 'A' },
+      { id: 'i2', kind: 'point', label: 'B' },
+    ],
+    body: [
+      { op: 'line', id: 'l0', a: 'i1', b: 'i2', color: 'black' },
+      { op: 'circle', id: 'l1', o: 'i0', r: 'i1', color: 'yellow' },
+      { op: 'inter', id: 'l2', c1: 'l0', c2: 'l1', branch: 0 },
+      { op: 'inter', id: 'l3', c1: 'l0', c2: 'l1', branch: 1 },
+      { op: 'macro', id: 'l4', tool: 'euclid.I.10', args: ['l2', 'l3'], out: ['l5'] },
+      { op: 'segment', id: 'l6', a: 'i0', b: 'l5', color: 'blue' },
+    ],
+    outputs: ['l5', 'l6'],
+    given: [['i1', 'i2', { color: 'black' }]],
+    uses: ['euclid.I.10'],
+    demo: {
+      points: [
+        { x: 20, y: 110 },
+        { x: -140, y: -60 },
+        { x: 150, y: -60 },
+      ],
+      join: [['i1', 'i2']],
+    },
+  },
+
+  {
+    id: 'euclid.I.31',
+    ref: 'I.31',
+    name: 'Parallel through a point',
+    abbr: '∥',
+    summary: 'Through a given point to draw a straight line parallel to a given straight line.',
+    note: 'Given the point A and two points B, C of the line. Euclid copies an angle by I.23; this drops a perpendicular from A to the line by I.12 and then erects a perpendicular to that at A by I.11, which is parallel by I.28 — available by this point in the book, and a great deal shorter.',
+    inputs: [
+      { id: 'i0', kind: 'point', label: 'A' },
+      { id: 'i1', kind: 'point', label: 'B' },
+      { id: 'i2', kind: 'point', label: 'C' },
+    ],
+    body: [
+      { op: 'macro', id: 'l0', tool: 'euclid.I.12', args: ['i0', 'i1', 'i2'], out: ['l1', 'l2'] },
+      { op: 'macro', id: 'l3', tool: 'euclid.I.11', args: ['i0', 'l1'], out: ['l4'] },
+    ],
+    outputs: ['l4'],
+    given: [['i1', 'i2', { color: 'black' }]],
+    uses: ['euclid.I.11', 'euclid.I.12'],
+    demo: {
+      points: [
+        { x: 0, y: 110 },
+        { x: -150, y: -60 },
+        { x: 150, y: -60 },
+      ],
+      join: [['i1', 'i2']],
+    },
+  },
 ]
 
 export const PROPOSITION_BY_ID = new Map(PROPOSITIONS.map((p) => [p.id, p]))

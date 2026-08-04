@@ -514,7 +514,7 @@ test('a proposition the sketchpad has not worked opens a clean sheet and says wh
   assert.match(app.state.notice, /the hypothesis is constructed/)
 
   // A problem is not warned about proving, since there is nothing to prove.
-  app.openProposition(11, { n: 11, kind: 'problem', text: 'To draw a perpendicular…' })
+  app.openProposition(22, { n: 22, kind: 'problem', text: 'To make a triangle of three given lines…' })
   assert.match(app.state.notice, /Set out the given figure/)
 
   // One the sketchpad does know still sets out its construction.
