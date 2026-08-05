@@ -28,5 +28,30 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2025"]
 arcs = ["Anabasis 3"]
+index = [
+  "Ariston",
+  "Conon",
+  "Ctesias",
+  "Panactum",
+  "Phanostratus",
+  "Leocorium",
+  "Pythodorus",
+  "Melite",
+  "Pamphilus",
+  "Theotimus",
+  "Archebiades",
+  "Spintharus",
+  "Theogenes",
+  "Ithyphalli",
+  "Autolekythi",
+  "Areopagus",
+  "Brauron",
+  "Diotimus",
+  "Chaeretimus",
+  "Bacchius",
+  "Aristocrates",
+  "Hecate",
+  "Triballi",
+]
 contributors = ["Spencer Scorcelletti"]
 +++
