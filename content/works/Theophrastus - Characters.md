@@ -29,5 +29,20 @@ languages = ["Attic Greek"]
 # General taxonomies
 years = ["2025"]
 arcs = ["Anabasis 3"]
+index = [
+  "Alexander",
+  "Antipater",
+  "Polyperchon",
+  "Cassander",
+  "Macedonia",
+  "Theseus",
+  "Homer",
+  "Zeus",
+  "Dionysus",
+  "Asclepius",
+  "Hecate",
+  "Sabazius",
+  "Odeon",
+]
 contributors = ["Spencer Scorcelletti"]
 +++

@@ -28,5 +28,43 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2025"]
 arcs = ["Anabasis 3"]
+index = [
+  "Dionysus",
+  "Xanthias",
+  "Heracles",
+  "Charon",
+  "Empusa",
+  "Aeacus",
+  "Euripides",
+  "Aeschylus",
+  "Pluto",
+  "Persephone",
+  "Iacchus",
+  "Demeter",
+  "Sophocles",
+  "Iophon",
+  "Agathon",
+  "Cephisophon",
+  "Cleisthenes",
+  "Alcibiades",
+  "Cleophon",
+  "Theramenes",
+  "Archedemus",
+  "Cinesias",
+  "Hyperbolus",
+  "Morsimus",
+  "Phrynichus",
+  "Callias",
+  "Cerberus",
+  "Zeus",
+  "Apollo",
+  "Muses",
+  "Andromeda",
+  "Athens",
+  "Acheron",
+  "Styx",
+  "Tartarus",
+  "Lethe",
+]
 contributors = ["Spencer Scorcelletti"]
 +++

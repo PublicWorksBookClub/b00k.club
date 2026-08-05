@@ -28,5 +28,39 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2024"]
 arcs = ["Anabasis 2"]
+index = [
+  "Herakles",
+  "Amphitryon",
+  "Megara",
+  "Lycus",
+  "Iris",
+  "Lyssa",
+  "Theseus",
+  "Zeus",
+  "Hera",
+  "Eurystheus",
+  "Creon",
+  "Alcmene",
+  "Electryon",
+  "Cadmus",
+  "Hades",
+  "Cerberus",
+  "Atlas",
+  "Geryon",
+  "Diomedes",
+  "Cycnus",
+  "Hesperides",
+  "Amazons",
+  "Centaurs",
+  "Taphians",
+  "Thebes",
+  "Dirce",
+  "Ismenus",
+  "Argos",
+  "Mycenae",
+  "Athens",
+  "Nemea",
+  "Lerna",
+]
 contributors = ["Spencer Scorcelletti"]
 +++

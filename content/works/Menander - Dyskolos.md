@@ -28,5 +28,26 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2025"]
 arcs = ["Anabasis 3"]
+index = [
+  "Pan",
+  "Knemon",
+  "Sostratos",
+  "Chaireas",
+  "Pyrrhias",
+  "Gorgias",
+  "Daos",
+  "Getas",
+  "Sikon",
+  "Simiche",
+  "Kallippides",
+  "Myrrhine",
+  "Plangon",
+  "Donax",
+  "the Nymphs",
+  "Zeus",
+  "Apollo",
+  "Phyle",
+  "Attica",
+]
 contributors = ["Spencer Scorcelletti"]
 +++
