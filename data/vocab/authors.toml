@@ -47,6 +47,12 @@ sort = "Aristotle"
 wikipedia = "https://en.wikipedia.org/wiki/Aristotle"
 wikidata = "https://www.wikidata.org/wiki/Q868"
 
+[Callimachus]
+label = "Callimachus"
+sort = "Callimachus"
+wikipedia = "https://en.wikipedia.org/wiki/Callimachus"
+wikidata = "https://www.wikidata.org/wiki/Q192417"
+
 ["Marcus Aurelius"]
 label = "Marcus Aurelius"
 sort = "Aurelius, Marcus"
@@ -156,6 +162,12 @@ label = "Sophocles"
 sort = "Sophocles"
 wikipedia = "https://en.wikipedia.org/wiki/Sophocles"
 wikidata = "https://www.wikidata.org/wiki/Q7235"
+
+[Theocritus]
+label = "Theocritus"
+sort = "Theocritus"
+wikipedia = "https://en.wikipedia.org/wiki/Theocritus"
+wikidata = "https://www.wikidata.org/wiki/Q219484"
 
 [Theophrastus]
 label = "Theophrastus"

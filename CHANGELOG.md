@@ -9,6 +9,10 @@
 - Point the Argonautica's "Interactive Map" link at the new viewer, and add a separate "Edit the map" link to the generator
 - Centre the emoji inside map markers again, and restore the coordinate labels, both lost when the map was lifted out of the generator
 
+## 1.8.5 (2026-08-03)
+- Add minutes from 2026-08-02 meeting
+- Update Theocritus' Idylls' abstract + metadata
+
 ## 1.8.4 (2026-07-28)
 
 - Add Theocritus' Idylls to readings
