@@ -55,5 +55,31 @@ languages = ["Ancient Greek"]
 tags = []
 years = ["2026"]
 arcs = ["Metamorphoses 2"]
+index = [
+  "Epicurus",
+  "Neocles",
+  "Chaerestrata",
+  "Metrodorus",
+  "Hermarchus",
+  "Polyaenus",
+  "Leontion",
+  "Pythocles",
+  "Herodotus",
+  "Menoeceus",
+  "Idomeneus",
+  "Timocrates",
+  "Nausiphanes",
+  "Democritus",
+  "Leucippus",
+  "Plato",
+  "Aristotle",
+  "Amynomachus",
+  "Mys",
+  "Samos",
+  "Athens",
+  "Lampsacus",
+  "Mytilene",
+  "Colophon",
+]
 contributors = ["Spencer Scorcelletti"]
 +++

@@ -29,5 +29,28 @@ languages = ["Classical Arabic"]
 # General taxonomies
 years = ["2023"]
 arcs = ["Theogony 2"]
+index = [
+  "Scheherazade",
+  "Shahryar",
+  "Shahzaman",
+  "Dinarzade",
+  "Sindbad the Sailor",
+  "Haroun al-Raschid",
+  "Jaafar",
+  "Aladdin",
+  "Ali Baba",
+  "Cassim",
+  "Morgiana",
+  "Camaralzaman",
+  "Badoura",
+  "Solomon",
+  "Roc",
+  "Baghdad",
+  "Basra",
+  "Persia",
+  "India",
+  "China",
+  "Serendib",
+]
 contributors = ["Spencer Scorcelletti"]
 +++
