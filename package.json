@@ -1,6 +1,6 @@
 {
   "name": "b00k.club",
-  "version": "1.8.5",
+  "version": "1.8.6",
   "private": true,
   "description": "The website for the Public Works Book Club: we only read works in the public domain",
   "scripts": {
@@ -10,6 +10,7 @@
     "build": "pnpm initialize && zola build $BUILD_OPTS && npx @tailwindcss/cli -i ./css/input.css -o ./public/style.css -m && npx pagefind --site public",
     "build:cf": "if [ \"$CF_PAGES_BRANCH\" = \"main\" ]; then pnpm build; else BUILD_OPTS=\"--base-url $CF_PAGES_URL\" pnpm build; fi",
     "serve": "pnpm clean && zola build && npx pagefind --write-playground --site public && cp -r public/pagefind static/pagefind && zola serve --port 2665 $SERVE_OPTS & npx @tailwindcss/cli -i ./css/input.css -o ./public/style.css --watch && wait",
+    "map:export": "npm --prefix tools/map-export install --silent && node tools/map-export/export.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -1,0 +1,80 @@
+<!doctype html>
+<!-- `loading` is removed once the map is interactive; it is the readiness hook
+     the export's browser tests wait on. -->
+<html lang="en" class="loading">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Map — Public Works Book Club</title>
+    <meta name="description" content="An interactive map from the Public Works Book Club." />
+    <meta name="color-scheme" content="light" />
+
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/maps/viewer/vendor/leaflet/leaflet.css" />
+    <link rel="stylesheet" href="/maps/viewer/viewer.css" />
+  </head>
+
+  <body>
+    <div id="map" role="application" aria-label="Interactive map"></div>
+
+    <header class="chrome chrome--top">
+      <div class="titles">
+        <h1 id="map-title">Loading map…</h1>
+        <p id="map-subtitle" class="subtitle"></p>
+      </div>
+
+      <div class="tools">
+        <div class="search" role="search">
+          <label class="visually-hidden" for="search-input">Search places</label>
+          <input
+            id="search-input"
+            type="search"
+            placeholder="Search places, peoples, markers…"
+            autocomplete="off"
+            spellcheck="false"
+            aria-controls="search-results"
+            aria-expanded="false"
+          />
+          <ul id="search-results" class="results" role="listbox" aria-label="Search results" hidden></ul>
+        </div>
+
+        <button id="layers-toggle" type="button" class="button" aria-expanded="false" aria-controls="layers-panel">Layers</button>
+        <a id="edit-link" class="button" href="/maps/interactive/" title="Open this map in the full editor">Edit</a>
+      </div>
+    </header>
+
+    <div id="layers-panel" class="panel panel--layers" hidden>
+      <fieldset>
+        <legend>Show on the map</legend>
+        <label><input type="checkbox" data-layer="routes" checked /> The voyage</label>
+        <label><input type="checkbox" data-layer="markers" checked /> Markers</label>
+        <label><input type="checkbox" data-layer="icons" checked /> Settlements</label>
+        <label><input type="checkbox" data-layer="labels" checked /> Labels</label>
+      </fieldset>
+    </div>
+
+    <aside id="legend" class="panel panel--legend" hidden>
+      <button id="legend-toggle" type="button" class="panel__heading" aria-expanded="true" aria-controls="legend-body">
+        <span id="legend-title">Legend</span>
+      </button>
+      <ul id="legend-body" class="legend-items"></ul>
+    </aside>
+
+    <noscript>
+      <div class="fallback">
+        <p>
+          This map needs JavaScript to pan and zoom. You can still open the
+          <a href="/maps/interactive/">full map editor</a>, which needs JavaScript too — sorry.
+        </p>
+      </div>
+    </noscript>
+
+    <div id="status" class="status" role="status" aria-live="polite">Loading map…</div>
+
+    <script src="/maps/viewer/vendor/leaflet/leaflet.js"></script>
+    <script src="/maps/viewer/viewer.js" type="module"></script>
+  </body>
+</html>

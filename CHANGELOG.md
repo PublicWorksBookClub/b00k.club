@@ -2,10 +2,16 @@
 
 ## Next
 
+## 1.8.6 (2026-08-05)
+
+- Add `/maps/viewer/`, a fast reader for the Argonautica map: it loads in under half a second instead of pulling down a 20 MB project file and a 46 MB editor
+- Add `pnpm map:export`, which renders a `.map` project into raster tiles plus a vector overlay (see `tools/map-export/README.md`) — the generator at `/maps/interactive/` stays the way the map is edited
+- Point the Argonautica's "Interactive Map" link at the new viewer, and add a separate "Edit the map" link to the generator
+- Centre the emoji inside map markers again, and restore the coordinate labels, both lost when the map was lifted out of the generator
+
 ## 1.8.5 (2026-08-03)
 - Add minutes from 2026-08-02 meeting
 - Update Theocritus' Idylls' abstract + metadata
--
 
 ## 1.8.4 (2026-07-28)
 
@@ -16,7 +22,7 @@
 
 ## 1.8.3 (2026-07-26)
 
-- Update with minutes from today's meeting where we discussed Nolan's *The Odyssey* and finished Lucretius
+- Update with minutes from today's meeting where we discussed Nolan's _The Odyssey_ and finished Lucretius
 
 ## 1.8.2 (2026-07-19)
 
@@ -170,7 +176,7 @@
 ## 1.4.3 (2025-09-19)
 
 - Remove .vscode/spellright.dict from source control
-- Fix missing alternate title for Demosthenes' *First Philippic*
+- Fix missing alternate title for Demosthenes' _First Philippic_
 
 ## 1.4.2 (2025-09-15)
 
