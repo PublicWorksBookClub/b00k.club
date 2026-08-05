@@ -30,6 +30,6 @@ languages = ["Ancient Greek", "Attic Greek"]
 tags = ["Theaetetus returns"]
 years = ["2026"]
 arcs = ["Memorabilia 3"]
-index = []
+index = ["Theodorus", "Socrates", "Theaetetus", "Elea", "Parmenides", "Zeno", "Homer", "Xenophanes"]
 contributors = ["Spencer Scorcelletti"]
 +++
