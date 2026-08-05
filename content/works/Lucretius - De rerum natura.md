@@ -30,5 +30,40 @@ languages = ["Classical Latin"]
 tags = ["pores over gods", "the winds of change", "surprisingly good"]
 years = ["2026"]
 arcs = ["Metamorphoses 2"]
+index = [
+  "Venus",
+  "Memmius",
+  "Mars",
+  "Iphianassa",
+  "Aulis",
+  "Ennius",
+  "Helicon",
+  "Homer",
+  "Heraclitus",
+  "Empedocles",
+  "Aetna",
+  "Charybdis",
+  "Anaxagoras",
+  "Magna Mater",
+  "Jupiter",
+  "Neptune",
+  "Ceres",
+  "Bacchus",
+  "Tantalus",
+  "Tityos",
+  "Sisyphus",
+  "Cerberus",
+  "Ancus",
+  "Scipio",
+  "Carthage",
+  "Democritus",
+  "Epicurus",
+  "Phaethon",
+  "Athens",
+  "Calliope",
+  "Nile",
+  "Avernus",
+  "Egypt",
+]
 contributors = ["Spencer Scorcelletti"]
 +++

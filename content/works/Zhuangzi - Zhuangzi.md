@@ -29,5 +29,40 @@ languages = ["Classical Chinese"]
 # General taxonomies
 years = ["2023"]
 arcs = ["Theogony 2"]
+index = [
+  "Zhuangzi",
+  "Huizi",
+  "Confucius",
+  "Laozi",
+  "Yan Hui",
+  "Kun",
+  "Peng",
+  "Yao",
+  "Shun",
+  "Yu",
+  "Xu You",
+  "Liezi",
+  "Yellow Emperor",
+  "Cook Ding",
+  "Lord Wenhui",
+  "Nanguo Ziqi",
+  "Zigong",
+  "Pengzu",
+  "Xi Shi",
+  "Jie",
+  "Duke Ai of Lu",
+  "Bo Le",
+  "Robber Zhi",
+  "Hundun",
+  "Yellow River",
+  "Ruo of the North Sea",
+  "North Sea",
+  "Hao River",
+  "Chu",
+  "Lu",
+  "Wei",
+  "Song",
+  "Qi",
+]
 contributors = ["Spencer Scorcelletti"]
 +++
