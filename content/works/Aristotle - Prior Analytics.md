@@ -29,5 +29,6 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2025"]
 arcs = ["Anabasis 3"]
+index = ["Aristomenes", "Miccalus", "Athenians", "Thebans", "Phocians", "Pittacus"]
 contributors = ["Spencer Scorcelletti"]
 +++
