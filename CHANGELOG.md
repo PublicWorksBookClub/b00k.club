@@ -2,6 +2,8 @@
 
 ## Next
 
+## 1.8.6 (2026-08-05)
+
 - Add `/maps/viewer/`, a fast reader for the Argonautica map: it loads in under half a second instead of pulling down a 20 MB project file and a 46 MB editor
 - Add `pnpm map:export`, which renders a `.map` project into raster tiles plus a vector overlay (see `tools/map-export/README.md`) — the generator at `/maps/interactive/` stays the way the map is edited
 - Point the Argonautica's "Interactive Map" link at the new viewer, and add a separate "Edit the map" link to the generator
