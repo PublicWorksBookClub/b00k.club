@@ -1,0 +1,138 @@
+/**
+ * Client-side column sorting for any table on the site.
+ *
+ * Opt in from a template by putting `data-sortable` on the <table> and `data-sort` on the
+ * <th> of each sortable column:
+ *
+ *   <table data-sortable>
+ *     <thead>
+ *       <tr>
+ *         <th data-sort="text">Name</th>
+ *         <th data-sort="number">Works</th>
+ *         <th>Synonyms</th>
+ *       </tr>
+ *     </thead>
+ *     <tbody>…</tbody>
+ *   </table>
+ *
+ * Clicking a header cycles ascending → descending → the document order it was served in.
+ * When the visible text is not what you want to sort on — a formatted date, a name with a
+ * leading article, a count rendered with a label — put the real key on the cell:
+ *
+ *   <td data-sort-value="1274">1,274 works</td>
+ *
+ * Nothing here is specific to one page: it enhances whatever it finds, and a table without
+ * JavaScript stays a perfectly readable table.
+ */
+
+const collator = new Intl.Collator(undefined, {
+  numeric: true,
+  sensitivity: "base",
+});
+
+/** The value a cell sorts on: explicit `data-sort-value` wins over rendered text. */
+function cellValue(row, column) {
+  const cell = row.children[column];
+  if (!cell) return "";
+  const override = cell.getAttribute("data-sort-value");
+  return (override !== null ? override : cell.textContent).trim();
+}
+
+function comparator(column, kind) {
+  if (kind === "number") {
+    return (a, b) => {
+      // rows with no number sort last in both directions rather than clumping at one end
+      const x = parseFloat(cellValue(a, column));
+      const y = parseFloat(cellValue(b, column));
+      const xNaN = Number.isNaN(x);
+      const yNaN = Number.isNaN(y);
+      if (xNaN && yNaN) return 0;
+      if (xNaN) return 1;
+      if (yNaN) return -1;
+      return x - y;
+    };
+  }
+  return (a, b) => collator.compare(cellValue(a, column), cellValue(b, column));
+}
+
+function sortTable(table, headers, column, direction) {
+  const body = table.tBodies[0];
+  if (!body) return;
+
+  const rows = Array.from(body.rows);
+  if (direction === "none") {
+    rows.sort(
+      (a, b) => Number(a.dataset.sortIndex) - Number(b.dataset.sortIndex),
+    );
+  } else {
+    const compare = comparator(column, headers[column].dataset.sort);
+    const sign = direction === "descending" ? -1 : 1;
+    // stable within equal keys: fall back to the order the server sent
+    rows.sort((a, b) => {
+      const result = compare(a, b);
+      if (result !== 0) return sign * result;
+      return Number(a.dataset.sortIndex) - Number(b.dataset.sortIndex);
+    });
+  }
+  rows.forEach((row) => body.appendChild(row));
+
+  headers.forEach((header, i) => {
+    if (!header.dataset.sort) return;
+    const active = i === column && direction !== "none";
+    header.setAttribute("aria-sort", active ? direction : "none");
+    const arrow = header.querySelector("[data-sort-arrow]");
+    if (arrow) {
+      arrow.textContent = active
+        ? direction === "ascending"
+          ? "▲"
+          : "▼"
+        : "";
+    }
+  });
+}
+
+const NEXT = { none: "ascending", ascending: "descending", descending: "none" };
+
+function enhance(table) {
+  const head = table.tHead;
+  const body = table.tBodies[0];
+  if (!head || !body || table.dataset.sortableReady) return;
+  table.dataset.sortableReady = "true";
+
+  // remember the served order so the third click can restore it
+  Array.from(body.rows).forEach((row, i) => {
+    row.dataset.sortIndex = String(i);
+  });
+
+  const headers = Array.from(head.rows[0]?.cells ?? []);
+  let state = { column: -1, direction: "none" };
+
+  headers.forEach((header, column) => {
+    if (!header.dataset.sort) return;
+    header.setAttribute("aria-sort", "none");
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "cursor-pointer hover:underline";
+    while (header.firstChild) button.appendChild(header.firstChild);
+
+    const arrow = document.createElement("span");
+    arrow.setAttribute("data-sort-arrow", "");
+    arrow.className = "ml-1 text-gray-400";
+    button.appendChild(arrow);
+    header.appendChild(button);
+
+    button.addEventListener("click", () => {
+      const direction =
+        state.column === column ? NEXT[state.direction] : "ascending";
+      state = { column, direction };
+      sortTable(table, headers, column, direction);
+    });
+  });
+}
+
+export function initSortableTables(root = document) {
+  root.querySelectorAll("table[data-sortable]").forEach(enhance);
+}
+
+initSortableTables();
