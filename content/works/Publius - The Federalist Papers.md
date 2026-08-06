@@ -29,6 +29,7 @@ languages = ["English"]
 # General taxonomies
 years = ["2023"]
 arcs = ["Theogony 2"]
+references = ["plutarch-alexander"]
 index = [
   "Montesquieu",
   "Philip",

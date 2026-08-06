@@ -28,6 +28,7 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2026"]
 arcs = ["Elementa 1"]
+references = ["homer-odyssey", "sophocles-antigone", "aristophanes-frogs"]
 index = [
   "Homer",
   "Sophocles",

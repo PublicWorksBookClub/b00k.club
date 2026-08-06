@@ -28,6 +28,7 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2025"]
 arcs = ["Anabasis 3"]
+references = ["aeschylus-persians", "homer-odyssey"]
 index = [
   "Dionysus",
   "Xanthias",

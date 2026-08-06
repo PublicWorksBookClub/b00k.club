@@ -41,6 +41,7 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2023"]
 arcs = ["Anabasis 1"]
+references = ["homer-odyssey", "antiphon-3"]
 index = [
   "Thucydides",
   "Pericles",

@@ -28,6 +28,7 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2025"]
 arcs = ["Memorabilia 2"]
+references = ["plato-apology", "plato-crito", "homer-odyssey"]
 index = [
   "Phaedo",
   "Echecrates",

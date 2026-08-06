@@ -30,6 +30,7 @@ languages = ["Classical Latin"]
 tags = ["pores over gods", "the winds of change", "surprisingly good"]
 years = ["2026"]
 arcs = ["Metamorphoses 2"]
+references = ["homer-odyssey", "diogenes-epicurus"]
 index = [
   "Memmius",
   "Epicurus",

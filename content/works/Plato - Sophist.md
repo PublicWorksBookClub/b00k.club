@@ -30,6 +30,7 @@ languages = ["Ancient Greek", "Attic Greek"]
 tags = ["Theaetetus returns"]
 years = ["2026"]
 arcs = ["Memorabilia 3"]
+references = ["plato-theaetetus", "homer-odyssey"]
 index = [
   "the Eleatic Stranger",
   "Theaetetus",

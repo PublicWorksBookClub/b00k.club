@@ -28,6 +28,7 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2026"]
 arcs = ["Metamorphoses 1"]
+references = ["homer-odyssey", "xenophon-hellenica"]
 index = [
   "Alexander",
   "Darius",
