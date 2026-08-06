@@ -94,6 +94,7 @@ index = [
   "Ismenias",
   "Polydamas",
   "Autolycus",
+  "Arion",
   "Leontius",
   "Aglaion",
   "Er",
