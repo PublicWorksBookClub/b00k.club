@@ -43,11 +43,18 @@ index = [
   "Myrrhine",
   "Plangon",
   "Donax",
-  "the Nymphs",
+  "Nymphs",
   "Zeus",
   "Apollo",
+  "Herakles",
+  "Demeter",
+  "Asclepius",
+  "Poseidon",
+  "Perseus",
   "Phyle",
   "Attica",
+  "Cholargos",
+  "Paeania",
 ]
 contributors = ["Spencer Scorcelletti"]
 +++
