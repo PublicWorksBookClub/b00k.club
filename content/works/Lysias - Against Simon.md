@@ -28,6 +28,19 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2025"]
 arcs = ["Anabasis 3"]
-index = ["Simon", "Theodotus the Plataean", "Lysimachus", "Molon", "Corinth", "Coronea", "Laches"]
+index = [
+  "Simon",
+  "Theodotus the Plataean",
+  "Lysimachus",
+  "Molon",
+  "Aristocritus",
+  "Theophilus",
+  "Protarchus",
+  "Autocles",
+  "Laches",
+  "Piraeus",
+  "Corinth",
+  "Coronea",
+]
 contributors = ["Spencer Scorcelletti"]
 +++
