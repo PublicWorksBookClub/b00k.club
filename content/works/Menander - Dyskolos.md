@@ -34,7 +34,7 @@ index = [
   "Sostratos",
   "Chaireas",
   "Pyrrhias",
-  "Gorgias",
+  "Gorgias (Dyskolos)",
   "Daos",
   "Getas",
   "Sikon",

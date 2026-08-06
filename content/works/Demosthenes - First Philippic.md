@@ -32,7 +32,7 @@ index = [
   "Iphicrates",
   "Chabrias",
   "Polystratus",
-  "Menelaus",
+  "Menelaus of Pelagonia",
   "Artabazus",
   "Athens",
   "Sparta",

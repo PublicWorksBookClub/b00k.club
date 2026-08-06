@@ -29,8 +29,8 @@ languages = ["Ancient Greek", "Attic Greek"]
 years = ["2025"]
 arcs = ["Anabasis 3"]
 index = [
-  "Ariston",
-  "Conon",
+  "Ariston (plaintiff)",
+  "Conon (defendant)",
   "Ctesias",
   "Phanostratus",
   "Euxitheus",

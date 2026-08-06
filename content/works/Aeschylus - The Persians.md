@@ -112,7 +112,7 @@ index = [
   "Egypt",
   "Nile",
   "Memphis",
-  "Thebes",
+  "Thebes, Egypt",
   "Lydia",
   "Sardis",
   "Tmolus",

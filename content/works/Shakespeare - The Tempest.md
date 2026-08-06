@@ -58,7 +58,7 @@ index = [
   "Hymen",
   "Setebos",
   "Nymphs",
-  "Phoenix",
+  "Phoenix (mythical bird)",
   "Milan",
   "Naples",
   "Tunis",

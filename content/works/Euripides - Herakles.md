@@ -31,7 +31,7 @@ arcs = ["Anabasis 2"]
 index = [
   "Herakles",
   "Amphitryon",
-  "Megara",
+  "Megara (wife of Heracles)",
   "Lycus",
   "Theseus",
   "Iris",
@@ -53,7 +53,7 @@ index = [
   "Ixion",
   "Enceladus",
   "Nisus",
-  "Diomedes",
+  "Diomedes of Thrace",
   "Cycnus",
   "Atlas",
   "Zeus",

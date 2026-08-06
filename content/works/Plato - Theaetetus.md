@@ -32,7 +32,7 @@ tags = ["how to know nothing", "wind-egg", "true judgement", "Theaetetus begins"
 years = ["2026"]
 arcs = ["Memorabilia 3"]
 references = ["homer-odyssey"]
-index = ["Euclides", "Terpsion", "Corinth", "Megara", "Athens", "Socrates", "Cyrene", "Theodorus", "Euphronius of Sunium", "Sunium", "Phaenarete", "Artemis", "Aristides", "Lysimachus", "Prodicus", "Theaetetus", "Protagoras","Heraclitus", "Homer", "Hesiod", "Epicharmus", "Empedocles", "Parmenides", "Melissus", "Thales", "Pindar", "Euripides", "Callias", "Hipponicus", "Meletus", "Herakles", "Amphitryon", "Theseus", "Sciron", "Antaeus", "Zeus", "Hera", "Iris", "Thaumas", "Oceanus", "Tethys", "Mnemosyne", "Muses", "Graces", "Sparta", "Ionia", "Ephesus", "Erineum", "Thrace", "Mysians", "Hellas"]
+index = ["Euclides", "Terpsion", "Corinth", "Megara", "Athens", "Socrates", "Cyrene", "Theodorus", "Euphronius of Sunium", "Sunium", "Phaenarete", "Artemis", "Aristides", "Lysimachus (father of Aristides)", "Prodicus", "Theaetetus", "Protagoras","Heraclitus", "Homer", "Hesiod", "Epicharmus", "Empedocles", "Parmenides", "Melissus", "Thales", "Pindar", "Euripides", "Callias", "Hipponicus", "Meletus", "Herakles", "Amphitryon", "Theseus", "Sciron", "Antaeus", "Zeus", "Hera", "Iris", "Thaumas", "Oceanus", "Tethys", "Mnemosyne", "Muses", "Graces", "Sparta", "Ionia", "Ephesus", "Erineum", "Thrace", "Mysians", "Hellas"]
 contributors = ["Spencer Scorcelletti"]
 +++
 

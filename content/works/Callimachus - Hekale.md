@@ -39,7 +39,7 @@ index = [
   "Cecrops",
   "Erichthonius",
   "Coronis",
-  "Scylla",
+  "Scylla (daughter of Nisus)",
   "Athena",
   "Zeus",
   "Apollo",

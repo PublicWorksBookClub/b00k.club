@@ -220,6 +220,13 @@ synonyms = ["Aeschin", "Aeschin.", "Aeschines of Athens", "Αἰσχίνης"]
 wikipedia = "https://en.wikipedia.org/wiki/Aeschines"
 wikidata = "https://www.wikidata.org/wiki/Q317089"
 
+["Aeschines of Sphettus"]
+label = "Aeschines of Sphettus"
+sort = "Aeschines"
+wikipedia = "https://en.wikipedia.org/wiki/Aeschines_of_Sphettus"
+wikidata = "https://www.wikidata.org/wiki/Q409647"
+notes = ["Socratic philosopher and dialogue-writer, son of Lysanias of Sphettus"]
+
 [Aeschylus]
 label = "Aeschylus"
 synonyms = ["Aeschylos", "Αἰσχύλος"]
@@ -685,6 +692,20 @@ label = "Antiphon"
 wikipedia = "https://en.wikipedia.org/wiki/Antiphon_(orator)"
 wikidata = "https://www.wikidata.org/wiki/Q335560"
 
+["Antiphon (agent of Philip)"]
+label = "Antiphon (agent of Philip)"
+sort = "Antiphon"
+# no `wikipedia` entry
+# no `wikidata` entry
+notes = ["disfranchised Athenian who contracted with Philip to burn the Piraeus dockyards, arrested by Demosthenes and executed c. 343 BC"]
+
+["Antiphon of Cephisus"]
+label = "Antiphon of Cephisus"
+sort = "Antiphon"
+# no `wikipedia` entry
+# no `wikidata` entry
+notes = ["private Athenian, father of Socrates' companion Epigenes"]
+
 [Antisthenes]
 label = "Antisthenes"
 synonyms = ["Antisthene", "Antisthenes of Athens"]
@@ -871,6 +892,13 @@ label = "Archedemus"
 wikipedia = "https://en.wikipedia.org/wiki/Archedemus_of_Athens"
 wikidata = "https://www.wikidata.org/wiki/Q15078201"
 
+["Archedemus (associate of Archytas)"]
+label = "Archedemus (associate of Archytas)"
+sort = "Archedemus"
+# no `wikipedia` entry
+# no `wikidata` entry
+notes = ["Sicilian Greek of Archytas of Tarentum's circle, Plato's host and go-between at the court of Dionysius II"]
+
 [Archepolis]
 label = "Archepolis"
 synonyms = ["Archeptolis"]
@@ -881,6 +909,12 @@ wikidata = "https://www.wikidata.org/wiki/Q60791886"
 label = "Archidamus"
 wikipedia = "https://en.wikipedia.org/wiki/Archidamus_II"
 wikidata = "https://www.wikidata.org/wiki/Q313731"
+
+["Archidamus III"]
+label = "Archidamus III"
+wikipedia = "https://en.wikipedia.org/wiki/Archidamus_III"
+wikidata = "https://www.wikidata.org/wiki/Q448580"
+notes = ["son of Agesilaus II, king of Sparta 360-338 BC"]
 
 [Archilochus]
 label = "Archilochus"
@@ -1052,6 +1086,13 @@ label = "Aristobulus"
 wikipedia = "https://en.wikipedia.org/wiki/Aristobulus_of_Cassandreia"
 wikidata = "https://www.wikidata.org/wiki/Q544987"
 
+["Aristobulus (brother of Epicurus)"]
+label = "Aristobulus (brother of Epicurus)"
+sort = "Aristobulus"
+# no `wikipedia` entry
+# no `wikidata` entry
+notes = ["one of Epicurus' three brothers and fellow students, also the title of a work of Epicurus"]
+
 [Aristocrates]
 label = "Aristocrates"
 # no `wikipedia` entry
@@ -1077,6 +1118,13 @@ wikidata = "https://www.wikidata.org/wiki/Q1258025"
 label = "Ariston"
 # no `wikipedia` entry
 # no `wikidata` entry
+
+["Ariston (plaintiff)"]
+label = "Ariston (plaintiff)"
+sort = "Ariston"
+# no `wikipedia` entry
+# no `wikidata` entry
+notes = ["the Athenian who speaks Demosthenes 54, prosecuting Conon for assault"]
 
 [Aristonicus]
 label = "Aristonicus"
@@ -1353,6 +1401,13 @@ wikidata = "https://www.wikidata.org/wiki/Q753294"
 label = "Attalus"
 wikipedia = "https://en.wikipedia.org/wiki/Attalus_(general)"
 wikidata = "https://www.wikidata.org/wiki/Q356050"
+
+["Attalus son of Andromenes"]
+label = "Attalus son of Andromenes"
+sort = "Attalus son"
+wikipedia = "https://en.wikipedia.org/wiki/Attalus_(son_of_Andromenes)"
+wikidata = "https://www.wikidata.org/wiki/Q757885"
+notes = ["Macedonian officer under Alexander, commander of the Agrianians and later of a phalanx brigade"]
 
 [Attica]
 label = "Attica"
@@ -2168,6 +2223,13 @@ synonyms = ["Chrysippan", "Chrysippe de Soli", "Chrysippos", "Chrysippus Soleus"
 wikipedia = "https://en.wikipedia.org/wiki/Chrysippus"
 wikidata = "https://www.wikidata.org/wiki/Q211411"
 
+["Chrysippus of Elis"]
+label = "Chrysippus of Elis"
+sort = "Chrysippus"
+wikipedia = "https://en.wikipedia.org/wiki/Chrysippus_of_Elis"
+wikidata = "https://www.wikidata.org/wiki/Q1043413"
+notes = ["Son of Pelops, murdered by Atreus and Thyestes, in Greek myth"]
+
 [Chu]
 label = "Chu"
 # no `wikipedia` entry
@@ -2291,6 +2353,13 @@ label = "Cleombrotus"
 # no `wikipedia` entry
 # no `wikidata` entry
 
+["Cleombrotus of Ambracia"]
+label = "Cleombrotus of Ambracia"
+sort = "Cleombrotus"
+wikipedia = "https://en.wikipedia.org/wiki/Cleombrotus_of_Ambracia"
+wikidata = "https://www.wikidata.org/wiki/Q1774128"
+notes = ["Young associate of Socrates, absent in Aegina on the day of the hemlock"]
+
 [Cleon]
 label = "Cleon"
 synonyms = ["Κλέων"]
@@ -2316,6 +2385,13 @@ wikidata = "https://www.wikidata.org/wiki/Q635"
 label = "Cleophon"
 # no `wikipedia` entry
 # no `wikidata` entry
+
+["Cleophon the poet"]
+label = "Cleophon the poet"
+sort = "Cleophon"
+wikipedia = "https://en.wikipedia.org/wiki/Cleophon_(poet)"
+wikidata = "https://www.wikidata.org/wiki/Q1113778"
+notes = ["Ancient Greek tragic poet of plain diction, cited in the Poetics"]
 
 [Cleunicus]
 label = "Cleunicus"
@@ -2411,6 +2487,13 @@ label = "Conon"
 synonyms = ["Conon of Athens"]
 wikipedia = "https://en.wikipedia.org/wiki/Conon"
 wikidata = "https://www.wikidata.org/wiki/Q363832"
+
+["Conon (defendant)"]
+label = "Conon (defendant)"
+sort = "Conon"
+# no `wikipedia` entry
+# no `wikidata` entry
+notes = ["Elderly Athenian prosecuted by Ariston for assault in Demosthenes 54"]
 
 ["Cook Ding"]
 label = "Cook Ding"
@@ -2625,6 +2708,13 @@ label = "Cyrus"
 # no `wikipedia` entry
 # no `wikidata` entry
 
+["Cyrus the Younger"]
+label = "Cyrus the Younger"
+sort = "Cyrus"
+wikipedia = "https://en.wikipedia.org/wiki/Cyrus_the_Younger"
+wikidata = "https://www.wikidata.org/wiki/Q297960"
+notes = ["Achaemenid prince, satrap of Lydia 408-401 BC, paymaster of Lysander, killed at Cunaxa"]
+
 [Cythera]
 label = "Cythera"
 # no `wikipedia` entry
@@ -2782,11 +2872,25 @@ label = "Demodocus"
 # no `wikipedia` entry
 # no `wikidata` entry
 
+["Demodocus (father of Theages)"]
+label = "Demodocus (father of Theages)"
+sort = "Demodocus"
+# no `wikipedia` entry
+# no `wikidata` entry
+notes = ["Athenian father of Paralus and Theages, named among Socrates' supporters"]
+
 [Demosthenes]
 label = "Demosthenes"
 synonyms = ["Cottyphus", "Demostenes", "Demosthanes", "Δημοσθένης"]
 wikipedia = "https://en.wikipedia.org/wiki/Demosthenes"
 wikidata = "https://www.wikidata.org/wiki/Q117253"
+
+["Demosthenes (general)"]
+label = "Demosthenes (general)"
+sort = "Demosthenes"
+wikipedia = "https://en.wikipedia.org/wiki/Demosthenes_(general)"
+wikidata = "https://www.wikidata.org/wiki/Q504986"
+notes = ["Athenian general of the Archidamian and Sicilian campaigns, died 413 BC"]
 
 [Dercylidas]
 label = "Dercylidas"
@@ -2887,6 +2991,13 @@ synonyms = ["Diomedean choice", "Diomedes’ necessity"]
 wikipedia = "https://en.wikipedia.org/wiki/Diomedes"
 wikidata = "https://www.wikidata.org/wiki/Q208256"
 
+["Diomedes of Thrace"]
+label = "Diomedes of Thrace"
+sort = "Diomedes"
+wikipedia = "https://en.wikipedia.org/wiki/Diomedes_of_Thrace"
+wikidata = "https://www.wikidata.org/wiki/Q393186"
+notes = ["Thracian king whose man-eating mares were Heracles' eighth labour"]
+
 [Dion]
 label = "Dion"
 # no `wikipedia` entry
@@ -2911,6 +3022,13 @@ wikidata = "https://www.wikidata.org/wiki/Q574807"
 label = "Dionysius"
 # no `wikipedia` entry
 # no `wikidata` entry
+
+["Dionysius the painter"]
+label = "Dionysius the painter"
+sort = "Dionysius"
+# no `wikipedia` entry
+# no `wikidata` entry
+notes = ["Greek painter cited in the Poetics beside Polygnotus and Pauson for depicting men as they are"]
 
 [Dionysus]
 label = "Dionysus"
@@ -3534,6 +3652,13 @@ label = "Euthydemus"
 # no `wikipedia` entry
 # no `wikidata` entry
 
+["Euthydemus son of Cephalus"]
+label = "Euthydemus son of Cephalus"
+sort = "Euthydemus son"
+# no `wikipedia` entry
+# no `wikidata` entry
+notes = ["Brother of Lysias and Polemarchus, present in the Piraeus house of Republic I"]
+
 [Euthyphro]
 label = "Euthyphro"
 synonyms = ["Euthyphron", "Euthypro"]
@@ -3725,6 +3850,13 @@ synonyms = ["Glaucos", "Glaukos"]
 wikipedia = "https://en.wikipedia.org/wiki/Glaucus"
 wikidata = "https://www.wikidata.org/wiki/Q385397"
 
+["Glaucus of Carystus"]
+label = "Glaucus of Carystus"
+sort = "Glaucus"
+wikipedia = "https://en.wikipedia.org/wiki/Glaucus_of_Carystus"
+wikidata = "https://www.wikidata.org/wiki/Q932708"
+notes = ["Boxer of Carystus, Olympic and Pythian victor, early 5th century BC"]
+
 [Golgi]
 label = "Golgi"
 # no `wikipedia` entry
@@ -3746,6 +3878,13 @@ label = "Gorgias"
 synonyms = ["Gorgia", "Gorgias Leontinus", "Gorgias of Leontini", "Gorgias the Nihilist", "Γοργίας"]
 wikipedia = "https://en.wikipedia.org/wiki/Gorgias"
 wikidata = "https://www.wikidata.org/wiki/Q179785"
+
+["Gorgias (Dyskolos)"]
+label = "Gorgias (Dyskolos)"
+sort = "Gorgias"
+# no `wikipedia` entry
+# no `wikidata` entry
+notes = ["Young farmer, Knemon's stepson and Sostratos' brother-in-law, in Menander's Dyskolos"]
 
 [Gorgo]
 label = "Gorgo"
@@ -4136,6 +4275,13 @@ synonyms = [
 wikipedia = "https://en.wikipedia.org/wiki/Herodotus"
 wikidata = "https://www.wikidata.org/wiki/Q26825"
 
+["Herodotus the Epicurean"]
+label = "Herodotus the Epicurean"
+sort = "Herodotus"
+# no `wikipedia` entry
+# no `wikidata` entry
+notes = ["Member of Epicurus' circle, addressee of the Letter to Herodotus on natural philosophy"]
+
 [Hesiod]
 label = "Hesiod"
 synonyms = ["Hesiodic", "Hesiod of Ascra", "Hesiodic Corpus", "Hesiodos", "Hesiodus", "Ἡσίοδος"]
@@ -4170,6 +4316,13 @@ synonyms = ["Hipparchos", "Hipparchus Rhodius", "Hipparchus of Nicaea", "Hipparc
 wikipedia = "https://en.wikipedia.org/wiki/Hipparchus"
 wikidata = "https://www.wikidata.org/wiki/Q159905"
 
+["Hipparchus son of Pisistratus"]
+label = "Hipparchus son of Pisistratus"
+sort = "Hipparchus son"
+wikipedia = "https://en.wikipedia.org/wiki/Hipparchus_(brother_of_Hippias)"
+wikidata = "https://www.wikidata.org/wiki/Q435531"
+notes = ["Pisistratid, brother of the tyrant Hippias, killed by Harmodius and Aristogiton in 514 BC"]
+
 [Hipparinus]
 label = "Hipparinus"
 # no `wikipedia` entry
@@ -4186,6 +4339,13 @@ label = "Hippias of Thasos"
 # no `wikipedia` entry
 # no `wikidata` entry
 
+["Hippias son of Pisistratus"]
+label = "Hippias son of Pisistratus"
+sort = "Hippias son"
+wikipedia = "https://en.wikipedia.org/wiki/Hippias_(tyrant)"
+wikidata = "https://www.wikidata.org/wiki/Q313467"
+notes = ["Tyrant of Athens 527-510 BC, eldest son of Pisistratus"]
+
 [Hippocrates]
 label = "Hippocrates"
 synonyms = [
@@ -4200,6 +4360,13 @@ synonyms = [
 ]
 wikipedia = "https://en.wikipedia.org/wiki/Hippocrates"
 wikidata = "https://www.wikidata.org/wiki/Q5264"
+
+["Hippocrates of Athens"]
+label = "Hippocrates of Athens"
+sort = "Hippocrates"
+wikipedia = "https://en.wikipedia.org/wiki/Hippocrates_of_Athens"
+wikidata = "https://www.wikidata.org/wiki/Q1620003"
+notes = ["Athenian general, son of Ariphron, killed at Delium in 424 BC"]
 
 [Hippodamia]
 label = "Hippodamia"
@@ -4700,6 +4867,13 @@ label = "Laches"
 wikipedia = "https://en.wikipedia.org/wiki/Laches_(general)"
 wikidata = "https://www.wikidata.org/wiki/Q749640"
 
+["Laches (taxiarch)"]
+label = "Laches (taxiarch)"
+sort = "Laches"
+# no `wikipedia` entry
+# no `wikidata` entry
+notes = ["Athenian taxiarch serving at Corinth during the Corinthian War (394/3 BC)"]
+
 [Lachesis]
 label = "Lachesis"
 wikipedia = "https://en.wikipedia.org/wiki/Lachesis"
@@ -4967,6 +5141,13 @@ synonyms = ["Lycodemes", "Lycomedes of Scyros"]
 wikipedia = "https://en.wikipedia.org/wiki/Lycomedes_of_Scyros"
 wikidata = "https://www.wikidata.org/wiki/Q1330532"
 
+["Lycomedes of Mantinea"]
+label = "Lycomedes of Mantinea"
+sort = "Lycomedes"
+wikipedia = "https://en.wikipedia.org/wiki/Lycomedes_of_Mantinea"
+wikidata = "https://www.wikidata.org/wiki/Q6707327"
+notes = ["4th-century BC Mantinean politician, founder of the Arcadian League"]
+
 [Lycon]
 label = "Lycon"
 # no `wikipedia` entry
@@ -5004,6 +5185,13 @@ label = "Lynceus"
 wikipedia = "https://en.wikipedia.org/wiki/Lynceus_(mythology)"
 wikidata = "https://www.wikidata.org/wiki/Q36026658"
 
+["Lynceus (Argonaut)"]
+label = "Lynceus (Argonaut)"
+sort = "Lynceus"
+wikipedia = "https://en.wikipedia.org/wiki/Lynceus_(son_of_Aphareus)"
+wikidata = "https://www.wikidata.org/wiki/Q1124866"
+notes = ["Lynceus son of Aphareus, the Messenian Argonaut proverbial for superhuman eyesight"]
+
 [Lynkeus]
 label = "Lynkeus"
 wikipedia = "https://en.wikipedia.org/wiki/Lynceus_(mythology)"
@@ -5032,6 +5220,27 @@ label = "Lysimachus"
 synonyms = ["Lysimach", "Lysimachos", "Lysimachus of Thrace", "Λυσίμαχος"]
 wikipedia = "https://en.wikipedia.org/wiki/Lysimachus"
 wikidata = "https://www.wikidata.org/wiki/Q32133"
+
+["Lysimachus (Athenian)"]
+label = "Lysimachus (Athenian)"
+sort = "Lysimachus"
+# no `wikipedia` entry
+# no `wikidata` entry
+notes = ["Private Athenian of the 390s BC in whose house Theodotus was lodging"]
+
+["Lysimachus (father of Aristides)"]
+label = "Lysimachus (father of Aristides)"
+sort = "Lysimachus"
+# no `wikipedia` entry
+# no `wikidata` entry
+notes = ["Lysimachus son of Aristides the Just, Athenian, father of the younger Aristides"]
+
+["Lysimachus of Acarnania"]
+label = "Lysimachus of Acarnania"
+sort = "Lysimachus"
+wikipedia = "https://en.wikipedia.org/wiki/Lysimachus_of_Acarnania"
+wikidata = "https://www.wikidata.org/wiki/Q452941"
+notes = ["Alexander's tutor, who called himself Phoenix and Alexander Achilles"]
 
 [Lysippus]
 label = "Lysippus"
@@ -5324,6 +5533,13 @@ synonyms = ["Megarians", "Megarian", "Μέγαρα"]
 wikipedia = "https://en.wikipedia.org/wiki/Megara"
 wikidata = "https://www.wikidata.org/wiki/Q184864"
 
+["Megara (wife of Heracles)"]
+label = "Megara (wife of Heracles)"
+sort = "Megara"
+wikipedia = "https://en.wikipedia.org/wiki/Megara_(wife_of_Heracles)"
+wikidata = "https://www.wikidata.org/wiki/Q929768"
+notes = ["Daughter of Creon of Thebes, first wife of Heracles"]
+
 [Megareus]
 label = "Megareus"
 # no `wikipedia` entry
@@ -5366,6 +5582,13 @@ label = "Meleager"
 synonyms = ["Meleagar", "Meleagrian"]
 wikipedia = "https://en.wikipedia.org/wiki/Meleager"
 wikidata = "https://www.wikidata.org/wiki/Q321541"
+
+["Meleager (general)"]
+label = "Meleager (general)"
+sort = "Meleager"
+wikipedia = "https://en.wikipedia.org/wiki/Meleager_(general)"
+wikidata = "https://www.wikidata.org/wiki/Q729432"
+notes = ["Macedonian officer of Alexander, brigade commander and later regent-maker at Babylon"]
 
 [Meleagros]
 label = "Meleagros"
@@ -5410,6 +5633,13 @@ synonyms = ["Memnonian"]
 wikipedia = "https://en.wikipedia.org/wiki/Memnon"
 wikidata = "https://www.wikidata.org/wiki/Q506781"
 
+["Memnon of Rhodes"]
+label = "Memnon of Rhodes"
+sort = "Memnon"
+wikipedia = "https://en.wikipedia.org/wiki/Memnon_of_Rhodes"
+wikidata = "https://www.wikidata.org/wiki/Q319378"
+notes = ["Rhodian mercenary commander in Persian service against Alexander (d. 333 BC)"]
+
 [Memphis]
 label = "Memphis"
 # no `wikipedia` entry
@@ -5431,6 +5661,13 @@ label = "Menelaus"
 synonyms = ["Menelaos", "Μενέλαος"]
 wikipedia = "https://en.wikipedia.org/wiki/Menelaus"
 wikidata = "https://www.wikidata.org/wiki/Q171839"
+
+["Menelaus of Pelagonia"]
+label = "Menelaus of Pelagonia"
+sort = "Menelaus"
+wikipedia = "https://en.wikipedia.org/wiki/Menelaus_of_Pelagonia"
+wikidata = "https://www.wikidata.org/wiki/Q915847"
+notes = ["Macedonian in Athenian service, honorary Athenian citizen, commanding cavalry in the 350s BC"]
 
 [Menexenus]
 label = "Menexenus"
@@ -5786,6 +6023,13 @@ synonyms = ["Neoptolemic", "Neoptolemos"]
 wikipedia = "https://en.wikipedia.org/wiki/Neoptolemus"
 wikidata = "https://www.wikidata.org/wiki/Q322639"
 
+["Neoptolemus (actor)"]
+label = "Neoptolemus (actor)"
+sort = "Neoptolemus"
+# no `wikipedia` entry
+# no `wikidata` entry
+notes = ["Contemporary Athenian benefactor honoured for donations as Commissioner of Works - conventionally identified with Neoptolemus the tragic actor who served Philip's diplomacy"]
+
 [Neptune]
 label = "Neptune"
 synonyms = ["Neptune's", "Neptune Scooter", "Neptune planet", "Neptune's Atmosphere", "Neptune's weather", "Neptunian atmosphere"]
@@ -5840,6 +6084,13 @@ label = "Niceratus"
 label = "Nicias"
 wikipedia = "https://en.wikipedia.org/wiki/Nicias"
 wikidata = "https://www.wikidata.org/wiki/Q315822"
+
+["Nicias of Miletus"]
+label = "Nicias of Miletus"
+sort = "Nicias"
+wikipedia = "https://en.wikipedia.org/wiki/Nicias_of_Miletus"
+wikidata = "https://www.wikidata.org/wiki/Q11939090"
+notes = ["Physician and poet of Miletus, friend and addressee of Theocritus"]
 
 [Nicochares]
 label = "Nicochares"
@@ -6235,6 +6486,20 @@ label = "Pausanias"
 wikipedia = "https://en.wikipedia.org/wiki/Pausanias_the_Regent"
 wikidata = "https://www.wikidata.org/wiki/Q314518"
 
+["Pausanias (king of Sparta)"]
+label = "Pausanias (king of Sparta)"
+sort = "Pausanias"
+wikipedia = "https://en.wikipedia.org/wiki/Pausanias_(king_of_Sparta)"
+wikidata = "https://www.wikidata.org/wiki/Q433408"
+notes = ["Pausanias son of Pleistoanax, king of Sparta 409-395 BC, father of Agesipolis"]
+
+["Pausanias of Orestis"]
+label = "Pausanias of Orestis"
+sort = "Pausanias"
+wikipedia = "https://en.wikipedia.org/wiki/Pausanias_of_Orestis"
+wikidata = "https://www.wikidata.org/wiki/Q457994"
+notes = ["Macedonian bodyguard who assassinated Philip II in 336 BC"]
+
 [Pauson]
 label = "Pauson"
 wikipedia = "https://en.wikipedia.org/wiki/The_Acharnians"
@@ -6404,6 +6669,13 @@ synonyms = ["Perdicas", "Perdikkas"]
 wikipedia = "https://en.wikipedia.org/wiki/Perdiccas"
 wikidata = "https://www.wikidata.org/wiki/Q202113"
 
+["Perdiccas II of Macedon"]
+label = "Perdiccas II of Macedon"
+sort = "Perdiccas II"
+wikipedia = "https://en.wikipedia.org/wiki/Perdiccas_II_of_Macedon"
+wikidata = "https://www.wikidata.org/wiki/Q318426"
+notes = ["King of Macedon c. 448-413 BC, contemporary of Socrates and of the Peloponnesian War"]
+
 [Pergamus]
 label = "Pergamus"
 synonyms = ["Pergamos"]
@@ -6533,6 +6805,12 @@ label = "Pharandaces"
 label = "Pharnabazus"
 wikipedia = "https://en.wikipedia.org/wiki/Pharnabazus_II"
 wikidata = "https://www.wikidata.org/wiki/Q458256"
+
+["Pharnabazus III"]
+label = "Pharnabazus III"
+wikipedia = "https://en.wikipedia.org/wiki/Pharnabazus_III"
+wikidata = "https://www.wikidata.org/wiki/Q740013"
+notes = ["Son of Artabazus II; took over Memnon's command of the Persian fleet against Alexander, 333 BC"]
 
 [Pharnuchus]
 label = "Pharnuchus"
@@ -6706,6 +6984,13 @@ label = "Phoenix"
 wikipedia = "https://en.wikipedia.org/wiki/Phoenix_(son_of_Amyntor)"
 wikidata = "https://www.wikidata.org/wiki/Q1061747"
 
+["Phoenix (mythical bird)"]
+label = "Phoenix (mythical bird)"
+sort = "Phoenix"
+wikipedia = "https://en.wikipedia.org/wiki/Phoenix_(mythology)"
+wikidata = "https://www.wikidata.org/wiki/Q48444"
+notes = ["The immortal bird of Arabia that is reborn from its own ashes - not a person at all"]
+
 [Pholoe]
 label = "Pholoe"
 synonyms = ["Φολόη"]
@@ -6762,6 +7047,13 @@ wikidata = "https://www.wikidata.org/wiki/Q32579"
 label = "Phrynichus"
 wikipedia = "https://en.wikipedia.org/wiki/Phrynichus_(tragic_poet)"
 wikidata = "https://www.wikidata.org/wiki/Q317061"
+
+["Phrynichus (oligarch)"]
+label = "Phrynichus (oligarch)"
+sort = "Phrynichus"
+wikipedia = "https://en.wikipedia.org/wiki/Phrynichus_(oligarch)"
+wikidata = "https://www.wikidata.org/wiki/Q572507"
+notes = ["Athenian general and leader of the Four Hundred, assassinated 411 BC"]
 
 [Phthia]
 label = "Phthia"
@@ -6915,6 +7207,13 @@ label = "Polycles"
 label = "Polydamas"
 wikipedia = "https://en.wikipedia.org/wiki/Polydamas_of_Skotoussa"
 wikidata = "https://www.wikidata.org/wiki/Q3141687"
+
+["Polydamas of Pharsalus"]
+label = "Polydamas of Pharsalus"
+sort = "Polydamas"
+wikipedia = "https://en.wikipedia.org/wiki/Polydamas_of_Pharsalus"
+wikidata = "https://www.wikidata.org/wiki/Q7226264"
+notes = ["4th-century BC Thessalian statesman, courted by Jason of Pherae and later killed by Polyphron"]
 
 [Polydeukes]
 label = "Polydeukes"
@@ -7097,6 +7396,12 @@ synonyms = [
 ]
 wikipedia = "https://en.wikipedia.org/wiki/Ptolemy"
 wikidata = "https://www.wikidata.org/wiki/Q34943"
+
+["Ptolemy II Philadelphus"]
+label = "Ptolemy II Philadelphus"
+wikipedia = "https://en.wikipedia.org/wiki/Ptolemy_II_Philadelphus"
+wikidata = "https://www.wikidata.org/wiki/Q39576"
+notes = ["King of Egypt 283-246 BC, Theocritus' patron, husband and brother of Arsinoe"]
 
 [Pydna]
 label = "Pydna"
@@ -7428,6 +7733,13 @@ label = "Scylla"
 synonyms = ["Scylle", "Σκύλλα"]
 wikipedia = "https://en.wikipedia.org/wiki/Scylla"
 wikidata = "https://www.wikidata.org/wiki/Q193115"
+
+["Scylla (daughter of Nisus)"]
+label = "Scylla (daughter of Nisus)"
+sort = "Scylla"
+wikipedia = "https://en.wikipedia.org/wiki/Scylla_(mythology)"
+wikidata = "https://www.wikidata.org/wiki/Q136697386"
+notes = ["Daughter of King Nisus of Megara, who cut her father's purple lock and betrayed the city to Minos"]
 
 [Scyros]
 label = "Scyros"
@@ -8102,6 +8414,12 @@ wikidata = "https://www.wikidata.org/wiki/Q2005313"
 label = "Thebes"
 wikipedia = "https://en.wikipedia.org/wiki/Thebes,_Greece"
 wikidata = "https://www.wikidata.org/wiki/Q5760"
+
+["Thebes, Egypt"]
+label = "Thebes, Egypt"
+wikipedia = "https://en.wikipedia.org/wiki/Thebes,_Egypt"
+wikidata = "https://www.wikidata.org/wiki/Q101583"
+notes = ["The ancient Egyptian city on the Nile, in the Persian muster-roll of Xerxes' subject contingents"]
 
 [Themis]
 label = "Themis"

@@ -97,7 +97,7 @@ index = [
   "Hadrian",
   "Phalaris",
   "Croesus",
-  "Perdiccas",
+  "Perdiccas II of Macedon",
   "Camillus",
   "Caeso",
   "Volesus",
