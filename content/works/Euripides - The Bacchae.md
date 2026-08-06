@@ -62,7 +62,7 @@ index = [
   "Satyrs",
   "Curetes",
   "Corybantes",
-  "Gorgon",
+  "Gorgons",
   "Fates",
   "Thebes",
   "Cithaeron",
