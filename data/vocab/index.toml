@@ -682,8 +682,8 @@ wikidata = "https://www.wikidata.org/wiki/Q204760"
 
 [Antiphon]
 label = "Antiphon"
-# no `wikipedia` entry
-# no `wikidata` entry
+wikipedia = "https://en.wikipedia.org/wiki/Antiphon_(orator)"
+wikidata = "https://www.wikidata.org/wiki/Q335560"
 
 [Antisthenes]
 label = "Antisthenes"
@@ -868,8 +868,8 @@ label = "Archebiades"
 
 [Archedemus]
 label = "Archedemus"
-# no `wikipedia` entry
-# no `wikidata` entry
+wikipedia = "https://en.wikipedia.org/wiki/Archedemus_of_Athens"
+wikidata = "https://www.wikidata.org/wiki/Q15078201"
 
 [Archepolis]
 label = "Archepolis"
@@ -879,8 +879,8 @@ wikidata = "https://www.wikidata.org/wiki/Q60791886"
 
 [Archidamus]
 label = "Archidamus"
-# no `wikipedia` entry
-# no `wikidata` entry
+wikipedia = "https://en.wikipedia.org/wiki/Archidamus_II"
+wikidata = "https://www.wikidata.org/wiki/Q313731"
 
 [Archilochus]
 label = "Archilochus"
@@ -1049,8 +1049,8 @@ label = "Aristis"
 
 [Aristobulus]
 label = "Aristobulus"
-# no `wikipedia` entry
-# no `wikidata` entry
+wikipedia = "https://en.wikipedia.org/wiki/Aristobulus_of_Cassandreia"
+wikidata = "https://www.wikidata.org/wiki/Q544987"
 
 [Aristocrates]
 label = "Aristocrates"
@@ -1351,8 +1351,8 @@ wikidata = "https://www.wikidata.org/wiki/Q753294"
 
 [Attalus]
 label = "Attalus"
-# no `wikipedia` entry
-# no `wikidata` entry
+wikipedia = "https://en.wikipedia.org/wiki/Attalus_(general)"
+wikidata = "https://www.wikidata.org/wiki/Q356050"
 
 [Attica]
 label = "Attica"
@@ -4697,8 +4697,8 @@ wikidata = "https://www.wikidata.org/wiki/Q847005"
 
 [Laches]
 label = "Laches"
-# no `wikipedia` entry
-# no `wikidata` entry
+wikipedia = "https://en.wikipedia.org/wiki/Laches_(general)"
+wikidata = "https://www.wikidata.org/wiki/Q749640"
 
 [Lachesis]
 label = "Lachesis"
@@ -6232,8 +6232,8 @@ wikidata = "https://www.wikidata.org/wiki/Q186271"
 
 [Pausanias]
 label = "Pausanias"
-# no `wikipedia` entry
-# no `wikidata` entry
+wikipedia = "https://en.wikipedia.org/wiki/Pausanias_the_Regent"
+wikidata = "https://www.wikidata.org/wiki/Q314518"
 
 [Pauson]
 label = "Pauson"
@@ -6531,8 +6531,8 @@ label = "Pharandaces"
 
 [Pharnabazus]
 label = "Pharnabazus"
-# no `wikipedia` entry
-# no `wikidata` entry
+wikipedia = "https://en.wikipedia.org/wiki/Pharnabazus_II"
+wikidata = "https://www.wikidata.org/wiki/Q458256"
 
 [Pharnuchus]
 label = "Pharnuchus"
@@ -6703,8 +6703,8 @@ wikidata = "https://www.wikidata.org/wiki/Q41642"
 
 [Phoenix]
 label = "Phoenix"
-# no `wikipedia` entry
-# no `wikidata` entry
+wikipedia = "https://en.wikipedia.org/wiki/Phoenix_(son_of_Amyntor)"
+wikidata = "https://www.wikidata.org/wiki/Q1061747"
 
 [Pholoe]
 label = "Pholoe"
@@ -6760,8 +6760,8 @@ wikidata = "https://www.wikidata.org/wiki/Q32579"
 
 [Phrynichus]
 label = "Phrynichus"
-# no `wikipedia` entry
-# no `wikidata` entry
+wikipedia = "https://en.wikipedia.org/wiki/Phrynichus_(tragic_poet)"
+wikidata = "https://www.wikidata.org/wiki/Q317061"
 
 [Phthia]
 label = "Phthia"
@@ -6913,8 +6913,8 @@ label = "Polycles"
 
 [Polydamas]
 label = "Polydamas"
-# no `wikipedia` entry
-# no `wikidata` entry
+wikipedia = "https://en.wikipedia.org/wiki/Polydamas_of_Skotoussa"
+wikidata = "https://www.wikidata.org/wiki/Q3141687"
 
 [Polydeukes]
 label = "Polydeukes"
@@ -8100,8 +8100,8 @@ wikidata = "https://www.wikidata.org/wiki/Q2005313"
 
 [Thebes]
 label = "Thebes"
-# no `wikipedia` entry
-# no `wikidata` entry
+wikipedia = "https://en.wikipedia.org/wiki/Thebes,_Greece"
+wikidata = "https://www.wikidata.org/wiki/Q5760"
 
 [Themis]
 label = "Themis"
