@@ -61,7 +61,7 @@ index = [
   "Delphi",
   "Hymettus",
   "Persia",
-  "Ethiopia",
+  "Ethiopians",
   "Asia",
   "Europe",
   "Odeon",

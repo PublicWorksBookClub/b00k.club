@@ -138,7 +138,7 @@ index = [
   "Thrace",
   "Silenia",
   "Asopus",
-  "Spercheus",
+  "Spercheius",
   "Styx",
 ]
 contributors = ["Spencer Scorcelletti"]

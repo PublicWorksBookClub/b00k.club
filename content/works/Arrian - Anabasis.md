@@ -104,7 +104,7 @@ index = [
   "Triballi",
   "Getae",
   "Celts",
-  "Illyrians",
+  "Illyria",
   "Malli",
   "Uxii",
   "Chaldaeans",

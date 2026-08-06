@@ -167,7 +167,7 @@ index = [
   "Scylla",
   "Cerberus",
   "Scythians",
-  "Phoenicians",
+  "Phoenicia",
   "Piraeus",
   "Athens",
   "Megara",

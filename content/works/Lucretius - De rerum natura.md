@@ -68,7 +68,7 @@ index = [
   "Curetes",
   "Centaurs",
   "Cerberus",
-  "Chimaera",
+  "Chimera",
   "Scylla",
   "Charybdis",
   "Athens",
