@@ -29,6 +29,6 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2025"]
 arcs = ["Anabasis 3"]
-index = ["Socrates", "Lyceum"]
+index = ["Socrates", "Lyceum", "Athens"]
 contributors = ["Spencer Scorcelletti"]
 +++

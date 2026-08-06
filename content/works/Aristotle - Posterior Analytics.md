@@ -30,22 +30,25 @@ languages = ["Ancient Greek", "Attic Greek"]
 years = ["2025"]
 arcs = ["Anabasis 3"]
 index = [
-  "Socrates",
   "Callias",
-  "Meno",
+  "Coriscus",
+  "Socrates",
+  "Alcibiades",
+  "Lysander",
+  "Anacharsis",
   "Bryson",
   "Caeneus",
-  "Anacharsis",
-  "Scythians",
-  "Iliad",
-  "Athenians",
-  "Sardis",
-  "Eretrians",
-  "Alcibiades",
   "Achilles",
   "Ajax",
-  "Lysander",
+  "Pythagoreans",
+  "Scythians",
+  "Athens",
+  "Sardis",
+  "Eretria",
   "Nile",
+  "Tartarus",
+  "Iliad",
+  "Meno",
 ]
 contributors = ["Spencer Scorcelletti"]
 +++
