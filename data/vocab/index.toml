@@ -4810,6 +4810,12 @@ label = "Juno"
 
 [Jupiter]
 label = "Jupiter"
+synonyms = ["Jove", "Diespiter", "Ioue", "Juppiter", "Dju Pater"]
+wikipedia = "https://en.wikipedia.org/wiki/Jupiter_(god)"
+wikidata = "https://www.wikidata.org/wiki/Q4649"
+
+["Jupiter (planet)"]
+label = "Jupiter"
 synonyms = ["Jupitar", "Jupiter planet", "Jupiter weight", "Jupiter's", "Jupiter's radio emissions", "Jupitor"]
 wikipedia = "https://en.wikipedia.org/wiki/Jupiter"
 wikidata = "https://www.wikidata.org/wiki/Q319"
@@ -7137,17 +7143,13 @@ label = "Plathane"
 [Plato]
 label = "Plato"
 synonyms = [
-  "Plato's Dialogues",
-  "Plato's Information",
-  "Plato's early life",
-  "Plato/Complete works",
-  "Platonesque",
-  "Platonian",
-  "Platonic Dialogues",
-  "Platonic dialectic",
-  "Platos dialogues",
+  "Platon",
+  "Plátōn",
   "Pláton",
   "Πλάτων",
+  "Aristocles",
+  "Αριστοκλής",
+  "Ἀριστοκλῆς"
 ]
 wikipedia = "https://en.wikipedia.org/wiki/Plato"
 wikidata = "https://www.wikidata.org/wiki/Q859"
@@ -7160,22 +7162,11 @@ label = "Plemmyrium"
 [Pluto]
 label = "Pluto"
 synonyms = [
-  "Pluto Planet Day",
-  "Pluto debate",
-  "Pluto mass",
-  "Pluto planetary status controversy",
-  "Pluto radius",
-  "Pluto system",
-  "Pluto-Charon",
-  "Pluto-Charon system",
-  "Pluto-Unseen far side",
-  "Plutoing",
-  "Plutophile",
-  "Pluto–Charon",
-  "Pluto–Charon system",
+  "Plouton",
+  "Pluton"
 ]
-wikipedia = "https://en.wikipedia.org/wiki/Pluto"
-wikidata = "https://www.wikidata.org/wiki/Q339"
+wikipedia = "https://en.wikipedia.org/wiki/Pluto_(god)"
+wikidata = "https://www.wikidata.org/wiki/Q152262"
 
 [Poeas]
 label = "Poeas"
@@ -7604,10 +7595,6 @@ synonyms = [
   "Samarcanda",
   "Samarghand",
   "Samarkan",
-  "Samarkand - Crossroad of Cultures",
-  "Samarkand - Crossroads of Cultures",
-  "Samarkand – Crossroad of Cultures",
-  "Samarkand – Crossroads of Cultures",
   "Samarkanda",
   "Samarkhand",
   "Samarkland",
@@ -8402,8 +8389,9 @@ wikidata = "https://www.wikidata.org/wiki/Q1497"
 
 [Theaetetus]
 label = "Theaetetus"
-# no `wikipedia` entry
-# no `wikidata` entry
+wikipedia = "https://en.wikipedia.org/wiki/Theaetetus_(mathematician)"
+wikidata = "https://www.wikidata.org/wiki/Q920912"
+notes = ["Mathematician, not the dialogue"]
 
 [Theages]
 label = "Theages"
@@ -8620,7 +8608,6 @@ wikidata = "https://www.wikidata.org/wiki/Q2900652"
 [Thucydides]
 label = "Thucydides"
 synonyms = [
-  "Thuc.",
   "Thucidides",
   "Thucidydes",
   "Thucydices",
@@ -8824,25 +8811,6 @@ synonyms = [
   "Ilium",
   "Ilius",
   "Ilion",
-  "Troy 0",
-  "Troy Historical National Park",
-  "Troy I",
-  "Troy II",
-  "Troy III",
-  "Troy IV",
-  "Troy IX",
-  "Troy Ilium",
-  "Troy V",
-  "Troy VI",
-  "Troy VII",
-  "Troy VII A",
-  "Troy VII B",
-  "Troy VIIA",
-  "Troy VIIB",
-  "Troy VIII",
-  "Troy VIIb1",
-  "Troy VIIb2",
-  "Troy VIIb3",
 ]
 wikipedia = "https://en.wikipedia.org/wiki/Troy"
 wikidata = "https://www.wikidata.org/wiki/Q22647"
@@ -8867,8 +8835,8 @@ wikidata = "https://www.wikidata.org/wiki/Q250506"
 
 [Tyre]
 label = "Tyre"
-# no `wikipedia` entry
-# no `wikidata` entry
+wikipedia = "https://en.wikipedia.org/wiki/Tyre,_Lebanon"
+wikidata = "https://www.wikidata.org/wiki/Q82070"
 
 [Tyrtaeus]
 label = "Tyrtaeus"
@@ -8991,8 +8959,9 @@ wikidata = "https://www.wikidata.org/wiki/Q129772"
 
 [Xerxes]
 label = "Xerxes"
-# no `wikipedia` entry
-# no `wikidata` entry
+synonyms = ["Xerxes the Great", "Xerxes", "Xerxes I of Persia", "Xerxes I"]
+wikipedia = "https://en.wikipedia.org/wiki/Xerxes_I"
+wikidata = "https://www.wikidata.org/wiki/Q129165"
 
 ["Xi Shi"]
 label = "Xi Shi"
@@ -9071,7 +9040,9 @@ label = "Zethus"
 label = "Zeus"
 synonyms = [
   "Jove",
+  "Jupiter",
   "Idaeus",
+  "Dias",
   "Zeus Aegiduchos",
   "Zeus Ceneus",
   "Zeus Cronion",
@@ -9082,6 +9053,22 @@ synonyms = [
   "Zeus Labrandos",
   "Zeus Panhellenios",
   "Zeus Pater",
+  "Zeus Plousios",
+  "Zeus Chthonios",
+  "Zeus Egioco",
+  "Zeus Horkios",
+  "Zeus Eleutherios",
+  "Zeus Meilichios",
+  "Zeus Lykaios",
+  "Zeus Soter",
+  "Zeus Olympios",
+  "Zeus Cronide",
+  "Zeus Katachthonios",
+  "Zeus Xenios",
+  "Zeus Aitnàios",
+  "Zeus Agoraios",
+  "Zeus Nemeos",
+  "Zeo",
   "Δίας",
   "Ζευς",
 ]
