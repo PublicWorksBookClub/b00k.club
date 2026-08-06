@@ -57,7 +57,7 @@ index = [
   "Neptune",
   "Ceres",
   "Bacchus",
-  "Phoebus",
+  "Apollo",
   "Athena",
   "Magna Mater",
   "Trivia",

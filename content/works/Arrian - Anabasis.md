@@ -141,7 +141,7 @@ index = [
   "Opis",
   "Bactria",
   "Sogdiana",
-  "Maracanda",
+  "Samarkand",
   "Oxus",
   "Tanais",
   "Caucasus",

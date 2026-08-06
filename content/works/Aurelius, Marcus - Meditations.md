@@ -83,7 +83,7 @@ index = [
   "Telauges",
   "Leon of Salamis",
   "Philistion",
-  "Phoebus",
+  "Apollo",
   "Origanion",
   "Alexander",
   "Philip",

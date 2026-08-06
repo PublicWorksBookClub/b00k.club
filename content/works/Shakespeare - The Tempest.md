@@ -53,7 +53,7 @@ index = [
   "Venus",
   "Neptune",
   "Dis",
-  "Phoebus",
+  "Apollo",
   "Mars",
   "Hymen",
   "Setebos",
