@@ -21,7 +21,6 @@ wikidata = "https://www.wikidata.org/wiki/Q321446"
 
 [Abydos]
 label = "Abydos"
-synonyms = ["Abydeni", "Abydos of Mysia", "Abydus", "Άβυδος"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -71,7 +70,6 @@ wikidata = "https://www.wikidata.org/wiki/Q244796"
 
 [Achaeans]
 label = "Achaeans"
-synonyms = ["Argives", "Danaans", "Achaioi"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -131,9 +129,8 @@ wikidata = "https://www.wikidata.org/wiki/Q70899"
 
 [Adeimantus]
 label = "Adeimantus"
-synonyms = ["Adeimantos"]
-wikipedia = "https://en.wikipedia.org/wiki/Adeimantus"
-wikidata = "https://www.wikidata.org/wiki/Q353562"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Adeues]
 label = "Adeues"
@@ -148,20 +145,8 @@ wikidata = "https://www.wikidata.org/wiki/Q163920"
 
 [Adrian]
 label = "Adrian"
-synonyms = [
-  "Adriaan",
-  "Adriaen",
-  "Adriani",
-  "Adriano",
-  "Adrianus",
-  "Adriel",
-  "Adrien",
-  "Adrijan",
-  "Adrin",
-  "Adrià",
-]
-wikipedia = "https://en.wikipedia.org/wiki/Adrian"
-wikidata = "https://www.wikidata.org/wiki/Q372250"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Aeacus]
 label = "Aeacus"
@@ -249,19 +234,8 @@ wikidata = "https://www.wikidata.org/wiki/Q43423"
 
 [Aetna]
 label = "Aetna"
-synonyms = [
-  "Aetna Better Health",
-  "Aetna Inc",
-  "Aetna Inc.",
-  "Aetna Incorporated",
-  "Aetna Insurance",
-  "Aetna Insurance Company",
-  "Aetna Life Insurance Company",
-  "Aetna U.S. Healthcare",
-  "Aetna controversies",
-]
-wikipedia = "https://en.wikipedia.org/wiki/Aetna"
-wikidata = "https://www.wikidata.org/wiki/Q26049"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Aetolia]
 label = "Aetolia"
@@ -289,9 +263,8 @@ wikidata = "https://www.wikidata.org/wiki/Q380482"
 
 [Agave]
 label = "Agave"
-synonyms = ["Agaves"]
-wikipedia = "https://en.wikipedia.org/wiki/Agave"
-wikidata = "https://www.wikidata.org/wiki/Q155874"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Agdabatas]
 label = "Agdabatas"
@@ -323,12 +296,11 @@ wikidata = "https://www.wikidata.org/wiki/Q271850"
 
 [Agesipolis]
 label = "Agesipolis"
-wikipedia = "https://en.wikipedia.org/wiki/Agesipolis"
-wikidata = "https://www.wikidata.org/wiki/Q346040"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Agis]
 label = "Agis"
-synonyms = ["AGIs 3", "Agis I", "Agis II", "Agis III", "Agis IV", "Agis of Argos"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -345,18 +317,6 @@ wikidata = "https://www.wikidata.org/wiki/Q396600"
 
 [Agrippa]
 label = "Agrippa"
-synonyms = [
-  "Agrippa 1",
-  "Agrippa Casto",
-  "Agrippa Castor",
-  "Agrippa I",
-  "Agrippa Julius Caesar",
-  "Agrippa Postumus",
-  "Agrippa the Great",
-  "Agrippa the Sceptic",
-  "Agrippa the Skeptic",
-  "Agrippia",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -384,28 +344,13 @@ label = "Aithalides"
 
 [Ajax]
 label = "Ajax"
-synonyms = [
-  "Aias",
-  "Ajax son of Telamon",
-  "Ajax Oïleus",
-  "Ajax Son Of Oileus",
-  "Ajax of Cyprus",
-  "Ajax of Locris",
-  "Ajax of Oileus",
-  "Ajax of Salamis",
-  "Ajax of Telamon",
-  "Ajax the Great",
-  "Ajax the Less",
-  "Ajax the Lesser",
-  "Ajax the Locrian",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
 [Akastos]
 label = "Akastos"
-wikipedia = "https://en.wikipedia.org/wiki/SS_Culross"
-wikidata = "https://www.wikidata.org/wiki/Q7393444"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Alcaeus]
 label = "Alcaeus"
@@ -432,19 +377,6 @@ wikidata = "https://www.wikidata.org/wiki/Q496595"
 
 [Alcmaeon]
 label = "Alcmaeon"
-synonyms = [
-  "Alcmaeon at Corinth",
-  "Alcmaeon in Corinth",
-  "Alcmaeon of Croton",
-  "Alcmaeon of Crotona",
-  "Alcmaeonid",
-  "Alcmaeonid Family",
-  "Alcmaeonidae",
-  "Alcmaeonids",
-  "Alcmeonidae",
-  "Alcmeonidæ",
-  "Alcmæonidæ",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -456,19 +388,8 @@ wikidata = "https://www.wikidata.org/wiki/Q190543"
 
 [Alexander]
 label = "Alexander"
-synonyms = [
-  "Sandy",
-  "Alex",
-  "Alexandar",
-  "Alexandr",
-  "Alexandre",
-  "Alexandres",
-  "Alexandru",
-  "Alexender",
-  "Alexzander",
-]
-wikipedia = "https://en.wikipedia.org/wiki/Alexander"
-wikidata = "https://www.wikidata.org/wiki/Q923"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 ["Alexander of Pherae"]
 label = "Alexander of Pherae"
@@ -507,8 +428,8 @@ wikidata = "https://www.wikidata.org/wiki/Q234801"
 
 [Alonso]
 label = "Alonso"
-wikipedia = "https://en.wikipedia.org/wiki/Alonso"
-wikidata = "https://www.wikidata.org/wiki/Q2650702"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Alpistus]
 label = "Alpistus"
@@ -640,8 +561,8 @@ wikidata = "https://www.wikidata.org/wiki/Q2333948"
 
 [Amyntas]
 label = "Amyntas"
-wikipedia = "https://en.wikipedia.org/wiki/Amyntas"
-wikidata = "https://www.wikidata.org/wiki/Q482102"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Amyntor]
 label = "Amyntor"
@@ -666,9 +587,8 @@ wikidata = "https://www.wikidata.org/wiki/Q486110"
 
 [Anaurus]
 label = "Anaurus"
-synonyms = ["Anaurus flavimanus"]
-wikipedia = "https://en.wikipedia.org/wiki/Anaurus"
-wikidata = "https://www.wikidata.org/wiki/Q248176"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Anaxagoras]
 label = "Anaxagoras"
@@ -699,7 +619,6 @@ wikidata = "https://www.wikidata.org/wiki/Q211953"
 
 [Ancus]
 label = "Ancus"
-synonyms = ["Ancus Marcius", "Ancus Martius"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -734,8 +653,8 @@ wikidata = "https://www.wikidata.org/wiki/Q576170"
 
 [Antigenes]
 label = "Antigenes"
-wikipedia = "https://en.wikipedia.org/wiki/Antigenes"
-wikidata = "https://www.wikidata.org/wiki/Q21534485"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Antigone]
 label = "Antigone"
@@ -763,18 +682,8 @@ wikidata = "https://www.wikidata.org/wiki/Q204760"
 
 [Antiphon]
 label = "Antiphon"
-synonyms = [
-  "Antifona",
-  "Antiphonal Singing",
-  "Antiphonal psalmody",
-  "Antiphonal singers",
-  "Antiphonally",
-  "Antiphone",
-  "Antiphons",
-  "Antiphony",
-]
-wikipedia = "https://en.wikipedia.org/wiki/Antiphon"
-wikidata = "https://www.wikidata.org/wiki/Q582093"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Antisthenes]
 label = "Antisthenes"
@@ -784,29 +693,14 @@ wikidata = "https://www.wikidata.org/wiki/Q179149"
 
 ["Antoninus Pius"]
 label = "Antoninus Pius"
-synonyms = ["Antonino Pio", "Antoninus Augustus", "Antoninus Pious", "Antonius Pius"]
+synonyms = ["Antoninus", "Antonino Pio", "Antoninus Augustus", "Antoninus Pious", "Antonius Pius"]
 wikipedia = "https://en.wikipedia.org/wiki/Antoninus_Pius"
 wikidata = "https://www.wikidata.org/wiki/Q1429"
 
 [Antonio]
 label = "Antonio"
-synonyms = [
-  "Anto",
-  "Antoine",
-  "Anton",
-  "Antoni",
-  "Antonie",
-  "Antonin",
-  "Antonino",
-  "Antoninus",
-  "Antonionus",
-  "Antonios",
-  "Antonius",
-  "Antono",
-  "Antony",
-]
-wikipedia = "https://en.wikipedia.org/wiki/Antonio"
-wikidata = "https://www.wikidata.org/wiki/Q7141520"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Anytus]
 label = "Anytus"
@@ -854,7 +748,6 @@ wikidata = "https://www.wikidata.org/wiki/Q35500"
 
 [Apis]
 label = "Apis"
-synonyms = ["Apis Bull"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -918,15 +811,13 @@ wikidata = "https://www.wikidata.org/wiki/Q37340"
 
 [Apollodorus]
 label = "Apollodorus"
-synonyms = ["Apollodoros"]
-wikipedia = "https://en.wikipedia.org/wiki/Apollodorus"
-wikidata = "https://www.wikidata.org/wiki/Q340623"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Apollonius]
 label = "Apollonius"
-synonyms = ["Apollonios", "Apolonius", "Apoloniusz"]
-wikipedia = "https://en.wikipedia.org/wiki/Apollonius"
-wikidata = "https://www.wikidata.org/wiki/Q619387"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Apsyrtos]
 label = "Apsyrtos"
@@ -967,7 +858,6 @@ label = "Arbela"
 
 [Arcadia]
 label = "Arcadia"
-synonyms = ["Arcadia AEgypti", "Arcadia california", "Arcadia Ægypti", "Arcardia High School"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -978,7 +868,6 @@ label = "Archebiades"
 
 [Archedemus]
 label = "Archedemus"
-synonyms = ["Archedamus of Aetolia", "Archedemus of Aetolia", "Archedemus of Athens", "Archedemus of Tarsus"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -990,17 +879,6 @@ wikidata = "https://www.wikidata.org/wiki/Q60791886"
 
 [Archidamus]
 label = "Archidamus"
-synonyms = [
-  "Archidamos",
-  "Archidamos II",
-  "Archidamus 05",
-  "Archidamus I",
-  "Archidamus II",
-  "Archidamus III",
-  "Archidamus IV",
-  "Archidamus V",
-  "Archidemos",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -1070,7 +948,6 @@ wikidata = "https://www.wikidata.org/wiki/Q265823"
 
 [Arethusa]
 label = "Arethusa"
-synonyms = ["Arethousa", "Arethusa source"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -1106,16 +983,6 @@ wikidata = "https://www.wikidata.org/wiki/Q317932"
 
 [Argos]
 label = "Argos"
-synonyms = [
-  "Argive",
-  "Amphilochian Argos",
-  "Argos Amphilochicum",
-  "Argos Orestiko",
-  "Argos Orestikon",
-  "Argos Pelasgicum",
-  "Argos Pelasgikon",
-  "Άργος",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -1132,9 +999,8 @@ label = "Ariel"
 
 [Ariobarzanes]
 label = "Ariobarzanes"
-synonyms = ["Ariobarzanes II", "Ariobarzanes II of Media", "Ariobarzanes II of Media Atropatene"]
-wikipedia = "https://en.wikipedia.org/wiki/Ariobarzanes"
-wikidata = "https://www.wikidata.org/wiki/Q295698"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Ariomardus]
 label = "Ariomardus"
@@ -1149,8 +1015,8 @@ wikidata = "https://www.wikidata.org/wiki/Q312422"
 
 [Ariphrades]
 label = "Ariphrades"
-wikipedia = "https://en.wikipedia.org/wiki/Ariphrades"
-wikidata = "https://www.wikidata.org/wiki/Q4790802"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Aristaeus]
 label = "Aristaeus"
@@ -1183,25 +1049,11 @@ label = "Aristis"
 
 [Aristobulus]
 label = "Aristobulus"
-synonyms = [
-  "Aristobulos",
-  "Aristobulos of Alexandria",
-  "Aristobulos of Paneas",
-  "Aristobulus III",
-  "Aristobulus III of Israel",
-  "Aristobulus III of Judea",
-  "Aristobulus of Alexandria",
-  "Aristobulus of Cassandreia",
-  "Aristobulus of Cassandrela",
-  "Aristobulus of Chalcis",
-  "Aristobulus of Paneas",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
 [Aristocrates]
 label = "Aristocrates"
-synonyms = ["Aristocrates II", "Aristocrates of Athens", "Aristocrates of Orchomenus"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -1212,7 +1064,6 @@ label = "Aristocritus"
 
 [Aristogeiton]
 label = "Aristogeiton"
-synonyms = ["Aristogiton"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -1224,28 +1075,16 @@ wikidata = "https://www.wikidata.org/wiki/Q1258025"
 
 [Ariston]
 label = "Ariston"
-synonyms = [
-  "Ariston of Alaea",
-  "Ariston of Cyrene",
-  "Ariston of Megalopolis",
-  "Ariston of Paeonia",
-  "Ariston of Paionia",
-  "Ariston of Rhodes",
-  "Ariston of Sparta",
-  "Ariston of Tyre",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
 [Aristonicus]
 label = "Aristonicus"
-synonyms = ["Aristonicus of Alexandria", "Aristonicus of Methymnae", "Aristonicus of Tarentum"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
 [Aristonymus]
 label = "Aristonymus"
-synonyms = ["Aristonymus of Athens"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -1273,7 +1112,6 @@ label = "Aristophanes the grammarian"
 
 [Aristophon]
 label = "Aristophon"
-synonyms = ["Aristophon of Athens", "Aristophon of Azenia", "Aristophon of Colyttus"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -1315,9 +1153,8 @@ wikidata = "https://www.wikidata.org/wiki/Q686411"
 
 [Arsaces]
 label = "Arsaces"
-synonyms = ["Arsaces of Parthia", "Arsakes"]
-wikipedia = "https://en.wikipedia.org/wiki/Arsaces"
-wikidata = "https://www.wikidata.org/wiki/Q642492"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Arsames]
 label = "Arsames"
@@ -1327,15 +1164,13 @@ wikidata = "https://www.wikidata.org/wiki/Q355799"
 
 [Arsinoe]
 label = "Arsinoe"
-synonyms = ["Arsinoe II", "Arsinoe II Philadelphus", "Arsinoe II of Egypt", "Arsinoe of Macedon", "Arsinoe of Macedonia"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
 [Artabazus]
 label = "Artabazus"
-synonyms = ["Artabazes", "Artabazos", "Artavasdes", "Artavazde"]
-wikipedia = "https://en.wikipedia.org/wiki/Artavasdes"
-wikidata = "https://www.wikidata.org/wiki/Q369081"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Artabes]
 label = "Artabes"
@@ -1484,15 +1319,13 @@ wikidata = "https://www.wikidata.org/wiki/Q1524"
 
 [Athos]
 label = "Athos"
-synonyms = ["Athos Dimoulas"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
 [Atlas]
 label = "Atlas"
-synonyms = ["Atlas the book", "Atlases"]
-wikipedia = "https://en.wikipedia.org/wiki/Atlas"
-wikidata = "https://www.wikidata.org/wiki/Q162827"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Atossa]
 label = "Atossa"
@@ -1518,29 +1351,6 @@ wikidata = "https://www.wikidata.org/wiki/Q753294"
 
 [Attalus]
 label = "Attalus"
-synonyms = [
-  "Attalos I",
-  "Attalos II",
-  "Attalos III",
-  "Attalus I",
-  "Attalus I Soter",
-  "Attalus I of Pergamon",
-  "Attalus I of Pergamum",
-  "Attalus II",
-  "Attalus II Philadelphus",
-  "Attalus II of Pergamum",
-  "Attalus III",
-  "Attalus III Philometer",
-  "Attalus III Philometor Euergetes",
-  "Attalus III of Pergamum",
-  "Attalus Philadelphus",
-  "Attalus Philometor",
-  "Attalus of Pergamon",
-  "Attalus of Pergamus",
-  "Attalus of Rhodes",
-  "Attalus of macedonia",
-  "Attalus uav",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -1678,8 +1488,8 @@ label = "Batieia"
 
 [Battalus]
 label = "Battalus"
-wikipedia = "https://en.wikipedia.org/wiki/Battalus"
-wikidata = "https://www.wikidata.org/wiki/Q11839390"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Bebrykes]
 label = "Bebrykes"
@@ -1701,14 +1511,13 @@ wikidata = "https://www.wikidata.org/wiki/Q792732"
 
 [Benedicta]
 label = "Benedicta"
-wikipedia = "https://en.wikipedia.org/wiki/Benedicta"
-wikidata = "https://www.wikidata.org/wiki/Q816897"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Berenice]
 label = "Berenice"
-synonyms = ["Berenike"]
-wikipedia = "https://en.wikipedia.org/wiki/Berenice"
-wikidata = "https://www.wikidata.org/wiki/Q737848"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Bermoothes]
 label = "Bermoothes"
@@ -1745,17 +1554,8 @@ wikidata = "https://www.wikidata.org/wiki/Q1051287"
 
 [Bias]
 label = "Bias"
-synonyms = [
-  "prejudice",
-  "Bias in law enforcement",
-  "Biased Policing",
-  "Biases",
-  "Biases in academia",
-  "Biases in law enforcement",
-  "Biassed",
-]
-wikipedia = "https://en.wikipedia.org/wiki/Bias"
-wikidata = "https://www.wikidata.org/wiki/Q742736"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Boeotia]
 label = "Boeotia"
@@ -1825,7 +1625,6 @@ wikidata = "https://www.wikidata.org/wiki/Q475497"
 
 [Britain]
 label = "Britain"
-synonyms = ["Britain as a Roman province", "Britannia"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -1888,14 +1687,13 @@ wikidata = "https://www.wikidata.org/wiki/Q1048"
 
 [Caeso]
 label = "Caeso"
-synonyms = ["Caeso Quinctius", "Caeso Quinctius Cincinnatus", "Caeso Quinctius L. f. L. n. Cincinnatus", "Caeso quintius"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
 [Calanus]
 label = "Calanus"
-wikipedia = "https://en.wikipedia.org/wiki/Calanus"
-wikidata = "https://www.wikidata.org/wiki/Q3809086"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Caliban]
 label = "Caliban"
@@ -1932,8 +1730,8 @@ wikidata = "https://www.wikidata.org/wiki/Q82793"
 
 [Callistratus]
 label = "Callistratus"
-wikipedia = "https://en.wikipedia.org/wiki/Callistratus"
-wikidata = "https://www.wikidata.org/wiki/Q2402822"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Callixenus]
 label = "Callixenus"
@@ -1948,7 +1746,6 @@ wikidata = "https://www.wikidata.org/wiki/Q750313"
 
 [Calypso]
 label = "Calypso"
-synonyms = ["Calypso moon"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -1959,19 +1756,6 @@ wikidata = "https://www.wikidata.org/wiki/Q854843"
 
 [Cambyses]
 label = "Cambyses"
-synonyms = [
-  "Cambujiya",
-  "Cambuses",
-  "Cambyses 01",
-  "Cambyses I",
-  "Cambyses I of Anshan",
-  "Cambyses II",
-  "Cambyses II of Persia",
-  "Cambyses of Anshan",
-  "Cambyses of Persia",
-  "Cambyses the Elder",
-  "Cambysis",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -1988,8 +1772,8 @@ wikidata = "https://www.wikidata.org/wiki/Q173292"
 
 [Carcinus]
 label = "Carcinus"
-wikipedia = "https://en.wikipedia.org/wiki/Carcinus"
-wikidata = "https://www.wikidata.org/wiki/Q135363"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Carmania]
 label = "Carmania"
@@ -2062,23 +1846,6 @@ wikidata = "https://www.wikidata.org/wiki/Q1903"
 
 [Cato]
 label = "Cato"
-synonyms = [
-  "Cato Censor",
-  "Cato Censorius",
-  "Cato Licinianus",
-  "Cato Maior",
-  "Cato Major",
-  "Cato Minor",
-  "Cato Of Utica",
-  "Cato Sapiens",
-  "Cato The Censor",
-  "Cato The Elder",
-  "Cato The Major",
-  "Cato The Younger",
-  "Cato Uticensis",
-  "Catone censor",
-  "Catonian",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -2101,8 +1868,8 @@ wikidata = "https://www.wikidata.org/wiki/Q965144"
 
 [Cecrops]
 label = "Cecrops"
-wikipedia = "https://en.wikipedia.org/wiki/Cecrops"
-wikidata = "https://www.wikidata.org/wiki/Q356875"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Cegdadatas]
 label = "Cegdadatas"
@@ -2230,8 +1997,8 @@ wikidata = "https://www.wikidata.org/wiki/Q434567"
 
 [Chalcodon]
 label = "Chalcodon"
-wikipedia = "https://en.wikipedia.org/wiki/Chalcodon"
-wikidata = "https://www.wikidata.org/wiki/Q26276509"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Chaldaeans]
 label = "Chaldaeans"
@@ -2257,13 +2024,11 @@ label = "Changwuzi"
 
 [Charax]
 label = "Charax"
-synonyms = ["Characena", "Characeni", "Charax Spasini", "Charax Spasinou", "Charax Spasinu"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
 [Chares]
 label = "Chares"
-synonyms = ["Chares of Athens", "Chares of Lindos", "Chares of Mytilene", "Chares of Rhodes"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -2329,7 +2094,6 @@ label = "Chersonese"
 
 [Chimera]
 label = "Chimera"
-synonyms = ["chimaera", "Chimerical", "Chímaira", "chimæra", "Χίμαιρα"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -2368,7 +2132,6 @@ wikidata = "https://www.wikidata.org/wiki/Q183417"
 
 [Choerilus]
 label = "Choerilus"
-synonyms = ["Choerilus of Iasos", "Choerilus of Iasus", "Choerilus of Samos"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -2385,12 +2148,11 @@ wikidata = "https://www.wikidata.org/wiki/Q106039"
 
 [Chromis]
 label = "Chromis"
-wikipedia = "https://en.wikipedia.org/wiki/Chromis"
-wikidata = "https://www.wikidata.org/wiki/Q133991"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Chryse]
 label = "Chryse"
-synonyms = ["Chrysa", "Chrysa Isle", "Chryse Isle"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -2408,7 +2170,6 @@ wikidata = "https://www.wikidata.org/wiki/Q211411"
 
 [Chu]
 label = "Chu"
-synonyms = ["State of Ch'u"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -2472,7 +2233,6 @@ wikidata = "https://www.wikidata.org/wiki/Q56754242"
 
 [Cissa]
 label = "Cissa"
-synonyms = ["Cissa of Sussex"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -2495,8 +2255,8 @@ wikidata = "https://www.wikidata.org/wiki/Q536598"
 
 [Cleigenes]
 label = "Cleigenes"
-wikipedia = "https://en.wikipedia.org/wiki/Cligenes"
-wikidata = "https://www.wikidata.org/wiki/Q18098148"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Cleinias]
 label = "Cleinias"
@@ -2523,13 +2283,11 @@ label = "Cleitophon"
 
 [Cleitus]
 label = "Cleitus"
-synonyms = ["Cleitus the Black", "Cleitus the White"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
 [Cleombrotus]
 label = "Cleombrotus"
-synonyms = ["Cleombrotus I", "Cleombrotus II"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -2609,7 +2367,6 @@ wikidata = "https://www.wikidata.org/wiki/Q939218"
 
 [Coenus]
 label = "Coenus"
-synonyms = ["Coenus of Macedon"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -2668,7 +2425,6 @@ wikidata = "https://www.wikidata.org/wiki/Q121378"
 
 [Corinth]
 label = "Corinth"
-synonyms = ["Corinth Excavations", "Corinth in the middle ages", "Corinthian League"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -2718,7 +2474,6 @@ wikidata = "https://www.wikidata.org/wiki/Q125247"
 
 [Creon]
 label = "Creon"
-synonyms = ["Creon of Thebes"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -2830,7 +2585,6 @@ label = "Cydonia"
 
 [Cylon]
 label = "Cylon"
-synonyms = ["Cylon of Athens", "Cylon of Croton", "Cylon of Kroton", "Cylonian Affair"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -2858,7 +2612,6 @@ wikidata = "https://www.wikidata.org/wiki/Q229"
 
 [Cyrene]
 label = "Cyrene"
-synonyms = ["Cyrenaean"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -2869,8 +2622,8 @@ label = "Cyrsilus"
 
 [Cyrus]
 label = "Cyrus"
-wikipedia = "https://en.wikipedia.org/wiki/Cyrus"
-wikidata = "https://www.wikidata.org/wiki/Q10861063"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Cythera]
 label = "Cythera"
@@ -2902,9 +2655,8 @@ wikidata = "https://www.wikidata.org/wiki/Q3766"
 
 [Damoetas]
 label = "Damoetas"
-synonyms = ["Damoetas nitidus"]
-wikipedia = "https://en.wikipedia.org/wiki/Damoetas"
-wikidata = "https://www.wikidata.org/wiki/Q5410247"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Damon]
 label = "Damon"
@@ -2940,13 +2692,11 @@ wikidata = "https://www.wikidata.org/wiki/Q741627"
 
 [Dardania]
 label = "Dardania"
-synonyms = ["Dardanides", "Dardanioi", "Dardanion", "Dardaniones", "Dardanoi", "Dardans"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
 [Dardanus]
 label = "Dardanus"
-synonyms = ["Dardanos", "Dardanos of Athens", "Dardanus of Athens"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -3079,16 +2829,6 @@ label = "Diocleidas"
 
 [Diocles]
 label = "Diocles"
-synonyms = [
-  "Diocles Carystius",
-  "Diocles Medicus",
-  "Diocles of Carystus",
-  "Diocles of Cnidus",
-  "Diocles of Corinth",
-  "Diocles of Magnesia",
-  "Diocles of Megara",
-  "Diocles of Syracuse",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -3111,9 +2851,8 @@ wikidata = "https://www.wikidata.org/wiki/Q171241"
 
 [Diodotus]
 label = "Diodotus"
-synonyms = ["Diodotos"]
-wikipedia = "https://en.wikipedia.org/wiki/Diodotus"
-wikidata = "https://www.wikidata.org/wiki/Q905797"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Diogenes]
 label = "Diogenes"
@@ -3150,7 +2889,6 @@ wikidata = "https://www.wikidata.org/wiki/Q208256"
 
 [Dion]
 label = "Dion"
-synonyms = ["Dion Williams", "Dion of Syracuse"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -3171,19 +2909,8 @@ wikidata = "https://www.wikidata.org/wiki/Q574807"
 
 [Dionysius]
 label = "Dionysius"
-synonyms = [
-  "Dionysios",
-  "Dionigi",
-  "Dionisio",
-  "Dionisios",
-  "Dionisis",
-  "Dionisiy",
-  "Dionizij",
-  "Dionizije",
-  "Dionizy",
-]
-wikipedia = "https://en.wikipedia.org/wiki/Dionysius"
-wikidata = "https://www.wikidata.org/wiki/Q18606276"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Dionysus]
 label = "Dionysus"
@@ -3241,7 +2968,6 @@ wikidata = "https://www.wikidata.org/wiki/Q907854"
 
 [Domitius]
 label = "Domitius"
-synonyms = ["Domitian III", "Domitianus III", "Domitius Alexander", "Domitius Corbulo"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -3301,13 +3027,11 @@ wikidata = "https://www.wikidata.org/wiki/Q3038108"
 
 [Dunyazad]
 label = "Dunyazad"
-synonyms = ["Dunyazade"]
-wikipedia = "https://en.wikipedia.org/wiki/List_of_One_Thousand_and_One_Nights_characters"
-wikidata = "https://www.wikidata.org/wiki/Q4993860"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Duris]
 label = "Duris"
-synonyms = ["Duris of Samos"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -3319,8 +3043,8 @@ wikidata = "https://www.wikidata.org/wiki/Q696193"
 
 [Echecrates]
 label = "Echecrates"
-wikipedia = "https://en.wikipedia.org/wiki/Echecrates"
-wikidata = "https://www.wikidata.org/wiki/Q26222998"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Echion]
 label = "Echion"
@@ -3329,9 +3053,8 @@ wikidata = "https://www.wikidata.org/wiki/Q3925202"
 
 [Echo]
 label = "Echo"
-synonyms = ["Echoed", "Echoic", "Echoing"]
-wikipedia = "https://en.wikipedia.org/wiki/Echo"
-wikidata = "https://www.wikidata.org/wiki/Q182767"
+wikipedia = "https://en.wikipedia.org/wiki/Echo_(mythology)"
+wikidata = "https://www.wikidata.org/wiki/Q207368"
 
 [Edonians]
 label = "Edonians"
@@ -3418,7 +3141,6 @@ wikidata = "https://www.wikidata.org/wiki/Q3303"
 
 [Endymion]
 label = "Endymion"
-synonyms = ["Ἐνδυμίων"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -3453,9 +3175,8 @@ wikidata = "https://www.wikidata.org/wiki/Q47611"
 
 [Epicaste]
 label = "Epicaste"
-synonyms = ["Epicasta"]
-wikipedia = "https://en.wikipedia.org/wiki/Epicaste"
-wikidata = "https://www.wikidata.org/wiki/Q3726833"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Epicharmus]
 label = "Epicharmus"
@@ -3507,7 +3228,6 @@ wikidata = "https://www.wikidata.org/wiki/Q233576"
 
 [Epigenes]
 label = "Epigenes"
-synonyms = ["Epigenes of Byzantium", "Epigenes of Sicyon", "Epígenes de Bizanci"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -3580,7 +3300,6 @@ wikidata = "https://www.wikidata.org/wiki/Q13408568"
 
 [Erichthonius]
 label = "Erichthonius"
-synonyms = ["Erichtheus", "Erichthonios", "Erichthonius I of Athens", "Erichthonius of Athens"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -3650,9 +3369,8 @@ wikidata = "https://www.wikidata.org/wiki/Q173096"
 
 [Eubulus]
 label = "Eubulus"
-synonyms = ["Eubule"]
-wikipedia = "https://en.wikipedia.org/wiki/Eubulus"
-wikidata = "https://www.wikidata.org/wiki/Q420664"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Euclides]
 label = "Euclides"
@@ -3677,7 +3395,6 @@ label = "Eudicus"
 
 [Eudoxus]
 label = "Eudoxus"
-synonyms = ["Eudoxes", "Eudoxos of Knidos", "Eudoxus of Cnidos", "Eudoxus of Cnidus", "Eudoxus of Cyzicus"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -3733,7 +3450,6 @@ wikidata = "https://www.wikidata.org/wiki/Q48305"
 
 [Euripus]
 label = "Euripus"
-synonyms = ["Euripus Strait"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -3745,9 +3461,8 @@ wikidata = "https://www.wikidata.org/wiki/Q46"
 
 [Euryalus]
 label = "Euryalus"
-synonyms = ["Euryalos"]
-wikipedia = "https://en.wikipedia.org/wiki/Euryalus"
-wikidata = "https://www.wikidata.org/wiki/Q1077656"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Eurybius]
 label = "Eurybius"
@@ -3785,7 +3500,6 @@ wikidata = "https://www.wikidata.org/wiki/Q61043403"
 
 [Eurymedon]
 label = "Eurymedon"
-synonyms = ["Eurymedon of Myrrhinus", "Eurymedon son of Thucles"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -3817,7 +3531,6 @@ wikidata = "https://www.wikidata.org/wiki/Q212087"
 
 [Euthydemus]
 label = "Euthydemus"
-synonyms = ["Euthydemus II", "Euthydemus of Chios"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -3866,26 +3579,13 @@ wikidata = "https://www.wikidata.org/wiki/Q2234275"
 
 [Faustina]
 label = "Faustina"
-synonyms = [
-  "Faustina I",
-  "Faustina II",
-  "Faustina III",
-  "Faustina IV",
-  "Faustina Maior",
-  "Faustina Major",
-  "Faustina Minor",
-  "Faustina of Antioch",
-  "Faustina the Elder",
-  "Faustina the Younger",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
 [Ferdinand]
 label = "Ferdinand"
-synonyms = ["Ferdinando", "Ferdinandus", "Ferdinant", "Ferdl", "Ferdynand"]
-wikipedia = "https://en.wikipedia.org/wiki/Ferdinand"
-wikidata = "https://www.wikidata.org/wiki/Q3276175"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [France]
 label = "France"
@@ -3903,39 +3603,11 @@ wikidata = "https://www.wikidata.org/wiki/Q142"
 
 [Francisco]
 label = "Francisco"
-synonyms = [
-  "Fran",
-  "Francesc",
-  "Francesco",
-  "Francho",
-  "Francico",
-  "Francis",
-  "Francisc",
-  "Franciscus",
-  "Franciszek",
-  "Franck",
-  "Franco",
-  "Francés",
-  "Frank",
-  "Franklin",
-  "Franko",
-  "Frans",
-  "Fransisco",
-  "František",
-  "Frantz",
-  "Frantziscu",
-  "Frantzisko",
-  "Franz",
-  "Franziskus",
-  "François",
-  "Frañsez",
-]
-wikipedia = "https://en.wikipedia.org/wiki/Francisco"
-wikidata = "https://www.wikidata.org/wiki/Q7201446"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Fronto]
 label = "Fronto"
-synonyms = ["Fronto of Emesa"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -3952,13 +3624,11 @@ label = "Gades"
 
 [Galatea]
 label = "Galatea"
-synonyms = ["Galateia"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
 [Ganymede]
 label = "Ganymede"
-synonyms = ["Ganymedes"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -3976,7 +3646,6 @@ wikidata = "https://www.wikidata.org/wiki/Q179670"
 
 [Gaza]
 label = "Gaza"
-synonyms = ["Gaza Al-Furqan Mosque", "Χορίκιος"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -4047,8 +3716,8 @@ wikidata = "https://www.wikidata.org/wiki/Q1364945"
 
 [Glaucothea]
 label = "Glaucothea"
-wikipedia = "https://en.wikipedia.org/wiki/Brahea"
-wikidata = "https://www.wikidata.org/wiki/Q138362"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Glaucus]
 label = "Glaucus"
@@ -4080,7 +3749,6 @@ wikidata = "https://www.wikidata.org/wiki/Q179785"
 
 [Gorgo]
 label = "Gorgo"
-synonyms = ["Gorgo of Sparta", "Gorgo queen of sparta"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -4140,15 +3808,6 @@ label = "Gushe"
 
 [Gyges]
 label = "Gyges"
-synonyms = [
-  "The ring of gyges",
-  "Gyge's Ring",
-  "Gyges Ring",
-  "Gyges of Lydia",
-  "Gyges' Ring",
-  "Gyges’ ring",
-  "Ώγυγος",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -4200,7 +3859,6 @@ wikidata = "https://www.wikidata.org/wiki/Q393937"
 
 [Harmodius]
 label = "Harmodius"
-synonyms = ["Harmodius of Lepreon"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -4238,16 +3896,6 @@ label = "Hebrus"
 
 [Hecataeus]
 label = "Hecataeus"
-synonyms = [
-  "Hecataeus of Abdera",
-  "Hecataeus of Miletus",
-  "Hecataeus of Teos",
-  "Hecataeus of the Sindi",
-  "Hecateus Abderitas",
-  "Hecateus of Abdera",
-  "Hecateus of Abdere",
-  "Hecatæus of Miletus",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -4282,17 +3930,6 @@ wikidata = "https://www.wikidata.org/wiki/Q1234213"
 
 [Helen]
 label = "Helen"
-synonyms = [
-  "Helen Of Troy",
-  "Helen Troy",
-  "Helen georgia",
-  "Helen of Argos",
-  "Helen of Sparta",
-  "HelenOfTroy",
-  "Helena Troy",
-  "Helena of Troy",
-  "Helene of Troy",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -4320,7 +3957,6 @@ wikidata = "https://www.wikidata.org/wiki/Q134270"
 
 [Hellas]
 label = "Hellas"
-synonyms = ["Hellas Syros", "Hellas Syros F.C."]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -4375,26 +4011,6 @@ wikidata = "https://www.wikidata.org/wiki/Q828084"
 
 [Heraclides]
 label = "Heraclides"
-synonyms = [
-  "Heracleides Ponticus",
-  "Heracleides Pontus",
-  "Heracleides of Oxyrhinchis",
-  "Heracleides of Pontus",
-  "Heraclides Lembos",
-  "Heraclides Lembus",
-  "Heraclides Ponticus",
-  "Heraclides of Aenus",
-  "Heraclides of Heraclea Pontus",
-  "Heraclides of Pontus",
-  "Heraclides of Tarentum",
-  "Heraclides pontus",
-  "Herakleides",
-  "Herakleides Lembos",
-  "Herakleides of Kos",
-  "Herakleides of Pontos",
-  "Heraklides",
-  "Heraklides of Pontus",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -4481,13 +4097,13 @@ wikidata = "https://www.wikidata.org/wiki/Q367407"
 
 [Hermogenes]
 label = "Hermogenes"
-wikipedia = "https://en.wikipedia.org/wiki/Hermogenes"
-wikidata = "https://www.wikidata.org/wiki/Q236029"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Hermolaus]
 label = "Hermolaus"
-wikipedia = "https://en.wikipedia.org/wiki/Hermolaus"
-wikidata = "https://www.wikidata.org/wiki/Q139960427"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Hermus]
 label = "Hermus"
@@ -4540,17 +4156,6 @@ wikidata = "https://www.wikidata.org/wiki/Q41419"
 
 [Hiero]
 label = "Hiero"
-synonyms = [
-  "Hiero I",
-  "Hiero I of Syracuse",
-  "Hiero II",
-  "Hiero II of Syracuse",
-  "Hierocles of Syracuse",
-  "Hieron I",
-  "Hieron I of Syracuse",
-  "Hieron II",
-  "Hieron of Syracuse",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -4598,13 +4203,11 @@ wikidata = "https://www.wikidata.org/wiki/Q5264"
 
 [Hippodamia]
 label = "Hippodamia"
-synonyms = ["Dia", "Hippoboteia", "Hippodamea", "Hippodameia", "Hippodamia of Pisa"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
 [Hippolytus]
 label = "Hippolytus"
-synonyms = ["Hippolytos", "Hippolytos kalyptomenos", "Hippolytus Veiled", "Hippolytus of Athens"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -4660,7 +4263,6 @@ wikidata = "https://www.wikidata.org/wiki/Q214874"
 
 [Hydra]
 label = "Hydra"
-synonyms = ["Hydra of Lerna"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -4719,7 +4321,6 @@ wikidata = "https://www.wikidata.org/wiki/Q48726"
 
 [Hysiae]
 label = "Hysiae"
-synonyms = ["Hysia"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -4776,8 +4377,8 @@ wikidata = "https://www.wikidata.org/wiki/Q1136130"
 
 [Idmon]
 label = "Idmon"
-wikipedia = "https://en.wikipedia.org/wiki/Idmon"
-wikidata = "https://www.wikidata.org/wiki/Q59771616"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Idomeneus]
 label = "Idomeneus"
@@ -4839,7 +4440,6 @@ wikidata = "https://www.wikidata.org/wiki/Q7348"
 
 [Ino]
 label = "Ino"
-synonyms = ["Leucothea"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -4903,19 +4503,6 @@ wikidata = "https://www.wikidata.org/wiki/Q11955875"
 
 [Iris]
 label = "Iris"
-synonyms = [
-  "IRIS 4Motion",
-  "IRIS IV",
-  "Iris 1993",
-  "Iris 2000",
-  "Iris Cristi Minculescu & Valter & Boro",
-  "Iris III - Nu te opri!",
-  "Iris III – Nu te opri!",
-  "Iris Maxima",
-  "Iris Nelu Dumitrescu",
-  "Iris—Cristi Minculescu & Valter & Boro",
-  "Iris—Nelu Dumitrescu",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -4938,7 +4525,6 @@ wikidata = "https://www.wikidata.org/wiki/Q2336662"
 
 [Ismarus]
 label = "Ismarus"
-synonyms = ["Ismara", "Ismari", "Ismaron", "Ismaros"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -4984,7 +4570,6 @@ wikidata = "https://www.wikidata.org/wiki/Q38"
 
 [Ithaca]
 label = "Ithaca"
-synonyms = ["Ithacation", "Ithake", "Ithaki", "Ithakis", "Ιθάκη"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -5048,22 +4633,11 @@ wikidata = "https://www.wikidata.org/wiki/Q3465"
 
 [Julianus]
 label = "Julianus"
-synonyms = ["Julian I", "Julianus Didius", "Julianus I"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
 [Juno]
 label = "Juno"
-synonyms = [
-  "Juno Caelestis",
-  "Juno Caprotina",
-  "Juno Lucina",
-  "Juno Regina",
-  "Juno Sospita",
-  "Juno's sacred geese",
-  "Juno: The Aeneid",
-  "Junoesque",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -5091,7 +4665,6 @@ wikidata = "https://www.wikidata.org/wiki/Q4452387"
 
 [Kastor]
 label = "Kastor"
-synonyms = ["Castor"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -5237,7 +4810,6 @@ wikidata = "https://www.wikidata.org/wiki/Q347164"
 
 [Leonteus]
 label = "Leonteus"
-synonyms = ["Leonteus of Argos"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -5333,8 +4905,8 @@ wikidata = "https://www.wikidata.org/wiki/Q65089817"
 
 [Linus]
 label = "Linus"
-wikipedia = "https://en.wikipedia.org/wiki/Linus"
-wikidata = "https://www.wikidata.org/wiki/Q15196019"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 ["Little Iliad"]
 label = "Little Iliad"
@@ -5485,31 +5057,11 @@ label = "Lythimnas"
 
 [Macareus]
 label = "Macareus"
-synonyms = ["Macar", "Macareas", "Macareo", "Macaristan"]
-wikipedia = "https://en.wikipedia.org/wiki/Macar"
-wikidata = "https://www.wikidata.org/wiki/Q3274089"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Macedonia]
 label = "Macedonia"
-synonyms = [
-  "Macedon",
-  "Lower Macedonia",
-  "Macedonia proper",
-  "Upper Macedonia",
-  "Macedonia Prima",
-  "Macedonia Salutaris",
-  "Macedonia Secunda",
-  "Macedonia terminology",
-  "Macedonian hegemony",
-  "Macedonian irredentism",
-  "Macedonian monarchy",
-  "Macedonic",
-  "Macedonic monarchy",
-  "Macedonis",
-  "Macetia",
-  "Αιγαιακή Μακεδονία",
-  "Επαρχια Μακεδονιας",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -5538,15 +5090,6 @@ label = "Magnes"
 
 [Magnesia]
 label = "Magnesia"
-synonyms = [
-  "Magnesia Ad Sipylum",
-  "Magnesia ad Maeandrum",
-  "Magnesia ad Meandrum",
-  "Magnesia on the Maeander",
-  "Magnesia on the Meander",
-  "Magnesia on the Sipylum",
-  "Magnḗsĭa ad Mæándrum",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -5557,8 +5100,8 @@ label = "Malea"
 
 [Malis]
 label = "Malis"
-wikipedia = "https://en.wikipedia.org/wiki/Malis"
-wikidata = "https://www.wikidata.org/wiki/Q28489861"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Malli]
 label = "Malli"
@@ -5625,8 +5168,8 @@ wikidata = "https://www.wikidata.org/wiki/Q178004"
 
 [Mardon]
 label = "Mardon"
-wikipedia = "https://en.wikipedia.org/wiki/Mardon"
-wikidata = "https://www.wikidata.org/wiki/Q56539767"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Mardus]
 label = "Mardus"
@@ -5699,27 +5242,11 @@ label = "Matallus"
 
 [Matuta]
 label = "Matuta"
-wikipedia = "https://en.wikipedia.org/wiki/Matuta"
-wikidata = "https://www.wikidata.org/wiki/Q6792022"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Maximus]
 label = "Maximus"
-synonyms = [
-  "Claudius Maximus",
-  "Maxim Grek",
-  "Maximianus",
-  "Maximus Ephesius",
-  "Maximus Tyrius",
-  "Maximus of Ephesus",
-  "Maximus of Hispania",
-  "Maximus of Pavia",
-  "Maximus of Smyrna",
-  "Maximus of Spain",
-  "Maximus of Tyre",
-  "Maximus of tyros",
-  "Μάξιμος ὁ Γραικός",
-  "Μάξιμος ὁ Ἁγιορίτης",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -5737,7 +5264,6 @@ wikidata = "https://www.wikidata.org/wiki/Q174278"
 
 [Media]
 label = "Media"
-synonyms = ["Media Magna", "Medias", "Mediasch"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -5774,8 +5300,8 @@ wikidata = "https://www.wikidata.org/wiki/Q4918"
 
 [Medius]
 label = "Medius"
-wikipedia = "https://en.wikipedia.org/wiki/Medius"
-wikidata = "https://www.wikidata.org/wiki/Q6807179"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Medon]
 label = "Medon"
@@ -5800,8 +5326,8 @@ wikidata = "https://www.wikidata.org/wiki/Q184864"
 
 [Megareus]
 label = "Megareus"
-wikipedia = "https://en.wikipedia.org/wiki/Megareus"
-wikidata = "https://www.wikidata.org/wiki/Q10772190"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Megasthenes]
 label = "Megasthenes"
@@ -5854,7 +5380,6 @@ wikidata = "https://www.wikidata.org/wiki/Q1175697"
 
 [Melissus]
 label = "Melissus"
-synonyms = ["Melissos", "Melissus Of Samos", "Melissus‚ Of Samos"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -5887,16 +5412,6 @@ wikidata = "https://www.wikidata.org/wiki/Q506781"
 
 [Memphis]
 label = "Memphis"
-synonyms = [
-  "Man",
-  "Memph",
-  "Memphis TN",
-  "Memphis Tenn.",
-  "Memphis Tennessee",
-  "Memphis egypt",
-  "Memphis necropolis",
-  "Memphistn.gov",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -5908,7 +5423,6 @@ wikidata = "https://www.wikidata.org/wiki/Q118992"
 
 [Mende]
 label = "Mende"
-synonyms = ["Mendae", "Mendai"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -5954,20 +5468,8 @@ label = "Mentes"
 
 [Mentor]
 label = "Mentor"
-synonyms = [
-  "Mentee",
-  "Mentoree",
-  "Mentoring",
-  "Mentoring Programs",
-  "Mentoring in Europe",
-  "Mentoring program",
-  "Mentors",
-  "Mentorship",
-  "Mentorship programmes",
-  "Mentorships",
-]
-wikipedia = "https://en.wikipedia.org/wiki/Mentorship"
-wikidata = "https://www.wikidata.org/wiki/Q967647"
+wikipedia = "https://en.wikipedia.org/wiki/Mentor_(mythology)"
+wikidata = "https://www.wikidata.org/wiki/Q30098346"
 
 [Merope]
 label = "Merope"
@@ -5992,8 +5494,8 @@ label = "Methone"
 
 [Metrodorus]
 label = "Metrodorus"
-wikipedia = "https://en.wikipedia.org/wiki/Metrodorus"
-wikidata = "https://www.wikidata.org/wiki/Q240129"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Metrogathes]
 label = "Metrogathes"
@@ -6135,7 +5637,6 @@ wikidata = "https://www.wikidata.org/wiki/Q9458"
 
 [Musaeus]
 label = "Musaeus"
-synonyms = ["Musaeus Grammaticus", "Musaeus of Athens", "Musaeus of Marseilles", "Musaios"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -6163,7 +5664,6 @@ label = "Mynniscus"
 
 [Myrina]
 label = "Myrina"
-synonyms = ["Myrine"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -6312,7 +5812,6 @@ wikidata = "https://www.wikidata.org/wiki/Q1413"
 
 [Nestor]
 label = "Nestor"
-synonyms = ["Nestor of Pylos", "Nestor of Gerenia", "Νέστωρ"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -6324,27 +5823,13 @@ wikidata = "https://www.wikidata.org/wiki/Q55"
 
 ["New York"]
 label = "New York"
-synonyms = [
-  "New Yor City",
-  "New York CIty",
-  "New York City.",
-  "New York Cty",
-  "New York N.Y.",
-  "New York NY",
-  "New York New York",
-  "New York Shitty",
-  "New Yourk City",
-  "New Yrok City",
-  "New york immigrants",
-  "New your city",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
 [Nicanor]
 label = "Nicanor"
-wikipedia = "https://en.wikipedia.org/wiki/Nicanor"
-wikidata = "https://www.wikidata.org/wiki/Q10969602"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Niceratus]
 label = "Niceratus"
@@ -6363,8 +5848,8 @@ wikidata = "https://www.wikidata.org/wiki/Q1254612"
 
 [Nicolaus]
 label = "Nicolaus"
-wikipedia = "https://en.wikipedia.org/wiki/Nicolaus"
-wikidata = "https://www.wikidata.org/wiki/Q1986777"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Nicomachus]
 label = "Nicomachus"
@@ -6424,7 +5909,6 @@ wikidata = "https://www.wikidata.org/wiki/Q373916"
 
 [Nysa]
 label = "Nysa"
-synonyms = ["Nysa in Asia", "Nysa on the Maeander"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -6436,20 +5920,6 @@ wikidata = "https://www.wikidata.org/wiki/Q161419"
 
 [Odeon]
 label = "Odeon"
-synonyms = [
-  "Odeon Antique de Lyon",
-  "Odeon Antique of Lyon",
-  "Odeon de Lyon",
-  "Odeon of Agrippa",
-  "Odeon of Athens",
-  "Odeon of Domitian",
-  "Odeon of Herodes Atticus",
-  "Odeon of Lyon",
-  "Odeon of Pericles",
-  "Odeon of Philippopolis",
-  "Odeon of Regilla",
-  "odeon of Lugdunum",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -6531,7 +6001,6 @@ wikidata = "https://www.wikidata.org/wiki/Q223134"
 
 [Olympus]
 label = "Olympus"
-synonyms = ["Olympus the Mysian"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -6570,7 +6039,6 @@ label = "Origanion"
 
 [Orion]
 label = "Orion"
-synonyms = ["Ωρίων", "Ὠαρίων"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -6604,8 +6072,8 @@ wikidata = "https://www.wikidata.org/wiki/Q551847"
 
 [Paches]
 label = "Paches"
-wikipedia = "https://en.wikipedia.org/wiki/Paches"
-wikidata = "https://www.wikidata.org/wiki/Q7122019"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Pactolus]
 label = "Pactolus"
@@ -6615,8 +6083,8 @@ wikidata = "https://www.wikidata.org/wiki/Q923929"
 
 [Paeania]
 label = "Paeania"
-wikipedia = "https://en.wikipedia.org/wiki/Paeania"
-wikidata = "https://www.wikidata.org/wiki/Q18015501"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Pagasae]
 label = "Pagasae"
@@ -6642,7 +6110,6 @@ wikidata = "https://www.wikidata.org/wiki/Q585250"
 
 [Pan]
 label = "Pan"
-synonyms = ["Πάν"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -6677,8 +6144,8 @@ wikidata = "https://www.wikidata.org/wiki/Q2002148"
 
 [Panthea]
 label = "Panthea"
-wikipedia = "https://en.wikipedia.org/wiki/Panthea"
-wikidata = "https://www.wikidata.org/wiki/Q312103"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Paphos]
 label = "Paphos"
@@ -6688,7 +6155,6 @@ wikidata = "https://www.wikidata.org/wiki/Q180918"
 
 [Paralus]
 label = "Paralus"
-synonyms = ["Paralos"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -6766,18 +6232,6 @@ wikidata = "https://www.wikidata.org/wiki/Q186271"
 
 [Pausanias]
 label = "Pausanias"
-synonyms = [
-  "Pausanias I of Sparta",
-  "Pausanias II of Sparta",
-  "Pausanias Periegetes",
-  "Pausanias of Athens",
-  "Pausanias of Macedon",
-  "Pausanias of Orestis",
-  "Pausanias of Sparta",
-  "Pausanias the Regent",
-  "Pausanias the Traveller",
-  "Pausanius",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -7077,16 +6531,6 @@ label = "Pharandaces"
 
 [Pharnabazus]
 label = "Pharnabazus"
-synonyms = [
-  "Pharnabazes",
-  "Pharnabazos II",
-  "Pharnabazos II of Phrygia",
-  "Pharnabazus I",
-  "Pharnabazus I of Phrygia",
-  "Pharnabazus II",
-  "Pharnabazus III",
-  "Pharnabazus of Phrygia",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -7103,7 +6547,6 @@ wikidata = "https://www.wikidata.org/wiki/Q43244"
 
 [Phasis]
 label = "Phasis"
-synonyms = ["Phase"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -7125,17 +6568,8 @@ label = "Philetas"
 
 [Philip]
 label = "Philip"
-synonyms = [
-  "Philippus",
-  "Phil",
-  "Philipo",
-  "Philipp",
-  "Philippe",
-  "Philips",
-  "Phillip",
-]
-wikipedia = "https://en.wikipedia.org/wiki/Philip"
-wikidata = "https://www.wikidata.org/wiki/Q827311"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Philistides]
 label = "Philistides"
@@ -7199,15 +6633,6 @@ wikidata = "https://www.wikidata.org/wiki/Q346665"
 
 [Philoxenus]
 label = "Philoxenus"
-synonyms = [
-  "Philoxenios",
-  "Philoxenos of Cythera",
-  "Philoxenos of Eretria",
-  "Philoxenus Anicetus",
-  "Philoxenus of Alexandria",
-  "Philoxenus of Cythera",
-  "Philoxenus of Eretria",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -7278,7 +6703,6 @@ wikidata = "https://www.wikidata.org/wiki/Q41642"
 
 [Phoenix]
 label = "Phoenix"
-synonyms = ["Phoenix of Ormenium"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -7336,7 +6760,6 @@ wikidata = "https://www.wikidata.org/wiki/Q32579"
 
 [Phrynichus]
 label = "Phrynichus"
-synonyms = ["Phrynichus Arabius", "Phrynichus Atticista"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -7353,7 +6776,6 @@ wikidata = "https://www.wikidata.org/wiki/Q607608"
 
 [Pieria]
 label = "Pieria"
-synonyms = ["Pieria Mountains", "Pieria Ori", "Pierian Mountains"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -7491,7 +6913,6 @@ label = "Polycles"
 
 [Polydamas]
 label = "Polydamas"
-synonyms = ["Polydamas of Pharsalus", "Polydamas of Skotoussa"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -7559,7 +6980,6 @@ wikidata = "https://www.wikidata.org/wiki/Q125414"
 
 [Pontus]
 label = "Pontus"
-synonyms = ["Pontike", "Pontos", "Pontus et Bithynia"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -7701,7 +7121,6 @@ label = "Pyrrhias"
 
 [Pyrrhus]
 label = "Pyrrhus"
-synonyms = ["Pyrrhus II", "Pyrrhus II of Epirus", "Pyrrhus III", "Pyrrhus III of Epirus", "Pyrrhus of Athens"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -7763,33 +7182,6 @@ label = "Pythodorus"
 
 [Python]
 label = "Python"
-synonyms = [
-  "Python 3K",
-  "Python Enhancement Proposal",
-  "Python Philosophy",
-  "Python Programming",
-  "Python Programming Language",
-  "Python code",
-  "Python computer language",
-  "Python implementations",
-  "Python language",
-  "Python of Aenus",
-  "Python of Byzantium",
-  "Python of Catana",
-  "Python prog",
-  "Python program",
-  "Python script",
-  "Python scripting language",
-  "Python.org",
-  "Python2",
-  "Python3",
-  "Python3000",
-  "PythonLanguage",
-  "Pythonic",
-  "Pythonista",
-  "Pythonistas",
-  "Pythonlang",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -7841,7 +7233,6 @@ wikidata = "https://www.wikidata.org/wiki/Q193609"
 
 [Rhea]
 label = "Rhea"
-synonyms = ["Rhea Silvia", "Rhea Sylvia"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -7882,8 +7273,8 @@ wikidata = "https://www.wikidata.org/wiki/Q1361319"
 
 [Saeed]
 label = "Saeed"
-wikipedia = "https://en.wikipedia.org/wiki/Saʽid"
-wikidata = "https://www.wikidata.org/wiki/Q40434513"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Salaminia]
 label = "Salaminia"
@@ -7892,16 +7283,6 @@ wikidata = "https://www.wikidata.org/wiki/Q19364132"
 
 [Salamis]
 label = "Salamis"
-synonyms = [
-  "Salaminian",
-  "Salaminas Abacus",
-  "Salaminians",
-  "Salamis Naval Base",
-  "Salamis Tablet",
-  "Salamis stone",
-  "Salamína",
-  "Ναυμαχία τῆς Σαλαμῖνος",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -8019,25 +7400,6 @@ wikidata = "https://www.wikidata.org/wiki/Q963571"
 
 [Scipio]
 label = "Scipio"
-synonyms = [
-  "Scipio Aemilianus",
-  "Scipio Aemilianus Africanus",
-  "Scipio Africanus",
-  "Scipio Africanus Junior",
-  "Scipio Africanus Major",
-  "Scipio Africanus Minor",
-  "Scipio Africanus Minor Numantinus",
-  "Scipio Africanus the Elder",
-  "Scipio Africanus the Younger",
-  "Scipio Asiaticus",
-  "Scipio Asina",
-  "Scipio Major",
-  "Scipio the African",
-  "Scipio the Elder",
-  "Scipio the Great",
-  "Scipio the Younger",
-  "Scipione Ammirato",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -8097,7 +7459,6 @@ wikidata = "https://www.wikidata.org/wiki/Q131802"
 
 [Sebastian]
 label = "Sebastian"
-synonyms = ["Sebastianism", "Sebastianismo", "Sebastianistes"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -8113,43 +7474,6 @@ label = "Seisames"
 
 [Seleucus]
 label = "Seleucus"
-synonyms = [
-  "Selecus I Nikator",
-  "Seleucis I",
-  "Seleucis Nicator",
-  "Seleucus Callinicus",
-  "Seleucus I",
-  "Seleucus I Nicator",
-  "Seleucus I Nikator",
-  "Seleucus II",
-  "Seleucus II Callinicus",
-  "Seleucus III",
-  "Seleucus III Ceraunus",
-  "Seleucus III Soter",
-  "Seleucus IV",
-  "Seleucus IV Philopator",
-  "Seleucus Nicator",
-  "Seleucus Nikator",
-  "Seleucus Philopator",
-  "Seleucus V",
-  "Seleucus V Philometor",
-  "Seleucus VI",
-  "Seleucus VI Epiphanes",
-  "Seleucus VI Epiphanes Nicator",
-  "Seleucus of Babylon",
-  "Seleucus the Chaldean",
-  "Seleucus the Great",
-  "Seleucus the Victor",
-  "Seleucus van Seleucia",
-  "Seleukos I",
-  "Seleukos I Nicator",
-  "Seleukos I Nikator",
-  "Seleukos II Kallinikos",
-  "Seleukos Nikator",
-  "Séleukos Epiphanís Nikátor",
-  "Σέλευκος Α΄ Νικάτωρ",
-  "Σέλευκος Ἐπιφανής Νικάτωρ",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -8201,7 +7525,6 @@ label = "Seuthes"
 
 [Severus]
 label = "Severus"
-synonyms = ["Severan Reforms", "Severus Alexander", "Severus III"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -8228,7 +7551,6 @@ wikidata = "https://www.wikidata.org/wiki/Q736714"
 
 [Shun]
 label = "Shun"
-synonyms = ["Shun Di", "Shun Emperor", "Shun Ti", "Shun the Great", "Shun-ti", "Shundi"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -8468,8 +7790,8 @@ wikidata = "https://www.wikidata.org/wiki/Q2608630"
 
 [Spintharus]
 label = "Spintharus"
-wikipedia = "https://en.wikipedia.org/wiki/Spintharus"
-wikidata = "https://www.wikidata.org/wiki/Q2712802"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Spitamenes]
 label = "Spitamenes"
@@ -8483,7 +7805,6 @@ wikidata = "https://www.wikidata.org/wiki/Q471762"
 
 [Stateira]
 label = "Stateira"
-synonyms = ["Stateira II", "Stateira III", "Statira II", "Statira III"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -8523,7 +7844,6 @@ wikidata = "https://www.wikidata.org/wiki/Q25714658"
 
 [Strymon]
 label = "Strymon"
-synonyms = ["Strymonicus Sinus"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -8567,26 +7887,11 @@ wikidata = "https://www.wikidata.org/wiki/Q1226010"
 
 [Syennesis]
 label = "Syennesis"
-wikipedia = "https://en.wikipedia.org/wiki/Syennesis"
-wikidata = "https://www.wikidata.org/wiki/Q2373834"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Syracuse]
 label = "Syracuse"
-synonyms = [
-  "Syracusan",
-  "Syracruse",
-  "Syracus",
-  "Syracusa",
-  "Syracusae",
-  "Syracuse Elementary",
-  "Syracuse Malleable Iron Works",
-  "Syracuse NY",
-  "Syracuse New York",
-  "Syracuse Utah",
-  "Syracuse. New York",
-  "Syrakousai",
-  "Συρακοῦσαι",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -8619,7 +7924,6 @@ label = "Tandasis"
 
 [Tang]
 label = "Tang"
-synonyms = ["Tang of Shang", "Tang of Yin"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -8725,7 +8029,6 @@ wikidata = "https://www.wikidata.org/wiki/Q674683"
 
 [Tethys]
 label = "Tethys"
-synonyms = ["Τηθύς"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -8787,7 +8090,6 @@ wikidata = "https://www.wikidata.org/wiki/Q1497"
 
 [Theaetetus]
 label = "Theaetetus"
-synonyms = ["Theaetetus of Athens"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -8798,16 +8100,6 @@ wikidata = "https://www.wikidata.org/wiki/Q2005313"
 
 [Thebes]
 label = "Thebes"
-synonyms = [
-  "Thebans",
-  "Thebae Phthiotides",
-  "Thebes in Boeotia",
-  "Thebes in the middle ages",
-  "Thebes of Boeotia",
-  "Thebian",
-  "Thebæ Phthiotides",
-  "Thēbai",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -8843,9 +8135,8 @@ wikidata = "https://www.wikidata.org/wiki/Q1320001"
 
 [Theodorus]
 label = "Theodorus"
-synonyms = ["Theodoro", "Theodoros", "Θεόδωρος"]
-wikipedia = "https://en.wikipedia.org/wiki/Theodoros"
-wikidata = "https://www.wikidata.org/wiki/Q12296171"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Theodotes]
 label = "Theodotes"
@@ -8854,9 +8145,8 @@ label = "Theodotes"
 
 [Theodotus]
 label = "Theodotus"
-synonyms = ["Theodotos"]
-wikipedia = "https://en.wikipedia.org/wiki/Theodotus"
-wikidata = "https://www.wikidata.org/wiki/Q2418932"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 ["Theodotus the Plataean"]
 label = "Theodotus the Plataean"
@@ -8865,8 +8155,8 @@ label = "Theodotus the Plataean"
 
 [Theogenes]
 label = "Theogenes"
-wikipedia = "https://en.wikipedia.org/wiki/Theagenes"
-wikidata = "https://www.wikidata.org/wiki/Q451183"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Theognis]
 label = "Theognis"
@@ -8876,19 +8166,8 @@ wikidata = "https://www.wikidata.org/wiki/Q336115"
 
 [Theophilus]
 label = "Theophilus"
-synonyms = [
-  "Theofiel",
-  "Theofil",
-  "Theofilos",
-  "Theophil",
-  "Theophila",
-  "Theophile",
-  "Theophilius",
-  "Theophilos",
-  "Theophylus",
-]
-wikipedia = "https://en.wikipedia.org/wiki/Theophilus"
-wikidata = "https://www.wikidata.org/wiki/Q19873223"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Theophrastus]
 label = "Theophrastus"
@@ -8906,9 +8185,8 @@ wikidata = "https://www.wikidata.org/wiki/Q160362"
 
 [Theotimus]
 label = "Theotimus"
-synonyms = ["Theotimos"]
-wikipedia = "https://en.wikipedia.org/wiki/Theotimos"
-wikidata = "https://www.wikidata.org/wiki/Q16291115"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Theozotides]
 label = "Theozotides"
@@ -8983,8 +8261,8 @@ wikidata = "https://www.wikidata.org/wiki/Q184437"
 
 [Thibron]
 label = "Thibron"
-wikipedia = "https://en.wikipedia.org/wiki/Thibron"
-wikidata = "https://www.wikidata.org/wiki/Q10696714"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Thrace]
 label = "Thrace"
@@ -9089,21 +8367,18 @@ wikidata = "https://www.wikidata.org/wiki/Q7806901"
 
 [Timocrates]
 label = "Timocrates"
-synonyms = ["Timocrates of Rhodes"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
 [Timolaus]
 label = "Timolaus"
-synonyms = ["Timolaus of Cyzicus"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
 [Timotheus]
 label = "Timotheus"
-synonyms = ["Timotheos"]
-wikipedia = "https://en.wikipedia.org/wiki/Timotheus"
-wikidata = "https://www.wikidata.org/wiki/Q782460"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Tiphys]
 label = "Tiphys"
@@ -9274,15 +8549,6 @@ wikidata = "https://www.wikidata.org/wiki/Q250506"
 
 [Tyre]
 label = "Tyre"
-synonyms = [
-  "Tyrians",
-  "Tyre Hippodrome",
-  "Tyre Lebanon",
-  "Tyre Middle East",
-  "Tyre Phoenician",
-  "Tyre in the middle ages",
-  "Tyre is thine",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -9373,13 +8639,11 @@ wikidata = "https://www.wikidata.org/wiki/Q107144062"
 
 [Xanthus]
 label = "Xanthus"
-synonyms = ["Xanthos", "Xanthus of Lydia"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
 [Xenarchus]
 label = "Xenarchus"
-synonyms = ["Xenarchus of Seleucia"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -9409,18 +8673,6 @@ wikidata = "https://www.wikidata.org/wiki/Q129772"
 
 [Xerxes]
 label = "Xerxes"
-synonyms = [
-  "Xerxes 1",
-  "Xerxes I",
-  "Xerxes I of Persia",
-  "Xerxes I the Great",
-  "Xerxes II",
-  "Xerxes II of Persia",
-  "Xerxes of Armenia",
-  "Xerxes of Commagene",
-  "Xerxes of Sophene",
-  "Xerxes the Great",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -9473,9 +8725,8 @@ label = "Yue"
 
 [Yusuf]
 label = "Yusuf"
-synonyms = ["Yusuph"]
-wikipedia = "https://en.wikipedia.org/wiki/Yusuf"
-wikidata = "https://www.wikidata.org/wiki/Q17497922"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Zacynthus]
 label = "Zacynthus"
@@ -9485,30 +8736,6 @@ wikidata = "https://www.wikidata.org/wiki/Q144880"
 
 [Zeno]
 label = "Zeno"
-synonyms = [
-  "Zeno Apathea",
-  "Zeno Augustus",
-  "Zeno Cyprius",
-  "Zeno I",
-  "Zeno Of Elea",
-  "Zeno of Citium",
-  "Zeno of Cittium",
-  "Zeno of Cyprus",
-  "Zeno of Kition",
-  "Zeno of Rhodes",
-  "Zeno of Sidon",
-  "Zeno of Tarsus",
-  "Zeno of the Byzantine Empire",
-  "Zeno the Isaurian",
-  "Zeno the Stoic",
-  "Zeno's Republic",
-  "Zenon of Citium",
-  "Zenon of Elea",
-  "Zenon of Kition",
-  "Zenon von Elea",
-  "Zenonus",
-  "Zeno‚ Of Elea",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -9519,7 +8746,6 @@ wikidata = "https://www.wikidata.org/wiki/Q845818"
 
 [Zethus]
 label = "Zethus"
-synonyms = ["Zethos", "Zethus Crater"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -9546,7 +8772,6 @@ wikidata = "https://www.wikidata.org/wiki/Q34201"
 
 [Zeuxis]
 label = "Zeuxis"
-synonyms = ["Zeuxis of Tarentum"]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -9562,17 +8787,6 @@ label = "Zhili Shu"
 
 [Zhou]
 label = "Zhou"
-synonyms = [
-  "Chou",
-  "Zhou China",
-  "Zhou Dai",
-  "Zhou Dynasty",
-  "Zhou kings",
-  "Zhou period",
-  "Zhou ritual system",
-  "Zhou-era",
-  "Zhōu Cháo",
-]
 # no `wikipedia` entry
 # no `wikidata` entry
 
@@ -9583,8 +8797,8 @@ label = "Zhuangzi"
 
 [Zigao]
 label = "Zigao"
-wikipedia = "https://en.wikipedia.org/wiki/Zigao"
-wikidata = "https://www.wikidata.org/wiki/Q19929938"
+# no `wikipedia` entry
+# no `wikidata` entry
 
 [Zopyrion]
 label = "Zopyrion"
