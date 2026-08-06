@@ -113,7 +113,7 @@ index = [
   "Heraclidae",
   "Cyclopes",
   "Amazons",
-  "Sauromatides",
+  "Sarmatians",
   "Corybantes",
   "Curetes",
   "Scythians",
