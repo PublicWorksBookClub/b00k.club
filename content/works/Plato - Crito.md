@@ -57,6 +57,10 @@ index = [
   "Crete",
   "Delos",
   "Sunium",
+  "Zeus",
+  "Hades",
+  "Corybantes",
+  "Isthmus",
 ]
 contributors = ["Spencer Scorcelletti"]
 +++
