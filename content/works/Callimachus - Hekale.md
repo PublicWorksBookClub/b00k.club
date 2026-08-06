@@ -30,6 +30,27 @@ languages = ["Ancient Greek"]
 tags = []
 years = ["2026"]
 arcs = ["Metamorphoses 3"]
-index = ["Hekale", "Theseus", "Aigeus", "Marathon", "Athens", "Attica", "Athena", "Zeus", "Kekrops", "Erichthonios", "Hephaistos"]
+index = [
+  "Hekale",
+  "Theseus",
+  "Aegeus",
+  "Medea",
+  "Erechtheus",
+  "Cecrops",
+  "Erichthonius",
+  "Coronis",
+  "Scylla",
+  "Athena",
+  "Zeus",
+  "Apollo",
+  "Hephaestus",
+  "Marathon",
+  "Attica",
+  "Troezen",
+  "Aphidnae",
+  "Parnes",
+  "Hymettus",
+  "Pellene",
+]
 contributors = ["Spencer Scorcelletti"]
 +++

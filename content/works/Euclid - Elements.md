@@ -30,5 +30,6 @@ languages = ["Ancient Greek"]
 tags = []
 years = ["2026"]
 arcs = ["Metamorphoses 2"]
+index = []
 contributors = ["Spencer Scorcelletti"]
 +++
