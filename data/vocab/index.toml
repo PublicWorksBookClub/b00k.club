@@ -4109,6 +4109,7 @@ synonyms = [
   "Heraklitus",
   "Ἡράκλειτος",
   "Ἡράκλειτος ὁ Ἐφέσιος",
+  "Weeping Philosopher"
 ]
 wikipedia = "https://en.wikipedia.org/wiki/Heraclitus"
 wikidata = "https://www.wikidata.org/wiki/Q41155"
@@ -6502,6 +6503,8 @@ synonyms = [
   "Peloponnisos",
   "Pelopponese",
   "Πελοπόννησος",
+  "Morea",
+  "Penisola del Peloponneso"
 ]
 wikipedia = "https://en.wikipedia.org/wiki/Peloponnese"
 wikidata = "https://www.wikidata.org/wiki/Q78967"
@@ -6765,9 +6768,10 @@ label = "Philistion"
 # no `wikidata` entry
 notes = ["Long and Farquharson report nothing is known of the three"]
 
-[Philo]
-label = "Philo"
+["Philo of Alexandria"]
+label = "Philo of Alexandria"
 synonyms = [
+  "Philo",
   "Philio Alexandrinus",
   "Philio Judæus",
   "Philio of Alexandria",
@@ -8355,6 +8359,7 @@ synonyms = [
   "Thermopoly",
   "Thermopolyae",
   "Thermopylai",
+  "Pylai",
   "Thermopyle",
   "Thermopylee",
   "Thermopylæ",

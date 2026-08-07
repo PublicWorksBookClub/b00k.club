@@ -150,6 +150,18 @@
             {% endif %}
           </td>
         </tr>
+        <tr>
+          <td><a href="{{ get_taxonomy(kind='index') | get(key='permalink') }}">Index</a></td>
+          <td>
+            {% if page.taxonomies.index %}
+            <a href="#index">
+            {{ page.taxonomies.index | length }} entries
+            </a>
+            {% else %}
+            0 entries
+            {% endif %}
+          </td>
+        </tr>
       </tbody>
     </table>
   </section>
@@ -184,6 +196,22 @@
       {% endif %}
       {# TODO: then display commentary that references this work by further filtering it #}
     </ul>
+  </section>
+  {# Index #}
+  <section id="index" class="mt-8">
+    <h2>Index</h2>
+    {% if page.taxonomies.index and page.taxonomies.index | length > 0 %}
+    <details>
+      <summary class="cursor-pointer">View</summary>
+      <ul class="columns-2 md:columns-3 gap-8 prose-li:m-0">
+        {% for entry in page.taxonomies.index | sort %}
+          <li><a class="font-extralight" href="/index/{{ entry }}/">{{ entry }}</a></li>
+        {% endfor %}
+      </ul>
+    </details>
+    {% else %}
+    No entries in index
+    {% endif %}
   </section>
   <hr>
   {# Content #}

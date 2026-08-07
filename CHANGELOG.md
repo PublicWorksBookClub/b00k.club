@@ -2,6 +2,8 @@
 
 ## Next
 
+- Add missing taxonomical entries for each work's index
+
 ## 1.8.6 (2026-08-05)
 
 - Add `/maps/viewer/`, a fast reader for the Argonautica map: it loads in under half a second instead of pulling down a 20 MB project file and a 46 MB editor
