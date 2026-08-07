@@ -15,7 +15,9 @@
  *     <tbody>…</tbody>
  *   </table>
  *
- * Clicking a header cycles ascending → descending → the document order it was served in.
+ * Clicking a header sorts it ascending; clicking the same header again reverses it to
+ * descending, and it keeps alternating between the two from there — there's no third
+ * "back to unsorted" state to click through.
  * When the visible text is not what you want to sort on — a formatted date, a name with a
  * leading article, a count standing in for a truncated list — put the real key on the cell:
  *
@@ -83,26 +85,18 @@ function sortTable(table, headers, column, direction) {
   if (!body) return;
 
   const rows = Array.from(body.rows);
-  if (direction === "none") {
-    rows.sort(
-      (a, b) => Number(a.dataset.sortIndex) - Number(b.dataset.sortIndex),
-    );
-  } else {
-    const compare = comparator(column, headers[column].dataset.sort);
-    const sign = direction === "descending" ? -1 : 1;
-    // stable within equal keys: fall back to the order the server sent
-    rows.sort((a, b) => {
-      const result = compare(a, b);
-      if (result !== 0) return sign * result;
-      return Number(a.dataset.sortIndex) - Number(b.dataset.sortIndex);
-    });
-  }
+  const compare = comparator(column, headers[column].dataset.sort);
+  const sign = direction === "descending" ? -1 : 1;
+  // stable within equal keys: fall back to the order the server sent
+  rows.sort((a, b) => {
+    const result = compare(a, b);
+    if (result !== 0) return sign * result;
+    return Number(a.dataset.sortIndex) - Number(b.dataset.sortIndex);
+  });
   rows.forEach((row) => body.appendChild(row));
 
   updateIndicators(headers, column, direction);
 }
-
-const NEXT = { none: "ascending", ascending: "descending", descending: "none" };
 
 function enhance(table) {
   const head = table.tHead;
@@ -110,7 +104,7 @@ function enhance(table) {
   if (!head || !body || table.dataset.sortableReady) return;
   table.dataset.sortableReady = "true";
 
-  // remember the served order so the third click can restore it
+  // tie-break equal sort keys by the order the server sent, so ties land predictably
   Array.from(body.rows).forEach((row, i) => {
     row.dataset.sortIndex = String(i);
   });
@@ -146,8 +140,13 @@ function enhance(table) {
     header.appendChild(button);
 
     button.addEventListener("click", () => {
+      // direction is only ever "none" while column is still -1 (untouched), so reaching
+      // this column at all means it's already "ascending" or "descending" — a plain
+      // toggle, forever, with no third state to click back to.
       const direction =
-        state.column === column ? NEXT[state.direction] : "ascending";
+        state.column === column && state.direction === "ascending"
+          ? "descending"
+          : "ascending";
       state = { column, direction };
       sortTable(table, headers, column, direction);
     });
