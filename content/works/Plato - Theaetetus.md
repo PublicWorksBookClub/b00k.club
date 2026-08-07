@@ -31,7 +31,8 @@ languages = ["Ancient Greek", "Attic Greek"]
 tags = ["how to know nothing", "wind-egg", "true judgement", "Theaetetus begins", "a new hope", "possessing vs having", "knowing that you know", "knowing that you don't know", "not knowing that you know", "not knowing that you don't know", "knowledge vs true judgement", "little wax facsimiles", "hunters and atriums", "motion and being", "skepticism of perception", "dreams and insanity", "being and becoming", "what is a man", "true philosopher"]
 years = ["2026"]
 arcs = ["Memorabilia 3"]
-index = ["Euclides", "Terpsion", "Corinth", "Megara", "Athens", "Socrates", "Cyrene", "Theodorus", "Euphronius of Sunium", "Sunium", "Phaenarete", "Artemis", "Aristides", "Lysimachus", "Prodicus", "Theaetetus", "Protagoras","Heraclitus"]
+references = ["homer-odyssey"]
+index = ["Euclides", "Terpsion", "Corinth", "Megara", "Athens", "Socrates", "Cyrene", "Theodorus", "Euphronius of Sunium", "Sunium", "Phaenarete", "Artemis", "Aristides", "Lysimachus (father of Aristides)", "Prodicus", "Theaetetus", "Protagoras","Heraclitus", "Homer", "Hesiod", "Epicharmus", "Empedocles", "Parmenides", "Melissus", "Thales", "Pindar", "Euripides", "Callias", "Hipponicus", "Meletus", "Herakles", "Amphitryon", "Theseus", "Sciron", "Antaeus", "Zeus", "Hera", "Iris", "Thaumas", "Oceanus", "Tethys", "Mnemosyne", "Muses", "Graces", "Sparta", "Ionia", "Ephesus", "Erineum", "Thrace", "Mysians", "Hellas"]
 contributors = ["Spencer Scorcelletti"]
 +++
 

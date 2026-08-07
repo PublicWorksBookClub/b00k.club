@@ -29,5 +29,22 @@ languages = ["Classical Arabic"]
 # General taxonomies
 years = ["2023"]
 arcs = ["Theogony 2"]
+index = [
+  "Scheherazade",
+  "Shahryar",
+  "Shah Zaman",
+  "Dunyazad",
+  "Saeed",
+  "Muhammad",
+  "Yusuf",
+  "Allah",
+  "Adam",
+  "Iblis",
+  "Jinn",
+  "Ifrit",
+  "Samarkand",
+  "India",
+  "China",
+]
 contributors = ["Spencer Scorcelletti"]
 +++

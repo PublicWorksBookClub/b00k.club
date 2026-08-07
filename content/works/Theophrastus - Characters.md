@@ -29,5 +29,45 @@ languages = ["Attic Greek"]
 # General taxonomies
 years = ["2025"]
 arcs = ["Anabasis 3"]
+references = ["homer-odyssey"]
+index = [
+  "Polycles",
+  "Alexander",
+  "Antipater",
+  "Cassander",
+  "Polyperchon",
+  "Aristophon",
+  "Homer",
+  "Theseus",
+  "Herakles",
+  "Zeus",
+  "Dionysus",
+  "Poseidon",
+  "Athena",
+  "Artemis",
+  "Asclepius",
+  "Hecate",
+  "Sabazius",
+  "Hermaphroditus",
+  "Athens",
+  "Hellas",
+  "Macedonia",
+  "Sparta",
+  "Thrace",
+  "Byzantium",
+  "Cyzicus",
+  "Rhodes",
+  "Thurii",
+  "Sicily",
+  "Delphi",
+  "Hymettus",
+  "Persia",
+  "Ethiopians",
+  "Asia",
+  "Europe",
+  "Odeon",
+  "Dionysia",
+  "Apaturia",
+]
 contributors = ["Spencer Scorcelletti"]
 +++

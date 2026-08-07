@@ -29,5 +29,19 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2025"]
 arcs = ["Anabasis 3"]
+references = ["aristotle-topics"]
+index = [
+  "Aristomenes",
+  "Miccalus",
+  "Callias",
+  "Cleon",
+  "Socrates",
+  "Pittacus",
+  "Zeno",
+  "Athens",
+  "Thebes",
+  "Phocis",
+  "Meno",
+]
 contributors = ["Spencer Scorcelletti"]
 +++

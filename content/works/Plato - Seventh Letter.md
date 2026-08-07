@@ -28,5 +28,38 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2024"]
 arcs = ["Anabasis 2"]
+index = [
+  "Plato",
+  "Dion",
+  "Dionysius",
+  "Socrates",
+  "Archytas",
+  "Archedemus (associate of Archytas)",
+  "Theodotes",
+  "Heraclides",
+  "Hipparinus",
+  "Eurybius",
+  "Lamiscus",
+  "Tisias",
+  "Gelon",
+  "Hiero",
+  "Darius",
+  "Zeus",
+  "Lynceus (Argonaut)",
+  "Scylla",
+  "Charybdis",
+  "Syracuse",
+  "Sicily",
+  "Athens",
+  "Piraeus",
+  "Italy",
+  "Tarentum",
+  "Megara",
+  "Peloponnese",
+  "Olympia",
+  "Hellas",
+  "Carthage",
+  "Persia",
+]
 contributors = ["Spencer Scorcelletti"]
 +++

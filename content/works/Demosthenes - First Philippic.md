@@ -27,5 +27,38 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2025"]
 arcs = ["Anabasis 3"]
+index = [
+  "Philip",
+  "Iphicrates",
+  "Chabrias",
+  "Polystratus",
+  "Menelaus of Pelagonia",
+  "Artabazus",
+  "Athens",
+  "Sparta",
+  "Macedonia",
+  "Amphipolis",
+  "Pydna",
+  "Potidaea",
+  "Methone",
+  "Olynthus",
+  "Chersonese",
+  "Thermopylae",
+  "Euboea",
+  "Haliartus",
+  "Corinth",
+  "Thebes",
+  "Illyria",
+  "Marathon",
+  "Pagasae",
+  "Lemnos",
+  "Thasos",
+  "Sciathos",
+  "Imbros",
+  "Geraestus",
+  "Hellas",
+  "Panathenaea",
+  "Dionysia",
+]
 contributors = ["Spencer Scorcelletti"]
 +++

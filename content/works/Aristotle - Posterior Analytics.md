@@ -29,5 +29,26 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2025"]
 arcs = ["Anabasis 3"]
+index = [
+  "Callias",
+  "Coriscus",
+  "Socrates",
+  "Alcibiades",
+  "Lysander",
+  "Anacharsis",
+  "Bryson",
+  "Caeneus",
+  "Achilles",
+  "Ajax",
+  "Pythagoreans",
+  "Scythians",
+  "Athens",
+  "Sardis",
+  "Eretria",
+  "Nile",
+  "Tartarus",
+  "Iliad",
+  "Meno",
+]
 contributors = ["Spencer Scorcelletti"]
 +++

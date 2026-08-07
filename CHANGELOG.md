@@ -2,6 +2,13 @@
 
 ## Next
 
+## 1.9.0 (2026-08-07)
+
+- Add script to sort tables
+- Add macro to visualize references to/by other works
+- Add missing taxonomical entries for each work's reference to others
+- Add missing taxonomical entries for each work's index
+
 ## 1.8.6 (2026-08-05)
 
 - Add `/maps/viewer/`, a fast reader for the Argonautica map: it loads in under half a second instead of pulling down a 20 MB project file and a 46 MB editor

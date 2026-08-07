@@ -29,5 +29,28 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2025"]
 arcs = ["Anabasis 3"]
+references = ["homer-odyssey"]
+index = [
+  "Socrates",
+  "Plato",
+  "Heraclitus",
+  "Melissus",
+  "Empedocles",
+  "Antisthenes",
+  "Zeno",
+  "Prodicus",
+  "Xenocrates",
+  "Homer",
+  "Choerilus",
+  "Dionysius",
+  "Achilles",
+  "Odysseus",
+  "Ajax",
+  "Nestor",
+  "Triballi",
+  "Sparta",
+  "Peloponnese",
+  "India",
+]
 contributors = ["Spencer Scorcelletti"]
 +++

@@ -28,5 +28,24 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2025"]
 arcs = ["Memorabilia 2"]
+index = [
+  "Socrates",
+  "Euthyphro",
+  "Meletus",
+  "Daedalus",
+  "Tantalus",
+  "Proteus",
+  "Zeus",
+  "Hera",
+  "Hephaestus",
+  "Cronos",
+  "Uranus",
+  "Athens",
+  "Lyceum",
+  "Acropolis",
+  "Pitthos",
+  "Naxos",
+  "Panathenaea",
+]
 contributors = ["Spencer Scorcelletti"]
 +++

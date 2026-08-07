@@ -28,5 +28,38 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2025"]
 arcs = ["Anabasis 3"]
+index = [
+  "Ariston (plaintiff)",
+  "Conon (defendant)",
+  "Ctesias",
+  "Phanostratus",
+  "Euxitheus",
+  "Meidias",
+  "Pythodorus",
+  "Pamphilus",
+  "Theotimus",
+  "Archebiades",
+  "Spintharus",
+  "Theogenes",
+  "Diotimus",
+  "Chaeretimus",
+  "Lysistratus",
+  "Paseas",
+  "Niceratus",
+  "Diodorus",
+  "Bacchius",
+  "Aristocrates",
+  "Persephone",
+  "Hecate",
+  "Athens",
+  "Panactum",
+  "Melite",
+  "Leocorion",
+  "Areopagus",
+  "Brauron",
+  "Ithyphalli",
+  "Autolecythi",
+  "Triballi",
+]
 contributors = ["Spencer Scorcelletti"]
 +++

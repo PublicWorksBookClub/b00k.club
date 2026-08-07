@@ -28,7 +28,7 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 years = ["2025"]
 arcs = ["Memorabilia 2"]
-references = ["plato-apology"]
+references = ["plato-apology", "homer-odyssey"]
 tags = [
   "social contract",
   "definition of impious",
@@ -57,6 +57,10 @@ index = [
   "Crete",
   "Delos",
   "Sunium",
+  "Zeus",
+  "Hades",
+  "Corybantes",
+  "Isthmus",
 ]
 contributors = ["Spencer Scorcelletti"]
 +++

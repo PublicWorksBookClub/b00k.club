@@ -1,0 +1,42 @@
+{% extends "taxonomy_list.html" %}
+
+{% block terms %}
+<h2>Terms</h2>
+<p class="font-fira-sans -mb-6 text-right text-xs italic pr-2">(scroll →)</p>
+<div class="overflow-x-auto">
+  <table data-sortable class="whitespace-nowrap prose-td:whitespace-nowrap">
+    <caption class="mt-2 pl-2 caption-bottom text-left font-serif not-prose">
+      <ul>
+        <li><span class="italic">Click a column heading to sort.</span></li>
+      </ul>
+    </caption>
+    <thead>
+      <tr>
+        <th class="pl-4" data-sort="text" aria-sort="ascending">Name</th>
+        <th data-sort="number">Works</th>
+        <th data-sort="number">Synonyms</th>
+      </tr>
+    </thead>
+    <tbody class="prose-a:no-underline prose-a:hover:underline">
+      {% for term in terms %}
+      {% set vocab = toml[term.name] | default(value=false) %}
+      {% set works = term.pages | filter(attribute="components.0", value="works") %}
+      <tr>
+        <td class="pl-4">
+          <a href="{{ term.path }}">{% if vocab.label %}{{ vocab.label }}{% else %}{{ term.name }}{% endif %}</a>
+        </td>
+        <td class="text-center">{{ works | length }}</td>
+        <td class="whitespace-normal font-light" data-sort-value="{% if vocab and vocab.synonyms %}{{ vocab.synonyms | length }}{% else %}0{% endif %}">
+          {%- if vocab and vocab.synonyms -%}
+          {{ vocab.synonyms | slice(end=3) | join(sep=", ") }}
+          {%- if vocab.synonyms | length > 3 %}
+          <span class="text-gray-400">+{{ vocab.synonyms | length - 3 }} more</span>
+          {%- endif -%}
+          {%- endif -%}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock terms %}

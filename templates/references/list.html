@@ -1,0 +1,45 @@
+{% extends "taxonomy_list.html" %}
+{% import "macro/canvas.html" as canvas %}
+
+{% block paratext %}
+{{ canvas::reference_map() }}
+{% endblock paratext %}
+
+{% block terms %}
+<h2>Terms</h2>
+<div class="overflow-x-auto">
+  <table data-sortable class="whitespace-nowrap">
+    <caption class="mt-2 pl-2 caption-bottom text-left font-serif not-prose">
+      <ul>
+        <li><span class="italic">Click a column heading to sort.</span></li>
+      </ul>
+    </caption>
+    <thead>
+      <tr>
+        <th class="pl-4" data-sort="text" aria-sort="ascending">Name</th>
+        <th data-sort="number">References to</th>
+        <th data-sort="number">Referenced by</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% set works_section = get_section(path="works/_index.md") %}
+      {% set ref_taxonomy = get_taxonomy(kind="references") %}
+      {% for w in works_section.pages | sort(attribute="taxonomies.titles.0") %}
+      {% set outgoing = w.taxonomies.references | default(value=[]) %}
+      {% set incoming_items = ref_taxonomy.items | filter(attribute="name", value=w.slug) %}
+      {% set incoming_count = 0 %}
+      {% if incoming_items | length > 0 %}
+      {% set incoming_pages = incoming_items | first | get(key="pages")
+           | filter(attribute="components.0", value="works") %}
+      {% set incoming_count = incoming_pages | length %}
+      {% endif %}
+      <tr>
+        <td class="pl-4"><a href="{{ w.permalink }}">{{ w.taxonomies.titles[0] }}</a></td>
+        <td class="text-center">{{ outgoing | length }}</td>
+        <td class="text-center">{{ incoming_count }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock terms %}

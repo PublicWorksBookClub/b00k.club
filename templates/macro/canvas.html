@@ -1,0 +1,38 @@
+{#-
+  Canvas-drawn diagrams. Unlike macro/svg.html's diagrams, these need a companion script
+  in static/scripts/ to actually draw anything — a <canvas> has no declarative content, so
+  the macro's own job is just to emit the data the script needs, as a JSON island next to an
+  empty canvas, and let the script (registered once in base.html) do the rest.
+-#}
+
+{%- macro reference_map(focus="") -%}
+{#-
+  Every work's outgoing `taxonomies.references` (see works/conspectus.html's "Refers To"
+  section for the single-page version of this same relationship), flattened into one line
+  of JSON per work. Not a single JSON array — Tera has no way to build a literal array of
+  freshly-shaped objects, only to template text, so this follows the same
+  build-a-string-then-let-JS-parse-it approach as macro/json-ld.html — except here the
+  script reads it directly with no js-parse indirection needed, since NDJSON needs no
+  comma-joining between records the way a JSON array would.
+
+  Works with no references (an empty `refs`) are still emitted: a work cited by others but
+  citing no one itself — the Odyssey, for instance — still needs its title and url on
+  record for the many edges that point at it.
+
+  `focus`, optional: a work's slug to open the map already pinned on, e.g. embedded on that
+  work's own page rather than the whole-corpus /references/ view. Left blank, the map opens
+  neutral, as it does today.
+-#}
+{% set works_section = get_section(path="works/_index.md") %}
+<div class="hidden aspect-square md:aspect-4/3 reference-map w-full" data-reference-map {% if focus %}data-reference-map-focus="{{ focus }}"{% endif %}>
+  <canvas class="block w-full h-full"></canvas>
+  <script type="application/json" data-reference-map-data>
+{% for w in works_section.pages -%}
+{"id":{{ w.slug | json_encode | safe }},"title":{{ w.taxonomies.titles.0 | json_encode | safe }},"url":{{ w.permalink | json_encode | safe }},"refs":{{ w.taxonomies.references | default(value=[]) | json_encode | safe }}}
+{% endfor -%}
+  </script>
+  <p class="mt-2 pl-2 text-sm italic font-serif text-gray-500 text-center">
+  (Hover or tap a node to see references between works. Bigger nodes have more references.)
+  </p>
+</div>
+{%- endmacro reference_map -%}
