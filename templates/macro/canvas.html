@@ -24,7 +24,8 @@
   neutral, as it does today.
 -#}
 {% set works_section = get_section(path="works/_index.md") %}
-<div class="reference-map w-full" data-reference-map {% if focus %}data-reference-map-focus="{{ focus }}"{% endif %} style="aspect-ratio: 16 / 10;">
+<noscript>Foo</noscript>
+<div class=" aspect-[4/3] reference-map w-full" data-reference-map {% if focus %}data-reference-map-focus="{{ focus }}"{% endif %}>
   <canvas class="block w-full h-full"></canvas>
   <script type="application/json" data-reference-map-data>
 {% for w in works_section.pages -%}
@@ -32,7 +33,7 @@
 {% endfor -%}
   </script>
 </div>
-<p class="mt-2 pl-2 text-sm italic font-serif text-gray-500">
-  Hover or tap a work to see what it refers to (in orange) and what refers to it (in blue).
+<p class="mt-2 pl-2 text-sm italic font-serif text-gray-500 text-center">
+  (Hover or tap a work to see what it refers to see references between works)
 </p>
 {%- endmacro reference_map -%}

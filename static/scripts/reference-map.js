@@ -32,8 +32,8 @@
  * label goes to that work's page; clicking a dot pins or releases it.
  */
 
-const ACCENT_IN = "#2a78d6"; // blue — an edge pointing INTO the active node (cites it)
-const ACCENT_OUT = "#eb6834"; // orange — an edge pointing OUT of the active node (it cites)
+const ACCENT_IN = "#312e81"; // indigo — an edge pointing INTO the active node (cites it)
+const ACCENT_OUT = "#16a34a"; // green — an edge pointing OUT of the active node (it cites)
 const INK = "#111827";
 const MUTED_NODE = "#374151";
 const MUTED_EDGE = "#d1d5db";
