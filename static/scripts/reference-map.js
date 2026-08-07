@@ -178,12 +178,27 @@ function labelBox(ctx, node, layout, width, height, emphasis) {
   const boxH = lineH + padY * 2;
 
   const dot = positionOf(node, layout);
-  // starts beside the dot, on whichever side points away from center — clamped into the
-  // canvas rather than reasoned about per-quadrant, which stays correct at any aspect
-  // ratio or node position, including right at an edge
-  const rightSide = node.nx >= 0;
-  const idealX = rightSide ? dot.x + node.radius + 6 : dot.x - node.radius - 6 - boxW;
-  const idealY = dot.y - boxH / 2;
+  // anchored outward along the node's own (nx, ny) — the same direction the dot itself
+  // sits away from the ellipse's center — rather than a fixed left/right split. A node
+  // near the horizontal poles still gets a plain sideways label, but one near the top or
+  // bottom now also moves *up* or *down* to clear the rim, instead of staying centered on
+  // the dot's height and cutting sideways back across the interior, over the arcs and
+  // other dots, where the whole point of a label — being able to tell which node is which,
+  // and which way an arrow into it is pointing — is exactly what gets covered up.
+  const EDGE_THRESHOLD = 0.25; // |nx| or |ny| below this reads as "near that axis's center"
+  const gap = node.radius + 8;
+  const anchorX = dot.x + node.nx * gap;
+  const anchorY = dot.y + node.ny * gap;
+
+  let idealX;
+  if (node.nx > EDGE_THRESHOLD) idealX = anchorX; // box's left edge at the anchor, extends right
+  else if (node.nx < -EDGE_THRESHOLD) idealX = anchorX - boxW; // right edge at the anchor, extends left
+  else idealX = anchorX - boxW / 2; // near-vertical node: centered under/over its dot
+
+  let idealY;
+  if (node.ny > EDGE_THRESHOLD) idealY = anchorY; // box's top edge at the anchor, extends down
+  else if (node.ny < -EDGE_THRESHOLD) idealY = anchorY - boxH; // bottom edge at the anchor, extends up
+  else idealY = anchorY - boxH / 2; // near-horizontal node: centered beside its dot
 
   return {
     node,
@@ -205,12 +220,16 @@ function rectsOverlap(a, b) {
 /**
  * Places the active node's label plus one for every connected neighbor, resolving
  * collisions by nudging: the active label never moves (placed first, stays the anchor
- * everything else avoids), each neighbor after it is pushed downward — re-clamped into
- * bounds each step — until it clears every label already placed. A neighbor that still
- * can't find room within the try budget is dropped rather than stacked illegibly; its dot
- * stays drawn and colored regardless, only the label is missing. That budget is what makes
- * this the same mechanism at any container size: generous room shows every label, a
- * cramped one thins itself out automatically as the budget is exhausted sooner.
+ * everything else avoids), each neighbor after it is pushed further along its own outward
+ * (nx, ny) direction — re-clamped into bounds each step — until it clears every label
+ * already placed. Nudging outward rather than in one fixed direction is what keeps a whole
+ * cluster of colliding labels — several rim-adjacent nodes fanning out together — moving
+ * further from the ellipse rather than drifting back across it partway through. A neighbor
+ * that still can't find room within the try budget is dropped rather than stacked
+ * illegibly; its dot stays drawn and colored regardless, only the label is missing. That
+ * budget is what makes this the same mechanism at any container size: generous room shows
+ * every label, a cramped one thins itself out automatically as the budget is exhausted
+ * sooner.
  */
 function placeLabels(ctx, activeNode, neighborIds, byId, layout, width, height) {
   const boxes = [labelBox(ctx, activeNode, layout, width, height, true)];
@@ -226,8 +245,10 @@ function placeLabels(ctx, activeNode, neighborIds, byId, layout, width, height) 
     const box = labelBox(ctx, n, layout, width, height, false);
     let tries = 0;
     while (tries < LABEL_NUDGE_TRIES && boxes.some((placed) => rectsOverlap(box, placed))) {
-      const nextY = Math.min(box.y + LABEL_NUDGE_STEP, height - box.h - 4);
-      if (nextY === box.y) break; // already at the floor; no further nudging is possible
+      const nextX = Math.min(Math.max(box.x + n.nx * LABEL_NUDGE_STEP, 4), width - box.w - 4);
+      const nextY = Math.min(Math.max(box.y + n.ny * LABEL_NUDGE_STEP, 4), height - box.h - 4);
+      if (nextX === box.x && nextY === box.y) break; // pinned against a bound; no room left to try
+      box.x = nextX;
       box.y = nextY;
       tries++;
     }

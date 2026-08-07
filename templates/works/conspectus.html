@@ -2,6 +2,7 @@
 {% import "macro/json-ld.html" as json_ld %}
 {% import "macro/works.html" as works %}
 {% import "macro/util.html" as util %}
+{% import "macro/canvas.html" as canvas %}
 {% import "r3ply.html" as r3ply %}
 
 {% block title %}
@@ -168,6 +169,7 @@
   {# Contextual Relations #}
   <section class="mt-8">
     <h2>Contextual Relations</h2>
+    {{ canvas::reference_map(focus=page.slug) }}
     <h3>Refers To</h3>
     <ul>
       {% if page.taxonomies.references and page.taxonomies.references | length > 0 %}
