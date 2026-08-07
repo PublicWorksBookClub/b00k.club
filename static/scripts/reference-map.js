@@ -47,6 +47,7 @@ const MIN_RADIUS = 3;
 const MAX_RADIUS = 11;
 const LABEL_NUDGE_STEP = 5; // CSS px per collision-resolution attempt
 const LABEL_NUDGE_TRIES = 40; // ~200px of headroom before a label gives up on finding room
+const EDGE_THRESHOLD = 0.25; // |nx| or |ny| below this reads as "near that axis's center"
 
 function parseGraph(text) {
   const nodesById = new Map();
@@ -165,6 +166,42 @@ function drawEdge(ctx, layout, p0, p1, targetRadius, { color, alpha, width, arro
   ctx.globalAlpha = 1;
 }
 
+/**
+ * Chooses a label's position along one axis: try the side the node's own (nx or ny) points
+ * toward; if the box wouldn't fit the canvas there, mirror the anchor to the opposite side
+ * of the dot and try from there, instead of letting a boundary clamp drag the original
+ * anchor back across the dot — which is exactly how a label ends up covering its own node:
+ * the "outward" position runs past the canvas edge, gets clamped straight back, and lands
+ * on top of the very dot it was trying to stay clear of. Only clamps as an absolute last
+ * resort, when neither side fits at all. Returns which direction (+1/-1/0) was actually
+ * used alongside the coordinate, so a later collision-nudge pass can keep pushing the same
+ * way rather than fighting a flip.
+ */
+function fitAxis(dotCoord, nCoord, gap, size, minBound, maxBound) {
+  const near = dotCoord + nCoord * gap; // gap px out, in the node's own direction
+  const far = dotCoord - nCoord * gap; // gap px out, mirrored to the opposite side
+  const fits = (s) => s >= minBound && s + size <= maxBound;
+
+  const candidates =
+    Math.abs(nCoord) > EDGE_THRESHOLD
+      ? [
+          [nCoord >= 0 ? near : near - size, nCoord >= 0 ? 1 : -1],
+          [nCoord >= 0 ? far - size : far, nCoord >= 0 ? -1 : 1],
+          [near - size / 2, 0],
+        ]
+      : [
+          [near - size / 2, 0],
+          [nCoord >= 0 ? near : near - size, nCoord >= 0 ? 1 : -1],
+          [nCoord >= 0 ? far - size : far, nCoord >= 0 ? -1 : 1],
+        ];
+
+  for (const [s, push] of candidates) {
+    if (fits(s)) return { start: s, push, isPreferred: s === candidates[0][0] };
+  }
+  const [s0, push0] = candidates[0];
+  return { start: Math.min(Math.max(s0, minBound), maxBound - size), push: push0, isPreferred: false };
+}
+
 /** The label's ideal box for a node — before collision resolution ever moves it. */
 function labelBox(ctx, node, layout, width, height, emphasis) {
   const font = emphasis
@@ -178,38 +215,25 @@ function labelBox(ctx, node, layout, width, height, emphasis) {
   const boxH = lineH + padY * 2;
 
   const dot = positionOf(node, layout);
-  // anchored outward along the node's own (nx, ny) — the same direction the dot itself
-  // sits away from the ellipse's center — rather than a fixed left/right split. A node
-  // near the horizontal poles still gets a plain sideways label, but one near the top or
-  // bottom now also moves *up* or *down* to clear the rim, instead of staying centered on
-  // the dot's height and cutting sideways back across the interior, over the arcs and
-  // other dots, where the whole point of a label — being able to tell which node is which,
-  // and which way an arrow into it is pointing — is exactly what gets covered up.
-  const EDGE_THRESHOLD = 0.25; // |nx| or |ny| below this reads as "near that axis's center"
   const gap = node.radius + 8;
-  const anchorX = dot.x + node.nx * gap;
-  const anchorY = dot.y + node.ny * gap;
-
-  let idealX;
-  if (node.nx > EDGE_THRESHOLD) idealX = anchorX; // box's left edge at the anchor, extends right
-  else if (node.nx < -EDGE_THRESHOLD) idealX = anchorX - boxW; // right edge at the anchor, extends left
-  else idealX = anchorX - boxW / 2; // near-vertical node: centered under/over its dot
-
-  let idealY;
-  if (node.ny > EDGE_THRESHOLD) idealY = anchorY; // box's top edge at the anchor, extends down
-  else if (node.ny < -EDGE_THRESHOLD) idealY = anchorY - boxH; // bottom edge at the anchor, extends up
-  else idealY = anchorY - boxH / 2; // near-horizontal node: centered beside its dot
+  const fx = fitAxis(dot.x, node.nx, gap, boxW, 4, width - 4);
+  const fy = fitAxis(dot.y, node.ny, gap, boxH, 4, height - 4);
 
   return {
     node,
     font,
     padX,
     dot,
-    x: Math.min(Math.max(idealX, 4), width - boxW - 4),
-    y: Math.min(Math.max(idealY, 4), height - boxH - 4),
+    x: fx.start,
+    y: fy.start,
     w: boxW,
     h: boxH,
-    moved: false,
+    push: { x: fx.push, y: fy.push },
+    // a flip on either axis moved the box away from where the node's own angle would
+    // naturally put it, same as a nudge does — it deserves the same leader line back to
+    // its dot, including for the active node's own label, which never goes through the
+    // nudge loop below at all
+    moved: !fx.isPreferred || !fy.isPreferred,
   };
 }
 
@@ -221,15 +245,17 @@ function rectsOverlap(a, b) {
  * Places the active node's label plus one for every connected neighbor, resolving
  * collisions by nudging: the active label never moves (placed first, stays the anchor
  * everything else avoids), each neighbor after it is pushed further along its own outward
- * (nx, ny) direction — re-clamped into bounds each step — until it clears every label
- * already placed. Nudging outward rather than in one fixed direction is what keeps a whole
- * cluster of colliding labels — several rim-adjacent nodes fanning out together — moving
- * further from the ellipse rather than drifting back across it partway through. A neighbor
- * that still can't find room within the try budget is dropped rather than stacked
- * illegibly; its dot stays drawn and colored regardless, only the label is missing. That
- * budget is what makes this the same mechanism at any container size: generous room shows
- * every label, a cramped one thins itself out automatically as the budget is exhausted
- * sooner.
+ * (nx, ny) direction — via the same direction fitAxis actually settled on for that label,
+ * not necessarily the node's raw (nx, ny), since a label already flipped to the far side of
+ * its dot needs to keep moving further into that same far side, not back toward the near
+ * one — re-clamped into bounds each step — until it clears every label already placed.
+ * Nudging outward rather than in one fixed direction is what keeps a whole cluster of
+ * colliding labels — several rim-adjacent nodes fanning out together — moving further away
+ * rather than drifting back across the dots partway through. A neighbor that still can't
+ * find room within the try budget is dropped rather than stacked illegibly; its dot stays
+ * drawn and colored regardless, only the label is missing. That budget is what makes this
+ * the same mechanism at any container size: generous room shows every label, a cramped one
+ * thins itself out automatically as the budget is exhausted sooner.
  */
 function placeLabels(ctx, activeNode, neighborIds, byId, layout, width, height) {
   const boxes = [labelBox(ctx, activeNode, layout, width, height, true)];
@@ -245,15 +271,15 @@ function placeLabels(ctx, activeNode, neighborIds, byId, layout, width, height) 
     const box = labelBox(ctx, n, layout, width, height, false);
     let tries = 0;
     while (tries < LABEL_NUDGE_TRIES && boxes.some((placed) => rectsOverlap(box, placed))) {
-      const nextX = Math.min(Math.max(box.x + n.nx * LABEL_NUDGE_STEP, 4), width - box.w - 4);
-      const nextY = Math.min(Math.max(box.y + n.ny * LABEL_NUDGE_STEP, 4), height - box.h - 4);
+      const nextX = Math.min(Math.max(box.x + box.push.x * LABEL_NUDGE_STEP, 4), width - box.w - 4);
+      const nextY = Math.min(Math.max(box.y + box.push.y * LABEL_NUDGE_STEP, 4), height - box.h - 4);
       if (nextX === box.x && nextY === box.y) break; // pinned against a bound; no room left to try
       box.x = nextX;
       box.y = nextY;
       tries++;
     }
     if (boxes.some((placed) => rectsOverlap(box, placed))) continue; // no room found — drop it
-    box.moved = tries > 0;
+    box.moved = box.moved || tries > 0;
     boxes.push(box);
   }
   return boxes;
