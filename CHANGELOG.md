@@ -2,6 +2,8 @@
 
 ## Next
 
+## 1.9.0 (2026-08-07)
+
 - Add script to sort tables
 - Add macro to visualize references to/by other works
 - Add missing taxonomical entries for each work's reference to others
