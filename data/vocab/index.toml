@@ -87,6 +87,8 @@ synonyms = [
   "Achillis",
   "Αχιλλέας",
   "Ἀχιλλεύς",
+  "Peleiades",
+  "Pelides"
 ]
 wikipedia = "https://en.wikipedia.org/wiki/Achilles"
 wikidata = "https://www.wikidata.org/wiki/Q41746"
@@ -766,7 +768,6 @@ synonyms = [
   "Delian Apollo",
   "Phœbus",
   "Apollon",
-  "Apolllo",
   "Apollo Acesius",
   "Apollo Acestor",
   "Apollo Actiacus",
@@ -999,6 +1000,7 @@ wikidata = "https://www.wikidata.org/wiki/Q317932"
 
 [Argos]
 label = "Argos"
+synonyms = ["Ἄργος"]
 wikipedia = "https://en.wikipedia.org/wiki/Argos,_Peloponnese"
 wikidata = "https://www.wikidata.org/wiki/Q189901"
 notes = ["The Peloponnesian city; Homer and Thucydides stretch the name to Agamemnon's whole realm."]
@@ -1336,10 +1338,6 @@ synonyms = [
   "Athenai",
   "Athence",
   "Athenes",
-  "Athens Basin",
-  "Athens City Center",
-  "Athens City Centre",
-  "Athens Urban Area",
   "Αθήνα",
   "Ἀθῆναι",
 ]
@@ -2972,16 +2970,7 @@ notes = ["Greek painter cited in the Poetics beside Polygnotus and Pauson for de
 
 [Dionysus]
 label = "Dionysus"
-synonyms = [
-  "Bacchic",
-  "Dionyseus",
-  "Dionysis",
-  "Dionysos",
-  "Dionysos Dendrites",
-  "Dionysus Dendrites",
-  "Διόνυσος",
-  "Διώνυσος",
-]
+synonyms = ["Διόνυσος", "Διώνυσος", "Dionysus", "Dionisus", "Dionyseus", "Dionysis", "Dionysos", "Dionysos Dendrites", "Dionysus Dendrites", "Βάκχος", "Bacchus", "Bakkus"]
 wikipedia = "https://en.wikipedia.org/wiki/Dionysus"
 wikidata = "https://www.wikidata.org/wiki/Q41680"
 
@@ -3902,7 +3891,7 @@ wikidata = "https://www.wikidata.org/wiki/Q504975"
 
 [Hades]
 label = "Hades"
-synonyms = ["Aidoneus", "ᾍδης"]
+synonyms = ["Aidoneus", "ᾍδης", "Pluton", "Plouton"]
 wikipedia = "https://en.wikipedia.org/wiki/Hades"
 wikidata = "https://www.wikidata.org/wiki/Q41410"
 
@@ -4086,6 +4075,7 @@ wikidata = "https://www.wikidata.org/wiki/Q44384"
 
 [Hera]
 label = "Hera"
+synonyms = ["Ἥρα"]
 wikipedia = "https://en.wikipedia.org/wiki/Hera"
 wikidata = "https://www.wikidata.org/wiki/Q38012"
 
@@ -4327,7 +4317,7 @@ wikidata = "https://www.wikidata.org/wiki/Q102911"
 
 [Homer]
 label = "Homer"
-synonyms = ["Homer the bard", "Homerica", "Homeros", "Homerus", "Όμηρος"]
+synonyms = ["Homeros", "Homerus", "Mæonides", "Ὅμηρος"]
 wikipedia = "https://en.wikipedia.org/wiki/Homer"
 wikidata = "https://www.wikidata.org/wiki/Q6691"
 
@@ -5788,7 +5778,7 @@ wikidata = "https://www.wikidata.org/wiki/Q728059"
 
 [Muses]
 label = "Muses"
-synonyms = ["Muse"]
+synonyms = ["Nine Muses"]
 wikipedia = "https://en.wikipedia.org/wiki/Muses"
 wikidata = "https://www.wikidata.org/wiki/Q66016"
 
@@ -6656,6 +6646,7 @@ wikidata = "https://www.wikidata.org/wiki/Q130832"
 
 [Persia]
 label = "Persia"
+synonyms = ["Achaemenid Empire", "First Persian Empire", "Persian Empire", "Persia", "Achaemenid Persian Empire", "Persian Achaemenid Empire", "Achaemenid Persia"]
 wikipedia = "https://en.wikipedia.org/wiki/Achaemenid_Empire"
 wikidata = "https://www.wikidata.org/wiki/Q389688"
 
@@ -7169,7 +7160,7 @@ wikidata = "https://www.wikidata.org/wiki/Q28935"
 
 [Poseidon]
 label = "Poseidon"
-synonyms = ["Posedian", "Poseidon Enosichthon", "Poseidone", "Poseidons love for demeter"]
+synonyms = ["Ποσειδῶν", "Posedian", "Posidon", "Poseidōn", "Poseidon Enosichthon", "Poseidone"]
 wikipedia = "https://en.wikipedia.org/wiki/Poseidon"
 wikidata = "https://www.wikidata.org/wiki/Q41127"
 
@@ -7727,7 +7718,7 @@ wikidata = "https://www.wikidata.org/wiki/Q959419"
 
 [Sicily]
 label = "Sicily"
-synonyms = ["Sicilia", "Sicilly", "Σικελία", "Τρινακρία"]
+synonyms = ["Sicilia", "Sicilly", "Σικελία", "Τρινακρία", "Trinacria"]
 wikipedia = "https://en.wikipedia.org/wiki/Sicily"
 wikidata = "https://www.wikidata.org/wiki/Q1460"
 
@@ -7901,13 +7892,10 @@ wikidata = "https://www.wikidata.org/wiki/Q29"
 [Sparta]
 label = "Sparta"
 synonyms = [
-  "Lacedaemonians",
+  "Lacedemon",
   "Lacedaemon",
-  "Lacedaemonian",
-  "Spartan",
-  "Spartans",
-  "Sparte",
-  "Σπάρτα",
+  "Σπάρτη",
+  "Σπᾰ́ρτᾱ"
 ]
 wikipedia = "https://en.wikipedia.org/wiki/Sparta"
 wikidata = "https://www.wikidata.org/wiki/Q5690"
@@ -8385,7 +8373,7 @@ wikidata = "https://www.wikidata.org/wiki/Q1045730"
 
 [Theseus]
 label = "Theseus"
-synonyms = ["Theseos"]
+synonyms = ["Θησεύς", "Theseos", "Tèseo"]
 wikipedia = "https://en.wikipedia.org/wiki/Theseus"
 wikidata = "https://www.wikidata.org/wiki/Q1320718"
 
@@ -8650,11 +8638,7 @@ label = "Tromes"
 
 [Troy]
 label = "Troy"
-synonyms = [
-  "Ilium",
-  "Ilius",
-  "Ilion",
-]
+synonyms = ["Ilium", "Ilius", "Ilion", "Ancient Troy", "City of Troy", "Teukroi"]
 wikipedia = "https://en.wikipedia.org/wiki/Troy"
 wikidata = "https://www.wikidata.org/wiki/Q22647"
 
