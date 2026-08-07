@@ -5,7 +5,7 @@
   empty canvas, and let the script (registered once in base.html) do the rest.
 -#}
 
-{%- macro reference_map() -%}
+{%- macro reference_map(focus="") -%}
 {#-
   Every work's outgoing `taxonomies.references` (see works/conspectus.html's "Refers To"
   section for the single-page version of this same relationship), flattened into one line
@@ -18,9 +18,13 @@
   Works with no references (an empty `refs`) are still emitted: a work cited by others but
   citing no one itself — the Odyssey, for instance — still needs its title and url on
   record for the many edges that point at it.
+
+  `focus`, optional: a work's slug to open the map already pinned on, e.g. embedded on that
+  work's own page rather than the whole-corpus /references/ view. Left blank, the map opens
+  neutral, as it does today.
 -#}
 {% set works_section = get_section(path="works/_index.md") %}
-<div class="reference-map w-full" data-reference-map style="aspect-ratio: 16 / 10;">
+<div class="reference-map w-full" data-reference-map {% if focus %}data-reference-map-focus="{{ focus }}"{% endif %} style="aspect-ratio: 16 / 10;">
   <canvas class="block w-full h-full"></canvas>
   <script type="application/json" data-reference-map-data>
 {% for w in works_section.pages -%}
