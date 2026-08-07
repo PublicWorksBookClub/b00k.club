@@ -76,7 +76,6 @@ feed = false
 [[taxonomies]]
 name = "references"
 feed = false
-render = false
 
 # arbitrary, more editorialized tags e.g. "how to build a raft" for Homer's "Odyssey"
 [[taxonomies]]
@@ -97,6 +96,7 @@ feed = false
 [[taxonomies]]
 name = "contributors"
 feed = false
+render = false
 
 ###############################
 #### End general taxonomy #####

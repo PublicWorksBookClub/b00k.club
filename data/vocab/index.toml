@@ -7258,27 +7258,18 @@ label = "Psammis"
 # no `wikipedia` entry
 # no `wikidata` entry
 
-[Ptolemy]
+["Ptolemy"]
 label = "Ptolemy"
-synonyms = [
-  "Ptolemaeus",
-  "Ptolemaus",
-  "Ptolemeus",
-  "Ptolemey",
-  "Ptolemy of Alexandria",
-  "Ptolemæus",
-  "Ptolomey",
-  "Ptolomy",
-  "Πτολεμαίος",
-]
-wikipedia = "https://en.wikipedia.org/wiki/Ptolemy"
-wikidata = "https://www.wikidata.org/wiki/Q34943"
+synonyms = ["Ptolemy I Soter", "Ptolemy son of Lagus", "Ptolemy I"]
+wikipedia = "https://en.wikipedia.org/wiki/Ptolemy_I_Soter"
+wikidata = "https://www.wikidata.org/wiki/Q168261"
+notes = ["One of Alexander's 'Companions'", "Macedonian general", "ruler of Egypt"]
 
 ["Ptolemy II Philadelphus"]
 label = "Ptolemy II Philadelphus"
 wikipedia = "https://en.wikipedia.org/wiki/Ptolemy_II_Philadelphus"
 wikidata = "https://www.wikidata.org/wiki/Q39576"
-notes = ["King of Egypt 283-246 BC, Theocritus' patron, husband and brother of Arsinoe"]
+notes = ["King of Egypt 283-246 BC", "Theocritus' patron", "husband and brother of Arsinoe", "Son of Ptolemy I"]
 
 [Pydna]
 label = "Pydna"
@@ -7840,7 +7831,7 @@ label = "Smicrion"
 
 [Socrates]
 label = "Socrates"
-synonyms = ["Socrates the Wise", "Socreates", "Σωκράτης"]
+synonyms = ["Sokrates", "Socratis", "Σωκράτης"]
 wikipedia = "https://en.wikipedia.org/wiki/Socrates"
 wikidata = "https://www.wikidata.org/wiki/Q913"
 
@@ -8974,9 +8965,3 @@ label = "Zopyrion"
 synonyms = ["Zopyron"]
 wikipedia = "https://en.wikipedia.org/wiki/Zopyrion"
 wikidata = "https://www.wikidata.org/wiki/Q220440"
-
-["“fine things are very difficult”"]
-label = "“fine things are very difficult”"
-# no `wikipedia` entry
-# no `wikidata` entry
-notes = ["χαλεπὰ τὰ καλά, the proverb quoted at Cratylus 384b"]

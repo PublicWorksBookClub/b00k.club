@@ -151,10 +151,11 @@
           </li>
           <li class="w-32 md:w-auto text-right md:text-left">
             <span class="text-yellow-200 {{ sub_menu_headers }}"><a href="/taxonomy">Taxonomy</a><span class="hidden md:inline">:</span></span>
-            <ul class="{{ sub_menu_styles }} grid grid-flow-col grid-rows-7 gap-x-2 items-end justify-end md:justify-items-start">
+            <ul class="{{ sub_menu_styles }} grid grid-flow-col grid-rows-6 gap-x-2 items-end justify-end md:justify-items-start">
               <li class="{{ sub_menu_items }}"><a href="/arcs/">Arcs</a></li>
               <li class="{{ sub_menu_items }}"><a href="/authors/">Authors</a></li>
-              <li class="{{ sub_menu_items }}"><a href="/contributors/"><span class="md:hidden">Contrib.</span><span class="hidden md:inline">Contributors</span></a></li>
+              {# TODO: for now there are not many contributors #}
+              {# <li class="{{ sub_menu_items }}"><a href="/contributors/"><span class="md:hidden">Contrib.</span><span class="hidden md:inline">Contributors</span></a></li> #}
               <li class="{{ sub_menu_items }}"><a href="/forms/">Forms</a></li>
               <li class="{{ sub_menu_items }}"><a href="/genres/">Genres</a></li>
               <li class="{{ sub_menu_items }}"><a href="/titles/">Titles</a></li>
