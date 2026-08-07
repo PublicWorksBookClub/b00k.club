@@ -12,9 +12,9 @@
     </caption>
     <thead>
       <tr>
-        <th class="pl-4" data-sort="text">Name</th>
+        <th class="pl-4" data-sort="text" aria-sort="ascending">Name</th>
         <th data-sort="number">Works</th>
-        <th>Synonyms</th>
+        <th data-sort="number">Synonyms</th>
       </tr>
     </thead>
     <tbody class="prose-a:no-underline prose-a:hover:underline">
@@ -26,7 +26,7 @@
           <a href="{{ term.path }}">{% if vocab.label %}{{ vocab.label }}{% else %}{{ term.name }}{% endif %}</a>
         </td>
         <td class="text-center">{{ works | length }}</td>
-        <td class="whitespace-normal font-light">
+        <td class="whitespace-normal font-light" data-sort-value="{% if vocab and vocab.synonyms %}{{ vocab.synonyms | length }}{% else %}0{% endif %}">
           {%- if vocab and vocab.synonyms -%}
           {{ vocab.synonyms | slice(end=3) | join(sep=", ") }}
           {%- if vocab.synonyms | length > 3 %}

@@ -17,9 +17,15 @@
  *
  * Clicking a header cycles ascending → descending → the document order it was served in.
  * When the visible text is not what you want to sort on — a formatted date, a name with a
- * leading article, a count rendered with a label — put the real key on the cell:
+ * leading article, a count standing in for a truncated list — put the real key on the cell:
  *
- *   <td data-sort-value="1274">1,274 works</td>
+ *   <td data-sort-value="7">a, b, c +4 more</td>
+ *
+ * If the table's rows already arrive in sorted order — a taxonomy page listed
+ * alphabetically, say — say so on that column's header, and the indicator is right from
+ * first paint instead of only appearing after a click:
+ *
+ *   <th data-sort="text" aria-sort="ascending">Name</th>
  *
  * Nothing here is specific to one page: it enhances whatever it finds, and a table without
  * JavaScript stays a perfectly readable table.
@@ -55,6 +61,23 @@ function comparator(column, kind) {
   return (a, b) => collator.compare(cellValue(a, column), cellValue(b, column));
 }
 
+/** Paint aria-sort and the arrow glyph for whichever column is (or isn't) active. */
+function updateIndicators(headers, column, direction) {
+  headers.forEach((header, i) => {
+    if (!header.dataset.sort) return;
+    const active = i === column && direction !== "none";
+    header.setAttribute("aria-sort", active ? direction : "none");
+    const arrow = header.querySelector("[data-sort-arrow]");
+    if (arrow) {
+      arrow.textContent = active
+        ? direction === "ascending"
+          ? "▲"
+          : "▼"
+        : "";
+    }
+  });
+}
+
 function sortTable(table, headers, column, direction) {
   const body = table.tBodies[0];
   if (!body) return;
@@ -76,19 +99,7 @@ function sortTable(table, headers, column, direction) {
   }
   rows.forEach((row) => body.appendChild(row));
 
-  headers.forEach((header, i) => {
-    if (!header.dataset.sort) return;
-    const active = i === column && direction !== "none";
-    header.setAttribute("aria-sort", active ? direction : "none");
-    const arrow = header.querySelector("[data-sort-arrow]");
-    if (arrow) {
-      arrow.textContent = active
-        ? direction === "ascending"
-          ? "▲"
-          : "▼"
-        : "";
-    }
-  });
+  updateIndicators(headers, column, direction);
 }
 
 const NEXT = { none: "ascending", ascending: "descending", descending: "none" };
@@ -105,11 +116,23 @@ function enhance(table) {
   });
 
   const headers = Array.from(head.rows[0]?.cells ?? []);
+
+  // A header may arrive already declaring the table's served sort order — e.g. a taxonomy
+  // page whose rows are already alphabetical — so the indicator is right from first paint
+  // and the first click reverses it, instead of quietly re-applying the same order. Only
+  // the first such header counts; a second declared default is an authoring mistake and
+  // would show as two arrows on load, which is obvious enough not to need guarding here.
   let state = { column: -1, direction: "none" };
+  headers.forEach((header, column) => {
+    if (state.column !== -1 || !header.dataset.sort) return;
+    const declared = header.getAttribute("aria-sort");
+    if (declared === "ascending" || declared === "descending") {
+      state = { column, direction: declared };
+    }
+  });
 
   headers.forEach((header, column) => {
     if (!header.dataset.sort) return;
-    header.setAttribute("aria-sort", "none");
 
     const button = document.createElement("button");
     button.type = "button";
@@ -129,6 +152,8 @@ function enhance(table) {
       sortTable(table, headers, column, direction);
     });
   });
+
+  updateIndicators(headers, state.column, state.direction);
 }
 
 export function initSortableTables(root = document) {
