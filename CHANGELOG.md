@@ -5,6 +5,7 @@
 ## 1.10.0 (2026-08-09)
 
 - Add `/minutes/create/`, a form for writing up a meeting as it happens, reachable from a "New meeting" button on the minutes page
+- Remove the hairline of page background showing under the footer, left by Pagefind's screen-reader regions hanging past the end of the page
 
 ## 1.9.1 (2026-08-09)
 

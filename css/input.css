@@ -731,6 +731,22 @@
     }
   }
 }
+
+/* Pagefind appends its screen-reader live regions to <body>, after the page shell.
+   The regions themselves are clipped and invisible, but they're `position: absolute`
+   with `top: auto`, so they resolve to their static position — the very end of the
+   document — and their 1px height hangs below the shell. The canvas has no
+   background of its own, so that row paints <body>'s colour, i.e. a hairline of the
+   page background sitting under the footer.
+
+   Pinning the wrapper to the top takes it out of flow and gives the regions an
+   origin that isn't the bottom of the page. They stay in the DOM and stay
+   announced; aria-live doesn't care where they sit. */
+[id^='pf-announcer-'] {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 /***************************
   ****** END pagefind ******
   ************************** */
