@@ -2,6 +2,10 @@
 
 ## Next
 
+## 1.9.1 (2026-08-09)
+
+- Fix typo in date from last week.
+
 ## 1.9.0 (2026-08-07)
 
 - Add script to sort tables
