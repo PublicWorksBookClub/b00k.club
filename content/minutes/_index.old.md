@@ -54,8 +54,8 @@ To add, from my notes, covering our post-Peloponnesian-pre-alexander period Pelo
 - 📚 chap. 1...4 - 🔗 ([PG](https://www.gutenberg.org/ebooks/59709), [Alt.](https://terebess.hu/english/chuangtzu.html))
 - proposed by [Andrew](https://www.andrewcraft.nyc)
 
-![Butcher illustration 1](zhuangzi_butcher-1_andrew-craft.webp 'The more skilled the butcher the less they use their knife')
-![Butcher illustration 2](zhuangzi_butcher-2_andrew-craft.webp 'The novice butcher hacks at the meat and must sharpen their knife more often')
+![Butcher illustration 1](/attachments/zhuangzi_butcher-1_andrew-craft.webp 'The more skilled the butcher the less they use their knife')
+![Butcher illustration 2](/attachments/zhuangzi_butcher-2_andrew-craft.webp 'The novice butcher hacks at the meat and must sharpen their knife more often')
 
 ---
 
@@ -78,7 +78,7 @@ To add, from my notes, covering our post-Peloponnesian-pre-alexander period Pelo
 
 This is Meeting #2 for Arabian Nights. See: [Meeting #1](#26-march-2023) for prior meetings.
 
-!['Jinni' illustration](arabian-nights_jinni-1_andrew-craft.webp 'A genie demands recompense for the accidental death of his son')
+!['Jinni' illustration](/attachments/arabian-nights_jinni-1_andrew-craft.webp 'A genie demands recompense for the accidental death of his son')
 
 ---
 

@@ -86,6 +86,12 @@ label = "epideictic"
 description = "to praise or blame, often in a ceremonial setting"
 synonyms = ["ceremonial oratory", "demonstrative oratory", "epideictic"]
 
+[epigram]
+label = "epigram"
+description = "a brief, memorable poem"
+wikidata = "https://www.wikidata.org/wiki/Q193121"
+wikipedia = "https://en.wikipedia.org/wiki/Epigram"
+
 [epistle]
 description = "letter written for a didactic purpose"
 wikidata = "https://www.wikidata.org/wiki/Q215495"
@@ -136,6 +142,12 @@ synonyms = ["history"]
 description = "a body of historical work on a subject"
 wikidata = "https://www.wikidata.org/wiki/Q30277550"
 wikipedia = "https://en.wikipedia.org/wiki/Historiography"
+
+[hymn]
+label = "hymn"
+description = "a type of poem as a devotional song for the purpose of worship or prayer"
+wikidata = "https://www.wikidata.org/wiki/Q484692"
+wikipedia = "https://en.wikipedia.org/wiki/Hymn"
 
 [idyll]
 label = "idyll"
