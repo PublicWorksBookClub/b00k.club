@@ -5,10 +5,6 @@
 ## 1.10.0 (2026-08-09)
 
 - Add `/minutes/create/`, a form for writing up a meeting as it happens, reachable from a "New meeting" button on the minutes page
-- Prefill that form from the last meeting on file: the date, which work each meeting is on, where last week's burndown left off, and an estimate of where this week lands at our recent pace
-- Configure which meetings the form asks about from `section.extra.meetings`, plus optional standalone sections for the weeks with something extra in them
-- Add `Share`, which puts the half-filled form in the page's address so a scribe can hand it on mid-meeting
-- Require a tracked work's numbers before the file will download, naming what's missing, rather than quietly leaving the row out
 
 ## 1.9.1 (2026-08-09)
 
