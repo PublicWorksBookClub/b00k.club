@@ -214,8 +214,52 @@ function say(message) {
   if (status) status.textContent = message;
 }
 
+/**
+ * A meeting that is tracking progress owes the chart all three numbers, so while
+ * its box is ticked they're required. Without this a row missing any of them was
+ * dropped from the file without a word — and the easiest one to miss is the units,
+ * whose placeholder is easily read as a value that's already there.
+ */
+function syncRequired() {
+  for (const section of form.querySelectorAll('[data-kind="meeting"]')) {
+    const on = checked(`${section.dataset.prefix}-track`);
+    for (const name of ["start", "end", "units"]) {
+      const el = form.elements[`${section.dataset.prefix}-${name}`];
+      if (el) el.required = on;
+    }
+  }
+}
+
+/** Which meeting is tracking progress without having said what it's reading. */
+function trackedWithoutWork() {
+  for (const section of form.querySelectorAll('[data-kind="meeting"]')) {
+    const { prefix, heading } = section.dataset;
+    if (checked(`${prefix}-track`) && !value(`${prefix}-work`)) return heading;
+  }
+  return null;
+}
+
+/** The first thing standing in the way of a complete file, named the way it's labelled. */
+function complaint() {
+  const bad = form.querySelector("input:invalid, select:invalid, textarea:invalid");
+  if (!bad) return "";
+  const label = form.querySelector(`label[for="${bad.id}"]`)?.textContent.trim() ?? bad.name;
+  const where = bad.closest("[data-section]")?.dataset.heading;
+  return where
+    ? `“${label}” is empty in the ${where.toLowerCase()} — fill it in, or untick “Track progress on the chart”.`
+    : `“${label}” needs filling in.`;
+}
+
 function download() {
-  if (!form.reportValidity()) return;
+  const unnamed = trackedWithoutWork();
+  if (unnamed) {
+    say(`The ${unnamed.toLowerCase()} is tracking progress but has no work chosen — pick one, or untick “Track progress on the chart”.`);
+    return;
+  }
+  if (!form.reportValidity()) {
+    say(complaint());
+    return;
+  }
 
   const file = new Blob([markdown()], { type: "text/markdown;charset=utf-8" });
   const href = URL.createObjectURL(file);
@@ -269,6 +313,10 @@ function restore() {
 
 if (form) {
   restore();
+  syncRequired();
+  form.addEventListener("change", (event) => {
+    if (event.target.name?.endsWith("-track")) syncRequired();
+  });
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     share();

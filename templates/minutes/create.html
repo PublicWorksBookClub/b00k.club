@@ -331,17 +331,23 @@
         <label class="{{ check_label }}" for="{{ p }}-track">Track progress on the chart</label>
         <div class="mt-4 hidden peer-checked/track:block">
           <div class="grid gap-4 sm:grid-cols-3">
+            {#- Required while the box above is ticked, so a half-filled row can't be
+                quietly dropped from the file. The script keeps `required` in step as
+                the box is ticked and unticked; rendering it here matches whichever
+                way the box starts out. -#}
             <div>
               <label class="{{ label }}" for="{{ p }}-start">Left at the start</label>
-              <input class="{{ field | safe }}" id="{{ p }}-start" name="{{ p }}-start" type="number" min="0" step="any" value="{{ start_default }}">
+              <input class="{{ field | safe }}" id="{{ p }}-start" name="{{ p }}-start" type="number" min="0" step="any" value="{{ start_default }}"{% if prev_bd %} required{% endif %}>
             </div>
             <div>
               <label class="{{ label }}" for="{{ p }}-end">Left at the end</label>
-              <input class="{{ field | safe }}" id="{{ p }}-end" name="{{ p }}-end" type="number" min="0" step="any" value="{{ est }}">
+              <input class="{{ field | safe }}" id="{{ p }}-end" name="{{ p }}-end" type="number" min="0" step="any" value="{{ est }}"{% if prev_bd %} required{% endif %}>
             </div>
             <div>
               <label class="{{ label }}" for="{{ p }}-units">Counted in</label>
-              <input class="{{ field | safe }}" id="{{ p }}-units" name="{{ p }}-units" type="text" value="{{ units_default }}" placeholder="lines">
+              {#- The placeholder names several so it can't be mistaken for a value
+                  already filled in — that misread is how a row went missing. -#}
+              <input class="{{ field | safe }}" id="{{ p }}-units" name="{{ p }}-units" type="text" value="{{ units_default }}" placeholder="lines, pages, chapters…"{% if prev_bd %} required{% endif %}>
             </div>
           </div>
           <span class="{{ hint }}">
@@ -405,7 +411,9 @@
     {#- ----------------------------------------------------------------- -#}
     <div class="mt-10 border-t-2 border-gray-700 pt-6">
       <div class="flex flex-wrap items-center gap-3">
-        <button class="{{ button | safe }}" type="submit">Share</button>
+        {#- formnovalidate because sharing a half-filled form is the point of it —
+            only Download has to insist the file is complete. -#}
+        <button class="{{ button | safe }}" type="submit" formnovalidate>Share</button>
         <button class="{{ button | safe }}" type="button" data-download>Download</button>
         <output class="font-fira-sans text-sm text-gray-500" data-status aria-live="polite"></output>
       </div>
