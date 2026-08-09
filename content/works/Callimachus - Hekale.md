@@ -10,19 +10,19 @@ sort = "Hekale"
 wikidata = "https://www.wikidata.org/wiki/Q3718819"
 wikipedia = "https://en.wikipedia.org/wiki/Hecale_(poem)"
 abstract = """
-TODO: currently reading
+At the onset of his adventures, young Theseus is hosted by an elderly woman, Hekale, whose background and grace leave a lasting impression.
 """
 started = 2026-08-03
-# stopped = 2026-08-02
-currently_reading = true
+stopped = 2026-08-09
+currently_reading = false
 
 [taxonomies]
 # Textual taxonomies
 titles = ["Hekale"]
 authors = ["Callimachus"]
 forms = ["poetry"]
-genres = ["TODO"]
-subjects = []
+genres = ["etiology"]
+subjects = ["hospitality", "mythology"]
 periods = ["Hellenistic Period"]
 languages = ["Ancient Greek"]
 

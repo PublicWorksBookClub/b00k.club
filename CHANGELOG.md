@@ -2,6 +2,12 @@
 
 ## Next
 
+## 1.10.1 (2026-08-09)
+
+- Update with meeting notes
+- Add Callimachus' Epigrams and Hymns + next reading
+- Update Hekale metadata
+
 ## 1.10.0 (2026-08-09)
 
 - Add `/minutes/create/`, a form for writing up a meeting as it happens, reachable from a "New meeting" button on the minutes page
