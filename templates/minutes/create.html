@@ -1,0 +1,429 @@
+{% import "macro/util.html" as util %}
+{% import "macro/minutes.html" as mins %}
+{% extends "base.html" %}
+
+{#-
+  The "new meeting" form.
+
+  Everything a scribe sees here is rendered by Zola at build time: which meetings
+  exist (section.extra.meetings), which work each one is most likely to be on,
+  what last week's burndown left remaining, and where this week is likely to end
+  at the pace we've been keeping. Showing and hiding parts of the form is done
+  with :checked and Tailwind's peer- variants, so the page needs no script to be
+  filled in, and none to be shared.
+
+  The one thing a static page genuinely cannot do by itself is hand back a file,
+  so /scripts/minutes-form.js reads the fields and writes the markdown. It finds
+  them by name, and the naming is the contract between the two files — read the
+  comment at the top of that script before renaming anything here.
+-#}
+
+{% block body_styles %}{{ section.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
+
+{#- A form is noise in search results; the minutes themselves are what's worth finding. -#}
+{% block include_in_search %}data-pagefind-ignore{% endblock include_in_search %}
+
+{% block banner %}
+{{ util::nav(href="/", text="Home") }}
+{{ util::nav(href="/minutes/", text="Minutes") }}
+{{ util::search() }}
+{% endblock banner %}
+
+{% block extra_head %}
+{# turns the filled-in form into a file; everything else works without it #}
+<script type="module" src="/scripts/minutes-form.js"></script>
+{% endblock extra_head %}
+
+{% block main %}
+
+{#- ------------------------------------------------------------------- -#}
+{#- Shared styling, kept in one place so every control matches the site  -#}
+{#- ------------------------------------------------------------------- -#}
+{% set field = "w-full border-2 border-gray-700 bg-white/70 px-2 py-1.5 font-fira-sans text-base focus:outline-2 focus:outline-offset-2 focus:outline-rose-300" %}
+{% set label = "block font-fira-sans text-sm font-medium [font-variant:small-caps] tracking-wide text-gray-500" %}
+{% set hint = "mt-1 block font-fira-sans text-xs font-light text-gray-500" %}
+{% set button = "inline-flex h-10 min-w-20 px-4 items-center justify-center border-2 border-gray-700 bg-white/60 font-fira-sans hover:bg-black/5 cursor-pointer" %}
+{% set check = "size-4 accent-rose-400 align-middle" %}
+{% set check_label = "font-fira-sans text-base text-gray-700 pl-1 align-middle" %}
+{% set legend_style = "font-fira-sans text-xl font-medium text-gray-700 px-2" %}
+
+{#- ------------------------------------------------------------------- -#}
+{#- What last week was, and what this week is most likely to be          -#}
+{#- ------------------------------------------------------------------- -#}
+{% set minutes = get_section(path="minutes/_index.md") %}
+{% set works = get_section(path="works/_index.md") %}
+{% set last = minutes.pages | first %}
+{% set meetings = section.extra.meetings %}
+
+{#- The club meets weekly, so the next meeting is a week on from the last on file. -#}
+{% set last_ts = last.date | date(format="%s") %}
+{% set last_ts = load_data(literal=last_ts, format="json") %}
+{% set next_ts = last_ts + 604800 %}
+{% set next_date = next_ts | int | date(format="%Y-%m-%d") %}
+
+{#- Last week's burndown keys in front-matter order, which is meeting order —
+    that's how they get written down. Key n belongs to meetings[n]. -#}
+{% set_global prev_keys = [] %}
+{% if last.extra.burndown %}
+  {% for k, v in last.extra.burndown %}
+    {% set_global prev_keys = prev_keys | concat(with=k) %}
+  {% endfor %}
+{% endif %}
+
+{#- Pass 1: a slot keeps last week's work for as long as we're still reading it.
+    A work we've finished — currently_reading dropped to false, `stopped` filled
+    in — leaves its slot open for pass 2. -#}
+{% set_global slot_slugs = [] %}
+{% set_global claimed = [] %}
+{% for name in meetings %}
+  {% set_global pick = "" %}
+  {% if prev_keys | length > loop.index0 %}
+    {% set cand = prev_keys | nth(n=loop.index0) %}
+    {% set cw = works.pages | filter(attribute="slug", value=cand) | first %}
+    {% if cw %}
+      {% if cw.extra.currently_reading %}
+        {% set_global pick = cand %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+  {% set_global slot_slugs = slot_slugs | concat(with=pick) %}
+  {% if pick != "" %}
+    {% set_global claimed = claimed | concat(with=pick) %}
+  {% endif %}
+{% endfor %}
+
+{#- Pass 2: fill the open slots from the works we've started but not finished,
+    latest in the reading list first — the one most recently added is the one we
+    have just picked up. A slot with nothing to claim opens on an empty dropdown. -#}
+{% set candidates = works.pages
+  | filter(attribute="extra.order")
+  | filter(attribute="extra.currently_reading", value=true)
+  | sort(attribute="extra.order")
+  | reverse %}
+{% set_global final_slugs = [] %}
+{% for s in slot_slugs %}
+  {% set_global pick = s %}
+  {% if pick == "" %}
+    {% for c in candidates %}
+      {% if c.slug not in claimed %}
+        {% set_global pick = c.slug %}
+        {% set_global claimed = claimed | concat(with=c.slug) %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  {% set_global final_slugs = final_slugs | concat(with=pick) %}
+{% endfor %}
+
+<article class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg
+  prose-headings:font-fira-sans prose-pwbc">
+  <h1>New meeting</h1>
+  {{ section.content | safe }}
+
+  <form
+    id="minutes-form"
+    method="get"
+    action="{{ section.permalink }}"
+    autocomplete="off"
+    class="not-prose font-fira-sans"
+  >
+    <div class="mt-10 border-t-2 border-gray-700 pt-6">
+      <label class="{{ label }}" for="date">Date of the meeting</label>
+      <input class="{{ field | safe }} max-w-56" id="date" name="date" type="date" value="{{ next_date }}" required>
+      <span class="{{ hint }}">A week on from {{ last.date }}, the last meeting on file.</span>
+    </div>
+
+    {#- ----------------------------------------------------------------- -#}
+    {#- The meetings themselves                                            -#}
+    {#- ----------------------------------------------------------------- -#}
+    {% for name in meetings %}
+    {% set i = loop.index0 %}
+    {% set p = "m" ~ i %}
+    {% set slug = final_slugs | nth(n=i) %}
+
+    {#- everything we know about the work this slot is probably on -#}
+    {% set title = '' %}
+    {% set short = '' %}
+    {% set work_md = '' %}
+    {% if slug != '' %}
+      {% set w = works.pages | filter(attribute="slug", value=slug) | first %}
+      {% set title = w.taxonomies.titles | first %}
+      {% set short = slug | split(pat="-") | last %}
+      {% set work_md = "[_" ~ title ~ "_](/works/" ~ slug ~ "/)" %}
+    {% endif %}
+
+    {#- last week's burndown row for this work, if we tracked it -#}
+    {% set prev_bd = false %}
+    {% if slug != '' %}
+      {% if last.extra.burndown %}
+        {% set prev_bd = last.extra.burndown[slug] | default(value=false) %}
+      {% endif %}
+    {% endif %}
+    {% set start_default = '' %}
+    {% set units_default = '' %}
+    {% if prev_bd %}
+      {% set start_default = prev_bd.ending %}
+      {% set units_default = prev_bd.units %}
+    {% endif %}
+
+    {#- Where we're likely to get to at the pace we've kept on this work. This only
+        ever prefills a form that writes a *new* file; no past meeting's chart is
+        touched by it, and the scribe is told in as many words that it's a guess. -#}
+    {% set est = '' %}
+    {% set pace = '' %}
+    {% set has_pace = false %}
+    {% if slug != '' %}
+      {% set dps = minutes.pages | filter(attribute="extra.burndown." ~ slug) | sort(attribute="date") %}
+      {% set n = dps | length %}
+      {% if n > 0 %}
+        {% set d0 = dps | first %}
+        {% set dn = dps | last %}
+        {% set total = d0.extra.burndown[slug].starting %}
+        {% set rem = dn.extra.burndown[slug].ending %}
+        {% set consumed = total - rem %}
+        {% if consumed > 0 %}
+          {% set v = consumed / n %}
+          {% set e = rem - v %}
+          {% if e < 0 %}
+            {% set e = 0 %}
+          {% endif %}
+          {% set est = e | round(method="floor") | int %}
+          {% set p10 = v * 10 %}
+          {% set p10 = p10 | round | int %}
+          {% set pace = p10 / 10 %}
+          {% set has_pace = true %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+
+    {#- If last week left a "reminder for next week" anchor for this work, that
+        anchor is exactly where this week picks up. -#}
+    {% set from_default = '' %}
+    {% if short != '' %}
+      {% set marker = 'id="' ~ short ~ '-' %}
+      {% set bits = last.content | split(pat=marker) %}
+      {% if bits | length > 1 %}
+        {% set locus = bits | nth(n=1) | split(pat='"') | first %}
+        {% set from_default = "Starting from just after **" ~ locus ~ "**" %}
+      {% endif %}
+    {% endif %}
+
+    <fieldset
+      class="mt-10 border-2 border-gray-700 bg-white/30 px-4 pb-5 pt-2"
+      data-section
+      data-kind="meeting"
+      data-prefix="{{ p }}"
+      data-heading="{{ name }}"
+    >
+      <legend class="{{ legend_style }}">{{ name }}</legend>
+
+      <input class="{{ check }} peer/held" id="{{ p }}-held" name="{{ p }}-held" type="checkbox" checked>
+      <label class="{{ check_label }}" for="{{ p }}-held">We held this meeting</label>
+
+      {#- unchecked: the whole section collapses to "No meeting" -#}
+      <div class="mt-4 peer-checked/held:hidden">
+        <label class="{{ label }}" for="{{ p }}-absent">Why not (optional)</label>
+        <input class="{{ field | safe }}" id="{{ p }}-absent" name="{{ p }}-absent" type="text" placeholder="e.g. Andrew in Vermont">
+        <span class="{{ hint }}">Kept as a note inside the file for whoever opens it, not shown on the site.</span>
+      </div>
+
+      {#- checked: the actual minutes -#}
+      <div class="hidden peer-checked/held:block">
+        <div class="mt-5 grid gap-4 sm:grid-cols-[9rem_1fr]">
+          <div>
+            {% set verb_default = "Starting" %}
+            {% if prev_bd %}
+              {% set verb_default = "Continuing" %}
+            {% endif %}
+            <label class="{{ label }}" for="{{ p }}-verb">We are</label>
+            <select class="{{ field | safe }}" id="{{ p }}-verb" name="{{ p }}-verb">
+              {% for v in ["Continuing", "Starting", "Finishing", "Reviewing", "Reading"] %}
+              <option value="{{ v }}"{% if v == verb_default %} selected{% endif %}>{{ v }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label class="{{ label }}" for="{{ p }}-work">Which work</label>
+            <select class="{{ field | safe }}" id="{{ p }}-work" name="{{ p }}-work">
+              <option value=""></option>
+              <optgroup label="Currently reading">
+                {% for w in works.pages | filter(attribute="extra.currently_reading", value=true) | sort(attribute="extra.sort") %}
+                {{ mins::work_option(w=w, selected=slug) }}
+                {% endfor %}
+              </optgroup>
+              <optgroup label="Everything else">
+                {% for w in works.pages | sort(attribute="extra.sort") %}
+                {% if not w.extra.currently_reading %}
+                {{ mins::work_option(w=w, selected=slug) }}
+                {% endif %}
+                {% endfor %}
+              </optgroup>
+            </select>
+            <span class="{{ hint }}">
+              {%- if prev_bd -%}
+              Carried over from {{ last.date }}.
+              {%- elif slug != '' -%}
+              Last week's work is finished, so this is the one we've most recently started.
+              {%- else -%}
+              Nothing obvious to carry over from {{ last.date }} — pick one.
+              {%- endif -%}
+            </span>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <label class="{{ label }}" for="{{ p }}-from">Where we picked up</label>
+          <input class="{{ field | safe }}" id="{{ p }}-from" name="{{ p }}-from" type="text"
+            value="{{ from_default }}"
+            placeholder="e.g. Starting from **line 430** of **Book III**, _Mortality and the Soul_">
+          <span class="{{ hint }}">Empty drops the line — some weeks only say what we finished.</span>
+        </div>
+
+        <div class="mt-4 grid gap-4 sm:grid-cols-[1fr_9rem]">
+          <div>
+            <label class="{{ label }}" for="{{ p }}-to">Where we got to</label>
+            <input class="{{ field | safe }}" id="{{ p }}-to" name="{{ p }}-to" type="text"
+              value="Ending around"
+              placeholder="e.g. Ending at the end of **Book III**, around">
+          </div>
+          <div>
+            <label class="{{ label }}" for="{{ p }}-locus">The spot</label>
+            <input class="{{ field | safe }}" id="{{ p }}-locus" name="{{ p }}-locus" type="text"
+              placeholder="line 1090">
+          </div>
+        </div>
+        <span class="{{ hint }}">The spot is kept apart because a reminder, below, links back to it.</span>
+
+        <div class="mt-4">
+          <label class="{{ label }}" for="{{ p }}-next">Next week</label>
+          <input class="{{ field | safe }}" id="{{ p }}-next" name="{{ p }}-next" type="text"
+            value="{% if work_md != '' %}Next week we'll continue {{ work_md }}{% endif %}"
+            placeholder="e.g. Next week we'll finish **Book VI**">
+        </div>
+
+        {#- ---- the optional reminder ---- -#}
+        <div class="mt-6 border-t border-dashed border-gray-400 pt-4">
+          <input class="{{ check }} peer/rem" id="{{ p }}-reminder" name="{{ p }}-reminder" type="checkbox">
+          <label class="{{ check_label }}" for="{{ p }}-reminder">Leave a reminder for next week</label>
+          <span class="{{ hint }}">
+            A summary written while it's fresh, so next week starts already holding the thread.
+          </span>
+          <div class="mt-4 hidden peer-checked/rem:block">
+            <label class="{{ label }}" for="{{ p }}-reminder-heading">Heading</label>
+            <input class="{{ field | safe }}" id="{{ p }}-reminder-heading" name="{{ p }}-reminder-heading" type="text"
+              value="{% if title != '' %}_{{ title }}_ reminder for next week:{% endif %}">
+            <label class="{{ label }} mt-4" for="{{ p }}-reminder-body">The reminder</label>
+            <textarea class="{{ field | safe }} min-h-40" id="{{ p }}-reminder-body" name="{{ p }}-reminder-body"
+              placeholder="What we worked out, where the argument had got to, what is still open…"></textarea>
+            <span class="{{ hint }}">
+              Blank lines start a new paragraph. Whoever writes it usually signs it, like “Andrew: we discussed…”.
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      {#- ---- burndown ----
+          Outside the "we held it" panel on purpose: a week we skipped still gets a
+          row on the chart, with the same number at both ends. See 2026-07-12. -#}
+      <div class="mt-6 border-t border-dashed border-gray-400 pt-4">
+        <input class="{{ check }} peer/track" id="{{ p }}-track" name="{{ p }}-track" type="checkbox"{% if prev_bd %} checked{% endif %}>
+        <label class="{{ check_label }}" for="{{ p }}-track">Track progress on the chart</label>
+        <div class="mt-4 hidden peer-checked/track:block">
+          <div class="grid gap-4 sm:grid-cols-3">
+            <div>
+              <label class="{{ label }}" for="{{ p }}-start">Left at the start</label>
+              <input class="{{ field | safe }}" id="{{ p }}-start" name="{{ p }}-start" type="number" min="0" step="any" value="{{ start_default }}">
+            </div>
+            <div>
+              <label class="{{ label }}" for="{{ p }}-end">Left at the end</label>
+              <input class="{{ field | safe }}" id="{{ p }}-end" name="{{ p }}-end" type="number" min="0" step="any" value="{{ est }}">
+            </div>
+            <div>
+              <label class="{{ label }}" for="{{ p }}-units">Counted in</label>
+              <input class="{{ field | safe }}" id="{{ p }}-units" name="{{ p }}-units" type="text" value="{{ units_default }}" placeholder="lines">
+            </div>
+          </div>
+          <span class="{{ hint }}">
+            {%- if has_pace -%}
+            {{ last.date }} left {{ start_default }} {{ units_default }} to go, and we've averaged about
+            {{ pace }} {{ units_default }} a session — so {{ est }} is a guess, not a measurement. Correct it.
+            {%- elif prev_bd -%}
+            {{ last.date }} left {{ start_default }} {{ units_default }} to go. There isn't enough history yet to guess a pace.
+            {%- else -%}
+            Nothing tracked here yet, so “left at the start” is the whole work: every line, page or chapter of it.
+            {%- endif %}
+            If we didn't meet, put the same number in both and the chart records a flat week.
+          </span>
+        </div>
+      </div>
+    </fieldset>
+    {% endfor %}
+
+    {#- ----------------------------------------------------------------- -#}
+    {#- Standalone sections, for the weeks with something extra in them    -#}
+    {#- ----------------------------------------------------------------- -#}
+    {% for i in range(end=section.extra.standalone_sections | default(value=2)) %}
+    {% set p = "s" ~ i %}
+    <fieldset
+      class="mt-10 border-2 border-dashed border-gray-500 bg-white/20 px-4 pb-5 pt-2"
+      data-section
+      data-kind="standalone"
+      data-prefix="{{ p }}"
+    >
+      <legend class="{{ legend_style }} text-gray-500">Something else{% if i > 0 %} ({{ i + 1 }}){% endif %}</legend>
+
+      <input class="{{ check }} peer/on" id="{{ p }}-on" name="{{ p }}-on" type="checkbox">
+      <label class="{{ check_label }}" for="{{ p }}-on">We did something outside the usual meetings</label>
+      <span class="{{ hint }}">Like 2026-07-26, when we discussed Nolan's <em>Odyssey</em> before the meetings.</span>
+
+      <div class="mt-4 hidden peer-checked/on:block">
+        <label class="{{ label }}" for="{{ p }}-heading">Heading</label>
+        <input class="{{ field | safe }}" id="{{ p }}-heading" name="{{ p }}-heading" type="text"
+          placeholder="e.g. Special pre-meeting to discuss Nolan's *The Odyssey*">
+
+        <label class="{{ label }} mt-4" for="{{ p }}-body">What happened</label>
+        <textarea class="{{ field | safe }} min-h-40" id="{{ p }}-body" name="{{ p }}-body"
+          placeholder="- Joined by guests Matteo, Bianca from the University of Bologna&#10;- As well as Nikita's friend Katy, visiting us from NY"></textarea>
+        <span class="{{ hint }}">Written into the file as you type it, so bullets, tables and links all work.</span>
+
+        <fieldset class="mt-4 border-0">
+          <legend class="{{ label }}">Where it goes</legend>
+          <label class="mr-4 font-fira-sans text-base text-gray-700">
+            <input class="{{ check }}" type="radio" name="{{ p }}-position" value="before" checked> before the meetings
+          </label>
+          <label class="font-fira-sans text-base text-gray-700">
+            <input class="{{ check }}" type="radio" name="{{ p }}-position" value="after"> after them
+          </label>
+        </fieldset>
+      </div>
+    </fieldset>
+    {% endfor %}
+
+    {#- ----------------------------------------------------------------- -#}
+    {#- Finishing up                                                       -#}
+    {#- ----------------------------------------------------------------- -#}
+    <div class="mt-10 border-t-2 border-gray-700 pt-6">
+      <div class="flex flex-wrap items-center gap-3">
+        <button class="{{ button | safe }}" type="submit">Share</button>
+        <button class="{{ button | safe }}" type="button" data-download>Download</button>
+        <output class="font-fira-sans text-sm text-gray-500" data-status aria-live="polite"></output>
+      </div>
+      <p class="mt-4 font-fira-sans text-sm font-light text-gray-500">
+        <strong class="font-medium">Share</strong> puts everything filled in so far into this page's address, so
+        you can send it on and someone else carries on from where you stopped — for the weeks when one person
+        scribes the {{ meetings | last | lower }} and someone else has the repository.
+        <strong class="font-medium">Download</strong> saves <code>{{ next_date }}.md</code>, which drops straight
+        into <code>content/minutes/</code>.
+      </p>
+      <noscript>
+        <p class="mt-4 border-2 border-gray-700 bg-white/60 p-3 font-fira-sans text-sm text-gray-700">
+          Downloading needs JavaScript — a page can't hand you a file without it.
+          <strong class="font-medium">Share</strong> still works: press it and the address picks up everything
+          you filled in, ready to copy. Reading one of those links back in needs JavaScript at the other end.
+        </p>
+      </noscript>
+    </div>
+  </form>
+</article>
+{% endblock main %}

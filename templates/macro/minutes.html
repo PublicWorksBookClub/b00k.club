@@ -1,0 +1,11 @@
+{#-
+  Bits shared by the minutes templates.
+-#}
+
+{#- One <option> for a work, carrying everything the minutes file needs in order to
+    name it: the slug for the burndown key, the short name reminder anchors are
+    built from, and the markdown link as it gets written into the bullet. -#}
+{% macro work_option(w, selected) -%}
+{%- set t = w.taxonomies.titles | first -%}
+<option value="{{ w.slug }}" data-title="{{ t }}" data-short="{{ w.slug | split(pat='-') | last }}" data-md="[_{{ t }}_](/works/{{ w.slug }}/)"{% if w.slug == selected %} selected{% endif %}>{{ w.taxonomies.authors | first }} — {{ t }}</option>
+{%- endmacro work_option %}
