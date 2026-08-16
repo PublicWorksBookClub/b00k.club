@@ -2,6 +2,12 @@
 
 ## Next
 
+## 1.10.2 (2026-08-16)
+
+- Update with meeting notes
+- Update Callimachus' hymns and epigrams with abstracts
+- Remove burndown for _Hekale_, since there's only one data point
+
 ## 1.10.1 (2026-08-09)
 
 - Update with meeting notes
