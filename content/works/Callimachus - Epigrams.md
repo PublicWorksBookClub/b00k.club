@@ -10,10 +10,10 @@ sort = "Epigrams, Callimachus"
 wikidata = "https://www.wikidata.org/wiki/Q107264254"
 wikipedia = "https://en.wikipedia.org/wiki/Callimachus#Epigrams"
 abstract = """
-TODO: currently reading
+Epigrams by the Alexandrian poet Callimachus.
 """
 started = 2026-08-10
-# stopped = 2026-08-02
+stopped = 2026-08-16
 currently_reading = true
 
 [taxonomies]

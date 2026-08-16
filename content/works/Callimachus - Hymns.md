@@ -11,10 +11,10 @@ read_in_selection = true
 wikidata = "https://www.wikidata.org/wiki/Q24260175"
 wikipedia = "https://en.wikipedia.org/wiki/Callimachus#Hymns"
 abstract = """
-TODO: currently reading
+Hymns by the Alexandrian poet Callimachus.
 """
 started = 2026-08-10
-# stopped = 2026-08-02
+stopped = 2026-08-16
 currently_reading = true
 
 [taxonomies]
