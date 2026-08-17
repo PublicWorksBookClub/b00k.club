@@ -29,7 +29,7 @@ languages = ["Classical Latin"]
 # General taxonomies
 tags = []
 years = ["2026"]
-arcs = ["Metamorphoses 3"]
+arcs = ["Magna 1"]
 index = []
 contributors = ["Spencer Scorcelletti"]
 +++

@@ -202,3 +202,18 @@ TODO
 metrum = """
 TODO
 """
+
+[["arcs"]]
+label = "Magna 1"
+sort = "Magna 1"
+series.name = "Magna"
+series.number = 1
+years = "2026"
+predecessor = "Metamorphoses 3"
+coinciding = ["Memorabilia 3"]
+prosa = """
+TODO
+"""
+metrum = """
+TODO
+"""
