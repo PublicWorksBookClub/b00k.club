@@ -6,7 +6,10 @@
 
 - Add `/works/create/`, a form for writing up a work the club is picking up, reachable from a "New conspectus" button on the readings page
 - Prefill that form from the works already on file: the reading number, the arc, the year, and a start date a day on from the last work we put down
-- Offer every classifying taxonomy as a closed list read out of `data/vocab/`, so the form cannot emit a term the site would fail to build on
+- Offer each taxonomy as `data/vocab/` has it, plus a first option for naming a term the vocabulary hasn't got yet
+- Order the authors on their vocabulary sort key, so "Madison, James" files under M, and put the literary forms and genres in plain alphabetical order rather than the order they happen to be written in
+- Show each literary form and genre with the one-line description the vocabulary already carries
+- Give the Wikidata and Wikipedia fields a "look it up" link that searches for whatever title has been typed
 - Stop a taxonomy term that has no vocabulary entry from crashing the build — reaching for the missing key made Tera build an error message it then discarded, and building it panicked on any multi-byte character in the quoted context
 
 ## 1.10.2 (2026-08-16)

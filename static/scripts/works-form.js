@@ -25,13 +25,22 @@
  * Multi-valued taxonomies are checkbox groups; every box in a group shares the
  * group's name and carries the vocabulary term as its value:
  *
- *   authors, forms, genres, subjects, periods, languages
+ *   authors, forms, genres, periods, languages
  *
- * A group whose <fieldset> carries `data-required-group` must end up with at
- * least one box ticked — HTML has no way to say that, so Download checks it and
- * names the group (from `data-legend`) when it doesn't hold.
+ * Each group also opens with a way to name a term the vocabulary hasn't got:
+ * `<group>-add` toggles it, `<group>-new` holds it. A coined term leads the list,
+ * matching where the box sits on the page — which for authors decides the file
+ * name. `subjects` has no group at all: nothing is known about them on the day a
+ * work is picked up, so the key is written out empty.
+ *
+ * A group whose <fieldset> carries `data-required-group="<group>"` must end up
+ * with something in it, ticked or coined — HTML has no way to say that, so
+ * Download checks it and names the group (from `data-legend`) when it doesn't hold.
  *
  * Flags: read-in-selection, currently-reading.
+ *
+ * The "look it up" links carry `data-search` (which site) and `data-fallback`
+ * (where to go with no script); their href is rewritten as the title is typed.
  *
  * Adding a field to the template means adding it here. Renaming one here without
  * renaming it there silently drops it from the file, so keep the two in step.
@@ -51,9 +60,16 @@ function checked(name) {
   return Boolean(el && el.checked);
 }
 
-/** Every ticked box in a checkbox group, in the order the vocabulary lists them. */
+/**
+ * Everything chosen for a taxonomy: a term coined in the group's "add one" box
+ * first, since that box sits at the top of the list, then every ticked term in the
+ * order the vocabulary lists them. The coined term only counts while its toggle is
+ * ticked, so clearing the toggle drops it rather than leaving it hidden but live.
+ */
 function group(name) {
-  return [...form.querySelectorAll(`input[name="${name}"]:checked`)].map((el) => el.value);
+  const ticked = [...form.querySelectorAll(`input[name="${name}"]:checked`)].map((el) => el.value);
+  const coined = checked(`${name}-add`) ? value(`${name}-new`) : "";
+  return coined ? [coined, ...ticked] : ticked;
 }
 
 /** A textarea taken a line at a time, blanks dropped. */
@@ -152,10 +168,28 @@ function say(message) {
  */
 function emptyRequiredGroup() {
   for (const fieldset of form.querySelectorAll("[data-required-group]")) {
-    const box = fieldset.querySelector("input[type=checkbox]");
-    if (box && group(box.name).length === 0) return { fieldset, legend: fieldset.dataset.legend };
+    const name = fieldset.dataset.requiredGroup;
+    if (group(name).length === 0) return { fieldset, legend: fieldset.dataset.legend };
   }
   return null;
+}
+
+/**
+ * The two "look it up" links search for whatever title has been typed. Their href
+ * starts out pointing at the plain site, so with no script they still land
+ * somewhere useful — just not on a search.
+ */
+const SEARCHES = {
+  wikidata: "https://www.wikidata.org/w/index.php?search=",
+  wikipedia: "https://en.wikipedia.org/w/index.php?search=",
+};
+
+function syncSearchLinks() {
+  const query = value("title");
+  for (const link of form.querySelectorAll("[data-search]")) {
+    const base = SEARCHES[link.dataset.search];
+    link.href = query && base ? base + encodeURIComponent(query) : link.dataset.fallback;
+  }
 }
 
 /** The first thing standing in the way of a complete file, named as it's labelled. */
@@ -234,6 +268,8 @@ function restore() {
 
 if (form) {
   restore();
+  syncSearchLinks();
+  form.elements["title"]?.addEventListener("input", syncSearchLinks);
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     share();
