@@ -16,9 +16,6 @@ TODO——Currently Reading
 started = 2026-06-28
 currently_reading = true
 
-# How long the work is. A dialogue has no divisions, so it states a total rather
-# than a list of parts, and the chart marks no bands. The Stephanus pages run 216a
-# to 268d, which is where the two numbers below come from.
 [extra.length]
 units = "pages"
 starting_from = 216
