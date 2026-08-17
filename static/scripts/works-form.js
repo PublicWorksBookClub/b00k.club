@@ -106,7 +106,10 @@ function frontMatter() {
     "",
     "[extra]",
     `order = ${value("order")}`,
-    `sort = "${value("sort")}"`,
+    // Left empty, a work files under its own title — which is what most of them do.
+    // The key is always written out: /minutes/create/ sorts the works on it and a
+    // work missing it would take that page down.
+    `sort = "${value("sort") || title}"`,
   ];
 
   // Only the works we read in selection carry the flag; the rest leave it off.
