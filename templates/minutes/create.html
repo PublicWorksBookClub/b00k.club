@@ -6,16 +6,20 @@
   The "new meeting" form.
 
   Everything a scribe sees here is rendered by Zola at build time: which meetings
-  exist (section.extra.meetings), which work each one is most likely to be on,
-  what last week's burndown left remaining, and where this week is likely to end
-  at the pace we've been keeping. Showing and hiding parts of the form is done
-  with :checked and Tailwind's peer- variants, so the page needs no script to be
-  filled in, and none to be shared.
+  exist (section.extra.meetings), how many works each can carry
+  (section.extra.works_per_meeting), which works each is most likely to be on, and
+  what last week left of them. Showing and hiding is done with :checked and
+  Tailwind's peer- variants, so the page needs no script to be filled in, and none
+  to be shared.
 
   The one thing a static page genuinely cannot do by itself is hand back a file,
   so /scripts/minutes-form.js reads the fields and writes the markdown. It finds
   them by name, and the naming is the contract between the two files — read the
   comment at the top of that script before renaming anything here.
+
+  A meeting carries several works: the club read Callimachus' Hymns and Epigrams
+  together on 2026-08-16. Each work gets its own run of bullets and its own row on
+  the burndown chart; the "next week" line belongs to the meeting, not the work.
 -#}
 
 {% block body_styles %}{{ section.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
@@ -54,6 +58,9 @@
 {% set works = get_section(path="works/_index.md") %}
 {% set last = minutes.pages | first %}
 {% set meetings = section.extra.meetings %}
+{% set slots = section.extra.works_per_meeting | default(value=3) %}
+{% set last_burndown = last.extra.burndown | default(value=false) %}
+{% if not last_burndown %}{% set last_burndown = load_data(literal="{}", format="json") %}{% endif %}
 
 {#- The club meets weekly, so the next meeting is a week on from the last on file. -#}
 {% set last_ts = last.date | date(format="%s") %}
@@ -61,59 +68,14 @@
 {% set next_ts = last_ts + 604800 %}
 {% set next_date = next_ts | int | date(format="%Y-%m-%d") %}
 
-{#- Last week's burndown keys in front-matter order, which is meeting order —
-    that's how they get written down. Key n belongs to meetings[n]. -#}
-{% set_global prev_keys = [] %}
-{% if last.extra.burndown %}
-  {% for k, v in last.extra.burndown %}
-    {% set_global prev_keys = prev_keys | concat(with=k) %}
-  {% endfor %}
-{% endif %}
-
-{#- Pass 1: a slot keeps last week's work for as long as we're still reading it.
-    A work we've finished — currently_reading dropped to false, `stopped` filled
-    in — leaves its slot open for pass 2. -#}
-{% set_global slot_slugs = [] %}
-{% set_global claimed = [] %}
-{% for name in meetings %}
-  {% set_global pick = "" %}
-  {% if prev_keys | length > loop.index0 %}
-    {% set cand = prev_keys | nth(n=loop.index0) %}
-    {% set cw = works.pages | filter(attribute="slug", value=cand) | first %}
-    {% if cw %}
-      {% if cw.extra.currently_reading %}
-        {% set_global pick = cand %}
-      {% endif %}
-    {% endif %}
-  {% endif %}
-  {% set_global slot_slugs = slot_slugs | concat(with=pick) %}
-  {% if pick != "" %}
-    {% set_global claimed = claimed | concat(with=pick) %}
-  {% endif %}
-{% endfor %}
-
-{#- Pass 2: fill the open slots from the works we've started but not finished,
-    latest in the reading list first — the one most recently added is the one we
-    have just picked up. A slot with nothing to claim opens on an empty dropdown. -#}
+{#- The works we've started and not finished, latest first — what an empty meeting
+    falls back to. -#}
 {% set candidates = works.pages
   | filter(attribute="extra.order")
   | filter(attribute="extra.currently_reading", value=true)
   | sort(attribute="extra.order")
   | reverse %}
-{% set_global final_slugs = [] %}
-{% for s in slot_slugs %}
-  {% set_global pick = s %}
-  {% if pick == "" %}
-    {% for c in candidates %}
-      {% if c.slug not in claimed %}
-        {% set_global pick = c.slug %}
-        {% set_global claimed = claimed | concat(with=c.slug) %}
-        {% break %}
-      {% endif %}
-    {% endfor %}
-  {% endif %}
-  {% set_global final_slugs = final_slugs | concat(with=pick) %}
-{% endfor %}
+{% set_global claimed = [] %}
 
 <article class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg
   prose-headings:font-fira-sans prose-pwbc">
@@ -139,73 +101,65 @@
     {% for name in meetings %}
     {% set i = loop.index0 %}
     {% set p = "m" ~ i %}
-    {% set slug = final_slugs | nth(n=i) %}
 
-    {#- everything we know about the work this slot is probably on -#}
-    {% set title = '' %}
-    {% set short = '' %}
-    {% set work_md = '' %}
-    {% if slug != '' %}
-      {% set w = works.pages | filter(attribute="slug", value=slug) | first %}
-      {% set title = w.taxonomies.titles | first %}
-      {% set short = slug | split(pat="-") | last %}
-      {% set work_md = "[_" ~ title ~ "_](/works/" ~ slug ~ "/)" %}
-    {% endif %}
+    {#- Which works this meeting had in front of it last week, read out of last
+        week's own page: every work linked under that meeting's heading, in the
+        order they appear. Zola slugifies each heading's text into its id, so the
+        section runs from that id to the next <h3.
 
-    {#- last week's burndown row for this work, if we tracked it -#}
-    {% set prev_bd = false %}
-    {% if slug != '' %}
-      {% if last.extra.burndown %}
-        {% set prev_bd = last.extra.burndown[slug] | default(value=false) %}
-      {% endif %}
-    {% endif %}
-    {% set start_default = '' %}
-    {% set units_default = '' %}
-    {% if prev_bd %}
-      {% set start_default = prev_bd.ending %}
-      {% set units_default = prev_bd.units %}
-    {% endif %}
-
-    {#- Where we're likely to get to at the pace we've kept on this work. This only
-        ever prefills a form that writes a *new* file; no past meeting's chart is
-        touched by it, and the scribe is told in as many words that it's a guess. -#}
-    {% set est = '' %}
-    {% set pace = '' %}
-    {% set has_pace = false %}
-    {% if slug != '' %}
-      {% set dps = minutes.pages | filter(attribute="extra.burndown." ~ slug) | sort(attribute="date") %}
-      {% set n = dps | length %}
-      {% if n > 0 %}
-        {% set d0 = dps | first %}
-        {% set dn = dps | last %}
-        {% set total = d0.extra.burndown[slug].starting %}
-        {% set rem = dn.extra.burndown[slug].ending %}
-        {% set consumed = total - rem %}
-        {% if consumed > 0 %}
-          {% set v = consumed / n %}
-          {% set e = rem - v %}
-          {% if e < 0 %}
-            {% set e = 0 %}
+        This replaces matching burndown keys to meetings by position, which only
+        held while every meeting tracked exactly one work. On 2026-08-16 the major
+        works meeting tracked none at all, and its slot would have inherited the
+        minor works meeting's Sophist. -#}
+    {% set_global carried = [] %}
+    {% set heading_id = name | slugify %}
+    {% set marker = 'id="' ~ heading_id ~ '"' %}
+    {% set parts = last.content | split(pat=marker) %}
+    {% if parts | length > 1 %}
+      {% set body = parts | nth(n=1) | split(pat="<h3") | first %}
+      {% for chunk in body | split(pat="/works/") %}
+        {% if not loop.first %}
+          {% set s = chunk | split(pat="/") | first %}
+          {% if s not in carried %}
+            {% set_global carried = carried | concat(with=s) %}
           {% endif %}
-          {% set est = e | round(method="floor") | int %}
-          {% set p10 = v * 10 %}
-          {% set p10 = p10 | round | int %}
-          {% set pace = p10 / 10 %}
-          {% set has_pace = true %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    {#- Keep the ones we're still reading that no earlier meeting has taken. -#}
+    {% set_global keep = [] %}
+    {% for s in carried %}
+      {% set cw = works.pages | filter(attribute="slug", value=s) | first %}
+      {% if cw %}
+        {% if cw.extra.currently_reading %}
+          {% if s not in claimed %}
+            {% set_global keep = keep | concat(with=s) %}
+            {% set_global claimed = claimed | concat(with=s) %}
+          {% endif %}
         {% endif %}
       {% endif %}
+    {% endfor %}
+
+    {#- Nothing survived — everything that meeting was on has been finished — so
+        take the work we most recently picked up that nobody else has claimed. -#}
+    {% if keep | length == 0 %}
+      {% for c in candidates %}
+        {% if c.slug not in claimed %}
+          {% set_global keep = keep | concat(with=c.slug) %}
+          {% set_global claimed = claimed | concat(with=c.slug) %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
     {% endif %}
 
-    {#- If last week left a "reminder for next week" anchor for this work, that
-        anchor is exactly where this week picks up. -#}
-    {% set from_default = '' %}
-    {% if short != '' %}
-      {% set marker = 'id="' ~ short ~ '-' %}
-      {% set bits = last.content | split(pat=marker) %}
-      {% if bits | length > 1 %}
-        {% set locus = bits | nth(n=1) | split(pat='"') | first %}
-        {% set from_default = "Starting from just after **" ~ locus ~ "**" %}
-      {% endif %}
+    {#- The "next week" line names the meeting's first work. -#}
+    {% set work_md = '' %}
+    {% if keep | length > 0 %}
+      {% set first_slug = keep | first %}
+      {% set fw = works.pages | filter(attribute="slug", value=first_slug) | first %}
+      {% set fw_title = fw.taxonomies.titles | first %}
+      {% set work_md = "[_" ~ fw_title ~ "_](/works/" ~ first_slug ~ "/)" %}
     {% endif %}
 
     <fieldset
@@ -217,150 +171,192 @@
     >
       <legend class="{{ legend_style }}">{{ name }}</legend>
 
-      <input class="{{ check }} peer/held" id="{{ p }}-held" name="{{ p }}-held" type="checkbox" checked>
+      {#- Unticked to begin with: plenty of weeks one club or the other doesn't sit,
+          so the scribe says which meetings happened rather than which didn't. -#}
+      <input class="{{ check }} peer/held" id="{{ p }}-held" name="{{ p }}-held" type="checkbox">
       <label class="{{ check_label }}" for="{{ p }}-held">We held this meeting</label>
 
-      {#- unchecked: the whole section collapses to "No meeting" -#}
+      {#- unticked: the whole section collapses to "No meeting" -#}
       <div class="mt-4 peer-checked/held:hidden">
         <label class="{{ label }}" for="{{ p }}-absent">Why not (optional)</label>
         <input class="{{ field | safe }}" id="{{ p }}-absent" name="{{ p }}-absent" type="text" placeholder="e.g. Andrew in Vermont">
         <span class="{{ hint }}">Kept as a note inside the file for whoever opens it, not shown on the site.</span>
       </div>
 
-      {#- checked: the actual minutes -#}
+      {#- ticked: the actual minutes -#}
       <div class="hidden peer-checked/held:block">
-        <div class="mt-5 grid gap-4 sm:grid-cols-[9rem_1fr]">
-          <div>
-            {% set verb_default = "Starting" %}
-            {% if prev_bd %}
-              {% set verb_default = "Continuing" %}
-            {% endif %}
-            <label class="{{ label }}" for="{{ p }}-verb">We are</label>
-            <select class="{{ field | safe }}" id="{{ p }}-verb" name="{{ p }}-verb">
-              {% for v in ["Continuing", "Starting", "Finishing", "Reviewing", "Reading"] %}
-              <option value="{{ v }}"{% if v == verb_default %} selected{% endif %}>{{ v }}</option>
-              {% endfor %}
-            </select>
-          </div>
-          <div>
-            <label class="{{ label }}" for="{{ p }}-work">Which work</label>
-            <select class="{{ field | safe }}" id="{{ p }}-work" name="{{ p }}-work">
-              <option value=""></option>
-              <optgroup label="Currently reading">
-                {% for w in works.pages | filter(attribute="extra.currently_reading", value=true) | sort(attribute="extra.sort") %}
-                {{ mins::work_option(w=w, selected=slug) }}
-                {% endfor %}
-              </optgroup>
-              <optgroup label="Everything else">
-                {% for w in works.pages | sort(attribute="extra.sort") %}
-                {% if not w.extra.currently_reading %}
-                {{ mins::work_option(w=w, selected=slug) }}
+
+        {% for j in range(end=slots) %}
+        {% set wp = p ~ "-w" ~ j %}
+
+        {#- what we know about the work this slot is probably on -#}
+        {% set slug = '' %}
+        {% if keep | length > j %}{% set slug = keep[j] %}{% endif %}
+        {% set title = '' %}
+        {% set short = '' %}
+        {% if slug != '' %}
+          {% set w = works.pages | filter(attribute="slug", value=slug) | first %}
+          {% set title = w.taxonomies.titles | first %}
+          {% set short = slug | split(pat="-") | last %}
+        {% endif %}
+        {% set prev_bd = false %}
+        {% if slug != '' %}
+          {% set prev_bd = last_burndown[slug] | default(value=false) %}
+        {% endif %}
+
+        {#- If last week left a "reminder for next week" anchor for this work, that
+            anchor is exactly where this week picks up. -#}
+        {% set from_default = '' %}
+        {% if short != '' %}
+          {% set anchor_marker = 'id="' ~ short ~ '-' %}
+          {% set bits = last.content | split(pat=anchor_marker) %}
+          {% if bits | length > 1 %}
+            {% set from_default = bits | nth(n=1) | split(pat='"') | first %}
+          {% endif %}
+        {% endif %}
+
+        {#- Only the first work is a given; the rest are there for the weeks that
+            need them, folded away unless last week already had one to carry over. -#}
+        <div class="mt-5" data-work data-prefix="{{ wp }}">
+          {% if j > 0 %}
+          <input class="{{ check }} peer/more" id="{{ wp }}-on" name="{{ wp }}-on" type="checkbox"{% if slug != '' %} checked{% endif %}>
+          <label class="{{ check_label }} italic" for="{{ wp }}-on">We covered another work as well</label>
+          {% endif %}
+
+          <div class="{% if j > 0 %}mt-4 hidden peer-checked/more:block {% endif %}border-t border-dashed border-gray-400 pt-4">
+            <div class="grid gap-4 sm:grid-cols-[9rem_1fr]">
+              <div>
+                {% set verb_default = "Starting" %}
+                {% if prev_bd %}{% set verb_default = "Continuing" %}{% endif %}
+                <label class="{{ label }}" for="{{ wp }}-verb">We are</label>
+                <select class="{{ field | safe }}" id="{{ wp }}-verb" name="{{ wp }}-verb">
+                  {% for v in ["Continuing", "Starting", "Finishing", "Reviewing", "Reading"] %}
+                  <option value="{{ v }}"{% if v == verb_default %} selected{% endif %}>{{ v }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div>
+                <label class="{{ label }}" for="{{ wp }}-work">Which work</label>
+                <select class="{{ field | safe }}" id="{{ wp }}-work" name="{{ wp }}-work">
+                  <option value=""></option>
+                  <optgroup label="Currently reading">
+                    {%- for w in works.pages | filter(attribute="extra.currently_reading", value=true) | sort(attribute="extra.sort") %}
+                    {{ mins::work_option(w=w, selected=slug, last_burndown=last_burndown) }}
+                    {%- endfor %}
+                  </optgroup>
+                  <optgroup label="Everything else">
+                    {%- for w in works.pages | sort(attribute="extra.sort") %}
+                    {%- if not w.extra.currently_reading %}
+                    {{ mins::work_option(w=w, selected=slug, last_burndown=last_burndown) }}
+                    {%- endif %}
+                    {%- endfor %}
+                  </optgroup>
+                </select>
+                {% if j == 0 %}
+                <span class="{{ hint }}">
+                  {%- if slug != '' -%}
+                  Carried over from {{ last.date }}.
+                  {%- else -%}
+                  Nothing obvious to carry over from {{ last.date }} — pick one.
+                  {%- endif -%}
+                </span>
                 {% endif %}
-                {% endfor %}
-              </optgroup>
-            </select>
+              </div>
+            </div>
+
+            {#- The two spots are what the chart is worked out from: what we got
+                through is simply the second minus the first. -#}
+            <div class="mt-4 grid gap-4 sm:grid-cols-[1fr_9rem]">
+              <div>
+                <label class="{{ label }}" for="{{ wp }}-from">Where we picked up</label>
+                <input class="{{ field | safe }}" id="{{ wp }}-from" name="{{ wp }}-from" type="text"
+                  value="Starting from" placeholder="e.g. Starting from just after">
+              </div>
+              <div>
+                <label class="{{ label }}" for="{{ wp }}-from-locus">The spot</label>
+                <input class="{{ field | safe }}" id="{{ wp }}-from-locus" name="{{ wp }}-from-locus" type="text"
+                  value="{{ from_default }}" placeholder="249a">
+              </div>
+            </div>
+
+            <div class="mt-4 grid gap-4 sm:grid-cols-[1fr_9rem]">
+              <div>
+                <label class="{{ label }}" for="{{ wp }}-to">Where we got to</label>
+                <input class="{{ field | safe }}" id="{{ wp }}-to" name="{{ wp }}-to" type="text"
+                  value="Ending around" placeholder="e.g. Ending at the end of **Book III**, around">
+              </div>
+              <div>
+                <label class="{{ label }}" for="{{ wp }}-to-locus">The spot</label>
+                <input class="{{ field | safe }}" id="{{ wp }}-to-locus" name="{{ wp }}-to-locus" type="text"
+                  placeholder="255b">
+              </div>
+            </div>
             <span class="{{ hint }}">
-              {%- if prev_bd -%}
-              Carried over from {{ last.date }}.
-              {%- elif slug != '' -%}
-              Last week's work is finished, so this is the one we've most recently started.
-              {%- else -%}
-              Nothing obvious to carry over from {{ last.date }} — pick one.
-              {%- endif -%}
+              Both spots are kept apart from the wording: a reminder links back to the second, and
+              the chart below counts the distance between them.
             </span>
+
+            {#- ---- the optional reminder, per work ---- -#}
+            <div class="mt-5">
+              <input class="{{ check }} peer/rem" id="{{ wp }}-reminder" name="{{ wp }}-reminder" type="checkbox">
+              <label class="{{ check_label }}" for="{{ wp }}-reminder">Leave a reminder for next week</label>
+              <span class="{{ hint }}">
+                A summary written while it's fresh, so next week starts already holding the thread.
+              </span>
+              <div class="mt-4 hidden peer-checked/rem:block">
+                <label class="{{ label }}" for="{{ wp }}-reminder-heading">Heading</label>
+                <input class="{{ field | safe }}" id="{{ wp }}-reminder-heading" name="{{ wp }}-reminder-heading" type="text"
+                  value="{% if title != '' %}_{{ title }}_ reminder for next week:{% endif %}"
+                  placeholder="_Sophist_ reminder for next week:">
+                <label class="{{ label }} mt-4" for="{{ wp }}-reminder-body">The reminder</label>
+                <textarea class="{{ field | safe }} min-h-40" id="{{ wp }}-reminder-body" name="{{ wp }}-reminder-body"
+                  placeholder="What we worked out, where the argument had got to, what is still open…"></textarea>
+                <span class="{{ hint }}">
+                  Blank lines start a new paragraph. Whoever writes it usually signs it, like “[Andrew] we discussed…”.
+                </span>
+              </div>
+            </div>
+
+            {#- ---- burndown, per work ---- -#}
+            <div class="mt-5">
+              <input class="{{ check }} peer/track" id="{{ wp }}-track" name="{{ wp }}-track" type="checkbox"{% if prev_bd %} checked{% endif %}>
+              <label class="{{ check_label }}" for="{{ wp }}-track">Track progress on the chart</label>
+              <div class="mt-3 hidden peer-checked/track:block">
+                <div class="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label class="{{ label }}" for="{{ wp }}-units">Counted in</label>
+                    <input class="{{ field | safe }}" id="{{ wp }}-units" name="{{ wp }}-units" type="text"
+                      value="{% if prev_bd %}{{ prev_bd.units }}{% endif %}" placeholder="lines, pages, chapters…">
+                  </div>
+                  <div>
+                    <label class="{{ label }}" for="{{ wp }}-total">How long it is</label>
+                    <input class="{{ field | safe }}" id="{{ wp }}-total" name="{{ wp }}-total" type="number" min="0" step="any"
+                      placeholder="52">
+                  </div>
+                </div>
+                <span class="{{ hint }}">
+                  {%- if prev_bd -%}
+                  {{ last.date }} left {{ prev_bd.ending }} {{ prev_bd.units }} to go. What is left now is worked
+                  out from that, less the ground covered between the two spots above.
+                  {%- else -%}
+                  What is left is worked out for you, from the ground covered between the two spots
+                  above. “How long it is” is only wanted the first time a work appears on the chart —
+                  the whole of it, in those units, counting from where we began.
+                  {%- endif -%}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
+        {% endfor %}
 
-        <div class="mt-4">
-          <label class="{{ label }}" for="{{ p }}-from">Where we picked up</label>
-          <input class="{{ field | safe }}" id="{{ p }}-from" name="{{ p }}-from" type="text"
-            value="{{ from_default }}"
-            placeholder="e.g. Starting from **line 430** of **Book III**, _Mortality and the Soul_">
-          <span class="{{ hint }}">Empty drops the line — some weeks only say what we finished.</span>
-        </div>
-
-        <div class="mt-4 grid gap-4 sm:grid-cols-[1fr_9rem]">
-          <div>
-            <label class="{{ label }}" for="{{ p }}-to">Where we got to</label>
-            <input class="{{ field | safe }}" id="{{ p }}-to" name="{{ p }}-to" type="text"
-              value="Ending around"
-              placeholder="e.g. Ending at the end of **Book III**, around">
-          </div>
-          <div>
-            <label class="{{ label }}" for="{{ p }}-locus">The spot</label>
-            <input class="{{ field | safe }}" id="{{ p }}-locus" name="{{ p }}-locus" type="text"
-              placeholder="line 1090">
-          </div>
-        </div>
-        <span class="{{ hint }}">The spot is kept apart because a reminder, below, links back to it.</span>
-
-        <div class="mt-4">
+        {#- ---- what happens next, once for the meeting ---- -#}
+        <div class="mt-5 border-t border-dashed border-gray-400 pt-4">
           <label class="{{ label }}" for="{{ p }}-next">Next week</label>
           <input class="{{ field | safe }}" id="{{ p }}-next" name="{{ p }}-next" type="text"
             value="{% if work_md != '' %}Next week we'll continue {{ work_md }}{% endif %}"
             placeholder="e.g. Next week we'll finish **Book VI**">
-        </div>
-
-        {#- ---- the optional reminder ---- -#}
-        <div class="mt-6 border-t border-dashed border-gray-400 pt-4">
-          <input class="{{ check }} peer/rem" id="{{ p }}-reminder" name="{{ p }}-reminder" type="checkbox">
-          <label class="{{ check_label }}" for="{{ p }}-reminder">Leave a reminder for next week</label>
-          <span class="{{ hint }}">
-            A summary written while it's fresh, so next week starts already holding the thread.
-          </span>
-          <div class="mt-4 hidden peer-checked/rem:block">
-            <label class="{{ label }}" for="{{ p }}-reminder-heading">Heading</label>
-            <input class="{{ field | safe }}" id="{{ p }}-reminder-heading" name="{{ p }}-reminder-heading" type="text"
-              value="{% if title != '' %}_{{ title }}_ reminder for next week:{% endif %}">
-            <label class="{{ label }} mt-4" for="{{ p }}-reminder-body">The reminder</label>
-            <textarea class="{{ field | safe }} min-h-40" id="{{ p }}-reminder-body" name="{{ p }}-reminder-body"
-              placeholder="What we worked out, where the argument had got to, what is still open…"></textarea>
-            <span class="{{ hint }}">
-              Blank lines start a new paragraph. Whoever writes it usually signs it, like “Andrew: we discussed…”.
-            </span>
-          </div>
-        </div>
-
-      </div>
-
-      {#- ---- burndown ----
-          Outside the "we held it" panel on purpose: a week we skipped still gets a
-          row on the chart, with the same number at both ends. See 2026-07-12. -#}
-      <div class="mt-6 border-t border-dashed border-gray-400 pt-4">
-        <input class="{{ check }} peer/track" id="{{ p }}-track" name="{{ p }}-track" type="checkbox"{% if prev_bd %} checked{% endif %}>
-        <label class="{{ check_label }}" for="{{ p }}-track">Track progress on the chart</label>
-        <div class="mt-4 hidden peer-checked/track:block">
-          <div class="grid gap-4 sm:grid-cols-3">
-            {#- Required while the box above is ticked, so a half-filled row can't be
-                quietly dropped from the file. The script keeps `required` in step as
-                the box is ticked and unticked; rendering it here matches whichever
-                way the box starts out. -#}
-            <div>
-              <label class="{{ label }}" for="{{ p }}-start">Left at the start</label>
-              <input class="{{ field | safe }}" id="{{ p }}-start" name="{{ p }}-start" type="number" min="0" step="any" value="{{ start_default }}"{% if prev_bd %} required{% endif %}>
-            </div>
-            <div>
-              <label class="{{ label }}" for="{{ p }}-end">Left at the end</label>
-              <input class="{{ field | safe }}" id="{{ p }}-end" name="{{ p }}-end" type="number" min="0" step="any" value="{{ est }}"{% if prev_bd %} required{% endif %}>
-            </div>
-            <div>
-              <label class="{{ label }}" for="{{ p }}-units">Counted in</label>
-              {#- The placeholder names several so it can't be mistaken for a value
-                  already filled in — that misread is how a row went missing. -#}
-              <input class="{{ field | safe }}" id="{{ p }}-units" name="{{ p }}-units" type="text" value="{{ units_default }}" placeholder="lines, pages, chapters…"{% if prev_bd %} required{% endif %}>
-            </div>
-          </div>
-          <span class="{{ hint }}">
-            {%- if has_pace -%}
-            {{ last.date }} left {{ start_default }} {{ units_default }} to go, and we've averaged about
-            {{ pace }} {{ units_default }} a session — so {{ est }} is a guess, not a measurement. Correct it.
-            {%- elif prev_bd -%}
-            {{ last.date }} left {{ start_default }} {{ units_default }} to go. There isn't enough history yet to guess a pace.
-            {%- else -%}
-            Nothing tracked here yet, so “left at the start” is the whole work: every line, page or chapter of it.
-            {%- endif %}
-            If we didn't meet, put the same number in both and the chart records a flat week.
-          </span>
+          <span class="{{ hint }}">One line for the meeting, however many works it covered.</span>
         </div>
       </div>
     </fieldset>
@@ -381,16 +377,16 @@
 
       <input class="{{ check }} peer/on" id="{{ p }}-on" name="{{ p }}-on" type="checkbox">
       <label class="{{ check_label }}" for="{{ p }}-on">We did something outside the usual meetings</label>
-      <span class="{{ hint }}">Like 2026-07-26, when we discussed Nolan's <em>Odyssey</em> before the meetings.</span>
+      <span class="{{ hint }}">Like 2026-08-16, when Nikita read an idyll before the meetings.</span>
 
       <div class="mt-4 hidden peer-checked/on:block">
         <label class="{{ label }}" for="{{ p }}-heading">Heading</label>
         <input class="{{ field | safe }}" id="{{ p }}-heading" name="{{ p }}-heading" type="text"
-          placeholder="e.g. Special pre-meeting to discuss Nolan's *The Odyssey*">
+          placeholder="e.g. Amateur Idylls (Cont.)">
 
         <label class="{{ label }} mt-4" for="{{ p }}-body">What happened</label>
         <textarea class="{{ field | safe }} min-h-40" id="{{ p }}-body" name="{{ p }}-body"
-          placeholder="- Joined by guests Matteo, Bianca from the University of Bologna&#10;- As well as Nikita's friend Katy, visiting us from NY"></textarea>
+          placeholder="- Nikita read *The Goatherd and His Father*"></textarea>
         <span class="{{ hint }}">Written into the file as you type it, so bullets, tables and links all work.</span>
 
         <fieldset class="mt-4 border-0">

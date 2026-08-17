@@ -12,6 +12,10 @@ meetings = ["Major works meeting", "Minor works meeting"]
 # something that isn't one of the meetings above — see 2026-07-26, where we
 # discussed Nolan's Odyssey before the usual meetings.
 standalone_sections = 1
+
+# How many works one meeting can cover. The first is always there; the rest fold
+# away until asked for — 2026-08-16 took Callimachus' Hymns and Epigrams together.
+works_per_meeting = 3
 +++
 
 Template for adding new meetings. Below you can download the meeting notes or share with someone else to complete them.

@@ -2,6 +2,14 @@
 
 ## Next
 
+## 1.12.0 (2026-08-17)
+
+- Let one meeting cover several works, each with its own run of bullets and its own row on the burndown chart — 2026-08-16 took Callimachus' *Hymns* and *Epigrams* together and had to be written by hand
+- Work out the burndown from where we stopped rather than asking for the arithmetic: what a work had left is what it had left last week, less the ground between the two spots, written into the file with the working beside it as `ending = 4 # 4 - (268 - 264)`
+- Keep the "next week" line where it belongs, one to a meeting however many works it covered
+- Take each meeting's likely works from last week's own page rather than by matching burndown keys to meetings by position, which stopped holding the moment a meeting tracked no works at all
+- Start both meetings unticked, since plenty of weeks one club or the other doesn't sit
+
 ## 1.11.0 (2026-08-17)
 
 - Add `/works/create/`, a form for writing up a work the club is picking up, reachable from a "New conspectus" button on the readings page

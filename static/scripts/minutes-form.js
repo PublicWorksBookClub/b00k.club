@@ -20,23 +20,24 @@
  * Each section of the minutes is a <fieldset data-section> carrying:
  *
  *   data-kind="meeting"      one of the club's regular meetings
- *   data-kind="standalone"   an extra section, e.g. the Nolan pre-meeting
- *   data-prefix="m0"         prefix every field in the section shares
+ *   data-kind="standalone"   an extra section, e.g. the amateur idylls
+ *   data-prefix="m0"         prefix the section's own fields share
  *   data-heading="…"         meetings only; standalone ones are titled by the scribe
  *
- * Fields are named `<prefix>-<field>`. A meeting has:
+ * A meeting holds one or more works, each a <div data-work data-prefix="m0-w0">.
+ * Every work after the first is folded away behind `<work>-on`. Per work:
  *
- *   held      (checkbox)  unchecked writes "No meeting" and nothing else
- *   absent    reason, kept as an HTML comment beside "No meeting"
- *   verb      Continuing / Starting / …
- *   work      (select)    value is the slug; the <option> carries data-md, the
- *                         markdown link, and data-short, which anchors are built from
- *   from      where we picked up
- *   to        prose of where we got to
- *   locus     the spot itself, kept apart so a reminder can link back to it
- *   next      what we're doing next week
- *   reminder  (checkbox) + reminder-heading + reminder-body
- *   track     (checkbox) + start + end + units, the burndown row
+ *   verb        Continuing / Starting / …
+ *   work        (select) value is the slug; the <option> carries data-md, the
+ *               markdown link, data-short, which anchors are built from, and
+ *               data-remaining / data-units, what last week left of that work
+ *   from, from-locus   the wording and the spot we picked up at
+ *   to, to-locus       the wording and the spot we got to
+ *   reminder    (checkbox) + reminder-heading + reminder-body
+ *   track       (checkbox) + units + total, the burndown row
+ *
+ * The meeting itself owns `held`, `absent` and `next` — one "next week" line
+ * however many works it covered.
  *
  * A standalone section has `on` (checkbox), `heading`, `body`, and `position`
  * (radio, before/after), which is what orders it against the meetings.
@@ -84,6 +85,16 @@ function chosen(name) {
   return el && el.selectedOptions ? (el.selectedOptions[0] ?? null) : null;
 }
 
+/**
+ * The number a spot counts as. The club writes its spots in whatever way the work
+ * numbers itself — "249a", "line 1090", "1240" — and the arithmetic only ever
+ * wants the figure, so the first run of digits is it.
+ */
+function locusNumber(spot) {
+  const match = spot.match(/\d+/);
+  return match ? Number(match[0]) : null;
+}
+
 /* ─── writing the markdown ────────────────────────────────────────────────── */
 
 /** An id for a heading anchor: "line 1090" → "line-1090", "254b" → "254b". */
@@ -102,51 +113,69 @@ function quote(body) {
     .join("\n");
 }
 
-function meetingBody(prefix) {
+/** Every work a meeting actually covered: the first, plus any that were opened. */
+function worksOf(section) {
+  return [...section.querySelectorAll("[data-work]")]
+    .filter((el, index) => index === 0 || checked(`${el.dataset.prefix}-on`))
+    .filter((el) => value(`${el.dataset.prefix}-work`))
+    .map((el) => el.dataset.prefix);
+}
+
+/** The bullets and any reminder for one work within a meeting. */
+function workParts(wp) {
+  const option = chosen(`${wp}-work`);
+  const short = option?.dataset.short ?? "";
+  const workMd = option?.dataset.md ?? "";
+  const toSpot = value(`${wp}-to-locus`);
+  const wantsReminder = checked(`${wp}-reminder`);
+  // The reminder heading and the bullet that points at it have to agree, so both
+  // are built from the same two pieces.
+  const anchor = short && toSpot ? `${short}-${slugify(toSpot)}` : "";
+
+  const bullets = [`- ${value(`${wp}-verb`)} ${workMd}`];
+
+  const fromSpot = value(`${wp}-from-locus`);
+  if (fromSpot) bullets.push(`- ${[value(`${wp}-from`), `**${fromSpot}**`].filter(Boolean).join(" ")}`);
+
+  // "Ending around" on its own is the suggestion, not a minute — the bullet is
+  // only worth writing once there's a spot to point at, or prose of our own.
+  if (toSpot || written(`${wp}-to`)) {
+    const spot = toSpot ? (anchor && wantsReminder ? `[**${toSpot}**](#${anchor})` : `**${toSpot}**`) : "";
+    bullets.push(`- ${[value(`${wp}-to`), spot].filter(Boolean).join(" ")}`);
+  }
+
+  const parts = { bullets, reminder: "" };
+  if (wantsReminder) {
+    const heading = value(`${wp}-reminder-heading`);
+    const body = text(`${wp}-reminder-body`);
+    if (heading || body) {
+      const head = `#### ${heading}${anchor ? ` { #${anchor} }` : ""}`;
+      parts.reminder = body ? `${head}\n\n${quote(body)}` : head;
+    }
+  }
+  return parts;
+}
+
+function meetingBody(section) {
+  const prefix = section.dataset.prefix;
   if (!checked(`${prefix}-held`)) {
     const why = value(`${prefix}-absent`);
     return why ? `No meeting <!-- ${why} -->` : "No meeting";
   }
 
-  const option = chosen(`${prefix}-work`);
-  const short = option?.dataset.short ?? "";
-  const workMd = option?.dataset.md ?? "";
-  const locus = value(`${prefix}-locus`);
-  const wantsReminder = checked(`${prefix}-reminder`);
-  // The reminder heading and the bullet that points at it have to agree, so both
-  // are built from the same two pieces.
-  const anchor = short && locus ? `${short}-${slugify(locus)}` : "";
-
   const bullets = [];
-  if (workMd) bullets.push(`- ${value(`${prefix}-verb`)} ${workMd}`);
-
-  const from = value(`${prefix}-from`);
-  if (from) bullets.push(`- ${from}`);
-
-  // "Ending around" on its own is the suggestion, not a minute — the bullet is
-  // only worth writing once there's a spot to point at, or prose of our own.
-  const to = value(`${prefix}-to`);
-  if (locus || written(`${prefix}-to`)) {
-    let spot = "";
-    if (locus) spot = anchor && wantsReminder ? `[**${locus}**](#${anchor})` : `**${locus}**`;
-    bullets.push(`- ${[to, spot].filter(Boolean).join(" ")}`);
+  const reminders = [];
+  for (const wp of worksOf(section)) {
+    const parts = workParts(wp);
+    bullets.push(...parts.bullets);
+    if (parts.reminder) reminders.push(parts.reminder);
   }
 
+  // One "next week" line for the meeting, however many works it covered.
   const next = value(`${prefix}-next`);
   if (next) bullets.push(`- ${next}`);
 
-  const parts = bullets.length ? [bullets.join("\n")] : [];
-
-  if (wantsReminder) {
-    const heading = value(`${prefix}-reminder-heading`);
-    const body = text(`${prefix}-reminder-body`);
-    if (heading || body) {
-      parts.push(`#### ${heading}${anchor ? ` { #${anchor} }` : ""}`);
-      if (body) parts.push(quote(body));
-    }
-  }
-
-  return parts.join("\n\n");
+  return [bullets.length ? bullets.join("\n") : "", ...reminders].filter(Boolean).join("\n\n");
 }
 
 /** Sections in the order they belong in the file: before, the meetings, after. */
@@ -157,6 +186,7 @@ function sections() {
       const standalone = kind === "standalone";
       const after = form.elements[`${prefix}-position`]?.value === "after";
       return {
+        el,
         index,
         prefix,
         standalone,
@@ -169,20 +199,49 @@ function sections() {
     .sort((a, b) => a.order - b.order || a.index - b.index);
 }
 
-/** The burndown rows, in meeting order — the order the charts read them back in. */
+/**
+ * One burndown row per work, worked out rather than typed.
+ *
+ * `starting` is what the work had left when we sat down, which is simply what it
+ * had left when we got up last week. What we got through is the distance between
+ * the two spots, so `ending` is one minus the other — and the arithmetic goes
+ * into the file as a comment beside it, the way it always has been written by
+ * hand: `ending = 13 # 19 - (255 - 249)`.
+ *
+ * A work with no run behind it has nothing to carry over, so its total stands in
+ * as the starting figure. Rows are keyed by work: if the same work turns up in
+ * two meetings, the later one wins rather than writing the table out twice.
+ */
 function burndown() {
-  return [...form.querySelectorAll('[data-kind="meeting"]')]
-    .map((el) => {
-      const { prefix } = el.dataset;
-      return {
-        slug: value(`${prefix}-work`),
-        start: value(`${prefix}-start`),
-        end: value(`${prefix}-end`),
-        units: value(`${prefix}-units`),
-        tracked: checked(`${prefix}-track`),
-      };
-    })
-    .filter((row) => row.tracked && row.slug && row.start !== "" && row.end !== "" && row.units);
+  const rows = new Map();
+  for (const section of form.querySelectorAll('[data-kind="meeting"]')) {
+    for (const wp of worksOf(section)) {
+      if (!checked(`${wp}-track`)) continue;
+      const option = chosen(`${wp}-work`);
+      const slug = value(`${wp}-work`);
+      const units = value(`${wp}-units`) || option?.dataset.units || "";
+
+      const carried = option?.dataset.remaining;
+      const total = value(`${wp}-total`);
+      const starting = carried !== undefined && carried !== "" ? Number(carried) : Number(total);
+
+      const from = locusNumber(value(`${wp}-from-locus`));
+      const to = locusNumber(value(`${wp}-to-locus`));
+      if (!slug || !units || !Number.isFinite(starting)) continue;
+
+      // A week we sat out, or one with no spots to measure, is a flat week.
+      const covered = from !== null && to !== null ? to - from : 0;
+      const ending = Math.max(0, starting - covered);
+      rows.set(slug, {
+        slug,
+        units,
+        starting,
+        ending,
+        working: covered > 0 ? `${starting} - (${to} - ${from})` : "",
+      });
+    }
+  }
+  return [...rows.values()];
 }
 
 function markdown() {
@@ -191,8 +250,8 @@ function markdown() {
     front.push(
       "",
       `[extra.burndown."${row.slug}"]`,
-      `starting = ${row.start}`,
-      `ending = ${row.end}`,
+      `starting = ${row.starting}`,
+      `ending = ${row.ending}${row.working ? ` # ${row.working}` : ""}`,
       `units = "${row.units}"`,
     );
   }
@@ -200,7 +259,7 @@ function markdown() {
 
   const body = sections().map((section) => {
     const heading = section.heading ? `### ${section.heading}` : "";
-    const content = section.standalone ? text(`${section.prefix}-body`) : meetingBody(section.prefix);
+    const content = section.standalone ? text(`${section.prefix}-body`) : meetingBody(section.el);
     return [heading, content].filter(Boolean).join("\n\n");
   });
 
@@ -215,49 +274,38 @@ function say(message) {
 }
 
 /**
- * A meeting that is tracking progress owes the chart all three numbers, so while
- * its box is ticked they're required. Without this a row missing any of them was
- * dropped from the file without a word — and the easiest one to miss is the units,
- * whose placeholder is easily read as a value that's already there.
+ * A work being tracked owes the chart its units, and a work with no run behind it
+ * owes its total as well — without them the row would be dropped from the file
+ * without a word, and the meeting would look written up while the chart stood
+ * still. Returns the first thing missing, said plainly.
  */
-function syncRequired() {
+function missingForChart() {
   for (const section of form.querySelectorAll('[data-kind="meeting"]')) {
-    const on = checked(`${section.dataset.prefix}-track`);
-    for (const name of ["start", "end", "units"]) {
-      const el = form.elements[`${section.dataset.prefix}-${name}`];
-      if (el) el.required = on;
+    if (!checked(`${section.dataset.prefix}-held`)) continue;
+    for (const wp of worksOf(section)) {
+      if (!checked(`${wp}-track`)) continue;
+      const option = chosen(`${wp}-work`);
+      const name = option?.dataset.title ?? "that work";
+      const carried = option?.dataset.remaining;
+      if (!(value(`${wp}-units`) || option?.dataset.units)) {
+        return `${name} is being tracked but nothing says what it is counted in.`;
+      }
+      if ((carried === undefined || carried === "") && !value(`${wp}-total`)) {
+        return `${name} hasn't been on the chart before, so it needs “how long it is” filling in.`;
+      }
     }
   }
-}
-
-/** Which meeting is tracking progress without having said what it's reading. */
-function trackedWithoutWork() {
-  for (const section of form.querySelectorAll('[data-kind="meeting"]')) {
-    const { prefix, heading } = section.dataset;
-    if (checked(`${prefix}-track`) && !value(`${prefix}-work`)) return heading;
-  }
-  return null;
-}
-
-/** The first thing standing in the way of a complete file, named the way it's labelled. */
-function complaint() {
-  const bad = form.querySelector("input:invalid, select:invalid, textarea:invalid");
-  if (!bad) return "";
-  const label = form.querySelector(`label[for="${bad.id}"]`)?.textContent.trim() ?? bad.name;
-  const where = bad.closest("[data-section]")?.dataset.heading;
-  return where
-    ? `“${label}” is empty in the ${where.toLowerCase()} — fill it in, or untick “Track progress on the chart”.`
-    : `“${label}” needs filling in.`;
+  return "";
 }
 
 function download() {
-  const unnamed = trackedWithoutWork();
-  if (unnamed) {
-    say(`The ${unnamed.toLowerCase()} is tracking progress but has no work chosen — pick one, or untick “Track progress on the chart”.`);
+  if (!form.reportValidity()) {
+    say("Some of the form still needs filling in.");
     return;
   }
-  if (!form.reportValidity()) {
-    say(complaint());
+  const missing = missingForChart();
+  if (missing) {
+    say(missing);
     return;
   }
 
@@ -313,10 +361,6 @@ function restore() {
 
 if (form) {
   restore();
-  syncRequired();
-  form.addEventListener("change", (event) => {
-    if (event.target.name?.endsWith("-track")) syncRequired();
-  });
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     share();
