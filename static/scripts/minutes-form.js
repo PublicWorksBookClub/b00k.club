@@ -214,6 +214,59 @@ function sections() {
  * a zero: recording a flat week the club didn't have would quietly flatten the
  * chart.
  */
+/**
+ * How long a work is and how it divides, as its conspectus records it. Null for a
+ * work that has never been measured, which is most of them.
+ */
+function shapeOf(option) {
+  if (!option || option.dataset.origin === undefined) return null;
+  const parts = option.dataset.parts ? JSON.parse(option.dataset.parts) : null;
+  return {
+    origin: Number(option.dataset.origin),
+    parts,
+    total: parts ? parts.reduce((n, p) => n + p.length, 0) : Number(option.dataset.total),
+    units: option.dataset.lengthUnits,
+  };
+}
+
+/** How far into the whole work a coordinate sits. Null if the part isn't one of its. */
+function positionOf(shape, partLabel, locus) {
+  if (!shape.parts) return locus - shape.origin;
+  const i = shape.parts.findIndex((p) => p.label === partLabel);
+  if (i === -1) return null;
+  const before = shape.parts.slice(0, i).reduce((n, p) => n + p.length, 0);
+  return before + (locus - shape.origin);
+}
+
+/** The reverse: which part a position falls in, and where in it. */
+function coordinateOf(shape, position) {
+  if (!shape.parts) return { label: null, locus: shape.origin + position };
+  let before = 0;
+  for (const part of shape.parts) {
+    if (position <= before + part.length) {
+      return { label: part.label, locus: shape.origin + position - before };
+    }
+    before += part.length;
+  }
+  const last = shape.parts[shape.parts.length - 1];
+  return { label: last.label, locus: shape.origin + last.length };
+}
+
+/**
+ * How much ground a work covered this week, and the working to write beside it.
+ *
+ * Where the conspectus says how long the work is, only where we got to needs
+ * saying: what it had left last week fixes where we picked up, so the distance
+ * between the two is arithmetic. That is also the only way a work whose numbering
+ * starts again at every part can be measured at all — line 930 of one book to line
+ * 430 of the next subtracts to -500, and the parts are what turn those into
+ * positions that do subtract.
+ *
+ * Failing that it falls back to subtracting the two spots, which tells the truth
+ * only while they sit on one continuous scale. `covered` stated outright always
+ * wins, and null is a refusal rather than a zero: recording a flat week the club
+ * didn't have would quietly flatten the chart.
+ */
 function groundCovered(wp) {
   const stated = value(`${wp}-covered`);
   if (stated !== "") return { covered: Number(stated), working: stated };
@@ -222,6 +275,31 @@ function groundCovered(wp) {
   const to = locusNumber(value(`${wp}-to-locus`));
   // Neither spot given at all: a week we sat out, which is a flat week on purpose.
   if (from === null && to === null) return { covered: 0, working: "" };
+
+  const option = chosen(`${wp}-work`);
+  const shape = shapeOf(option);
+  if (shape && to !== null) {
+    // Where we picked up: what the work had left last week fixes it exactly, and
+    // on a work's first session there is no last week, so the spot itself says.
+    const remaining = option?.dataset.remaining;
+    const carried = remaining !== undefined && remaining !== "";
+    const posFrom = carried
+      ? shape.total - Number(remaining)
+      : from !== null
+        ? positionOf(shape, value(`${wp}-from-part`), from)
+        : null;
+    const posTo = positionOf(shape, value(`${wp}-to-part`), to);
+    if (posFrom !== null && posTo !== null && posTo >= posFrom) {
+      const start = coordinateOf(shape, posFrom);
+      const end = coordinateOf(shape, posTo);
+      // Quote the two spots the way the minutes always have, but only while they
+      // sit in the same part; across a boundary the subtraction would read as a
+      // lie even though the figure is right.
+      const working = start.label === end.label ? `(${end.locus} - ${start.locus})` : `${posTo - posFrom}`;
+      return { covered: posTo - posFrom, working };
+    }
+  }
+
   if (from === null || to === null || to < from) return { covered: null, working: "" };
   return { covered: to - from, working: `(${to} - ${from})` };
 }
@@ -246,10 +324,13 @@ function burndown() {
       if (!checked(`${wp}-track`)) continue;
       const option = chosen(`${wp}-work`);
       const slug = value(`${wp}-work`);
-      const units = value(`${wp}-units`) || option?.dataset.units || "";
+      const shape = shapeOf(option);
+      // Three places know the units, in order of how sure they are: what the scribe
+      // typed, what the work records, what last week wrote down.
+      const units = value(`${wp}-units`) || shape?.units || option?.dataset.units || "";
 
       const carried = option?.dataset.remaining;
-      const total = value(`${wp}-total`);
+      const total = value(`${wp}-total`) || shape?.total;
       const starting = carried !== undefined && carried !== "" ? Number(carried) : Number(total);
 
       if (!slug || !units || !Number.isFinite(starting)) continue;
@@ -310,10 +391,11 @@ function missingForChart() {
       const option = chosen(`${wp}-work`);
       const name = option?.dataset.title ?? "that work";
       const carried = option?.dataset.remaining;
-      if (!(value(`${wp}-units`) || option?.dataset.units)) {
+      const shape = shapeOf(option);
+      if (!(value(`${wp}-units`) || shape?.units || option?.dataset.units)) {
         return `${name} is being tracked but nothing says what it is counted in.`;
       }
-      if ((carried === undefined || carried === "") && !value(`${wp}-total`)) {
+      if ((carried === undefined || carried === "") && !value(`${wp}-total`) && !shape?.total) {
         return `${name} hasn't been on the chart before, so it needs “how long it is” filling in.`;
       }
       if (groundCovered(wp).covered === null) {
@@ -389,8 +471,31 @@ function restore() {
   say("Picked up from a shared link.");
 }
 
+/**
+ * The part menus are written out for whichever work Zola guessed, so they go stale
+ * the moment the scribe picks another. Rebuilding them from the chosen option is
+ * what lets any divided work be measured, not just the one the page was built for.
+ */
+function syncPartMenus(wp) {
+  const parts = shapeOf(chosen(`${wp}-work`))?.parts ?? null;
+  for (const which of ["from", "to"]) {
+    const menu = form.elements[`${wp}-${which}-part`];
+    if (!menu) continue;
+    menu.closest("[data-part-menu]").hidden = !parts;
+    const keep = menu.value;
+    menu.replaceChildren(
+      ...(parts ?? []).map((part) => new Option(part.label, part.label)),
+    );
+    if (parts?.some((part) => part.label === keep)) menu.value = keep;
+  }
+}
+
 if (form) {
   restore();
+  for (const work of form.querySelectorAll("[data-work]")) {
+    const wp = work.dataset.prefix;
+    form.elements[`${wp}-work`]?.addEventListener("change", () => syncPartMenus(wp));
+  }
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     share();

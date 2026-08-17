@@ -178,6 +178,59 @@
         <label class="{{ check_label }}" for="read-in-selection">We are reading it in selection, not in full</label>
         <span class="{{ hint }}">Results in an <span class="pl-0.5 text-gray-400">*</span> next to it in the readings table.</span>
       </div>
+      {#- ---- how long it is, for the burndown chart ----
+          Optional on purpose: a work read in selection jumps about, and one read in
+          a single sitting charts as a line between two points, so neither goes on a
+          chart at all and neither needs measuring. -#}
+      <div class="mt-5 border-t border-dashed border-gray-400 pt-4">
+        <input class="{{ check }} peer/chart" id="charted" name="charted" type="checkbox">
+        <label class="{{ check_label }}" for="charted">Chart our progress through it</label>
+        <span class="{{ hint }}">
+          Leave this off for anything read in selection or in one sitting — the chart has nothing
+          to say about either.
+        </span>
+        <div class="mt-4 hidden peer-checked/chart:block">
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label class="{{ label }}" for="length-units">Measured in</label>
+              <input class="{{ field | safe }}" id="length-units" name="length-units" type="text"
+                placeholder="lines, pages, chapters…">
+            </div>
+            <div>
+              <label class="{{ label }}" for="length-origin">Counting starts at</label>
+              <input class="{{ field | safe }}" id="length-origin" name="length-origin" type="number" step="any" value="0">
+              <span class="{{ hint }}">
+                The coordinate at which nothing has been read yet: <code>0</code> where lines start
+                at 1, <code>216</code> for a dialogue paginated from 216a.
+              </span>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <input class="{{ check }} peer/divides" id="divides" name="divides" type="checkbox">
+            <label class="{{ check_label }}" for="divides">It divides into parts</label>
+
+            <div class="mt-3 peer-checked/divides:hidden">
+              <label class="{{ label }}" for="length-total">How long it is</label>
+              <input class="{{ field | safe }}" id="length-total" name="length-total" type="number" min="0" step="any"
+                placeholder="52">
+            </div>
+
+            <div class="mt-3 hidden peer-checked/divides:block">
+              <label class="{{ label }}" for="length-parts">Its parts</label>
+              <textarea class="{{ field | safe }} min-h-32" id="length-parts" name="length-parts"
+                placeholder="Book I, 1362&#10;Book II, 1285&#10;Book III, 1407&#10;Book IV, 1781"></textarea>
+              <span class="{{ hint }}">
+                One per line, named then how long it is. Whatever a part is called here is what the
+                chart calls it, so write it as you would say it. Parts whose numbering starts again
+                at each one — a poem in books — are the reason the chart can tell where a session
+                that ran across two of them got to.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="mt-2">
         <input class="{{ check }}" id="currently-reading" name="currently-reading" type="checkbox" checked>
         <label class="{{ check_label }}" for="currently-reading">We are reading it now</label>

@@ -19,6 +19,8 @@ stopped = 2026-04-19
 # parts on the chart and to say which one a session ended in; without it a chart
 # behaves exactly as it did before.
 #
+# Each part names itself, so there is no separate noun to keep in step with them.
+#
 # `origin` is the coordinate at which nothing has been read yet: 0 for a work whose
 # lines start at 1, but 216 for a Platonic dialogue paginated from 216a, which
 # carries straight through as a single part.
@@ -28,13 +30,12 @@ stopped = 2026-04-19
 # Book IV "around line 1780".
 [extra.length]
 units = "lines"
-division = "Book"
 origin = 0
 parts = [
-  { label = "I", length = 1362 },
-  { label = "II", length = 1285 },
-  { label = "III", length = 1407 },
-  { label = "IV", length = 1781 },
+  { label = "Book I", length = 1362 },
+  { label = "Book II", length = 1285 },
+  { label = "Book III", length = 1407 },
+  { label = "Book IV", length = 1781 },
 ]
 
 [taxonomies]

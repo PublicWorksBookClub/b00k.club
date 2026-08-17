@@ -81,6 +81,17 @@
     something Tera answers reliably; whether a key exists on a page that never set
     it is not — `w.extra.currently_reading` reads as true for the forty-odd works
     that never mention it, which kept all of them out of the menu below. -#}
+{#- Which works record how long they are, and which of those divide into parts.
+    Lists of slugs, again because membership is something Tera answers reliably. -#}
+{% set_global shaped = [] %}
+{% for w in works.pages | filter(attribute="extra.length") %}
+  {% set_global shaped = shaped | concat(with=w.slug) %}
+{% endfor %}
+{% set_global parted = [] %}
+{% for w in works.pages | filter(attribute="extra.length.parts") %}
+  {% set_global parted = parted | concat(with=w.slug) %}
+{% endfor %}
+
 {% set_global reading_slugs = [] %}
 {% for w in works.pages | filter(attribute="extra.currently_reading", value=true) %}
   {% set_global reading_slugs = reading_slugs | concat(with=w.slug) %}
@@ -214,14 +225,46 @@
           {% set prev_bd = last_burndown[slug] | default(value=false) %}
         {% endif %}
 
-        {#- If last week left a "reminder for next week" anchor for this work, that
-            anchor is exactly where this week picks up. -#}
-        {% set from_default = '' %}
-        {% if short != '' %}
-          {% set anchor_marker = 'id="' ~ short ~ '-' %}
-          {% set bits = last.content | split(pat=anchor_marker) %}
-          {% if bits | length > 1 %}
-            {% set from_default = bits | nth(n=1) | split(pat='"') | first %}
+        {#- Where this week picks up. A work that records how long it is needs no
+            remembering: what it had left last week says how far in we are, and the
+            shape turns that back into a spot. Failing that, last week's "reminder
+            for next week" anchor is where we stopped, which is the same thing said
+            less exactly. -#}
+        {% set_global from_default = '' %}
+        {% set_global from_part = '' %}
+        {% if slug != '' %}
+          {% if slug in shaped %}
+            {% if prev_bd %}
+              {% set sh = w.extra.length %}
+              {% set_global wtotal = 0 %}
+              {% if slug in parted %}
+                {% for pt in sh.parts %}{% set_global wtotal = wtotal + pt.length %}{% endfor %}
+              {% else %}
+                {% set_global wtotal = sh.total %}
+              {% endif %}
+              {% set pos = wtotal - prev_bd.ending %}
+              {% set_global from_default = sh.origin + pos %}
+              {% if slug in parted %}
+                {% set_global acc3 = 0 %}
+                {% set_global settled = false %}
+                {% for pt in sh.parts %}
+                  {% if not settled %}
+                    {% if pos <= acc3 + pt.length %}
+                      {% set_global settled = true %}
+                      {% set_global from_default = sh.origin + pos - acc3 %}
+                      {% set_global from_part = pt.label %}
+                    {% endif %}
+                  {% endif %}
+                  {% set_global acc3 = acc3 + pt.length %}
+                {% endfor %}
+              {% endif %}
+            {% endif %}
+          {% elif short != '' %}
+            {% set anchor_marker = 'id="' ~ short ~ '-' %}
+            {% set bits = last.content | split(pat=anchor_marker) %}
+            {% if bits | length > 1 %}
+              {% set_global from_default = bits | nth(n=1) | split(pat='"') | first %}
+            {% endif %}
           {% endif %}
         {% endif %}
 
@@ -251,13 +294,13 @@
                   <option value=""></option>
                   <optgroup label="Currently reading">
                     {%- for w in works.pages | filter(attribute="extra.currently_reading", value=true) | sort(attribute="extra.sort") %}
-                    {{ mins::work_option(w=w, selected=slug, last_burndown=last_burndown) }}
+                    {{ mins::work_option(w=w, selected=slug, last_burndown=last_burndown, shaped=shaped, parted=parted) }}
                     {%- endfor %}
                   </optgroup>
                   <optgroup label="Everything else">
                     {%- for w in works.pages | sort(attribute="extra.sort") %}
                     {%- if w.slug not in reading_slugs %}
-                    {{ mins::work_option(w=w, selected=slug, last_burndown=last_burndown) }}
+                    {{ mins::work_option(w=w, selected=slug, last_burndown=last_burndown, shaped=shaped, parted=parted) }}
                     {%- endif %}
                     {%- endfor %}
                   </optgroup>
@@ -276,7 +319,7 @@
 
             {#- The two spots are what the chart is worked out from: what we got
                 through is simply the second minus the first. -#}
-            <div class="mt-4 grid gap-4 sm:grid-cols-[1fr_9rem]">
+            <div class="mt-4 grid gap-4 sm:grid-cols-[1fr_11rem]">
               <div>
                 <label class="{{ label }}" for="{{ wp }}-from">Where we picked up</label>
                 <input class="{{ field | safe }}" id="{{ wp }}-from" name="{{ wp }}-from" type="text"
@@ -284,12 +327,24 @@
               </div>
               <div>
                 <label class="{{ label }}" for="{{ wp }}-from-locus">The spot</label>
+                {#- The part rides above the spot, written out for whichever work Zola
+                    guessed. The script repopulates it if the scribe picks another, since
+                    a page built at deploy time cannot know what they will choose. -#}
+                <div class="mb-2" data-part-menu="{{ wp }}"{% if slug not in parted %} hidden{% endif %}>
+                  <select class="{{ field | safe }}" id="{{ wp }}-from-part" name="{{ wp }}-from-part">
+                    {% if slug in parted %}
+                    {% for pt in w.extra.length.parts %}
+                    <option value="{{ pt.label }}"{% if pt.label == from_part %} selected{% endif %}>{{ pt.label }}</option>
+                    {% endfor %}
+                    {% endif %}
+                  </select>
+                </div>
                 <input class="{{ field | safe }}" id="{{ wp }}-from-locus" name="{{ wp }}-from-locus" type="text"
                   value="{{ from_default }}" placeholder="249a">
               </div>
             </div>
 
-            <div class="mt-4 grid gap-4 sm:grid-cols-[1fr_9rem]">
+            <div class="mt-4 grid gap-4 sm:grid-cols-[1fr_11rem]">
               <div>
                 <label class="{{ label }}" for="{{ wp }}-to">Where we got to</label>
                 <input class="{{ field | safe }}" id="{{ wp }}-to" name="{{ wp }}-to" type="text"
@@ -297,6 +352,18 @@
               </div>
               <div>
                 <label class="{{ label }}" for="{{ wp }}-to-locus">The spot</label>
+                {#- The part rides above the spot, written out for whichever work Zola
+                    guessed. The script repopulates it if the scribe picks another, since
+                    a page built at deploy time cannot know what they will choose. -#}
+                <div class="mb-2" data-part-menu="{{ wp }}"{% if slug not in parted %} hidden{% endif %}>
+                  <select class="{{ field | safe }}" id="{{ wp }}-to-part" name="{{ wp }}-to-part">
+                    {% if slug in parted %}
+                    {% for pt in w.extra.length.parts %}
+                    <option value="{{ pt.label }}"{% if pt.label == from_part %} selected{% endif %}>{{ pt.label }}</option>
+                    {% endfor %}
+                    {% endif %}
+                  </select>
+                </div>
                 <input class="{{ field | safe }}" id="{{ wp }}-to-locus" name="{{ wp }}-to-locus" type="text"
                   placeholder="255b">
               </div>
