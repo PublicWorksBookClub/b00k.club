@@ -17,14 +17,10 @@ started = 2026-06-28
 currently_reading = true
 
 # How long the work is. A dialogue has no divisions, so it states a total rather
-# than a list of parts.
-#
-# `origin` is the coordinate at which nothing has been read yet — 216, because the
-# Stephanus pagination runs 216a to 268d and carries straight through. That is the
-# same fact as the Argonautica's 0, where its lines start at 1.
+# than a list of parts, and the chart marks no bands. The Stephanus pages run 216a
+# to 268d, which is the 52 below.
 [extra.length]
 units = "pages"
-origin = 216
 total = 52
 
 [taxonomies]

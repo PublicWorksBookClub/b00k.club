@@ -454,28 +454,33 @@
         {%- if shape %}
         {#- Which part that remainder falls in, and where in it. What is left says
             how far in we are, so the part follows from it rather than needing
-            recording. -#}
+            recording.
+
+            Only worth saying where a work divides. Without one, all this could
+            report is how far in we are counting from the beginning, and no work
+            numbers itself that way — a dialogue paginated from 216a is 48 pages in
+            at page 264, and "48" names nothing. -#}
+        {% if has_parts %}
         {% set cur = remainders | nth(n=past_count - 1) %}
         {% set pos = total - cur %}
         {% set_global in_part = "" %}
-        {% set_global in_at = shape.origin + pos %}
-        {% if has_parts %}
-          {% set_global acc2 = 0 %}
-          {% for pt in shape.parts %}
-            {% if in_part == "" %}
-              {% if pos <= acc2 + pt.length %}
-                {% set_global in_part = pt.label %}
-                {% set_global in_at = shape.origin + pos - acc2 %}
-              {% endif %}
+        {% set_global in_at = 0 %}
+        {% set_global acc2 = 0 %}
+        {% for pt in shape.parts %}
+          {% if in_part == "" %}
+            {% if pos <= acc2 + pt.length %}
+              {% set_global in_part = pt.label %}
+              {% set_global in_at = pos - acc2 %}
             {% endif %}
-            {% set_global acc2 = acc2 + pt.length %}
-          {% endfor %}
-        {% endif %}
+          {% endif %}
+          {% set_global acc2 = acc2 + pt.length %}
+        {% endfor %}
         {#- The one measure is recorded in the plural, the way the minutes write it, so
             the singular for naming a coordinate is trimmed off it rather than stored
             twice and kept in step by hand. -#}
         {% set one = shape.units | trim_end_matches(pat="s") %}
-        {%- if in_part != "" %} — {{ in_part }}, {{ one }} {{ in_at | round | int }}{%- else %} — {{ one }} {{ in_at | round | int }}{% endif %}
+        {%- if in_part != "" %} — {{ in_part }}, {{ one }} {{ in_at | round | int }}{% endif %}
+        {% endif %}
         {%- endif %}
     </text>
     {% if show_extrap %}

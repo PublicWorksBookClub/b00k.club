@@ -100,9 +100,7 @@ function toml(list) {
  * Empty for anything not being charted — a work read in selection jumps about and
  * one read in a single sitting draws a line between two points, so neither is
  * measured. A work that divides lists its parts, each naming itself; one that
- * doesn't states a total. `origin` is the coordinate at which nothing has been
- * read yet, which is 0 for lines numbered from 1 and 216 for a dialogue paginated
- * from 216a.
+ * doesn't states a total.
  */
 function lengthBlock() {
   if (!checked("charted") || !value("length-units")) return [];
@@ -111,7 +109,6 @@ function lengthBlock() {
     "",
     "[extra.length]",
     `units = "${value("length-units")}"`,
-    `origin = ${value("length-origin") || 0}`,
   ];
 
   if (!checked("divides")) {
