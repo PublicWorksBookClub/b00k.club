@@ -13,10 +13,16 @@
 {% block main %}
 <article class="mx-auto my-16 prose prose-pwbc prose-lg
 prose-headings:font-fira-sans">
-  <header class="px-4 md:px-0 not-prose text-gray-700">
+  <header class="px-4 md:px-0 not-prose text-gray-700 flex flex-wrap items-end justify-between gap-4">
     <h1 class="font-playfair-display text-5xl font-medium text-gray-700">
       <a class="hover:underline" href="{{ section.permalink }}">Readings</a>
     </h1>
+    <a
+      href="{{ get_url(path='@/works/create/_index.md') }}"
+      class="inline-flex h-10 min-w-20 px-4 items-center justify-center border-2 border-gray-700 font-fira-sans no-underline hover:bg-black/5"
+    >
+      New conspectus
+    </a>
   </header>
   <section class="mt-8">
     <p class="font-fira-sans -mb-6 text-right text-xs italic pr-2">(scroll →)</p>

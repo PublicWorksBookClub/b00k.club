@@ -2,6 +2,13 @@
 
 ## Next
 
+## 1.11.0 (2026-08-17)
+
+- Add `/works/create/`, a form for writing up a work the club is picking up, reachable from a "New conspectus" button on the readings page
+- Prefill that form from the works already on file: the reading number, the arc, the year, and a start date a day on from the last work we put down
+- Offer every classifying taxonomy as a closed list read out of `data/vocab/`, so the form cannot emit a term the site would fail to build on
+- Stop a taxonomy term that has no vocabulary entry from crashing the build — reaching for the missing key made Tera build an error message it then discarded, and building it panicked on any multi-byte character in the quoted context
+
 ## 1.10.2 (2026-08-16)
 
 - Update with meeting notes

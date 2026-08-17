@@ -1,0 +1,309 @@
+{% import "macro/util.html" as util %}
+{% extends "base.html" %}
+
+{#-
+  The "new conspectus" form, for a work the club is picking up.
+
+  Sibling of templates/minutes/create.html and built the same way: Zola renders
+  every option and every default at build time, showing and hiding is CSS, and a
+  small script does the one thing a static page can't — hand back a file. Read the
+  comment at the top of /scripts/works-form.js before renaming any field; the
+  names are the contract between the two.
+
+  Every classifying taxonomy is a closed list read straight out of data/vocab/, so
+  the form cannot emit a term the site doesn't know. That isn't only tidiness: an
+  unknown `languages` term crashes the build outright (macro/json-ld.html
+  dereferences languages[l].label with no guard), and an unknown `arcs` term
+  crashes arcs/single.html. Coining a new term means adding it to data/vocab/
+  first, and then it appears here on the next build.
+-#}
+
+{% block body_styles %}{{ section.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
+
+{#- A form is noise in search results; the conspectuses themselves are what's worth finding. -#}
+{% block include_in_search %}data-pagefind-ignore{% endblock include_in_search %}
+
+{% block banner %}
+{{ util::nav(href="/", text="Home") }}
+{{ util::nav(href="/works/", text="Readings") }}
+{{ util::search() }}
+{% endblock banner %}
+
+{% block extra_head %}
+{# turns the filled-in form into a file; everything else works without it #}
+<script type="module" src="/scripts/works-form.js"></script>
+{% endblock extra_head %}
+
+{% block main %}
+
+{#- ------------------------------------------------------------------- -#}
+{#- Shared styling, matching the new-meeting form control for control    -#}
+{#- ------------------------------------------------------------------- -#}
+{% set field = "w-full border-2 border-gray-700 bg-white/70 px-2 py-1.5 font-fira-sans text-base focus:outline-2 focus:outline-offset-2 focus:outline-rose-300" %}
+{% set label = "block font-fira-sans text-sm font-medium [font-variant:small-caps] tracking-wide text-gray-500" %}
+{% set hint = "mt-1 block font-fira-sans text-xs font-light text-gray-500" %}
+{% set button = "inline-flex h-10 min-w-20 px-4 items-center justify-center border-2 border-gray-700 bg-white/60 font-fira-sans hover:bg-black/5 cursor-pointer" %}
+{% set check = "size-4 accent-rose-400 align-middle" %}
+{% set check_label = "font-fira-sans text-base text-gray-700 pl-1 align-middle" %}
+{% set legend_style = "font-fira-sans text-xl font-medium text-gray-700 px-2" %}
+{% set term_label = "font-fira-sans text-sm text-gray-700 pl-1 align-middle" %}
+
+{#- ------------------------------------------------------------------- -#}
+{#- What the next reading is most likely to be                           -#}
+{#- ------------------------------------------------------------------- -#}
+{% set works = get_section(path="works/_index.md") %}
+{% set by_order = works.pages | sort(attribute="extra.order") %}
+{% set latest = by_order | last %}
+
+{#- Readings are numbered in the order the club takes them on, so the next one
+    carries on from the highest number on file. -#}
+{% set next_order = latest.extra.order + 1 %}
+
+{#- The club picks a work up the day after it puts the last one down, so the most
+    recently finished reading plus a day is the likeliest start. Found by reading
+    order rather than by comparing the dates themselves, because Tera reads `>`
+    between two dates as arithmetic and refuses it. -#}
+{% set finished = works.pages | filter(attribute="extra.stopped") | sort(attribute="extra.order") | last %}
+{% set last_stop = finished.extra.stopped %}
+{% set stop_ts = last_stop | date(format="%s") %}
+{% set stop_ts = load_data(literal=stop_ts, format="json") %}
+{% set start_ts = stop_ts + 86400 %}
+{% set started_default = start_ts | int | date(format="%Y-%m-%d") %}
+{% set year_default = started_default | split(pat="-") | first %}
+
+{#- Whatever campaign the most recent reading belongs to is the one we're still in. -#}
+{% set arc_default = latest.taxonomies.arcs | first %}
+
+<article class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg
+  prose-headings:font-fira-sans prose-pwbc">
+  <h1>New conspectus</h1>
+  {{ section.content | safe }}
+
+  <form
+    id="works-form"
+    method="get"
+    action="{{ section.permalink }}"
+    autocomplete="off"
+    class="not-prose font-fira-sans"
+  >
+    {#- ----------------------------------------------------------------- -#}
+    {#- The work itself                                                    -#}
+    {#- ----------------------------------------------------------------- -#}
+    <fieldset class="mt-10 border-2 border-gray-700 bg-white/30 px-4 pb-5 pt-2">
+      <legend class="{{ legend_style }}">The work</legend>
+
+      <div class="mt-2">
+        <label class="{{ label }}" for="title">Title</label>
+        <input class="{{ field | safe }}" id="title" name="title" type="text" required
+          placeholder="Metamorphoses">
+        <span class="{{ hint }}">As it should read at the top of the page. This becomes the file name too.</span>
+      </div>
+
+      <div class="mt-4">
+        <label class="{{ label }}" for="alt-titles">Also known as</label>
+        <textarea class="{{ field | safe }} min-h-20" id="alt-titles" name="alt-titles"
+          placeholder="Euclid&#39;s Elements&#10;Elements by Euclid"></textarea>
+        <span class="{{ hint }}">Optional, one per line. Other names the work is catalogued under.</span>
+      </div>
+
+      <div class="mt-4 grid gap-4 sm:grid-cols-2">
+        <div>
+          <label class="{{ label }}" for="slug">Slug</label>
+          <input class="{{ field | safe }}" id="slug" name="slug" type="text" required
+            pattern="[a-z0-9]+(-[a-z0-9]+)*" placeholder="ovid-metamorphoses">
+          <span class="{{ hint }}">
+            The address it lives at: author then work, lower case, hyphens.
+            Like <code>plato-sophist</code> or <code>apollonius-argonautica</code>.
+          </span>
+        </div>
+        <div>
+          <label class="{{ label }}" for="sort">Sort as</label>
+          <input class="{{ field | safe }}" id="sort" name="sort" type="text" required
+            placeholder="Metamorphoses">
+          <span class="{{ hint }}">
+            Where it files alphabetically. Usually just the title, but leading articles move to
+            the end (<code>Bacchae, The</code>) and clashes take the author
+            (<code>Epigrams, Callimachus</code>).
+          </span>
+        </div>
+      </div>
+
+      <div class="mt-4 grid gap-4 sm:grid-cols-2">
+        <div>
+          <label class="{{ label }}" for="wikidata">Wikidata</label>
+          <input class="{{ field | safe }}" id="wikidata" name="wikidata" type="url"
+            placeholder="https://www.wikidata.org/wiki/Q184742">
+        </div>
+        <div>
+          <label class="{{ label }}" for="wikipedia">Wikipedia</label>
+          <input class="{{ field | safe }}" id="wikipedia" name="wikipedia" type="url"
+            placeholder="https://en.wikipedia.org/wiki/Metamorphoses">
+        </div>
+      </div>
+      <span class="{{ hint }}">
+        Both optional, and both worth finding — they are what the page publishes as linked data.
+      </span>
+
+      <div class="mt-5">
+        <input class="{{ check }}" id="read-in-selection" name="read-in-selection" type="checkbox">
+        <label class="{{ check_label }}" for="read-in-selection">We are reading it in selection, not in full</label>
+      </div>
+    </fieldset>
+
+    {#- ----------------------------------------------------------------- -#}
+    {#- Classification — every option comes out of data/vocab/             -#}
+    {#- ----------------------------------------------------------------- -#}
+    {#- Declared as data so adding a taxonomy is one line, not a new block.
+        `tall` gets a scrolling box for the vocabularies too long to sit open. -#}
+    {% set groups = load_data(format="json", literal='[
+      {"field":"authors","vocab":"authors","legend":"Author","required":true,"tall":true,
+       "hint":"Who wrote it. More than one is fine."},
+      {"field":"forms","vocab":"forms","legend":"Literary form","required":true,"tall":false,
+       "hint":"How the work is packaged, outside its content: poetry, dialogue, oration."},
+      {"field":"genres","vocab":"genres","legend":"Genre","required":true,"tall":true,
+       "hint":"The mode of the content and what it is aiming at."},
+      {"field":"subjects","vocab":"subjects","legend":"Subject","required":false,"tall":false,
+       "hint":"What it is about. Optional, and often left empty until we have read it."},
+      {"field":"periods","vocab":"periods","legend":"Period","required":true,"tall":true,
+       "hint":"Listed oldest first. Several usually apply: an era and a century."},
+      {"field":"languages","vocab":"languages","legend":"Language","required":true,"tall":false,
+       "hint":"The language it was written in, not the one we are reading it in."}
+    ]') %}
+
+    <fieldset class="mt-10 border-2 border-gray-700 bg-white/30 px-4 pb-5 pt-2">
+      <legend class="{{ legend_style }}">Classification</legend>
+      <p class="{{ hint }} mb-2">
+        These are the site&#39;s controlled vocabulary. To use a term that is not here, add it to
+        <code>data/vocab/</code> first and it will show up next build.
+      </p>
+
+      {% for g in groups %}
+      {% set vocab = load_data(path="data/vocab/" ~ g.vocab ~ ".toml", format="toml") %}
+      <fieldset
+        class="mt-5 border-t border-dashed border-gray-400 pt-3"
+        {% if g.required %}data-required-group{% endif %}
+        data-legend="{{ g.legend | lower }}"
+      >
+        <legend class="{{ label }}">{{ g.legend }}{% if g.required %} <span class="text-rose-400">*</span>{% endif %}</legend>
+        <ul class="{% if g.tall %}max-h-44 overflow-y-auto border border-gray-300 bg-white/40 p-2 {% endif %}columns-2 md:columns-3 gap-4">
+          {%- for term, meta in vocab %}
+          {%- if meta is object %}
+          <li class="break-inside-avoid">
+            <input class="{{ check }}" id="{{ g.field }}--{{ loop.index }}" name="{{ g.field }}" type="checkbox" value="{{ term }}">
+            {#- The value written to the file is always the vocabulary's own key; `label`
+                is only how the term prefers to be spelled on screen, and plenty of
+                entries don't carry one. Asked for with `in` rather than `default`,
+                because reaching for a key that isn't there is what crashes Tera. -#}
+            <label class="{{ term_label }}" for="{{ g.field }}--{{ loop.index }}">{% if "label" in meta %}{{ meta.label }}{% else %}{{ term }}{% endif %}</label>
+          </li>
+          {%- endif %}
+          {%- endfor %}
+        </ul>
+        <span class="{{ hint }}">{{ g.hint }}</span>
+      </fieldset>
+      {% endfor %}
+
+      {#- Arcs are stored as an array of tables rather than one table per term, and
+          only ever one applies, so this is a plain menu rather than a checklist. -#}
+      {% set arcs = load_data(path="data/vocab/arcs.toml", format="toml") %}
+      <div class="mt-5 border-t border-dashed border-gray-400 pt-3 grid gap-4 sm:grid-cols-3">
+        <div>
+          <label class="{{ label }}" for="arc">Arc <span class="text-rose-400">*</span></label>
+          <select class="{{ field | safe }}" id="arc" name="arc" required>
+            {% for a in arcs.arcs | reverse %}
+            <option value="{{ a.label }}"{% if a.label == arc_default %} selected{% endif %}>{{ a.label }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label class="{{ label }}" for="year">Year <span class="text-rose-400">*</span></label>
+          <select class="{{ field | safe }}" id="year" name="year" required>
+            {% set years = get_taxonomy(kind="years") %}
+            {% for y in years.items | sort(attribute="name") | reverse %}
+            <option value="{{ y.name }}"{% if y.name == year_default %} selected{% endif %}>{{ y.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label class="{{ label }}" for="contributor">Catalogued by <span class="text-rose-400">*</span></label>
+          <select class="{{ field | safe }}" id="contributor" name="contributor" required>
+            {% set people = get_taxonomy(kind="contributors") %}
+            {% for c in people.items | sort(attribute="name") %}
+            <option value="{{ c.name }}">{{ c.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <span class="{{ hint }}">
+        The arc is the campaign the reading belongs to; it carries over from
+        <em>{{ latest.taxonomies.titles | first }}</em>, the last work on file.
+      </span>
+    </fieldset>
+
+    {#- ----------------------------------------------------------------- -#}
+    {#- Picking it up                                                      -#}
+    {#- ----------------------------------------------------------------- -#}
+    <fieldset class="mt-10 border-2 border-gray-700 bg-white/30 px-4 pb-5 pt-2">
+      <legend class="{{ legend_style }}">Picking it up</legend>
+
+      <div class="mt-2 grid gap-4 sm:grid-cols-2">
+        <div>
+          <label class="{{ label }}" for="order">Reading number</label>
+          <input class="{{ field | safe }}" id="order" name="order" type="number" min="1" step="1" required
+            value="{{ next_order }}">
+          <span class="{{ hint }}">Carries on from #{{ latest.extra.order }}, <em>{{ latest.taxonomies.titles | first }}</em>.</span>
+        </div>
+        <div>
+          <label class="{{ label }}" for="started">Started</label>
+          <input class="{{ field | safe }}" id="started" name="started" type="date" required
+            value="{{ started_default }}">
+          <span class="{{ hint }}">The day after we put {{ last_stop }} down.</span>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <label class="{{ label }}" for="abstract">Abstract</label>
+        <textarea class="{{ field | safe }} min-h-24" id="abstract" name="abstract" required
+          >{{ section.extra.placeholder_abstract }}</textarea>
+        <span class="{{ hint }}">
+          A couple of sentences on what the work is. Left as a placeholder until we have read enough
+          to say something true — that is what every other conspectus has done.
+        </span>
+      </div>
+
+      <div class="mt-5">
+        <input class="{{ check }}" id="currently-reading" name="currently-reading" type="checkbox" checked>
+        <label class="{{ check_label }}" for="currently-reading">We are reading it now</label>
+        <span class="{{ hint }}">Puts a dagger next to it in the readings table until it is unset.</span>
+      </div>
+    </fieldset>
+
+    {#- ----------------------------------------------------------------- -#}
+    {#- Finishing up                                                       -#}
+    {#- ----------------------------------------------------------------- -#}
+    <div class="mt-10 border-t-2 border-gray-700 pt-6">
+      <div class="flex flex-wrap items-center gap-3">
+        {#- formnovalidate because sharing a half-filled form is the point of it —
+            only Download has to insist the file is complete. -#}
+        <button class="{{ button | safe }}" type="submit" formnovalidate>Share</button>
+        <button class="{{ button | safe }}" type="button" data-download>Download</button>
+        <output class="font-fira-sans text-sm text-gray-500" data-status aria-live="polite"></output>
+      </div>
+      <p class="mt-4 font-fira-sans text-sm font-light text-gray-500">
+        <strong class="font-medium">Share</strong> puts everything filled in so far into this page&#39;s
+        address, so you can send it on and someone else carries on from where you stopped.
+        <strong class="font-medium">Download</strong> saves the file under the name the rest of
+        <code>content/works/</code> uses, <code>Author - Title.md</code>.
+      </p>
+      <noscript>
+        <p class="mt-4 border-2 border-gray-700 bg-white/60 p-3 font-fira-sans text-sm text-gray-700">
+          Downloading needs JavaScript — a page can&#39;t hand you a file without it.
+          <strong class="font-medium">Share</strong> still works: press it and the address picks up
+          everything you filled in, ready to copy. Reading one of those links back in needs
+          JavaScript at the other end.
+        </p>
+      </noscript>
+    </div>
+  </form>
+</article>
+{% endblock main %}
