@@ -16,6 +16,19 @@ TODO——Currently Reading
 started = 2026-06-28
 currently_reading = true
 
+# How long the work is. A dialogue has no divisions, so it records a single part
+# and needs no `division` to name them by.
+#
+# `origin` is the coordinate at which nothing has been read yet — 216, because the
+# Stephanus pagination runs 216a to 268d and carries straight through. That is the
+# same fact as the Argonautica's 0, where its lines start at 1.
+[extra.length]
+units = "pages"
+origin = 216
+parts = [
+  { label = "", length = 52 },
+]
+
 [taxonomies]
 # Textual taxonomies
 titles = ["Sophist"]

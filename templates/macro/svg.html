@@ -258,9 +258,14 @@
       {% if not loop.last %}
       <line x1="{{ left }}" y1="{{ y2 }}" x2="{{ width - right }}" y2="{{ y2 }}" stroke="#bbb" stroke-dasharray="2,3"/>
       {% endif %}
+      {#- Named only when there is more than one of them: a work that doesn't divide
+          records a single part, has nothing to tell apart, and carries no
+          `division` to name it by. -#}
+      {%- if shape.parts | length > 1 %}
       <text x="{{ width - right - 6 }}" y="{{ (y1 + y2) / 2 + 4 }}" font-size="10" text-anchor="end" fill="#aaa">
         {{ shape.division }} {{ pt.label }}
       </text>
+      {%- endif %}
       {%- set_global band_from = band_to %}
     {%- endfor %}
     {%- endif %}
