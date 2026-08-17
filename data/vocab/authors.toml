@@ -151,6 +151,12 @@ sort = "Publius"
 # no `wikipedia` entry
 # no `wikidata` entry
 
+[Ovid]
+label = "Ovid"
+sort = "Ovid"
+wikipedia = "https://en.wikipedia.org/wiki/Ovid"
+wikidata = "https://www.wikidata.org/wiki/Q7198"
+
 ["William Shakespeare"]
 label = "William Shakespeare"
 sort = "Shakespeare, William"

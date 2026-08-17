@@ -172,6 +172,12 @@ description = "a fiery, damning speech condemning a political opponent"
 wikidata = "https://www.wikidata.org/wiki/Q110629616"
 wikipedia = "https://en.wikipedia.org/wiki/Philippic"
 
+["narrative poetry"]
+label = "narrative poetry"
+description = "a type of poem that tells a story"
+wikidata = "https://www.wikidata.org/wiki/Q474090"
+wikipedia = "https://en.wikipedia.org/wiki/Narrative_poetry"
+
 ["romantic comedy"]
 description = "blend of romance and comedy that is often lighthearted"
 wikidata = "https://www.wikidata.org/wiki/Q860626"
