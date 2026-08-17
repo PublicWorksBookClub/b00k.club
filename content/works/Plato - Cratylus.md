@@ -15,6 +15,13 @@ Socrates, Hermogenes, and Cratylus discuss whether names—or even all words—h
 started = 2026-01-04
 stopped = 2026-02-22
 
+# Stephanus 383a to 440e. The club's own first entry counted it the same way:
+# `starting = 57 # 440 - 383`.
+[extra.length]
+units = "pages"
+starting_from = 383
+total = 57
+
 [taxonomies]
 # Textual taxonomies
 titles = ["Cratylus"]
@@ -28,7 +35,7 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 tags = ["'fine things are very difficult'"]
 years = ["2026"]
-arcs = ["Memorabilia 3"]
+arcs = ["Memorabilia III"]
 references = ["homer-odyssey"]
 index = ["Hermogenes", "Socrates", "Cratylus", "Hipponicus", "Prodicus", "Homer", "Hesiod", "Heraclitus", "Anaxagoras", "Protagoras", "Euthyphro", "Euthydemus", "Callias", "Orpheus", "Archepolis", "Agis", "Polemarchus", "Eupolemus", "Iatrocles", "Acesimbrotus", "Theophilus", "Mnesitheus", "Eutychides", "Sosias", "Smicrion", "Sous", "Zeus", "Hera", "Cronos", "Rhea", "Uranus", "Poseidon", "Hades", "Demeter", "Persephone", "Apollo", "Leto", "Artemis", "Dionysus", "Aphrodite", "Athena", "Hephaestus", "Ares", "Hermes", "Pan", "Iris", "Hestia", "Muses", "Oceanus", "Tethys", "Sirens", "Agamemnon", "Atreus", "Pelops", "Tantalus", "Thyestes", "Chrysippus of Elis", "Hippodamia", "Myrtilus", "Orestes", "Achilles", "Ajax", "Telamon", "Hector", "Astyanax", "Scamandrius", "Myrina", "Athens", "Hellas", "Troy", "Thessaly", "Sparta", "Phrygia", "Eretria", "Aegina", "Dorians", "Scamander", "Xanthus", "Batieia"]
 contributors = ["Spencer Scorcelletti"]

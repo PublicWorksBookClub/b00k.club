@@ -54,7 +54,7 @@ languages = ["Ancient Greek"]
 # General taxonomies
 tags = []
 years = ["2026"]
-arcs = ["Metamorphoses 2"]
+arcs = ["Metamorphoses II"]
 index = [
   "Epicurus",
   "Metrodorus",

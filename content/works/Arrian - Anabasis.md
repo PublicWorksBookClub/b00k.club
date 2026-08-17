@@ -15,6 +15,22 @@ Historical account of the wars of Alexander the Great.
 started = 2025-10-12
 stopped = 2026-02-15
 
+# Seven books of Teubner chapters, the counts taken from the club's own note in
+# the 2026-01-11 minutes. They sum to 205, and the 75 that entry opened on puts
+# the club fourteen chapters into Book V — which is where it says it began,
+# "around 5.15.1".
+[extra.length]
+units = "chapters"
+parts = [
+  { label = "Book I", length = 29 },
+  { label = "Book II", length = 27 },
+  { label = "Book III", length = 30 },
+  { label = "Book IV", length = 30 },
+  { label = "Book V", length = 29 },
+  { label = "Book VI", length = 30 },
+  { label = "Book VII", length = 30 },
+]
+
 [taxonomies]
 # Textual taxonomies
 titles = ["Anabasis of Alexander", "The Anabasis of Alexander", "Anabasis"]
@@ -27,7 +43,7 @@ languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies
 years = ["2026"]
-arcs = ["Metamorphoses 1"]
+arcs = ["Metamorphoses I"]
 references = ["homer-odyssey", "xenophon-hellenica"]
 index = [
   "Alexander",

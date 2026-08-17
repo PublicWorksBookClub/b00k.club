@@ -28,7 +28,7 @@ languages = ["Attic Greek"]
 
 # General taxonomies
 years = ["2025"]
-arcs = ["Anabasis 3"]
+arcs = ["Anabasis III"]
 references = ["homer-odyssey"]
 index = [
   "Polycles",

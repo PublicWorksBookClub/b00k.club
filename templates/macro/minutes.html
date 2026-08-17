@@ -4,8 +4,19 @@
 
 {#- One <option> for a work, carrying everything the minutes file needs in order to
     name it: the slug for the burndown key, the short name reminder anchors are
-    built from, and the markdown link as it gets written into the bullet. -#}
-{% macro work_option(w, selected) -%}
+    built from, and the markdown link as it gets written into the bullet.
+
+    It also carries what last week left of the work, so the form can work out this
+    week's burndown row whichever work the scribe picks — the arithmetic runs
+    against the chosen option, not against the one Zola guessed. Only the previous
+    meeting counts: `starting` means "what was left when we sat down", so a work
+    that went untracked last week has no run to continue and wants its total
+    stating afresh.
+
+-#}
+{% macro work_option(w, selected, last_burndown) %}
 {%- set t = w.taxonomies.titles | first -%}
-<option value="{{ w.slug }}" data-title="{{ t }}" data-short="{{ w.slug | split(pat='-') | last }}" data-md="[_{{ t }}_](/works/{{ w.slug }}/)"{% if w.slug == selected %} selected{% endif %}>{{ w.taxonomies.authors | first }} — {{ t }}</option>
+<option value="{{ w.slug }}" data-title="{{ t }}" data-short="{{ w.slug | split(pat='-') | last }}" data-md="[_{{ t }}_](/works/{{ w.slug }}/)"
+  {%- if w.slug in last_burndown %} data-remaining="{{ last_burndown[w.slug].ending }}" data-units="{{ last_burndown[w.slug].units }}"{% endif %}
+  {%- if w.slug == selected %} selected{% endif %}>{{ w.taxonomies.authors | first }} — {{ t }}</option>
 {%- endmacro work_option %}

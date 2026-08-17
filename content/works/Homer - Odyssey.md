@@ -42,7 +42,7 @@ languages = ["Ancient Greek", "Homeric Greek"]
 
 # General taxonomies
 years = ["2024"]
-arcs = ["Nostoi 1"]
+arcs = ["Nostoi I"]
 index = [
   "Odysseus",
   "Telemachus",

@@ -28,7 +28,7 @@ languages = ["Classical Chinese"]
 
 # General taxonomies
 years = ["2023"]
-arcs = ["Theogony 2"]
+arcs = ["Theogony II"]
 index = [
   "Zhuangzi",
   "Huizi",

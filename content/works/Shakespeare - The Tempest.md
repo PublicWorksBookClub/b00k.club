@@ -27,7 +27,7 @@ languages = ["English", "Early Modern English"]
 
 # General taxonomies
 years = ["2023"]
-arcs = ["Theogony 1"]
+arcs = ["Theogony I"]
 index = [
   "Prospero",
   "Miranda",

@@ -16,6 +16,22 @@ started = 2026-05-18
 stopped = 2026-07-26
 currently_reading = false
 
+# Six books. The lengths are the standard ones and reconcile with every session
+# the club recorded: Book III finished "around line 1090" against 1094, Book IV
+# "around line 1280" against 1287, Book V read to "line 1450" of 1457. They sum to
+# 7415 against the 7370 the first entry opened on, the club's numbers being the
+# rounder ones.
+[extra.length]
+units = "lines"
+parts = [
+  { label = "Book I", length = 1117 },
+  { label = "Book II", length = 1174 },
+  { label = "Book III", length = 1094 },
+  { label = "Book IV", length = 1287 },
+  { label = "Book V", length = 1457 },
+  { label = "Book VI", length = 1286 },
+]
+
 [taxonomies]
 # Textual taxonomies
 titles = ["De rerum natura", "On the Nature of Things"]
@@ -29,7 +45,7 @@ languages = ["Classical Latin"]
 # General taxonomies
 tags = ["pores over gods", "the winds of change", "surprisingly good"]
 years = ["2026"]
-arcs = ["Metamorphoses 2"]
+arcs = ["Metamorphoses II"]
 references = ["homer-odyssey", "diogenes-epicurus"]
 index = [
   "Memmius",

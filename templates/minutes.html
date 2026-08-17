@@ -7,6 +7,7 @@
 {{ util::back(text="Home") }}
 {{ util::nav(href="/works/", text="Readings") }}
 {{ util::nav(href="/resources/", text="Resources") }}
+{{ util::nav(href="/minutes/create/", text="+ Meeting") }}
 {{ util::search() }}
 {% endblock banner %}
 
@@ -15,14 +16,6 @@
   prose-headings:font-fira-sans prose-pwbc">
   <h1 id="minutes" data-pagefind-meta="title:All Meetings | PWBC Minutes">Minutes</h1>
   {{ section.content | safe }}
-  <p class="not-prose text-right">
-    <a
-      href="{{ get_url(path='@/minutes/create/_index.md') }}"
-      class="inline-flex h-10 min-w-20 px-4 items-center justify-center border-2 border-gray-700 font-fira-sans no-underline hover:bg-black/5"
-    >
-      New meeting
-    </a>
-  </p>
   <hr>
   {% for page in section.pages %}
   <section id="{{ page.date }}" >

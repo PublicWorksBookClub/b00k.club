@@ -27,7 +27,7 @@ languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies
 years = ["2025"]
-arcs = ["Memorabilia 2"]
+arcs = ["Memorabilia II"]
 index = [
   "Socrates",
   "Euthyphro",

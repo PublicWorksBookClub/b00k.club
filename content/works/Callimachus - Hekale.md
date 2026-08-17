@@ -29,7 +29,7 @@ languages = ["Ancient Greek"]
 # General taxonomies
 tags = []
 years = ["2026"]
-arcs = ["Metamorphoses 3"]
+arcs = ["Metamorphoses III"]
 index = [
   "Hekale",
   "Theseus",

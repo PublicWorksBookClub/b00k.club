@@ -1,7 +1,7 @@
 description = "club theme and reading campaign"
 
 [["arcs"]]
-label = "Theogony 1"
+label = "Theogony I"
 sort = "Theogony 1"
 series.name = "Theogony"
 series.number = 1
@@ -14,12 +14,12 @@ One day it came to pass that some individuals agreed to read the same things and
 """
 
 [["arcs"]]
-label = "Theogony 2"
+label = "Theogony II"
 sort = "Theogony 2"
 series.name = "Theogony"
 series.number = 2
 years = "2023"
-predecessor = "Theogony 1"
+predecessor = "Theogony I"
 prosa = "The following year another friend joined the duo and suggested reading [_The Federalist Papers_](/works/federalist-papers/). It made extensive reference to Ancient Greece in its argumnetation."
 metrum = """
 TODO:
@@ -41,12 +41,12 @@ Some time passed and then trio was addressed, "Brethren! It hath reached me that
 """
 
 [["arcs"]]
-label = "Anabasis 1"
+label = "Anabasis I"
 sort = "Anabasis 1"
 series.name = "Anabasis"
 series.number = 1
 years = "2023"
-predecessor = "Theogony 2"
+predecessor = "Theogony II"
 prosa = """
 After [_The Federalist Papers_](/works/federalist-papers/) the group decided to commit to reading from antiquity onwards—instead of skipping around as before—with the ancilliary benefit being to understand the kinds of references made by Hamilton et. al.
 """
@@ -56,12 +56,12 @@ They lept into an era without knowing what lie ahead, landing amidst a conflict 
 """
 
 [["arcs"]]
-label = "Anabasis 2"
+label = "Anabasis II"
 sort = "Anabasis 2"
 series.name = "Anabasis"
 series.number = 2
 years = "2024"
-predecessor = "Anabasis 1"
+predecessor = "Anabasis I"
 prosa = "The club was joined by a fourth member at the time of reading [_Republic_](/works/plato-republic/). Homer was referenced throughout the work—especially Odysseus in the Myth of Er."
 metrum = """
 TODO:
@@ -69,12 +69,12 @@ We pressed on our grand excursion and came to see that what we see is not all th
 """
 
 [["arcs"]]
-label = "Nostoi 1"
+label = "Nostoi I"
 sort = "Nostoi 1"
 series.name = "Nostoi"
 series.number = 1
 years = "2024"
-predecessor = "Anabasis 2"
+predecessor = "Anabasis II"
 prosa = """
 After reading [_Republic_](/works/plato-republic/), the club was joined by a fifth member and decided to move backward chronologically to Homer's [_Odyssey_](/works/homer-odyssey/) to better understand the esteemed figure so prominently featured in the last book of Plato's.
 """
@@ -84,28 +84,28 @@ The priests and priestess reached a crossroad where it became clear that to go f
 """
 
 [["arcs"]]
-label = "Memorabilia 1"
+label = "Memorabilia I"
 sort = "Memorabilia 1"
 series.name = "Memorabilia"
 series.number = 1
 years = "2025"
-predecessor = "Nostoi 1"
-coinciding = ["Anabasis 3"]
+predecessor = "Nostoi I"
+coinciding = ["Anabasis III"]
 prosa = """
-A separate, parallel track, with the [original members](/arcs/theogony-1), developed alongside the main campaign (continued in [Anabasis 3](/arcs/anabasis-3/)) to more comprehensively read works that the full book club might have not had time for.
+A separate, parallel track, with the [original members](/arcs/theogony-I), developed alongside the main campaign (continued in [Anabasis 3](/arcs/anabasis-3/)) to more comprehensively read works that the full book club might have not had time for.
 """
 metrum = """
 TODO
 """
 
 [["arcs"]]
-label = "Anabasis 3"
+label = "Anabasis III"
 sort = "Anabasis 3"
 series.name = "Anabasis"
 series.number = 3
 years = "2025"
-predecessor = "Nostoi 1"
-coinciding = ["Memorabilia 1"]
+predecessor = "Nostoi I"
+coinciding = ["Memorabilia I"]
 prosa = """
 The club returned to the original campaign started in [Anabasis 1](/arcs/anabasis-1/) seeking to get a broader exposure of different types of literature from [Classical Greece](/periods/classical-greece/), before moving to the [Hellenistic Period](/periods/hellenistic-period/).
 """
@@ -114,13 +114,13 @@ TODO
 """
 
 [["arcs"]]
-label = "Memorabilia 2"
+label = "Memorabilia II"
 sort = "Memorabilia 2"
 series.name = "Memorabilia"
 series.number = 2
 years = "2025"
-predecessor = "Memorabilia 1"
-coinciding = ["Anabasis 3", "Metamorphoses 1"]
+predecessor = "Memorabilia I"
+coinciding = ["Anabasis III", "Metamorphoses I"]
 prosa = """
 Upon finishing [Laws](/works/plato-laws/), the offshoot of the main club grew by one—for a total of three—and decided to focus more on Plato by reading his complete works as tetralogies grouped by [Thrasyllus of Mendes](https://en.wikipedia.org/wiki/Thrasyllus_of_Mendes).
 """
@@ -129,13 +129,13 @@ TODO
 """
 
 [["arcs"]]
-label = "Metamorphoses 1"
+label = "Metamorphoses I"
 sort = "Metamorphoses 1"
 series.name = "Metamorphoses"
 series.number = 1
 years = "2025"
-predecessor = "Anabasis 3"
-coinciding = ["Memorabilia 2", "Elementa 1", "Memorabilia 3"]
+predecessor = "Anabasis III"
+coinciding = ["Memorabilia II", "Elementa I", "Memorabilia III"]
 prosa = """
 In anticipation of the shift away from [Classical Greece](/periods/classical-greece)—the club's focus for the past two years—to the [Hellenistic Period](/periods/hellenistic-period/), the club dedicated an arc to [Alexander the Great](https://en.wikipedia.org/wiki/Alexander_the_Great).
 """
@@ -144,28 +144,28 @@ TODO
 """
 
 [["arcs"]]
-label = "Elementa 1"
+label = "Elementa I"
 sort = "Elementa 1"
 series.name = "Elementa"
 series.number = 1
 years = "2025"
-predecessor = "Memorabilia 2"
-coinciding = ["Metamorphoses 1"]
+predecessor = "Memorabilia II"
+coinciding = ["Metamorphoses III"]
 prosa = """
-The logic of Aristotle in [Anabasis 3](/arcs/anabasis-3/) was difficult and very abstract (until [_Topics_](/works/aristotle-topics/)); therefore, the spin-off of the main club chose to focus more on the author by reading his [Poetics](/works/aristotle-poetics).
+The logic of Aristotle in [Anabasis III](/arcs/anabasis-3/) was difficult and very abstract (until [_Topics_](/works/aristotle-topics/)); therefore, the spin-off of the main club chose to focus more on the author by reading his [Poetics](/works/aristotle-poetics).
 """
 metrum = """
 TODO
 """
 
 [["arcs"]]
-label = "Memorabilia 3"
+label = "Memorabilia III"
 sort = "Memorabilia 3"
 series.name = "Memorabilia"
 series.number = 3
 years = "2026"
-predecessor = "Elementa 1"
-coinciding = ["Metamorphoses 1"]
+predecessor = "Elementa I"
+coinciding = ["Metamorphoses I"]
 prosa = """
 After [_Poetics_](/works/aristotle-poetics/) the subgroup resumed their campaign (See [Memorabilia 2](/arcs/memorabilia-1/)) of Platonic dialogues with a new tetralogy beginning with [_Craytlus_](/works/plato-cratylus/).
 """
@@ -174,30 +174,45 @@ TODO
 """
 
 [["arcs"]]
-label = "Metamorphoses 2"
+label = "Metamorphoses II"
 sort = "Metamorphoses 2"
 series.name = "Metamorphoses"
 series.number = 2
 years = "2026"
-predecessor = "Metamorphoses 1"
-coinciding = ["Memorabilia 3"]
+predecessor = "Metamorphoses I"
+coinciding = ["Memorabilia III"]
 prosa = """
-Armed with a more complete understanding of the transition that occurred under Alexander from the classical era, we began to immerse ourselves in this new hellenistic world to better understand what thoughts they had, how they saw themselves, and, overall, who they were—and where we come from.
+Equipped with a more complete understanding of the transition that occurred under Alexander from the classical era, we began to immerse ourselves in this new hellenistic world to better understand what thoughts they had, how they saw themselves, and, overall, who they were—and where we come from.
 """
 metrum = """
 TODO
 """
 
 [["arcs"]]
-label = "Metamorphoses 3"
+label = "Metamorphoses III"
 sort = "Metamorphoses 3"
 series.name = "Metamorphoses"
 series.number = 3
 years = "2026"
-predecessor = "Metamorphoses 2"
-coinciding = ["Memorabilia 3"]
+predecessor = "Metamorphoses II"
+coinciding = ["Memorabilia III"]
 prosa = """
+Finally we decided to conclude our time in of the Hellenistic Period with a survey of some of its poetry.
+"""
+metrum = """
 TODO
+"""
+
+[["arcs"]]
+label = "Magna I"
+sort = "Magna 1"
+series.name = "Magna"
+series.number = 1
+years = "2026"
+predecessor = "Metamorphoses III"
+coinciding = ["Memorabilia III"]
+prosa = """
+We then shifted our focus to the Mediterranean world during the eras of Roman rule.
 """
 metrum = """
 TODO

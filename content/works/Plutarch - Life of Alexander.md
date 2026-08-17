@@ -27,7 +27,7 @@ languages = ["Koine Greek"]
 
 # General taxonomies
 years = ["2025"]
-arcs = ["Metamorphoses 1"]
+arcs = ["Metamorphoses I"]
 references = ["homer-odyssey", "menander-dyskolos", "theophrastus-characters"]
 index = [
   "Alexander",

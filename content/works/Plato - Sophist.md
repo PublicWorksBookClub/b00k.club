@@ -16,6 +16,11 @@ TODO——Currently Reading
 started = 2026-06-28
 currently_reading = true
 
+[extra.length]
+units = "pages"
+starting_from = 216
+total = 52
+
 [taxonomies]
 # Textual taxonomies
 titles = ["Sophist"]
@@ -29,7 +34,7 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 tags = ["Theaetetus returns"]
 years = ["2026"]
-arcs = ["Memorabilia 3"]
+arcs = ["Memorabilia III"]
 references = ["plato-theaetetus", "homer-odyssey"]
 index = [
   "the Eleatic Stranger",

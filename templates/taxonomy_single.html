@@ -12,15 +12,19 @@
 
 {% block banner %}
 {{ util::nav(href="/", text="Home") }}
-{{ util::nav(href="/works", text="Readings") }}
-{{ util::nav(href="/taxonomy", text="Taxon.") }}
+{{ util::nav(href="/taxonomy", text="Taxonomy") }}
 {{ util::nav(href="../", text="../" ~ taxonomy.name | title) }}
 {{ util::search() }}
 {% endblock banner %}
 
 {% block main %}
 {% set toml = load_data(path="data/vocab/" ~ taxonomy.name ~ ".toml", format="toml") %}
-{% set vocab = toml[term.name] | default(value=false) %}
+{#- Looked up only once we know the vocabulary holds the term. `default` does catch
+    a missing key, but Tera builds its "not found" message before the filter throws
+    it away, and building that message panics outright when the context it quotes is
+    truncated part-way through a multi-byte character. A brand-new index term with an
+    accent in it — "Arsinoë", "Timonoë" — then takes the whole build down. -#}
+{% if term.name in toml %}{% set vocab = toml[term.name] %}{% else %}{% set vocab = false %}{% endif %}
 <section class="prose prose-lg prose-pwbc mx-auto my-18">
   <div class="px-4 md:px-0">
     <header class="not-prose">

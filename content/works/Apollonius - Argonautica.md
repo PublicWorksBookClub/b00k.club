@@ -15,6 +15,15 @@ Jason, a prince of Thessaly, quests to return the legendary golden fleece from t
 started = 2026-02-15
 stopped = 2026-04-19
 
+[extra.length]
+units = "lines"
+parts = [
+  { label = "Book I", length = 1362 },
+  { label = "Book II", length = 1285 },
+  { label = "Book III", length = 1407 },
+  { label = "Book IV", length = 1781 },
+]
+
 [taxonomies]
 # Textual taxonomies
 titles = ["Argonautica", "Argonautika", "Argonautiche"]
@@ -28,7 +37,7 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 tags = ["when to leave a party", "celestial navigation", "spell casting", "how to yoke and harness bulls", "how to plow a field", "respecting oaths", "geography of the ancient world", "sacred altars and where to find them", "xenia gone wrong", "sea suppliants", "on the importance of being loved by the gods", "99 nymphs", "where is hylas", "killing snakes", "Herakles and his path of destruction", "how to have a bronze age wedding"]
 years = ["2026"]
-arcs = ["Metamorphoses 2"]
+arcs = ["Metamorphoses II"]
 index = [
   "Jason",
   "Medea",
