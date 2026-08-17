@@ -184,7 +184,7 @@
           chart at all and neither needs measuring. -#}
       <div class="mt-5 border-t border-dashed border-gray-400 pt-4">
         <input class="{{ check }} peer/chart" id="charted" name="charted" type="checkbox">
-        <label class="{{ check_label }}" for="charted">Chart our progress through it</label>
+        <label class="{{ check_label }}" for="charted">Chart progress</label>
         <span class="{{ hint }}">
           Leave this off for anything read in selection or in one sitting — the chart has nothing
           to say about either.
@@ -192,29 +192,27 @@
         <div class="mt-4 hidden peer-checked/chart:block">
           <div class="grid gap-4 sm:grid-cols-2">
             <div>
-              <label class="{{ label }}" for="length-units">Measured in</label>
-              <input class="{{ field | safe }}" id="length-units" name="length-units" type="text"
-                placeholder="lines, pages, chapters…">
-            </div>
-            <div>
-              <label class="{{ label }}" for="length-origin">Counting starts at</label>
+              <label class="{{ label }}" for="length-origin">Starting at</label>
               <input class="{{ field | safe }}" id="length-origin" name="length-origin" type="number" step="any" value="0">
               <span class="{{ hint }}">
-                The coordinate at which nothing has been read yet: <code>0</code> where lines start
-                at 1, <code>216</code> for a dialogue paginated from 216a.
+                e.g. first lines starts at 1
               </span>
+            </div>
+            <div>
+              <label class="{{ label }}" for="length-units">Units</label>
+              <input class="{{ field | safe }}" id="length-units" name="length-units" type="text"
+                placeholder="lines, pages, chapters…">
             </div>
           </div>
 
           <div class="mt-4">
-            <input class="{{ check }} peer/divides" id="divides" name="divides" type="checkbox">
-            <label class="{{ check_label }}" for="divides">It divides into parts</label>
-
             <div class="mt-3 peer-checked/divides:hidden">
               <label class="{{ label }}" for="length-total">How long it is</label>
               <input class="{{ field | safe }}" id="length-total" name="length-total" type="number" min="0" step="any"
                 placeholder="52">
             </div>
+            <input class="{{ check }} peer/divides" id="divides" name="divides" type="checkbox">
+            <label class="{{ check_label }}" for="divides">It divides into parts</label>
 
             <div class="mt-3 hidden peer-checked/divides:block">
               <label class="{{ label }}" for="length-parts">Its parts</label>

@@ -317,7 +317,7 @@
                   value="Starting from" placeholder="e.g. Starting from just after">
               </div>
               <div>
-                <label class="{{ label }}" for="{{ wp }}-from-locus">The spot</label>
+                <label class="{{ label }}" for="{{ wp }}-from-locus">Location</label>
                 <input class="{{ field | safe }}" id="{{ wp }}-from-locus" name="{{ wp }}-from-locus" type="text"
                   value="{{ from_default }}" placeholder="249a">
               </div>
@@ -325,27 +325,23 @@
 
             <div class="mt-4 grid gap-4 sm:grid-cols-[1fr_11rem]">
               <div>
-                <label class="{{ label }}" for="{{ wp }}-to">Where we got to</label>
+                <label class="{{ label }}" for="{{ wp }}-to">Where we left off</label>
                 <input class="{{ field | safe }}" id="{{ wp }}-to" name="{{ wp }}-to" type="text"
                   value="Ending around" placeholder="e.g. Ending at the end of **Book III**, around">
               </div>
               <div>
-                <label class="{{ label }}" for="{{ wp }}-to-locus">The spot</label>
+                <label class="{{ label }}" for="{{ wp }}-to-locus">Location</label>
                 <input class="{{ field | safe }}" id="{{ wp }}-to-locus" name="{{ wp }}-to-locus" type="text"
                   placeholder="255b">
               </div>
             </div>
-            <span class="{{ hint }}">
-              Both spots are kept apart from the wording: a reminder links back to the second, and
-              the chart below counts the distance between them.
-            </span>
 
             {#- ---- the optional reminder, per work ---- -#}
             <div class="mt-5">
               <input class="{{ check }} peer/rem" id="{{ wp }}-reminder" name="{{ wp }}-reminder" type="checkbox">
               <label class="{{ check_label }}" for="{{ wp }}-reminder">Leave a reminder for next week</label>
               <span class="{{ hint }}">
-                A summary written while it's fresh, so next week starts already holding the thread.
+                E.g. a summary of a difficult passage that we can use next week for context
               </span>
               <div class="mt-4 hidden peer-checked/rem:block">
                 <label class="{{ label }}" for="{{ wp }}-reminder-heading">Heading</label>
