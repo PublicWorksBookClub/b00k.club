@@ -274,7 +274,7 @@
         {#- Only the first work is a given; the rest are there for the weeks that
             need them, folded away unless last week already had one to carry over. -#}
         {% if j > 0 %}
-        <input class="{% if j > 1 %}{{ peer_class[j] }} sr-only{% else %}{{ check }} {{ peer_class[j] }} mt-5{% endif %}" id="{{ wp }}-on" name="{{ wp }}-on" type="checkbox"{% if slug != '' %} checked{% endif %}>
+        <input class="{% if j > 1 %}{{ peer_class[j] }} sr-only{% else %}{{ check }} {{ peer_class[j] }} {% endif %}" id="{{ wp }}-on" name="{{ wp }}-on" type="checkbox"{% if slug != '' %} checked{% endif %}>
         {% if j == 1 %}
         <label class="{{ check_label }} italic" for="{{ wp }}-on">We covered another work as well</label>
         {% else %}
@@ -398,17 +398,13 @@
                       placeholder="9">
                   </div>
                 </div>
-<span class="{{ hint }}">
+                <span class="{{ hint }}">
                   {%- if prev_bd -%}
                   {{ last.date }} left {{ prev_bd.ending }} {{ prev_bd.units }} to go, and what is left now is
                   that less what we covered.
                   {%- else -%}
-                  Total length is only wanted the first time a work appears on the chart — the whole of
-                  it, in those units, counting from where we began.
+                  Total length is only needed the first time a work is tracked
                   {%- endif %}
-                  How much we covered is yours to work out: the two spots above will not subtract for a
-                  work whose numbering starts again at every part, so the figure is asked for rather
-                  than guessed.
                 </span>
               </div>
             </div>
