@@ -28,7 +28,6 @@ stopped = 2026-04-19
 # Book IV "around line 1780".
 [extra.length]
 units = "lines"
-unit = "line"
 division = "Book"
 origin = 0
 parts = [

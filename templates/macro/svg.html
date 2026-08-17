@@ -459,7 +459,11 @@
           {% endif %}
           {% set_global acc2 = acc2 + pt.length %}
         {% endfor %}
-        {%- if in_part != "" %} — {{ shape.division }} {{ in_part }}, {{ shape.unit }} {{ in_at | round | int }}{%- else %} — {{ shape.unit }} {{ in_at | round | int }}{% endif %}
+        {#- The one measure is recorded in the plural, the way the minutes write it, so
+            the singular for naming a coordinate is trimmed off it rather than stored
+            twice and kept in step by hand. -#}
+        {% set one = shape.units | trim_end_matches(pat="s") %}
+        {%- if in_part != "" %} — {{ shape.division }} {{ in_part }}, {{ one }} {{ in_at | round | int }}{%- else %} — {{ one }} {{ in_at | round | int }}{% endif %}
         {%- endif %}
     </text>
     {% if show_extrap %}
