@@ -15,6 +15,13 @@ Socrates, Hermogenes, and Cratylus discuss whether names—or even all words—h
 started = 2026-01-04
 stopped = 2026-02-22
 
+# Stephanus 383a to 440e. The club's own first entry counted it the same way:
+# `starting = 57 # 440 - 383`.
+[extra.length]
+units = "pages"
+starting_from = 383
+total = 57
+
 [taxonomies]
 # Textual taxonomies
 titles = ["Cratylus"]

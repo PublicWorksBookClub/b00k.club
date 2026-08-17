@@ -87,6 +87,12 @@
 {%- for w in wsec.pages | filter(attribute="extra.length.parts") %}
   {%- if w.slug == work %}{% set_global has_parts = true %}{% endif %}
 {%- endfor %}
+{#- Most works count from the start and say nothing; the ones that don't — a
+    dialogue paginated from 216a — say where their counting begins. -#}
+{%- set_global starts_from = 0 %}
+{%- for w in wsec.pages | filter(attribute="extra.length.starting_from") %}
+  {%- if w.slug == work %}{% set_global starts_from = w.extra.length.starting_from %}{% endif %}
+{%- endfor %}
 
 {#- Where each part ends, counted from the beginning of the work. A work that
     doesn't divide states a total instead and has no ends to speak of.
@@ -151,9 +157,15 @@
   {% endif %}
 {% endfor %}
 
-{# Start anchor: always at (left, top) #}
+{#- Start anchor: where this run of sessions began, which is not always the top of
+    the work. The club joined the Anabasis partway through — its minutes open on 75
+    chapters of 205 — and reading the axis as though the run covered the whole thing
+    put a cliff between Start and the first session, and called it 145 chapters in
+    an evening. Where a run does begin at the beginning the two are equal and this
+    is exactly what it was. -#}
+{% set run_start = data_points[0].extra.burndown[work].starting %}
 {% set start_x = left %}
-{% set start_y = top %}
+{% set start_y = top + (total - run_start) * plot_height / total %}
 
 {# Extrapolation: extend the line from the Start anchor through the current point
    down to zero remaining. Because that line is linear in time, its landing point
@@ -169,7 +181,7 @@
   {% set cur_rem = remainders | nth(n=past_count - 1) %}
 
   {# Velocity: units consumed per session #}
-  {% set consumed = total - cur_rem %}
+  {% set consumed = run_start - cur_rem %}
   {% if consumed > 0 %}
     {% set_global velocity = consumed / past_count %}
     {% set raw_sessions = cur_rem / velocity %}
@@ -180,7 +192,7 @@
       {% set_global sessions_remaining = floored %}
     {% endif %}
 
-    {% set_global est_finish_ts = origin_ts + (cur_pt_ts - origin_ts) * total / consumed %}
+    {% set_global est_finish_ts = origin_ts + (cur_pt_ts - origin_ts) * run_start / consumed %}
     {% set_global show_extrap = true %}
   {% endif %}
 {% endif %}
@@ -452,35 +464,35 @@
         {% set percent_remaining = remainders | nth(n=past_count - 1) * 100 / total %}
         {{ remainders | nth(n=past_count - 1) }} {{ units }} remaining, i.e. {{ percent_remaining | as_str | truncate(length=2, end="") }}%
         {%- if shape %}
-        {#- Which part that remainder falls in, and where in it. What is left says
-            how far in we are, so the part follows from it rather than needing
-            recording.
-
-            Only worth saying where a work divides. Without one, all this could
-            report is how far in we are counting from the beginning, and no work
-            numbers itself that way — a dialogue paginated from 216a is 48 pages in
-            at page 264, and "48" names nothing. -#}
-        {% if has_parts %}
-        {% set cur = remainders | nth(n=past_count - 1) %}
-        {% set pos = total - cur %}
-        {% set_global in_part = "" %}
-        {% set_global in_at = 0 %}
-        {% set_global acc2 = 0 %}
-        {% for pt in shape.parts %}
-          {% if in_part == "" %}
-            {% if pos <= acc2 + pt.length %}
-              {% set_global in_part = pt.label %}
-              {% set_global in_at = pos - acc2 %}
-            {% endif %}
-          {% endif %}
-          {% set_global acc2 = acc2 + pt.length %}
-        {% endfor %}
+        {#- Where that remainder leaves us, said the way the work numbers itself.
+            Parts name it — "Book III, line 3" — and so does a work counting from
+            somewhere other than zero, 48 pages into a dialogue paginated from 216a
+            being page 264. A work that is neither can only be described as so far
+            in from the beginning, which names nothing, so it says nothing. -#}
+        {% if has_parts or starts_from > 0 %}
+        {%- set cur = remainders | nth(n=past_count - 1) %}
+        {%- set pos = total - cur %}
+        {%- set_global in_part = "" %}
+        {%- set_global in_at = starts_from + pos %}
+        {%- if has_parts %}
+          {%- set_global acc2 = 0 %}
+          {%- for pt in shape.parts %}
+            {%- if in_part == "" %}
+              {%- if pos <= acc2 + pt.length %}
+                {%- set_global in_part = pt.label %}
+                {%- set_global in_at = starts_from + pos - acc2 %}
+              {%- endif %}
+            {%- endif %}
+            {%- set_global acc2 = acc2 + pt.length %}
+          {%- endfor %}
+        {%- endif %}
         {#- The one measure is recorded in the plural, the way the minutes write it, so
             the singular for naming a coordinate is trimmed off it rather than stored
             twice and kept in step by hand. -#}
-        {% set one = shape.units | trim_end_matches(pat="s") %}
-        {%- if in_part != "" %} — {{ in_part }}, {{ one }} {{ in_at | round | int }}{% endif %}
-        {% endif %}
+        {%- set one = shape.units | trim_end_matches(pat="s") %}
+        {%- if in_part != "" %} — {{ in_part }}, {{ one }} {{ in_at | round | int }}
+        {%- else %} — {{ one }} {{ in_at | round | int }}{% endif %}
+        {%- endif %}
         {%- endif %}
     </text>
     {% if show_extrap %}

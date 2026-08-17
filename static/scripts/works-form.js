@@ -111,6 +111,12 @@ function lengthBlock() {
     `units = "${value("length-units")}"`,
   ];
 
+  // Only where it applies: most works count from their own beginning and say
+  // nothing, and the chart reads a work that says nothing as counting from zero.
+  if (checked("starts-elsewhere") && value("length-starting-from")) {
+    out.push(`starting_from = ${value("length-starting-from")}`);
+  }
+
   if (!checked("divides")) {
     out.push(`total = ${value("length-total")}`);
     return out;

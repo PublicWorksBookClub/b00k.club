@@ -17,6 +17,12 @@ started = 2026-03-01
 stopped = 2026-06-07
 currently_reading = false
 
+# Stephanus 142a to 210d, which is the 68 the first burndown entry opened on.
+[extra.length]
+units = "pages"
+starting_from = 142
+total = 68
+
 [taxonomies]
 # Textual taxonomies
 titles = ["Theaetetus"]

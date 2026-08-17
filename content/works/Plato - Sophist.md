@@ -18,9 +18,10 @@ currently_reading = true
 
 # How long the work is. A dialogue has no divisions, so it states a total rather
 # than a list of parts, and the chart marks no bands. The Stephanus pages run 216a
-# to 268d, which is the 52 below.
+# to 268d, which is where the two numbers below come from.
 [extra.length]
 units = "pages"
+starting_from = 216
 total = 52
 
 [taxonomies]

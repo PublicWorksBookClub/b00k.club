@@ -198,6 +198,22 @@
             </div>
           </div>
 
+          {#- Only asked for when it applies. Nearly everything counts from its own
+              beginning and wants nothing here; a dialogue paginated 216a to 268d
+              wants 216, or the chart cannot name where a session ended. -#}
+          <div class="mt-4">
+            <input class="{{ check }} peer/offset" id="starts-elsewhere" name="starts-elsewhere" type="checkbox">
+            <label class="{{ check_label }}" for="starts-elsewhere">Its numbering starts partway in</label>
+            <div class="mt-3 hidden peer-checked/offset:block">
+              <label class="{{ label }}" for="length-starting-from">Starting from</label>
+              <input class="{{ field | safe }}" id="length-starting-from" name="length-starting-from" type="number" step="any"
+                placeholder="216">
+              <span class="{{ hint }}">
+                Where its counting begins — <code>216</code> for a dialogue paginated 216a to 268d.
+              </span>
+            </div>
+          </div>
+
           <div class="mt-4">
             <div class="mt-3 peer-checked/divides:hidden">
               <label class="{{ label }}" for="length-total">How long it is</label>
