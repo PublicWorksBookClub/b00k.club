@@ -36,8 +36,8 @@
  *   reminder    (checkbox) + reminder-heading + reminder-body
  *   track       (checkbox) + units + total, the burndown row
  *
- * The meeting itself owns `held`, `absent` and `next` — one "next week" line
- * however many works it covered.
+ * The meeting itself owns `held`, `absent` and `next`, the last taking as many
+ * lines as it needs — one stands alone, several become a list under "Next week:".
  *
  * A standalone section has `on` (checkbox), `heading`, `body`, and `position`
  * (radio, before/after), which is what orders it against the meetings.
@@ -77,6 +77,16 @@ function written(name) {
   const el = form.elements[name];
   if (!el || typeof el.value !== "string") return false;
   return el.value.trim() !== "" && el.value.trim() !== (el.defaultValue ?? "").trim();
+}
+
+/** A textarea taken a line at a time, blanks dropped. */
+function lines(name) {
+  const el = form.elements[name];
+  if (!el) return [];
+  return el.value
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
 }
 
 /** The <option> currently chosen in a <select>, for the data-* it carries. */
@@ -171,9 +181,12 @@ function meetingBody(section) {
     if (parts.reminder) reminders.push(parts.reminder);
   }
 
-  // One "next week" line for the meeting, however many works it covered.
-  const next = value(`${prefix}-next`);
-  if (next) bullets.push(`- ${next}`);
+  // One "next week" for the meeting, however many works it covered — but not
+  // necessarily one line. A single one stands as its own bullet; several become a
+  // list underneath, which is how 2026-08-02 and 2026-08-09 were written by hand.
+  const next = lines(`${prefix}-next`);
+  if (next.length === 1) bullets.push(`- ${next[0]}`);
+  else if (next.length > 1) bullets.push("- Next week:", ...next.map((line) => `  - ${line}`));
 
   return [bullets.length ? bullets.join("\n") : "", ...reminders].filter(Boolean).join("\n\n");
 }

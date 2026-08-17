@@ -50,6 +50,18 @@
 {% set check = "size-4 accent-rose-400 align-middle" %}
 {% set check_label = "font-fira-sans text-base text-gray-700 pl-1 align-middle" %}
 {% set legend_style = "font-fira-sans text-xl font-medium text-gray-700 px-2" %}
+{% set plus = "mt-4 hidden size-8 items-center justify-center border-2 border-gray-700 bg-white/60 font-fira-sans text-lg leading-none text-gray-700 cursor-pointer hover:bg-black/5" %}
+
+{#- One toggle per extra work, chained: the first is offered outright, and each one
+    opened reveals a + for the next. The names have to be written out rather than
+    built, since Tailwind finds its classes by reading the source. Three extras is
+    what the form offers; raising works_per_meeting past four wants another entry. -#}
+{% set peer_class = ["", "peer/more1", "peer/more2", "peer/more3"] %}
+{% set peer_block = ["", "peer-checked/more1:block", "peer-checked/more2:block", "peer-checked/more3:block"] %}
+{% set peer_plus = ["", "peer-checked/more1:inline-flex", "peer-checked/more2:inline-flex", "peer-checked/more3:inline-flex"] %}
+{#- The + is the label, so its box is hidden — and the focus ring has to move onto
+    the label with it, or it stops being reachable by keyboard. -#}
+{% set peer_focus = ["", "peer-focus-visible/more1:outline-2", "peer-focus-visible/more2:outline-2", "peer-focus-visible/more3:outline-2"] %}
 
 {#- ------------------------------------------------------------------- -#}
 {#- What last week was, and what this week is most likely to be          -#}
@@ -261,13 +273,20 @@
 
         {#- Only the first work is a given; the rest are there for the weeks that
             need them, folded away unless last week already had one to carry over. -#}
-        <div class="mt-5" data-work data-prefix="{{ wp }}">
-          {% if j > 0 %}
-          <input class="{{ check }} peer/more" id="{{ wp }}-on" name="{{ wp }}-on" type="checkbox"{% if slug != '' %} checked{% endif %}>
-          <label class="{{ check_label }} italic" for="{{ wp }}-on">We covered another work as well</label>
-          {% endif %}
+        {% if j > 0 %}
+        <input class="{% if j > 1 %}{{ peer_class[j] }} sr-only{% else %}{{ check }} {{ peer_class[j] }} mt-5{% endif %}" id="{{ wp }}-on" name="{{ wp }}-on" type="checkbox"{% if slug != '' %} checked{% endif %}>
+        {% if j == 1 %}
+        <label class="{{ check_label }} italic" for="{{ wp }}-on">We covered another work as well</label>
+        {% else %}
+        {#- Nothing to press until the one before it is open, so the form asks for a
+            second work plainly and only offers a third once a second is there. Tera
+            won't take arithmetic inside the brackets, hence the step. -#}
+        {% set prev_j = j - 1 %}
+        <label class="{{ plus }} {{ peer_plus[prev_j] }} {{ peer_focus[j] }} outline-offset-2 outline-rose-300" for="{{ wp }}-on" title="Add another work">+</label>
+        {% endif %}
+        {% endif %}
 
-          <div class="{% if j > 0 %}mt-4 hidden peer-checked/more:block {% endif %}border-t border-dashed border-gray-400 pt-4">
+        <div data-work data-prefix="{{ wp }}" class="mt-5 {% if j > 0 %}hidden {{ peer_block[j] }} {% endif %}border-t border-dashed border-gray-400 pt-4">
             <div class="grid gap-4 sm:grid-cols-[9rem_1fr]">
               <div>
                 {% set verb_default = "Starting" %}
@@ -393,17 +412,18 @@
                 </span>
               </div>
             </div>
-          </div>
         </div>
         {% endfor %}
 
         {#- ---- what happens next, once for the meeting ---- -#}
         <div class="mt-5 border-t border-dashed border-gray-400 pt-4">
           <label class="{{ label }}" for="{{ p }}-next">Next week</label>
-          <input class="{{ field | safe }}" id="{{ p }}-next" name="{{ p }}-next" type="text"
-            value="{% if work_md != '' %}Next week we'll continue {{ work_md }}{% endif %}"
-            placeholder="e.g. Next week we'll finish **Book VI**">
-          <span class="{{ hint }}">One line for the meeting, however many works it covered.</span>
+          <textarea class="{{ field | safe }} min-h-20" id="{{ p }}-next" name="{{ p }}-next"
+            placeholder="e.g. Next week we&#39;ll finish **Book VI**">{% if work_md != '' %}Next week we'll continue {{ work_md }}{% endif %}</textarea>
+          <span class="{{ hint }}">
+            One line stands on its own. Several become a list under “Next week:”, which is how
+            2026-08-02 and 2026-08-09 read. One box for the meeting, however many works it covered.
+          </span>
         </div>
       </div>
     </fieldset>

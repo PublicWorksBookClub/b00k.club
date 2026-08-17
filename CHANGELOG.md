@@ -6,6 +6,8 @@
 - Fold the division's name into each part's own label, and let a work that doesn't divide state a total rather than a single unnamed part
 - Offer that length on the new-conspectus form, so a work can be measured as it is added
 - Fill the units and the total length in on the new-meeting form for a work already under way, and leave how much we covered to the scribe — the two spots either side of it say where the session began and ended, but their difference means nothing for a work whose numbering starts again at every part
+- Offer one extra work at a time on the new-meeting form, with a + for another once that one is open, rather than laying every slot out at once
+- Let "next week" take as many lines as it needs: one stands as its own bullet, several become a list underneath it, which is how 2026-08-02 and 2026-08-09 were written by hand
 
 ## 1.12.0 (2026-08-17)
 
