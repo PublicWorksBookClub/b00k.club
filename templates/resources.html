@@ -4,6 +4,8 @@
 {% block body_styles %}{{ page.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
 {% block banner %}
 {{ util::back(text="Home") }}
+{{ util::nav(href="/works/", text="Readings") }}
+{{ util::nav(href="/minutes/", text="Minutes") }}
 {{ util::search() }}
 {% endblock banner %}
 {% block main %}
