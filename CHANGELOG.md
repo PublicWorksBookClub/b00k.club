@@ -2,6 +2,23 @@
 
 ## Next
 
+- Record how long a work is and how it divides, in the conspectus, and mark those divisions on its burndown chart. Piloted on the *Argonautica*; a work without the data charts exactly as before
+- Fold the division's name into each part's own label, and let a work that doesn't divide state a total rather than a single unnamed part
+- Offer that length on the new-conspectus form, so a work can be measured as it is added
+- Fill the units and the total length in on the new-meeting form for a work already under way, and leave how much we covered to the scribe — the two spots either side of it say where the session began and ended, but their difference means nothing for a work whose numbering starts again at every part
+- Offer one extra work at a time on the new-meeting form, with a + for another once that one is open, rather than laying every slot out at once
+- Let "next week" take as many lines as it needs: one stands as its own bullet, several become a list underneath it, which is how 2026-08-02 and 2026-08-09 were written by hand
+
+## 1.12.0 (2026-08-17)
+
+- Let one meeting cover several works, each with its own run of bullets and its own row on the burndown chart — 2026-08-16 took Callimachus' *Hymns* and *Epigrams* together and had to be written by hand
+- Work out the burndown from where we stopped rather than asking for the arithmetic: what a work had left is what it had left last week, less the ground between the two spots, written into the file with the working beside it as `ending = 4 # 4 - (268 - 264)`
+- Keep the "next week" line where it belongs, one to a meeting however many works it covered
+- Take each meeting's likely works from last week's own page rather than by matching burndown keys to meetings by position, which stopped holding the moment a meeting tracked no works at all
+- Start both meetings unticked, since plenty of weeks one club or the other doesn't sit
+- Take the ground covered as stated when the two spots won't subtract — a work like the *Argonautica* numbers its lines from 1 again at every book, so a session running from one book into the next, or beginning at a book's opening, has to say the figure outright rather than have it guessed wrong
+- Show all forty-eight works in the meeting form's menu again; the forty that never set `currently_reading` were being dropped, because Tera reads a key a page never mentions as though it were there and true
+
 ## 1.11.0 (2026-08-17)
 
 - Add `/works/create/`, a form for writing up a work the club is picking up, reachable from a "New conspectus" button on the readings page

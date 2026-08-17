@@ -93,6 +93,46 @@ function toml(list) {
   return `[${list.map((v) => `"${v}"`).join(", ")}]`;
 }
 
+/**
+ * How long the work is and how it divides, which the burndown chart reads to mark
+ * the parts and to say which one a session ended in.
+ *
+ * Empty for anything not being charted — a work read in selection jumps about and
+ * one read in a single sitting draws a line between two points, so neither is
+ * measured. A work that divides lists its parts, each naming itself; one that
+ * doesn't states a total. `origin` is the coordinate at which nothing has been
+ * read yet, which is 0 for lines numbered from 1 and 216 for a dialogue paginated
+ * from 216a.
+ */
+function lengthBlock() {
+  if (!checked("charted") || !value("length-units")) return [];
+
+  const out = [
+    "",
+    "[extra.length]",
+    `units = "${value("length-units")}"`,
+    `origin = ${value("length-origin") || 0}`,
+  ];
+
+  if (!checked("divides")) {
+    out.push(`total = ${value("length-total")}`);
+    return out;
+  }
+
+  // One part per line, named then measured: "Book I, 1362". The number is taken
+  // from the last comma so that a name may contain one.
+  out.push("parts = [");
+  for (const line of lines("length-parts")) {
+    const cut = line.lastIndexOf(",");
+    if (cut === -1) continue;
+    const label = line.slice(0, cut).trim();
+    const length = line.slice(cut + 1).trim();
+    if (label && length) out.push(`  { label = "${label}", length = ${length} },`);
+  }
+  out.push("]");
+  return out;
+}
+
 function frontMatter() {
   const title = value("title");
   const titles = [title, ...lines("alt-titles")];
@@ -123,6 +163,9 @@ function frontMatter() {
   // Left as a comment so whoever finishes the work has somewhere to put the date.
   out.push("# stopped =");
   out.push(`currently_reading = ${checked("currently-reading")}`);
+  // Last of [extra]: a sub-table swallows every scalar written after it, so
+  // anything belonging to [extra] itself has to be down before this opens.
+  out.push(...lengthBlock());
 
   out.push(
     "",

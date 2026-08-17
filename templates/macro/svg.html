@@ -73,6 +73,40 @@
 
 {% set total = data_points[0].extra.burndown[work].starting %}
 
+{#- The work's own shape, when its conspectus records one. Both questions — does it
+    have a shape, does that shape have parts — are asked by filtering on the
+    attribute rather than by reaching for it, because Tera reports a key that a page
+    never set as though it were present and true. A work with no `extra.length`
+    draws exactly as it always did. -#}
+{%- set_global shape = false %}
+{%- set_global has_parts = false %}
+{%- set wsec = get_section(path="works/_index.md") %}
+{%- for w in wsec.pages | filter(attribute="extra.length") %}
+  {%- if w.slug == work %}{% set_global shape = w.extra.length %}{% endif %}
+{%- endfor %}
+{%- for w in wsec.pages | filter(attribute="extra.length.parts") %}
+  {%- if w.slug == work %}{% set_global has_parts = true %}{% endif %}
+{%- endfor %}
+
+{#- Where each part ends, counted from the beginning of the work. A work that
+    doesn't divide states a total instead and has no ends to speak of.
+
+    Either way the work says how long it is, so the axis no longer takes its scale
+    from whatever the first meeting happened to write down. -#}
+{%- set_global part_ends = [] %}
+{%- if shape %}
+  {%- if has_parts %}
+    {%- set_global acc = 0 %}
+    {%- for pt in shape.parts %}
+      {%- set_global acc = acc + pt.length %}
+      {%- set_global part_ends = part_ends | concat(with=acc) %}
+    {%- endfor %}
+    {%- set_global total = acc %}
+  {%- else %}
+    {%- set_global total = shape.total %}
+  {%- endif %}
+{%- endif %}
+
 {% set cur_ts = date | date(format="%s") %}
 {% set cur_ts = load_data(literal=cur_ts, format="json") %}
 
@@ -217,6 +251,29 @@
 <svg
     viewBox="0 0 {{ width }} {{ height }}"
     xmlns="http://www.w3.org/2000/svg">
+
+    {#- The work's parts, laid in behind the grid. The chart already reads top to
+        bottom as the work is got through, so a part is simply a band of that
+        descent, and naming it saves counting gridlines to see which book a
+        session fell in. -#}
+    {%- if has_parts %}
+    {%- set_global band_from = 0 %}
+    {% for pt in shape.parts %}
+      {% set band_to = part_ends[loop.index0] %}
+      {% set y1 = top + band_from * plot_height / total %}
+      {% set y2 = top + band_to * plot_height / total %}
+      {% if loop.index0 is odd %}
+      <rect x="{{ left }}" y="{{ y1 }}" width="{{ plot_width }}" height="{{ y2 - y1 }}" fill="#000" fill-opacity="0.025"/>
+      {% endif %}
+      {% if not loop.last %}
+      <line x1="{{ left }}" y1="{{ y2 }}" x2="{{ width - right }}" y2="{{ y2 }}" stroke="#bbb" stroke-dasharray="2,3"/>
+      {% endif %}
+      <text x="{{ width - right - 6 }}" y="{{ (y1 + y2) / 2 + 4 }}" font-size="10" text-anchor="end" fill="#aaa">
+        {{ pt.label }}
+      </text>
+      {%- set_global band_from = band_to %}
+    {%- endfor %}
+    {%- endif %}
 
     {# Horizontal grid & Y axis labels #}
     {% set ticks = 5 %}
@@ -394,6 +451,32 @@
         font-weight="bold">
         {% set percent_remaining = remainders | nth(n=past_count - 1) * 100 / total %}
         {{ remainders | nth(n=past_count - 1) }} {{ units }} remaining, i.e. {{ percent_remaining | as_str | truncate(length=2, end="") }}%
+        {%- if shape %}
+        {#- Which part that remainder falls in, and where in it. What is left says
+            how far in we are, so the part follows from it rather than needing
+            recording. -#}
+        {% set cur = remainders | nth(n=past_count - 1) %}
+        {% set pos = total - cur %}
+        {% set_global in_part = "" %}
+        {% set_global in_at = shape.origin + pos %}
+        {% if has_parts %}
+          {% set_global acc2 = 0 %}
+          {% for pt in shape.parts %}
+            {% if in_part == "" %}
+              {% if pos <= acc2 + pt.length %}
+                {% set_global in_part = pt.label %}
+                {% set_global in_at = shape.origin + pos - acc2 %}
+              {% endif %}
+            {% endif %}
+            {% set_global acc2 = acc2 + pt.length %}
+          {% endfor %}
+        {% endif %}
+        {#- The one measure is recorded in the plural, the way the minutes write it, so
+            the singular for naming a coordinate is trimmed off it rather than stored
+            twice and kept in step by hand. -#}
+        {% set one = shape.units | trim_end_matches(pat="s") %}
+        {%- if in_part != "" %} — {{ in_part }}, {{ one }} {{ in_at | round | int }}{%- else %} — {{ one }} {{ in_at | round | int }}{% endif %}
+        {%- endif %}
     </text>
     {% if show_extrap %}
     <text

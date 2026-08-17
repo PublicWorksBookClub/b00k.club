@@ -15,6 +15,29 @@ Jason, a prince of Thessaly, quests to return the legendary golden fleece from t
 started = 2026-02-15
 stopped = 2026-04-19
 
+# How long the work is, and how it divides. The burndown reads this to mark the
+# parts on the chart and to say which one a session ended in; without it a chart
+# behaves exactly as it did before.
+#
+# Each part names itself, so there is no separate noun to keep in step with them.
+#
+# `origin` is the coordinate at which nothing has been read yet: 0 for a work whose
+# lines start at 1, but 216 for a Platonic dialogue paginated from 216a, which
+# carries straight through as a single part.
+#
+# The lengths are the standard ones, and the club's own minutes agree with all
+# four: Book II was finished "around line 1285", Book III "around line 1405",
+# Book IV "around line 1780".
+[extra.length]
+units = "lines"
+origin = 0
+parts = [
+  { label = "Book I", length = 1362 },
+  { label = "Book II", length = 1285 },
+  { label = "Book III", length = 1407 },
+  { label = "Book IV", length = 1781 },
+]
+
 [taxonomies]
 # Textual taxonomies
 titles = ["Argonautica", "Argonautika", "Argonautiche"]
