@@ -10,10 +10,4 @@ template = "works/create.html"
 placeholder_abstract = "TODO: currently reading"
 +++
 
-For a work the club is picking up. Everything here is either chosen from a list
-or already filled in, so the file you get back is one the site can build. When
-you're done, **Download** gives you the markdown file to drop into
-`content/works/` — or use **Share** to hand the half-filled form to someone else.
-
-The index, tags and references get backfilled once we've actually read the thing,
-so they come out empty and stay that way until then.
+Use the following template to add a new work. You may **download** the resulting file or use **share** to share work in progress.

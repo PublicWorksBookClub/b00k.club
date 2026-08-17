@@ -114,8 +114,7 @@
           <input class="{{ field | safe }}" id="slug" name="slug" type="text" required
             pattern="[a-z0-9]+(-[a-z0-9]+)*" placeholder="ovid-metamorphoses">
           <span class="{{ hint }}">
-            The address it lives at: author then work, lower case, hyphens.
-            Like <code>plato-sophist</code> or <code>apollonius-argonautica</code>.
+            E.g. <code class="font-medium">apollonius-argonautica</code>.
           </span>
         </div>
         <div>
@@ -123,9 +122,7 @@
           <input class="{{ field | safe }}" id="sort" name="sort" type="text"
             placeholder="Metamorphoses">
           <span class="{{ hint }}">
-            Where it files alphabetically. Leave it empty and it files under its own title —
-            fill it in when a leading article should move to the end (<code>Bacchae, The</code>)
-            or a clash needs the author (<code>Epigrams, Callimachus</code>).
+            E.g. <em class="font-medium">The Bacchae</em> becomes <em class="font-medium">Bacchae, The</em>
           </span>
         </div>
       </div>
@@ -152,17 +149,12 @@
             placeholder="https://en.wikipedia.org/wiki/Metamorphoses">
         </div>
       </div>
-      <span class="{{ hint }}">
-        Both optional, and both worth finding — they are what the page publishes as linked data.
-        “Search” looks for whatever title you have typed.
-      </span>
-
       <div class="mt-5 grid gap-4 sm:grid-cols-2">
         <div>
           <label class="{{ label }}" for="order">Reading number <span class="text-rose-400">*</span></label>
           <input class="{{ field | safe }}" id="order" name="order" type="number" min="1" step="1" required
             value="{{ next_order }}">
-          <span class="{{ hint }}">Carries on from #{{ latest.extra.order }}, <em>{{ latest.taxonomies.titles | first }}</em>.</span>
+          <span class="{{ hint }}">Carries on from <span class="font-medium">#{{ latest.extra.order }}</span>, <em class="font-medium">{{ latest.taxonomies.titles | first }}</em>.</span>
         </div>
         <div>
           <label class="{{ label }}" for="started">Starting <span class="text-rose-400">*</span></label>
@@ -177,20 +169,19 @@
         <textarea class="{{ field | safe }} min-h-24" id="abstract" name="abstract" required
           >{{ section.extra.placeholder_abstract }}</textarea>
         <span class="{{ hint }}">
-          A couple of sentences on what the work is. Left as a placeholder until we have read enough
-          to say something true — that is what every other conspectus has done.
+          Fine to leave as "TODO". Usually left as a placeholder until we have finished reading a work.
         </span>
       </div>
 
       <div class="mt-5">
         <input class="{{ check }}" id="read-in-selection" name="read-in-selection" type="checkbox">
         <label class="{{ check_label }}" for="read-in-selection">We are reading it in selection, not in full</label>
-        <span class="{{ hint }}">Puts an asterisk next to it in the readings table.</span>
+        <span class="{{ hint }}">Results in an <span class="pl-0.5 text-gray-400">*</span> next to it in the readings table.</span>
       </div>
       <div class="mt-2">
         <input class="{{ check }}" id="currently-reading" name="currently-reading" type="checkbox" checked>
         <label class="{{ check_label }}" for="currently-reading">We are reading it now</label>
-        <span class="{{ hint }}">Puts a dagger next to it in the readings table until it is unset.</span>
+        <span class="{{ hint }}">Results in a <span class="pl-0.5 text-gray-400 align-super text-xs">†</span> next to it in the readings table.</span>
       </div>
     </fieldset>
 
@@ -202,28 +193,28 @@
         is how "James Madison" files under M), "term" is plain alphabetical, and
         "file" keeps the order the vocabulary was written in — which is what the
         periods want, being chronological rather than alphabetical. -#}
-    {% set groups = load_data(format="json", literal='[
+    {% set groups = load_data(format="json", literal=`[
       {"field":"authors","vocab":"authors","legend":"Author","required":true,
        "sortby":"sort","display":"sort","describe":false,"cols":"columns-2 md:columns-3","warn":false,
        "new":"Ovid",
-       "hint":"Who wrote it. More than one is fine, and the first one names the file."},
+       "hint":"Multiple are fine; first author is used in resulting conspectus file name."},
       {"field":"forms","vocab":"forms","legend":"Literary form","required":true,
        "display":"label","sortby":"term","describe":true,"cols":"columns-1 sm:columns-2","warn":false,
        "new":"epistle",
-       "hint":"How the work is packaged, outside its content."},
+       "hint":"The structure or kind of a work."},
       {"field":"genres","vocab":"genres","legend":"Genre","required":true,
        "display":"label","sortby":"term","describe":true,"cols":"columns-1 sm:columns-2","warn":false,
        "new":"metamorphosis poetry",
-       "hint":"The mode of the content and what it is aiming at."},
+       "hint":"Thematic category based on a work's content"},
       {"field":"periods","vocab":"periods","legend":"Period","required":true,
        "display":"label","sortby":"num","describe":true,"cols":"columns-2 md:columns-3","warn":false,
        "new":"1st c. CE",
-       "hint":"Oldest first. Several usually apply: an era and a century."},
+       "hint":"Sorted chronologically; It's typical to select multiple: one reflecting subject and another the period written or translated."},
       {"field":"languages","vocab":"languages","legend":"Language","required":true,
        "display":"label","sortby":"term","describe":false,"cols":"columns-2 md:columns-3","warn":true,
        "new":"Vulgar Latin",
-       "hint":"The language it was written in, not the one we are reading it in."}
-    ]') %}
+       "hint":"The language it was written in."}
+    ]`) %}
 
     <fieldset class="mt-10 border-2 border-gray-700 bg-white/30 px-4 pb-5 pt-2">
       <legend class="{{ legend_style }}">Taxonomy</legend>
@@ -343,8 +334,8 @@
         </div>
       </div>
       <span class="{{ hint }}">
-        The arc is the campaign the reading belongs to; it carries over from
-        <em>{{ latest.taxonomies.titles | first }}</em>, the last work on file.
+        The campaign the reading belongs to; carries over from
+        <em>{{ latest.taxonomies.titles | first }}</em> by default.
       </span>
     </fieldset>
 
@@ -362,8 +353,7 @@
       <p class="mt-4 font-fira-sans text-sm font-light text-gray-500">
         <strong class="font-medium">Share</strong> puts everything filled in so far into this page&#39;s
         address, so you can send it on and someone else carries on from where you stopped.
-        <strong class="font-medium">Download</strong> saves the file under the name the rest of
-        <code>content/works/</code> uses, <code>Author - Title.md</code>.
+        <strong class="font-medium">Download</strong> saves the file as <code>{% raw %}{{ Author }} - {{ Title.md }}{% endraw %}</code>.
       </p>
       <noscript>
         <p class="mt-4 border-2 border-gray-700 bg-white/60 p-3 font-fira-sans text-sm text-gray-700">
