@@ -27,7 +27,7 @@ languages = ["Koine Greek"]
 
 # General taxonomies
 years = ["2022"]
-arcs = ["Theogony 1"]
+arcs = ["Theogony I"]
 references = ["diogenes-epicurus", "theophrastus-characters"]
 index = [
   "Antoninus Pius",

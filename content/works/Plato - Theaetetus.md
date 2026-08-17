@@ -36,7 +36,7 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 tags = ["how to know nothing", "wind-egg", "true judgement", "Theaetetus begins", "a new hope", "possessing vs having", "knowing that you know", "knowing that you don't know", "not knowing that you know", "not knowing that you don't know", "knowledge vs true judgement", "little wax facsimiles", "hunters and atriums", "motion and being", "skepticism of perception", "dreams and insanity", "being and becoming", "what is a man", "true philosopher"]
 years = ["2026"]
-arcs = ["Memorabilia 3"]
+arcs = ["Memorabilia III"]
 references = ["homer-odyssey"]
 index = ["Euclides", "Terpsion", "Corinth", "Megara", "Athens", "Socrates", "Cyrene", "Theodorus", "Euphronius of Sunium", "Sunium", "Phaenarete", "Artemis", "Aristides", "Lysimachus (father of Aristides)", "Prodicus", "Theaetetus", "Protagoras","Heraclitus", "Homer", "Hesiod", "Epicharmus", "Empedocles", "Parmenides", "Melissus", "Thales", "Pindar", "Euripides", "Callias", "Hipponicus", "Meletus", "Herakles", "Amphitryon", "Theseus", "Sciron", "Antaeus", "Zeus", "Hera", "Iris", "Thaumas", "Oceanus", "Tethys", "Mnemosyne", "Muses", "Graces", "Sparta", "Ionia", "Ephesus", "Erineum", "Thrace", "Mysians", "Hellas"]
 contributors = ["Spencer Scorcelletti"]
@@ -62,7 +62,7 @@ _Summary:_ the dialogue begins with Socrates inquiring upon young Theaetetus as 
 
 Euclides encounters Terpsion in Megara **(142c)**. The former is just in from Athens **(142a)** and brings news that Theaetetus' life is near its end, due to disease while serving Athens in war in Corinth **(142a)**. They lament this unfortunate news, as Theaetetus had conducted himself well in this campaign and is considered a great man in general. This sentiment, it would seem, was anticipated many years ago, by Socrates, just before his death[^see-memorabilia-2] when he had the chance to meet Theaetetus, who was then still a young boy **(142c)**.
 
-[^see-memorabilia-2]: See [Memorabilia 2](/arcs/memorabilia-2/) for Socrates' trial/death arc.
+[^see-memorabilia-2]: See [Memorabilia II](/arcs/memorabilia-2/) for Socrates' trial/death arc.
 
 Euclides recounts that he first heard of their encounter—i.e. between Socrates and young Theaetetus—when Socrates himself told him, excitedly after having first met the young lad. Based on this first hand account, Euclides started keeping some written notes of this story at his home, in Megara, and would ask Socrates for help with any necessary corrections, that he would subsequently make upon his return **(143a)**.
 

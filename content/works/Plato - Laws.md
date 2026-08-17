@@ -42,7 +42,7 @@ languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies
 years = ["2025"]
-arcs = ["Memorabilia 1"]
+arcs = ["Memorabilia I"]
 references = ["homer-odyssey"]
 index = [
   "the Athenian Stranger",

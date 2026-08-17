@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       justif:
-        specifier: ^0.6.4
-        version: 0.6.4
+        specifier: ^0.8.1
+        version: 0.8.1
     devDependencies:
       '@r3ply/cli':
         specifier: ^0.0.2
@@ -935,8 +935,8 @@ packages:
     resolution: {integrity: sha512-9YcilrF+dLfg9NTEof/mJLMtbdX1RJ8dbWtJgE00cMOIohb1lIyJl710vFiTaiHTl6ZYODJuBd32xFvUhmv3kg==}
     engines: {node: '>=14'}
 
-  justif@0.6.4:
-    resolution: {integrity: sha512-f/xhucqzDw0QruxkOVQBin+6Wc3c3YbtUHOezddTEynb1R2ZfBYj6tH2jIKw0mV/EEJNODmHbnl30eQ6okmBqw==}
+  justif@0.8.1:
+    resolution: {integrity: sha512-Ras2DVg/RkW89S8Q4mUiEGVW+MfvSJrLPG+skUmPvjJXJv5c3VBsPQEJIyPDeR14Lag0oTRKxeyZHlHoA04SFg==}
 
   kleur@3.0.3:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
@@ -2115,7 +2115,7 @@ snapshots:
     transitivePeerDependencies:
       - web-streams-polyfill
 
-  justif@0.6.4: {}
+  justif@0.8.1: {}
 
   kleur@3.0.3: {}
 

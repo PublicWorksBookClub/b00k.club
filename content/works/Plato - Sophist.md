@@ -37,7 +37,7 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 tags = ["Theaetetus returns"]
 years = ["2026"]
-arcs = ["Memorabilia 3"]
+arcs = ["Memorabilia III"]
 references = ["plato-theaetetus", "homer-odyssey"]
 index = [
   "the Eleatic Stranger",

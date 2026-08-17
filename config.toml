@@ -171,7 +171,7 @@ insert_anchor_links = "none"
 
 [slugify]
 paths = "on"
-taxonomies = "off"
+taxonomies = "on"
 anchors = "on"
 
 # You can override these in your top-level zola config file

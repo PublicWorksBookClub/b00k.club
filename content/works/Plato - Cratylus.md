@@ -35,7 +35,7 @@ languages = ["Ancient Greek", "Attic Greek"]
 # General taxonomies
 tags = ["'fine things are very difficult'"]
 years = ["2026"]
-arcs = ["Memorabilia 3"]
+arcs = ["Memorabilia III"]
 references = ["homer-odyssey"]
 index = ["Hermogenes", "Socrates", "Cratylus", "Hipponicus", "Prodicus", "Homer", "Hesiod", "Heraclitus", "Anaxagoras", "Protagoras", "Euthyphro", "Euthydemus", "Callias", "Orpheus", "Archepolis", "Agis", "Polemarchus", "Eupolemus", "Iatrocles", "Acesimbrotus", "Theophilus", "Mnesitheus", "Eutychides", "Sosias", "Smicrion", "Sous", "Zeus", "Hera", "Cronos", "Rhea", "Uranus", "Poseidon", "Hades", "Demeter", "Persephone", "Apollo", "Leto", "Artemis", "Dionysus", "Aphrodite", "Athena", "Hephaestus", "Ares", "Hermes", "Pan", "Iris", "Hestia", "Muses", "Oceanus", "Tethys", "Sirens", "Agamemnon", "Atreus", "Pelops", "Tantalus", "Thyestes", "Chrysippus of Elis", "Hippodamia", "Myrtilus", "Orestes", "Achilles", "Ajax", "Telamon", "Hector", "Astyanax", "Scamandrius", "Myrina", "Athens", "Hellas", "Troy", "Thessaly", "Sparta", "Phrygia", "Eretria", "Aegina", "Dorians", "Scamander", "Xanthus", "Batieia"]
 contributors = ["Spencer Scorcelletti"]

@@ -137,6 +137,6 @@ index = [
 # General taxonomies
 tags = ["ekphrasis", "classical era grown up", "information economy", "obsession with authenticity", "nature writes the most beautiful poems", "flute giving", "don't wake pan", "peach fuzz lips", "twitching calves", "unrequited love", "one man can offer", "gift giving", "oak logs", "milk for days, no years", "white cheese", "4 year vintage", "the coolest cup ever", "and four bears", "description of object becomes a movie", "poet contests", "girlfriends", "vacation in ancient life", "married life", "child there but does not speak", "crowded metropolis", "comedic dialogue"]
 years = ["2026"]
-arcs = ["Metamorphoses 3"]
+arcs = ["Metamorphoses III"]
 contributors = ["Spencer Scorcelletti"]
 +++

@@ -27,7 +27,7 @@ languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies
 years = ["2024"]
-arcs = ["Anabasis 2"]
+arcs = ["Anabasis II"]
 index = [
   "Herakles",
   "Amphitryon",

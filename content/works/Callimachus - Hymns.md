@@ -30,7 +30,7 @@ languages = ["Ancient Greek"]
 # General taxonomies
 tags = []
 years = ["2026"]
-arcs = ["Metamorphoses 3"]
+arcs = ["Metamorphoses III"]
 index = ["Zeus", "Pelagonians", "Uranos", "Diktaian", "Lykaian", "Arcadia", "Cretans", "Parrhasia", "Rhea", "Apidaneans", "Ladon", "Erymanthos", "Azenis", "Iaon", "Melas", "Karion", "Krathis", "Melope", "Lady Rhea", "Neda", "Nymphs", "Styx", "Philyra", "Kaukones", "Lepreion", "Thenai", "Knossos", "Kydonians", "Omphalian Plain", "Kyrbantes", "Dikte", "Ash Nymphs of Dikte", "Adresteia", "Amaltheia", "Panakridian", "Panakra", "Kouretes", "Kronos", "Phoibos", "Son of Kronos", "Apollo", "Delian", "Delian palm", "Lykoreian", "Achilles", "Phyrgia", "Pytho", "Panacea", "Amphryssos", "Admetos", "Ortygia", "Kynthian", "Battos", "Libya", "Karneios", "Cyrene", "Oedipus", "Asbystian", "Thera", "Aristoteles", "Horai", "Enyo", "Dorian", "Cyre", "Cyre's springs", "Myrtoussa", "Eurypylos", "the Assyrian river", "Envy", "Criticism"]
 
 contributors = ["Spencer Scorcelletti"]

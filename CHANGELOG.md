@@ -4,9 +4,13 @@
 
 ## 1.11.0 (2026-08-17)
 
+- Update 2026-08-16 minutes with reading for next week + optional epigram
+- Enable slugification of taxonomies
+- Add [Magna I](/arcs/magna-I) arc
 - Add `/works/create/`, a form for writing up a work the club is picking up, reachable from a "New conspectus" button on the readings page
 - Update `/minutes/create/`, to make it easier to calculate progress of a work
 - Add an `[extra.length]` option to a conspectus, e.g. tracking book progress during a burndown
+- Update `justif` dependency, which was breaking on some drop caps
 
 ## 1.10.2 (2026-08-16)
 
@@ -50,7 +54,7 @@
 ## 1.8.4 (2026-07-28)
 
 - Add Theocritus' Idylls to readings
-- Add Metamorphoses 3 arc
+- Add Metamorphoses III arc
 - Add [justif](https://github.com/lyallcooper/justif) to display justified text in a way that's closer to actual typesetting
 - Scale burndown svg with whichever is bigger of estimated vs actual (but when the book is completed always scale to the completion date)
 
@@ -230,7 +234,7 @@
 - Make landing header bigger and show site text (but only on devices larger than mobile)
 - Add formatter
 - Add recent works read by the club, and update Characters to selections
-- Update arc names (anabasis 3 -> nostoi 1, and anabasis 4 -> anabasis 3)
+- Update arc names (Anabasis III -> Nostoi I, and anabasis 4 -> Anabasis III)
 - Change page template to create a title link to the present page
 - Minor changes to CSS organization
 - Add a "scroll ->" hint on the home page

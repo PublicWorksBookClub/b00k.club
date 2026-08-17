@@ -40,7 +40,7 @@ languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies
 years = ["2024"]
-arcs = ["Anabasis 2"]
+arcs = ["Anabasis II"]
 references = ["homer-odyssey", "lysias-3"]
 index = [
   "Socrates",

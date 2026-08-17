@@ -45,7 +45,7 @@ languages = ["Classical Latin"]
 # General taxonomies
 tags = ["pores over gods", "the winds of change", "surprisingly good"]
 years = ["2026"]
-arcs = ["Metamorphoses 2"]
+arcs = ["Metamorphoses II"]
 references = ["homer-odyssey", "diogenes-epicurus"]
 index = [
   "Memmius",
