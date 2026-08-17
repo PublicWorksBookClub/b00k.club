@@ -225,45 +225,36 @@
           {% set prev_bd = last_burndown[slug] | default(value=false) %}
         {% endif %}
 
-        {#- Where this week picks up. A work that records how long it is needs no
-            remembering: what it had left last week says how far in we are, and the
-            shape turns that back into a spot. Failing that, last week's "reminder
-            for next week" anchor is where we stopped, which is the same thing said
-            less exactly. -#}
-        {% set_global from_default = '' %}
-        {% set_global from_part = '' %}
+        {#- If last week left a "reminder for next week" anchor for this work, that
+            anchor is exactly where this week picks up. -#}
+        {% set from_default = '' %}
+        {% if short != '' %}
+          {% set anchor_marker = 'id="' ~ short ~ '-' %}
+          {% set bits = last.content | split(pat=anchor_marker) %}
+          {% if bits | length > 1 %}
+            {% set from_default = bits | nth(n=1) | split(pat='"') | first %}
+          {% endif %}
+        {% endif %}
+
+        {#- How long the work is, so a run already under way never asks again. The
+            conspectus says it where it has been measured; failing that, the first
+            meeting to chart the work wrote it down as that entry's `starting`. -#}
+        {% set_global total_default = '' %}
         {% if slug != '' %}
           {% if slug in shaped %}
-            {% if prev_bd %}
-              {% set sh = w.extra.length %}
-              {% set_global wtotal = 0 %}
-              {% if slug in parted %}
-                {% for pt in sh.parts %}{% set_global wtotal = wtotal + pt.length %}{% endfor %}
-              {% else %}
-                {% set_global wtotal = sh.total %}
-              {% endif %}
-              {% set pos = wtotal - prev_bd.ending %}
-              {% set_global from_default = sh.origin + pos %}
-              {% if slug in parted %}
-                {% set_global acc3 = 0 %}
-                {% set_global settled = false %}
-                {% for pt in sh.parts %}
-                  {% if not settled %}
-                    {% if pos <= acc3 + pt.length %}
-                      {% set_global settled = true %}
-                      {% set_global from_default = sh.origin + pos - acc3 %}
-                      {% set_global from_part = pt.label %}
-                    {% endif %}
-                  {% endif %}
-                  {% set_global acc3 = acc3 + pt.length %}
-                {% endfor %}
-              {% endif %}
+            {% set sh = w.extra.length %}
+            {% if slug in parted %}
+              {% set_global tsum = 0 %}
+              {% for pt in sh.parts %}{% set_global tsum = tsum + pt.length %}{% endfor %}
+              {% set_global total_default = tsum %}
+            {% else %}
+              {% set_global total_default = sh.total %}
             {% endif %}
-          {% elif short != '' %}
-            {% set anchor_marker = 'id="' ~ short ~ '-' %}
-            {% set bits = last.content | split(pat=anchor_marker) %}
-            {% if bits | length > 1 %}
-              {% set_global from_default = bits | nth(n=1) | split(pat='"') | first %}
+          {% else %}
+            {% set dps = minutes.pages | filter(attribute="extra.burndown." ~ slug) | sort(attribute="date") %}
+            {% if dps | length > 0 %}
+              {% set d0 = dps | first %}
+              {% set_global total_default = d0.extra.burndown[slug].starting %}
             {% endif %}
           {% endif %}
         {% endif %}
@@ -294,13 +285,13 @@
                   <option value=""></option>
                   <optgroup label="Currently reading">
                     {%- for w in works.pages | filter(attribute="extra.currently_reading", value=true) | sort(attribute="extra.sort") %}
-                    {{ mins::work_option(w=w, selected=slug, last_burndown=last_burndown, shaped=shaped, parted=parted) }}
+                    {{ mins::work_option(w=w, selected=slug, last_burndown=last_burndown) }}
                     {%- endfor %}
                   </optgroup>
                   <optgroup label="Everything else">
                     {%- for w in works.pages | sort(attribute="extra.sort") %}
                     {%- if w.slug not in reading_slugs %}
-                    {{ mins::work_option(w=w, selected=slug, last_burndown=last_burndown, shaped=shaped, parted=parted) }}
+                    {{ mins::work_option(w=w, selected=slug, last_burndown=last_burndown) }}
                     {%- endif %}
                     {%- endfor %}
                   </optgroup>
@@ -327,18 +318,6 @@
               </div>
               <div>
                 <label class="{{ label }}" for="{{ wp }}-from-locus">The spot</label>
-                {#- The part rides above the spot, written out for whichever work Zola
-                    guessed. The script repopulates it if the scribe picks another, since
-                    a page built at deploy time cannot know what they will choose. -#}
-                <div class="mb-2" data-part-menu="{{ wp }}"{% if slug not in parted %} hidden{% endif %}>
-                  <select class="{{ field | safe }}" id="{{ wp }}-from-part" name="{{ wp }}-from-part">
-                    {% if slug in parted %}
-                    {% for pt in w.extra.length.parts %}
-                    <option value="{{ pt.label }}"{% if pt.label == from_part %} selected{% endif %}>{{ pt.label }}</option>
-                    {% endfor %}
-                    {% endif %}
-                  </select>
-                </div>
                 <input class="{{ field | safe }}" id="{{ wp }}-from-locus" name="{{ wp }}-from-locus" type="text"
                   value="{{ from_default }}" placeholder="249a">
               </div>
@@ -352,18 +331,6 @@
               </div>
               <div>
                 <label class="{{ label }}" for="{{ wp }}-to-locus">The spot</label>
-                {#- The part rides above the spot, written out for whichever work Zola
-                    guessed. The script repopulates it if the scribe picks another, since
-                    a page built at deploy time cannot know what they will choose. -#}
-                <div class="mb-2" data-part-menu="{{ wp }}"{% if slug not in parted %} hidden{% endif %}>
-                  <select class="{{ field | safe }}" id="{{ wp }}-to-part" name="{{ wp }}-to-part">
-                    {% if slug in parted %}
-                    {% for pt in w.extra.length.parts %}
-                    <option value="{{ pt.label }}"{% if pt.label == from_part %} selected{% endif %}>{{ pt.label }}</option>
-                    {% endfor %}
-                    {% endif %}
-                  </select>
-                </div>
                 <input class="{{ field | safe }}" id="{{ wp }}-to-locus" name="{{ wp }}-to-locus" type="text"
                   placeholder="255b">
               </div>
@@ -406,27 +373,27 @@
                       value="{% if prev_bd %}{{ prev_bd.units }}{% endif %}" placeholder="lines, pages, chapters…">
                   </div>
                   <div>
-                    <label class="{{ label }}" for="{{ wp }}-total">How long it is</label>
+                    <label class="{{ label }}" for="{{ wp }}-total">Total length</label>
                     <input class="{{ field | safe }}" id="{{ wp }}-total" name="{{ wp }}-total" type="number" min="0" step="any"
-                      placeholder="52">
+                      value="{{ total_default }}" placeholder="52">
                   </div>
                   <div class="sm:col-span-2">
                     <label class="{{ label }}" for="{{ wp }}-covered">How much we covered</label>
                     <input class="{{ field | safe }}" id="{{ wp }}-covered" name="{{ wp }}-covered" type="number" min="0" step="any"
-                      placeholder="670">
+                      placeholder="9">
                   </div>
                 </div>
-                <span class="{{ hint }}">
+<span class="{{ hint }}">
                   {%- if prev_bd -%}
                   {{ last.date }} left {{ prev_bd.ending }} {{ prev_bd.units }} to go, and what is left now is
-                  worked out from that.
+                  that less what we covered.
                   {%- else -%}
-                  “How long it is” is only wanted the first time a work appears on the chart — the whole
-                  of it, in those units, counting from where we began.
+                  Total length is only wanted the first time a work appears on the chart — the whole of
+                  it, in those units, counting from where we began.
                   {%- endif %}
-                  The ground covered is the distance between the two spots above, so it only needs saying
-                  when they will not subtract: a work whose lines start again at every book, where we ran
-                  from one book into the next, or began at a book&#39;s opening. Say it and it wins.
+                  How much we covered is yours to work out: the two spots above will not subtract for a
+                  work whose numbering starts again at every part, so the figure is asked for rather
+                  than guessed.
                 </span>
               </div>
             </div>

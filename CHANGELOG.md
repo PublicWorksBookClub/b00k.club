@@ -5,7 +5,7 @@
 - Record how long a work is and how it divides, in the conspectus, and mark those divisions on its burndown chart. Piloted on the *Argonautica*; a work without the data charts exactly as before
 - Fold the division's name into each part's own label, and let a work that doesn't divide state a total rather than a single unnamed part
 - Offer that length on the new-conspectus form, so a work can be measured as it is added
-- Read it on the new-meeting form: the units and the total stop being typed, where we picked up is worked out from what the work had left last week, and a session that runs from one part into the next is measured properly instead of subtracting to a negative
+- Fill the units and the total length in on the new-meeting form for a work already under way, and leave how much we covered to the scribe — the two spots either side of it say where the session began and ended, but their difference means nothing for a work whose numbering starts again at every part
 
 ## 1.12.0 (2026-08-17)
 
