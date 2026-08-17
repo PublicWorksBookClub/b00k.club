@@ -15,7 +15,7 @@ Hymns by the Alexandrian poet Callimachus.
 """
 started = 2026-08-10
 stopped = 2026-08-16
-currently_reading = true
+currently_reading = false
 
 [taxonomies]
 # Textual taxonomies
