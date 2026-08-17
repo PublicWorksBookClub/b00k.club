@@ -2,6 +2,8 @@
 
 ## Next
 
+- Record how long a work is and how it divides, in the conspectus, and mark those divisions on its burndown chart. Piloted on the *Argonautica*; a work without the data charts exactly as before
+
 ## 1.12.0 (2026-08-17)
 
 - Let one meeting cover several works, each with its own run of bullets and its own row on the burndown chart — 2026-08-16 took Callimachus' *Hymns* and *Epigrams* together and had to be written by hand
