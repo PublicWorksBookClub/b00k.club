@@ -200,6 +200,33 @@ function sections() {
 }
 
 /**
+ * How much ground a work covered this week, and the working to write beside it.
+ *
+ * Subtracting the two spots only tells the truth while they sit on one continuous
+ * scale. Plenty of what the club reads doesn't: the Argonautica numbers its lines
+ * from 1 again at every book, so a session running from line 930 of Book II to
+ * line 430 of Book III subtracts to -500, and a session that began at a book's
+ * opening has no first number at all. Both are the common case for those works,
+ * not a corner of them — so when the spots won't subtract the scribe says the
+ * figure outright, and saying it always wins.
+ *
+ * `covered` is null when nothing can be worked out, which is a refusal rather than
+ * a zero: recording a flat week the club didn't have would quietly flatten the
+ * chart.
+ */
+function groundCovered(wp) {
+  const stated = value(`${wp}-covered`);
+  if (stated !== "") return { covered: Number(stated), working: stated };
+
+  const from = locusNumber(value(`${wp}-from-locus`));
+  const to = locusNumber(value(`${wp}-to-locus`));
+  // Neither spot given at all: a week we sat out, which is a flat week on purpose.
+  if (from === null && to === null) return { covered: 0, working: "" };
+  if (from === null || to === null || to < from) return { covered: null, working: "" };
+  return { covered: to - from, working: `(${to} - ${from})` };
+}
+
+/**
  * One burndown row per work, worked out rather than typed.
  *
  * `starting` is what the work had left when we sat down, which is simply what it
@@ -225,19 +252,15 @@ function burndown() {
       const total = value(`${wp}-total`);
       const starting = carried !== undefined && carried !== "" ? Number(carried) : Number(total);
 
-      const from = locusNumber(value(`${wp}-from-locus`));
-      const to = locusNumber(value(`${wp}-to-locus`));
       if (!slug || !units || !Number.isFinite(starting)) continue;
-
-      // A week we sat out, or one with no spots to measure, is a flat week.
-      const covered = from !== null && to !== null ? to - from : 0;
-      const ending = Math.max(0, starting - covered);
+      const ground = groundCovered(wp);
+      const ending = Math.max(0, starting - ground.covered);
       rows.set(slug, {
         slug,
         units,
         starting,
         ending,
-        working: covered > 0 ? `${starting} - (${to} - ${from})` : "",
+        working: ground.covered > 0 ? `${starting} - ${ground.working}` : "",
       });
     }
   }
@@ -292,6 +315,13 @@ function missingForChart() {
       }
       if ((carried === undefined || carried === "") && !value(`${wp}-total`)) {
         return `${name} hasn't been on the chart before, so it needs “how long it is” filling in.`;
+      }
+      if (groundCovered(wp).covered === null) {
+        const from = value(`${wp}-from-locus`);
+        const to = value(`${wp}-to-locus`);
+        return to && from
+          ? `${name} ran from ${from} to ${to}, which doesn't subtract — if its lines start again at every book, fill in “how much we covered”.`
+          : `${name} only has one of its two spots, so “how much we covered” needs filling in.`;
       }
     }
   }

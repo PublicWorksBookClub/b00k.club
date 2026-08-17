@@ -77,6 +77,16 @@
   | reverse %}
 {% set_global claimed = [] %}
 
+{#- Which works we're on, as a plain list of slugs. Membership in a list is
+    something Tera answers reliably; whether a key exists on a page that never set
+    it is not — `w.extra.currently_reading` reads as true for the forty-odd works
+    that never mention it, which kept all of them out of the menu below. -#}
+{% set_global reading_slugs = [] %}
+{% for w in works.pages | filter(attribute="extra.currently_reading", value=true) %}
+  {% set_global reading_slugs = reading_slugs | concat(with=w.slug) %}
+{% endfor %}
+
+
 <article class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg
   prose-headings:font-fira-sans prose-pwbc">
   <h1>New meeting</h1>
@@ -246,7 +256,7 @@
                   </optgroup>
                   <optgroup label="Everything else">
                     {%- for w in works.pages | sort(attribute="extra.sort") %}
-                    {%- if not w.extra.currently_reading %}
+                    {%- if w.slug not in reading_slugs %}
                     {{ mins::work_option(w=w, selected=slug, last_burndown=last_burndown) }}
                     {%- endif %}
                     {%- endfor %}
@@ -333,16 +343,23 @@
                     <input class="{{ field | safe }}" id="{{ wp }}-total" name="{{ wp }}-total" type="number" min="0" step="any"
                       placeholder="52">
                   </div>
+                  <div class="sm:col-span-2">
+                    <label class="{{ label }}" for="{{ wp }}-covered">How much we covered</label>
+                    <input class="{{ field | safe }}" id="{{ wp }}-covered" name="{{ wp }}-covered" type="number" min="0" step="any"
+                      placeholder="670">
+                  </div>
                 </div>
                 <span class="{{ hint }}">
                   {%- if prev_bd -%}
-                  {{ last.date }} left {{ prev_bd.ending }} {{ prev_bd.units }} to go. What is left now is worked
-                  out from that, less the ground covered between the two spots above.
+                  {{ last.date }} left {{ prev_bd.ending }} {{ prev_bd.units }} to go, and what is left now is
+                  worked out from that.
                   {%- else -%}
-                  What is left is worked out for you, from the ground covered between the two spots
-                  above. “How long it is” is only wanted the first time a work appears on the chart —
-                  the whole of it, in those units, counting from where we began.
-                  {%- endif -%}
+                  “How long it is” is only wanted the first time a work appears on the chart — the whole
+                  of it, in those units, counting from where we began.
+                  {%- endif %}
+                  The ground covered is the distance between the two spots above, so it only needs saying
+                  when they will not subtract: a work whose lines start again at every book, where we ran
+                  from one book into the next, or began at a book&#39;s opening. Say it and it wins.
                 </span>
               </div>
             </div>

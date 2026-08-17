@@ -9,6 +9,8 @@
 - Keep the "next week" line where it belongs, one to a meeting however many works it covered
 - Take each meeting's likely works from last week's own page rather than by matching burndown keys to meetings by position, which stopped holding the moment a meeting tracked no works at all
 - Start both meetings unticked, since plenty of weeks one club or the other doesn't sit
+- Take the ground covered as stated when the two spots won't subtract — a work like the *Argonautica* numbers its lines from 1 again at every book, so a session running from one book into the next, or beginning at a book's opening, has to say the figure outright rather than have it guessed wrong
+- Show all forty-eight works in the meeting form's menu again; the forty that never set `currently_reading` were being dropped, because Tera reads a key a page never mentions as though it were there and true
 
 ## 1.11.0 (2026-08-17)
 
