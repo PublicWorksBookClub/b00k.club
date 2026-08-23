@@ -2,6 +2,10 @@
 
 ## Next
 
+## 1.11.1 (2026-08-23)
+
+- Update with today's meeting notes
+
 ## 1.11.0 (2026-08-17)
 
 - Update 2026-08-16 minutes with reading for next week + optional epigram
