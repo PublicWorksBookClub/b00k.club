@@ -512,3 +512,236 @@
 
 {% endif %}
 {% endmacro %}
+{#
+    Draws a tree as an SVG: root at the top, children below, straight edges.
+
+    Positions come from the leaves. Every leaf gets its own slot along the bottom of its
+    branch, and every parent is centred over the span of its children. That is what keeps
+    an unbalanced tree honest — a division that splits one way each time (Plato's
+    diairesis) leans, rather than crossing its own edges, which is what happens if you
+    just spread each level evenly across the width.
+
+    Tera can't return values from a recursive macro, so the centring is done with one
+    reverse pass instead: walking the nodes backwards, every node's children have already
+    been placed by the time it is reached.
+
+    Takes four parallel arrays, all the same length and in document order:
+
+      depths      0 for a root, 1 for its children, and so on
+      labels      the text drawn for each node
+      edges       labels the link *into* that node, "" for none; [] for none at all
+      marks       "1" draws the node as picked out from its siblings, "" not; [] for none
+
+    `wrap` and `edge_wrap` are the character counts a node label and an edge label
+    are folded at.
+
+    Callers usually reach this through the `tree` shortcode, which builds those arrays
+    from an indented list. Templates with their own data can call it directly.
+#}
+{% macro tree(depths, labels, edges, marks, caption="", level_height=78, char_width=7.4, font_size=16, gutter=26, pad=14, wrap=14, edge_wrap=16) %}
+{%- set count = depths | length -%}
+{%- set_global rows_gap = level_height -%}
+{%- set big = 999999 -%}
+
+{#- Wrap each label to `wrap` characters and keep the result as "line|line", so the
+    drawing pass below can split it again rather than repeat this. Labels therefore may
+    not themselves contain "|" — the shortcode has already taken that off as the edge
+    label. Wrapping matters: one long name like "victory in controversy" would otherwise
+    set the slot width for every leaf in the tree and blow the diagram out sideways. -#}
+{%- set_global wrapped = [] -%}
+{%- set_global label_w = 0 -%}
+{%- set_global max_rows = 1 -%}
+{%- set_global max_depth = 0 -%}
+{%- for label in labels -%}
+  {%- set_global rows = [] -%}
+  {%- set_global cur = "" -%}
+  {%- for word in label | split(pat=" ") -%}
+    {%- if cur == "" -%}
+      {%- set_global cur = word -%}
+    {%- else -%}
+      {%- set candidate = cur ~ " " ~ word -%}
+      {%- set len = candidate | length -%}
+      {%- if len <= wrap -%}
+        {%- set_global cur = candidate -%}
+      {%- else -%}
+        {%- set_global rows = rows | concat(with=[cur]) -%}
+        {%- set_global cur = word -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if cur != "" %}{% set_global rows = rows | concat(with=[cur]) %}{% endif -%}
+  {%- set_global wrapped = wrapped | concat(with=[rows | join(sep="|")]) -%}
+  {%- set n_rows = rows | length -%}
+  {%- if n_rows > max_rows %}{% set_global max_rows = n_rows %}{% endif -%}
+  {%- for row in rows -%}
+    {%- set chars = row | length -%}
+    {%- set w = chars * char_width -%}
+    {%- if w > label_w %}{% set_global label_w = w %}{% endif -%}
+  {%- endfor -%}
+  {%- set d = depths | nth(n=loop.index0) -%}
+  {%- if d > max_depth %}{% set_global max_depth = d %}{% endif -%}
+{%- endfor -%}
+{%- set slot = label_w + gutter -%}
+
+{#- Edge labels get the same treatment, folded harder: two of them meet in the gap
+    between sibling subtrees, so they have far less room than a node label. -#}
+{%- set_global wrapped_edges = [] -%}
+{%- set_global has_edges = false -%}
+{%- for edge in edges -%}
+  {%- if edge != "" %}{% set_global has_edges = true %}{% endif -%}
+  {%- set_global rows = [] -%}
+  {%- set_global cur = "" -%}
+  {%- for word in edge | split(pat=" ") -%}
+    {%- if cur == "" -%}
+      {%- set_global cur = word -%}
+    {%- else -%}
+      {%- set candidate = cur ~ " " ~ word -%}
+      {%- set len = candidate | length -%}
+      {%- if len <= edge_wrap -%}
+        {%- set_global cur = candidate -%}
+      {%- else -%}
+        {%- set_global rows = rows | concat(with=[cur]) -%}
+        {%- set_global cur = word -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if cur != "" %}{% set_global rows = rows | concat(with=[cur]) %}{% endif -%}
+  {%- set_global wrapped_edges = wrapped_edges | concat(with=[rows | join(sep="|")]) -%}
+{%- endfor -%}
+
+{#- A node is a leaf when the next node is not deeper than it. -#}
+{%- set_global leaf_of = [] -%}
+{%- set_global slot_of = [] -%}
+{%- set_global leaves = 0 -%}
+{%- for d in depths -%}
+  {%- set i = loop.index0 -%}
+  {%- set is_leaf = true -%}
+  {%- if i + 1 < count -%}
+    {%- set nd = depths | nth(n=i + 1) -%}
+    {%- if nd > d %}{% set is_leaf = false %}{% endif -%}
+  {%- endif -%}
+  {%- if is_leaf -%}
+    {%- set_global leaf_of = leaf_of | concat(with=[true]) -%}
+    {%- set_global slot_of = slot_of | concat(with=[leaves]) -%}
+    {%- set_global leaves = leaves + 1 -%}
+  {%- else -%}
+    {%- set_global leaf_of = leaf_of | concat(with=[false]) -%}
+    {%- set_global slot_of = slot_of | concat(with=[0]) -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{#- Reverse pass. `lo`/`hi` hold the leftmost and rightmost child seen at each depth for
+    the parent still being resolved; consuming them resets that depth for the previous
+    sibling's turn. -#}
+{%- set_global lo = [] -%}
+{%- set_global hi = [] -%}
+{%- for i in range(end=max_depth + 2) -%}
+  {%- set_global lo = lo | concat(with=[big]) -%}
+  {%- set_global hi = hi | concat(with=[0 - big]) -%}
+{%- endfor -%}
+{%- set_global xs_rev = [] -%}
+{%- for k in range(end=count) -%}
+  {%- set i = count - 1 - k -%}
+  {%- set d = depths | nth(n=i) -%}
+  {%- set is_leaf = leaf_of | nth(n=i) -%}
+  {%- if is_leaf -%}
+    {%- set x = slot_of | nth(n=i) -%}
+  {%- else -%}
+    {%- set cl = lo | nth(n=d + 1) -%}
+    {%- set ch = hi | nth(n=d + 1) -%}
+    {%- set x = (cl + ch) / 2 -%}
+    {%- set_global lo = lo | slice(end=d + 1) | concat(with=[big]) | concat(with=lo | slice(start=d + 2)) -%}
+    {%- set_global hi = hi | slice(end=d + 1) | concat(with=[0 - big]) | concat(with=hi | slice(start=d + 2)) -%}
+  {%- endif -%}
+  {%- set_global xs_rev = xs_rev | concat(with=[x]) -%}
+  {%- set cur_lo = lo | nth(n=d) -%}
+  {%- set cur_hi = hi | nth(n=d) -%}
+  {%- if x < cur_lo -%}
+    {%- set_global lo = lo | slice(end=d) | concat(with=[x]) | concat(with=lo | slice(start=d + 1)) -%}
+  {%- endif -%}
+  {%- if x > cur_hi -%}
+    {%- set_global hi = hi | slice(end=d) | concat(with=[x]) | concat(with=hi | slice(start=d + 1)) -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- set xs = xs_rev | reverse -%}
+
+{#- Labelled edges need vertical room that a compact tree does not have. -#}
+{%- if has_edges %}{% set_global rows_gap = level_height + 26 %}{% endif -%}
+{%- set width = leaves * slot + pad * 2 -%}
+{%- set extra_rows = max_rows - 1 -%}
+{%- set height = max_depth * rows_gap + font_size + extra_rows * font_size * 1.15 + pad * 2 + 6 -%}
+
+{#- x of the most recent node at each depth, so a child can find its parent. -#}
+{%- set_global px_at = [] -%}
+{%- for i in range(end=max_depth + 2) %}{% set_global px_at = px_at | concat(with=[0]) %}{% endfor -%}
+
+{#- Drawn at its natural size so the labels stay at reading size. The shortcode's
+    figure widens past the prose measure to give it room, and scrolls beyond that. -#}
+<svg class="block mx-auto" width="{{ width }}" height="{{ height }}"
+     viewBox="0 0 {{ width }} {{ height }}" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-label="{% if caption %}{{ caption }}{% else %}tree diagram{% endif %}">
+  <title>{% if caption %}{{ caption }}{% else %}tree diagram{% endif %}</title>
+  {#- Pass one: the edges. Drawn before any text so a line can never cross a label —
+      with a single interleaved pass, a later sibling's edge paints over an earlier
+      node's words. An edge leaves the parent below its *last* wrapped line, which is
+      what `bot_at` records. -#}
+  {%- set_global bot_at = [] -%}
+  {%- for i in range(end=max_depth + 2) %}{% set_global bot_at = bot_at | concat(with=[0]) %}{% endfor -%}
+  {%- for label in labels -%}
+  {%- set i = loop.index0 -%}
+  {%- set d = depths | nth(n=i) -%}
+  {%- set slotx = xs | nth(n=i) -%}
+  {%- set mark = marks | nth(n=i) | default(value="") -%}
+  {%- set x = pad + slotx * slot + slot / 2 -%}
+  {%- set y = pad + d * rows_gap + font_size -%}
+  {%- if d > 0 -%}
+    {%- set parent_x = px_at | nth(n=d - 1) -%}
+    {%- set parent_bottom = bot_at | nth(n=d - 1) -%}
+  <line class="{% if mark %}stroke-gray-500{% else %}stroke-gray-300{% endif %}" stroke-width="{% if mark %}1.5{% else %}1{% endif %}"
+        x1="{{ parent_x }}" y1="{{ parent_bottom }}" x2="{{ x }}" y2="{{ y - font_size + 2 }}" />
+  {%- endif -%}
+  {%- set n_rows = wrapped | nth(n=i) | split(pat="|") | length -%}
+  {%- set extra = n_rows - 1 -%}
+  {%- set bottom = y + extra * font_size * 1.15 + 6 -%}
+  {%- set_global px_at = px_at | slice(end=d) | concat(with=[x]) | concat(with=px_at | slice(start=d + 1)) -%}
+  {%- set_global bot_at = bot_at | slice(end=d) | concat(with=[bottom]) | concat(with=bot_at | slice(start=d + 1)) -%}
+  {%- endfor -%}
+
+  {#- Pass two: the words, on top. -#}
+  {%- set_global px_at = [] -%}
+  {%- for i in range(end=max_depth + 2) %}{% set_global px_at = px_at | concat(with=[0]) %}{% endfor -%}
+  {%- for label in labels -%}
+  {%- set i = loop.index0 -%}
+  {%- set d = depths | nth(n=i) -%}
+  {%- set slotx = xs | nth(n=i) -%}
+  {%- set edge = edges | nth(n=i) | default(value="") -%}
+  {%- set mark = marks | nth(n=i) | default(value="") -%}
+  {%- set x = pad + slotx * slot + slot / 2 -%}
+  {%- set y = pad + d * rows_gap + font_size -%}
+  {%- if d > 0 and edge -%}
+    {%- set parent_x = px_at | nth(n=d - 1) -%}
+    {%- set parent_y = pad + (d - 1) * rows_gap + font_size -%}
+  {#- Anchored away from the parent rather than centred on the line — a left-hand edge
+      reads leftward, a right-hand edge rightward — so two sibling labels grow apart
+      instead of into each other, and neither reaches its child. A halo in the page
+      colour keeps the text legible where it crosses its own line. -#}
+  {%- set ex = parent_x + (x - parent_x) * 0.5 -%}
+  {%- set ey = parent_y + (y - parent_y) * 0.5 -%}
+  {%- if x < parent_x %}{% set anchor = "end" %}{% else %}{% set anchor = "start" %}{% endif -%}
+  <text class="fill-gray-500 stroke-orange-50 italic" stroke-width="4" paint-order="stroke"
+        font-size="{{ font_size - 4 }}" text-anchor="{{ anchor }}" x="{{ ex }}" y="{{ ey }}">
+    {%- for row in wrapped_edges | nth(n=i) | split(pat="|") -%}
+    <tspan x="{{ ex }}" dy="{% if loop.first %}0{% else %}1.1em{% endif %}">{{ row }}</tspan>
+    {%- endfor -%}
+  </text>
+  {%- endif -%}
+  {%- set_global px_at = px_at | slice(end=d) | concat(with=[x]) | concat(with=px_at | slice(start=d + 1)) -%}
+  <text class="{% if mark %}fill-gray-800 font-semibold{% elif d == 0 %}fill-gray-700 font-semibold{% else %}fill-gray-600{% endif %}"
+        font-size="{{ font_size }}" text-anchor="middle" x="{{ x }}" y="{{ y }}">
+    {%- for row in wrapped | nth(n=i) | split(pat="|") -%}
+    <tspan x="{{ x }}" dy="{% if loop.first %}0{% else %}1.15em{% endif %}">{{ row }}</tspan>
+    {%- endfor -%}
+  </text>
+  {%- endfor %}
+</svg>
+{% endmacro %}

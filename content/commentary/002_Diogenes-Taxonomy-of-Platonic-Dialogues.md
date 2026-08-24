@@ -22,10 +22,28 @@ See [_Thrasyllus of Mendes' Platonic Canon_](/commentary/thrasyllus-platonic-can
 | **logical**    | reasoning and definition       | theoretical            | Instructive |
 | **ethical**    | affairs of the individual      | practical              | Instructive |
 | **political**  | affairs of the state           | practical              | Instructive |
-| **tentative**  | an unresolved inquiry (aporia) | training the mind      | Inquiring   |
-| **obstetric**  | (midwifery) a resolved inquiry | training the mind      | Inquiring   |
-| **critical**   | raises objections              | victory in controversy | Inquiring   |
-| **refutative** | overturns the position         | victory in controversy | Inquiring   |
+| **tentative**  | an unresolved inquiry (aporia) | training the mind      | Inquisitive |
+| **obstetric**  | (midwifery) a resolved inquiry | training the mind      | Inquisitive |
+| **critical**   | raises objections              | victory in controversy | Inquisitive |
+| **refutative** | overturns the position         | victory in controversy | Inquisitive |
+
+{% tree(caption="Diogenes' taxonomy of Platonic dialogues. Commentary along edges between nodes are my own. ") %}
+- Platonic dialogues
+  - Instructive | Focus on answers
+    - theoretical | Possibilities
+      - physical | tangible
+      - logical | abstract
+    - practical | Actualities
+      - ethical | individual level
+      - political | societal level
+  - Inquisitive | Focus on questions
+    - training the mind | cooperative interlocutor
+      - tentative | inquiry unresolved
+      - obstetric | inquiry resolved
+    - victory in controversy | uncooperative interlocutor
+      - critical | raises objections
+      - refutative | overturns the position
+{% end %}
 
 ---
 

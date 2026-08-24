@@ -1,0 +1,86 @@
+{#
+    Draw an indented list as a tree diagram.
+
+    {% tree(caption="Diogenes' divisions") %}
+    - Dialogues
+      - Instructive
+        - theoretical
+          - physical
+          - logical
+      - Inquiring
+    {% end %}
+
+    Indentation gives the shape: the smallest indent in the body counts as one level, so
+    two spaces or four both work as long as the body is consistent. A leading "-", "*" or
+    "+" is optional.
+
+    Two optional markers per line:
+
+      - label | edge     text after "|" labels the link coming *into* that node
+      - label *          a trailing "*" picks the node out from its siblings, for
+                         following one branch of a division down the page
+
+    Arguments: `caption` names the diagram for screen readers, and the geometry
+    arguments of `svg::tree` (row_height, col_width, char_width, font_size, pad) pass
+    straight through.
+#}
+{%- import "macro/svg.html" as svg -%}
+
+{#- Pass one: keep the non-blank lines and measure how far each is indented. -#}
+{%- set_global raw_lines = [] -%}
+{%- set_global indents = [] -%}
+{%- for line in body | split(pat="
+") -%}
+  {%- if line | trim -%}
+    {%- set full = line | length -%}
+    {%- set bare = line | trim_start | length -%}
+    {%- set_global raw_lines = raw_lines | concat(with=[line]) -%}
+    {%- set_global indents = indents | concat(with=[full - bare]) -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{#- One level is the smallest non-zero indent used, rather than a hardcoded two spaces. -#}
+{%- set_global step = 0 -%}
+{%- for n in indents -%}
+  {%- if n > 0 and (step == 0 or n < step) %}{% set_global step = n %}{% endif -%}
+{%- endfor -%}
+{%- if step == 0 %}{% set_global step = 1 %}{% endif -%}
+
+{#- Pass two: split each line into depth, label, edge label and mark. -#}
+{%- set_global depths = [] -%}
+{%- set_global labels = [] -%}
+{%- set_global edges = [] -%}
+{%- set_global marks = [] -%}
+{%- for line in raw_lines -%}
+  {%- set indent = indents | nth(n=loop.index0) -%}
+  {%- set depth = indent / step | round(method="floor") | int -%}
+  {%- set_global depths = depths | concat(with=[depth]) -%}
+  {%- set text = line | trim | trim_start_matches(pat="-") | trim_start_matches(pat="*")
+                       | trim_start_matches(pat="+") | trim -%}
+  {#- Split the edge label off first, so the "*" can sit on the label either side of it. -#}
+  {%- set parts = text | split(pat="|") -%}
+  {%- set label = parts.0 | trim -%}
+  {%- if parts | length > 1 -%}
+    {%- set_global edges = edges | concat(with=[parts.1 | trim]) -%}
+  {%- else -%}
+    {%- set_global edges = edges | concat(with=[""]) -%}
+  {%- endif -%}
+  {%- if label is ending_with("*") -%}
+    {%- set_global marks = marks | concat(with=["1"]) -%}
+    {%- set label = label | trim_end_matches(pat="*") | trim -%}
+  {%- else -%}
+    {%- set_global marks = marks | concat(with=[""]) -%}
+  {%- endif -%}
+  {%- set_global labels = labels | concat(with=[label]) -%}
+{%- endfor -%}
+
+{#- A tree needs more room than the prose measure, so the figure breaks out of the
+    column and centres itself, up to 64rem or the viewport. Past that it scrolls. -#}
+<figure class="not-prose my-10 relative left-1/2 -translate-x-1/2 w-[min(100vw-2rem,64rem)]">
+  <div class="overflow-x-auto">
+  {{ svg::tree(depths=depths, labels=labels, edges=edges, marks=marks, caption=caption | default(value="")) }}
+  </div>
+  {%- if caption %}
+  <figcaption class="mt-2 text-center text-sm italic font-fira-sans text-gray-500">{{ caption }}</figcaption>
+  {%- endif %}
+</figure>
