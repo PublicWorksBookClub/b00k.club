@@ -121,3 +121,139 @@ Order,Epithet,Character,Kind,Gloss,Sense,Book,Loc.
 120,the heir to Inachus,Epaphus,Genealogy,"Latin Inachides; Io's son, so Inachus' grandson.",,1,753
 121,his [Phaëthon's] mother,Clymene,Relationship,"Clymene, now married to King Merops of Aethiopia.",,1,"763, 776"
 122,this far-flashing light,the Sun,Periphrasis,"Clymene's oath, sworn on the sun without naming him.",,1,769
+123,the Sun,the Sun,Name,Latin Sol.,,2,"1, 31, 395"
+124,Mulciber,Vulcan,Cult title,"A Roman cult name for Vulcan, from mulcere, “to soften” (metal).","Ovid names the smith-god by his trade, on the doors that are his work.",2,6
+125,Melodious Triton,Triton,Attribute,Latin canorus; his conch is his instrument.,,2,9
+126,changing Proteus,Proteus,Attribute,Latin ambiguus — the sea-god who holds no single shape.,"An epithet that is also a plot summary, and in this poem a signature.",2,9
+127,Doris and her daughters,the Nereids,Genealogy,"Sea-nymphs; Doris is their mother, Nereus their father.",,2,"11, 269"
+128,the son of Clymene,Phaethon,Matronymic,Latin Clymeneia proles.,Named by the mother whose word is the only evidence he has.,2,19
+129,his [Phaethon's] supposed sire,the Sun,Relationship,"Latin creditus, “believed.”","The doubt is built into the epithet, in the line where he arrives to settle it.",2,20
+130,Phoebus,the Sun,Name,"Greek Phoibos, “radiant”; shared with Apollo.",In Book 2 the ambiguity of 1.752 is fully exploited — Phoebus is the Sun here and Apollo at 545.,2,"23, 36, 110, 399"
+131,son not to be disclaimed,Phaethon,Periphrasis,Latin non negandus.,The father settles in half a line what the boy crossed the world to ask.,2,34
+132,O shared light of the wide world,the Sun,Periphrasis,Latin lux publica mundi.,Phaethon claims a private father by naming him public property.,2,35
+133,his sire,the Sun,Relationship,,,2,40
+134,the father,the Sun,Relationship,,,2,"49, 105, 122"
+135,the high Olympian king,Jupiter,Function,,,2,60
+136,who hurls fierce thunder with his fearful hand,Jupiter,Periphrasis,,The Sun ranks himself above Jove by the one thing Jove cannot do: drive this chariot.,2,61
+137,Jove,Jupiter,Name,"From Iovis, the oblique stem of Iuppiter.",,2,"62, 378, 422, 437, 473, 488, 678, 697"
+138,Tethys,Tethys,Name,"A sea-goddess, wife of Ocean; Clymene's mother, so Phaethon's grandmother.",,2,"68, 156"
+139,Taurus' horns,Taurus,Metonym,"The constellation, named by the bull's part that matters to a driver.",Ovid gives the zodiac as a bestiary rather than a set of signs — the sky is a road through animals.,2,80
+140,Thessaly's bowman,Sagittarius,Periphrasis,"The constellation Sagittarius, identified with the Thessalian centaur.",,2,81
+141,cruel Leo's maw,Leo,Attribute,,,2,81
+142,watchful Dawn,Aurora,Attribute,Latin vigil Aurora.,,2,"112, 144"
+143,"their lord, the Morning Star",Lucifer,Function,"Latin Lucifer, the last star to quit the sky.",Ovid makes the morning star the commander of a retreat.,2,114–15
+144,the Titan,the Sun,Metonym,The Sun is son of the Titan Hyperion; the race stands for the individual.,The same name as at 1.11 — where there was not yet a sun for it to mean.,2,118
+145,the North Wind's nearby Bears,the Bears,Periphrasis,"Ursa Major and Minor, which never set.",,2,132
+146,the coiling Snake,Draco,Attribute,"The constellation Draco, by the icy pole.",,2,"138, 174"
+147,the Altar,Ara,Periphrasis,The constellation Ara.,,2,139
+148,Fortune,Fortune,Metonym,The goddess standing in for the outcome.,The Sun's last word of advice is to name a goddess he cannot control.,2,141
+149,"Pyroïs, Aethon, Eoüs and Phlegon",the Sun's horses,Name,"“Fiery,” “Scorch,” “Dawn” and “Flame.”",Four names that are nothing but description — and Phaethon still cannot remember them (193).,2,153–54
+150,mindless to her grandson's fate,Tethys,Relationship,,She opens the gates herself; the epithet supplies the dramatic irony.,2,156
+151,the Sun-god's steeds,the Sun,Relationship,,,2,161
+152,the Oxen,the Bears,Metonym,"Latin Triones, the plough-oxen — Ursa Major read as a wagon team.",,2,"172, 528"
+153,slow and plow-encumbered,Boötes,Attribute,A northern constellation figured as a ploughman.,,2,177–78
+154,Poor Phaethon,Phaethon,Attribute,,,2,179
+155,Merops' son,Phaethon,Patronymic,"Merops, Clymene's mortal husband and Phaethon's putative father.",The name he refused at 1.764 is the one he now longs for.,2,185
+156,the Moon ... her brother's steeds,Diana,Relationship,"Latin Luna; Ovid uses Luna, Phoebe and Diana for one goddess.",,2,208
+157,old Peneus,Peneus,Attribute,,,2,242
+158,Thrace's Til,Melas,Name,"A river of Mygdonia in Thrace. The Latin is Mygdonius Melas, “the Mygdonian Melas”; melas is Greek for black.","Not attested elsewhere as a name for the Melas, and Soucy gives it no note. The line needs a monosyllable to close on, which “Melas” is not.",2,247
+159,its queen and king [of Hell],Dis and Proserpina,Periphrasis,"Dis and Proserpina, unnamed.",,2,261
+160,Nereus himself,Nereus,Name,"An old sea-god, father of the Nereids.",At 1.187 the name stood for the sea; here he is a person who hides in a cave.,2,268
+161,Neptune,Neptune,Name,,,2,270
+162,kindly Earth,Earth,Attribute,"Latin alma Tellus, “nourishing.”",,2,272
+163,O lord of gods,Jupiter,Function,,,2,282
+164,your [Jupiter's] brother,Neptune,Relationship,,Earth pleads for the sea by naming its god only as Jupiter's relation — the same move as 1.275.,2,291
+165,Atlas ... scarce shouldering the glowing vault,Atlas,Function,,,2,296–97
+166,ancient Chaos,Chaos,Attribute,The unformed mass of 1.8.,,2,299
+167,the Almighty Father,Jupiter,Attribute,Latin pater omnipotens.,,2,304
+168,the charioteer,Phaethon,Function,,He is named by the job only at the instant he is killed for it.,2,312
+169,long Eridanus,Eridanus,Attribute,"A western river, taken for the Po.",,2,324
+170,the Heliads,the Heliads,Genealogy,"“Daughters of Helios” — Clymene's daughters, Phaethon's sisters.",,2,340
+171,the son of Sthenelus,Cygnus,Patronymic,,,2,367
+172,the unkempt sire of Phaethon,the Sun,Relationship,"Latin squalidus, unwashed and unkempt in mourning.","Grief rendered as a lapse of grooming, for the god whose whole business is brightness.",2,382
+173,Jupiter,Jupiter,Name,The nominative Latin name.,,2,"397, 444, 744"
+174,the Almighty,Jupiter,Attribute,Latin omnipotens.,,2,"402, 505"
+175,a girl,Callisto,Generic,,,2,410
+176,Phoebe,Diana,Name,Feminine of Phoibos; also the moon itself.,,2,"415, 723"
+177,Trivia,Diana,Cult title,Guardian of the three-way crossroads (Latin trivia).,,2,416
+178,the guardless girl,Callisto,Attribute,,,2,422
+179,my [Jove's] wife,Juno,Relationship,,,2,423
+180,Diana,Diana,Name,,Jupiter's disguise: he rapes Callisto wearing the face of the goddess she serves.,2,"425, 451"
+181,Saturnia,Juno,Patronymic,Daughter of Saturn.,,2,"435, 532"
+182,Dictynna,Diana,Cult title,"A Cretan hunting goddess, here syncretized with Diana.",,2,441
+183,the goddess,Diana,Generic,,,2,"449, 455"
+184,her brother's rays,Diana,Relationship,The Sun's; Diana and Apollo are twins.,,2,454
+185,Parrhasis,Callisto,Cult site,"“The Parrhasian girl” — Parrhasia, a district of Arcadia.",,2,460
+186,Cynthia,Diana,Cult site,"Born on Mount Cynthus, on Delos.","Four names in fifty lines — Phoebe, Trivia, Dictynna, Cynthia — one for each way of being the same goddess.",2,464
+187,the Thunderer's wife,Juno,Relationship,Latin Tonantis coniunx.,She is named by the husband whose affair she is about to punish.,2,466
+188,her [Juno's] rival,Callisto,Relationship,"Latin paelex, the same word used of Io at 1.726.",,2,"468, 508"
+189,Juno,Juno,Name,,,2,"469, 518, 525"
+190,Adulteress,Callisto,Attribute,,Juno's word for the woman Jupiter raped.,2,471
+191,Lycaön's grandson,Arcas,Genealogy,Callisto is the daughter of the Lycaon of Book 1.,"Book 1's wolf turns out to be her father — “she feared wolves, though her father then was one” (495).",2,496
+192,white-haired Tethys,Tethys,Attribute,,,2,509
+193,"the old Ocean, whom the gods revere",Ocean,Attribute,,,2,510
+194,the queen of heaven,Juno,Function,Latin regina deorum.,,2,512
+195,Greek Phoronides,Io,Genealogy,"Sister of Phoroneus, an early king of Argos.","The same formation as Phoronis at 1.669, and Juno's proof that Jupiter restores the women he ruins.",2,524
+196,that concubine,Callisto,Attribute,,,2,530
+197,gabbling Raven,the Raven,Attribute,Latin garrule.,"Addressed in the second person, and convicted by the epithet before the story starts.",2,534
+198,Coronis of Larissa,Coronis,Cult site,"Larissa, a city of Thessaly.",,2,543
+199,the Delphic one,Apollo,Cult site,Latin Delphicus; Delphi is his oracle.,,2,"544, 677"
+200,Phoebus' fowl,the Raven,Relationship,,,2,545
+201,a hard informer,the Raven,Function,,,2,546
+202,his [the raven's] lord,Apollo,Relationship,,,2,"547, 598"
+203,a nosy Crow,the Crow,Attribute,,,2,547
+204,Pallas,Minerva,Name,"A standing Greek name for Athena, of disputed sense.",,2,"552, 567, 714"
+205,whom no mother bore,Erichthonius,Periphrasis,"Born of Vulcan's seed and the earth, without a mother.",,2,553
+206,two-formed Cecrops,Cecrops,Attribute,"Half man, half serpent — the first king of Athens.",,2,555
+207,the goddess,Minerva,Generic,,,2,"562, 760, 773, 788"
+208,Minerva,Minerva,Name,The Latin name.,,2,"563, 587, 710, 749, 787"
+209,the Owl,Nyctimene,Metonym,"Nyctimene, turned owl for her incest.",,2,564
+210,born to famed Coroneus of Phocis,the Crow,Patronymic,,,2,569–70
+211,the sea god,Neptune,Generic,,,2,574
+212,a virgin goddess,Minerva,Attribute,,,2,579
+213,Minerva's blameless aide,the Crow,Relationship,,,2,588
+214,made fowl for her foul sins,Nyctimene,Periphrasis,,,2,590
+215,the lover,Apollo,Relationship,,Ovid switches to this name at the moment Apollo kills the woman it refers to.,2,"600, 613"
+216,the god,Apollo,Generic,,,2,601
+217,his vain healer's arts,Apollo,Function,"Apollo as god of medicine, as at 1.523.","The healer's art fails him again, and this time he is the one who caused the wound.",2,618
+218,the seed of Phoebus,Asclepius,Patronymic,,,2,628
+219,two-formed Chiron,Chiron,Attribute,"Half man, half horse; the same phrase used of Cecrops at 555.",,2,630
+220,the half-breed,Chiron,Attribute,"Latin semifer, “half-beast.”",,2,633
+221,the child of heaven,Asclepius,Genealogy,,,2,633
+222,the centaur's daughter,Ocyrhoë,Patronymic,,,2,636
+223,Ocyrhoë,Ocyrhoë,Name,"“Swift-flowing,” for the stream she was born beside.","Named for a river, and turned into a mare — neither the name nor the shape is hers to keep.",2,638
+224,Healer of the world,Asclepius,Function,,,2,642
+225,your [Asclepius'] grandsire,Jupiter,Relationship,"Apollo's father, so the child's grandfather.",The thunderbolt is named by the family tie of the man it will kill.,2,646
+226,the threefold goddesses,the Fates,Periphrasis,"The three Parcae, who spin, measure and cut.",,2,654
+227,the monstrous marvel,Ocyrhoë,Periphrasis,,,2,675
+228,Philyra's heroic son,Chiron,Matronymic,"Philyra, an Oceanid, bore Chiron to Saturn.",,2,676
+229,Atlas' daughter Maia's son,Mercury,Matronymic,"Maia, one of the Pleiades.",At 1.670 Ovid gave the mother as a star; here he spells the descent out in full.,2,685
+230,the god,Mercury,Generic,,,2,691
+231,Jove's son,Mercury,Patronymic,,,2,"697, 726"
+232,country clod,Battus,Attribute,Mercury's address to him.,,2,699
+233,the elder,Battus,Attribute,,,2,702
+234,Atlas' grandson,Mercury,Genealogy,Latin Atlantiades.,,2,704
+235,the informer,Battus,Function,Latin index; the stone still carries the name.,He is punished into the thing he was — a stone that tells.,2,707
+236,the bearer of Caduceus,Mercury,Attribute,The herald's staff of 1.672.,,2,709
+237,the wingèd god,Mercury,Attribute,,,2,715
+238,Cyllenius,Mercury,Cult site,Born on Mount Cyllene in Arcadia.,,2,"720, 818"
+239,the Morning-Star,Lucifer,Function,,,2,722
+240,Phoebe's golden glow,Diana,Metonym,"The moon, named by the goddess.",,2,723
+241,the left-side sister,Aglauros,Relationship,,,2,740
+242,Mercury,Mercury,Name,"The Latin name, used once in Book 2.",Ovid gives him nine other names and this one only when a mortal asks for it outright.,2,741
+243,born unto Atlas' child with Pleione,Mercury,Periphrasis,"Maia, daughter of Atlas and Pleione.",His own answer to that question — a genealogy where a name was asked for.,2,742
+244,blonde Minerva,Minerva,Attribute,Latin flava.,,2,749
+245,the warrior goddess,Minerva,Function,,,2,752
+246,the Lemnian child,Erichthonius,Cult site,His father Vulcan kept his forge on Lemnos.,,2,756
+247,Envy,Envy,Name,"Latin Invidia, personified.",,2,"761, 770"
+248,the fearsome maid of war,Minerva,Function,,,2,765
+249,the creature,Envy,Generic,,,2,772
+250,Tritonia,Minerva,Cult site,Born near Lake Triton in Libya.,,2,"782, 794"
+251,the child of Cecrops,Aglauros,Genealogy,,,2,"784, 797, 805–06"
+252,the monster,Envy,Generic,,,2,787
+253,the heir of Atlas,Mercury,Genealogy,,,2,834
+254,my loyal son,Mercury,Relationship,"Jupiter's address, while sending him to procure Europa.",,2,837
+255,the princess,Europa,Function,,,2,"845, 868"
+256,"the lord and father of the gods, who wields the tri-forked flame, whose nods shake earth",Jupiter,Periphrasis,,Ovid piles up the full imperial titulature in the two lines before Jupiter turns himself into a bull.,2,848–49
+257,Agenor's child,Europa,Patronymic,"Agenor, king of Tyre.",,2,858
+258,his spoils,Europa,Relationship,"Latin praeda, “plunder.”",The last word on her in Book 2 is a word for property.,2,873
