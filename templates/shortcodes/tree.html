@@ -75,8 +75,8 @@
 {%- endfor -%}
 
 {#- A tree needs more room than the prose measure, so the figure breaks out of the
-    column and centres itself, up to 64rem or the viewport. Past that it scrolls. -#}
-<figure class="not-prose my-10 relative left-1/2 -translate-x-1/2 w-[min(100vw-2rem,64rem)]">
+    column and centres itself, up to 80rem or the viewport. Past that it scrolls. -#}
+<figure class="not-prose my-10 relative left-1/2 -translate-x-1/2 w-[min(100vw-2rem,80rem)]">
   <div class="overflow-x-auto">
   {{ svg::tree(depths=depths, labels=labels, edges=edges, marks=marks, caption=caption | default(value="")) }}
   </div>

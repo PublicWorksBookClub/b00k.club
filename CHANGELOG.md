@@ -2,6 +2,7 @@
 
 ## Next
 
+- Add a tree shortcode + macro for the general representation of trees as SVGs
 - Add commentaries for Thrasyllus' tetralogies and Diogenes' taxonomy of Platonic dialogues
 - Add epithets table for Ovid's _Metamorphoses_
 

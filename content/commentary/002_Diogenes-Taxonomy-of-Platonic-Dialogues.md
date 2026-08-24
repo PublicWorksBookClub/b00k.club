@@ -16,18 +16,7 @@ According to Diogenes[^1], Platonic dialogues are roughly classified as follows.
 
 See [_Thrasyllus of Mendes' Platonic Canon_](/commentary/thrasyllus-platonic-canon/) for how each dialogue was originally categorized by Diogenes.
 
-| Division       | Description                    | Purpose                | General     |
-| -------------- | ------------------------------ | ---------------------- | ----------- |
-| **physical**   | nature and the cosmos          | theoretical            | Instructive |
-| **logical**    | reasoning and definition       | theoretical            | Instructive |
-| **ethical**    | affairs of the individual      | practical              | Instructive |
-| **political**  | affairs of the state           | practical              | Instructive |
-| **tentative**  | an unresolved inquiry (aporia) | training the mind      | Inquisitive |
-| **obstetric**  | (midwifery) a resolved inquiry | training the mind      | Inquisitive |
-| **critical**   | raises objections              | victory in controversy | Inquisitive |
-| **refutative** | overturns the position         | victory in controversy | Inquisitive |
-
-{% tree(caption="Diogenes' taxonomy of Platonic dialogues. Commentary along edges between nodes are my own. ") %}
+{% tree(caption="Diogenes' taxonomy of Platonic dialogues. Commentary along edges between nodes are my own.") %}
 - Platonic dialogues
   - Instructive | Focus on answers
     - theoretical | Possibilities
@@ -44,6 +33,19 @@ See [_Thrasyllus of Mendes' Platonic Canon_](/commentary/thrasyllus-platonic-can
       - critical | raises objections
       - refutative | overturns the position
 {% end %}
+
+What follows is the same information in a tabular format:
+
+| Division       | Description                    | Purpose                | General     |
+| -------------- | ------------------------------ | ---------------------- | ----------- |
+| **physical**   | nature and the cosmos          | theoretical            | Instructive |
+| **logical**    | reasoning and definition       | theoretical            | Instructive |
+| **ethical**    | affairs of the individual      | practical              | Instructive |
+| **political**  | affairs of the state           | practical              | Instructive |
+| **tentative**  | an unresolved inquiry (aporia) | training the mind      | Inquisitive |
+| **obstetric**  | (midwifery) a resolved inquiry | training the mind      | Inquisitive |
+| **critical**   | raises objections              | victory in controversy | Inquisitive |
+| **refutative** | overturns the position         | victory in controversy | Inquisitive |
 
 ---
 
