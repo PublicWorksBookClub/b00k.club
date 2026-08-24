@@ -3,7 +3,7 @@
 {% import "macro/works.html" as works %}
 {% import "r3ply.html" as r3ply %}
 
-{% block body_styles %}bg-slate-50{% endblock body_styles %}
+{% block body_styles %}bg-orange-50{% endblock body_styles %}
 {# this template ignores extra.bg_color, so pin the iphone strips to match it #}
 {% block edge_color %}bg-slate-50{% endblock edge_color %}
 
@@ -16,29 +16,31 @@
 {% block main %}
 <article class="mx-auto my-16 max-w-prose px-4 md:px-0 prose prose-pwbc prose-lg prose-headings:font-fira-sans">
   <header class="not-prose text-gray-700">
-    <h1 class="font-playfair-display text-5xl font-extrabold text-gray-700">
-      {{ page.title }}
+    <h1 class="font-playfair-display text-5xl font-light text-gray-700">
+      <a class="hover:underline" href="{{ page.permalink }}">{{ page.title }}</a>
     </h1>
-    {% if page.taxonomies.contributors %}
-    <p class="mt-6 text-xl font-fira-sans font-extralight">
+    {% if page.authors %}
+    {# Zola's built-in page field, deliberately not the `authors` taxonomy: commentary is
+       authored, but its authors are not authors of texts and shouldn't be listed as such. #}
+    <p class="mt-6 text-xl font-fira-sans font-extralight" data-pagefind-weight="6.0">
       <span>by</span>
-      {% for c in page.taxonomies.contributors %}
-      <em class="font-light">
-        <a class="hover:underline" href='{{ get_taxonomy_url(kind="contributors", name=c, lang=page.lang) }}'>{{ c }}</a>
-      </em>
+      {% for a in page.authors %}
+      <em class="font-light">{{ a }}</em>
       {% if not loop.last %}<span>&</span>{% endif %}
       {% endfor %}
     </p>
     {% endif %}
-    <p class="mt-4 text-gray-500 text-sm">
-      {{ page.date | date(format="%B %d, %Y") }}
+    <p class="mt-2 text-right font-fira-sans font-medium">
+      <a class="hover:underline mr-1" href="/commentary/">Commentary #{{ page.extra.commentary_number }}</a>
+      (<time datetime="{{ page.date }}">{{ page.date | date(format="%d %B, %Y") }}</time>)
     </p>
   </header>
   <hr class="not-prose">
   <div class="not-prose text-center">
-    {# sort_by = "date" orders newest-first, so `higher` is the older post #}
-    {% set prev = page.higher | default(value=false) %}
-    {% set next = page.lower | default(value=false) %}
+    {% set commentary = get_section(path="commentary/_index.md") %}
+    {% set n = page.extra.commentary_number %}
+    {% set prev = commentary.pages | filter(attribute="extra.commentary_number", value=n-1) | first | default(value=false) %}
+    {% set next = commentary.pages | filter(attribute="extra.commentary_number", value=n+1) | first | default(value=false) %}
     <span class="[font-variant:small-caps] text-sm font-fira-sans font-light p-1 text-gray-500">
       {% if prev %}<a class="hover:underline" href="{{ prev.permalink }}">prev</a>{% endif %}
       {%- if prev and next %}-{% endif -%}

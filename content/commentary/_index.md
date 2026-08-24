@@ -1,5 +1,5 @@
 +++
 template = "commentary/index.html"
 sort_by = "date"
-draft = true
+draft = false
 +++

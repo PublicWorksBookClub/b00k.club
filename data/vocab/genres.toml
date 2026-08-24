@@ -60,11 +60,6 @@ label = "deliberative"
 description = "to exhort or dissuade, often in an assembly"
 synonyms = ["legislative oratory", "deliberative oratory"]
 
-["dialogue"]
-label = "dialogue"
-wikidata = "https://www.wikidata.org/wiki/Q3025978"
-wikipedia = "https://en.wikipedia.org/wiki/Dialogue"
-
 ["didactic poetry"]
 label = "didactic poetry"
 wikidata = "https://www.wikidata.org/wiki/Q777828"
@@ -194,6 +189,13 @@ label = "Socratic dialogue"
 description = "a dialogue that has a questioner and answerer and uses the Socratic method of argumentation"
 wikidata = "https://www.wikidata.org/wiki/Q3026054"
 wikipedia = "https://en.wikipedia.org/wiki/Socratic_dialogue"
+
+# TODO:
+# ["tentative dialogue"]
+# label = "tentative dialogue"
+# description = "a dialogue that has a questioner and answerer and uses the Socratic method of argumentation"
+# wikidata = "https://www.wikidata.org/wiki/Q3026054"
+# wikipedia = "https://en.wikipedia.org/wiki/Socratic_dialogue"
 
 [tragedy]
 label = "tragedy"
