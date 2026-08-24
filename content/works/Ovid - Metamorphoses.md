@@ -53,3 +53,38 @@ arcs = ["Magna I"]
 index = []
 contributors = ["Spencer Scorcelletti"]
 +++
+
+## Table of Epithets
+
+Choice of epithet is based on more than just avoiding repetition, e.g. Jupiter is *Saturn's son* when he decides to destroy mankind, and Juno is *his sister-wife* at the moment he cannot refuse her.
+
+See [below](#kinds-of-epithet) for precise meaning of each kind of epithet.
+
+{% table(csv="data/tables/Metamorphoses—Epithets.csv" link_col=4 link_prefix="#kind-" styles="mt-8 prose-td:first:text-center prose-td:nth-of-type-2:bg-orange-100 prose-td:nth-of-type-2:z-10") %}
+<thead>
+  <tr class="prose-th:sticky prose-th:top-0 prose-th:z-20 prose-th:bg-orange-50 prose-th:pt-3">
+    <th class="w-16 text-center">Order</th>
+    <th class="w-28 left-0 z-30! bg-orange-100!">Epithet</th>
+    <th class="w-64">Character</th>
+    <th class="w-28">Kind</th>
+    <th class="w-80">Gloss</th>
+    <th class="w-96">Sense</th>
+    <th class="w-16">Book</th>
+    <th class="w-40">Loc.</th>
+  </tr>
+</thead>
+{% end %}
+
+### Kinds of epithet
+
+See [above](#table-of-epithets) for epithets themselves.
+
+{% table(csv="data/tables/Epithets—Kinds.csv" id_col=1 id_prefix="kind-" sticky_col=1 scroll_hint=false styles="mt-6 prose-td:first:font-medium") %}
+<thead>
+  <tr class="prose-th:bg-orange-50">
+    <th class="w-24">Kind</th>
+    <th class="w-64">Definition</th>
+    <th class="w-64">Example</th>
+  </tr>
+</thead>
+{% end %}

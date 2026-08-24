@@ -2,6 +2,8 @@
 
 ## Next
 
+- Add epithets table for Ovid's _Metamorphoses_
+
 ## 1.11.1 (2026-08-23)
 
 - Update with today's meeting notes

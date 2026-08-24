@@ -1,0 +1,123 @@
+Order,Epithet,Character,Kind,Gloss,Sense,Book,Loc.
+1,Titan,the Sun,Metonym,The Sun is son of the Titan Hyperion; Ovid names the race for the individual.,Used in a run of gods named before they exist — there is not yet a sun to be a god of.,1,11
+2,Phoebe,Diana,Name,"Greek Phoibē, feminine of Phoibos; also a standard name for the moon.","At 12 the word does duty for the moon itself, before there is a goddess to bear it.",1,"12, 477"
+3,Amphitrite's waves,Amphitrite,Metonym,"A sea-goddess, wife of Neptune; her waves are simply the sea.",,1,14
+4,a god and better nature,the creator,Periphrasis,Latin deus et melior natura.,"Ovid never settles whether the world was made by a god or by nature, and never supplies a name.",1,21
+5,he — whichever of the gods he was,the creator,Generic,Latin quisquis fuit ille deorum.,The refusal to name is deliberate. Compare the precision lavished on four walk-on river gods at 579–80.,1,33
+6,the might of god,the creator,Periphrasis,Latin dei... vis.,,1,48
+7,the maker,the creator,Function,Latin fabricator.,,1,58
+8,Eurus,the east wind,Name,Greek name of the east wind. Ovid gives it no Latin alternative.,,1,62
+9,Zephyrus,the west wind,Name,Greek name of the west wind.,"Also used as a plural common noun, “the Zephyrs” (108), for spring breezes generally.",1,"65, 108"
+10,Boreas,the north wind,Name,Greek name of the north wind.,,1,65
+11,Auster,the south wind,Name,Latin name of the south wind.,,1,67
+12,the god,the creator,Generic,,,1,68
+13,that same creator,the creator,Function,"Latin opifex rerum, “maker of things.”","Same root as the title Apollo gives himself at 523, Aid-Bearer (opifer).",1,80
+14,the son of Iapetus,Prometheus,Patronymic,Iapetus is a Titan; the son is Prometheus.,Named only by his father at the moment he makes humankind. The translator's own footnote has to supply “Prometheus.”,1,83
+15,the Earth,Earth,Name,"Latin Tellus / Terra, personified.",,1,"102, 434"
+16,Jove,Jupiter,Name,"From Iovis, the oblique stem of Iuppiter.",,1,"106, 114, 166, 205, 244, 274, 517, 590, 615, 623, 673, 733, 748"
+17,Jupiter,Jupiter,Name,The nominative Latin name.,,1,"116, 324, 589"
+18,Ceres' seeds,Ceres,Metonym,Goddess of grain; the phrase means simply grain.,The first sowing in the poem is dated by the goddess's name rather than the crop's.,1,123
+19,the final god,Astraea,Periphrasis,The last divinity to abandon the earth.,The Iron Age is defined by her departure rather than by anything men do.,1,149
+20,the maid Astraea,Astraea,Attribute,"Latin virgo Astraea, the Star-Maiden — Justice personified.",,1,150
+21,the Giants,the Giants,Name,Latin Gigantas.,,1,"152, 156"
+22,the Almighty,Jupiter,Attribute,Latin pater omnipotens.,"Kept for the Gigantomachy, where he is nothing but force.",1,154
+23,their [the Giants'] Mother Earth,Earth,Relationship,The Giants were born from her.,,1,157
+24,Saturn's son,Jupiter,Patronymic,Latin Saturnius. Saturn is the father he deposed.,"Chosen for the line where he first looks down on Lycaon: the son who overthrew his father, about to destroy his own creation.",1,163
+25,Lycaön,Lycaön,Name,,,1,"164, 198, 221"
+26,the Thunderer,Jupiter,Cult title,"Latin Tonans, an actual cult title at Rome.",Applied to his house rather than his person — gods travel the Milky Way to the Thunderer's address.,1,170
+27,the ivory-sceptered one,Jupiter,Attribute,Latin sceptro... eburno.,"The council of gods is staged as a session of the Roman senate, and its president is described by his regalia.",1,178
+28,the monsters,the Giants,Periphrasis,"Latin anguipedum, “the snake-footed” — the Giants of 152, each preparing to throw a hundred arms at the sky.","Jove is recalling the revolt Ovid has just narrated, but describes it as though it were another one. The translator's footnote has to confirm they are the same.",1,183–84
+29,Nereus,Nereus,Metonym,An old sea-god; his name stands for Ocean.,"Jove swears to destroy everything the sea encircles, and names the sea by a god who appears nowhere else in the poem.",1,187
+30,the lord of gods and storms,Jupiter,Function,"Jove's phrase for himself, in council.",,1,197
+31,that Arcadian king,Lycaön,Periphrasis,Arcadia is his kingdom.,"Jove withholds the name through the whole approach to the house, though he has used it twice already in council.",1,219
+32,the Furies,the Furies,Metonym,Latin Erinys; the goddesses of vengeance standing in for the state they cause.,"“Where lies the land, the Furies rule these beasts” — the crime is named by its goddess.",1,241
+33,the king of gods,Jupiter,Function,Latin rex superum.,,1,250
+34,the Cyclops' hand-wrought shafts,the Cyclopes,Metonym,"The thunderbolt, named by the smiths who forged it.","Jove sets the bolt down, and the epithet turns his weapon back into an object somebody had to make.",1,259
+35,Aquilo,the north wind,Name,Latin name of the north wind — the same god as Boreas.,"Ovid uses the Greek name once and the Latin name twice, for one god, without signalling the switch.",1,"263, 328"
+36,Notus,the south wind,Name,Greek name of the south wind — the same god as Auster.,"The flood is loosed by Notus and dismissed by Aquilo: Greek name in, Latin name out.",1,264
+37,Juno,Juno,Name,The Latin name.,,1,"270, 602, 678"
+38,"Juno's herald Iris, rainbow-robed",Iris,Function,Latin nuntia Iunonis; the rainbow is both her office and her dress.,,1,270
+39,his [Jupiter's] sea-blue brother,Neptune,Relationship,Latin caeruleus frater.,"He is given a colour and a relation before he is given a name. The name arrives eight lines later, with the trident.",1,275
+40,Neptune,Neptune,Name,The Latin name.,,1,"283, 330"
+41,Deucalion,Deucalion,Name,,,1,"319, 350"
+42,Themis,Themis,Name,Titaness of divine law.,,1,"321, 378"
+43,the god of oracles,Themis,Function,"Latin quae tunc oracla tenebat, “who at that time held the oracles.”","Themis, not Apollo. She held Delphi before he took it, and the word doing the work is “then.”",1,321
+44,the Sun,the Sun,Name,Latin Sol.,,1,"338, 771"
+45,Pyrrha,Pyrrha,Name,,,1,"350, 384"
+46,[Deucalion's] father,Prometheus,Relationship,,Deucalion wishes he could remake humanity “with my father's skill” — the thing Prometheus is for.,1,363
+47,the goddess,Themis,Generic,,,1,"372, 381, 388"
+48,O font of mercy,Themis,Periphrasis,A vocative in prayer.,,1,380
+49,your [Deucalion and Pyrrha's] great mother,Earth,Relationship,"Themis' riddle: the “great mother” is the Earth, and her bones are stones.",Pyrrha reads it literally and refuses. The epithet is a puzzle before it is a name.,1,383
+50,Prometheus' son,Deucalion,Patronymic,Son of the Titan who made humankind.,Used at the moment he works out how to remake humankind — the son solving his father's problem.,1,390
+51,Epimetheus' daughter,Pyrrha,Patronymic,"Epimetheus is Prometheus' brother, so she and Deucalion are cousins.",,1,391
+52,Mother Earth,Earth,Relationship,Deucalion's solution to the riddle.,,1,394
+53,Titania,Pyrrha,Genealogy,Granddaughter of the Titan Iapetus.,Her one grand name arrives on the line where she hesitates and does not act.,1,396
+54,the seven-channeled Nile,the Nile,Attribute,Latin septemfluus — the seven mouths of the delta.,,1,422
+55,Great Python,Python,Name,,"Addressed in the second person: “Against her will, she bore you then.”",1,439
+56,the archer-god,Apollo,Function,"Latin deus arcitenens, “bow-holder.”",Named by the weapon he is about to mock Cupid for carrying.,1,442
+57,the vanquished snake,Python,Periphrasis,Latin superati... serpentis; the Pythian games take their name from it.,,1,448
+58,Phoebus,Apollo,Name,"Greek Phoibos, “bright, radiant.”","Also the Sun's name at 752, and Ovid never disambiguates.",1,"451, 453, 490, 553"
+59,Daphne,Daphne,Name,"Greek daphnē, “laurel.”",She carries the name of what she becomes from her first line.,1,"453, 490"
+60,Cupid,Cupid,Name,"Latin Cupido, “desire.”",,1,454
+61,the Delian lord,Apollo,Cult site,Latin Delius; born on Delos.,,1,455
+62,the boy-god,Cupid,Attribute,"Latin puer, “boy.”","Apollo's word for him, and the reason he underestimates him.",1,456
+63,Venus' son,Cupid,Matronymic,Latin Veneris filius.,His answer to being called a boy.,1,464
+64,the god,Cupid,Generic,,,1,473
+65,the Peneian nymph,Daphne,Patronymic,Daughter of the river Peneus.,,1,473
+66,Apollo,Apollo,Name,The Greek name; used once in Book 1.,It appears only for the bone Cupid's arrow passes through.,1,474
+67,Hymen,Hymen,Metonym,God of weddings; the name stands for marriage itself.,,1,480
+68,Diana,Diana,Name,The Latin name.,,1,"487, 695"
+69,[Diana's] father,Jupiter,Relationship,Jupiter granted Diana perpetual virginity.,Daphne's precedent for the request she makes of her own father. He enters the episode as a guarantor of chastity a hundred lines before he takes Io by force.,1,487
+70,the god,Apollo,Generic,,,1,"495, 540, 557"
+71,Peneus' daughter,Daphne,Patronymic,,Apollo calls her by her father — the father she will call on to destroy her shape.,1,504
+72,"lord of Delphi, Patara, Tenedos and Claros",Apollo,Cult site,His four oracular seats.,Recited to a woman who is running away from him.,1,515–16
+73,Aid-Bearer,Apollo,Function,"Latin opifer, “help-bringer” — Apollo as god of medicine.","Given by Apollo to himself, in the sentence where he admits no herb cures love.",1,523
+74,the nymph,Daphne,Generic,,,1,526
+75,the youthful god,Apollo,Attribute,,,1,532
+76,Love,Cupid,Metonym,Latin Amor.,In the chase the god shrinks to the force he personifies: “Love's wings proved faster.”,1,541
+77,Peneus,Peneus,Name,"A river of Thessaly, and Daphne's father.",,1,"544, 569"
+78,Laurel,Daphne,Name,"Latin laurus, the tree she becomes.","Apollo names the tree, and the name turns out to have been hers all along.",1,559
+79,Paean,Apollo,Cult title,"Greek Paian, the healer; also the name of a hymn.","The healer's title, in the line after the healing fails.",1,566
+80,the great stream,Peneus,Periphrasis,Latin magni... amnis.,,1,575
+81,poplared Spercheus,Spercheus,Attribute,Latin populifer — a Thessalian river lined with poplars.,"Four rivers, one stock adjective apiece, in two lines: the Homeric catalogue manner, compressed.",1,579
+82,old Apidanus,Apidanus,Attribute,Latin Apidanusque senex.,,1,579
+83,calm Amphrysus,Amphrysus,Attribute,Latin placidus.,,1,580
+84,the wild Enipeus,Enipeus,Attribute,Latin Enipeus ferox.,,1,580
+85,Inachus,Inachus,Name,"A river of Argos, and Io's father.",His grief carries the book's hardest line about divinity: “To be a god is pain: death's doors are shut” (662).,1,"583, 641, 644"
+86,his [Inachus'] lost daughter Io,Io,Relationship,,,1,585
+87,him who wields Heaven's scepter and who hurls its wandering bolts,Jupiter,Periphrasis,Jove introducing himself to Io.,"Two lines of self-description in place of a name, offered as reassurance, immediately before the rape.",1,596–97
+88,her [Juno's] spouse,Jupiter,Relationship,,,1,605
+89,the child of Inachus,Io,Patronymic,Latin Inachis.,She is turned into a cow in the same line that names her by her father.,1,611
+90,Saturnia,Juno,Patronymic,Daughter of Saturn — the same descent as Jove.,Ovid's name for her whenever she is out-manoeuvring her husband. Her claim on the throne is exactly as good as his.,1,"612, 616, 722"
+91,his [Jupiter's] sister-wife,Juno,Relationship,Latin soror et coniunx: Juno is both.,Produced at the moment Jove cannot refuse her the cow. The double claim is why he loses.,1,620
+92,the goddess,Juno,Generic,,,1,"622, 738"
+93,one Arestor's son,Argus,Patronymic,Latin Arestoridae.,,1,624
+94,eye-bespangled Argus,Argus,Attribute,"Latin stellatus, “starred.”","The same idea does his hundred eyes and, at 722, the peacock's tail they become.",1,664
+95,the king of heaven,Jupiter,Function,Latin caelestum rector.,,1,668
+96,Phoronis,Io,Genealogy,"Sister of Phoroneus, an early king of Argos.","The rarest name in Book 1, and it lands on the line where Jupiter finally decides to help her.",1,669
+97,his [Jupiter's] son,Mercury,Relationship,,,1,669
+98,Bright Pleiad's child,Mercury,Matronymic,"Son of Maia, one of the Pleiades.",A constellation standing in for a mother.,1,670
+99,Jove's son,Mercury,Patronymic,,,1,673
+100,Juno's guard,Argus,Relationship,,,1,678
+101,Atlas' grandson,Mercury,Genealogy,Latin Atlantiades; Maia's father is the Titan Atlas.,,1,682
+102,the god,Mercury,Generic,,,1,688
+103,Syrinx,Syrinx,Name,"Greek syrinx, “pan-pipe.”",,1,"691, 705"
+104,the Ortygian,Diana,Cult site,"Ortygia, an older name for Delos, her birthplace.",Pairs with Apollo's “the Delian lord” (455): the twins get one island under two names.,1,694
+105,Latonia,Diana,Matronymic,Daughter of Latona (Greek Leto).,,1,696
+106,Pan,Pan,Name,,,1,"698, 705"
+107,the Naiad,Syrinx,Generic,A water nymph.,,1,701
+108,the god,Pan,Generic,,,1,710
+109,the maiden's name,Syrinx,Periphrasis,"Pan gives the reeds her name, and syrinx becomes the word for the instrument.",She is never named again; the name goes to the object. Compare Daphne and “Laurel” (559).,1,712
+110,Cyllenius,Mercury,Cult site,Born on Mount Cyllene in Arcadia.,Ovid saves the most formal name for the line where he draws the sword.,1,713
+111,a fearsome Fury,the Furies,Metonym,The madness Juno inflicts on Io.,,1,725
+112,her [Juno's] Greek rival,Io,Relationship,"Latin paelex Argolica, “the Argive concubine.”",Juno's term for her. There is no person in it.,1,726
+113,"you, Nile",the Nile,Name,,"Ovid breaks off to address the river directly, at the end of Io's flight.",1,728
+114,his [Jove's] spouse,Juno,Relationship,,,1,734
+115,the nymph,Io,Generic,,,1,744
+116,worshiped by a linened throng,Io,Periphrasis,"Io ends as the Egyptian goddess Isis, whose priests wore linen.","The last transformation is a change of cult, not of body — and Ovid never writes “Isis.”",1,747
+117,believed her son by Jove,Epaphus,Patronymic,"Latin creditur, “is believed to be.”",Ovid hedges the parentage in the same breath he asserts it — which is precisely what Epaphus will not allow Phaëthon to do.,1,748
+118,child of the Sun,Phaëthon,Patronymic,Latin Sole satus.,"The claim the whole quarrel is about, asserted by the narrator before anyone proves it.",1,750
+119,Phoebus,the Sun,Name,"Greek Phoibos, “radiant” — shared with Apollo.",The one epithet in Book 1 with two owners. Phaëthon boasts that Phoebus is his father; three hundred lines earlier the same word meant Apollo. The quarrel with Epaphus turns on a name that will not resolve.,1,752
+120,the heir to Inachus,Epaphus,Genealogy,"Latin Inachides; Io's son, so Inachus' grandson.",,1,753
+121,his [Phaëthon's] mother,Clymene,Relationship,"Clymene, now married to King Merops of Aethiopia.",,1,"763, 776"
+122,this far-flashing light,the Sun,Periphrasis,"Clymene's oath, sworn on the sun without naming him.",,1,769

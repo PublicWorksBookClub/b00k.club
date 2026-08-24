@@ -9,31 +9,54 @@
       <tr class="sticky top-0 bg-orange-50">
         <th class="w-18 text-center">Order</th>
         <th class="w-32">Name</th>
-        <th class="w-48">Son of</th>
-        <th class="w-32">Relative to</th>
-        <th class="w-72">From</th>
-        <th class="w-32">Ability/Title</th>
-        <th class="w-72">Known for</th>
-        <th class="w-92">Notes</th>
+        ...
       </tr>
     </thead>
     {% end %}
 
     In this example, a table of the argonauts is loaded, but the width of each particular column is set by the table head. Captions can also be added here. The "Name" column is made sticky, as well as the header row.
+
+    Optional arguments:
+
+    `sticky_col`   1-based column kept pinned while scrolling sideways. Defaults to 2.
+    `scroll_hint`  set false to drop the "(scroll →)" note on tables that fit. Defaults to true.
+    `id_col`       1-based column whose slugified value becomes each row's HTML id, so rows
+                   can be linked to. Such rows highlight when targeted.
+    `id_prefix`    prepended to those ids, to keep them from colliding with heading anchors.
+    `link_col`     1-based column whose cells become links.
+    `link_prefix`  prepended to the slugified cell value to build each href.
+
+    E.g. a legend table whose rows can be linked to, and a data table that links into it:
+
+    {% table(csv="data/tables/Epithets—Kinds.csv" id_col=1 id_prefix="kind-") %}...{% end %}
+    {% table(csv="data/tables/Metamorphoses—Epithets.csv" link_col=4 link_prefix="#kind-") %}...{% end %}
 #}
 {% set csv = load_data(path=csv, format="csv") %}
+{% set sticky_col = sticky_col | default(value=2) %}
+{% set scroll_hint = scroll_hint | default(value=true) %}
+{% set id_col = id_col | default(value=0) %}
+{% set id_prefix = id_prefix | default(value="") %}
+{% set id_idx = id_col - 1 %}
+{% set link_col = link_col | default(value=0) %}
+{% set link_prefix = link_prefix | default(value="") %}
 
-<div class="{{ styles }}">
+<div class="{{ styles | default(value='') }}">
+  {% if scroll_hint %}
   <p class="font-fira-sans -mb-6 text-right text-xs italic pr-2">(scroll →)</p>
+  {% endif %}
   <div class="overflow-x-auto max-h-[75vh]">
     <table class="table-fixed w-full">
       {{ body | safe }}
       <tbody>
         {% for row in csv.records %}
-        <tr>
+        <tr {% if id_col > 0 %}id="{{ id_prefix }}{{ row[id_idx] | slugify }}" class="scroll-mt-4 target:bg-orange-100"{% endif %}>
           {% for cell in row %}
-          <td class="py-2 whitespace-normal {% if loop.index == 2 %}sticky left-0{% endif %}">
+          <td class="py-2 whitespace-normal {% if loop.index == sticky_col %}sticky left-0{% endif %}">
+            {%- if link_col > 0 and loop.index == link_col and cell -%}
+            <a class="no-underline hover:underline" href="{{ link_prefix }}{{ cell | slugify }}">{{ cell }}</a>
+            {%- else -%}
             {{ cell }}
+            {%- endif -%}
           </td>
           {% endfor %}
         </tr>
