@@ -18,6 +18,10 @@
 
     Optional arguments:
 
+    `sortable`     set true to let /scripts/sortable-table.js take over the table. Mark the
+                   sortable columns with `data-sort="text"` or `data-sort="number"` on their
+                   <th>, and put `aria-sort="ascending"` on whichever one the CSV is already
+                   ordered by, so the indicator is right before the first click.
     `sticky_col`   1-based column kept pinned while scrolling sideways. Defaults to 2.
     `scroll_hint`  set false to drop the "(scroll →)" note on tables that fit. Defaults to true.
     `id_col`       1-based column whose slugified value becomes each row's HTML id, so rows
@@ -32,6 +36,7 @@
     {% table(csv="data/tables/Metamorphoses—Epithets.csv" link_col=4 link_prefix="#kind-") %}...{% end %}
 #}
 {% set csv = load_data(path=csv, format="csv") %}
+{% set sortable = sortable | default(value=false) %}
 {% set sticky_col = sticky_col | default(value=2) %}
 {% set scroll_hint = scroll_hint | default(value=true) %}
 {% set id_col = id_col | default(value=0) %}
@@ -45,7 +50,7 @@
   <p class="font-fira-sans -mb-6 text-right text-xs italic pr-2">(scroll →)</p>
   {% endif %}
   <div class="overflow-x-auto max-h-[75vh]">
-    <table class="table-fixed w-full">
+    <table class="table-fixed w-full"{% if sortable %} data-sortable{% endif %}>
       {{ body | safe }}
       <tbody>
         {% for row in csv.records %}
