@@ -5,9 +5,13 @@ description = """
 The "Platonic" dialogues arranged in tetralogies by Thrasyllus of Mendes.
 """
 date = 2026-08-24
-author = ["Spencer Scorcelletti"]
+authors = ["Spencer Scorcelletti"]
 template = "commentary/post.html"
 
+[taxonomies]
+references = ["plato-euthyphro", "plato-apology", "plato-crito", "plato-phaedo", "plato-cratylus", "plato-theaetetus", "plato-sophist",
+"plato-republic"
+]
 [extra]
 commentary_number = 1
 +++
@@ -17,14 +21,14 @@ commentary_number = 1
 Next to each dialogue is Diogenes' original classification of that dialogue. See [_Diogenes' Taxonomy of Platonic Dialogues_](/commentary/diogenes-taxonomy-of-plato/) for more information about types of dialogues.
 
 1. **First tetralogy——What the life of a philosopher will be**
-    1. [Euthyphro](/works/plato-euthyphro/), or _On Holiness_ (**tentative**)
-    2. [Apology](/works/plato-apology/) (**ethical**)
-    3. [Crito](/works/plato-crito/), or _On What is to be Done_ (**ethical**)
-    4. [Phaedo](/works/plato-phaedo/), or _On the Soul_ (**ethical**)
+    1. _[Euthyphro](/works/plato-euthyphro/)_, or _On Holiness_ (**tentative**)
+    2. _[Apology](/works/plato-apology/)_ (**ethical**)
+    3. _[Crito](/works/plato-crito/)_, or _On What is to be Done_ (**ethical**)
+    4. _[Phaedo](/works/plato-phaedo/)_, or _On the Soul_ (**ethical**)
 2. **Second tetralogy**
-    1. [Cratylus](/works/plato-cratylus/), or _On the Correctness of Names_ (**logical**)
-    2. [Theaetetus](/works/plato-theaetetus/), or _On Knowledge_ (**tentative**)
-    3. [Sophist](/works/plato-sophist/), or _On Being_ (**logical**)
+    1. _[Cratylus](/works/plato-cratylus/)_, or _On the Correctness of Names_ (**logical**)
+    2. _[Theaetetus](/works/plato-theaetetus/)_, or _On Knowledge_ (**tentative**)
+    3. _[Sophist](/works/plato-sophist/)_, or _On Being_ (**logical**)
     4. Statesman, or _On Monarchy_
 3. **Third tetralogy** (**logical**)
     1. _Parmenides_, or _On Ideas_ (**logical**)
@@ -53,12 +57,12 @@ Next to each dialogue is Diogenes' original classification of that dialogue. See
     4. _Menexenus_, or _The Funeral Oration_ (**ethical**)
 8. **Eighth tetralogy**
     1. _Clitophon_, or _Introduction_ (**ethical**)
-    2. _Republic_, or _On Justice_ (**political**)
+    2. _[Republic](/works/plato-republic/)_, or _On Justice_ (**political**)
     3. _Timaeus_, or _On Nature_ (**physical treatise**)
     4. _Critias_, or _Story of Atlantis_ (**ethical**)
 9. **Ninth tetralogy**
     1. _Minos_, or _On Law_ (**political**)
-    2. _Laws_, or _On Legislation_ (**political**)
+    2. _[Laws](/works/plato-laws/)_, or _On Legislation_ (**political**)
     3. _Epinomis_, or _Nocturnal Council_ or _Philosopher_ (**political**)
     4. _Letters_ (**ethical**)
 
