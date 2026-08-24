@@ -2,6 +2,7 @@
 
 ## Next
 
+- Add commentaries for Thrasyllus' tetralogies and Diogenes' taxonomy of Platonic dialogues
 - Add epithets table for Ovid's _Metamorphoses_
 
 ## 1.11.1 (2026-08-23)

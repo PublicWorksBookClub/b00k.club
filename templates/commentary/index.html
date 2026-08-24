@@ -16,7 +16,7 @@
     </h1>
   </header>
   <section class="mt-8">
-    {% set posts = section.pages | sort(attribute="date") | reverse %}
+    {% set posts = section.pages | sort(attribute="extra.commentary_number") | reverse %}
     {% if posts | length > 0 %}
     <ul class="space-y-8 not-prose">
       {% for post in posts %}
@@ -27,10 +27,15 @@
           </a>
         </h2>
         <p class="text-sm text-gray-500 mb-3">
-          {{ post.date | date(format="%d %B, %Y") }}
+          Commentary #{{ post.extra.commentary_number }}
+          {%- if post.authors %} by {{ post.authors | join(sep=" & ") }}{% endif %}
+          <span class="mx-1">&middot;</span>
+          <time datetime="{{ post.date }}">{{ post.date | date(format="%d %B, %Y") }}</time>
         </p>
-        {% if post.summary %}
-        <p class="text-gray-700 prose prose-pwbc">{{ post.summary }}</p>
+        {# `description` is set in the front matter; `summary` needs a <!-- more --> marker #}
+        {% set blurb = post.description | default(value=post.summary) | default(value="") %}
+        {% if blurb %}
+        <p class="text-gray-700 prose prose-pwbc">{{ blurb }}</p>
         {% endif %}
       </li>
       {% endfor %}
