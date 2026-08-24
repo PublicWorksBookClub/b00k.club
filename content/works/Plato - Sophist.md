@@ -11,7 +11,7 @@ wikidata = "https://www.wikidata.org/wiki/Q471715"
 wikipedia = "https://en.wikipedia.org/wiki/Sophist_(dialogue)"
 word_count = 22108
 abstract = """
-TODO——Currently Reading
+A visitor from Elea comes performs a demonstration in the form of question and answer to define what a sophist is.
 """
 started = 2026-06-28
 currently_reading = true
@@ -27,12 +27,12 @@ titles = ["Sophist"]
 authors = ["Plato"]
 forms = ["dialogue"]
 genres = ["Socratic dialogue"]
-subjects = []
+subjects = ["philosophy", "ontology", "sophistry"]
 periods = ["Classical Greece", "5th c. BCE", "4th c. BCE"]
 languages = ["Ancient Greek", "Attic Greek"]
 
 # General taxonomies
-tags = ["Theaetetus returns"]
+tags = ["Theaetetus returns", "Who is the stranger from Elea"]
 years = ["2026"]
 arcs = ["Memorabilia III"]
 references = ["plato-theaetetus", "homer-odyssey"]
