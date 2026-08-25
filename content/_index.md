@@ -31,7 +31,7 @@ Basic notes from [our past meetings](/minutes/).
 commentary = """
 ## Commentary
 
-Occasionally we write [editorialized content](/commentary/) intended to go alongside the works or to be read as standalone commentary.
+Editorialized [notes](/commentary/) intended either to supplement works or be read as standalone commentary.
 """
 
 contact = """

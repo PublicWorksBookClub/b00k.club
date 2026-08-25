@@ -79,7 +79,8 @@ export async function createViewer(options = {}) {
     wireLayerToggles(root, L, overlay)
     buildLegend(root, L, manifest.legend, legendOpen)
     addScaleBar(map, L, manifest)
-    addNavControl(map, L, await loadTour(base, index), manifest)
+    const sectionId = (standalone ? search.get('section') : root.dataset?.tourSection) || null
+    addNavControl(map, L, await loadTour(base, index, sectionId), manifest, root)
     if (standalone) trackViewInHash(map)
 
     if (standalone) document.documentElement.classList.remove('loading')
@@ -456,28 +457,49 @@ function niceNumber(value) {
 /* ------------------------------------------------------------------- tour */
 
 /**
- * A guided walk through predefined stops, authored in `{base}/tour.json`:
- *   { name, defaultZoom, flyDuration, stops: [{ feature: "<id>", zoom? }, ...] }
- * Each stop names a feature already on the map, so its position and note come
- * for free; a stop's `$comment` (or any other key) is an editor annotation and
- * is ignored. Absent or empty, there is simply no tour.
+ * A guided walk, authored in `{base}/tour.json`. Either a flat list of stops or,
+ * for a longer journey, chapters:
+ *   { name, defaultZoom, flyDuration,
+ *     sections: [{ id, title, stops: [{ feature: "<id>", zoom? }, ...] }, ...] }
+ * A stop names a feature already on the map, so its position and note come for
+ * free; its `label` is the picker's text (the feature's own name if omitted), and
+ * any other key (e.g. `$comment`) is an editor annotation and is ignored.
+ * `sectionId` scopes the tour to one chapter — an embed's `data-tour-section`, or
+ * `?section=` on the standalone page — so a book's page walks just that book.
+ * Absent or unresolvable, there is simply no tour.
  */
-async function loadTour(base, index) {
+async function loadTour(base, index, sectionId) {
   const data = await fetch(`${base}/tour.json`)
     .then((response) => (response.ok ? response.json() : null))
     .catch(() => null)
-  if (!data?.stops?.length) return null
+  if (!data) return null
 
-  const stops = data.stops.map((stop) => ({ ...stop, feature: index.get(stop.feature) })).filter((stop) => stop.feature)
-  return stops.length ? { data, stops } : null
+  // One shape downstream: a list of sections. A flat `stops` list is one chapter.
+  let sections = Array.isArray(data.sections) ? data.sections : data.stops ? [{ id: 'all', title: data.name, stops: data.stops }] : []
+  if (sectionId) sections = sections.filter((section) => section.id === sectionId)
+
+  // Resolve stops to features, drop the unresolvable, and record each chapter's
+  // span in the flattened list so the control can label progress and jump to it.
+  const stops = []
+  const chapters = []
+  for (const section of sections) {
+    const start = stops.length
+    for (const stop of section.stops ?? []) {
+      const feature = index.get(stop.feature)
+      if (feature) stops.push({ ...stop, feature })
+    }
+    if (stops.length > start) chapters.push({ id: section.id, title: section.title || 'Tour', start, end: stops.length - 1 })
+  }
+  return stops.length ? { data, stops, chapters } : null
 }
 
 /**
- * Bottom-left navigation. With a tour it is a 2×2 square — zoom out / in on top,
- * previous / next stop below; without one, the plain zoom control. Stepping flies
- * the camera to the next stop and opens its note on arrival.
+ * Bottom-left navigation: the 2×2 square — zoom out / in on top, previous / next
+ * stop below. A tour also gets a compact picker in the top-right chrome (by the
+ * Layers button) that jumps to any stop, grouped by chapter. Without a tour, the
+ * plain zoom control. Stepping flies the camera to the stop and opens its note.
  */
-function addNavControl(map, L, tour, manifest) {
+function addNavControl(map, L, tour, manifest, root) {
   if (!tour) {
     L.control.zoom({ position: 'bottomleft' }).addTo(map)
     return
@@ -487,13 +509,16 @@ function addNavControl(map, L, tour, manifest) {
   const defaultZoom = Math.min(tour.data.defaultZoom ?? manifest.nativeZoom + 1, manifest.maxZoom + 1)
   // Seconds for the glide between stops; snappy by default, tunable per tour.
   const flyDuration = tour.data.flyDuration ?? 0.6
-  const buttons = {}
+  const el = {}
   let current = -1
 
   const sync = () => {
-    buttons.prev.disabled = current <= 0
-    buttons.next.disabled = current >= tour.stops.length - 1
-    buttons.next.setAttribute('aria-label', current < 0 ? 'Start the tour' : 'Next stop')
+    if (el.prev) el.prev.disabled = current <= 0
+    if (el.next) {
+      el.next.disabled = current >= tour.stops.length - 1
+      el.next.setAttribute('aria-label', current < 0 ? 'Start the tour' : 'Next stop')
+    }
+    if (el.select && current >= 0) el.select.value = String(current)
   }
 
   const go = (i) => {
@@ -523,26 +548,70 @@ function addNavControl(map, L, tour, manifest) {
 
   const control = L.control({ position: 'bottomleft' })
   control.onAdd = () => {
-    const el = L.DomUtil.create('div', 'mapview__nav')
-    el.innerHTML =
+    const grid = L.DomUtil.create('div', 'mapview__nav')
+    grid.innerHTML =
       `<button class="mapview__nav-btn" data-act="out" type="button" aria-label="Zoom out">−</button>` +
       `<button class="mapview__nav-btn" data-act="in" type="button" aria-label="Zoom in">+</button>` +
       `<button class="mapview__nav-btn mapview__nav-btn--step" data-act="prev" type="button" aria-label="Previous stop">‹</button>` +
       `<button class="mapview__nav-btn mapview__nav-btn--step" data-act="next" type="button" aria-label="Next stop">›</button>`
-    buttons.prev = el.querySelector('[data-act="prev"]')
-    buttons.next = el.querySelector('[data-act="next"]')
-    el.addEventListener('click', (event) => {
+    el.prev = grid.querySelector('[data-act="prev"]')
+    el.next = grid.querySelector('[data-act="next"]')
+    grid.addEventListener('click', (event) => {
       const act = event.target.closest('button')?.dataset.act
       if (act === 'in') map.zoomIn()
       else if (act === 'out') map.zoomOut()
       else if (act === 'prev') go(current - 1)
       else if (act === 'next') go(current < 0 ? 0 : current + 1)
     })
-    sync()
-    L.DomEvent.disableClickPropagation(el)
-    return el
+    L.DomEvent.disableClickPropagation(grid)
+    return grid
   }
   control.addTo(map)
+
+  buildTourPicker(root, L, tour, el, go)
+  sync()
+}
+
+/**
+ * A compact <select> in the top-right chrome, next to Layers: every stop, grouped
+ * by chapter (book) when there's more than one, so a reader can jump to a whole
+ * book or a single point within it. A stop's `label` (or its feature name) is the
+ * option text; stepping keeps the selection in sync.
+ */
+function buildTourPicker(root, L, tour, el, go) {
+  const layers = root.querySelector('.mapview__layers-toggle')
+  if (!layers) return
+
+  const select = document.createElement('select')
+  select.className = 'mapview__tour-select'
+  select.setAttribute('aria-label', 'Jump to a stop on the voyage')
+
+  const placeholder = new Option('Tour…', '')
+  placeholder.disabled = true
+  placeholder.selected = true
+  select.append(placeholder)
+
+  const multi = tour.chapters.length > 1
+  for (const chapter of tour.chapters) {
+    const group = multi ? document.createElement('optgroup') : select
+    if (multi) group.label = chapter.title
+    for (let i = chapter.start; i <= chapter.end; i += 1) {
+      const stop = tour.stops[i]
+      group.append(new Option(stop.label || stop.feature.name, String(i)))
+    }
+    if (multi) select.append(group)
+  }
+
+  select.addEventListener('change', () => {
+    if (select.value !== '') go(Number(select.value))
+  })
+  L.DomEvent.disableClickPropagation(select)
+
+  // Sit it just before Layers. The full-window page groups the top-right controls
+  // in a `tools` wrapper; the compact embed has none, so pin it to the right edge.
+  if (!root.querySelector('.mapview__tools')) select.style.marginLeft = 'auto'
+  layers.parentNode.insertBefore(select, layers)
+  el.select = select
 }
 
 /* ------------------------------------------------------------ deep links */

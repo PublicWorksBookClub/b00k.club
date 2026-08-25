@@ -10,7 +10,7 @@ authors = ["Spencer Scorcelletti"]
 template = "commentary/post.html"
 
 [taxonomies]
-references = ["ovid-metamorphoses"]
+references = ["ovid-metamorphoses", "epithet-kinds"]
 
 [extra]
 commentary_number = 6

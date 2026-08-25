@@ -500,6 +500,22 @@
   box-shadow: var(--shadow);
 }
 
+/* The tour picker, in the top-right chrome next to Layers. Capped width so long
+   stop names stay compact (the closed control truncates them). */
+.mapview__tour-select {
+  height: 2rem;
+  max-width: 10rem;
+  padding: 0 0.5rem;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--ink);
+  cursor: pointer;
+  background: var(--paper-veil);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
 .mapview__nav-btn {
   width: 1.9rem;
   height: 1.9rem;

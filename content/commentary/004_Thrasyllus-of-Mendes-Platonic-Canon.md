@@ -10,7 +10,7 @@ authors = ["Spencer Scorcelletti"]
 template = "commentary/post.html"
 
 [taxonomies]
-references = ["plato-euthyphro", "plato-apology", "plato-crito", "plato-phaedo", "plato-cratylus", "plato-theaetetus", "plato-sophist",
+references = ["diogenes-taxonomy-of-plato", "plato-euthyphro", "plato-apology", "plato-crito", "plato-phaedo", "plato-cratylus", "plato-theaetetus", "plato-sophist",
 "plato-republic"
 ]
 
