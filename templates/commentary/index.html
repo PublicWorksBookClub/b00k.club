@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 {% import "macro/util.html" as util %}
 
+{% block title %}
+  {% set title = "All Commentary | PWBC Commentary" %}
+  <title>{{ title }}</title>
+  <meta property="og:title" content="{{ title }}" />
+  <meta name="twitter:title" content="{{ title }}" />
+{% endblock title %}
+
 {% block body_styles %}bg-orange-50{% endblock body_styles %}
 
 {% block banner %}

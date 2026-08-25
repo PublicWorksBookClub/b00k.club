@@ -383,6 +383,16 @@
   cursor: pointer;
 }
 
+/* The white legibility halo behind place labels. FMG writes this as an inline
+   text-shadow; viewer.js strips those (a strict page CSP forbids inline styles),
+   so it lives here instead. */
+.mapview .map-overlay #labels text,
+.mapview .map-overlay #burgLabels text,
+.mapview .map-overlay #addedLabels text,
+.mapview .map-overlay #states text {
+  text-shadow: 0 0 4px #fff;
+}
+
 /* --------------------------------------------------------------- popups */
 
 .mapview .leaflet-popup-content-wrapper {

@@ -2,6 +2,12 @@
 
 ## Next
 
+## 1.12.1 (2026-08-25)
+
+- Remove commentary for Metamorphoses conspectus (they were migrated to their own commentary pages)
+- Update titles for each of the site sections
+- Fix embedded map to work with site's CSP
+
 ## 1.12.0 (2026-08-25)
 
 - Add simple map "tour" feature to embedded map viewer

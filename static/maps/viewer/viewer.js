@@ -155,6 +155,11 @@ function addOverlay(map, L, manifest, source) {
   const element = parsed.documentElement
   element.setAttribute('class', 'map-overlay')
 
+  // The exported overlay still carries a few inline `style`s (FMG's label halo and
+  // a redundant `display: inline`). A strict page CSP (`style-src-attr`) blocks and
+  // logs those, so drop them — the halo is supplied from viewer.css instead.
+  for (const styled of element.querySelectorAll('[style]')) styled.removeAttribute('style')
+
   const bounds = L.latLngBounds([0, 0], [manifest.height, manifest.width])
   L.svgOverlay(element, bounds, { interactive: false }).addTo(map)
   return element

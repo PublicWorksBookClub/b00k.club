@@ -51,14 +51,6 @@ The second opens the same map in the full generator, where it can be edited, whi
   </div>
 </div>
 
-<script type="module">
-  // The map reader is shared with the standalone page at /maps/viewer/ — see
-  // static/maps/viewer/viewer.js. Here it runs scoped to the square frame above,
-  // opening on Pagasai (data-burg="24") like the buttons below.
-  import { createViewer } from "/maps/viewer/viewer.js"
-  for (const root of document.querySelectorAll("[data-mapview-embed]")) createViewer({ root, standalone: false })
-</script>
-
 <menu class="flex list-none m-0 p-0 gap-1">
   <li>
     <a class="inline-block border px-2 h-9 m-0 no-underline font-normal" target="_blank"
