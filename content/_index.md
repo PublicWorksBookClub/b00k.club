@@ -28,6 +28,12 @@ minutes = """
 Basic notes from [our past meetings](/minutes/).
 """
 
+commentary = """
+## Commentary
+
+Occasionally we write [editorialized content](/commentary/) intended to go alongside the works or to be read as standalone commentary.
+"""
+
 contact = """
 ## Contact
 
