@@ -8,6 +8,10 @@ date = 2026-08-24
 authors = ["Spencer Scorcelletti"]
 template = "commentary/post.html"
 
+[taxonomies]
+references = ["plato-euthyphro", "plato-apology", "plato-crito", "plato-phaedo", "plato-cratylus", "plato-theaetetus", "plato-sophist",
+"plato-republic"
+]
 [extra]
 commentary_number = 2
 +++

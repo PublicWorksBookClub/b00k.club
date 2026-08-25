@@ -23,7 +23,7 @@
       <li class="border-b border-gray-200 pb-6 last:border-b-0">
         <h2 class="text-2xl font-fira-sans mb-2">
           <a class="no-underline hover:underline text-gray-700" href="{{ post.permalink }}">
-            {{ post.title }}
+            {{ post.title | regex_replace(pattern="_(.*?)_", rep="<em>$1</em>") | safe }}
           </a>
         </h2>
         <p class="text-sm text-gray-500 mb-3">

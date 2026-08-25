@@ -17,7 +17,7 @@
 <article class="mx-auto my-16 max-w-prose px-4 md:px-0 prose prose-pwbc prose-lg prose-headings:font-fira-sans">
   <header class="not-prose text-gray-700">
     <h1 class="font-playfair-display text-5xl font-light text-gray-700">
-      <a class="hover:underline" href="{{ page.permalink }}">{{ page.title }}</a>
+      <a class="hover:underline" href="{{ page.permalink }}">{{ page.title | regex_replace(pattern="_(.*?)_", rep="<em>$1</em>") | safe }}</a>
     </h1>
     {% if page.authors %}
     {# Zola's built-in page field, deliberately not the `authors` taxonomy: commentary is
