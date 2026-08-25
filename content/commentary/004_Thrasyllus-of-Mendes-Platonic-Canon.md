@@ -13,7 +13,7 @@ references = ["plato-euthyphro", "plato-apology", "plato-crito", "plato-phaedo",
 "plato-republic"
 ]
 [extra]
-commentary_number = 1
+commentary_number = 4
 +++
 
 [Thrasyllys of Mendes](https://en.wikipedia.org/wiki/Thrasyllus_of_Mendes) arranged Platonic works into tetralogies[^1], grouping them into themes and editorializing the names of the dialogues with the interlocutor and the subject.

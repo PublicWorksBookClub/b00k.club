@@ -11,12 +11,10 @@ template = "commentary/post.html"
 [taxonomies]
 references = ["apollonius-argonautica"]
 [extra]
-commentary_number = 0
+commentary_number = 1
 +++
 
-## Catalogue of Names
-
-The names of the heroes, in order, along with: their parentage, any other relations they may have, where they're from, ability/class/profession, things they may be known for, as well as additional notes.
+The names of the heroes, in order, their parentage, other relations they may have, where they're from, ability/class/profession, things they may be known for, as well as additional notes.
 
 {% table(csv="data/tables/Argonautica—Catalogue of Names.csv" styles="mt-8 prose-td:first:text-center prose-td:nth-of-type-2:bg-orange-100 prose-td:nth-of-type-2:z-10") %}
 <thead>

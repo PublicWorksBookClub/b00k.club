@@ -13,7 +13,7 @@ references = ["plato-euthyphro", "plato-apology", "plato-crito", "plato-phaedo",
 "plato-republic"
 ]
 [extra]
-commentary_number = 2
+commentary_number = 3
 +++
 
 According to Diogenes[^1], Platonic dialogues are roughly classified as follows.
