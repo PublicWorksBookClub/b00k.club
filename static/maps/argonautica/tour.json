@@ -1,0 +1,56 @@
+{
+  "name": "The Voyage of the Argo — Book I",
+  "description": "Iolcos to the far shore of the Propontis, following the numbered stops.",
+  "defaultZoom": 3.5,
+  "flyDuration": 0.25,
+  "stops": [
+    {
+      "feature": "marker1",
+      "$comment": "1. The voyage begins"
+    },
+    {
+      "feature": "marker6",
+      "$comment": "2. Tomb of Dolops"
+    },
+    {
+      "feature": "marker0",
+      "$comment": "3. Banquet with the Lemnians"
+    },
+    {
+      "feature": "marker7",
+      "$comment": "4. Samothrakian Mysteries"
+    },
+    {
+      "feature": "marker3",
+      "$comment": "5. King Kyzikós and the Doliónes"
+    },
+    {
+      "feature": "marker8",
+      "$comment": "6. Battle of the Aborigines"
+    },
+    {
+      "feature": "marker4",
+      "$comment": "7. Battle of the Dolionés"
+    },
+    {
+      "feature": "marker9",
+      "$comment": "8. Altar to Rhea"
+    },
+    {
+      "feature": "marker10",
+      "$comment": "9. Feat to honor Rhea"
+    },
+    {
+      "feature": "marker11",
+      "$comment": "10. Herakles (and Hylas) and Polyphémos are left behind"
+    },
+    {
+      "feature": "marker12",
+      "$comment": "11. Conflict over leaving crew settled by Glaukos"
+    },
+    {
+      "feature": "marker13",
+      "$comment": "12. End of Book I"
+    }
+  ]
+}

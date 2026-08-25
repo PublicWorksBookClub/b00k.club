@@ -79,6 +79,7 @@ export async function createViewer(options = {}) {
     wireLayerToggles(root, L, overlay)
     buildLegend(root, L, manifest.legend, legendOpen)
     addScaleBar(map, L, manifest)
+    addNavControl(map, L, await loadTour(base, index), manifest)
     if (standalone) trackViewInHash(map)
 
     if (standalone) document.documentElement.classList.remove('loading')
@@ -126,7 +127,6 @@ function createMap(root, L, manifest, base, { scrollWheelZoom }) {
     attributionControl: true,
   })
 
-  L.control.zoom({ position: 'bottomleft' }).addTo(map)
   map.attributionControl.setPrefix('')
   map.attributionControl.addAttribution(
     `Drawn with <a href="https://azgaar.github.io/Fantasy-Map-Generator/">Azgaar's Fantasy Map Generator</a>`,
@@ -451,6 +451,98 @@ function niceNumber(value) {
   const normalised = value / magnitude
   const step = normalised >= 5 ? 5 : normalised >= 2 ? 2 : 1
   return step * magnitude
+}
+
+/* ------------------------------------------------------------------- tour */
+
+/**
+ * A guided walk through predefined stops, authored in `{base}/tour.json`:
+ *   { name, defaultZoom, flyDuration, stops: [{ feature: "<id>", zoom? }, ...] }
+ * Each stop names a feature already on the map, so its position and note come
+ * for free; a stop's `$comment` (or any other key) is an editor annotation and
+ * is ignored. Absent or empty, there is simply no tour.
+ */
+async function loadTour(base, index) {
+  const data = await fetch(`${base}/tour.json`)
+    .then((response) => (response.ok ? response.json() : null))
+    .catch(() => null)
+  if (!data?.stops?.length) return null
+
+  const stops = data.stops.map((stop) => ({ ...stop, feature: index.get(stop.feature) })).filter((stop) => stop.feature)
+  return stops.length ? { data, stops } : null
+}
+
+/**
+ * Bottom-left navigation. With a tour it is a 2×2 square — zoom out / in on top,
+ * previous / next stop below; without one, the plain zoom control. Stepping flies
+ * the camera to the next stop and opens its note on arrival.
+ */
+function addNavControl(map, L, tour, manifest) {
+  if (!tour) {
+    L.control.zoom({ position: 'bottomleft' }).addTo(map)
+    return
+  }
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const defaultZoom = Math.min(tour.data.defaultZoom ?? manifest.nativeZoom + 1, manifest.maxZoom + 1)
+  // Seconds for the glide between stops; snappy by default, tunable per tour.
+  const flyDuration = tour.data.flyDuration ?? 0.6
+  const buttons = {}
+  let current = -1
+
+  const sync = () => {
+    buttons.prev.disabled = current <= 0
+    buttons.next.disabled = current >= tour.stops.length - 1
+    buttons.next.setAttribute('aria-label', current < 0 ? 'Start the tour' : 'Next stop')
+  }
+
+  const go = (i) => {
+    current = Math.max(0, Math.min(tour.stops.length - 1, i))
+    const stop = tour.stops[current]
+    const target = [stop.feature.y, stop.feature.x]
+    const zoom = stop.zoom ?? defaultZoom
+    map.closePopup()
+    let opened = false
+    const open = () => {
+      if (opened) return
+      opened = true
+      openFeature(map, L, stop.feature)
+    }
+    if (reduce) {
+      map.setView(target, zoom, { animate: false })
+      open()
+    } else {
+      map.flyTo(target, zoom, { duration: flyDuration })
+      map.once('moveend', open)
+      // A backgrounded tab suspends the frames flyTo rides on, delaying its
+      // moveend, so open the note on a timer too (deduped) as a safety net.
+      setTimeout(open, flyDuration * 1000 + 250)
+    }
+    sync()
+  }
+
+  const control = L.control({ position: 'bottomleft' })
+  control.onAdd = () => {
+    const el = L.DomUtil.create('div', 'mapview__nav')
+    el.innerHTML =
+      `<button class="mapview__nav-btn" data-act="out" type="button" aria-label="Zoom out">−</button>` +
+      `<button class="mapview__nav-btn" data-act="in" type="button" aria-label="Zoom in">+</button>` +
+      `<button class="mapview__nav-btn mapview__nav-btn--step" data-act="prev" type="button" aria-label="Previous stop">‹</button>` +
+      `<button class="mapview__nav-btn mapview__nav-btn--step" data-act="next" type="button" aria-label="Next stop">›</button>`
+    buttons.prev = el.querySelector('[data-act="prev"]')
+    buttons.next = el.querySelector('[data-act="next"]')
+    el.addEventListener('click', (event) => {
+      const act = event.target.closest('button')?.dataset.act
+      if (act === 'in') map.zoomIn()
+      else if (act === 'out') map.zoomOut()
+      else if (act === 'prev') go(current - 1)
+      else if (act === 'next') go(current < 0 ? 0 : current + 1)
+    })
+    sync()
+    L.DomEvent.disableClickPropagation(el)
+    return el
+  }
+  control.addTo(map)
 }
 
 /* ------------------------------------------------------------ deep links */

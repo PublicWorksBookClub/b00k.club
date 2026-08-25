@@ -480,12 +480,59 @@
   margin: 0 0 10px 10px;
 }
 
-.mapview .leaflet-bottom.leaflet-left .leaflet-control-zoom {
+.mapview .leaflet-bottom.leaflet-left .leaflet-control-zoom,
+.mapview .leaflet-bottom.leaflet-left .mapview__nav {
   order: 0;
 }
 
 .mapview .leaflet-bottom.leaflet-left .mapview__scale {
   order: 1;
+}
+
+/* The tour control: a 2×2 square — zoom out / in on top, prev / next below. */
+.mapview__nav {
+  display: grid;
+  grid-template-columns: 1.9rem 1.9rem;
+  overflow: hidden;
+  background: var(--paper);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.mapview__nav-btn {
+  width: 1.9rem;
+  height: 1.9rem;
+  font: 700 1.1rem/1.9rem var(--font-serif);
+  color: var(--ink);
+  text-align: center;
+  cursor: pointer;
+  background: var(--paper);
+  border: 0;
+  border-right: 1px solid var(--edge);
+  border-bottom: 1px solid var(--edge);
+}
+
+.mapview__nav-btn:nth-child(2n) {
+  border-right: 0;
+}
+
+.mapview__nav-btn:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+
+.mapview__nav-btn:hover:not(:disabled) {
+  color: var(--accent);
+  background: rgb(130 60 39 / 0.08);
+}
+
+.mapview__nav-btn--step {
+  font-size: 1.3rem;
+}
+
+.mapview__nav-btn:disabled {
+  color: var(--edge);
+  cursor: default;
 }
 
 .mapview__scale {
