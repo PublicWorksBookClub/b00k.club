@@ -47,8 +47,46 @@
       {% if next %}<a class="hover:underline" href="{{ next.permalink }}">next</a>{% endif %}
     </span>
   </div>
-  <section class="prose prose-pwbc prose-lg prose-li:text-left prose-headings:text-left text-justify">
+  {# Content #}
+  <section class="mt-12 prose prose-pwbc prose-lg prose-li:text-left prose-headings:text-left text-justify">
     {{ page.content | safe }}
+  </section>
+  {# Contextual Relations #}
+   {% set works_section = get_section(path="works/_index.md") %}
+  <section class="mt-8">
+    <h2>Contextual Relations</h2>
+    <h3>Readings Referenced</h3>
+    <ul>
+      {% if page.taxonomies.references and page.taxonomies.references | length > 0 %}
+      {% for r in page.taxonomies.references %}
+      {% set w = works_section.pages | filter(attribute="slug", value=r) | nth(n=0) %}
+      <li>
+        <a class="font-light" href="{{ w.permalink }}">{{ w.taxonomies.titles[0] }}</a> by {{ works::list_taxonomy_terms(terms=w.taxonomies["authors"], taxonomy="authors", add="italic font-extralight") }}</li>
+      {% endfor %}
+      {% else %}
+      <li>(none)</li>
+      {% endif %}
+    </ul>
+    <h3>Commentary</h3>
+    <ul>
+      {% set referenced_by = get_taxonomy(kind="references", lang=page.lang) | get(key="items") | filter(attribute="name", value=page.slug) %}
+      {% if referenced_by | length > 0 %}
+      {% set referenced_by = referenced_by | first | get(key="pages") %}
+      {% set commentary = referenced_by | filter(attribute="components.0", value="commentary") | sort(attribute="extra.commentary_number") %}
+        {% if commentary | length > 0 %}
+        {% for w in commentary %}
+        {% set_global added_commentary = true %}
+      <li>
+        <span class="font-medium">#{{ w.extra.commentary_number }} </span><a class="font-light" href="{{ w.permalink }}">{{ w.title | regex_replace(pattern="_(.*?)_", rep="<em>$1</em>") | safe }}</a> by {{ w.authors | as_str | regex_replace(pattern="[\[\]]", rep="") }}
+      </li>
+        {% endfor %}
+        {% endif %}
+      {% endif %}
+      {% if not added_commentary %}
+      <li>(none)</li>
+      {% endif %}
+      {# TODO: then display commentary that references this work by further filtering it #}
+    </ul>
   </section>
 </article>
 {% endblock main %}

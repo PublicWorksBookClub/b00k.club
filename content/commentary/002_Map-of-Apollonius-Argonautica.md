@@ -11,6 +11,7 @@ template = "commentary/post.html"
 
 [taxonomies]
 references = ["apollonius-argonautica"]
+
 [extra]
 commentary_number = 2
 +++
@@ -62,7 +63,7 @@ The second opens the same map in the full generator, where it can be edited, whi
   <li>
     <a class="inline-block border px-2 h-9 m-0 no-underline font-normal" target="_blank"
     href="{{ get_url(path='/maps/viewer/') }}/?map=argonautica&burg=24&scale=3">
-      Interactive Map
+      Standalone map
     </a>
   </li>
   <li>

@@ -10,16 +10,15 @@ authors = ["Spencer Scorcelletti"]
 template = "commentary/post.html"
 
 [taxonomies]
-references = ["plato-euthyphro", "plato-apology", "plato-crito", "plato-phaedo", "plato-cratylus", "plato-theaetetus", "plato-sophist",
-"plato-republic"
-]
+references = []
+
 [extra]
 commentary_number = 3
 +++
 
 According to Diogenes[^1], Platonic dialogues are roughly classified as follows.
 
-See [_Thrasyllus of Mendes' Platonic Canon_](/commentary/thrasyllus-platonic-canon/) for how each dialogue was originally categorized by Diogenes.
+See _[Commentary #4: Thrasyllus of Mendes' Platonic Canon](/commentary/thrasyllus-platonic-canon/)_ for how each dialogue was originally categorized by Diogenes.
 
 {% tree(caption="Diogenes' taxonomy of Platonic dialogues. Commentary along edges between nodes are my own.") %}
 - Platonic dialogues

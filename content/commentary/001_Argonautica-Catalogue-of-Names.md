@@ -11,6 +11,7 @@ template = "commentary/post.html"
 
 [taxonomies]
 references = ["apollonius-argonautica"]
+
 [extra]
 commentary_number = 1
 +++
