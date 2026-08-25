@@ -5,6 +5,7 @@ description = """
 An overview of how Diogenes Laertius classified Plato's dialogues.
 """
 date = 2026-08-24
+# updated =
 authors = ["Spencer Scorcelletti"]
 template = "commentary/post.html"
 

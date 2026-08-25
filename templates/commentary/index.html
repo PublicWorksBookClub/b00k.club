@@ -31,6 +31,10 @@
           {%- if post.authors %} by {{ post.authors | join(sep=" & ") }}{% endif %}
           <span class="mx-1">&middot;</span>
           <time datetime="{{ post.date }}">{{ post.date | date(format="%d %B, %Y") }}</time>
+          {% if post.updated %}
+          <span class="mx-1">&middot;</span>
+          <time datetime="{{ post.updated }}"><span class="font-bold">updated: </span>{{ post.updated | date(format="%d %B, %Y") }}</time>
+          {% endif %}
         </p>
         {# `description` is set in the front matter; `summary` needs a <!-- more --> marker #}
         {% set blurb = post.description | default(value=post.summary) | default(value="") %}

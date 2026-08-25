@@ -5,6 +5,7 @@ description = """
 The names of heroes and their origins, parentage, and abilities, along with notes.
 """
 date = 2026-02-23
+updated = 2026-08-25
 authors = ["Spencer Scorcelletti"]
 template = "commentary/post.html"
 

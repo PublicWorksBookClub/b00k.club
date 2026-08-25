@@ -5,6 +5,7 @@ description = """
 An interactive map of the Argo's journey.
 """
 date = 2026-03-29
+updated = 2026-08-25
 authors = ["Spencer Scorcelletti"]
 template = "commentary/post.html"
 

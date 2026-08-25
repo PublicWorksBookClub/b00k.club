@@ -5,6 +5,7 @@ description = """
 The "Platonic" dialogues arranged in tetralogies by Thrasyllus of Mendes.
 """
 date = 2026-08-24
+# updated =
 authors = ["Spencer Scorcelletti"]
 template = "commentary/post.html"
 
