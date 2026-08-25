@@ -5,16 +5,20 @@ description = """
 An overview of how Diogenes Laertius classified Plato's dialogues.
 """
 date = 2026-08-24
+# updated =
 authors = ["Spencer Scorcelletti"]
 template = "commentary/post.html"
 
+[taxonomies]
+references = []
+
 [extra]
-commentary_number = 2
+commentary_number = 3
 +++
 
 According to Diogenes[^1], Platonic dialogues are roughly classified as follows.
 
-See [_Thrasyllus of Mendes' Platonic Canon_](/commentary/thrasyllus-platonic-canon/) for how each dialogue was originally categorized by Diogenes.
+See _[Commentary #4: Thrasyllus of Mendes' Platonic Canon](/commentary/thrasyllus-platonic-canon/)_ for how each dialogue was originally categorized by Diogenes.
 
 {% tree(caption="Diogenes' taxonomy of Platonic dialogues. Commentary along edges between nodes are my own.") %}
 - Platonic dialogues

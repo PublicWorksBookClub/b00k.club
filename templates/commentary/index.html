@@ -15,7 +15,7 @@
       <a class="hover:underline" href="{{ section.permalink }}">Commentary</a>
     </h1>
   </header>
-  <section class="mt-8">
+  <section class="mt-16">
     {% set posts = section.pages | sort(attribute="extra.commentary_number") | reverse %}
     {% if posts | length > 0 %}
     <ul class="space-y-8 not-prose">
@@ -23,7 +23,7 @@
       <li class="border-b border-gray-200 pb-6 last:border-b-0">
         <h2 class="text-2xl font-fira-sans mb-2">
           <a class="no-underline hover:underline text-gray-700" href="{{ post.permalink }}">
-            {{ post.title }}
+            {{ post.title | regex_replace(pattern="_(.*?)_", rep="<em>$1</em>") | safe }}
           </a>
         </h2>
         <p class="text-sm text-gray-500 mb-3">
@@ -31,6 +31,10 @@
           {%- if post.authors %} by {{ post.authors | join(sep=" & ") }}{% endif %}
           <span class="mx-1">&middot;</span>
           <time datetime="{{ post.date }}">{{ post.date | date(format="%d %B, %Y") }}</time>
+          {% if post.updated %}
+          <span class="mx-1">&middot;</span>
+          <time datetime="{{ post.updated }}"><span class="font-bold">updated: </span>{{ post.updated | date(format="%d %B, %Y") }}</time>
+          {% endif %}
         </p>
         {# `description` is set in the front matter; `summary` needs a <!-- more --> marker #}
         {% set blurb = post.description | default(value=post.summary) | default(value="") %}

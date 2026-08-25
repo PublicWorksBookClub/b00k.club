@@ -15,66 +15,83 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <link rel="stylesheet" href="/maps/viewer/vendor/leaflet/leaflet.css" />
     <link rel="stylesheet" href="/maps/viewer/viewer.css" />
+
+    <!-- Full-window rules for this page only; viewer.css keeps clear of html/body
+         so it stays safe to load on a content page for the inline embed. -->
+    <style>
+      html,
+      body {
+        margin: 0;
+      }
+      body {
+        overflow: hidden;
+        background: rgb(70 110 171);
+      }
+    </style>
   </head>
 
-  <body>
-    <div id="map" role="application" aria-label="Interactive map"></div>
+  <body class="mapview mapview--page">
+    <div class="mapview__frame">
+      <div class="mapview__map" role="application" aria-label="Interactive map"></div>
 
-    <header class="chrome chrome--top">
-      <div class="titles">
-        <h1 id="map-title">Loading map…</h1>
-        <p id="map-subtitle" class="subtitle"></p>
-      </div>
-
-      <div class="tools">
-        <div class="search" role="search">
-          <label class="visually-hidden" for="search-input">Search places</label>
-          <input
-            id="search-input"
-            type="search"
-            placeholder="Search places, peoples, markers…"
-            autocomplete="off"
-            spellcheck="false"
-            aria-controls="search-results"
-            aria-expanded="false"
-          />
-          <ul id="search-results" class="results" role="listbox" aria-label="Search results" hidden></ul>
+      <header class="mapview__chrome">
+        <div class="mapview__titles">
+          <h1 class="mapview__title">Loading map…</h1>
+          <p class="mapview__subtitle"></p>
         </div>
 
-        <button id="layers-toggle" type="button" class="button" aria-expanded="false" aria-controls="layers-panel">Layers</button>
-        <a id="edit-link" class="button" href="/maps/interactive/" title="Open this map in the full editor">Edit</a>
+        <div class="mapview__tools">
+          <div class="mapview__search" role="search">
+            <label class="visually-hidden" for="mapview-search-input">Search places</label>
+            <input
+              id="mapview-search-input"
+              class="mapview__search-input"
+              type="search"
+              placeholder="Search places, peoples, markers…"
+              autocomplete="off"
+              spellcheck="false"
+              aria-controls="mapview-search-results"
+              aria-expanded="false"
+            />
+            <ul id="mapview-search-results" class="mapview__results" role="listbox" aria-label="Search results" hidden></ul>
+          </div>
+
+          <button class="mapview__button mapview__layers-toggle" type="button" aria-expanded="false">Layers</button>
+          <a class="mapview__button mapview__edit" href="/maps/interactive/" title="Open this map in the full editor">Edit</a>
+        </div>
+      </header>
+
+      <div class="mapview__layers" hidden>
+        <fieldset>
+          <legend>Show on the map</legend>
+          <label><input type="checkbox" data-layer="routes" checked /> The voyage</label>
+          <label><input type="checkbox" data-layer="markers" checked /> Markers</label>
+          <label><input type="checkbox" data-layer="icons" checked /> Settlements</label>
+          <label><input type="checkbox" data-layer="labels" checked /> Labels</label>
+        </fieldset>
       </div>
-    </header>
 
-    <div id="layers-panel" class="panel panel--layers" hidden>
-      <fieldset>
-        <legend>Show on the map</legend>
-        <label><input type="checkbox" data-layer="routes" checked /> The voyage</label>
-        <label><input type="checkbox" data-layer="markers" checked /> Markers</label>
-        <label><input type="checkbox" data-layer="icons" checked /> Settlements</label>
-        <label><input type="checkbox" data-layer="labels" checked /> Labels</label>
-      </fieldset>
-    </div>
+      <aside class="mapview__legend" hidden>
+        <button class="mapview__legend-toggle" type="button" aria-expanded="true">
+          <span class="mapview__legend-title">Legend</span>
+        </button>
+        <ul class="mapview__legend-body"></ul>
+      </aside>
 
-    <aside id="legend" class="panel panel--legend" hidden>
-      <button id="legend-toggle" type="button" class="panel__heading" aria-expanded="true" aria-controls="legend-body">
-        <span id="legend-title">Legend</span>
-      </button>
-      <ul id="legend-body" class="legend-items"></ul>
-    </aside>
-
-    <noscript>
-      <div class="fallback">
-        <p>
+      <noscript>
+        <div class="mapview__fallback">
           This map needs JavaScript to pan and zoom. You can still open the
           <a href="/maps/interactive/">full map editor</a>, which needs JavaScript too — sorry.
-        </p>
-      </div>
-    </noscript>
+        </div>
+      </noscript>
 
-    <div id="status" class="status" role="status" aria-live="polite">Loading map…</div>
+      <div class="mapview__status" role="status" aria-live="polite">Loading map…</div>
+    </div>
 
     <script src="/maps/viewer/vendor/leaflet/leaflet.js"></script>
-    <script src="/maps/viewer/viewer.js" type="module"></script>
+    <script type="module">
+      import { createViewer } from '/maps/viewer/viewer.js'
+      createViewer({ root: document, standalone: true })
+    </script>
   </body>
 </html>

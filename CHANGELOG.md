@@ -2,6 +2,12 @@
 
 ## Next
 
+## 1.12.0 (2026-08-25)
+
+- Add simple map "tour" feature to embedded map viewer
+- Move Metamorphoses stuff out of conspectus and into individual commentaries (kinds and table of epithets)
+- Move Argonautica stuff out of conspectus and into individual commentaries (map and catalogue of names)
+
 ## 1.11.2 (2026-08-24)
 
 - Add a tree shortcode + macro for the general representation of trees as SVGs

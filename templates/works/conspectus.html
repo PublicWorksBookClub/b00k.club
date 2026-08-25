@@ -183,18 +183,42 @@
       <li>(none)</li>
       {% endif %}
     </ul>
-    {% set referenced_by = get_taxonomy(kind="references", lang=page.lang) | get(key="items") | filter(attribute="name", value=page.slug) %}
     <h3>Referenced By</h3>
     <ul>
+      {% set referenced_by = get_taxonomy(kind="references", lang=page.lang) | get(key="items") | filter(attribute="name", value=page.slug) %}
       {% if referenced_by | length > 0 %}
       {% set referenced_by = referenced_by | first | get(key="pages") %}
       {% set works = referenced_by | filter(attribute="components.0", value="works") | sort(attribute="taxonomies.titles.0") %}
-      {% for w in works %}
+        {% if works | length > 0 %}
+        {% for w in works %}
+        {% set_global added_referenced_by = true %}
       <li>
         <a class="font-light" href="{{ w.permalink }}">{{ w.taxonomies.titles[0] }}</a> by {{ works::list_taxonomy_terms(terms=w.taxonomies["authors"], taxonomy="authors", add="italic font-extralight") }}
       </li>
-      {% endfor %}
-      {% else %}
+        {% endfor %}
+        {% endif %}
+      {% endif %}
+      {% if not added_referenced_by %}
+      <li>(none)</li>
+      {% endif %}
+      {# TODO: then display commentary that references this work by further filtering it #}
+    </ul>
+    <h3>Commentary</h3>
+    <ul>
+      {% set referenced_by = get_taxonomy(kind="references", lang=page.lang) | get(key="items") | filter(attribute="name", value=page.slug) %}
+      {% if referenced_by | length > 0 %}
+      {% set referenced_by = referenced_by | first | get(key="pages") %}
+      {% set commentary = referenced_by | filter(attribute="components.0", value="commentary") | sort(attribute="extra.commentary_number") %}
+        {% if commentary | length > 0 %}
+        {% for w in commentary %}
+        {% set_global added_commentary = true %}
+      <li>
+        <span class="font-medium">#{{ w.extra.commentary_number }} </span><a class="font-light" href="{{ w.permalink }}">{{ w.title | regex_replace(pattern="_(.*?)_", rep="<em>$1</em>") | safe }}</a> by {{ w.authors | as_str | regex_replace(pattern="[\[\]]", rep="") }}
+      </li>
+        {% endfor %}
+        {% endif %}
+      {% endif %}
+      {% if not added_commentary %}
       <li>(none)</li>
       {% endif %}
       {# TODO: then display commentary that references this work by further filtering it #}

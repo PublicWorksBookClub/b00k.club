@@ -1,8 +1,15 @@
 /*
-  Standalone styling for /maps/viewer/. The page is deliberately not built by
-  Tailwind: it is a full-viewport application served straight out of static/,
-  the same way /maps/interactive/ is, so it carries its own small stylesheet
-  rather than pulling in the site bundle.
+  Shared styling for the map reader. One stylesheet, two callers:
+
+    .mapview.mapview--page   the standalone page at /maps/viewer/ (index.html),
+                             full window, chrome pinned to the viewport;
+    .mapview.mapview--embed  the inline embed on a work page, a square frame that
+                             sits in the article's reading column.
+
+  Everything is scoped under .mapview, so the sheet is safe to load on a content
+  page without touching the rest of it, and the chrome is sized in container-query
+  units (cqw) so it tracks its own frame rather than the viewport. The page's own
+  full-window rules (html/body) live in index.html, not here, for the same reason.
 
   Type and colour follow the site: Source Serif for prose, Playfair Display for
   headings, and the orange/indigo palette used across b00k.club.
@@ -36,7 +43,7 @@
   }
 }
 
-:root {
+.mapview {
   --ink: rgb(47 41 41);
   --ink-soft: rgb(94 86 82);
   --paper: rgb(255 251 245);
@@ -49,30 +56,51 @@
   --font-display: 'Playfair Display', Georgia, serif;
 }
 
-* {
+.mapview,
+.mapview * {
   box-sizing: border-box;
 }
 
-html,
-body {
-  height: 100%;
-  margin: 0;
+/* ---------------------------------------------------------------- frame */
+
+.mapview--embed {
+  margin: 1.75rem 0;
 }
 
-body {
-  font-family: var(--font-serif);
+/* The frame is the positioning context and the query container for everything
+   inside it; only its own size differs between the two callers. */
+.mapview__frame {
+  position: relative;
+  overflow: hidden;
+  container-type: inline-size;
   color: var(--ink);
   background: rgb(70 110 171);
-  overflow: hidden;
+  font-family: var(--font-serif);
 }
 
-#map {
+/* Standalone: fill the window. */
+.mapview--page .mapview__frame {
+  position: fixed;
+  inset: 0;
+}
+
+/* Embed: a square that fills its column and never exceeds it. */
+.mapview--embed .mapview__frame {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--edge);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.mapview__map {
   position: absolute;
   inset: 0;
   background: rgb(70 110 171);
 }
 
-.visually-hidden {
+.mapview .visually-hidden {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -83,8 +111,9 @@ body {
 
 /* ---------------------------------------------------------------- chrome */
 
-.chrome {
+.mapview__chrome {
   position: absolute;
+  inset: 0 0 auto 0;
   z-index: 1000;
   display: flex;
   gap: 0.75rem;
@@ -92,45 +121,41 @@ body {
   justify-content: space-between;
   padding: 0.6rem 0.75rem;
   padding-top: max(0.6rem, env(safe-area-inset-top));
-}
-
-.chrome--top {
-  inset: 0 0 auto 0;
   background: linear-gradient(to bottom, rgb(255 251 245 / 0.92), rgb(255 251 245 / 0));
   pointer-events: none;
 }
 
-.chrome > * {
+.mapview__chrome > * {
   pointer-events: auto;
 }
 
-.titles {
+.mapview__titles {
   min-width: 0;
 }
 
-#map-title {
+.mapview__title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(1.05rem, 3.2vw, 1.5rem);
+  font-size: clamp(1.05rem, 3.2cqw, 1.5rem);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: 0.01em;
 }
 
-.subtitle {
+.mapview__subtitle {
   margin: 0.1rem 0 0;
   font-size: 0.8rem;
   color: var(--ink-soft);
 }
 
-.tools {
+.mapview__tools {
   display: flex;
   flex-shrink: 0;
   gap: 0.4rem;
   align-items: flex-start;
 }
 
-.button {
+.mapview__button {
   display: inline-flex;
   align-items: center;
   height: 2rem;
@@ -139,6 +164,7 @@ body {
   font-size: 0.85rem;
   color: var(--ink);
   text-decoration: none;
+  white-space: nowrap;
   cursor: pointer;
   background: var(--paper-veil);
   border: 1px solid var(--edge);
@@ -146,20 +172,21 @@ body {
   box-shadow: var(--shadow);
 }
 
-.button:hover,
-.button:focus-visible {
+.mapview__button:hover,
+.mapview__button:focus-visible {
   border-color: var(--accent);
   color: var(--accent);
 }
 
 /* ---------------------------------------------------------------- search */
 
-.search {
+.mapview__search {
   position: relative;
+  min-width: 0;
 }
 
-#search-input {
-  width: min(17rem, 42vw);
+.mapview__search-input {
+  width: min(17rem, 60cqw);
   height: 2rem;
   padding: 0 0.55rem;
   font: inherit;
@@ -171,15 +198,15 @@ body {
   box-shadow: var(--shadow);
 }
 
-#search-input:focus-visible {
+.mapview__search-input:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: -1px;
 }
 
-.results {
+.mapview__results {
   position: absolute;
   inset: 2.2rem 0 auto 0;
-  max-height: min(60vh, 26rem);
+  max-height: 22rem;
   padding: 0.15rem;
   margin: 0;
   overflow-y: auto;
@@ -190,7 +217,11 @@ body {
   box-shadow: var(--shadow);
 }
 
-.results li > button {
+.mapview__results[hidden] {
+  display: none;
+}
+
+.mapview__results li > button {
   display: flex;
   gap: 0.5rem;
   align-items: baseline;
@@ -206,14 +237,14 @@ body {
   border-radius: 2px;
 }
 
-.results li > button:hover,
-.results li > button:focus-visible,
-.results li[aria-selected='true'] > button {
+.mapview__results li > button:hover,
+.mapview__results li > button:focus-visible,
+.mapview__results li[aria-selected='true'] > button {
   background: rgb(130 60 39 / 0.1);
   outline: none;
 }
 
-.results .kind {
+.mapview__results .kind {
   flex-shrink: 0;
   margin-left: auto;
   font-size: 0.7rem;
@@ -221,7 +252,7 @@ body {
   text-transform: lowercase;
 }
 
-.results .empty {
+.mapview__results .empty {
   padding: 0.4rem 0.45rem;
   font-size: 0.85rem;
   color: var(--ink-soft);
@@ -229,7 +260,8 @@ body {
 
 /* ---------------------------------------------------------------- panels */
 
-.panel {
+.mapview__layers,
+.mapview__legend {
   position: absolute;
   z-index: 1000;
   background: var(--paper-veil);
@@ -238,19 +270,24 @@ body {
   box-shadow: var(--shadow);
 }
 
-.panel--layers {
+.mapview__layers[hidden],
+.mapview__legend[hidden] {
+  display: none;
+}
+
+.mapview__layers {
   top: 3.4rem;
   right: 0.75rem;
   padding: 0.5rem 0.7rem;
 }
 
-.panel--layers fieldset {
+.mapview__layers fieldset {
   padding: 0;
   margin: 0;
   border: 0;
 }
 
-.panel--layers legend {
+.mapview__layers legend {
   padding: 0 0 0.3rem;
   font-size: 0.72rem;
   color: var(--ink-soft);
@@ -258,7 +295,7 @@ body {
   letter-spacing: 0.06em;
 }
 
-.panel--layers label {
+.mapview__layers label {
   display: flex;
   gap: 0.4rem;
   align-items: center;
@@ -267,14 +304,14 @@ body {
   cursor: pointer;
 }
 
-.panel--legend {
+.mapview__legend {
   right: 0.75rem;
   bottom: max(0.75rem, env(safe-area-inset-bottom));
-  max-width: 12rem;
+  max-width: min(12rem, 60cqw);
   overflow: hidden;
 }
 
-.panel__heading {
+.mapview__legend-toggle {
   display: flex;
   gap: 0.4rem;
   align-items: center;
@@ -291,24 +328,28 @@ body {
   border: 0;
 }
 
-.panel__heading::after {
+.mapview__legend-toggle::after {
   margin-left: auto;
   content: '▾';
 }
 
-.panel__heading[aria-expanded='false']::after {
+.mapview__legend-toggle[aria-expanded='false']::after {
   content: '▸';
 }
 
-.legend-items {
-  max-height: min(40vh, 20rem);
+.mapview__legend-body {
+  max-height: 18rem;
   padding: 0 0.6rem 0.5rem;
   margin: 0;
   overflow-y: auto;
   list-style: none;
 }
 
-.legend-items li {
+.mapview__legend-body[hidden] {
+  display: none;
+}
+
+.mapview__legend-body li {
   display: flex;
   gap: 0.4rem;
   align-items: center;
@@ -316,7 +357,7 @@ body {
   line-height: 1.5;
 }
 
-.legend-items .swatch {
+.mapview__swatch {
   flex-shrink: 0;
   width: 0.7rem;
   height: 0.7rem;
@@ -325,34 +366,31 @@ body {
 
 /* ------------------------------------------------------------ map layers */
 
-.map-overlay {
+.mapview .map-overlay {
   /* The overlay spans the whole map, so it must not swallow drags. Only the
      shapes a reader can actually click opt back into pointer events. */
   pointer-events: none;
 }
 
-.map-overlay #burgIcons use,
-.map-overlay #anchors use,
-.map-overlay #markers > svg,
-.map-overlay #labels text,
-.map-overlay #searoutes path,
-.map-overlay #roads path,
-.map-overlay #trails path {
+.mapview .map-overlay #burgIcons use,
+.mapview .map-overlay #anchors use,
+.mapview .map-overlay #markers > svg,
+.mapview .map-overlay #labels text,
+.mapview .map-overlay #searoutes path,
+.mapview .map-overlay #roads path,
+.mapview .map-overlay #trails path {
   pointer-events: auto;
   cursor: pointer;
 }
 
-/* Layer visibility is toggled through each group's own `style.display`, because
-   the generator bakes inline display values into some layers when it saves. */
-
 /* --------------------------------------------------------------- popups */
 
-.leaflet-popup-content-wrapper {
+.mapview .leaflet-popup-content-wrapper {
   border-radius: var(--radius);
 }
 
-.leaflet-popup-content {
-  width: min(22rem, 78vw) !important;
+.mapview .leaflet-popup-content {
+  width: min(22rem, 78cqw) !important;
   margin: 0.7rem 0.85rem;
   font-family: var(--font-serif);
   font-size: 0.92rem;
@@ -360,7 +398,7 @@ body {
   color: var(--ink);
 }
 
-.popup__name {
+.mapview .popup__name {
   margin: 0;
   font-family: var(--font-display);
   font-size: 1.05rem;
@@ -368,59 +406,152 @@ body {
   line-height: 1.2;
 }
 
-.popup__kind {
+.mapview .popup__kind {
   margin: 0.05rem 0 0;
   font-size: 0.73rem;
   color: var(--ink-soft);
   text-transform: lowercase;
 }
 
-.popup__body {
-  max-height: 40vh;
+.mapview .popup__body {
+  max-height: 16rem;
   margin-top: 0.5rem;
   overflow-y: auto;
 }
 
-.popup__body > :first-child {
+.mapview .popup__body > :first-child {
   margin-top: 0;
 }
 
-.popup__body > :last-child {
+.mapview .popup__body > :last-child {
   margin-bottom: 0;
 }
 
-.popup__body p {
+.mapview .popup__body p {
   margin: 0 0 0.5rem;
 }
 
-.popup__body .poem {
+.mapview .popup__body blockquote {
+  margin: 0 0 0.5rem;
+  padding-left: 0.6rem;
+  border-left: 2px solid var(--edge);
+}
+
+.mapview .popup__body .poem {
   margin: 0 0 0.1rem;
   padding-left: 0.8rem;
   text-indent: -0.8rem;
   font-style: italic;
 }
 
-.popup__body a {
+.mapview .popup__body a {
   color: var(--accent);
 }
 
-.popup__body img {
+.mapview .popup__body img {
   max-width: 100%;
   height: auto;
 }
 
 /* ------------------------------------------------------------- controls */
 
-.leaflet-control-attribution {
+.mapview .leaflet-control-attribution {
   font-family: var(--font-serif);
   font-size: 0.7rem;
 }
 
-.leaflet-bar a {
+.mapview .leaflet-bar a {
   color: var(--ink);
 }
 
-.scale-bar {
+/* Zoom buttons and scale bar share the bottom-left corner: lay them out in a row
+   along the bottom edge, the scale to the right of the +/- buttons, rather than
+   stacked. Leaflet prepends controls in bottom corners, so `order` sets the
+   visual order independently of the DOM order. */
+.mapview .leaflet-bottom.leaflet-left {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.mapview .leaflet-bottom.leaflet-left > * {
+  clear: none;
+  float: none;
+  margin: 0 0 10px 10px;
+}
+
+.mapview .leaflet-bottom.leaflet-left .leaflet-control-zoom,
+.mapview .leaflet-bottom.leaflet-left .mapview__nav {
+  order: 0;
+}
+
+.mapview .leaflet-bottom.leaflet-left .mapview__scale {
+  order: 1;
+}
+
+/* The tour control: a 2×2 square — zoom out / in on top, prev / next below. */
+.mapview__nav {
+  display: grid;
+  grid-template-columns: 1.9rem 1.9rem;
+  overflow: hidden;
+  background: var(--paper);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* The tour picker, in the top-right chrome next to Layers. Capped width so long
+   stop names stay compact (the closed control truncates them). */
+.mapview__tour-select {
+  height: 2rem;
+  max-width: 10rem;
+  padding: 0 0.5rem;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--ink);
+  cursor: pointer;
+  background: var(--paper-veil);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.mapview__nav-btn {
+  width: 1.9rem;
+  height: 1.9rem;
+  font: 700 1.1rem/1.9rem var(--font-serif);
+  color: var(--ink);
+  text-align: center;
+  cursor: pointer;
+  background: var(--paper);
+  border: 0;
+  border-right: 1px solid var(--edge);
+  border-bottom: 1px solid var(--edge);
+}
+
+.mapview__nav-btn:nth-child(2n) {
+  border-right: 0;
+}
+
+.mapview__nav-btn:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+
+.mapview__nav-btn:hover:not(:disabled) {
+  color: var(--accent);
+  background: rgb(130 60 39 / 0.08);
+}
+
+.mapview__nav-btn--step {
+  font-size: 1.3rem;
+}
+
+.mapview__nav-btn:disabled {
+  color: var(--edge);
+  cursor: default;
+}
+
+.mapview__scale {
   padding: 0.15rem 0.4rem;
   font-size: 0.72rem;
   line-height: 1.3;
@@ -428,12 +559,11 @@ body {
   text-align: center;
   background: var(--paper-veil);
   border: 1px solid var(--edge);
-  border-top: 0;
-  border-radius: 0 0 var(--radius) var(--radius);
+  border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
 
-.scale-bar__rule {
+.mapview__scale-rule {
   height: 0.3rem;
   border: 1px solid var(--ink);
   border-top: 0;
@@ -441,15 +571,17 @@ body {
 
 /* --------------------------------------------------------------- status */
 
-.status,
-.fallback {
+.mapview__status,
+.mapview__fallback {
   position: absolute;
   top: 50%;
   left: 50%;
   z-index: 1200;
+  max-width: min(28rem, 82cqw);
   padding: 0.7rem 1.1rem;
   font-size: 0.95rem;
   color: var(--ink);
+  text-align: center;
   background: var(--paper);
   border: 1px solid var(--edge);
   border-radius: var(--radius);
@@ -457,44 +589,29 @@ body {
   transform: translate(-50%, -50%);
 }
 
-.fallback {
-  max-width: 28rem;
-  text-align: center;
-}
-
-.status[hidden] {
+.mapview__status[hidden] {
   display: none;
 }
 
-.status--error {
+.mapview__status--error {
   border-color: var(--accent);
 }
 
 @media (max-width: 40rem) {
-  .chrome--top {
+  /* The embed sizes itself with cqw and needs no help; only the full-window page
+     has to reflow its chrome on a narrow phone. */
+  .mapview--page .mapview__chrome {
     flex-wrap: wrap;
   }
 
-  #map-title {
-    font-size: 1.05rem;
-  }
-
-  .subtitle {
+  .mapview--page .mapview__subtitle {
     display: none;
-  }
-
-  #search-input {
-    width: min(15rem, 55vw);
-  }
-
-  .panel--legend {
-    max-width: 9rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .leaflet-fade-anim .leaflet-tile,
-  .leaflet-zoom-anim .leaflet-zoom-animated {
+  .mapview .leaflet-fade-anim .leaflet-tile,
+  .mapview .leaflet-zoom-anim .leaflet-zoom-animated {
     transition: none !important;
   }
 }

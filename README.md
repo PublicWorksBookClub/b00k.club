@@ -74,6 +74,10 @@ JSON-LD is designed for creating links between pieces of data representing relat
 - [Getty Vocabularies](https://vocab.getty.edu) - for literary terms
 - [Lexvo](http://www.lexvo.org/) - for languages
 
+## Maps
+
+Interactive maps live in [`static/maps/`](./static/maps/README.md); see that README to add or update one.
+
 ## Templates
 
 Templates are in the `templates` directory. Their purpose is to decide where in the html the content goes. The content is accessible to the template as a variable named either `section.content` or `page.content`, depending on the context.

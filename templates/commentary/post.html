@@ -3,6 +3,14 @@
 {% import "macro/works.html" as works %}
 {% import "r3ply.html" as r3ply %}
 
+{% block title %}
+  {% set title = page.title | regex_replace(pattern="_(.*?)_", rep='"$1"') %}
+
+  <title>{{ title }} | PWBC Commentary</title>
+  <meta property="og:title" content="{{ title }} | PWBC Commentary" />
+  <meta name="twitter:title" content="{{ title }} | PWBC Commentary" />
+{% endblock title %}
+
 {% block body_styles %}bg-orange-50{% endblock body_styles %}
 {# this template ignores extra.bg_color, so pin the iphone strips to match it #}
 {% block edge_color %}bg-slate-50{% endblock edge_color %}
@@ -17,7 +25,7 @@
 <article class="mx-auto my-16 max-w-prose px-4 md:px-0 prose prose-pwbc prose-lg prose-headings:font-fira-sans">
   <header class="not-prose text-gray-700">
     <h1 class="font-playfair-display text-5xl font-light text-gray-700">
-      <a class="hover:underline" href="{{ page.permalink }}">{{ page.title }}</a>
+      <a class="hover:underline" href="{{ page.permalink }}">{{ page.title | regex_replace(pattern="_(.*?)_", rep="<em>$1</em>") | safe }}</a>
     </h1>
     {% if page.authors %}
     {# Zola's built-in page field, deliberately not the `authors` taxonomy: commentary is
@@ -47,8 +55,68 @@
       {% if next %}<a class="hover:underline" href="{{ next.permalink }}">next</a>{% endif %}
     </span>
   </div>
-  <section class="prose prose-pwbc prose-lg prose-li:text-left prose-headings:text-left text-justify">
+  {# Content #}
+  <section class="mt-12 prose prose-pwbc prose-lg prose-li:text-left prose-headings:text-left text-justify">
     {{ page.content | safe }}
+  </section>
+  <hr>
+  {# Contextual Relations #}
+  <section class="mt-8">
+    <h2>Contextual Relations</h2>
+    <h3>Refers To</h3>
+    {% set works_section = get_section(path="works/_index.md") %}
+    <ul>
+      {% if page.taxonomies.references and page.taxonomies.references | length > 0 %}
+      {% for r in page.taxonomies.references %}
+      {% set w = works_section.pages | filter(attribute="slug", value=r) | nth(n=0) %}
+      {% if not w.permanlink %}{% continue %}{% endif %}
+      {% set_global added_reference_to_work = true %}
+      <li>
+        <a class="font-light" href="{{ w.permalink }}">{{ w.taxonomies.titles[0] }}</a> by {{ works::list_taxonomy_terms(terms=w.taxonomies["authors"], taxonomy="authors", add="italic font-extralight") }}
+      </li>
+      {% endfor %}
+      {% endif %}
+      {% if not added_reference_to_work %}
+      <li>(none)</li>
+      {% endif %}
+    </ul>
+    <h3>References Commentary</h3>
+    {% set commentary_section = get_section(path="commentary/_index.md") %}
+    <ul>
+      {% if page.taxonomies.references and page.taxonomies.references | length > 0 %}
+      {% for r in page.taxonomies.references %}
+      {% set w = commentary_section.pages | filter(attribute="slug", value=r) | nth(n=0) %}
+      {% if not w.permalink %}{% continue %}{% endif %}
+      {% set_global added_references_commentary = true%}
+      <li>
+        <span class="font-medium">#{{ w.extra.commentary_number }} </span><a class="font-light" href="{{ w.permalink }}">{{ w.title | regex_replace(pattern="_(.*?)_", rep="<em>$1</em>") | safe }}</a> by {{ w.authors | as_str | regex_replace(pattern="[\[\]]", rep="") }}
+      </li>
+      {% endfor %}
+      {% endif %}
+      {% if not added_references_commentary %}
+      <li>(none)</li>
+      {% endif %}
+    </ul>
+    <h3>Refrenced by Commentary</h3>
+    <ul>
+      {% set referenced_by = get_taxonomy(kind="references", lang=page.lang) | get(key="items") | filter(attribute="name", value=page.slug) %}
+      {% if referenced_by | length > 0 %}
+      {% set referenced_by = referenced_by | first | get(key="pages") %}
+      {% set commentary = referenced_by | filter(attribute="components.0", value="commentary") | sort(attribute="extra.commentary_number") %}
+        {% if commentary | length > 0 %}
+        {% for w in commentary %}
+        {% set_global added_referenced_by = true %}
+      <li>
+        <span class="font-medium">#{{ w.extra.commentary_number }} </span><a class="font-light" href="{{ w.permalink }}">{{ w.title | regex_replace(pattern="_(.*?)_", rep="<em>$1</em>") | safe }}</a> by {{ w.authors | as_str | regex_replace(pattern="[\[\]]", rep="") }}
+      </li>
+        {% endfor %}
+        {% endif %}
+      {% endif %}
+      {% if not added_referenced_by %}
+      <li>(none)</li>
+      {% endif %}
+      {# TODO: then display commentary that references this work by further filtering it #}
+    </ul>
   </section>
 </article>
 {% endblock main %}
