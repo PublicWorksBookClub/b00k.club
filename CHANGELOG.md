@@ -6,6 +6,7 @@
 
 - Update with today's meeting notes
 - Add Plato's _Statesman_ to readings
+- Add running commentary on Plato's _Statesman_, regarding the taxonomy the visitor derives
 
 ## 1.12.1 (2026-08-25)
 

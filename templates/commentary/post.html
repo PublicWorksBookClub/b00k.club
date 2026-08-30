@@ -13,7 +13,6 @@
 
 {% block body_styles %}bg-orange-50{% endblock body_styles %}
 {# this template ignores extra.bg_color, so pin the iphone strips to match it #}
-{% block edge_color %}bg-slate-50{% endblock edge_color %}
 
 {% block banner %}
 {{ util::nav(href="/", text="Home") }}
@@ -69,7 +68,7 @@
       {% if page.taxonomies.references and page.taxonomies.references | length > 0 %}
       {% for r in page.taxonomies.references %}
       {% set w = works_section.pages | filter(attribute="slug", value=r) | nth(n=0) %}
-      {% if not w.permanlink %}{% continue %}{% endif %}
+      {% if not w.permalink %}{% continue %}{% endif %}
       {% set_global added_reference_to_work = true %}
       <li>
         <a class="font-light" href="{{ w.permalink }}">{{ w.taxonomies.titles[0] }}</a> by {{ works::list_taxonomy_terms(terms=w.taxonomies["authors"], taxonomy="authors", add="italic font-extralight") }}
