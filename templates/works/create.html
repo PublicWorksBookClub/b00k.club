@@ -18,6 +18,13 @@
   that one says so in as many words.
 -#}
 
+{% block title %}
+  {% set title = "Add Conspectus | PWBC Readings" %}
+  <title>{{ title }}</title>
+  <meta property="og:title" content="{{ title }}" />
+  <meta name="twitter:title" content="{{ title }}" />
+{% endblock title %}
+
 {% block body_styles %}{{ section.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
 
 {#- A form is noise in search results; the conspectuses themselves are what's worth finding. -#}

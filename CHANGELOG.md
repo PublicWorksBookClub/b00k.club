@@ -2,6 +2,13 @@
 
 ## Next
 
+## 1.12.2 (2026-08-30)
+
+- Update with today's meeting notes
+- Add Plato's _Statesman_ to readings
+- Add running commentary on Plato's _Statesman_, regarding the taxonomy the visitor derives
+- Update titles for /create for minutes and conspectuses
+
 ## 1.12.1 (2026-08-25)
 
 - Remove commentary for Metamorphoses conspectus (they were migrated to their own commentary pages)
