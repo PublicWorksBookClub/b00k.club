@@ -2,6 +2,9 @@
 
 ## Next
 
+- Update Sophist reading status
+- Add Book 3 epithets from Ovid
+
 ## 1.12.2 (2026-08-30)
 
 - Update with today's meeting notes

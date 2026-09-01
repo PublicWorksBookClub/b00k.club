@@ -20,7 +20,7 @@ Choice of epithet is based on more than just avoiding repetition, e.g. Jupiter i
 
 See _[Commentary #5: Kinds of Epithets](/commentary/epithet-kinds/)_ for precise meaning of each kind of epithet.
 
-{% table(csv="data/tables/Metamorphoses—Epithets.csv" sortable=true link_col=4 link_prefix="#kind-" styles="mt-8 prose-td:first:text-center prose-td:nth-of-type-2:bg-orange-100 prose-td:nth-of-type-2:z-10") %}
+{% table(csv="data/tables/Metamorphoses—Epithets.csv" sortable=true link_col=4 link_prefix="/commentary/epithet-kinds/#kind-" styles="mt-8 prose-td:first:text-center prose-td:nth-of-type-2:bg-orange-100 prose-td:nth-of-type-2:z-10") %}
 <thead>
   <tr class="prose-th:sticky prose-th:top-0 prose-th:z-20 prose-th:bg-orange-50 prose-th:pt-3">
     <th class="w-16 text-center" data-sort="number" aria-sort="ascending">Order</th>

@@ -14,7 +14,7 @@ abstract = """
 A visitor from Elea comes performs a demonstration in the form of question and answer to define what a sophist is.
 """
 started = 2026-06-28
-currently_reading = true
+currently_reading = false
 
 [extra.length]
 units = "pages"
