@@ -2,6 +2,8 @@
 
 ## Next
 
+- Update base "edge" color to bg-indigo-950
+
 ## 1.12.3 (2026-09-03)
 
 - Update Sophist reading status
