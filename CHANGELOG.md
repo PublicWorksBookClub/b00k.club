@@ -2,6 +2,8 @@
 
 ## Next
 
+## 1.12.3 (2026-09-03)
+
 - Update Sophist reading status
 - Add Book 3 epithets from Ovid
 - Add table of causes of metamorphoses
