@@ -4,6 +4,8 @@
 
 - Update Sophist reading status
 - Add Book 3 epithets from Ovid
+- Add table of causes of metamorphoses
+- Add table of metamorphoses
 
 ## 1.12.2 (2026-08-30)
 
