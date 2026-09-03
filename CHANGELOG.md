@@ -2,6 +2,14 @@
 
 ## Next
 
+## 1.12.3 (2026-09-03)
+
+- Update Sophist reading status
+- Add Book 3 epithets from Ovid
+- Add table of causes of metamorphoses
+- Add table of metamorphoses
+- Update tree shortcode to make edge length dynamic when there's a long edge label
+
 ## 1.12.2 (2026-08-30)
 
 - Update with today's meeting notes

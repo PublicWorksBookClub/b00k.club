@@ -126,10 +126,10 @@ Order,Epithet,Character,Kind,Gloss,Sense,Book,Loc.
 125,Melodious Triton,Triton,Attribute,Latin canorus; his conch is his instrument.,,2,9
 126,changing Proteus,Proteus,Attribute,Latin ambiguus — the sea-god who holds no single shape.,"An epithet that is also a plot summary, and in this poem a signature.",2,9
 127,Doris and her daughters,the Nereids,Genealogy,"Sea-nymphs; Doris is their mother, Nereus their father.",,2,"11, 269"
-128,the son of Clymene,Phaethon,Matronymic,Latin Clymeneia proles.,Named by the mother whose word is the only evidence he has.,2,19
+128,the son of Clymene,Phaëthon,Matronymic,Latin Clymeneia proles.,Named by the mother whose word is the only evidence he has.,2,19
 129,his [Phaethon's] supposed sire,the Sun,Relationship,"Latin creditus, “believed.”","The doubt is built into the epithet, in the line where he arrives to settle it.",2,20
 130,Phoebus,the Sun,Name,"Greek Phoibos, “radiant”; shared with Apollo.",In Book 2 the ambiguity of 1.752 is fully exploited — Phoebus is the Sun here and Apollo at 545.,2,"23, 36, 110, 399"
-131,son not to be disclaimed,Phaethon,Periphrasis,Latin non negandus.,The father settles in half a line what the boy crossed the world to ask.,2,34
+131,son not to be disclaimed,Phaëthon,Periphrasis,Latin non negandus.,The father settles in half a line what the boy crossed the world to ask.,2,34
 132,O shared light of the wide world,the Sun,Periphrasis,Latin lux publica mundi.,Phaethon claims a private father by naming him public property.,2,35
 133,his sire,the Sun,Relationship,,,2,40
 134,the father,the Sun,Relationship,,,2,"49, 105, 122"
@@ -152,8 +152,8 @@ Order,Epithet,Character,Kind,Gloss,Sense,Book,Loc.
 151,the Sun-god's steeds,the Sun,Relationship,,,2,161
 152,the Oxen,the Bears,Metonym,"Latin Triones, the plough-oxen — Ursa Major read as a wagon team.",,2,"172, 528"
 153,slow and plow-encumbered,Boötes,Attribute,A northern constellation figured as a ploughman.,,2,177–78
-154,Poor Phaethon,Phaethon,Attribute,,,2,179
-155,Merops' son,Phaethon,Patronymic,"Merops, Clymene's mortal husband and Phaethon's putative father.",The name he refused at 1.764 is the one he now longs for.,2,185
+154,Poor Phaëthon,Phaëthon,Attribute,,,2,179
+155,Merops' son,Phaëthon,Patronymic,"Merops, Clymene's mortal husband and Phaethon's putative father.",The name he refused at 1.764 is the one he now longs for.,2,185
 156,the Moon ... her brother's steeds,Diana,Relationship,"Latin Luna; Ovid uses Luna, Phoebe and Diana for one goddess.",,2,208
 157,old Peneus,Peneus,Attribute,,,2,242
 158,Thrace's Til,Melas,Name,"A river of Mygdonia in Thrace. The Latin is Mygdonius Melas, “the Mygdonian Melas”; melas is Greek for black.","Not attested elsewhere as a name for the Melas, and Soucy gives it no note. The line needs a monosyllable to close on, which “Melas” is not.",2,247
@@ -166,7 +166,7 @@ Order,Epithet,Character,Kind,Gloss,Sense,Book,Loc.
 165,Atlas ... scarce shouldering the glowing vault,Atlas,Function,,,2,296–97
 166,ancient Chaos,Chaos,Attribute,The unformed mass of 1.8.,,2,299
 167,the Almighty Father,Jupiter,Attribute,Latin pater omnipotens.,,2,304
-168,the charioteer,Phaethon,Function,,He is named by the job only at the instant he is killed for it.,2,312
+168,the charioteer,Phaëthon,Function,,He is named by the job only at the instant he is killed for it.,2,312
 169,long Eridanus,Eridanus,Attribute,"A western river, taken for the Po.",,2,324
 170,the Heliads,the Heliads,Genealogy,"“Daughters of Helios” — Clymene's daughters, Phaethon's sisters.",,2,340
 171,the son of Sthenelus,Cygnus,Patronymic,,,2,367
@@ -257,3 +257,72 @@ Order,Epithet,Character,Kind,Gloss,Sense,Book,Loc.
 256,"the lord and father of the gods, who wields the tri-forked flame, whose nods shake earth",Jupiter,Periphrasis,,Ovid piles up the full imperial titulature in the two lines before Jupiter turns himself into a bull.,2,848–49
 257,Agenor's child,Europa,Patronymic,"Agenor, king of Tyre.",,2,858
 258,his spoils,Europa,Relationship,"Latin praeda, “plunder.”",The last word on her in Book 2 is a word for property.,2,873
+259,the god,Jupiter,Generic,,Book 3 opens mid-abduction: the bull of 2.850 sheds its disguise before Ovid gives him a name again.,3,1
+260,Jove,Jupiter,Name,"From Iovis, the oblique stem of Iuppiter.",,3,"6, 26, 260, 270, 273, 280, 281, 283, 288, 318, 333, 363"
+261,Agenor's son,Cadmus,Patronymic,"Latin Agenorides; Agenor, king of Tyre, is Europa's father too.","Cadmus is named by the father who exiled him, over and over, through the whole dragon fight.",3,"8, 81, 90, 97"
+262,Phoebus,Apollo,Name,"Greek Phoibos, “radiant.”",,3,"9, 10, 18, 130"
+263,the dragon-snake of Mars,Mars,Relationship,"The serpent of the spring is sacred to Mars, which is why killing it dooms the line.",,3,32
+264,the Tyrian scouts,Cadmus' men,Cult site,"Tyre, Cadmus' city.",,3,35
+265,that which parts the Bears,Draco,Periphrasis,"The constellation Draco, which separates Ursa Major from Ursa Minor.",Named by what it lies between rather than what it is — and used as a measure of the serpent's size.,3,45
+266,the Phoenicians,Cadmus' men,Cult site,"Tyre was a Phoenician settlement, so the two names are one people.","Ovid names the same men twice over in eleven lines, the way he does the winds in Book 1.",3,46
+267,Agenor's child,Cadmus,Patronymic,,,3,51
+268,"Pallas, patroness of heroes",Minerva,Function,Latin Pallas; she arrives to tell him what to do with the teeth.,,3,101
+269,Echion,Echion,Name,"Greek echis, “viper” — one of the five left standing from the dragon's teeth.","The name is the man's whole ancestry: sown from a snake, and father of the Pentheus who dies for denying a god.",3,126
+270,Tritonia,Minerva,Cult site,"Born near Lake Triton in Libya, as at 2.782.",,3,127
+271,the Tyrian stranger,Cadmus,Periphrasis,,"Founding Thebes, he is still named as a foreigner.",3,129
+272,your grandson,Actaeon,Relationship,Cadmus'; the whole episode is addressed to Cadmus in the second person.,,3,139
+273,their master,Actaeon,Relationship,The hounds'.,The word arrives twice while they are eating him.,3,"140, 235, 250"
+274,the kindly young Boeotian,Actaeon,Periphrasis,Boeotia is the region round Thebes.,,3,146
+275,"Dawn, on saffron wheels",Aurora,Attribute,Latin croceis... rotis.,,3,150
+276,Phoebus,the Sun,Name,"Greek Phoibos, shared with Apollo.","Apollo holds this name at 9, 10, 18 and 130; here, 141 lines later, the same word is the sun cracking the fields.",3,151
+277,close-garbed Diana,Diana,Attribute,Latin succincta; a huntress gathers her robes up to move.,The epithet describes exactly the state Actaeon is about to catch her out of.,3,156
+278,the woodland goddess,Diana,Function,,,3,164
+279,Titania,Diana,Genealogy,"Daughter of Latona, daughter of the Titan Coeus.",The grandest name she carries in the book lands on the line where she is naked in a pool.,3,173
+280,Cadmus' grandson,Actaeon,Genealogy,,,3,174
+281,the goddess,Diana,Generic,,,3,"181, 253"
+282,Autonoë's heroic son,Actaeon,Matronymic,Latin Autonoeius heros.,Ovid calls him a hero in the same line that he turns and runs — the dissonance is the joke.,3,198
+283,Jove's wife,Juno,Relationship,,,3,256
+284,the Tyrian,Europa,Cult site,"Europa, of Tyre — not Cadmus, though he is the Tyrian of 129.",Juno's grudge against the girl of Book 2 is what she transfers onto the whole house of Agenor.,3,258
+285,greatest Juno,Juno,Attribute,Latin maxima Iuno.,She lists her own titles while working out how to kill a pregnant girl.,3,264
+286,"queen, Jove's sister, and his wife",Juno,Periphrasis,Latin regina... Iovisque et soror et coniunx.,,3,266
+287,Saturn's daughter,Juno,Patronymic,,,3,272
+288,High Juno,Juno,Attribute,,,3,286
+289,Cadmus' clueless child,Semele,Genealogy,,,3,287
+290,the god,Jupiter,Generic,,,3,"289, 296"
+291,"swirling Styx, the god whom all gods fear",Styx,Periphrasis,The oath no god may break — the same one sworn at 1.189 and 2.101.,,3,291
+292,Saturnia,Juno,Patronymic,Daughter of Saturn.,,3,"294, 333, 365"
+293,the hundred-handed Typhon,Typhon,Attribute,Father of monsters and the gods' greatest enemy.,,3,304
+294,the Cyclops' hands,the Cyclopes,Metonym,"The thunderbolt named by its smiths, as at 1.259.",,3,305
+295,Firearm Number Two,the Cyclopes,Metonym,Ovid's name for the lesser bolt: the gods' own term for the smaller of two grades.,A bureaucratic joke in the middle of a woman being burned alive by her lover.,3,307
+296,his aunt Ino,Ino,Relationship,Bacchus'; Ino is Semele's sister.,,3,313
+297,twice-born Bacchus,Bacchus,Attribute,"Born once of Semele, again out of Jupiter's thigh.",,3,317
+298,the wise Tiresias,Tiresias,Attribute,,,3,323
+299,her judge,Tiresias,Relationship,Juno's; he ruled against her.,,3,335
+300,the Almighty Sire,Jupiter,Attribute,"Latin pater omnipotens, as at 1.154 and 2.304.",,3,336
+301,sea-blue Liriope,Liriope,Attribute,"Latin caerula; she is a water nymph, raped by the river Cephisus.",,3,342
+302,the prescient sage,Tiresias,Function,,,3,347
+303,the seer,Tiresias,Function,,,3,349
+304,the Cephisus' son,Narcissus,Patronymic,Son of the river Cephisus and the nymph Liriope.,,3,351
+305,"sounding Echo, a loquacious nymph",Echo,Attribute,Latin vocalis... resonabilis Echo.,"Named twice over for the one thing she does, before we learn she cannot start a sentence.",3,357
+306,the goddess,Juno,Generic,,,3,364
+307,Rhamnusia,Nemesis,Cult site,"Nemesis, goddess of retribution, whose shrine stood at Rhamnous in Attica.",The curse on Narcissus is granted by a goddess named only by the deme her temple sat in.,3,406
+308,Apollo,Apollo,Name,The Greek name.,,3,421
+309,O peerless boy,Narcissus,Attribute,,Addressed by Narcissus to his own reflection.,3,455
+310,his shorn-haired Naiad sisters,the Naiads,Relationship,Water nymphs; Narcissus' half-sisters through Liriope.,,3,506
+311,the prophet,Tiresias,Function,,,3,511
+312,Echion's son,Pentheus,Patronymic,Latin Echionides; son of the snake-sown man of 126.,Pentheus is named by his serpent descent every time he denies a god — and it is the ground he himself appeals to at 531.,3,"513, 526, 701"
+313,the elder,Tiresias,Attribute,,,3,516
+314,"the new god Liber, son of Semele",Bacchus,Cult title,"Latin Liber, from the liberating effect of wine.",,3,520
+315,Snake-born race of Mars,the Thebans,Periphrasis,"The Thebans, descended from the sown dragon's teeth.",Pentheus rallies them by the very ancestry that makes his own name a warning.,3,531
+316,an unarmed boy,Bacchus,Attribute,,"Pentheus' contempt, in the speech that gets him killed.",3,553
+317,his grandfather,Cadmus,Relationship,Pentheus'.,,3,564
+318,his slave and priest,Acoetes,Relationship,Bacchus'.,,3,574
+319,this Tyrrhene-born disciple of the god,Acoetes,Periphrasis,"Tyrrhene, i.e. Etruscan.","At 583 he says he is Lydian instead. Roman poets used “Tyrrhene” loosely, but the contradiction stands in the text.",3,576
+320,a boy fair as a girl,Bacchus,Attribute,,,3,607
+321,Liber,Bacchus,Cult title,,,3,636
+322,the teasing god,Bacchus,Attribute,,,3,650
+323,there's no god so close as he,Bacchus,Periphrasis,"A formula of divine presence, sworn by Acoetes.",,3,658–59
+324,Dia,Naxos,Name,An archaic name for Naxos.,,3,690
+325,Tyrrhene Acoetes,Acoetes,Attribute,,,3,696
+326,his own mother,Agave,Relationship,Pentheus'.,"She is named by the relation before she is named at all, and she is the one who starts the hunt.",3,713
+327,Mad Ino,Ino,Attribute,,,3,722

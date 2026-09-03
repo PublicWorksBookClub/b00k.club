@@ -16,7 +16,7 @@ references = ["ovid-metamorphoses"]
 commentary_number = 5
 +++
 
-These terms are referenced heavily by other commentary, e.g. _[Commentary #6: Table of Epithets in Ovid's "Metamorphoses"](/todo)_.
+These terms are referenced heavily by other commentary, e.g. **Commentary #6** _[Table of Epithets in Ovid's "Metamorphoses"](/commentary/metamorphoses-epithets/)_.
 
 {% table(csv="data/tables/Epithets—Kinds.csv" id_col=1 id_prefix="kind-" sticky_col=1 scroll_hint=false styles="mt-6 prose-td:first:font-medium") %}
 <thead>

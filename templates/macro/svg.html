@@ -534,14 +534,15 @@
 
     `wrap` and `edge_wrap` are the character counts a node label and an edge label
     are folded at. `level_height` is the vertical gap between one row of boxes and the
-    next; `pad_x`/`pad_y` the whitespace inside a box.
+    next — a level whose incoming edges carry labels gets extra room for the tallest of
+    them, so those edges lengthen together and the row stays aligned. `pad_x`/`pad_y` is
+    the whitespace inside a box.
 
     Callers usually reach this through the `tree` shortcode, which builds those arrays
     from an indented list. Templates with their own data can call it directly.
 #}
 {% macro tree(depths, labels, edges, marks, caption="", level_height=52, char_width=7.4, font_size=16, gutter=18, pad=14, wrap=14, edge_wrap=16, pad_x=13, pad_y=9) %}
 {%- set count = depths | length -%}
-{%- set_global rows_gap = level_height -%}
 {%- set big = 999999 -%}
 
 {#- Wrap each label to `wrap` characters and keep the result as "line|line", so the
@@ -591,9 +592,7 @@
 {#- Edge labels get the same treatment, folded harder: two of them meet in the gap
     between sibling subtrees, so they have far less room than a node label. -#}
 {%- set_global wrapped_edges = [] -%}
-{%- set_global has_edges = false -%}
 {%- for edge in edges -%}
-  {%- if edge != "" %}{% set_global has_edges = true %}{% endif -%}
   {%- set_global rows = [] -%}
   {%- set_global cur = "" -%}
   {%- for word in edge | split(pat=" ") -%}
@@ -612,6 +611,21 @@
   {%- endfor -%}
   {%- if cur != "" %}{% set_global rows = rows | concat(with=[cur]) %}{% endif -%}
   {%- set_global wrapped_edges = wrapped_edges | concat(with=[rows | join(sep="|")]) -%}
+{%- endfor -%}
+
+{#- The tallest edge label entering each level, in lines; that decides how much the gap
+    above the level has to grow. -#}
+{%- set_global edge_rows_at = [] -%}
+{%- for i in range(end=max_depth + 2) %}{% set_global edge_rows_at = edge_rows_at | concat(with=[0]) %}{% endfor -%}
+{%- for e in wrapped_edges -%}
+  {%- if e != "" -%}
+    {%- set d = depths | nth(n=loop.index0) -%}
+    {%- set erows = e | split(pat="|") | length -%}
+    {%- set have = edge_rows_at | nth(n=d) -%}
+    {%- if erows > have -%}
+      {%- set_global edge_rows_at = edge_rows_at | slice(end=d) | concat(with=[erows]) | concat(with=edge_rows_at | slice(start=d + 1)) -%}
+    {%- endif -%}
+  {%- endif -%}
 {%- endfor -%}
 
 {#- A node is a leaf when the next node is not deeper than it. -#}
@@ -673,11 +687,23 @@
 {#- Every box is the same height, whatever its label wraps to, so the rows line up. -#}
 {%- set line_h = font_size * 1.25 -%}
 {%- set box_h = max_rows * line_h + pad_y * 2 -%}
-{%- set_global rows_gap = box_h + level_height -%}
-{#- Labelled edges need vertical room that a compact tree does not have. -#}
-{%- if has_edges %}{% set_global rows_gap = box_h + level_height + 26 %}{% endif -%}
+{%- set edge_font = font_size - 4 -%}
+{%- set edge_line_h = edge_font * 1.1 -%}
+{#- top_at[d] is the y of the boxes on level d. The gap above a level is the base gap
+    plus room for the tallest label on an edge into it, so a long label lengthens every
+    edge into that level — siblings and the rest of the row move down together. -#}
+{%- set_global top_at = [pad] -%}
+{%- set_global y_cursor = pad -%}
+{%- for d in range(start=1, end=max_depth + 1) -%}
+  {%- set erows = edge_rows_at | nth(n=d) -%}
+  {%- set_global label_room = 0 -%}
+  {%- if erows > 0 %}{% set_global label_room = erows * edge_line_h + 4 %}{% endif -%}
+  {%- set_global y_cursor = y_cursor + box_h + level_height + label_room -%}
+  {%- set_global top_at = top_at | concat(with=[y_cursor]) -%}
+{%- endfor -%}
+{%- set last_top = top_at | nth(n=max_depth) -%}
 {%- set width = leaves * slot + pad * 2 -%}
-{%- set height = max_depth * rows_gap + box_h + pad * 2 -%}
+{%- set height = last_top + box_h + pad -%}
 
 {#- x of the most recent node at each depth, so a child can find its parent. -#}
 {%- set_global px_at = [] -%}
@@ -703,9 +729,10 @@
   {%- set x = pad + slotx * slot + slot / 2 -%}
   {%- if d > 0 -%}
     {%- set parent_x = px_at | nth(n=d - 1) -%}
-    {%- set parent_bottom = pad + (d - 1) * rows_gap + box_h -%}
-    {%- set child_top = pad + d * rows_gap -%}
-    {%- set bus = parent_bottom + (child_top - parent_bottom) / 2 -%}
+    {%- set ptop = top_at | nth(n=d - 1) -%}
+    {%- set parent_bottom = ptop + box_h -%}
+    {%- set child_top = top_at | nth(n=d) -%}
+    {%- set bus = parent_bottom + level_height / 2 -%}
   <path class="fill-none {% if mark %}stroke-gray-700{% else %}stroke-gray-400{% endif %}" stroke-width="{% if mark %}2{% else %}1{% endif %}"
         d="M {{ parent_x }} {{ parent_bottom }} V {{ bus }} H {{ x }} V {{ child_top }}" />
   {%- endif -%}
@@ -723,16 +750,16 @@
   {%- set mark = marks | nth(n=i) | default(value="") -%}
   {%- set box_w = widths | nth(n=i) -%}
   {%- set x = pad + slotx * slot + slot / 2 -%}
-  {%- set top = pad + d * rows_gap -%}
+  {%- set top = top_at | nth(n=d) -%}
   {%- set cy = top + box_h / 2 -%}
   {%- if d > 0 and edge -%}
-    {%- set parent_bottom = pad + (d - 1) * rows_gap + box_h -%}
-    {%- set bus = parent_bottom + (top - parent_bottom) / 2 -%}
-  {#- Centred on the drop into its own child, below the crossbar. Sibling labels are a
-      whole slot apart there, so they cannot meet. A halo in the page colour keeps the
-      text legible where the drop runs behind it. -#}
+    {%- set ptop = top_at | nth(n=d - 1) -%}
+    {%- set bus = ptop + box_h + level_height / 2 -%}
+  {#- Centred on the drop into its own child, below the crossbar, in the room the level
+      was given for it. Sibling labels are a whole slot apart there, so they cannot meet.
+      A halo in the page colour keeps the text legible where the drop runs behind it. -#}
   <text class="fill-gray-500 stroke-orange-50 italic" stroke-width="4" paint-order="stroke"
-        font-size="{{ font_size - 4 }}" text-anchor="middle" x="{{ x }}" y="{{ bus + font_size + 3 }}">
+        font-size="{{ edge_font }}" text-anchor="middle" x="{{ x }}" y="{{ bus + edge_font + 4 }}">
     {%- for row in wrapped_edges | nth(n=i) | split(pat="|") -%}
     <tspan x="{{ x }}" dy="{% if loop.first %}0{% else %}1.1em{% endif %}">{{ row }}</tspan>
     {%- endfor -%}

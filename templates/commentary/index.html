@@ -45,8 +45,9 @@
         </p>
         {# `description` is set in the front matter; `summary` needs a <!-- more --> marker #}
         {% set blurb = post.description | default(value=post.summary) | default(value="") %}
+        {% set blurb = blurb | regex_replace(pattern="_(.*?)_", rep="<em>$1</em>") %}
         {% if blurb %}
-        <p class="text-gray-700 prose prose-pwbc">{{ blurb }}</p>
+        <p class="text-gray-700 prose prose-pwbc">{{ blurb | safe }}</p>
         {% endif %}
       </li>
       {% endfor %}

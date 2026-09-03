@@ -18,7 +18,7 @@ commentary_number = 3
 
 According to Diogenes[^1], Platonic dialogues are roughly classified as follows.
 
-See _[Commentary #4: Thrasyllus of Mendes' Platonic Canon](/commentary/thrasyllus-platonic-canon/)_ for how each dialogue was originally categorized by Diogenes.
+See **Commentary #4** _[Thrasyllus of Mendes' Platonic Canon](/commentary/thrasyllus-platonic-canon/)_ for how each dialogue was originally categorized by Diogenes.
 
 {% tree(caption="Diogenes' taxonomy of Platonic dialogues. Commentary along edges between nodes are my own.") %}
 - Platonic dialogues

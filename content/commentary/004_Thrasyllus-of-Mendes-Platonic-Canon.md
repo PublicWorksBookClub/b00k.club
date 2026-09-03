@@ -20,7 +20,7 @@ commentary_number = 4
 
 [Thrasyllys of Mendes](https://en.wikipedia.org/wiki/Thrasyllus_of_Mendes) arranged Platonic works into tetralogies[^1], grouping them into themes and editorializing the names of the dialogues with the interlocutor and the subject.
 
-Next to each dialogue is Diogenes' original classification of that dialogue. See _[Commentary #3: Diogenes' Taxonomy of Platonic Dialogues](/commentary/diogenes-taxonomy-of-plato/)_ for more information about types of dialogues.
+Next to each dialogue is Diogenes' original classification of that dialogue. See **Commentary #3** _[Diogenes' Taxonomy of Platonic Dialogues](/commentary/diogenes-taxonomy-of-plato/)_ for more information about types of dialogues.
 
 1. **First tetralogy——What the life of a philosopher will be**
     1. _[Euthyphro](/works/plato-euthyphro/)_, or _On Holiness_ (**tentative**)
