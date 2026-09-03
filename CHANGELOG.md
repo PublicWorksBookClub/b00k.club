@@ -6,6 +6,7 @@
 - Add Book 3 epithets from Ovid
 - Add table of causes of metamorphoses
 - Add table of metamorphoses
+- Update tree shortcode to make edge length dynamic when there's a long edge label
 
 ## 1.12.2 (2026-08-30)
 
