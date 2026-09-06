@@ -2,6 +2,8 @@
 
 ## Next
 
+- Add commentary on geometric ornamentation and t4zh1b library
+
 ## 1.12.4 (2026-09-06)
 
 - Update with today's meeting notes

@@ -15,6 +15,29 @@ https://:project.pages.dev/*
   Feature-Policy: default 'none'
   X-XSS-Protection: 1; mode=block
 
+# The ornament studio at /demos/* needs one directive relaxed, and only one.
+#
+# It draws a page by measuring it and scaling to fit, which means writing
+# `element.style` at run time -- and Chromium checks CSSOM writes to an inline
+# style against `style-src-attr`, not only `style` attributes in the markup. With
+# the site policy as it stands that is 47 refusals and a studio that renders
+# nothing. `style-src` already allows inline, so this only brings the -attr
+# directive into line with it.
+#
+# `script-src` is deliberately NOT relaxed: the studio ships as same-origin
+# module files rather than as its usual single inline bundle, so 'self' covers
+# it. No third-party origin is added either. Rebuild with
+# `python3 tools/t4zh1b-demo.py`.
+/demos/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'none'; script-src 'self' 'wasm-unsafe-eval' static.cloudflareinsights.com ajax.cloudflare.com; style-src 'self' 'unsafe-inline'; style-src-attr 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; prefetch-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self' 'wasm-unsafe-eval'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; manifest-src 'self'
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer-when-downgrade
+  Feature-Policy: default 'none'
+  X-XSS-Protection: 1; mode=block
+
 # More liberal CSP below is sandboxed at /maps/*
 /maps/*
   Strict-Transport-Security: max-age=31536000; includeSubDomains

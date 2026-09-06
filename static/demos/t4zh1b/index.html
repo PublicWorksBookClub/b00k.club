@@ -1,0 +1,260 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>t4zh1b — studio | PWBC</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --muted: #6b6b6b; --faint: #9a9a9a;
+    --paper: #faf9f6; --panel: #ffffff; --line: #e2ded6; --sunk: #f6f3ed;
+    --mark: #b07b2a; --warn: #b4531f; --bad: #a32020; --ok: #3f7d4e;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); display: grid;
+         grid-template-columns: 400px 1fr; height: 100vh; overflow: hidden; }
+
+  #panel { overflow-y: auto; border-right: 1px solid var(--line); background: var(--panel); padding: 18px 20px 70px; }
+  h1 { font-size: 19px; margin: 0 0 2px; }
+  .sub { font-size: 11.5px; color: var(--muted); margin: 0 0 16px; line-height: 1.45; }
+  fieldset { border: 0; border-top: 1px solid var(--line); margin: 0 0 4px; padding: 13px 0 4px; }
+  legend { font-size: 10.5px; text-transform: uppercase; letter-spacing: .11em; color: var(--faint); padding: 0 8px 0 0; }
+  .row { margin: 0 0 13px; }
+  .lbl { display: flex; justify-content: space-between; align-items: baseline; font-size: 12.5px; margin-bottom: 3px; }
+  .lbl b { font-weight: normal; }
+  .val { font-family: ui-monospace, Menlo, monospace; font-size: 11px; color: var(--muted); }
+  input[type=range] { width: 100%; margin: 0; accent-color: var(--ink); }
+  select { width: 100%; font-family: inherit; font-size: 12.5px; padding: 4px 6px; border: 1px solid var(--line); background: #fff; }
+
+  .gutter { position: relative; height: 9px; }
+  .tick { position: absolute; top: 0; width: 1px; height: 6px; background: var(--mark); }
+  .tick.caution { background: var(--faint); }
+  .tick span { position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+               font-family: ui-monospace, Menlo, monospace; font-size: 8.5px; color: var(--faint); white-space: nowrap; }
+  .prov { font-size: 10.5px; line-height: 1.4; margin-top: 11px; }
+  .prov.on { color: var(--mark); } .prov.off { color: var(--faint); font-style: italic; } .prov.caution { color: var(--muted); }
+  .prov cite { display: block; font-style: normal; color: var(--faint); font-size: 9.5px; margin-top: 1px; }
+  .advice { font-size: 10.5px; margin-top: 7px; line-height: 1.4; }
+  .advice.ok { color: var(--ok); } .advice.warn { color: var(--warn); } .advice.bad { color: var(--bad); font-weight: bold; }
+
+  .ring { border: 1px solid var(--line); background: var(--sunk); padding: 10px 11px; margin: 0 0 9px; }
+  .ring.custom { background: #fff; border-color: var(--mark); }
+  .ring.blank { opacity: .62; }
+  .rhead { display: flex; align-items: baseline; gap: 7px; margin-bottom: 9px; }
+  .rhead b { font-size: 12.5px; font-weight: normal; }
+  .rhead .who { font-size: 10px; color: var(--faint); flex: 1; }
+  .badge { font-size: 9px; letter-spacing: .07em; text-transform: uppercase; color: var(--faint); }
+  .ring.custom .badge { color: var(--mark); }
+  .ring a { font-size: 10px; color: var(--muted); cursor: pointer; text-decoration: underline; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+  /* A control the user has set is *pinned*: the randomiser leaves it alone, and
+     the mark is also the handle that unpins it. */
+  .lbl a.rst { font-size: 9px; letter-spacing: .06em; text-transform: uppercase;
+               color: var(--mark); cursor: pointer; text-decoration: none;
+               border-bottom: 1px solid currentColor; margin-left: 6px; }
+  .lbl b.set::after { content: "•"; color: var(--mark); margin-left: 4px; }
+  .chk { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 5px; margin-top: 2px; }
+
+  #stage { overflow: auto; display: flex; align-items: flex-start; justify-content: center; padding: 26px; }
+  #paper { background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.14); position: relative; }
+  #paper svg { display: block; }
+  #titleLayer { position: absolute; inset: 0; pointer-events: none; display: flex; justify-content: center; }
+  #titleText { text-align: center; line-height: 1.32; letter-spacing: .05em; color: #1a1a1a; }
+  #titleText.overflow { color: var(--bad); outline: 1px dashed var(--bad); outline-offset: 6px; }
+
+  #bar { position: fixed; bottom: 0; left: 400px; right: 0; background: rgba(250,249,246,.96);
+         border-top: 1px solid var(--line); padding: 7px 16px; font-size: 11px; color: var(--muted);
+         display: flex; gap: 18px; align-items: center; font-family: ui-monospace, Menlo, monospace; }
+  #bar .sp { flex: 1; }
+  button { font: inherit; font-size: 11.5px; padding: 4px 10px; border: 1px solid var(--line); background: #fff; cursor: pointer; }
+  button:hover { background: #f2efe8; }
+  button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  textarea { width: 100%; height: 96px; font-family: ui-monospace, Menlo, monospace; font-size: 9.5px;
+             border: 1px solid var(--line); padding: 7px; background: #fdfcfa; color: var(--muted); resize: vertical; }
+
+  .hide { display: none !important; }
+  .filepick { font: inherit; font-size: 11px; }
+  .stack { margin-top: 8px; display: flex; gap: 7px; }
+  .tick span { white-space: nowrap; }
+</style>
+
+<div id="panel">
+  <h1>t4zh1b</h1>
+  <p class="sub">Every mark below is <b>constructed</b> — a tiling, two rays off every edge at one angle, and wherever they meet. Nothing is traced and nothing is a bitmap. The sliders carry their provenance: ticks mark values measured off real objects, and the note says when you have left them. Touch a ring and it becomes yours; <b>Randomise</b> redraws everything you have not touched. <a href="/commentary/t4zh1b/">Read the commentary</a> · <a href="https://github.com/PublicWorksBookClub/t4zh1b">source</a></p>
+
+  <fieldset id="fsWhat">
+    <legend>What is on the page</legend>
+    <label class="chk"><input type="checkbox" id="onPage" checked> page ground &amp; border</label>
+    <label class="chk"><input type="checkbox" id="onWin" checked> window</label>
+    <p class="sub" style="margin:9px 0 2px">Either, or both. With both, the window knocks a
+       hole in the ground so nothing shows through its opening.</p>
+  </fieldset>
+
+  <fieldset>
+    <legend>Subject</legend>
+    <div class="row"><select id="subject">
+      <option value="page">Page — ground, border and window</option>
+      <option value="letterset">Letterset — one or more letters reserved from a field</option>
+      <option value="device">Device — shamsa, verse marker, marginal almond</option>
+    </select></div>
+    <p class="sub" style="margin:8px 0 0">A letterset and a device are their own small
+      canvas, sized to what they occupy, so they drop into a layout at the size they
+      come out.</p>
+  </fieldset>
+
+  <fieldset id="fsInitial" style="display:none">
+    <legend>Letterset</legend>
+    <div class="row"><div class="lbl"><b>Font</b></div><select id="fontPreset"><option value="/font/Playfair_Display/static/PlayfairDisplay-Black.ttf">Playfair Display Black</option><option value="/font/Playfair_Display/static/PlayfairDisplay-Regular.ttf">Playfair Display</option><option value="/font/Playfair_Display/static/PlayfairDisplay-BlackItalic.ttf">Playfair Display Black Italic</option><option value="/font/Junicode/VAR/JunicodeVF-Roman.ttf">Junicode</option><option value="">Choose a file…</option></select><div id="fontFileRow" class="hide" style="margin-top:6px"><input type="file" id="fontFile" accept=".ttf,.ttc" class="filepick"></div><div class="advice" id="fontAdvice">TrueType only — the reader takes <code>glyf</code> outlines, not OpenType/CFF. These are the faces this site already serves; bring your own with <i>Choose a file…</i>.</div></div>
+    <div class="row"><div class="lbl"><b>Letter or word</b></div>
+      <input id="letterChar" value="A" maxlength="24"
+             style="width:100%;font:inherit;font-size:15px;padding:4px 6px;border:1px solid var(--line)">
+      <div class="sub" style="margin-top:5px">Letters are advanced by the font's own
+        widths. No kerning — that lives in a table of its own; tracking is the honest
+        substitute.</div>
+    </div>
+    <div class="row" data-ctl="letterSize"></div>
+    <div class="row" data-ctl="letterTrack"></div>
+    <div class="grid2">
+      <div class="row"><div class="lbl"><b>The letterform</b></div><select id="letterMode">
+        <option value="blank">left blank — a reserve</option>
+        <option value="own">filled with a grid of its own</option>
+      </select></div>
+      <div class="row"><div class="lbl"><b>Inside it</b><span class="val">D, B, O</span></div>
+        <select id="counterMode">
+        <option value="inherit">whatever surrounds it</option>
+        <option value="blank">blank — the letter reserves solid</option>
+        <option value="own">a grid of its own</option>
+      </select></div>
+    </div>
+    <div class="advice">Four regions, four cards below: the border, the field
+      round the letter, the letterform, and the counter. Give the letterform a
+      finer repeat than the field and the two read as figure and ground — which
+      is <i>mushkil</i>, where the blank counts as much as the mark.</div>
+    <label class="chk"><input type="checkbox" id="marginLock" checked> one margin all round</label>
+    <div class="grid2">
+      <div class="row" data-ctl="marginL"></div>
+      <div class="row" data-ctl="marginR"></div>
+      <div class="row" data-ctl="marginT"></div>
+      <div class="row" data-ctl="marginB"></div>
+    </div>
+    <div class="row" data-ctl="letterRule"></div>
+    <div class="row" data-ctl="letterBand"></div>
+    <div id="ringsInit"></div>
+  </fieldset>
+
+  <fieldset id="fsDevice" style="display:none">
+    <legend>Device</legend>
+    <div class="row"><div class="lbl"><b>Kind</b></div><select id="devKind">
+      <option value="shamsa">Shamsa — a dedication medallion</option>
+      <option value="marker">Verse marker — a khatam in a scalloped ring</option>
+      <option value="marginal">Marginal almond</option>
+    </select><div class="prov" id="devProv"></div></div>
+    <div class="row" data-ctl="devRadius"></div>
+    <div class="row" data-ctl="devLobes"></div>
+    <div class="row" data-ctl="devDepth"></div>
+    <div class="row" data-ctl="devBand" data-dev="shamsa marginal"></div>
+    <div class="row" data-ctl="devRatio" data-dev="marginal"></div>
+    <div class="row" data-ctl="devPoints" data-dev="marker"></div>
+    <div class="row" data-ctl="devSkip" data-dev="marker"></div>
+    <div class="advice" id="devAdvice"></div>
+    <div id="ringsDev"></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Page and ink</legend>
+    <div class="row"><div class="lbl"><b>Trim size</b></div><select id="pageSize"></select></div>
+    <div class="grid2">
+      <div class="row" data-ctl="pageWidth"></div>
+      <div class="row" data-ctl="pageHeight"></div>
+    </div>
+    <div class="row" style="margin-top:10px"><div class="lbl"><b>Palette</b></div>
+      <select id="palette"></select></div>
+    <div class="row"><div class="lbl"><b>Tinctures</b></div>
+      <select id="pigment">
+        <option value="hatch">Hatched — one ink</option>
+        <option value="pigment">Laid as colour</option>
+      </select>
+      <div class="prov" id="paletteProv"></div></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Light — only relief uses it</legend>
+    <div class="row" data-ctl="lightAz"></div>
+    <div class="row" data-ctl="lightElev"></div>
+    <div class="advice" id="lightAdvice"></div>
+  </fieldset>
+
+  <fieldset id="fsForm">
+    <legend>Form</legend>
+    <div class="row"><div class="lbl"><b>Arch</b></div><select id="arch"></select>
+      <div class="prov" id="archProv"></div></div>
+    <div class="row" data-ctl="span"></div>
+    <div class="row" data-ctl="height"></div>
+    <div class="row" data-ctl="offsetRatio" data-only="pointed"></div>
+    <div class="row" data-ctl="overshoot" data-only="horseshoe"></div>
+    <div class="row" data-ctl="lobes" data-only="multifoil"></div>
+    <div class="row" data-ctl="riseRatio4" data-only="four_centred"></div>
+    <div class="row" data-ctl="riseRatioOg" data-only="ogee"></div>
+  </fieldset>
+
+  <fieldset id="fsPage">
+    <legend>Page — inward from the trim</legend>
+    <div class="row" data-ctl="margin"></div>
+    <label class="chk"><input type="checkbox" id="marginFill"> field runs under the margin,
+      out to the page edge</label>
+    <div class="row" data-ctl="bands" style="margin-top:12px"></div>
+    <div class="row" data-ctl="pageBulge"></div>
+    <div class="row" data-ctl="pageShadow"></div>
+    <div class="advice" id="pageBulgeAdvice"></div>
+    <div id="ringsPage"></div>
+  </fieldset>
+
+  <fieldset id="fsWin">
+    <legend>Window — outward from the opening</legend>
+    <div class="row" data-ctl="depth"></div>
+    <p class="sub" style="margin:-4px 0 10px">Ring 1 touches the opening and carries this
+       tale's own grid; each ring outward is the tale that contains it.</p>
+    <div class="row" data-ctl="winBulge"></div>
+    <div class="row" data-ctl="winShadow"></div>
+    <div class="advice" id="winBulgeAdvice"></div>
+    <div id="ringsWin"></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Defaults for derived rings</legend>
+    <div class="grid2">
+      <div class="row" data-ctl="band"></div>
+      <div class="row" data-ctl="cell"></div>
+      <div class="row" data-ctl="stroke"></div>
+      <div class="row" data-ctl="rule"></div>
+    </div>
+    <div class="advice" id="strokeAdvice"></div>
+  </fieldset>
+
+  <fieldset id="fsTitle">
+    <legend>Title in the opening</legend>
+    <input id="title" style="width:100%;font:inherit;font-size:12px;padding:5px 6px;border:1px solid var(--line)">
+    <div class="advice" id="fitAdvice"></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Spec</legend>
+    <textarea id="spec" readonly></textarea>
+    <div class="stack">
+      <button id="copySpec">Copy spec</button>
+      <button id="dlSvg">Download SVG</button>
+    </div>
+  </fieldset>
+</div>
+
+<div id="stage"><div id="paper"><div id="titleLayer"><div id="titleText"></div></div></div></div>
+
+<div id="bar">
+  <span id="stats">—</span><span class="sp"></span>
+  <button id="vFit" class="on">Fit</button>
+  <button id="vActual">Actual size</button>
+  <button id="vProof">300dpi proof</button>
+  <button id="roll" title="Draw a new version of everything you have not pinned">Randomise</button>
+  <button id="unpinAll" title="Unpin everything and go back to the defaults">Reset all</button>
+</div>
+
+<script type="module" src="./studio.mjs"></script>
+<script src="./demo.js" defer></script>
