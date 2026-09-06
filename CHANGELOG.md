@@ -2,6 +2,10 @@
 
 ## Next
 
+## 1.12.4 (2026-09-06)
+
+- Update with today's meeting notes
+
 ## 1.12.3 (2026-09-03)
 
 - Update Sophist reading status
