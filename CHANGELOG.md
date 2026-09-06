@@ -1,6 +1,6 @@
 # Changelog
 
-## Next
+## 1.12.15 (2026-09-07)
 
 - Add commentary on geometric ornamentation and t4zh1b library
 
