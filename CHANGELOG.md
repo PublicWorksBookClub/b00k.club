@@ -2,6 +2,12 @@
 
 ## Next
 
+## 1.12.4 (2026-09-06)
+
+- Update with today's meeting notes
+- Add a "Meetings" section to each conspectus, listing the meetings that read or mentioned the work
+- Fix misspelled links to Plato's _Statesman_ in the 2026-08-30 minutes
+
 ## 1.12.3 (2026-09-03)
 
 - Update Sophist reading status
