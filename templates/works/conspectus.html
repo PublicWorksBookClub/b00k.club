@@ -224,6 +224,35 @@
       {# TODO: then display commentary that references this work by further filtering it #}
     </ul>
   </section>
+  {# Meetings #}
+  <section class="mt-8">
+    <h2>Meetings</h2>
+    {#- A meeting belongs here if it tracked this work's progress that week, or if its
+        notes link to this conspectus: the burndown alone would miss the works we read
+        without charting one — Callimachus' Hekale went by in a single sitting — and the
+        links alone would miss the weeks that only chart what we got through. Listed
+        oldest first, so the run reads the way the work did. -#}
+    {% set minutes_section = get_section(path="minutes/_index.md") %}
+    <ul>
+      {% for m in minutes_section.pages | sort(attribute="date") %}
+      {% set_global read_here = false %}
+      {% if m.extra.burndown %}
+        {% for k, v in m.extra.burndown %}
+          {% if k == page.slug %}{% set_global read_here = true %}{% endif %}
+        {% endfor %}
+      {% endif %}
+      {% if read_here or m.content is containing("/works/" ~ page.slug ~ "/") %}
+      {% set_global added_meetings = true %}
+      <li>
+        <a class="font-light" href="{{ m.permalink }}">{{ m.date | date(format="%A, %d %B %Y") }}</a>
+      </li>
+      {% endif %}
+      {% endfor %}
+      {% if not added_meetings %}
+      <li>(none)</li>
+      {% endif %}
+    </ul>
+  </section>
   {# Index #}
   <section id="index" class="mt-8">
     <h2>Index</h2>
