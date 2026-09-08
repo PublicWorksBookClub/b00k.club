@@ -3,6 +3,7 @@
 ## Next
 
 - Change words in geometric ornament commentary
+- Add dialogue shortcode
 
 ## 1.12.15 (2026-09-07)
 
