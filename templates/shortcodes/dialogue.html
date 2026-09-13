@@ -1,0 +1,125 @@
+{#
+    A Socratic-style dialogue.
+
+    The body is ordinary Markdown. It is rendered first, then every list in the
+    result is examined: a list becomes a styled dialogue only if *every* item
+    begins with a speaker line — "SYMBOL: text", i.e. a space-free symbol, a
+    colon and a space (e.g. "S: Good day!"). Any other list, and every paragraph,
+    heading or block around it, is left exactly as Markdown produced it.
+
+    Because Markdown ends a list at a plain paragraph, a line of prose between two
+    dialogues splits them into two:
+
+      {% dialogue(names="S=Socrates; C=Christopher; V=Visitor; Y=Young Socrates") %}
+      - S: Christopher! What a surprise to see you.
+      - C: Not as surprising as it is to see you here!
+
+      Two more people arrive:
+
+      - V: Good day everybody
+      - Y: And good day visitor!
+      {% end %}
+
+    A turn may hold several paragraphs (blank line inside the item, indented two
+    spaces — ordinary Markdown); each stays under the same speaker.
+
+    Naming
+    ------
+    Relabel the symbols with `names`: "SYMBOL=Name" pairs separated by ";" or
+    newlines. A symbol that is never relabelled shows as itself, so `names` is
+    optional.
+
+    Layout
+    ------
+    Each dialogue is a <dl>, not a <table>: reader mode strips the grid and falls
+    back to the browser's own <dt>/<dd> rendering — the speaker on its own line
+    above indented speech, still clearly a dialogue — whereas a <table> would be
+    re-drawn as a data table. With styles applied it is an aligned two-column
+    grid, the way a book sets a dialogue. (A dialogue turn should not contain a
+    nested list; the speech is otherwise free Markdown.)
+#}
+{%- set NL = "
+" -%}
+{%- set dl_class = "dialogue my-8 grid grid-cols-[max-content_1fr] items-baseline gap-x-6 gap-y-3 text-left [&_dd]:m-0 [&_dt]:m-0 [&_dd>*]:m-0 [&_dd>*+*]:mt-3" -%}
+{%- set dt_class = "font-fira-sans font-semibold whitespace-nowrap text-gray-800 [font-variant:small-caps] tracking-wide" -%}
+{%- set dd_class = "min-w-0" -%}
+
+{#- Speaker names · a parallel (symbol, name) table from `names`. -#}
+{%- set_global keys = [] -%}
+{%- set_global vals = [] -%}
+{%- if names is defined and names -%}
+  {%- for pair in names | replace(from=NL, to=";") | split(pat=";") -%}
+    {%- set kv = pair | split(pat="=") -%}
+    {%- if kv | length > 1 -%}
+      {%- set k = kv.0 | trim -%}
+      {%- if k != "" -%}
+        {%- set_global keys = keys | concat(with=[k]) -%}
+        {%- set_global vals = vals | concat(with=[kv | slice(start=1) | join(sep="=") | trim]) -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{#- Render the body, then walk it one <ul>…</ul> at a time. Splitting on the
+    closing tag first, then the opening tag, hands us each list's items in
+    `inside` and whatever preceded the list (prose, headings) in `before`. -#}
+{%- set rendered = body | default(value="") | markdown -%}
+{%- set_global out = "" -%}
+{%- for seg in rendered | split(pat="</ul>") -%}
+  {%- set ulparts = seg | split(pat="<ul>") -%}
+  {%- if ulparts | length < 2 -%}
+    {#- No list here — trailing / non-list content. -#}
+    {%- set_global out = out ~ seg -%}
+  {%- else -%}
+    {%- set before = ulparts.0 -%}
+    {%- set inside = ulparts | slice(start=1) | join(sep="<ul>") -%}
+    {%- set items = inside | split(pat="</li>") -%}
+
+    {#- A dialogue iff every item opens with "SYMBOL: ". -#}
+    {%- set_global is_dlg = true -%}
+    {%- set_global n_items = 0 -%}
+    {%- for it in items -%}
+      {%- set t = it | trim -%}
+      {%- if t != "" -%}
+        {%- set_global n_items = n_items + 1 -%}
+        {%- set core = t | trim_start_matches(pat="<li>") | trim | trim_start_matches(pat="<p>") | trim -%}
+        {%- set cp = core | split(pat=":") -%}
+        {%- if cp | length < 2 -%}
+          {%- set_global is_dlg = false -%}
+        {%- else -%}
+          {%- set sym = cp.0 | trim -%}
+          {%- set after_ok = cp.1 is starting_with(" ") -%}
+          {%- if sym == "" or (sym | split(pat=" ") | length > 1) or (sym | split(pat="<") | length > 1) or not after_ok -%}
+            {%- set_global is_dlg = false -%}
+          {%- endif -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if n_items == 0 -%}{%- set_global is_dlg = false -%}{%- endif -%}
+
+    {%- set_global out = out ~ before -%}
+    {%- if is_dlg -%}
+      {%- set_global out = out ~ '<dl class="' ~ dl_class ~ '">' -%}
+      {%- for it in items -%}
+        {%- set t = it | trim -%}
+        {%- if t != "" -%}
+          {%- set t2 = t | trim_start_matches(pat="<li>") | trim -%}
+          {%- set has_p = t2 is starting_with("<p>") -%}
+          {%- set core = t2 | trim_start_matches(pat="<p>") | trim -%}
+          {%- set cp = core | split(pat=":") -%}
+          {%- set sym = cp.0 | trim -%}
+          {%- set rest = cp | slice(start=1) | join(sep=":") | trim_start -%}
+          {%- set speech = "<p>" ~ rest ~ "</p>" -%}
+          {%- if has_p %}{% set speech = "<p>" ~ rest %}{% endif -%}
+          {%- set_global disp = sym -%}
+          {%- for k in keys -%}{%- if k == sym -%}{%- set_global disp = vals[loop.index0] -%}{%- endif -%}{%- endfor -%}
+          {%- set_global out = out ~ '<dt class="' ~ dt_class ~ '">' ~ disp ~ ':</dt><dd class="' ~ dd_class ~ '">' ~ speech ~ '</dd>' -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- set_global out = out ~ '</dl>' -%}
+    {%- else -%}
+      {%- set_global out = out ~ "<ul>" ~ inside ~ "</ul>" -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+{{ out | safe }}

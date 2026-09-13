@@ -1,6 +1,6 @@
 +++
 slug = "t4zh1b"
-title = "Geometric Ornaments for Typesetting"
+title = "Geometric Ornament for Digital Typesetting"
 description = """
 Introducing the t4zh1b library for constructing geometric patterns.
 """
@@ -24,7 +24,7 @@ The word Tazhib (تذهيب) refers to the [The Classical Islamic](https://en.wi
 
 {{ fig(img=`![A tiling of octagons and squares; the same tiling with two short rays leaving the midpoint of every edge; the star pattern those rays make when they meet](/demos/t4zh1b/construction.svg "A tiling. Two rays off every edge, at one angle. Where they meet.")`) }}
 
-The process begins with a tiling, which is just repeating shapes to cover a geometric plane. Rays then are imaginary lines that symmetrically emanate from each edge of the tiling's shapes. When rays intersect with one another they form patterns. The resulting patterns are the ornaments.
+The process begins with a tiling, which is just repeating shapes to cover a geometric plane. Rays then are imaginary lines that symmetrically emanate from each edge of the tiling's shapes. When rays intersect with one another they form patterns. The resulting patterns are the ornament.
 
 By starting with different tilings one can produce different patterns. Below are square, hexagonal, octagon–and–square, and dodecagon–and–triangle tilings.
 
@@ -44,7 +44,7 @@ Before print publishing was wide spread there were pre-established conventions f
 
 {{ fig(img=`![The same seven panels again, this time laid as actual pigment: paper, gold, lapis, red lead, malachite, folium, carbon black](/demos/t4zh1b/tinctures-laid.svg "The same seven as the materials they stand for.")`) }}
 
-Additionally there can be ornate materials used within ornaments. The three blue hues below are distinct and reflect different regions and centuries.
+Additionally there can be ornate materials used within ornament. The three blue hues below are distinct and reflect different regions and centuries.
 
 {{ fig(img=`![The same bordered panel rendered in four palettes: one ink, Mamluk gold on lapis, Persian, Andalusi](/demos/t4zh1b/palettes.svg "The same pattern set in four different materials.")`) }}
 
@@ -70,7 +70,7 @@ Additionally shamsas, verse markers, and marginal almonds can be formed.
 
 ## Everything at once
 
-These elements combined can make interesting and historically accurate ornaments. Below is a tall ogee window, with four rings of ornament, standing in relief off a bordered outline: lapis reversed, gold stipple woven, two rings left in diagonal hatching, red lead two-toned, with a shamsa and two verse markers in the opening.
+These elements combined can make interesting and historically accurate ornament. Below is a tall ogee window, with four rings of ornament, standing in relief off a bordered outline: lapis reversed, gold stipple woven, two rings left in diagonal hatching, red lead two-toned, with a shamsa and two verse markers in the opening.
 
 {{ fig(img=`![A very tall ogee window in four rings of ornament, standing in relief off a bordered page: lapis reversed, gold stipple woven, two rings left in diagonal hatching, red lead two-toned, with a shamsa and two verse markers in the opening](/demos/t4zh1b/window.svg "Four rings in relief on a bordered page.")`) }}
 
