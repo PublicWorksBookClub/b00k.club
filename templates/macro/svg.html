@@ -781,3 +781,856 @@
   {%- endfor %}
 </svg>
 {% endmacro %}
+
+{#
+    Draws a family tree as an SVG: the tree of `svg::tree`, with the second parents,
+    marriages and affairs that make a family something other than a tree drawn over it.
+
+    Layout comes from the nesting alone. Every person's block of columns is wide enough
+    for their children, or for themselves and the partners drawn beside them, whichever
+    is wider, and they are centred over it. Blocks never share columns, so the lines from
+    parent to child can't cross; only the lines between partners can, and those are the
+    ones the reader has to follow anyway.
+
+    A partner is drawn *beside* the person the children are nested under when they have
+    nowhere else to be: someone from outside the tree (a copy for each partner they have
+    children with), or a sibling with no children nested under them. Any other partner
+    stays where the nesting puts them and a line runs across to them.
+
+    Generations are not the nesting depth. A child sits below *both* parents, so a child
+    of someone deep in the tree is pushed down to meet them; an only child is also pulled
+    down level with a partner deeper than them; and a person nested under nobody sinks to
+    sit just above their children.
+
+    Parallel arrays, one entry per person, the tree in document order and then the people
+    from outside it:
+
+      ids          the label references use
+      names        "Primary / Alternative" names
+      notes        comment lines, newline-separated
+      depths       nesting depth, or -1 for someone from outside the tree
+      others       the id of the other parent, "" for none
+      other_notes  a note on the union with that other parent
+      links        "=|id|note" or "~|id|note" partner links, newline-separated
+
+    Text may carry a defined footnote as ⟦backlink id¦note id¦number⟧, drawn as a linked
+    superscript. The `family_tree` shortcode builds all of this from a Markdown list.
+#}
+{% macro family_tree(ids, names, notes, depths, others, other_notes, links, caption="", font_size=15, char_width=7.3, note_size=12, note_char_width=6, wrap=18, note_wrap=26, gutter=26, pad=14, pad_x=10, pad_y=8, lane_gap=9, drop=32) %}
+{%- set NL = "
+" -%}
+{%- set big = 999999 -%}
+{%- set count = ids | length -%}
+{%- set line_h = font_size * 1.25 -%}
+{%- set note_h = note_size * 1.3 -%}
+
+{#- The tree comes first in the arrays; people from outside it follow. -#}
+{%- set_global n_tree = 0 -%}
+{%- set_global max_depth = 0 -%}
+{%- for d in depths -%}
+  {%- if d >= 0 -%}
+    {%- set_global n_tree = n_tree + 1 -%}
+    {%- if d > max_depth %}{% set_global max_depth = d %}{% endif -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- for id in ids -%}
+  {%- set i = loop.index0 -%}
+  {%- for earlier in ids | slice(end=i) -%}
+    {%- if earlier == id %}{{ throw(message="family_tree: two people are both called [^" ~ id ~ "]") }}{% endif -%}
+  {%- endfor -%}
+{%- endfor -%}
+
+{#- The parent each person is nested under: the latest person one level up. -#}
+{%- set_global par = [] -%}
+{%- set_global last_at = [] -%}
+{%- for k in range(end=max_depth + 2) %}{% set_global last_at = last_at | concat(with=[-1]) %}{% endfor -%}
+{%- for d in depths -%}
+  {%- set i = loop.index0 -%}
+  {%- set p = -1 -%}
+  {%- if d > 0 %}{% set p = last_at | nth(n=d - 1) %}{% endif -%}
+  {%- set_global par = par | concat(with=[p]) -%}
+  {%- if d >= 0 -%}
+    {%- set_global last_at = last_at | slice(end=d) | concat(with=[i]) | concat(with=last_at | slice(start=d + 1)) -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{#- Resolve every label to a person. -#}
+{%- set_global oth = [] -%}
+{%- for label in others -%}
+  {%- set c = loop.index0 -%}
+  {%- set_global found = -1 -%}
+  {%- if label -%}
+    {%- for id in ids %}{% if id == label %}{% set_global found = loop.index0 %}{% endif %}{% endfor -%}
+    {%- if found < 0 %}{{ throw(message="family_tree: nobody is called [^" ~ label ~ "]") }}{% endif -%}
+    {%- set pc = par | nth(n=c) -%}
+    {%- set who = ids | nth(n=c) -%}
+    {%- if pc < 0 %}{{ throw(message="family_tree: " ~ who ~ " has [^" ~ label ~ "] as a parent, but isn't nested under anyone") }}{% endif -%}
+  {%- endif -%}
+  {%- set_global oth = oth | concat(with=[found]) -%}
+{%- endfor -%}
+
+{%- set_global la = [] -%}
+{%- set_global lb = [] -%}
+{%- set_global lk = [] -%}
+{%- set_global ln = [] -%}
+{%- for block in links -%}
+  {%- set a = loop.index0 -%}
+  {%- for entry in block | split(pat=NL) -%}
+    {%- if entry -%}
+      {%- set f = entry | split(pat="|") -%}
+      {%- set_global found = -1 -%}
+      {%- for id in ids %}{% if id == f.1 %}{% set_global found = loop.index0 %}{% endif %}{% endfor -%}
+      {%- if found < 0 %}{{ throw(message="family_tree: nobody is called [^" ~ f.1 ~ "]") }}{% endif -%}
+      {%- set link_note = f | slice(start=2) | join(sep="|") -%}
+      {%- set_global la = la | concat(with=[a]) -%}
+      {%- set_global lb = lb | concat(with=[found]) -%}
+      {%- set_global lk = lk | concat(with=[f.0]) -%}
+      {%- set_global ln = ln | concat(with=[link_note]) -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}
+
+{%- set_global n_kids = [] -%}
+{%- for i in range(end=count) -%}
+  {%- set_global k = 0 -%}
+  {%- for p in par %}{% if p == i %}{% set_global k = k + 1 %}{% endif %}{% endfor -%}
+  {%- set_global n_kids = n_kids | concat(with=[k]) -%}
+{%- endfor -%}
+
+{#- Unions: one per pair of parents, whatever order their children come in. `cu` is the
+    union each child comes from, or -1 for a child of one parent. -#}
+{%- set_global u_p = [] -%}
+{%- set_global u_x = [] -%}
+{%- set_global u_note = [] -%}
+{%- set_global cu = [] -%}
+{%- for x in oth -%}
+  {%- set c = loop.index0 -%}
+  {%- set_global uidx = -1 -%}
+  {%- if x >= 0 -%}
+    {%- set p = par | nth(n=c) -%}
+    {%- for up in u_p -%}
+      {%- set ux = u_x | nth(n=loop.index0) -%}
+      {%- if up == p and ux == x %}{% set_global uidx = loop.index0 %}{% endif -%}
+    {%- endfor -%}
+    {%- set note = other_notes | nth(n=c) -%}
+    {%- if uidx < 0 -%}
+      {%- set_global uidx = u_p | length -%}
+      {%- set_global u_p = u_p | concat(with=[p]) -%}
+      {%- set_global u_x = u_x | concat(with=[x]) -%}
+      {%- set_global u_note = u_note | concat(with=[note]) -%}
+    {%- elif note -%}
+      {%- set had = u_note | nth(n=uidx) -%}
+      {%- if not had -%}
+        {%- set_global u_note = u_note | slice(end=uidx) | concat(with=[note]) | concat(with=u_note | slice(start=uidx + 1)) -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+  {%- set_global cu = cu | concat(with=[uidx]) -%}
+{%- endfor -%}
+{%- set n_unions = u_p | length -%}
+
+{#- A union is dashed when its parents are linked by "~". A link between two people with
+    no children together is drawn on its own, as a bracket, once per pair. -#}
+{%- set_global u_dash = [] -%}
+{%- for p in u_p -%}
+  {%- set x = u_x | nth(n=loop.index0) -%}
+  {%- set_global dash = false -%}
+  {%- for a in la -%}
+    {%- set b = lb | nth(n=loop.index0) -%}
+    {%- set kind = lk | nth(n=loop.index0) -%}
+    {%- if kind == "~" and ((a == p and b == x) or (a == x and b == p)) %}{% set_global dash = true %}{% endif -%}
+  {%- endfor -%}
+  {%- set_global u_dash = u_dash | concat(with=[dash]) -%}
+{%- endfor -%}
+{%- set_global l_draw = [] -%}
+{%- for a in la -%}
+  {%- set l = loop.index0 -%}
+  {%- set b = lb | nth(n=l) -%}
+  {%- set_global draw = true -%}
+  {%- for p in u_p -%}
+    {%- set x = u_x | nth(n=loop.index0) -%}
+    {%- if (a == p and b == x) or (a == x and b == p) %}{% set_global draw = false %}{% endif -%}
+  {%- endfor -%}
+  {%- for k in range(end=l) -%}
+    {%- set a2 = la | nth(n=k) -%}
+    {%- set b2 = lb | nth(n=k) -%}
+    {%- if (a == a2 and b == b2) or (a == b2 and b == a2) %}{% set_global draw = false %}{% endif -%}
+  {%- endfor -%}
+  {%- if draw -%}
+    {%- set da = depths | nth(n=a) -%}
+    {%- set db = depths | nth(n=b) -%}
+    {%- set who = ids | nth(n=b) -%}
+    {%- if da < 0 or db < 0 %}{{ throw(message="family_tree: " ~ who ~ " is only drawn beside a partner they have children with") }}{% endif -%}
+  {%- endif -%}
+  {%- set_global l_draw = l_draw | concat(with=[draw]) -%}
+{%- endfor -%}
+
+{#- How each union's other parent is drawn: "copy", someone from outside the tree drawn
+    beside this parent; "absorb", a childless sibling moved beside them; "lane", anyone
+    else, left where they are with a line across. -#}
+{%- set_global absorbed_by = [] -%}
+{%- for k in range(end=count) %}{% set_global absorbed_by = absorbed_by | concat(with=[-1]) %}{% endfor -%}
+{%- set_global u_mode = [] -%}
+{%- for p in u_p -%}
+  {%- set x = u_x | nth(n=loop.index0) -%}
+  {%- set dx = depths | nth(n=x) -%}
+  {%- if dx < 0 -%}
+    {%- set_global u_mode = u_mode | concat(with=["copy"]) -%}
+  {%- else -%}
+    {%- set parx = par | nth(n=x) -%}
+    {%- set parp = par | nth(n=p) -%}
+    {%- set kx = n_kids | nth(n=x) -%}
+    {%- set abx = absorbed_by | nth(n=x) -%}
+    {%- if parx == parp and kx == 0 and abx < 0 and x != p -%}
+      {%- set_global u_mode = u_mode | concat(with=["absorb"]) -%}
+      {%- set_global absorbed_by = absorbed_by | slice(end=x) | concat(with=[p]) | concat(with=absorbed_by | slice(start=x + 1)) -%}
+    {%- else -%}
+      {%- set_global u_mode = u_mode | concat(with=["lane"]) -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{#- The row of boxes a person shares with the partners beside them. Absorbed siblings keep
+    their side of the person; people from outside the tree split either side, the first
+    half to the left, so two partners flank them. -#}
+{%- set_global nb = [] -%}
+{%- set_global na = [] -%}
+{%- set_global nc = [] -%}
+{%- for i in range(end=count) -%}
+  {%- set_global b0 = 0 -%}
+  {%- set_global a0 = 0 -%}
+  {%- set_global c0 = 0 -%}
+  {%- for p in u_p -%}
+    {%- if p == i -%}
+      {%- set m = u_mode | nth(n=loop.index0) -%}
+      {%- set x = u_x | nth(n=loop.index0) -%}
+      {%- if m == "copy" %}{% set_global c0 = c0 + 1 %}{% elif m == "absorb" and x < i %}{% set_global b0 = b0 + 1 %}{% elif m == "absorb" %}{% set_global a0 = a0 + 1 %}{% endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- set_global nb = nb | concat(with=[b0]) -%}
+  {%- set_global na = na | concat(with=[a0]) -%}
+  {%- set_global nc = nc | concat(with=[c0]) -%}
+{%- endfor -%}
+{%- set_global cw = [] -%}
+{%- set_global p_off = [] -%}
+{%- for i in range(end=count) -%}
+  {%- set b0 = nb | nth(n=i) -%}
+  {%- set a0 = na | nth(n=i) -%}
+  {%- set c0 = nc | nth(n=i) -%}
+  {%- set half = (c0 / 2) | round(method="floor") | int -%}
+  {%- set ab = absorbed_by | nth(n=i) -%}
+  {%- set w = 1 + b0 + a0 + c0 -%}
+  {%- if ab >= 0 %}{% set w = 0 %}{% endif -%}
+  {%- set off = b0 + half -%}
+  {%- set_global cw = cw | concat(with=[w]) -%}
+  {%- set_global p_off = p_off | concat(with=[off]) -%}
+{%- endfor -%}
+{%- set_global u_off = [] -%}
+{%- for p in u_p -%}
+  {%- set u = loop.index0 -%}
+  {%- set m = u_mode | nth(n=u) -%}
+  {%- set x = u_x | nth(n=u) -%}
+  {%- set_global rank = 0 -%}
+  {%- for k in range(end=u) -%}
+    {%- set pk = u_p | nth(n=k) -%}
+    {%- set mk = u_mode | nth(n=k) -%}
+    {%- set xk = u_x | nth(n=k) -%}
+    {%- if pk == p -%}
+      {%- if m == "copy" and mk == "copy" %}{% set_global rank = rank + 1 %}{% endif -%}
+      {%- if m == "absorb" and mk == "absorb" and x < p and xk < p %}{% set_global rank = rank + 1 %}{% endif -%}
+      {%- if m == "absorb" and mk == "absorb" and x > p and xk > p %}{% set_global rank = rank + 1 %}{% endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- set b0 = nb | nth(n=p) -%}
+  {%- set c0 = nc | nth(n=p) -%}
+  {%- set half = (c0 / 2) | round(method="floor") | int -%}
+  {%- set off = -1 -%}
+  {%- if m == "copy" -%}
+    {%- set off = b0 + rank -%}
+    {%- if rank >= half %}{% set off = b0 + rank + 1 %}{% endif -%}
+  {%- elif m == "absorb" and x < p -%}
+    {%- set off = rank -%}
+  {%- elif m == "absorb" -%}
+    {%- set off = b0 + c0 + 1 + rank -%}
+  {%- endif -%}
+  {%- set_global u_off = u_off | concat(with=[off]) -%}
+{%- endfor -%}
+
+{#- Block widths in columns, children before parents: walking backwards, `acc` holds the
+    total width of the children seen at each depth for the parent still to come. -#}
+{%- set_global acc = [] -%}
+{%- for k in range(end=max_depth + 2) %}{% set_global acc = acc | concat(with=[0]) %}{% endfor -%}
+{%- set_global w_rev = [] -%}
+{%- set_global cs_rev = [] -%}
+{%- for k in range(end=n_tree) -%}
+  {%- set i = n_tree - 1 - k -%}
+  {%- set d = depths | nth(n=i) -%}
+  {%- set cs = acc | nth(n=d + 1) -%}
+  {%- set w = cw | nth(n=i) -%}
+  {%- if cs > w %}{% set w = cs %}{% endif -%}
+  {%- set_global acc = acc | slice(end=d + 1) | concat(with=[0]) | concat(with=acc | slice(start=d + 2)) -%}
+  {%- set sum = acc | nth(n=d) -%}
+  {%- set_global acc = acc | slice(end=d) | concat(with=[sum + w]) | concat(with=acc | slice(start=d + 1)) -%}
+  {%- set_global w_rev = w_rev | concat(with=[w]) -%}
+  {%- set_global cs_rev = cs_rev | concat(with=[cs]) -%}
+{%- endfor -%}
+{%- set widths = w_rev | reverse -%}
+{%- set childsums = cs_rev | reverse -%}
+
+{#- Then parents before children: each block starts where its elder sibling's ended, and
+    its children are centred within it. -#}
+{%- set_global cursor = [] -%}
+{%- for k in range(end=max_depth + 2) %}{% set_global cursor = cursor | concat(with=[0]) %}{% endfor -%}
+{%- set_global start = [] -%}
+{%- for i in range(end=n_tree) -%}
+  {%- set d = depths | nth(n=i) -%}
+  {%- set w = widths | nth(n=i) -%}
+  {%- set cs = childsums | nth(n=i) -%}
+  {%- set s = cursor | nth(n=d) -%}
+  {%- set_global start = start | concat(with=[s]) -%}
+  {%- set_global cursor = cursor | slice(end=d) | concat(with=[s + w, s + (w - cs) / 2]) | concat(with=cursor | slice(start=d + 2)) -%}
+{%- endfor -%}
+{%- set columns = cursor | first -%}
+
+{#- Column centres: `rs` is where a person's row of boxes starts, `px` is their own box. -#}
+{%- set_global rs = [] -%}
+{%- set_global px = [] -%}
+{%- for i in range(end=count) -%}
+  {%- set r = 0 -%}
+  {%- set x = -1 -%}
+  {%- if i < n_tree -%}
+    {%- set s = start | nth(n=i) -%}
+    {%- set w = widths | nth(n=i) -%}
+    {%- set c = cw | nth(n=i) -%}
+    {%- set po = p_off | nth(n=i) -%}
+    {%- set r = s + (w - c) / 2 -%}
+    {#- A row of partners snaps to whole columns, so the gaps its drops leave from fall
+        between the children below, never in line with one of them. -#}
+    {%- if c > 1 %}{% set r = s + ((w - c) / 2) | round(method="floor") %}{% endif -%}
+    {%- set x = r + po + 0.5 -%}
+  {%- endif -%}
+  {%- set_global rs = rs | concat(with=[r]) -%}
+  {%- set_global px = px | concat(with=[x]) -%}
+{%- endfor -%}
+{%- for p in u_p -%}
+  {%- set u = loop.index0 -%}
+  {%- set m = u_mode | nth(n=u) -%}
+  {%- if m == "absorb" -%}
+    {%- set x = u_x | nth(n=u) -%}
+    {%- set r = rs | nth(n=p) -%}
+    {%- set off = u_off | nth(n=u) -%}
+    {%- set_global px = px | slice(end=x) | concat(with=[r + off + 0.5]) | concat(with=px | slice(start=x + 1)) -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- set_global u_xx = [] -%}
+{%- for p in u_p -%}
+  {%- set u = loop.index0 -%}
+  {%- set m = u_mode | nth(n=u) -%}
+  {%- set x = u_x | nth(n=u) -%}
+  {%- set xx = px | nth(n=x) -%}
+  {%- if m == "copy" -%}
+    {%- set r = rs | nth(n=p) -%}
+    {%- set off = u_off | nth(n=u) -%}
+    {%- set xx = r + off + 0.5 -%}
+  {%- endif -%}
+  {%- set_global u_xx = u_xx | concat(with=[xx]) -%}
+{%- endfor -%}
+
+{#- Generations, relaxed until nothing moves. Every rule only ever pushes someone down,
+    so this settles unless someone is partnered with their own descendant. -#}
+{%- set_global gen = depths -%}
+{%- set_global free = [] -%}
+{%- for p in par -%}
+  {%- set i = loop.index0 -%}
+  {%- set f = false -%}
+  {%- if p >= 0 -%}
+    {%- set kp = n_kids | nth(n=p) -%}
+    {%- set ab = absorbed_by | nth(n=i) -%}
+    {%- if kp == 1 and ab < 0 %}{% set f = true %}{% endif -%}
+  {%- endif -%}
+  {%- set_global free = free | concat(with=[f]) -%}
+{%- endfor -%}
+{%- set_global settled = false -%}
+{%- for sweep in range(end=count + 2) -%}
+  {%- set_global changed = false -%}
+  {%- for i in range(end=n_tree) -%}
+    {%- set_global g = gen | nth(n=i) -%}
+    {%- set p = par | nth(n=i) -%}
+    {%- if p >= 0 -%}
+      {%- set gp = gen | nth(n=p) -%}
+      {%- if gp + 1 > g %}{% set_global g = gp + 1 %}{% endif -%}
+    {%- endif -%}
+    {%- set x = oth | nth(n=i) -%}
+    {%- if x >= 0 -%}
+      {%- set dx = depths | nth(n=x) -%}
+      {%- set gx = gen | nth(n=x) -%}
+      {%- if dx >= 0 and gx + 1 > g %}{% set_global g = gx + 1 %}{% endif -%}
+    {%- endif -%}
+    {%- set fr = free | nth(n=i) -%}
+    {%- if fr -%}
+      {%- for a in la -%}
+        {%- set b = lb | nth(n=loop.index0) -%}
+        {%- set_global j = -1 -%}
+        {%- if a == i %}{% set_global j = b %}{% elif b == i %}{% set_global j = a %}{% endif -%}
+        {%- if j >= 0 -%}
+          {%- set dj = depths | nth(n=j) -%}
+          {%- set gj = gen | nth(n=j) -%}
+          {%- if dj >= 0 and gj > g %}{% set_global g = gj %}{% endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+    {%- set ab = absorbed_by | nth(n=i) -%}
+    {%- if ab >= 0 -%}
+      {%- set ga = gen | nth(n=ab) -%}
+      {%- if ga > g %}{% set_global g = ga %}{% endif -%}
+    {%- endif -%}
+    {%- if p < 0 and ab < 0 -%}
+      {%- set_global minc = big -%}
+      {%- for c in range(end=n_tree) -%}
+        {%- set pc = par | nth(n=c) -%}
+        {%- set xc = oth | nth(n=c) -%}
+        {%- set gc = gen | nth(n=c) -%}
+        {%- if (pc == i or xc == i) and gc < minc %}{% set_global minc = gc %}{% endif -%}
+      {%- endfor -%}
+      {%- if minc < big and minc - 1 > g %}{% set_global g = minc - 1 %}{% endif -%}
+    {%- endif -%}
+    {%- set old = gen | nth(n=i) -%}
+    {%- if g != old -%}
+      {%- set_global gen = gen | slice(end=i) | concat(with=[g]) | concat(with=gen | slice(start=i + 1)) -%}
+      {%- set_global changed = true -%}
+    {%- endif -%}
+    {%- if ab >= 0 -%}
+      {%- set ga = gen | nth(n=ab) -%}
+      {%- if g > ga -%}
+        {%- set_global gen = gen | slice(end=ab) | concat(with=[g]) | concat(with=gen | slice(start=ab + 1)) -%}
+        {%- set_global changed = true -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if not changed %}{% set_global settled = true %}{% break %}{% endif -%}
+{%- endfor -%}
+{%- if not settled %}{{ throw(message="family_tree: the generations never settle; is someone partnered with their own descendant?") }}{% endif -%}
+{%- set_global max_gen = 0 -%}
+{%- for i in range(end=n_tree) -%}
+  {%- set gi = gen | nth(n=i) -%}
+  {%- if gi > max_gen %}{% set_global max_gen = gi %}{% endif -%}
+{%- endfor -%}
+
+{#- Every piece of text, wrapped. Jobs 3i, 3i+1 and 3i+2 are person i's name, their other
+    names and their comments; then one per union note, then one per link note. Width is
+    counted in visible characters, so a footnote token counts as its number. -#}
+{%- set_global jobs = [] -%}
+{%- set_global job_small = [] -%}
+{%- for name in names -%}
+  {%- set parts = name | split(pat=" / ") -%}
+  {%- set first_name = parts | first -%}
+  {%- set alt_names = parts | slice(start=1) | join(sep=NL) -%}
+  {%- set comment = notes | nth(n=loop.index0) -%}
+  {%- set_global jobs = jobs | concat(with=[first_name, alt_names, comment]) -%}
+  {%- set_global job_small = job_small | concat(with=[false, false, true]) -%}
+{%- endfor -%}
+{%- for note in u_note | concat(with=ln) -%}
+  {%- set_global jobs = jobs | concat(with=[note]) -%}
+  {%- set_global job_small = job_small | concat(with=[true]) -%}
+{%- endfor -%}
+{%- set_global job_rows = [] -%}
+{%- set_global job_n = [] -%}
+{%- set_global job_w = [] -%}
+{%- for text in jobs -%}
+  {%- set small = job_small | nth(n=loop.index0) -%}
+  {%- set limit = wrap -%}
+  {%- set per_char = char_width -%}
+  {%- if small %}{% set limit = note_wrap %}{% set per_char = note_char_width %}{% endif -%}
+  {%- set_global rows = [] -%}
+  {%- set_global widest = 0 -%}
+  {%- for para in text | split(pat=NL) -%}
+    {%- set_global cur = "" -%}
+    {%- set_global cur_len = 0 -%}
+    {%- for word in para | split(pat=" ") -%}
+      {%- if word -%}
+        {%- set_global wl = 0 -%}
+        {%- for seg in word | split(pat="⟦") -%}
+          {%- if loop.first -%}
+            {%- set plain = seg | replace(from="&amp;", to="&") | replace(from="&quot;", to="'") | replace(from="&lt;", to="<") | replace(from="&gt;", to=">") -%}
+            {%- set n = plain | length -%}
+            {%- set_global wl = wl + n -%}
+          {%- else -%}
+            {%- set inner = seg | split(pat="⟧") -%}
+            {%- set sup = inner | first | split(pat="¦") | last -%}
+            {%- set rest = inner | slice(start=1) | join(sep="⟧") -%}
+            {%- set n1 = sup | length -%}
+            {%- set n2 = rest | length -%}
+            {%- set_global wl = wl + n1 + n2 -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if cur == "" -%}
+          {%- set_global cur = word -%}
+          {%- set_global cur_len = wl -%}
+        {%- elif cur_len + 1 + wl <= limit -%}
+          {%- set_global cur = cur ~ " " ~ word -%}
+          {%- set_global cur_len = cur_len + 1 + wl -%}
+        {%- else -%}
+          {%- set_global rows = rows | concat(with=[cur]) -%}
+          {%- if cur_len > widest %}{% set_global widest = cur_len %}{% endif -%}
+          {%- set_global cur = word -%}
+          {%- set_global cur_len = wl -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if cur -%}
+      {%- set_global rows = rows | concat(with=[cur]) -%}
+      {%- if cur_len > widest %}{% set_global widest = cur_len %}{% endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- set joined = rows | join(sep=NL) -%}
+  {%- set n_rows = rows | length -%}
+  {%- set_global job_rows = job_rows | concat(with=[joined]) -%}
+  {%- set_global job_n = job_n | concat(with=[n_rows]) -%}
+  {%- set_global job_w = job_w | concat(with=[widest * per_char]) -%}
+{%- endfor -%}
+
+{#- Box sizes: one per person, and one per copy of someone from outside the tree, which
+    also carries the note on that union. -#}
+{%- set_global box_w = [] -%}
+{%- set_global box_h = [] -%}
+{%- for i in range(end=count) -%}
+  {%- set j = i * 3 -%}
+  {%- set w = job_w | nth(n=j) -%}
+  {%- set wb = job_w | nth(n=j + 1) -%}
+  {%- set wc = job_w | nth(n=j + 2) -%}
+  {%- if wb > w %}{% set w = wb %}{% endif -%}
+  {%- if wc > w %}{% set w = wc %}{% endif -%}
+  {%- set na_ = job_n | nth(n=j) -%}
+  {%- set nb_ = job_n | nth(n=j + 1) -%}
+  {%- set n_names = na_ + nb_ -%}
+  {%- set n_notes = job_n | nth(n=j + 2) -%}
+  {%- set h = pad_y * 2 + n_names * line_h -%}
+  {%- if n_notes > 0 %}{% set h = h + n_notes * note_h + 3 %}{% endif -%}
+  {%- set_global box_w = box_w | concat(with=[w + pad_x * 2]) -%}
+  {%- set_global box_h = box_h | concat(with=[h]) -%}
+{%- endfor -%}
+{%- set_global copy_w = [] -%}
+{%- set_global copy_h = [] -%}
+{%- for x in u_x -%}
+  {%- set u = loop.index0 -%}
+  {%- set jn = count * 3 + u -%}
+  {%- set nd = job_n | nth(n=jn) -%}
+  {%- set wd = job_w | nth(n=jn) -%}
+  {%- set w = box_w | nth(n=x) -%}
+  {%- set h = box_h | nth(n=x) -%}
+  {%- set had_notes = job_n | nth(n=x * 3 + 2) -%}
+  {%- if wd + pad_x * 2 > w %}{% set w = wd + pad_x * 2 %}{% endif -%}
+  {%- if nd > 0 %}{% set h = h + nd * note_h %}{% if had_notes == 0 %}{% set h = h + 3 %}{% endif %}{% endif -%}
+  {%- set_global copy_w = copy_w | concat(with=[w]) -%}
+  {%- set_global copy_h = copy_h | concat(with=[h]) -%}
+{%- endfor -%}
+{%- set_global widest_box = 0 -%}
+{%- for w in box_w | concat(with=copy_w) %}{% if w > widest_box %}{% set_global widest_box = w %}{% endif %}{% endfor -%}
+{%- set slot = widest_box + gutter -%}
+
+{#- Every box in a generation is as tall as the tallest, so a row's lines leave together. -#}
+{%- set_global row_h = [] -%}
+{%- for g in range(end=max_gen + 1) %}{% set_global row_h = row_h | concat(with=[line_h + pad_y * 2]) %}{% endfor -%}
+{%- for i in range(end=n_tree) -%}
+  {%- set g = gen | nth(n=i) -%}
+  {%- set h = box_h | nth(n=i) -%}
+  {%- set have = row_h | nth(n=g) -%}
+  {%- if h > have %}{% set_global row_h = row_h | slice(end=g) | concat(with=[h]) | concat(with=row_h | slice(start=g + 1)) %}{% endif -%}
+{%- endfor -%}
+{%- for p in u_p -%}
+  {%- set u = loop.index0 -%}
+  {%- set m = u_mode | nth(n=u) -%}
+  {%- set g = gen | nth(n=p) -%}
+  {%- set h = copy_h | nth(n=u) -%}
+  {%- set have = row_h | nth(n=g) -%}
+  {%- if m == "copy" and h > have %}{% set_global row_h = row_h | slice(end=g) | concat(with=[h]) | concat(with=row_h | slice(start=g + 1)) %}{% endif -%}
+{%- endfor -%}
+
+{#- Lines between partners run in horizontal lanes under the lower partner's row. Items
+    are the unions, then the links; overlapping items in a band take separate lanes. -#}
+{%- set_global it_band = [] -%}
+{%- set_global it_x1 = [] -%}
+{%- set_global it_x2 = [] -%}
+{%- set_global it_jx = [] -%}
+{%- set_global it_notes = [] -%}
+{%- for p in u_p -%}
+  {%- set u = loop.index0 -%}
+  {%- set m = u_mode | nth(n=u) -%}
+  {%- set x = u_x | nth(n=u) -%}
+  {%- set band = gen | nth(n=p) -%}
+  {%- set gx = gen | nth(n=x) -%}
+  {%- if m == "lane" and gx > band %}{% set band = gx %}{% endif -%}
+  {%- set x1 = px | nth(n=p) -%}
+  {%- set x2 = u_xx | nth(n=u) -%}
+  {%- if x2 < x1 %}{% set tmp = x1 %}{% set x1 = x2 %}{% set x2 = tmp %}{% endif -%}
+  {#- Children drop from the gap beside the other parent, on the side facing this one: the
+      middle of the line when the two are neighbours, and never a box's own centre, where
+      the drop would read as coming from whoever stands there. Kept inside this parent's
+      columns, and off their edges, so it can't meet a neighbouring block's drop. -#}
+  {%- set s = start | nth(n=p) -%}
+  {%- set w = widths | nth(n=p) -%}
+  {%- set xa = px | nth(n=p) -%}
+  {%- set xb = u_xx | nth(n=u) -%}
+  {%- set jx = xb + 0.5 -%}
+  {%- if xb > xa %}{% set jx = xb - 0.5 %}{% endif -%}
+  {%- if jx < s + 0.2 %}{% set jx = s + 0.2 %}{% endif -%}
+  {%- if jx > s + w - 0.2 %}{% set jx = s + w - 0.2 %}{% endif -%}
+  {%- set nn = job_n | nth(n=count * 3 + u) -%}
+  {%- if m == "copy" %}{% set nn = 0 %}{% endif -%}
+  {%- set_global it_band = it_band | concat(with=[band]) -%}
+  {%- set_global it_x1 = it_x1 | concat(with=[x1]) -%}
+  {%- set_global it_x2 = it_x2 | concat(with=[x2]) -%}
+  {%- set_global it_jx = it_jx | concat(with=[jx]) -%}
+  {%- set_global it_notes = it_notes | concat(with=[nn]) -%}
+{%- endfor -%}
+{%- for a in la -%}
+  {%- set l = loop.index0 -%}
+  {%- set b = lb | nth(n=l) -%}
+  {%- set draw = l_draw | nth(n=l) -%}
+  {%- set band = -1 -%}
+  {%- set x1 = 0 -%}
+  {%- set x2 = 0 -%}
+  {%- set nn = 0 -%}
+  {%- if draw -%}
+    {%- set band = gen | nth(n=a) -%}
+    {%- set gb = gen | nth(n=b) -%}
+    {%- if gb > band %}{% set band = gb %}{% endif -%}
+    {%- set x1 = px | nth(n=a) -%}
+    {%- set x2 = px | nth(n=b) -%}
+    {%- if x2 < x1 %}{% set tmp = x1 %}{% set x1 = x2 %}{% set x2 = tmp %}{% endif -%}
+    {%- set nn = job_n | nth(n=count * 3 + n_unions + l) -%}
+  {%- endif -%}
+  {%- set_global it_band = it_band | concat(with=[band]) -%}
+  {%- set_global it_x1 = it_x1 | concat(with=[x1]) -%}
+  {%- set_global it_x2 = it_x2 | concat(with=[x2]) -%}
+  {%- set_global it_jx = it_jx | concat(with=[(x1 + x2) / 2]) -%}
+  {%- set_global it_notes = it_notes | concat(with=[nn]) -%}
+{%- endfor -%}
+{%- set n_items = it_band | length -%}
+{#- Links without children take the upper lanes, so a drop to children, which leaves its
+    lane downwards, never has to cross one. -#}
+{%- set_global it_lane = [] -%}
+{%- for t in range(end=n_items) %}{% set_global it_lane = it_lane | concat(with=[-1]) %}{% endfor -%}
+{%- for t in range(start=n_unions, end=n_items) | concat(with=range(end=n_unions)) -%}
+  {%- set band = it_band | nth(n=t) -%}
+  {%- set x1 = it_x1 | nth(n=t) -%}
+  {%- set x2 = it_x2 | nth(n=t) -%}
+  {%- set_global lane = 0 -%}
+  {%- if band >= 0 -%}
+    {%- for candidate in range(end=n_items + 1) -%}
+      {%- set_global clear = true -%}
+      {%- for bk in it_band -%}
+        {%- set lk_ = it_lane | nth(n=loop.index0) -%}
+        {%- set k1 = it_x1 | nth(n=loop.index0) -%}
+        {%- set k2 = it_x2 | nth(n=loop.index0) -%}
+        {%- if bk == band and lk_ == candidate and x1 < k2 and k1 < x2 %}{% set_global clear = false %}{% endif -%}
+      {%- endfor -%}
+      {%- if clear %}{% set_global lane = candidate %}{% break %}{% endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- set_global it_lane = it_lane | slice(end=t) | concat(with=[lane]) | concat(with=it_lane | slice(start=t + 1)) -%}
+{%- endfor -%}
+{%- set_global band_lanes = [] -%}
+{%- set_global band_notes = [] -%}
+{%- for g in range(end=max_gen + 1) -%}
+  {%- set_global most = 0 -%}
+  {%- set_global most_notes = 0 -%}
+  {%- for band in it_band -%}
+    {%- if band == g -%}
+      {%- set lane_here = it_lane | nth(n=loop.index0) -%}
+      {%- set notes_here = it_notes | nth(n=loop.index0) -%}
+      {%- if lane_here + 1 > most %}{% set_global most = lane_here + 1 %}{% endif -%}
+      {%- if notes_here > most_notes %}{% set_global most_notes = notes_here %}{% endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- set_global band_lanes = band_lanes | concat(with=[most]) -%}
+  {%- set_global band_notes = band_notes | concat(with=[most_notes]) -%}
+{%- endfor -%}
+
+{#- Rows, top to bottom: the boxes, the lanes under them, any notes on those lines, then
+    the drop to the next generation with the children's crossbar halfway down it. -#}
+{%- set_global tops = [] -%}
+{%- set_global bottoms = [] -%}
+{%- set_global note_tops = [] -%}
+{%- set_global buses = [] -%}
+{%- set_global y = pad -%}
+{%- for g in range(end=max_gen + 1) -%}
+  {%- set rh = row_h | nth(n=g) -%}
+  {%- set lanes = band_lanes | nth(n=g) -%}
+  {%- set nn = band_notes | nth(n=g) -%}
+  {%- set nt = y + rh + lane_gap * (lanes + 1) -%}
+  {%- set room = 0 -%}
+  {%- if nn > 0 %}{% set room = nn * note_h + 6 %}{% endif -%}
+  {%- set bus = nt + room + drop / 2 -%}
+  {%- set_global tops = tops | concat(with=[y]) -%}
+  {%- set_global bottoms = bottoms | concat(with=[y + rh]) -%}
+  {%- set_global note_tops = note_tops | concat(with=[nt]) -%}
+  {%- set_global buses = buses | concat(with=[bus]) -%}
+  {%- set_global y = bus + drop / 2 -%}
+{%- endfor -%}
+{%- set width = columns * slot + pad * 2 -%}
+{%- set height = y - drop + pad -%}
+
+<svg class="block mx-auto" width="{{ width }}" height="{{ height }}"
+     viewBox="0 0 {{ width }} {{ height }}" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-label="{% if caption %}{{ caption }}{% else %}family tree{% endif %}">
+  <title>{% if caption %}{{ caption }}{% else %}family tree{% endif %}</title>
+  {#- Parent to child: from the parent, or from the middle of the line joining both
+      parents, down to the crossbar and across to the child. -#}
+  {%- for c in range(end=n_tree) -%}
+  {%- set p = par | nth(n=c) -%}
+  {%- if p >= 0 -%}
+    {%- set gc = gen | nth(n=c) -%}
+    {%- set pxc = px | nth(n=c) -%}
+    {%- set cx = pad + pxc * slot -%}
+    {%- set ctop = tops | nth(n=gc) -%}
+    {%- set u = cu | nth(n=c) -%}
+    {%- if u < 0 -%}
+      {%- set gp = gen | nth(n=p) -%}
+      {%- set pxp = px | nth(n=p) -%}
+      {%- set sx = pad + pxp * slot -%}
+      {%- set sy = bottoms | nth(n=gp) -%}
+      {%- set bus = buses | nth(n=gp) -%}
+    {%- else -%}
+      {%- set band = it_band | nth(n=u) -%}
+      {%- set lane = it_lane | nth(n=u) -%}
+      {%- set jx = it_jx | nth(n=u) -%}
+      {%- set sx = pad + jx * slot -%}
+      {%- set band_bottom = bottoms | nth(n=band) -%}
+      {%- set sy = band_bottom + lane_gap * (lane + 1) -%}
+      {%- set bus = buses | nth(n=band) -%}
+    {%- endif %}
+  <path class="fill-none stroke-gray-500" stroke-width="1.25" d="M {{ sx }} {{ sy }} V {{ bus }} H {{ cx }} V {{ ctop }}" />
+  {%- endif -%}
+  {%- endfor -%}
+
+  {#- Partner to partner: down from each into their lane and across. -#}
+  {%- for t in range(end=n_items) -%}
+  {%- set band = it_band | nth(n=t) -%}
+  {%- if band >= 0 -%}
+    {%- if t < n_unions -%}
+      {%- set a = u_p | nth(n=t) -%}
+      {%- set b = u_x | nth(n=t) -%}
+      {%- set m = u_mode | nth(n=t) -%}
+      {%- set dash = u_dash | nth(n=t) -%}
+      {%- set ax = px | nth(n=a) -%}
+      {%- set bx = u_xx | nth(n=t) -%}
+      {%- set ga = gen | nth(n=a) -%}
+      {%- set gb = ga -%}
+      {%- if m == "lane" %}{% set gb = gen | nth(n=b) %}{% endif -%}
+    {%- else -%}
+      {%- set l = t - n_unions -%}
+      {%- set a = la | nth(n=l) -%}
+      {%- set b = lb | nth(n=l) -%}
+      {%- set kind = lk | nth(n=l) -%}
+      {%- set dash = kind == "~" -%}
+      {%- set ax = px | nth(n=a) -%}
+      {%- set bx = px | nth(n=b) -%}
+      {%- set ga = gen | nth(n=a) -%}
+      {%- set gb = gen | nth(n=b) -%}
+    {%- endif -%}
+    {%- set lane = it_lane | nth(n=t) -%}
+    {%- set band_bottom = bottoms | nth(n=band) -%}
+    {%- set ly = band_bottom + lane_gap * (lane + 1) %}
+  <path class="fill-none stroke-gray-800" stroke-width="1.5"{% if dash %} stroke-dasharray="6 4"{% endif %}
+        d="M {{ pad + ax * slot }} {{ bottoms | nth(n=ga) }} V {{ ly }} H {{ pad + bx * slot }} V {{ bottoms | nth(n=gb) }}" />
+  {%- endif -%}
+  {%- endfor -%}
+
+  {#- Notes on those lines, under the lanes, haloed where a drop runs behind them. -#}
+  {%- for t in range(end=n_items) -%}
+  {%- set band = it_band | nth(n=t) -%}
+  {%- set nn = it_notes | nth(n=t) -%}
+  {%- if band >= 0 and nn > 0 -%}
+    {%- set jn = count * 3 + t -%}
+    {%- set jx = it_jx | nth(n=t) -%}
+    {%- set x = pad + jx * slot -%}
+    {%- set nt = note_tops | nth(n=band) %}
+  <text class="fill-gray-600 stroke-orange-50 italic" stroke-width="4" paint-order="stroke" font-size="{{ note_size }}" text-anchor="middle">
+    {%- for row in job_rows | nth(n=jn) | split(pat=NL) -%}
+    <tspan x="{{ x }}" y="{{ nt + note_size + loop.index0 * note_h }}">{{ self::family_tree_words(row=row, size=note_size) }}</tspan>
+    {%- endfor -%}
+  </text>
+  {%- endif -%}
+  {%- endfor -%}
+
+  {#- The boxes: everyone in the tree, then the copies of people from outside it. -#}
+  {%- for i in range(end=n_tree) -%}
+  {%- set g = gen | nth(n=i) -%}
+  {%- set pxi = px | nth(n=i) -%}
+  {%- set j = i * 3 -%}
+  {{ self::family_tree_box(cx=pad + pxi * slot, top=tops | nth(n=g), w=box_w | nth(n=i), h=row_h | nth(n=g),
+       name_rows=job_rows | nth(n=j), alt_rows=job_rows | nth(n=j + 1), note_rows=job_rows | nth(n=j + 2),
+       outsider=false, font_size=font_size, note_size=note_size, line_h=line_h, note_h=note_h) }}
+  {%- endfor -%}
+  {%- for p in u_p -%}
+  {%- set u = loop.index0 -%}
+  {%- set m = u_mode | nth(n=u) -%}
+  {%- if m == "copy" -%}
+    {%- set x = u_x | nth(n=u) -%}
+    {%- set g = gen | nth(n=p) -%}
+    {%- set xx = u_xx | nth(n=u) -%}
+    {%- set j = x * 3 -%}
+    {%- set own = job_rows | nth(n=j + 2) -%}
+    {%- set union_note = job_rows | nth(n=count * 3 + u) -%}
+    {%- set all_notes = own -%}
+    {%- if own and union_note %}{% set all_notes = own ~ NL ~ union_note %}{% elif union_note %}{% set all_notes = union_note %}{% endif %}
+  {{ self::family_tree_box(cx=pad + xx * slot, top=tops | nth(n=g), w=copy_w | nth(n=u), h=row_h | nth(n=g),
+       name_rows=job_rows | nth(n=j), alt_rows=job_rows | nth(n=j + 1), note_rows=all_notes,
+       outsider=true, font_size=font_size, note_size=note_size, line_h=line_h, note_h=note_h) }}
+  {%- endif -%}
+  {%- endfor %}
+</svg>
+{% endmacro %}
+
+{#- One person's box for `family_tree`: name, other names, then comments, centred as a block
+    in a box as tall as the row. -#}
+{% macro family_tree_box(cx, top, w, h, name_rows, alt_rows, note_rows, outsider, font_size, note_size, line_h, note_h) %}
+{%- set NL = "
+" -%}
+{%- set n_name = 0 -%}
+{%- if name_rows %}{% set n_name = name_rows | split(pat=NL) | length %}{% endif -%}
+{%- set n_alt = 0 -%}
+{%- if alt_rows %}{% set n_alt = alt_rows | split(pat=NL) | length %}{% endif -%}
+{%- set n_note = 0 -%}
+{%- if note_rows %}{% set n_note = note_rows | split(pat=NL) | length %}{% endif -%}
+{%- set content = (n_name + n_alt) * line_h -%}
+{%- if n_note > 0 %}{% set content = content + n_note * note_h + 3 %}{% endif -%}
+{%- set y0 = top + (h - content) / 2 %}
+  <rect class="{% if outsider %}fill-orange-50 stroke-gray-500{% else %}fill-teal-200 stroke-gray-700{% endif %}"
+        x="{{ cx - w / 2 }}" y="{{ top }}" width="{{ w }}" height="{{ h }}" />
+  <text font-size="{{ font_size }}" text-anchor="middle">
+    {%- if name_rows -%}
+    {%- for row in name_rows | split(pat=NL) -%}
+    <tspan class="fill-gray-900 font-semibold" x="{{ cx }}" y="{{ y0 + font_size + loop.index0 * line_h }}">{{ self::family_tree_words(row=row, size=font_size) }}</tspan>
+    {%- endfor -%}
+    {%- endif -%}
+    {%- if alt_rows -%}
+    {%- for row in alt_rows | split(pat=NL) -%}
+    <tspan class="fill-gray-600" x="{{ cx }}" y="{{ y0 + font_size + (n_name + loop.index0) * line_h }}">{{ self::family_tree_words(row=row, size=font_size) }}</tspan>
+    {%- endfor -%}
+    {%- endif -%}
+    {%- if note_rows -%}
+    {%- for row in note_rows | split(pat=NL) -%}
+    <tspan class="fill-gray-600 italic" font-size="{{ note_size }}" x="{{ cx }}" y="{{ y0 + (n_name + n_alt) * line_h + 3 + note_size + loop.index0 * note_h }}">{{ self::family_tree_words(row=row, size=note_size) }}</tspan>
+    {%- endfor -%}
+    {%- endif -%}
+  </text>
+{%- endmacro %}
+
+{#- A row of `family_tree` text, drawing each ⟦backlink id¦note id¦number⟧ token as a
+    superscript linked to its footnote. The text is already escaped by Markdown. -#}
+{% macro family_tree_words(row, size) %}
+{%- for seg in row | split(pat="⟦") -%}
+  {%- if loop.first -%}
+    {{ seg | safe }}
+  {%- else -%}
+    {%- set inner = seg | split(pat="⟧") -%}
+    {%- set f = inner | first | split(pat="¦") -%}
+    {%- set rest = inner | slice(start=1) | join(sep="⟧") -%}
+    <a href="#{{ f.1 }}"><tspan id="{{ f.0 }}" dy="{{ 0 - size * 0.4 }}" font-size="{{ size * 0.7 }}">{{ f.2 }}</tspan></a>
+    {%- if rest %}<tspan dy="{{ size * 0.4 }}">{{ rest | safe }}</tspan>{% endif -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- endmacro %}

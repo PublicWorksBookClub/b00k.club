@@ -4,6 +4,8 @@
 
 - Change words in geometric ornament commentary
 - Add dialogue shortcode
+- Add family tree shortcode
+- Add commentary with family trees from Ovid's _Metamorphoses_
 
 ## 1.12.15 (2026-09-07)
 
