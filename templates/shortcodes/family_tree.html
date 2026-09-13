@@ -8,7 +8,7 @@
           frenemy of Phaethon
       - Cadmus
         - Agave
-          - Pentheus [^echion]
+          - Pentheus [^echion] | torn apart by the Maenads
             killed by his own mother
 
     * Jove
@@ -16,23 +16,27 @@
       one of the Spartoi
     {% end %}
 
-    Nesting is descent: each person is a child of the one they are nested under. Everything
-    else is said with footnote references that are never defined. An undefined `[^label]`
-    names a person by their first name, slugified ("Zeus / Jove" is `[^zeus]`), and what
-    it means depends on what comes straight before it:
+    Nesting is descent: each person is a child of the one they are nested under. A child
+    names any other parents with footnote references that are never defined. A reference
+    names a person by their first name, slugified ("Zeus / Jove" is `[^zeus]`):
 
-      [^x]        x is my other parent
-      =[^x]       I am married to x
-      ~[^x]       I am with x by other means; drawn dashed, as is the line to any
-                  children we have together
+      [^x]        x is also my parent, and married to the parent I'm nested under
+      ~[^x]       x is also my parent, by other means; drawn dashed
       [^x] (…)    a parenthesis straight after a reference is a note on that relationship
 
-    Every line of an item after the first is a plain-text comment on that person, and
-    " / " separates someone's other names.
+    A child may name as many other parents as they have. Two placeholders stand in for a
+    child where there isn't a named one, and take references the same way:
+
+      NO_CHILDREN    the couple had no children; only the line joining them is drawn
+      DESCENDANTS    the couple had descendants who go unnamed, drawn as a fan of lines
+
+    Text after a "|" on the first line labels the line coming *into* that person, as in the
+    `tree` shortcode. Every further line of an item is a plain-text comment on that person,
+    and " / " separates someone's other names.
 
     A second list declares the people who have no place in the tree of their own, like Jove
     above. Give it a different bullet, or Markdown joins it onto the first list. They are
-    drawn beside each partner they have children with, once for each.
+    drawn beside the parent of each child they are named by, once for each.
 
     Footnotes that *are* defined work as they do anywhere else: the reference is drawn as a
     superscript and the notes follow the figure.
@@ -43,6 +47,7 @@
 {%- import "macro/svg.html" as svg -%}
 {%- set NL = "
 " -%}
+{%- set SEP = "␟" -%}
 
 {#- Render the body and set its defined footnotes aside, to print after the figure. -#}
 {%- set rendered = body | default(value="") | markdown -%}
@@ -76,9 +81,9 @@
 {%- set_global t_names = [] -%}
 {%- set_global t_notes = [] -%}
 {%- set_global t_depths = [] -%}
-{%- set_global t_others = [] -%}
-{%- set_global t_other_notes = [] -%}
-{%- set_global t_links = [] -%}
+{%- set_global t_kinds = [] -%}
+{%- set_global t_parents = [] -%}
+{%- set_global t_edges = [] -%}
 {%- set_global o_ids = [] -%}
 {%- set_global o_names = [] -%}
 {%- set_global o_notes = [] -%}
@@ -100,23 +105,24 @@
     {%- set trimmed = line | trim -%}
     {%- if trimmed %}{% set_global lines = lines | concat(with=[trimmed]) %}{% endif -%}
   {%- endfor -%}
-  {%- set_global head = "" -%}
-  {%- if lines | length > 0 %}{% set_global head = lines | first %}{% endif -%}
+  {%- set_global first_line = "" -%}
+  {%- if lines | length > 0 %}{% set_global first_line = lines | first %}{% endif -%}
   {%- set comment = lines | slice(start=1) | join(sep=NL) | striptags -%}
 
-  {#- Split the references off the name, reading each one's marker from the text before
-      it and its note from a parenthesis straight after it. -#}
+  {#- Take the edge label off first, then split the references off the name, reading each
+      one's "~" from the text before it and its note from a parenthesis straight after. -#}
+  {%- set bar = first_line | split(pat="|") -%}
+  {%- set head = bar | first -%}
+  {%- set edge = bar | slice(start=1) | join(sep="|") | trim | striptags -%}
   {%- set pieces = head | split(pat="[^") -%}
   {%- set_global before = pieces | first -%}
-  {%- set_global other = "" -%}
-  {%- set_global other_note = "" -%}
-  {%- set_global link_list = [] -%}
+  {%- set_global parent_list = [] -%}
   {%- for piece in pieces | slice(start=1) -%}
     {%- set label = piece | split(pat="]") | first | slugify -%}
     {%- set after = piece | split(pat="]") | slice(start=1) | join(sep="]") -%}
     {%- set prior = before | trim -%}
     {%- set kind = "" -%}
-    {%- if prior is ending_with("~") %}{% set kind = "~" %}{% elif prior is ending_with("=") %}{% set kind = "=" %}{% endif -%}
+    {%- if prior is ending_with("~") %}{% set kind = "~" %}{% endif -%}
     {%- set_global note = "" -%}
     {%- set_global before = after -%}
     {%- set lead = after | trim_start -%}
@@ -125,30 +131,26 @@
       {%- set_global note = closing | first | trim_start_matches(pat="(") | trim | striptags -%}
       {%- set_global before = closing | slice(start=1) | join(sep=")") -%}
     {%- endif -%}
-    {%- if kind -%}
-      {%- set_global link_list = link_list | concat(with=[kind ~ "|" ~ label ~ "|" ~ note]) -%}
-    {%- elif other -%}
-      {{ throw(message="family_tree: " ~ head ~ " names more than one other parent") }}
-    {%- else -%}
-      {%- set_global other = label -%}
-      {%- set_global other_note = note -%}
-    {%- endif -%}
+    {%- set_global parent_list = parent_list | concat(with=[kind ~ SEP ~ label ~ SEP ~ note]) -%}
   {%- endfor -%}
-  {%- set name = pieces | first | trim | trim_end_matches(pat="~") | trim_end_matches(pat="=") | trim | striptags -%}
+  {%- set name = pieces | first | trim | trim_end_matches(pat="~") | trim | striptags -%}
   {%- set id = name | split(pat=" / ") | first | split(pat="⟦") | first | slugify -%}
+  {%- set placeholder = "" -%}
+  {%- if name == "NO_CHILDREN" %}{% set placeholder = "none" %}{% set id = "" %}{% endif -%}
+  {%- if name == "DESCENDANTS" %}{% set placeholder = "descendants" %}{% set id = "" %}{% endif -%}
 
   {%- if list_no == 0 -%}
-    {%- set joined_links = link_list | join(sep=NL) -%}
+    {%- set joined_parents = parent_list | join(sep=NL) -%}
     {%- set_global t_ids = t_ids | concat(with=[id]) -%}
     {%- set_global t_names = t_names | concat(with=[name]) -%}
     {%- set_global t_notes = t_notes | concat(with=[comment]) -%}
     {%- set_global t_depths = t_depths | concat(with=[depth]) -%}
-    {%- set_global t_others = t_others | concat(with=[other]) -%}
-    {%- set_global t_other_notes = t_other_notes | concat(with=[other_note]) -%}
-    {%- set_global t_links = t_links | concat(with=[joined_links]) -%}
+    {%- set_global t_kinds = t_kinds | concat(with=[placeholder]) -%}
+    {%- set_global t_parents = t_parents | concat(with=[joined_parents]) -%}
+    {%- set_global t_edges = t_edges | concat(with=[edge]) -%}
   {%- else -%}
-    {%- if depth > 0 or other or link_list | length > 0 -%}
-      {{ throw(message="family_tree: " ~ name ~ " is outside the tree, so can't be nested or name anyone; put the reference on their partner or child instead") }}
+    {%- if depth > 0 or placeholder or parent_list | length > 0 -%}
+      {{ throw(message="family_tree: " ~ name ~ " is outside the tree, so can't be nested or name a parent") }}
     {%- endif -%}
     {%- set_global o_ids = o_ids | concat(with=[id]) -%}
     {%- set_global o_names = o_names | concat(with=[name]) -%}
@@ -170,8 +172,8 @@
   <div class="overflow-x-auto">
   {{ svg::family_tree(ids=t_ids | concat(with=o_ids), names=t_names | concat(with=o_names),
        notes=t_notes | concat(with=o_notes), depths=t_depths | concat(with=o_depths),
-       others=t_others | concat(with=o_blank), other_notes=t_other_notes | concat(with=o_blank),
-       links=t_links | concat(with=o_blank), caption=caption | default(value="")) }}
+       kinds=t_kinds | concat(with=o_blank), parents=t_parents | concat(with=o_blank),
+       edges=t_edges | concat(with=o_blank), caption=caption | default(value="")) }}
   </div>
   {%- if caption %}
   <figcaption class="mt-2 text-center text-sm italic font-fira-sans text-gray-500">{{ caption }}</figcaption>

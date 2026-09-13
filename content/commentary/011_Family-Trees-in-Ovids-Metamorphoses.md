@@ -26,20 +26,22 @@ Dashed lines join partners who were not married. Lighter backgrounds signify a p
   - Cronus / Saturn [^gaia]
     - Hestia / Vesta [^rhea]
     - Poseidon / Neptune [^rhea]
-    - Hades / Pluto [^rhea] =[^persephone]
+    - Hades / Pluto [^rhea]
+      - NO_CHILDREN [^persephone]
     - Demeter / Ceres [^rhea]
-    - Zeus / Jove [^rhea] =[^hera] ~[^demeter] ~[^leto] ~[^maia] ~[^semele]
-      - Persephone / Proserpina [^demeter]
-      - Apollo [^leto]
-      - Artemis / Diana [^leto]
-      - Hermes / Mercury [^maia]
-      - Dionysus / Bacchus [^semele]
+    - Zeus / Jove [^rhea]
+      - Persephone / Proserpina ~[^demeter]
+      - Apollo ~[^leto]
+      - Artemis / Diana ~[^leto]
+      - Hermes / Mercury ~[^maia]
+      - Dionysus / Bacchus ~[^semele]
       - Ares / Marte [^hera]
     - Hera / Juno [^rhea]
       - Hephaestus / Vulcano
   - Rhea / Opis [^gaia]
-  - Aphrodite / Venus =[^hephaestus] ~[^ares]
-    - Eros / Cupido [^ares]
+  - Aphrodite / Venus
+    - NO_CHILDREN [^hephaestus]
+    - Eros / Cupido ~[^ares]
 
 * Leto
 * Maia
@@ -54,7 +56,9 @@ Dashed lines join partners who were not married. Lighter backgrounds signify a p
     - Epimetheus
       - Pyrrha [^pandora]
     - Prometheus
-      - Deucalion =[^pyrrha] (last survivors, on an ark, after the flood)
+      - Deucalion
+        - DESCENDANTS [^pyrrha] | descendants of the survivors of the flood
+          (also siblings to those born from the stones)
     - Atlas
   - Tethys [^uranos]
     - Peneus [^oceanus]
@@ -68,7 +72,9 @@ Dashed lines join partners who were not married. Lighter backgrounds signify a p
         - Ocyrhoe [^chariclo]
           turned into a horse after saying a prophecy regarding her father
   - Oceanus [^uranos]
-  - Cronus [^uranos] ~[^rhea]
+  - Cronus [^uranos]
+    - DESCENDANTS [^rhea]
+      Olympians
   - Rhea [^uranos]
 - Uranos
 
@@ -86,8 +92,9 @@ Dashed lines join partners who were not married. Lighter backgrounds signify a p
       turned into a tree after the death of her brother
     - Lampetia [^clymene]
       turned into a tree after the death of her brother
-    - Phaethon [^clymene] ~[^cygnus]
+    - Phaethon [^clymene]
       died trying to drive the Sun's chariot
+      - NO_CHILDREN ~[^cygnus]
   - Diana [^leto]
 - Leto
 - Sthenelus
