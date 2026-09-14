@@ -3,6 +3,7 @@
 ## Next
 
 - Make corrections to family tree commentary from Ovid
+- Change some nav to be explicit rather than use "../" since it breaks if the path doesn't have a trailing slash
 
 ## 1.12.6 (2026-09-13)
 
