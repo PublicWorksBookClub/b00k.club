@@ -2,12 +2,17 @@
 
 ## Next
 
+- Make corrections to family tree commentary from Ovid
+
+## 1.12.6 (2026-09-13)
+
 - Change words in geometric ornament commentary
 - Add dialogue shortcode
 - Add family tree shortcode
 - Add commentary with family trees from Ovid's _Metamorphoses_
+- Add meeting notes for the week
 
-## 1.12.15 (2026-09-07)
+## 1.12.5 (2026-09-07)
 
 - Add commentary on geometric ornmanet and t4zh1b library
 
