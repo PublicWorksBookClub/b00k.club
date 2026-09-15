@@ -1,6 +1,6 @@
 +++
-slug = "metamorphoses-family-trees"
-title = "Family Trees in Ovid's _Metamorphoses_"
+slug = "metamorphoses-geneaology"
+title = "Family Trees of Ovid's _Metamorphoses_"
 description = """
 Various genealogies of gods and heroes as they're portrayed by Ovid.
 """
@@ -16,77 +16,84 @@ references = ["ovid-metamorphoses"]
 commentary_number = 11
 +++
 
-Dashed lines join partners who were not married. Lighter backgrounds signify a parent who comes from outside the same family.
-
-## The Olympians
-
-{% family_tree(caption="From Gaia and Uranos to the children of Jove") %}
-- Gaia / Terra
-- Uranos / Caelus
-  - Cronus / Saturn [^gaia]
-    - Hestia / Vesta [^rhea]
-    - Poseidon / Neptune [^rhea]
-    - Hades / Pluto [^rhea]
-      - NO_CHILDREN [^persephone]
-    - Demeter / Ceres [^rhea]
-    - Zeus / Jove [^rhea]
-      - Persephone / Proserpina ~[^demeter]
-      - Apollo ~[^leto]
-      - Artemis / Diana ~[^leto]
-      - Hermes / Mercury ~[^maia]
-      - Dionysus / Bacchus ~[^semele]
-      - Ares / Marte [^hera]
-    - Hera / Juno [^rhea]
-      - Hephaestus / Vulcano
-  - Rhea / Opis [^gaia]
-  - Aphrodite / Venus
-    - NO_CHILDREN [^hephaestus]
-    - Eros / Cupido ~[^ares]
-
-* Leto
-* Maia
-* Semele
-{% end %}
+Dashed lines join partners who were not married. Lighter backgrounds signify an extra-familial parent. Some — especially earlier in the genealogy — are not explicitly mentioned by Ovid and are canon.
 
 ## The Titans
 
-{% family_tree(caption="The children of Gaia and Uranos, and their descendants") %}
+{% family_tree(caption="Gaia, Uranos and their descendants") %}
 - Gaia
-  - Iapetus [^uranos]
-    - Epimetheus
+  - Iapetus ~[^uranos]
+    - Epimetheus | no explicit mother mentioned
       - Pyrrha [^pandora]
-    - Prometheus
+    - Prometheus | no explicit mother mentioned
       - Deucalion
         - DESCENDANTS [^pyrrha] | descendants of the survivors of the flood
           (also siblings to those born from the stones)
-    - Atlas
-  - Tethys [^uranos]
+    - Atlas | no explicit mother mentioned
+  - Tethys ~[^uranos]
     - Peneus [^oceanus]
-      - Daphne
+      - Daphne | no explicit mother mentioned
         turned into a laurel as she was escaping Apollo
     - Inachus [^oceanus]
-      - Io
+      - Io | no explicit mother mentioned
         turned into a calf because of her love with Jove
     - Philyra [^oceanus]
       - Chiron [^cronus]
         - Ocyrhoe [^chariclo]
           turned into a horse after saying a prophecy regarding her father
-  - Oceanus [^uranos]
-  - Cronus [^uranos]
+  - Oceanus ~[^uranos]
+  - Cronus ~[^uranos]
     - DESCENDANTS [^rhea]
       Olympians
-  - Rhea [^uranos]
-- Uranos
+  - Rhea ~[^uranos]
 
+* Uranos
 * Pandora
+  not explicitly mentioned by Ovid
 * Chariclo
+{% end %}
+
+## The Olympians
+
+{% family_tree(caption="Descendants of Gaia and Uranos sans extra-familial relationships of Zeus") %}
+- Uranos / Caelus
+  - Cronus / Saturn ~[^gaia]
+    - Hestia / Vesta [^rhea]
+    - Poseidon / Neptune [^rhea]
+    - Hades / Pluto [^rhea]
+      - NO_CHILDREN [^persephone]
+    - Demeter / Ceres [^rhea]
+      - Persephone / Proserpina ~[^zeus]
+    - Zeus / Jove [^rhea]
+      - Athena / Minerva | born directly from Jove's head (See Ares/Marte).
+    - Hera / Juno [^rhea]
+      - Hephaestus / Vulcano [^zeus]
+      - Ares / Marte | no father, born as a response to Jove making Minerva without Juno (Hera touches a magical flower to her body, given by Flora)
+  - Rhea / Opis ~[^gaia]
+  - Aphrodite / Venus | no mother
+    - NO_CHILDREN [^hephaestus]
+    - Eros / Cupido ~[^ares]
+
+* Gaia / Terra
+{% end %}
+
+{% family_tree(caption="Children fathered by Zeus with mothers outside his own family") %}
+- Leto
+  - Apollo ~[^zeus]
+  - Artemis / Diana ~[^zeus]
+- Maia
+  - Hermes / Mercury ~[^zeus]
+- Semele
+  - Dionysus / Bacchus ~[^Zeus]
+
+* Zeus / Jove
 {% end %}
 
 ## Jove and Leto
 
 {% family_tree(caption="The children of Jove and Leto, and of Apollo") %}
 - Jove
-  - Apollo [^leto]
+  - Apollo ~[^leto]
     - Asclepius [^coronis]
     - Phaethusa [^clymene]
       turned into a tree after the death of her brother
@@ -95,12 +102,12 @@ Dashed lines join partners who were not married. Lighter backgrounds signify a p
     - Phaethon [^clymene]
       died trying to drive the Sun's chariot
       - NO_CHILDREN ~[^cygnus]
-  - Diana [^leto]
-- Leto
+  - Diana ~[^leto]
 - Sthenelus
   - Cygnus
     turned into a swan after the death of his lover
 
+* Leto
 * Coronis
   cheated on Apollo and was killed by him, because the raven snitched
 * Clymene
