@@ -2,6 +2,8 @@
 
 ## Next
 
+- Add latest meeting notes
+
 ## 1.12.7 (2026-09-14)
 
 - Make corrections to family tree commentary from Ovid
