@@ -16,6 +16,9 @@ references = ["ovid-metamorphoses"]
 commentary_number = 11
 +++
 
+(This page is still a WIP, as we are currently reading Ovid.)
+
+
 Dashed lines join partners who were not married. Lighter backgrounds signify an extra-familial parent. Some — especially earlier in the genealogy — are not explicitly mentioned by Ovid and are canon.
 
 ## The Titans

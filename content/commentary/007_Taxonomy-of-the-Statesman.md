@@ -33,3 +33,46 @@ The visitor from Elea accounts for 'statesman' by following the same pattern he 
         - production of inanimate objects
       - e.g. "heralds" | repeats orders
 {% end %}
+
+{% tree(caption="TODO add caption") %}
+- "Preventives"
+  - Protection charms
+  - Defensive
+    - Divine
+    - Human
+      - arming for war (i.e. arms manufacturing)
+      - protection
+        - screens (e.g. lids, art of joinery)
+        - warding off cold and hot weather
+          - shelters
+          - covering
+            - things to spread under
+            - things to put round
+              - cut in one piece
+              - compound
+                - with perforation (i.e. felting and cobbling)
+                - without perforation
+                  - "sinews" from earth (e.g. flax)
+                  - hair
+                    - bounded together
+                    - bound with water and earth
+{% end %}
+
+{% tree(caption="TODO add caption") %}
+- wool working (attempt #1?)
+  - taking care of clothes
+    - fulling
+    - clothes mending
+  - producing clothes
+    - contribute to production (e.g. with tools like spindles and shuttles)
+    - causes of production
+{% end %}
+
+{% tree(caption="TODO add caption") %}
+- wool working (attempt #2)
+  - separation
+  - combination
+    - twisting
+    - intertwining
+      - weaving
+{% end %}
