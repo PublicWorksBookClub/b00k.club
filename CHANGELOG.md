@@ -2,8 +2,11 @@
 
 ## Next
 
+## 1.12.8 (2026-09-21)
+
 - Add latest meeting notes
 - Add latest tree from Statesman taxonomy
+- Add disclaimer to Ovid genealogy commentary
 
 ## 1.12.7 (2026-09-14)
 
