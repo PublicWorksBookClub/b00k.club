@@ -25,7 +25,7 @@ commentary_number = 9
 
 See **Commentary #8** _[Causes of Metamorphosis](/commentary/metamorphosis-causes/)_ for more information about causes.
 
-{% table(csv="data/tables/Metamorphoses—Transformations.csv" sortable=true link_col=6 link_prefix="/commentary/metamorphosis-causes/#cause-" styles="mt-8 prose-td:first:text-center prose-td:nth-of-type-2:bg-orange-100 prose-td:nth-of-type-2:z-10") %}
+{% table(csv="data/tables/Metamorphoses—Transformations.csv" show_col=11 sortable=true link_col=6 link_prefix="/commentary/metamorphosis-causes/#cause-" styles="mt-8 prose-td:first:text-center prose-td:nth-of-type-2:bg-orange-100 prose-td:nth-of-type-2:z-10") %}
 <thead>
   <tr class="prose-th:sticky prose-th:top-0 prose-th:z-20 prose-th:bg-orange-50 prose-th:pt-3">
     <th class="w-16 text-center" data-sort="number" aria-sort="ascending">Order</th>
