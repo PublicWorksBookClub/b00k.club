@@ -1,37 +1,101 @@
-Order,Subject,From,Into,Kind,Agent,Cause,Note,Book,Loc.
-1,Chaos,shapeless mass,ordered world,Cosmos,the creator,Creation,The poem's own first metamorphosis: the proem promises to run from the first creation.,1,21–75
-2,humankind,"earth, or divine seed",men,Human,the son of Iapetus,Creation,"Ovid gives two origins and commits to neither: the creator's seed, or fresh earth shaped by Prometheus.",1,78–88
-3,Lycaön,king,wolf,Animal,Jupiter,Punishment,"Some signs of old remain — the grey hair, the fierce eyes. The rule of Ovidian change: something is kept.",1,232–39
-4,the stones,stones,men and women,Human,Deucalion and Pyrrha,Creation,"On Themis' oracle. Men from the stones he threw, women from hers; the veins of rock kept their name.",1,400–13
-5,the earth's seeds,mud,"animals, and Python",Animal,the earth,Creation,"The second creation, after the flood. Python is born of it against the earth's will.",1,434–41
-6,Daphne,nymph,laurel,Plant,Peneus,Escape,"At her own plea. Apollo takes the tree as his emblem, so the escape becomes the god's trophy.",1,548–52
-7,Io,girl,cow,Animal,Jupiter,Concealment,Neither punishment nor rescue: Jupiter hides his own crime from Juno by changing its victim.,1,610–12
-8,Syrinx,nymph,marsh reeds,Plant,the Naiads,Escape,"Told by Mercury to put Argus to sleep, and cut off before he reaches the ending.",1,702–06
-9,the reeds,marsh reeds,pan-pipe,Object,Pan,Grief,A second change in the same story: bound with wax and given the maiden's name.,1,707–12
-10,Argus,a hundred eyes,the peacock's tail,Bird,Juno,Grief,Only the eyes change; the body stays dead on the rock.,1,722–23
-11,Io,cow,girl,Human,Jupiter,Reversal,"Restored by degrees — horns, hooves, jaw — until whiteness was her only bovine trait.",1,738–43
-12,Io,girl,goddess,God,—,Reward,"Worshipped by a linened throng: Isis, though Ovid never writes the name.",1,747–49
-13,the Heliads,girls,poplars,Plant,—,Grief,Grief works the change itself; no god is named. Their mother tears the bark and draws blood.,2,346–63
-14,the Heliads,tears,amber,Object,the sun,Grief,"Hardened by sunlight and carried down the Eridanus, someday to tempt the wives of Rome.",2,364–66
-15,Cygnus,king of Liguria,swan,Bird,—,Grief,"For love of Phaëthon; the swan keeps to still water, mindful of Jove's bolt.",2,373–81
-16,Jupiter,god,Diana's form,God,self,Disguise,He borrows the goddess's shape to rape her attendant; she will destroy Actaeon for seeing hers.,2,425
-17,Callisto,nymph,bear,Animal,Juno,Punishment,Punished by Juno for what Jupiter did. Her former mind remained.,2,477–85
-18,Callisto and Arcas,bear and hunter,constellations,Star,Jupiter,Reward,The Bears. Juno then has Ocean forbid them ever to set.,2,505–07
-19,the Crow,girl,crow,Bird,Minerva,Escape,"Told in flashback by the crow herself, fleeing Neptune along the shore.",2,579–88
-20,Nyctimene,girl,owl,Bird,—,Punishment,"Reported by the crow: made fowl for her foul sins, she shuns the light.",2,589–95
-21,the Raven,white bird,black bird,Bird,Apollo,Punishment,"A change of colour only, for telling a truth the god did not want told.",2,631–32
-22,Ocyrhoë,girl,mare,Animal,—,Punishment,For prophesying too much. She names her own change as it takes her voice.,2,665–75
-23,Battus,old man,stone,Stone,Mercury,Punishment,"The touchstone, index: it still bears the informer's name.",2,706–08
-24,Aglauros,girl,stone,Stone,Mercury,Punishment,Not white marble — her mind had stained the stone.,2,820–32
-25,Jupiter,god,bull,Animal,self,Disguise,Cast off in the first line of Book 3.,2,847–52
-26,Jupiter,bull,god,God,self,Reversal,"The disguise of 2.850, shed before the book gives him a name.",3,1–2
-27,the dragon's teeth,teeth,armed men,Human,"Cadmus, at Minerva's bidding",Creation,Sown like seed. Five survive their own civil war to found Thebes.,3,105–14
-28,Actaeon,hunter,stag,Animal,Diana,Punishment,Just his mind remained unchanged — he keeps it while his own hounds tear him apart.,3,193–97
-29,Juno,goddess,"Beroë, Semele's nurse",Human,self,Disguise,"The one disguise in three books taken by a goddess, and taken to kill rather than to seduce.",3,274–79
-30,Tiresias,man,woman,Sex,—,Retaliation,Seven years as a woman for striking two mating serpents with his staff.,3,324–27
-31,Tiresias,woman,man,Sex,—,Reversal,"He strikes the same snakes to undo it, and so becomes the one judge who has known both sides.",3,328–31
-32,Echo,nymph,voice,Sound,—,Grief,"Her body wastes to bone, her bones to stone, and only the voice is left.",3,396–401
-33,Narcissus,boy,flower,Plant,—,Pity,"No agent is named; the body is simply gone, the narcissus in its place.",3,509–10
-34,Bacchus,god,drunk boy,Human,self,Disguise,Fair as a girl and seemingly heavy with wine — the sailors take him for plunder.,3,607–10
-35,Bacchus,boy,god,God,self,Reversal,"Grapes at his brow, a vine-wound spear, phantom tigers; the ship stops dead in the water.",3,666–69
-36,Acoetes' crew,sailors,dolphins,Sea-creature,Bacchus,Punishment,"Nineteen of twenty; Acoetes alone is spared, and tells it.",3,671–86
+Order,Subject,From,Into,Kind,Agent,Cause,Note,Book,Loc.,Show
+1,Chaos,shapeless mass,ordered world,Cosmos,the creator,Creation,The poem's own first metamorphosis: the proem promises to run from the first creation.,1,21–75,true
+2,humankind,"earth, or divine seed",men,Human,the son of Iapetus,Creation,"Ovid gives two origins and commits to neither: the creator's seed, or fresh earth shaped by Prometheus.",1,78–88,true
+3,Lycaön,king,wolf,Animal,Jupiter,Punishment,"Some signs of old remain — the grey hair, the fierce eyes. The rule of Ovidian change: something is kept.",1,232–39,true
+4,the stones,stones,men and women,Human,Deucalion and Pyrrha,Creation,"On Themis' oracle. Men from the stones he threw, women from hers; the veins of rock kept their name.",1,400–13,true
+5,the earth's seeds,mud,"animals, and Python",Animal,the earth,Creation,"The second creation, after the flood. Python is born of it against the earth's will.",1,434–41,true
+6,Daphne,nymph,laurel,Plant,Peneus,Escape,"At her own plea. Apollo takes the tree as his emblem, so the escape becomes the god's trophy.",1,548–52,true
+7,Io,girl,cow,Animal,Jupiter,Concealment,Neither punishment nor rescue: Jupiter hides his own crime from Juno by changing its victim.,1,610–12,true
+8,Syrinx,nymph,marsh reeds,Plant,the Naiads,Escape,"Told by Mercury to put Argus to sleep, and cut off before he reaches the ending.",1,702–06,true
+9,the reeds,marsh reeds,pan-pipe,Object,Pan,Grief,A second change in the same story: bound with wax and given the maiden's name.,1,707–12,true
+10,Argus,a hundred eyes,the peacock's tail,Bird,Juno,Grief,Only the eyes change; the body stays dead on the rock.,1,722–23,true
+11,Io,cow,girl,Human,Jupiter,Reversal,"Restored by degrees — horns, hooves, jaw — until whiteness was her only bovine trait.",1,738–43,true
+12,Io,girl,goddess,God,—,Reward,"Worshipped by a linened throng: Isis, though Ovid never writes the name.",1,747–49,true
+13,the Heliads,girls,poplars,Plant,—,Grief,Grief works the change itself; no god is named. Their mother tears the bark and draws blood.,2,346–63,true
+14,the Heliads,tears,amber,Object,the sun,Grief,"Hardened by sunlight and carried down the Eridanus, someday to tempt the wives of Rome.",2,364–66,true
+15,Cygnus,king of Liguria,swan,Bird,—,Grief,"For love of Phaëthon; the swan keeps to still water, mindful of Jove's bolt.",2,373–81,true
+16,Jupiter,god,Diana's form,God,self,Disguise,He borrows the goddess's shape to rape her attendant; she will destroy Actaeon for seeing hers.,2,425,true
+17,Callisto,nymph,bear,Animal,Juno,Punishment,Punished by Juno for what Jupiter did. Her former mind remained.,2,477–85,true
+18,Callisto and Arcas,bear and hunter,constellations,Star,Jupiter,Reward,The Bears. Juno then has Ocean forbid them ever to set.,2,505–07,true
+19,the Crow,girl,crow,Bird,Minerva,Escape,"Told in flashback by the crow herself, fleeing Neptune along the shore.",2,579–88,true
+20,Nyctimene,girl,owl,Bird,—,Punishment,"Reported by the crow: made fowl for her foul sins, she shuns the light.",2,589–95,true
+21,the Raven,white bird,black bird,Bird,Apollo,Punishment,"A change of colour only, for telling a truth the god did not want told.",2,631–32,true
+22,Ocyrhoë,girl,mare,Animal,—,Punishment,For prophesying too much. She names her own change as it takes her voice.,2,665–75,true
+23,Battus,old man,stone,Stone,Mercury,Punishment,"The touchstone, index: it still bears the informer's name.",2,706–08,true
+24,Aglauros,girl,stone,Stone,Mercury,Punishment,Not white marble — her mind had stained the stone.,2,820–32,true
+25,Jupiter,god,bull,Animal,self,Disguise,Cast off in the first line of Book 3.,2,847–52,true
+26,Jupiter,bull,god,God,self,Reversal,"The disguise of 2.850, shed before the book gives him a name.",3,1–2,true
+27,the dragon's teeth,teeth,armed men,Human,"Cadmus, at Minerva's bidding",Creation,Sown like seed. Five survive their own civil war to found Thebes.,3,105–14,true
+28,Actaeon,hunter,stag,Animal,Diana,Punishment,Just his mind remained unchanged — he keeps it while his own hounds tear him apart.,3,193–97,true
+29,Juno,goddess,"Beroë, Semele's nurse",Human,self,Disguise,"The one disguise in three books taken by a goddess, and taken to kill rather than to seduce.",3,274–79,true
+30,Tiresias,man,woman,Sex,—,Retaliation,Seven years as a woman for striking two mating serpents with his staff.,3,324–27,true
+31,Tiresias,woman,man,Sex,—,Reversal,"He strikes the same snakes to undo it, and so becomes the one judge who has known both sides.",3,328–31,true
+32,Echo,nymph,voice,Sound,—,Grief,"Her body wastes to bone, her bones to stone, and only the voice is left.",3,396–401,true
+33,Narcissus,boy,flower,Plant,—,Pity,"No agent is named; the body is simply gone, the narcissus in its place.",3,509–10,true
+34,Bacchus,god,drunk boy,Human,self,Disguise,Fair as a girl and seemingly heavy with wine — the sailors take him for plunder.,3,607–10,true
+35,Bacchus,boy,god,God,self,Reversal,"Grapes at his brow, a vine-wound spear, phantom tigers; the ship stops dead in the water.",3,666–69,true
+36,Acoetes' crew,sailors,dolphins,Sea-creature,Bacchus,Punishment,"Nineteen of twenty; Acoetes alone is spared, and tells it.",3,671–86,true
+37,Dercetis,goddess,fish,Sea-creature,—,,Named in passing: the first tale Alcithoë's sister weighs and sets aside.,4,44–46,false
+38,Semiramis,queen,dove,Bird,—,,Named in passing; her later years spent atop a tower.,4,47–48,false
+39,"a naiad, and the youths she charmed",youths; a naiad,fish,Sea-creature,the naiad,,"Named in passing: her herbs turned the youths to fish, then did the same to her.",4,49–51,false
+40,the mulberry,white fruit,dark fruit,Plant,the gods,Pity,"Stained by Pyramus' blood; kept dark at Thisbe's dying prayer, in mourning for the two of them.",4,"125–27, 158–65",false
+41,the Sun,god,Eurynome,Human,self,Disguise,Takes the mother's form to be let into the daughter's room.,4,218,false
+42,the Sun,Eurynome,god,God,self,Reversal,"Resumes his own light, and rapes her.",4,230–31,false
+43,Leucothoë,girl,frankincense,Plant,the Sun,Pity,"Buried alive by her father. The Sun rains nectar on the mound, and a sprig of incense breaks it — she reaches heaven as smoke.",4,252–55,false
+44,Clytië,nymph,heliotrope,Plant,—,Grief,"Nine days on the bare ground watching him pass; rooted, pale, still turning her face after the Sun.",4,259–70,false
+45,Daphnis,shepherd,stone,Stone,a jealous nymph,Punishment,Named in passing by Alcithoë.,4,276–78,false
+46,Sithon,man,"woman, and back",Sex,—,,"Named in passing: “now woman, now man.”",4,279–80,false
+47,Celmis,Jove's friend,steel,Metal,—,,Named in passing.,4,281–82,false
+48,the Curetes,rain,men,Human,—,Creation,Named in passing.,4,282,false
+49,Crocus and Smilax,lovers,flowers,Plant,—,,Named in passing.,4,283,false
+50,Salmacis and Hermaphroditus,nymph and boy,one body of both sexes,Sex,the gods,Prayer,"She prays never to be parted from him, and the prayer is granted to the letter.",4,373–79,false
+51,the pool of Salmacis,water,unmanning spring,Water,Mercury and Venus,Prayer,"At their son's request, the pool gives his new condition to every man who bathes in it.",4,385–88,false
+52,the looms of Minyas' daughters,looms and thread,ivy and grapevines,Plant,Bacchus,Punishment,The weaving they did through his feast turns green.,4,394–98,false
+53,Minyas' daughters,women,bats,Animal,Bacchus,Punishment,"Named for the dusk they now fly in — Latin vespertilio, from vesper.",4,407–15,false
+54,Ino and Melicertes,mother and son,the sea-gods Leucothea and Palaemon,God,Neptune,Pity,"At Venus' plea, as they drown. Neptune changes names as well as forms.",4,539–42,false
+55,Ino's companions,Theban women,stone,Stone,Juno,Punishment,For blaming Juno. Each is fixed in the gesture she was making.,4,549–60,false
+56,Ino's companions,Theban women,birds,Bird,Juno,Punishment,The rest skim the water where she fell.,4,561–62,false
+57,Cadmus,man,snake,Animal,—,Prayer,He asks to become a snake if the serpent he killed was sacred — and is. The voice at 3.98 foretold it.,4,571–80,false
+58,Harmonia,woman,snake,Animal,—,Prayer,"She asks to follow him; mild dragons, they remember what they were.",4,594–603,false
+59,Jupiter,god,shower of gold,Object,self,Disguise,Named in passing: how Perseus was begotten on Danaë.,4,611–12,false
+60,the Gorgon's blood,blood,snakes,Animal,the earth,Creation,Drops from Medusa's head over Libya — why the land teems with snakes.,4,617–20,false
+61,Atlas,Titan,mountain,Stone,"Perseus, with Medusa's head",Retaliation,For driving off a guest. Heaven and all its stars now rest on him.,4,653–62,false
+62,the seaweed,seaweed,coral,Stone,Medusa's head,,"An accident of where Perseus set the head down; the sea-nymphs sow it, and coral still hardens in air.",4,744–52,false
+63,Medusa's victims,men and beasts,stone,Stone,Medusa,,Seen by Perseus along the road to the Gorgons.,4,779–81,false
+64,Medusa's blood,blood,Pegasus and Chrysaor,Animal,—,Creation,Sprung from their mother's blood as her head comes off.,4,785–86,false
+65,Medusa's hair,hair,snakes,Animal,Minerva,Punishment,"For being raped by Neptune in Minerva's shrine. The goddess punishes the victim, and wears the snakes on her breast.",4,798–803,false
+66,Phineus' followers,warriors,stone,Stone,"Perseus, with Medusa's head",Retaliation,"For attacking the wedding feast. Thescelus mid-throw, Nileus mid-boast; two hundred in all.",5,180–209,false
+67,Aconteus,Perseus' ally,stone,Stone,Medusa's head,,"He fought on Perseus' side, and glanced once.",5,200–02,false
+68,Phineus,man,stone,Stone,"Perseus, with Medusa's head",Retaliation,Promised he would last for ages; his supplicating pose is kept in marble in Cepheus' house.,5,230–35,false
+69,Proetus,king,stone,Stone,"Perseus, with Medusa's head",Retaliation,For usurping Acrisius' citadel.,5,236–41,false
+70,Polydectes,king,stone,Stone,"Perseus, with Medusa's head",Retaliation,For calling Medusa's death a lie.,5,242–49,false
+71,the rock of Helicon,rock,spring,Water,Pegasus,Creation,"The Hippocrene, struck by the winged horse's hoof.",5,256–64,false
+72,the Muses,goddesses,winged,Bird,self,Escape,They take wings to get out of Pyreneus' house; he tries to follow off the tower.,5,288–91,false
+73,the gods,gods,"ram, goat, cat, crow, cow, ibis, fish",Animal,self,Disguise,"In the Pierides' song, fleeing Typhon: Jupiter a ram (why Ammon is horned), Bacchus a goat, Diana a cat, Apollo a crow, Juno a cow, Mercury an ibis, Venus a fish.",5,326–31,false
+74,Cyane,nymph,water,Water,—,Grief,"For Proserpine's rape and her own rights ignored. The thinnest parts go first — hair, fingers, feet.",5,425–37,false
+75,Stellio,boy,gecko,Animal,Ceres,Punishment,"For mocking her thirst. Latin stellio, a lizard flecked with star-like spots — its naming fits its shaming.",5,451–61,false
+76,Ascalaphus,boy,owl,Bird,Proserpine,Punishment,For reporting the pomegranate seeds that keep her below.,5,538–50,false
+77,the Sirens,girls,birds with girls' faces,Bird,the gods,Prayer,They asked for wings to search the sea for Proserpine; their faces and voices were left them.,5,552–63,false
+78,Arethusa,nymph,spring,Water,Diana,Escape,"Hidden in a cloud from Alpheus and sweated into water, then carried under the sea to Ortygia.",5,632–41,false
+79,Alpheus,man,river,Water,self,Reversal,"Sheds the man's shape he pursued her in, to mix his waters with hers.",5,636–37,false
+80,Lyncus,king,lynx,Animal,Ceres,Punishment,For trying to murder Triptolemus in his sleep and claim the gift of grain.,5,657–61,false
+81,the Pierides,girls,magpies,Bird,the Muses,Punishment,For losing and jeering. Already magpies when Minerva meets them at 299; they keep their old prattle.,5,669–78,false
+82,Minerva,goddess,old woman,Human,self,Disguise,"A grey wig and a cane, to warn Arachne off.",6,26–27,false
+83,Minerva,old woman,goddess,God,self,Reversal,“She's come!” — and the disguise is shed.,6,43–44,false
+84,Haemus and Rhodope,king and queen,mountains,Stone,—,Punishment,Woven by Minerva in a corner of her tapestry: they called each other by the names of gods.,6,87–89,false
+85,Oenoë,Pygmy queen,crane,Bird,Juno,Punishment,Woven by Minerva: made to war on her own people.,6,90–92,false
+86,Antigone,princess of Troy,stork,Bird,Juno,Punishment,"Woven by Minerva. Laomedon's daughter, not Oedipus'.",6,93–97,false
+87,Cinyras' daughters,girls,temple steps,Stone,—,Punishment,Woven by Minerva; a story otherwise unknown.,6,98–100,false
+88,Jupiter,god,"bull, eagle, swan, satyr, Amphitryon, gold, flame, shepherd, snake",Various,self,Disguise,"Woven by Arachne: for Europa, Asteria, Leda, Antiope, Alcmene, Danaë, Aegina, Mnemosyne and Proserpine.",6,103–14,false
+89,Neptune,god,"bull, Enipeus, ram, horse, winged thing, dolphin",Various,self,Disguise,"Woven by Arachne: for Canace, Iphimedia, Theophane, Ceres, Medusa and Melantho.",6,115–21,false
+90,Apollo,god,"peasant, hawk, lion, shepherd",Various,self,Disguise,Woven by Arachne; the shepherd was for Isse.,6,123–25,false
+91,Bacchus,god,grapes,Plant,self,Disguise,Woven by Arachne: for Erigone.,6,125–26,false
+92,Saturn,god,horse,Animal,self,Disguise,Woven by Arachne: why his son Chiron is half horse.,6,126–27,false
+93,Arachne,girl,spider,Animal,Minerva,Punishment,"She has hanged herself; Minerva lets her live, and keep hanging. The drug is Hecate's.",6,135–45,false
+94,Niobe,queen,stone,Stone,—,Grief,"No god touches her: grief stiffens her where she sits. A wind carries the rock to Sipylus, and it still weeps.",6,301–12,false
+95,the Lycian peasants,men,frogs,Animal,Latona,Punishment,For fouling the water she asked to drink; still cursing in the depths.,6,366–81,false
+96,the mourners' tears,tears,the river Marsyas,Water,the earth,Grief,"Shed for the flayed satyr, drunk by the earth and sent back up as a river bearing his name.",6,392–400,false
+97,Pelops,dismembered boy,"whole, with an ivory shoulder",Human,the gods,Reversal,Reassembled after his father served him to the gods; one piece was missing.,6,404–11,false
+98,Procne and Philomela,sisters,swallow and nightingale,Bird,—,Escape,Fleeing Tereus' sword; their breasts still carry the bloodstains.,6,666–70,false
+99,Tereus,king,hoopoe,Bird,—,Grief,"His own pain and rage make him a bird, its beak as long as his sword.",6,671–74,false
+100,Calaïs and Zetes,boys,winged youths,Bird,—,,Their father's wings grow in with their beards; they will sail with the Argonauts.,6,714–18,false

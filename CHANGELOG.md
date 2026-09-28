@@ -2,6 +2,12 @@
 
 ## Next
 
+## 1.12.9 (2026-09-27)
+
+- Update with more epithets and transformations from Ovid
+- Add a "show" column to toggle at the data layer an individual row
+- Add meeting minutes for canceled due to illness
+
 ## 1.12.8 (2026-09-21)
 
 - Add latest meeting notes

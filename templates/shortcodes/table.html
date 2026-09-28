@@ -29,6 +29,10 @@
     `id_prefix`    prepended to those ids, to keep them from colliding with heading anchors.
     `link_col`     1-based column whose cells become links.
     `link_prefix`  prepended to the slugified cell value to build each href.
+    `show_col`     1-based column that gates each row: the row renders only when that cell
+                   reads true/yes/y/1/x (any case). The column itself is never rendered, so
+                   leave it out of the <thead>. Lets a table's rows be revealed one by one —
+                   e.g. as a reading group reaches them — by editing the CSV alone.
 
     E.g. a legend table whose rows can be linked to, and a data table that links into it:
 
@@ -44,6 +48,8 @@
 {% set id_idx = id_col - 1 %}
 {% set link_col = link_col | default(value=0) %}
 {% set link_prefix = link_prefix | default(value="") %}
+{% set show_col = show_col | default(value=0) %}
+{% set show_idx = show_col - 1 %}
 
 <div class="{{ styles | default(value='') }}">
   {% if scroll_hint %}
@@ -54,8 +60,10 @@
       {{ body | safe }}
       <tbody>
         {% for row in csv.records %}
+        {% if show_col == 0 or row[show_idx] | trim | lower in ["true", "yes", "y", "1", "x"] %}
         <tr {% if id_col > 0 %}id="{{ id_prefix }}{{ row[id_idx] | slugify }}" class="scroll-mt-4 target:bg-orange-100"{% endif %}>
           {% for cell in row %}
+          {% if loop.index != show_col %}
           <td class="py-2 whitespace-normal {% if loop.index == sticky_col %}sticky left-0{% endif %}">
             {%- if link_col > 0 and loop.index == link_col and cell -%}
             <a class="no-underline hover:underline" href="{{ link_prefix }}{{ cell | slugify }}">{{ cell }}</a>
@@ -63,8 +71,10 @@
             {{ cell }}
             {%- endif -%}
           </td>
+          {% endif %}
           {% endfor %}
         </tr>
+        {% endif %}
         {% endfor %}
       </tbody>
     </table>
