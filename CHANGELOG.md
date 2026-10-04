@@ -2,6 +2,10 @@
 
 ## Next
 
+## 1.12.10 (2026-10-04)
+
+- Update with today's meeting
+
 ## 1.12.9 (2026-09-27)
 
 - Update with more epithets and transformations from Ovid
