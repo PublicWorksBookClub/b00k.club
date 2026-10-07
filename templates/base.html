@@ -76,14 +76,17 @@
   On an iphone, safari leaves two strips of screen outside the page: one behind the
   status bar / notch and one behind the floating toolbar. It fills both from <body>'s
   background-color (composited over <html>'s) — background images, gradients and
-  <meta name="theme-color"> are all ignored, and both strips always get the SAME
-  colour, because safari only keeps one value for the pair. There is no way to give
-  them different colours.
+  <meta name="theme-color"> are all ignored, and by default both strips get the SAME
+  colour.
 
   So <body> carries that one colour and nothing else, and the div below it carries the
   page's own background. To colour the strips independently of the page, set
   extra.edge_color in a page's front matter or override the edge_color block. By
   default they follow the page background, which is what they did before.
+
+  The exception (iOS 26): when something is fixed or stuck to an edge of the screen,
+  safari takes that strip's colour from it instead. The footer uses this to give the
+  bottom strip its own colour once it scrolls into view; the top strip is untouched.
 -#}
 {%- set edge_color = page.extra.edge_color
   | default(value=section.extra.edge_color
@@ -193,6 +196,12 @@
             <span class="font-serif tracking-tight text-sky-700">Rome MMXXII</span>
           </span>
         </p>
+        {#- Pins the strip behind safari's toolbar to the footer's colour (see the note above <body>). iOS only.
+            The first div is what safari reads the colour from; it has to be stuck to the bottom edge and at least
+            6px tall. The second is more of the same colour behind the end of the page, for when it is pulled up
+            past its end. It sits behind the page wrapper, so it only shows where the page has run out. -#}
+        <div class="hidden supports-[-webkit-touch-callout:none]:block sticky bottom-0 h-2 bg-indigo-950" aria-hidden="true"></div>
+        <div class="hidden supports-[-webkit-touch-callout:none]:block pointer-events-none fixed inset-x-0 bottom-0 -z-10 h-[50vh] bg-indigo-950" aria-hidden="true"></div>
       </div>
       {% endblock footer %}
     </footer>

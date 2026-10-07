@@ -2,6 +2,8 @@
 
 ## Next
 
+- Fix mismatched top/bottom inset background colors in iOS
+
 ## 1.12.10 (2026-10-04)
 
 - Update with today's meeting
