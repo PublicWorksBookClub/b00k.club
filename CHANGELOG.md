@@ -2,7 +2,10 @@
 
 ## Next
 
+## 1.12.11 (2026-10-17)
+
 - Fix mismatched top/bottom inset background colors in iOS
+- Update with missed 2026/10/11 meeting
 
 ## 1.12.10 (2026-10-04)
 
