@@ -2,6 +2,10 @@
 
 ## Next
 
+## 1.12.12 (2026-10-18)
+
+- Update with today's minutes
+
 ## 1.12.11 (2026-10-17)
 
 - Fix mismatched top/bottom inset background colors in iOS
