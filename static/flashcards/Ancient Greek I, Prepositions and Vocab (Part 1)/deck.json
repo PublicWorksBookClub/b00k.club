@@ -1,0 +1,22 @@
+{
+  "format": 1,
+  "title": "Ancient Greek I Practice: Prepositions and Vocab (Part 1)",
+  "notes": [
+    {"id":"1792779588617","kind":"image-occlusion","image":"media/screenshot%202026-10-23%20at%2020.19.17.png","style":{"inactiveColor":"#ffeba2","activeColor":"#ff8e8e","inactiveBorder":"1px #212121","activeBorder":"1px #212121","highlightColor":"#ff8e8e00","highlightBorder":"1px #ff8e8e"},"shapes":[{"cards":[1],"shape":"rect","left":0.4201,"top":0.012,"oi":true,"width":0.5652,"height":0.9791}]},
+    {"id":"1792779613903","kind":"image-occlusion","image":"media/screenshot%202026-10-23%20at%2020.20.01.png","style":{"inactiveColor":"#ffeba2","activeColor":"#ff8e8e","inactiveBorder":"1px #212121","activeBorder":"1px #212121","highlightColor":"#ff8e8e00","highlightBorder":"1px #ff8e8e"},"shapes":[{"cards":[1],"shape":"rect","left":0.4179,"top":0.0069,"oi":true,"width":0.5109,"height":0.9788}]},
+    {"id":"1792779639179","kind":"image-occlusion","image":"media/screenshot%202026-10-23%20at%2020.20.29.png","style":{"inactiveColor":"#ffeba2","activeColor":"#ff8e8e","inactiveBorder":"1px #212121","activeBorder":"1px #212121","highlightColor":"#ff8e8e00","highlightBorder":"1px #ff8e8e"},"shapes":[{"cards":[1],"shape":"rect","left":0.4212,"top":0.0096,"oi":true,"width":0.2674,"height":0.9734}]},
+    {"id":"1792779701427","kind":"image-occlusion","image":"media/screenshot%202026-10-23%20at%2020.21.30.png","style":{"inactiveColor":"#ffeba2","activeColor":"#ff8e8e","inactiveBorder":"1px #212121","activeBorder":"1px #212121","highlightColor":"#ff8e8e00","highlightBorder":"1px #ff8e8e"},"shapes":[{"cards":[1],"shape":"rect","left":0.4201,"top":0.0038,"oi":true,"width":0.362,"height":0.9855}]},
+    {"id":"1792779722858","kind":"image-occlusion","image":"media/screenshot%202026-10-23%20at%2020.21.53.png","style":{"inactiveColor":"#ffeba2","activeColor":"#ff8e8e","inactiveBorder":"1px #212121","activeBorder":"1px #212121","highlightColor":"#ff8e8e00","highlightBorder":"1px #ff8e8e"},"shapes":[{"cards":[1],"shape":"rect","left":0.419,"top":0.007,"oi":true,"width":0.4728,"height":0.9766}]},
+    {"id":"1792779747253","kind":"image-occlusion","image":"media/screenshot%202026-10-23%20at%2020.22.16.png","style":{"inactiveColor":"#ffeba2","activeColor":"#ff8e8e","inactiveBorder":"1px #212121","activeBorder":"1px #212121","highlightColor":"#ff8e8e00","highlightBorder":"1px #ff8e8e"},"shapes":[{"cards":[1],"shape":"rect","left":0.4201,"top":0.0058,"oi":true,"width":0.5261,"height":0.9812}]},
+    {"id":"1792779768783","kind":"image-occlusion","image":"media/screenshot%202026-10-23%20at%2020.22.38.png","style":{"inactiveColor":"#ffeba2","activeColor":"#ff8e8e","inactiveBorder":"1px #212121","activeBorder":"1px #212121","highlightColor":"#ff8e8e00","highlightBorder":"1px #ff8e8e"},"shapes":[{"cards":[1],"shape":"rect","left":0.4255,"top":0.002,"oi":true,"width":0.5576,"height":0.9806}]}
+  ],
+  "cards": [
+    {"id":"1792779588618","note":0,"cloze":1,"deck":[]},
+    {"id":"1792779613903","note":1,"cloze":1,"deck":[]},
+    {"id":"1792779639179","note":2,"cloze":1,"deck":[]},
+    {"id":"1792779701427","note":3,"cloze":1,"deck":[]},
+    {"id":"1792779722858","note":4,"cloze":1,"deck":[]},
+    {"id":"1792779747253","note":5,"cloze":1,"deck":[]},
+    {"id":"1792779768783","note":6,"cloze":1,"deck":[]}
+  ]
+}

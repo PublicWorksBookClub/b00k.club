@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% import "macro/flashcards.html" as fc %}
+{% import "macro/util.html" as util %}
+
+{#-
+  /flashcards/: the decks under static/flashcards/, and a place to study them.
+
+  The list is rendered here from static/flashcards/index.json, which
+  `pnpm flashcards` writes. Each deck links back to this page with ?deck=<id>,
+  and /scripts/flashcards.js then swaps the list for the study view below. The
+  script finds that view's parts by their data-fc-* attributes; keep the names
+  in step with it.
+
+  macro/flashcards.html has to stay the first import here, or its recursive
+  macro can't find itself; the note in that file says why.
+
+  The site's content security policy refuses inline scripts and inline styles,
+  so the study view is all markup and classes here, and the occlusion masks are
+  SVG attributes, never style.
+-#}
+
+{% block title %}
+  {% set title = "All Flashcards | PWBC Flashcards" %}
+  <title>{{ title }}</title>
+  <meta property="og:title" content="{{ title }}" />
+  <meta name="twitter:title" content="{{ title }}" />
+{% endblock title %}
+
+{% block body_styles %}{{ section.extra.bg_color | default(value="bg-orange-50") }}{% endblock body_styles %}
+
+{% block banner %}
+{{ util::back(text="Home") }}
+{{ util::nav(href="/works/", text="Readings") }}
+{{ util::nav(href="/resources/", text="Resources") }}
+{{ util::search() }}
+{% endblock banner %}
+
+{% block extra_head %}
+<script type="module" src="/scripts/flashcards.js"></script>
+{% endblock extra_head %}
+
+{% block main %}
+{% set index = load_data(path="static/flashcards/index.json", required=false) %}
+{% set button = "inline-flex h-10 min-w-20 px-4 gap-2 items-center justify-center border-2 border-gray-700 bg-white/60 font-fira-sans hover:bg-black/5 cursor-pointer" %}
+{% set key = "font-fira-sans text-xs text-gray-500 border border-gray-400 rounded px-1 pointer-coarse:hidden" %}
+
+<article data-fc-list class="max-w-prose mx-auto my-18 px-4 md:px-0 text-lg prose prose-lg prose-headings:font-fira-sans prose-pwbc">
+  <h1 id="flashcards" data-pagefind-meta="title:All Flashcards | PWBC Flashcards">Flashcards</h1>
+  {{ section.content | safe }}
+  {%- if index and index.decks %}
+  <ul>
+    {%- for deck in index.decks %}
+    {{ fc::deck(deck=deck) }}
+    {%- endfor %}
+  </ul>
+  {%- else %}
+  <p>No decks yet.</p>
+  {%- endif %}
+  <noscript><p>Studying a deck needs JavaScript; the Anki packages work without it.</p></noscript>
+</article>
+
+<section data-fc-study data-fc-index="/flashcards/index.json" hidden data-pagefind-ignore class="mx-auto my-10 w-full max-w-5xl px-4 font-fira-sans text-gray-800">
+  <header class="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+    <div>
+      <a href="/flashcards/" class="text-sm text-gray-600 underline underline-offset-2 hover:text-black">← All decks</a>
+      <h1 data-fc-title class="font-playfair-display text-3xl font-semibold text-gray-700 md:text-4xl"></h1>
+    </div>
+    <div class="flex items-center gap-4">
+      <label class="inline-flex items-center gap-1 text-base text-gray-700">
+        <input data-fc-shuffle type="checkbox" class="size-4 accent-rose-400">
+        Shuffle
+      </label>
+      <button data-fc-reset type="button" class="{{ button }}">Reset</button>
+    </div>
+  </header>
+
+  <div class="my-5">
+    <progress data-fc-progress class="h-2 w-full accent-rose-400" value="0" max="1"></progress>
+    <p data-fc-status class="mt-1 text-sm text-gray-600 lining-nums" aria-live="polite"></p>
+  </div>
+
+  <p data-fc-error hidden class="my-10 text-center text-lg text-rose-700"></p>
+
+  <div data-fc-card hidden>
+    <div data-fc-header hidden class="prose prose-pwbc mx-auto mb-3 text-center"></div>
+    {#- the card is drawn in here: for image occlusion, one SVG holding the picture and its masks -#}
+    <figure data-fc-face></figure>
+    <div data-fc-back-extra hidden class="prose prose-pwbc mx-auto mt-4 text-center"></div>
+
+    <div class="mt-6 flex flex-wrap justify-center gap-3">
+      <button data-fc-show type="button" class="{{ button }}">Show answer <kbd class="{{ key }}">Space</kbd></button>
+      <button data-fc-again type="button" hidden class="{{ button }}">Again <kbd class="{{ key }}">1</kbd></button>
+      <button data-fc-good type="button" hidden class="{{ button }}">Good <kbd class="{{ key }}">Space</kbd></button>
+      <button data-fc-toggle type="button" hidden class="{{ button }}">Toggle masks <kbd class="{{ key }}">M</kbd></button>
+    </div>
+  </div>
+
+  <div data-fc-done hidden class="my-16 text-center">
+    <p class="font-playfair-display text-3xl text-gray-700">Deck finished</p>
+    <p data-fc-summary class="mt-2 text-gray-600 lining-nums"></p>
+    <button data-fc-restart type="button" class="{{ button }} mt-6">Start over</button>
+  </div>
+</section>
+{% endblock main %}

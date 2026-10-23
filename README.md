@@ -78,6 +78,10 @@ JSON-LD is designed for creating links between pieces of data representing relat
 
 Interactive maps live in [`static/maps/`](./static/maps/README.md); see that README to add or update one.
 
+## Flashcards
+
+Anki decks to study at `/flashcards/` live in [`static/flashcards/`](./static/flashcards/README.md); see that README to add or update one.
+
 ## Templates
 
 Templates are in the `templates` directory. Their purpose is to decide where in the html the content goes. The content is accessible to the template as a variable named either `section.content` or `page.content`, depending on the context.
