@@ -1,0 +1,7 @@
+{
+  "format": 1,
+  "decks": [
+    {"id":"Ancient Greek I, First and Second Declensions","title":"Ancient Greek I Practice: First and Second Declensions","cards":34,"apkg":"Ancient%20Greek%20I%2C%20First%20and%20Second%20Declensions/La%20Sapienza%20%E2%80%94%20Ancient%20Greek%20I__00%20Practice__Ancient%20Greek%20I%20Practice_%20First%20and%20Second%20Declensions.apkg","sources":[{"deck":"Ancient%20Greek%20I%2C%20First%20and%20Second%20Declensions/deck.json","within":[]}],"children":[]},
+    {"id":"Ancient Greek I, Prepositions and Vocab (Part 1)","title":"Ancient Greek I Practice: Prepositions and Vocab (Part 1)","cards":7,"apkg":"Ancient%20Greek%20I%2C%20Prepositions%20and%20Vocab%20(Part%201)/La%20Sapienza%20%E2%80%94%20Ancient%20Greek%20I__00%20Practice__Ancient%20Greek%20I%20Practice_%20Prepositions%20and%20Vocab%20(Part%201).apkg","sources":[{"deck":"Ancient%20Greek%20I%2C%20Prepositions%20and%20Vocab%20(Part%201)/deck.json","within":[]}],"children":[]}
+  ]
+}

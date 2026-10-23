@@ -2,6 +2,10 @@
 
 ## Next
 
+## 1.13.0 (2026-10-23)
+
+- Add Anki-like card capabilities + some Ancient Greek study decks
+
 ## 1.12.12 (2026-10-18)
 
 - Update with today's minutes
