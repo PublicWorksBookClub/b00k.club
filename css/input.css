@@ -8,6 +8,8 @@
    directory is generated data (tile pyramid, overlay SVG, feature index) */
 @source not "../static/maps/viewer/**";
 @source not "../static/maps/argonautica/**";
+/* decks exported by `pnpm flashcards`: card data and pictures */
+@source not "../static/flashcards/**";
 
 @plugin "@tailwindcss/typography";
 

@@ -38,6 +38,17 @@ https://:project.pages.dev/*
   Feature-Policy: default 'none'
   X-XSS-Protection: 1; mode=block
 
+# The flashcards at /flashcards/* deliberately have no block of their own: they
+# run under the site policy above as it stands. The study script is a
+# same-origin module, the occlusion masks are SVG attributes rather than inline
+# style, and everything a deck loads -- index.json, deck.json, media/, the
+# .apkg -- comes from this origin, inside `connect-src` and `img-src 'self'`.
+#
+# Keep it that way when teaching it more of Anki. The one change in sight is
+# sound: with `default-src 'none'` an <audio> is refused until there is a
+# `media-src 'self'`, which would go in a /flashcards/* block like /demos/*,
+# replacing the policy whole rather than adding a second one.
+
 # More liberal CSP below is sandboxed at /maps/*
 /maps/*
   Strict-Transport-Security: max-age=31536000; includeSubDomains

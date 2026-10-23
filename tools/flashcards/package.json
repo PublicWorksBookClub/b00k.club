@@ -1,0 +1,13 @@
+{
+  "name": "@b00k.club/flashcards",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Turns Anki packages under static/flashcards/ into decks for the /flashcards/ study page",
+  "scripts": {
+    "export": "node --disable-warning=ExperimentalWarning export.js"
+  },
+  "engines": {
+    "node": ">=22.15.0"
+  }
+}

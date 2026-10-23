@@ -1,0 +1,24 @@
+{#-
+  One deck of static/flashcards/index.json and, nested under it, its subdecks.
+
+  `self::deck` only resolves if this file is the FIRST import of the page that
+  calls it. Inside a page's blocks Tera looks `self` up among that page's
+  imports, and the first imported file with macros claims the name
+  (tera 1.20, renderer/processor.rs `eval_macro_call`).
+-#}
+{% macro deck(deck) %}
+<li>
+  <a href="?deck={{ deck.id | urlencode }}">{{ deck.title }}</a>
+  <span class="text-base text-gray-500 oldstyle-nums">· {{ deck.cards }} card{{ deck.cards | pluralize }}</span>
+  {%- if deck.apkg %}
+  <a class="text-base text-gray-500" href="/flashcards/{{ deck.apkg | safe }}" download>(Anki package)</a>
+  {%- endif %}
+  {%- if deck.children %}
+  <ul>
+    {%- for child in deck.children %}
+    {{ self::deck(deck=child) }}
+    {%- endfor %}
+  </ul>
+  {%- endif %}
+</li>
+{% endmacro deck %}

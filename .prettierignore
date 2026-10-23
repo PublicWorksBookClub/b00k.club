@@ -1,1 +1,3 @@
 **/*.html
+# written by `pnpm flashcards`
+static/flashcards/**/*.json
