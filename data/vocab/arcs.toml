@@ -217,3 +217,18 @@ We then shifted our focus to the Mediterranean world during the eras of Roman ru
 metrum = """
 TODO
 """
+
+[["arcs"]]
+label = "Memorabilia IV"
+sort = "Memorabilia 4"
+series.name = "Memorabilia"
+series.number = 4
+years = "2026"
+predecessor = "Memorabilia III"
+coinciding = ["Magna I"]
+prosa = """
+Following upon our successful completion of the dialogues featuring [Theatetus](/index/theatetus/) and the mysterious [Eleatic visitor](/index/the-eleatic-stranger/), we decided to press on and read the next tetralogy in [Thrasyllus of Mendes'](https://en.wikipedia.org/wiki/Thrasyllus_of_Mendes) compilation.
+"""
+metrum = """
+TODO
+"""

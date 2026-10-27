@@ -2,6 +2,12 @@
 
 ## Next
 
+## 1.13.1 (2026-10-27)
+
+- Update with last week's minutes
+- Add _Parmenides_ to works
+- Add new arc for minor works club to coincide with the next tetralogy in Thrasyllus' canon
+
 ## 1.13.0 (2026-10-23)
 
 - Add Anki-like card capabilities + some Ancient Greek study decks

@@ -13,8 +13,8 @@ abstract = """
 TODO: currently reading
 """
 started = 2026-08-17
-# stopped =
-currently_reading = true
+stopped = 2026-10-25
+currently_reading = false
 
 [extra.length]
 units = "Pages"
@@ -34,7 +34,7 @@ languages = ["Ancient Greek"]
 # General taxonomies
 tags = []
 years = ["2026"]
-arcs = ["Memorabilia II"]
+arcs = ["Memorabilia III"]
 index = []
 contributors = ["Spencer Scorcelletti"]
 +++
