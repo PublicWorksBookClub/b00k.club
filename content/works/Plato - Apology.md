@@ -43,12 +43,12 @@ index = [
   "Apollodorus",
   "Aeantodorus",
   "Aeschines of Sphettus",
-  "Lysanias",
+  "Lysanias of Sphettus",
   "Antiphon of Cephisus",
   "Epigenes",
-  "Nicostratus",
+  "Nicostratus (son of Theozotides)",
   "Theozotides",
-  "Theodotus",
+  "Theodotus (son of Theozotides)",
   "Paralus",
   "Demodocus (father of Theages)",
   "Theages",
@@ -96,6 +96,9 @@ index = [
   "Leontini",
   "Clazomenae",
   "Prytaneum",
+  "Antiochis",
+  "the Thirty",
+  "Cephisia",
 ]
 contributors = ["Spencer Scorcelletti"]
 +++

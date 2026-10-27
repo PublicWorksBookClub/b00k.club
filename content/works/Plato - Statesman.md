@@ -35,6 +35,25 @@ languages = ["Ancient Greek"]
 tags = []
 years = ["2026"]
 arcs = ["Memorabilia III"]
-index = []
+index = [
+  "Socrates",
+  "Theodorus",
+  "Theaetetus",
+  "Ammon",
+  "the Eleatic Stranger",
+  "Socrates the Younger",
+  "Lydia",
+  "Phrygia",
+  "Nile",
+  "Thessaly",
+  "Atreus",
+  "Thyestes",
+  "Cronos",
+  "Zeus",
+  "Prometheus",
+  "Hephaestus",
+  "Egypt",
+  "Hellas",
+]
 contributors = ["Spencer Scorcelletti"]
 +++
