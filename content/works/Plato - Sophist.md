@@ -54,6 +54,10 @@ index = [
   "Elea",
   "Italy",
   "Hellas",
+  "Athens",
+  "Persia",
+  "Ionians",
+  "Sicily",
 ]
 contributors = ["Spencer Scorcelletti"]
 +++

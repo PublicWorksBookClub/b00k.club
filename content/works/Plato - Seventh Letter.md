@@ -31,7 +31,8 @@ arcs = ["Anabasis II"]
 index = [
   "Plato",
   "Dion",
-  "Dionysius",
+  "Dionysius I of Syracuse",
+  "Dionysius II of Syracuse",
   "Socrates",
   "Archytas",
   "Archedemus (associate of Archytas)",
@@ -60,6 +61,10 @@ index = [
   "Hellas",
   "Carthage",
   "Persia",
+  "the Thirty",
+  "Aphrodite",
+  "Dorians",
+  "Thebes",
 ]
 contributors = ["Spencer Scorcelletti"]
 +++

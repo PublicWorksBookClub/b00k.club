@@ -42,7 +42,7 @@ index = [
   "Epigenes",
   "Aeschines of Sphettus",
   "Antisthenes",
-  "Ctesippus",
+  "Ctesippus of Paeania",
   "Menexenus",
   "Plato",
   "Phaedondes",
@@ -66,7 +66,7 @@ index = [
   "Cadmus",
   "Harmonia",
   "Telephus",
-  "Glaucus",
+  "Glaucus (skilled craftsman)",
   "Atlas",
   "Apollo",
   "Asclepius",
@@ -93,6 +93,8 @@ index = [
   "Cocytus",
   "Styx",
   "Odyssey",
+  "Zeus",
+  "Acherousian Lake",
 ]
 contributors = ["Spencer Scorcelletti"]
 +++
