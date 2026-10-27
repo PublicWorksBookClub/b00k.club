@@ -1,5 +1,16 @@
 # Changelog
 
+## Next
+
+## 1.13.2 (2026-10-27)
+
+- Complete the index of Ovid's _Metamorphoses_ for the whole poem (checked against Soucy's translation and glossary), splitting namesakes and adding the missing vocabulary entries
+- Fix vocabulary links that pointed at the wrong thing (e.g. Venus, Mars and Neptune linked the planets)
+- Add epithets and transformations for Books 7–15 of _Metamorphoses_, hidden until the club reaches them, and show Books 4–5
+- Add Rescue, Gift and Nature to the causes of metamorphosis
+- Add family trees for Books 4–15 of _Metamorphoses_
+- Fix index links on work pages for terms with spaces or punctuation, and vocabulary lookups for terms with an apostrophe
+
 ## 1.13.1 (2026-10-27)
 
 - Update with last week's minutes
