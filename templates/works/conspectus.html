@@ -261,7 +261,7 @@
       <summary class="cursor-pointer">View</summary>
       <ul class="columns-2 md:columns-3 gap-8 prose-li:m-0">
         {% for entry in page.taxonomies.index | sort %}
-          <li><a class="font-extralight" href="/index/{{ entry }}/">{{ entry }}</a></li>
+          <li><a class="font-extralight" href="{{ get_taxonomy_url(kind='index', name=entry, lang=page.lang) }}">{{ entry }}</a></li>
         {% endfor %}
       </ul>
     </details>

@@ -44,6 +44,8 @@ note for the owner; delete it once it has served its purpose.
 
 ## Existing vocabulary entries whose links look wrong (reported, not changed)
 
+The Ovid pass (see `ovid-index-notes.md`) has since fixed `Ammon`, `Lyceum`, `Marathon`, `Isthmus` and `Panopeus`.
+
 - `Phaedo` links the dialogue; the man is Phaedo of Elis (Q380190).
 - `Crito` links the dialogue; the man is Crito of Alopece (Q934471).
 - `Euthyphro` links the dialogue; the man is Euthyphro (prophet) (Q5414544).
@@ -54,20 +56,15 @@ note for the owner; delete it once it has served its purpose.
 - `Callias` links Callias II. Plato's Callias son of Hipponicus is Callias III (Q1347613). The term is also
   Aristotle's stock example name.
 - `Uranus` links the planet (Q324). The god is Q79999. The synonym "Uranocentric orbit" is also odd.
-- `Ammon` links the Ammonite kingdom. The Laws and the Statesman mean the god.
-- `Academy` and `Lyceum` link the generic articles. The Athenian ones are Platonic Academy (Q193093) and
-  Lyceum (classical) (Q1160664).
-- `Marathon` links the footrace.
+- `Academy` links the generic article. The Athenian one is Platonic Academy (Q193093).
 - `Locri` links the modern comune.
 - `Hermus` links a name list; the river is Gediz River (Q1351474).
-- `Isthmus` links the generic article.
 - `Lysanias` links a 1st-century BC ruler. No Plato page uses it now.
 - Other reported mismatches:
   - `Sous` links a Moroccan region.
   - `Leontius` links a Byzantine emperor.
   - `Armenius` links a mythic namesake of Er's father.
   - `Bacchius` links a metrical foot.
-  - `Panopeus` links the town, not Epeius' father.
   - `Tisias` (the Seventh Letter's soldier) links Corax.
   - `Myrto` (Theocritus) links Socrates' wife.
 - Shared terms that lump different figures across works:
@@ -87,7 +84,7 @@ note for the owner; delete it once it has served its purpose.
 - **The Stranger.** The Statesman's Stranger is `the Eleatic Stranger`; Rowe and White print "Visitor".
 - **Named works.** Protagoras' book is a new term, `Truth (Protagoras)` (Theaetetus, Cratylus).
 - **Personifications indexed:** `Gaia` (Earth), `Selene` (Moon), `Penia`, `Poros (son of Metis)`,
-  `Chaos (god)`, `Cosmos (god)`, `Beauty (goddess)`, `Pleasure (goddess)`.
+  `Chaos` (merged with Ovid's in the Ovid pass), `Cosmos (god)`, `Beauty (goddess)`, `Pleasure (goddess)`.
 - **Atlantis.** The ten Atlantean kings with famous namesakes are qualified "(king of Atlantis)". Eumelus is
   merged into `Gadirus`, since Critias 114b makes them one king.
 - **Uncertain identities.** These carry notes and have no links: `Polycrates` (Meno 90a), `Pythodorus (son of

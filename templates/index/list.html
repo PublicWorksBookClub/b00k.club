@@ -22,7 +22,7 @@
       {#- Guarded like taxonomy_single.html: reaching for a key the vocabulary lacks makes
       Tera build a "not found" message it then discards, and building it panics when the
       quoted context is cut part-way through a multi-byte character. See "Arsinoë". -#}
-      {% if term.name in toml %}{% set vocab = toml[term.name] %}{% else %}{% set vocab = false %}{% endif %}
+      {% if term.name in toml %}{% set vocab = toml | get(key=term.name) %}{% else %}{% set vocab = false %}{% endif %}
       {% set works = term.pages | filter(attribute="components.0", value="works") %}
       <tr>
         <td class="pl-4">
