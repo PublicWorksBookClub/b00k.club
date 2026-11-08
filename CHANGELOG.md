@@ -2,6 +2,11 @@
 
 ## Next
 
+## 1.13.4 (2026-11-08)
+
+- Update with last week's minutes (we had no meeting) and this week's
+- Update Statesman conspectus together
+
 ## 1.13.2 (2026-10-27)
 
 - Complete the index of Ovid's _Metamorphoses_ for the whole poem (checked against Soucy's translation and glossary), splitting namesakes and adding the missing vocabulary entries
