@@ -2,6 +2,10 @@
 
 ## Next
 
+## 1.13.5 (2026-11-25)
+
+- Add test run of ancient greek paradigms under /flashcards
+
 ## 1.13.4 (2026-11-08)
 
 - Update with last week's minutes (we had no meeting) and this week's
