@@ -2,6 +2,10 @@
 
 ## Next
 
+## 1.13.6 (2026-11-26)
+
+- Add all lessons + fix minor issues with paradigms
+
 ## 1.13.5 (2026-11-25)
 
 - Add test run of ancient greek paradigms under /flashcards
