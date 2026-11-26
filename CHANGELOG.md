@@ -2,6 +2,10 @@
 
 ## Next
 
+## 1.13.7 (2026-11-26)
+
+- Break up lessons into sub-decks so the file size is tractable
+
 ## 1.13.6 (2026-11-26)
 
 - Add all lessons + fix minor issues with paradigms
